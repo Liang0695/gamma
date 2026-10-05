@@ -1,4 +1,4 @@
-﻿"""流式加载内存账、去重/家族隔离 与 CLI 契约的测试。"""
+"""流式加载内存账、去重/家族隔离 与 CLI 契约的测试。"""
 
 from __future__ import annotations
 
@@ -20,6 +20,7 @@ from v3.data.dedup import (
     statement_hash,
     statement_similarity,
 )
+from v3.data.source_lock import adapt, assert_train_only, ingest_manifest
 from v3.train.streaming import (
     GiB,
     StreamingPlan,
@@ -295,6 +296,108 @@ class CliTests(unittest.TestCase):
         with temp_dir("cli_exp1_") as root:
             self.assertEqual(cli_main(["exp1", "--output-dir", root]), EXIT_OK)
             self.assertTrue(os.path.exists(os.path.join(root, "exp1-report.json")))
+
+
+class SourceLockAdapterTests(unittest.TestCase):
+    """D0（KAGGLE-23）版本化 manifest 的对接测试。"""
+
+    D0 = {
+        "generated_by": "d0/collect_licenses.py",
+        "repos": {
+            "click": {
+                "upstream_slug": "pallets/click",
+                "mirror_url": "https://ghfast.top/https://github.com/pallets/click.git",
+                "pinned_tag": "8.5.0",
+                "pinned_commit": "8b19813f2bfca99f1018a587a8cf54fc959f2e5d",
+                "tree_sha": "2955d48825c98fd7dcbc60eb41cf18a952a2c0a3",
+                "commit_date": "2026-08-21T21:31:25-07:00",
+                "split_role": "train",
+                "design_license_expectation": "BSD-3-Clause",
+                "spdx_headers_found": [],
+            },
+            "attrs": {
+                "upstream_slug": "python-attrs/attrs",
+                "mirror_url": "https://ghfast.top/https://github.com/python-attrs/attrs.git",
+                "pinned_tag": "25.4.0",
+                "pinned_commit": "0" * 39 + "a",
+                "tree_sha": "1" * 40,
+                "commit_date": "2026-06-01T00:00:00Z",
+                "split_role": "dev",
+                "design_license_expectation": "MIT",
+                "spdx_headers_found": ["MIT"],
+            },
+        },
+    }
+
+    def test_d0_shape_is_recognized_and_normalized(self) -> None:
+        normalized = adapt(self.D0)
+        self.assertEqual(normalized["format"], "d0-source-lock/1")
+        self.assertEqual(len(normalized["sources"]), 2)
+        click = [s for s in normalized["sources"] if s["name"] == "click"][0]
+        self.assertEqual(click["commit"], "8b19813f2bfca99f1018a587a8cf54fc959f2e5d")
+        self.assertEqual(click["license_spdx"], "BSD-3-Clause")
+        self.assertEqual(click["split_role"], "train")
+        # D0 manifest 没有人工批准字段 → 必须保持 unverified，不得自动放行
+        self.assertEqual(click["authorization_scope"], "unverified")
+
+    def test_d0_manifest_is_blocked_until_license_is_approved(self) -> None:
+        with self.assertRaises(PolicyViolation) as ctx:
+            ingest_manifest(self.D0)
+        problems = ctx.exception.context["problems"]
+        self.assertTrue(all("许可未 approved" in item for item in problems), problems)
+        self.assertEqual(ctx.exception.context["origin_format"], "d0-source-lock/1")
+
+    def test_d0_manifest_passes_once_approval_is_explicit(self) -> None:
+        approved = json.loads(json.dumps(self.D0))
+        for entry in approved["repos"].values():
+            entry["authorization_scope"] = "approved"
+            entry["acquired_at"] = "2026-10-05T00:00:00Z"
+        manifest = ingest_manifest(approved)
+        self.assertEqual(manifest["source_count"], 2)
+        self.assertEqual(manifest["origin_format"], "d0-source-lock/1")
+        self.assertEqual(len(manifest["source_lock_sha256"]), 64)
+
+    def test_train_only_guard_blocks_dev_and_sealed_roles(self) -> None:
+        normalized = adapt(self.D0)
+        with self.assertRaises(PolicyViolation):
+            assert_train_only(normalized["sources"])
+        assert_train_only([s for s in normalized["sources"] if s["split_role"] == "train"])
+
+    def test_unknown_shape_is_rejected(self) -> None:
+        with self.assertRaises(MissingInput):
+            adapt({"whatever": 1})
+
+    def test_flat_sources_list_still_works(self) -> None:
+        flat = {
+            "sources": [
+                {
+                    "name": "click",
+                    "repo_url": "u",
+                    "commit": "a" * 40,
+                    "license_spdx": "BSD-3-Clause",
+                    "authorization_scope": "approved",
+                    "acquired_at": "2026-10-05T00:00:00Z",
+                }
+            ]
+        }
+        normalized = adapt(flat)
+        self.assertEqual(normalized["format"], "v3-source-lock/1")
+        self.assertEqual(len(ingest_manifest(flat)["sources"]), 1)
+
+    def test_guessed_short_commit_is_rejected(self) -> None:
+        flat = {
+            "sources": [
+                {
+                    "name": "x",
+                    "repo_url": "u",
+                    "commit": "8b19813",
+                    "license_spdx": "MIT",
+                    "authorization_scope": "approved",
+                }
+            ]
+        }
+        with self.assertRaises(PolicyViolation):
+            ingest_manifest(flat)
 
 
 if __name__ == "__main__":  # pragma: no cover

@@ -68,6 +68,7 @@ adapter-only 断点续训与导出 manifest、四面数据 schema/exporter、八
 | `exporter.py` | 轨迹→训练窗口：完整 turn 切窗、**恢复观察与正确后继必须同窗**、只监督目标动作、配比/隔离审计（gold ≤20%、变异 ≤40%、单仓库 ≤30%，超限即拒绝导出） |
 | `oracle.py` | 八题 oracle 对照（broken 稳定失败 / reference 全过 / P2P 无回归，各两次；skip 与 collection error 不算 pass；flaky→inconclusive→quarantine）与**动作回放**比对器（tree sha + 规范化观测） |
 | `dedup.py` | statement NFC 归一与精确 SHA、5-token shingles MinHash Jaccard（≥0.80）、statement 近似相似度（≥0.90）、家族连通分量、V2 排除清单相交阻断、确定性选择（固定 salt，每家族 1 题） |
+| `source_lock.py` | **来源锁适配器**：把 D0（KAGGLE-23）的 `{"repos": {...}}` manifest 归一成内部结构并统一校验；D0 未提供人工批准字段时一律标 `unverified` → ingest fail-closed |
 
 ### `v3/exp/`、`v3/cli.py`
 
@@ -76,7 +77,7 @@ adapter-only 断点续训与导出 manifest、四面数据 schema/exporter、八
 | `exp/exp1.py` | CPU EXP-1：冻结 ≤24 题 / ≥2 仓库、许可校验、V0–V3 指标（Hit@1/5、真 Recall@5、RegionHit、真实输出字节、CPU 时间）、按 gold 文件数分层、晋级提案判定 |
 | `cli.py` | 设计稿 §7 CLI 契约：`ingest / split / validate-env / verify / export / audit / rollout / exp1 / train-preflight / deps`，每步输入 hash→输出 manifest，失败非零退出，**不自动扩预算** |
 
-### `tests/`（163 例）
+### `tests/`（170 例）
 
 | 文件 | 覆盖 |
 |---|---|
@@ -85,7 +86,7 @@ adapter-only 断点续训与导出 manifest、四面数据 schema/exporter、八
 | `test_search.py`（44） | AST 与正则轮廓（async/方法/嵌套/decorator）、锚点分桶、排序与测试剔除、Hit@k vs Recall@k、LOCATE 全量校验、预算/升级/停止、S0≠S1 但同骨架、shell 转义、微索引失效 |
 | `test_train.py`（36） | 120 模块与 2,867.2 万参数、内存门槛、20 fixture 全过、shim 不得声称官方一致、断点续训全路径、配置篡改拒绝、开训闸门、CLI 退出码 |
 | `test_exp1.py`（13） | 许可/仓库数/字段/上限闸门、单题指标、分层、晋级判定、报告不冒称真实测量 |
-| `test_pipeline.py`（28） | 流式峰值与 cgroup 余量、完整 state_dict 禁止、磁盘余量、去重/家族/denylist/确定性选择、CLI 各子命令退出码 |
+| `test_pipeline.py`（35） | 流式峰值与 cgroup 余量、完整 state_dict 禁止、磁盘余量、去重/家族/denylist/确定性选择、CLI 各子命令退出码、**D0 manifest 适配** |
 
 ## 3. 环境与依赖
 
@@ -134,7 +135,7 @@ python -m v3.cli rollout     --train-only --budget locks/budget.json
 ### 6.1 测试
 
 ```
-SUMMARY: run=163 failures=0 errors=0 skipped=1
+SUMMARY: run=170 failures=0 errors=0 skipped=1
 ```
 
 唯一 skip 是 Windows 上不允许创建 symlink 的那条断言（`tree_manifest` 拒绝 symlink 的分支
@@ -178,6 +179,32 @@ interface_pins_unverified
 所以"剔除测试候选"在这里无效。**这说明流水线可跑，不等于 V3 有效**；真实结论必须等
 KAGGLE-23 的许可外部题到位后重跑（见 §7）。
 
+### 6.5 与 D0（KAGGLE-23）的版本化 manifest 交接实测
+
+D0 分支 `agent/research/kaggle-23-d0-source-lock` @ `8b8ff5aede6a421b317bc9631c8512a62947aec6`
+的 `d0/out/source-lock.json` 形状与本仓库最初假设不同（`repos` 字典 vs `sources` 列表），
+为此新增了 `v3/data/source_lock.py` 适配器并**用真实文件跑过**：
+
+```
+$ python -m v3.cli ingest --source-lock <d0/out/source-lock.json> --train-only
+exit 7
+{"code": "source_lock_invalid",
+ "context": {"origin_format": "d0-source-lock/1",
+             "problems": [..., "attrs 许可未 approved（authorization_scope=unverified）", ...]}}
+```
+
+结论（证据：`evidence/ingest-d0-source-lock.json`）：
+
+- **格式对接成功**：8 个来源全部被识别，commit 都是 40 位 hex（固定 revision ✔）；
+- **但不放行**：D0 的 manifest 里没有逐仓库的人工许可批准字段，适配器按"不猜许可结论"
+  标为 `unverified`，`ingest` 因此 fail-closed（8 项问题）。
+- **需要 D0 补一个字段**即可打通：任一被识别键 —— `authorization_scope` / `license_approved`
+  / `approved` / `license_status`，值为 `approved`（或 `train_allowed` / `cleared` / `true`）。
+  这是交接契约，不是我这边的缺陷。
+
+另外确认**文件零重叠**：D0 分支的所有产物都在 `d0/` 下，本分支改的是 `v3/`、`tests/`、
+`docs/v3/`、`README.md`，两边没有同时编辑同一文件。
+
 ## 7. 假设与未验证项
 
 ### 我补的假设（移交包未写明的部分）
@@ -211,8 +238,12 @@ KAGGLE-23 的许可外部题到位后重跑（见 §7）。
 ### 阻断（需要上游输入才能继续）
 
 - KAGGLE-23（D0）的**锁定来源与许可**未到 → `ingest/split/verify/export` 无法对真实数据运行。
+  实测已确认：D0 manifest 的 commit 全部固定，但**缺一个显式许可批准字段**（见 §6.5），
+  补上即可让 ingest 通过；在此之前一律阻断。
 - 训练依赖锁的**wheel SHA 与实现验证**未取得 → 训练入口保持阻断。
 - **GPU 执行**：本任务不申请作业；需 Liang 运行时统筹并在门槛验收后启动。
+- **PR 创建**：本机无法访问 `api.github.com`（直连被阻断），因此分支已推送并验证，
+  但 PR 需要由有网页访问权的一方点击 `pull/new/<branch>` 完成。
 
 ## 8. 修改建议（后续扩展点）
 

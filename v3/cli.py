@@ -33,6 +33,7 @@ from .data.dedup import (
 from .data.exporter import build_export
 from .data.faces import FACE_ENV_LOCK, validate_face, validate_release
 from .data.oracle import SubprocessRunner, validate_question_set
+from .data.source_lock import adapt, assert_train_only, ingest_manifest
 from .exp.exp1 import build_synthetic_corpus, load_corpus, run_exp1
 from .t0.deps import DependencyLock
 
@@ -47,8 +48,16 @@ def _read_json(path: str | None, what: str, required: bool = True) -> dict:
         return {}
     if not os.path.exists(path):
         raise MissingInput("file_not_found", "%s 不存在：%s" % (what, path), path=path)
-    with open(path, "r", encoding="utf-8") as handle:
-        return json.load(handle)
+    # utf-8-sig：本仓库写出的 JSON 一律无 BOM，但同伴用 PowerShell 导出时会带 BOM，
+    # 直接拒收会让交接莫名其妙地失败。
+    with open(path, "r", encoding="utf-8-sig") as handle:
+        text = handle.read()
+    try:
+        return json.loads(text)
+    except json.JSONDecodeError as exc:
+        raise PolicyViolation(
+            "invalid_json", "%s 不是合法 JSON：%s" % (what, exc), path=path
+        )
 
 
 def _write(path: str | None, payload: Mapping) -> str | None:
@@ -75,33 +84,15 @@ def _count_tokens(messages) -> int:
 
 
 def cmd_ingest(args) -> int:
-    """校验来源锁：固定 revision + 许可 approved，逐条不留空。"""
+    """校验来源锁：固定 revision + 许可 approved，逐条不留空。
+
+    支持两种形状：本仓库的 `{"sources": [...]}` 与 D0（KAGGLE-23）的
+    `{"repos": {...}}`（见 v3/data/source_lock.py）。归一后统一校验；不通过即非零退出。
+    """
     lock = _read_json(args.source_lock, "--source-lock")
-    sources = lock.get("sources")
-    if not sources:
-        raise MissingInput("empty_source_lock", "来源锁没有 sources")
-    problems = []
-    for source in sources:
-        for field in ("name", "repo_url", "commit", "license_spdx", "authorization_scope", "acquired_at"):
-            if not source.get(field):
-                problems.append("%s 缺少 %s" % (source.get("name", "?"), field))
-        commit = str(source.get("commit", ""))
-        if len(commit) != 40 or any(c not in "0123456789abcdef" for c in commit):
-            problems.append("%s commit 不是 40 位 hex（不得猜 SHA）" % source.get("name", "?"))
-        if str(source.get("authorization_scope", "")).lower() not in ("approved", "train_allowed"):
-            problems.append("%s 许可未 approved" % source.get("name", "?"))
-    if problems:
-        raise PolicyViolation("source_lock_invalid", "来源锁不合规", problems=problems)
-    manifest = {
-        "stage": "ingest",
-        "source_count": len(sources),
-        "sources": [
-            {k: source.get(k) for k in ("name", "repo_url", "commit", "license_spdx", "authorization_scope")}
-            for source in sources
-        ],
-        "source_lock_sha256": sha256_json(lock),
-        "note": "本步只登记与校验，不下载权重/受限数据。",
-    }
+    manifest = ingest_manifest(lock)
+    if args.train_only and manifest.get("origin_format") == "d0-source-lock/1":
+        assert_train_only(adapt(lock)["sources"])
     manifest, digest = _finalize(manifest)
     _write(args.out, manifest)
     print(json.dumps(manifest, ensure_ascii=False, indent=2, sort_keys=True))
@@ -271,8 +262,9 @@ def build_parser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser(prog="v3", description="V3 数据/训练流水线（fail-closed）")
     sub = parser.add_subparsers(dest="command", required=True)
 
-    p = sub.add_parser("ingest", help="校验来源锁")
+    p = sub.add_parser("ingest", help="校验来源锁（支持 D0 版本化 manifest）")
     p.add_argument("--source-lock", required=True)
+    p.add_argument("--train-only", action="store_true", help="拒绝非 train 角色的来源")
     p.add_argument("--out")
     p.set_defaults(func=cmd_ingest)
 

@@ -400,33 +400,41 @@
 {
   "code": "source_lock_invalid",
   "context": {
+    "origin_format": "v3-source-lock/1",
     "problems": [
-      "a 许可未 approved"
+      "a 许可未 approved（authorization_scope=unverified）"
     ]
   },
-  "message": "来源锁不合规"
+  "message": "来源锁不合规（1 项）"
 }
 {
   "code": "source_lock_invalid",
   "context": {
+    "origin_format": "v3-source-lock/1",
     "problems": [
-      "a commit 不是 40 位 hex（不得猜 SHA）"
+      "a commit 不是 40 位 hex（不得猜 SHA）：'abc'"
     ]
   },
-  "message": "来源锁不合规"
+  "message": "来源锁不合规（1 项）"
 }
 {
-  "manifest_sha256": "8fb5a08c6a49ccd77a8d3f3ea83954925858db2bc8497267be2a6675de0dcd97",
-  "note": "本步只登记与校验，不下载权重/受限数据。",
+  "generated_by": null,
+  "manifest_sha256": "b4a7dd5f49e7a44a893df929dc067f927137a92ea2dd55c677c9d506eedc2622",
+  "note": "本步只登记与校验，不下载权重/受限数据；未获批的来源不会被静默放行。",
+  "origin_format": "v3-source-lock/1",
   "source_count": 1,
   "source_lock_sha256": "a43b27894b92a783cf8c8ea741085b4742778da64e436b666c86bd386d9f962d",
   "sources": [
     {
+      "acquired_at": "2026-03-01",
       "authorization_scope": "approved",
       "commit": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
       "license_spdx": "MIT",
       "name": "a",
-      "repo_url": "u"
+      "pinned_tag": null,
+      "repo_url": "u",
+      "split_role": null,
+      "tree_sha": null
     }
   ],
   "stage": "ingest"
@@ -621,4 +629,4 @@
   "message": "env.lock 缺少必需字段"
 }
 
-SUMMARY: run=163 failures=0 errors=0 skipped=1
+SUMMARY: run=170 failures=0 errors=0 skipped=1

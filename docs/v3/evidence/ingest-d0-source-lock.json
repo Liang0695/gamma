@@ -1,0 +1,17 @@
+{
+  "code": "source_lock_invalid",
+  "context": {
+    "origin_format": "d0-source-lock/1",
+    "problems": [
+      "attrs 许可未 approved（authorization_scope=unverified）",
+      "boltons 许可未 approved（authorization_scope=unverified）",
+      "click 许可未 approved（authorization_scope=unverified）",
+      "dateutil 许可未 approved（authorization_scope=unverified）",
+      "marshmallow 许可未 approved（authorization_scope=unverified）",
+      "more-itertools 许可未 approved（authorization_scope=unverified）",
+      "packaging 许可未 approved（authorization_scope=unverified）",
+      "pluggy 许可未 approved（authorization_scope=unverified）"
+    ]
+  },
+  "message": "来源锁不合规（8 项）"
+}
