@@ -1,0 +1,14 @@
+[PASS] both_status_compiled  B0=compiled A=compiled
+[PASS] agent_count_equal  B0=2 A=2
+[PASS] effective_sampling_equal  
+[PASS] limits_equal  source B0=swegemma.config.build_submission_limits A=swegemma.config.build_submission_limits
+[PASS] tool_registry_equal  mode B0=official-swegemma A=official-swegemma
+[PASS] declared_models_equal  
+[PASS] adapters_discovered_equal  U 未引入：adapters 仍为 2 个
+[PASS] tree_except_instruction_equal  对象树除 instruction 外逐字段一致
+[PASS] instruction_node_names_equal  ['code_analyzer', 'root_coder_agent']
+[PASS] only_root_instruction_differs  ['root_coder_agent']
+[PASS] sub_agent_instruction_bytes_identical  code_analyzer sha256=8c1078ea48e54e09ad2aac23a374c15808cfea132af001d6e9c67e9bbb4ea9d3
+[PASS] code_analyzer_still_declared  条件调用（保留 AgentTool），非删除
+[PASS] code_analyzer_wrapped_as_agenttool  [{"python_class": "google.adk.tools.agent_tool.AgentTool", "name": "code_analyzer", "wrapped_agent_name": "code_analyzer", "skip_summarization": true}]
+ALL PASS

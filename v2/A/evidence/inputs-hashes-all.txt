@@ -1,0 +1,9 @@
+93cb223e79ecb610ba281e507f7833811b879718708b749feff77d05247256bb  _dl/submission.zip  # 冻结 B0 包
+ef2afefafc0fa5026db2be128c2f6647ecea3bb50aa0a61b04019b510dfc3b4a  _dl/A-submission.zip  # 本次交付的 A 候选包
+8a03a82431ae6217f560e352c5ae188fe2737c8d06f5ce278366d6a3c7330522  _dl/V2-final-single-A100-plan.md  # Mika 已验收方案
+17951567b90acbc4aa1f15f5f1c4b31faa1bdc65498106f05b630f011923a507  _dl/F2-software-and-weight-source-check.md  # F2 来源核查
+e8201168781e57ea10a65822f53d87f92606ba84057e7bf3f2a3fad9aad4d5b6  _dl/kaggle15-e1-4.zip  # E1-4 已验收环境包
+ae1048d7c6a6fa940df899a97924b1b665d764e153f473584648a1f0a287a7c1  _dl/D8-allowed-fields.jsonl  # 最新公开 D8（允许字段）
+
+# 说明：D8-allowed-fields.jsonl 为最新公开 D（允许字段，8 题）；
+# 本任务未下载任何 H/gold/test_patch，未读取任何 H 身份信息。

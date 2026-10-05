@@ -1,0 +1,36 @@
+--- B0/prompts/system.md
++++ A/prompts/system.md
+@@ -9,17 +9,26 @@
+ - Always finish by calling `submit_patch`. A careful best-effort fix beats no patch.
+ 
+ ## Phase 1 — LOCALIZE (mandatory, must complete first)
+-Before ANY edit, you MUST call the `code_analyzer` tool with the full issue text.
+-It returns LOCATION / ROOT CAUSE / FIX PLAN.
+-You MUST then read those exact lines yourself to confirm the claim before editing.
+-If the analyzer's answer does not match the code you read, re-localize yourself
+-(use `grep -rn` / `sed -n`) instead of trusting it.
+-Never edit a file you have not read.
++Before editing, establish a location from the actual source.
++If an issue names a file, symbol, or traceback and a narrow search plus
++a targeted read identifies the relevant code, localize directly.
++If the issue has no usable anchor, or the first narrow search fails to
++establish a credible location, call `code_analyzer` with the full issue text.
++Whether locating directly or using its answer, read the exact source
++lines yourself before editing. If the proposed location does not match
++the code, re-localize rather than trusting it. Never edit unread code.
+ 
+ ## Workflow
+ 1. **Understand**: state the expected vs. actual behaviour to yourself in one or two sentences.
+ 2. **Localize**:
+-   - Call the `code_analyzer` tool with the full issue text first. It returns LOCATION / ROOT CAUSE / FIX PLAN. Verify its claim by reading those exact lines before editing.
++   - Before editing, establish a location from the actual source.
++     If an issue names a file, symbol, or traceback and a narrow search plus
++     a targeted read identifies the relevant code, localize directly.
++     If the issue has no usable anchor, or the first narrow search fails to
++     establish a credible location, call `code_analyzer` with the full issue text.
++     Whether locating directly or using its answer, read the exact source
++     lines yourself before editing. If the proposed location does not match
++     the code, re-localize rather than trusting it. Never edit unread code.
+    - Extract every identifier, error message and file name from the issue and search for them: `grep -rn "<identifier>" --include=*.py /workspace | head -30`.
+    - Read only the lines you need (`read_file` with a line range or `sed -n 'START,ENDp' /workspace/<path>`).
+ 3. **Reproduce**: write a minimal script to /tmp/repro.py that shows the bug and run it with `python /tmp/repro.py`.

@@ -1,0 +1,21 @@
+[PASS] b0_sha256_matches_frozen  93cb223e79ecb610ba281e507f7833811b879718708b749feff77d05247256bb
+[PASS] a_member_count_is_9  A=9
+[PASS] member_sets_identical  only_in_A=[] only_in_B0=[]
+[PASS] exactly_one_member_changed  ['prompts/system.md']
+[PASS] site1_rule_block_exact  Phase 1 段落
+[PASS] site2_rule_block_exact  Workflow bullet
+[PASS] rule_wording_identical_in_both_sites  两处措辞逐字符相同（仅缩进不同）
+[PASS] banned_removed::Before ANY edit, you MUST call the `code  
+[PASS] banned_removed::Call the `code_analyzer` tool with the f  
+[PASS] required_kept::Never edit unread code.  
+[PASS] required_kept::call `code_analyzer` with the full issue  
+[PASS] required_kept::Read only the lines you need  
+[PASS] required_kept::grep -rn "<identifier>" --include=*.py /  
+[PASS] required_kept::Always finish by calling `submit_patch`  
+[PASS] required_kept::Never call `search_similar_code` without  
+[PASS] site1_old_present_once_in_b0  
+[PASS] site2_old_present_once_in_b0  
+[PASS] site1_old_absent_in_a  
+[PASS] site2_old_absent_in_a  
+[PASS] a_zip_deterministically_reproducible  repacked=ef2afefafc0fa5026db2be128c2f6647ecea3bb50aa0a61b04019b510dfc3b4a
+ALL PASS
