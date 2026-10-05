@@ -1,0 +1,31 @@
+{
+  "serving": {
+    "channel": "serving",
+    "lock_sha256": "2b0e28c0f783a2242822c07a30ba6a22e80429e73413583cc8a8471045314f37",
+    "package_count": 4,
+    "packages": {
+      "compressed-tensors": "0.11.0",
+      "torch": "2.9.1",
+      "transformers": "5.16.0",
+      "vllm": "0.19.1"
+    },
+    "python": "3.11.9",
+    "verified": false
+  },
+  "train": {
+    "channel": "train",
+    "lock_sha256": "69d1494004341af179f2c29e08eabf4c39da7187d8b13da0cb715f226ab19b48",
+    "package_count": 7,
+    "packages": {
+      "accelerate": "1.11.0",
+      "compressed-tensors": "PENDING",
+      "peft": "0.21.0",
+      "safetensors": "0.6.2",
+      "torch": "2.10.0",
+      "transformers": "5.17.0",
+      "trl": "PENDING"
+    },
+    "python": "3.11.9",
+    "verified": false
+  }
+}

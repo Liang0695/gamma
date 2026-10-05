@@ -1,0 +1,624 @@
+{
+  "blockers": [
+    {
+      "code": "train_lock_invalid",
+      "problems": [
+        "train.packages.accelerate.wheel_sha256 未取得或不是 64 位小写 hex（'PENDING'）",
+        "train.packages.compressed-tensors.wheel_sha256 未取得或不是 64 位小写 hex（'PENDING'）",
+        "train.packages.peft.wheel_sha256 未取得或不是 64 位小写 hex（'PENDING'）",
+        "train.packages.safetensors.wheel_sha256 未取得或不是 64 位小写 hex（'PENDING'）",
+        "train.packages.torch.wheel_sha256 未取得或不是 64 位小写 hex（'PENDING'）",
+        "train.packages.transformers.wheel_sha256 未取得或不是 64 位小写 hex（'PENDING'）",
+        "train.packages.trl.wheel_sha256 未取得或不是 64 位小写 hex（'PENDING'）"
+      ]
+    },
+    {
+      "code": "train_lock_unverified",
+      "message": "train 依赖锁 verified=false：禁止自动取 latest"
+    },
+    {
+      "code": "serving_lock_invalid",
+      "problems": [
+        "serving.packages.compressed-tensors.wheel_sha256 未取得或不是 64 位小写 hex（'PENDING'）",
+        "serving.packages.torch.wheel_sha256 未取得或不是 64 位小写 hex（'PENDING'）",
+        "serving.packages.transformers.wheel_sha256 未取得或不是 64 位小写 hex（'PENDING'）",
+        "serving.packages.vllm.wheel_sha256 未取得或不是 64 位小写 hex（'PENDING'）"
+      ]
+    },
+    {
+      "code": "serving_lock_unverified",
+      "message": "serving 依赖锁 verified=false：禁止自动取 latest"
+    },
+    {
+      "code": "interface_pins_unverified",
+      "message": "未验证的 pin 不得当作已确认事实使用",
+      "pins": [
+        "tokenizer_config_sha256",
+        "tokenizer_vocab_sha256",
+        "vllm_mapper_revision"
+      ]
+    }
+  ],
+  "can_start_training_now": false,
+  "config": {
+    "config_sha256": "9cd10a61779603adeaa907c23b8d4ecfc5afc0a3e95edfd578a5885a3efc7d5f",
+    "lora_rank": 16,
+    "optimizer_updates_cap": 32,
+    "seq_len": 2048
+  },
+  "locks": {
+    "train": {
+      "channel": "train",
+      "lock_sha256": "69d1494004341af179f2c29e08eabf4c39da7187d8b13da0cb715f226ab19b48",
+      "package_count": 7,
+      "packages": {
+        "accelerate": "1.11.0",
+        "compressed-tensors": "PENDING",
+        "peft": "0.21.0",
+        "safetensors": "0.6.2",
+        "torch": "2.10.0",
+        "transformers": "5.17.0",
+        "trl": "PENDING"
+      },
+      "python": "3.11.9",
+      "verified": false
+    }
+  },
+  "mask_fixtures": {
+    "count": 20,
+    "passed": 20,
+    "renderer": "shim-deterministic",
+    "unverified_claims": [
+      "official_template_byte_equality",
+      "real_tokenizer_offsets",
+      "serving_render_parity"
+    ]
+  },
+  "notes": [
+    "未提供真实模块清单：target 模块数按设计值 120 计，实际必须导出后才允许训练"
+  ],
+  "official_interface": {
+    "interface_sha256": "53b1e61328dbdedb750686b53431352ff83bfa5179a9d1da93065d9509295164",
+    "tool_count": 9,
+    "verified_pins": {
+      "graph_edge_types_observed": true,
+      "model_repo_id": true,
+      "model_revision": true,
+      "official_parser": true,
+      "tokenizer_config_sha256": false,
+      "tokenizer_vocab_sha256": false,
+      "vllm_mapper_revision": false
+    }
+  },
+  "stage": "T0-preflight",
+  "target_plan": {
+    "adapter_train_state_gib": 0.4272,
+    "dense_reference_bytes": 62546177752,
+    "disk": {
+      "minimum_gib": 80,
+      "note": "先核查权重/环境/最大快照/日志 + 15% 余量，再按实际文件 manifest 调整。"
+    },
+    "expected_modules": 120,
+    "first_round_seq_len": 2048,
+    "geometry_layers": 60,
+    "gpu_peak_limit_gib": 72.0,
+    "trainable_params": 28672000
+  },
+  "unverified_claims": [
+    "实际训练收益（未跑真实 GPU）",
+    "TP4 / 长上下文行为",
+    "官方模板渲染逐字节一致",
+    "vLLM 实际 mapper 版本与加载回归",
+    "真实模块 shape 与显存峰值"
+  ]
+}
+{
+  "code": "start_not_allowed",
+  "message": "开训闸门未通过（8 项）：GPU 执行交 Liang 统筹且门槛验收后才启动",
+  "context": {
+    "problems": [
+      "未显式授权 GPU：本编码任务不独自申请作业，GPU 执行交 Liang 统筹",
+      "训练依赖锁 verified=false",
+      "门槛未通过：t1_engineering_pass",
+      "门槛未通过：memory_plan_pass",
+      "门槛未通过：export_manifest_pass",
+      "未被释放任何 GPU 预算（本编码任务不独自申请作业）",
+      "未指定 107 作业操作者（所有 107 操作仅 Liang 运行时）",
+      "未确认与 V2 排期无冲突（单账号单 GPU 必须串行）"
+    ]
+  }
+}
+{
+  "code": "start_not_allowed",
+  "message": "开训闸门未通过（6 项）：GPU 执行交 Liang 统筹且门槛验收后才启动",
+  "context": {
+    "problems": [
+      "验收门槛未通过前不得启动 GPU 执行",
+      "训练依赖锁 verified=false",
+      "门槛未通过：t1_engineering_pass",
+      "门槛未通过：memory_plan_pass",
+      "门槛未通过：export_manifest_pass",
+      "未确认与 V2 排期无冲突（单账号单 GPU 必须串行）"
+    ]
+  }
+}
+{
+  "bundle_sha256": "b2add8c362d22a1796e1ae5f5e1e042224e85617f07f100bb121e148aa6875cb",
+  "faces": [
+    "oracle.private",
+    "task.audit",
+    "task.public",
+    "trajectory"
+  ],
+  "release_id": "rel-syn-1",
+  "release_state": "design_only",
+  "stage": "audit"
+}
+{
+  "serving": {
+    "channel": "serving",
+    "lock_sha256": "2b0e28c0f783a2242822c07a30ba6a22e80429e73413583cc8a8471045314f37",
+    "package_count": 4,
+    "packages": {
+      "compressed-tensors": "0.11.0",
+      "torch": "2.9.1",
+      "transformers": "5.16.0",
+      "vllm": "0.19.1"
+    },
+    "python": "3.11.9",
+    "verified": false
+  },
+  "train": {
+    "channel": "train",
+    "lock_sha256": "69d1494004341af179f2c29e08eabf4c39da7187d8b13da0cb715f226ab19b48",
+    "package_count": 7,
+    "packages": {
+      "accelerate": "1.11.0",
+      "compressed-tensors": "PENDING",
+      "peft": "0.21.0",
+      "safetensors": "0.6.2",
+      "torch": "2.10.0",
+      "transformers": "5.17.0",
+      "trl": "PENDING"
+    },
+    "python": "3.11.9",
+    "verified": false
+  }
+}
+{
+  "by_gold_bucket": {
+    "1": {
+      "V0": {
+        "hit@1": 0.1667,
+        "hit@5": 0.1667,
+        "n": 6,
+        "region_hit@1": 0.1667,
+        "top1_is_test_rate": 0.0,
+        "true_recall@5": 0.1667
+      },
+      "V1": {
+        "hit@1": 0.6667,
+        "hit@5": 0.6667,
+        "n": 6,
+        "region_hit@1": 0.1667,
+        "top1_is_test_rate": 0.1667,
+        "true_recall@5": 0.6667
+      },
+      "V2": {
+        "hit@1": 0.6667,
+        "hit@5": 1.0,
+        "n": 6,
+        "region_hit@1": 0.1667,
+        "top1_is_test_rate": 0.0,
+        "true_recall@5": 1.0
+      },
+      "V3": {
+        "hit@1": 0.6667,
+        "hit@5": 0.6667,
+        "n": 6,
+        "region_hit@1": 0.1667,
+        "top1_is_test_rate": 0.0,
+        "true_recall@5": 0.6667
+      }
+    },
+    "2-4": {
+      "V0": {
+        "hit@1": 0.0,
+        "hit@5": 0.0,
+        "n": 2,
+        "region_hit@1": 0.0,
+        "top1_is_test_rate": 0.0,
+        "true_recall@5": 0.0
+      },
+      "V1": {
+        "hit@1": 1.0,
+        "hit@5": 1.0,
+        "n": 2,
+        "region_hit@1": 0.5,
+        "top1_is_test_rate": 0.0,
+        "true_recall@5": 0.5
+      },
+      "V2": {
+        "hit@1": 0.5,
+        "hit@5": 1.0,
+        "n": 2,
+        "region_hit@1": 0.5,
+        "top1_is_test_rate": 0.0,
+        "true_recall@5": 0.75
+      },
+      "V3": {
+        "hit@1": 1.0,
+        "hit@5": 1.0,
+        "n": 2,
+        "region_hit@1": 0.5,
+        "top1_is_test_rate": 0.0,
+        "true_recall@5": 0.5
+      }
+    }
+  },
+  "by_origin_kind": {
+    "mutation": {
+      "V1": {
+        "hit@1": 1.0,
+        "hit@5": 1.0,
+        "n": 4,
+        "region_hit@1": 0.5,
+        "top1_is_test_rate": 0.0,
+        "true_recall@5": 0.75
+      },
+      "V3": {
+        "hit@1": 1.0,
+        "hit@5": 1.0,
+        "n": 4,
+        "region_hit@1": 0.5,
+        "top1_is_test_rate": 0.0,
+        "true_recall@5": 0.75
+      }
+    },
+    "synthetic_behaviour": {
+      "V1": {
+        "hit@1": 0.5,
+        "hit@5": 0.5,
+        "n": 4,
+        "region_hit@1": 0.0,
+        "top1_is_test_rate": 0.25,
+        "true_recall@5": 0.5
+      },
+      "V3": {
+        "hit@1": 0.5,
+        "hit@5": 0.5,
+        "n": 4,
+        "region_hit@1": 0.0,
+        "top1_is_test_rate": 0.0,
+        "true_recall@5": 0.5
+      }
+    }
+  },
+  "corpus": {
+    "corpus_id": "synthetic-exp1-corpus",
+    "corpus_sha256": "72f99fda443e7b1f91f1cb38e588130638eff3358e2d2e5bffe910e3c47857fa",
+    "is_real_data": false,
+    "license": "synthetic-fixture",
+    "question_count": 8,
+    "repo_families": [
+      "alpha",
+      "beta"
+    ]
+  },
+  "cpu": {
+    "per_question": [
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0
+    ],
+    "total_process_seconds": 0.0
+  },
+  "experiment": "EXP-1",
+  "limitations": [
+    "合成题库（若 is_real_data=false）：只能验证流水线",
+    "输出字符数是估算而非实测截断日志",
+    "未做行级 RegionHit 之外的细分；未使用任何模型"
+  ],
+  "output_budget": {
+    "estimate_basis": "命中行数 × 80 字符：这是估算，不是实测官方截断日志",
+    "estimated_chars": [
+      240,
+      480,
+      400,
+      160,
+      320,
+      80,
+      240,
+      320
+    ],
+    "hard_limit_chars": 5000,
+    "p95_estimated_chars": 480,
+    "target_chars": 1500,
+    "truncation_rate_over_hard_limit": 0.0
+  },
+  "overall": {
+    "V0": {
+      "hit@1": 0.125,
+      "hit@5": 0.125,
+      "n": 8,
+      "region_hit@1": 0.125,
+      "top1_is_test_rate": 0.0,
+      "true_recall@5": 0.125
+    },
+    "V1": {
+      "hit@1": 0.75,
+      "hit@5": 0.75,
+      "n": 8,
+      "region_hit@1": 0.25,
+      "top1_is_test_rate": 0.125,
+      "true_recall@5": 0.625
+    },
+    "V2": {
+      "hit@1": 0.625,
+      "hit@5": 1.0,
+      "n": 8,
+      "region_hit@1": 0.25,
+      "top1_is_test_rate": 0.0,
+      "true_recall@5": 0.9375
+    },
+    "V3": {
+      "hit@1": 0.75,
+      "hit@5": 0.75,
+      "n": 8,
+      "region_hit@1": 0.25,
+      "top1_is_test_rate": 0.0,
+      "true_recall@5": 0.625
+    }
+  },
+  "promotion_verdict": {
+    "hit@1_gain_pp": 0.0,
+    "hit@1_not_down": true,
+    "hit@5_gain_pp": 0.0,
+    "hit@5_not_down": true,
+    "promote": false,
+    "truncation_ok": true,
+    "truncation_rate": 0.0
+  },
+  "report_path": "L:\\multica工作区\\canopus-3ho-7fd8c6d77d72\\kaggle-24-14e34cc2985b\\workdir\\deliver\\_tmp\\cli_exp1_12\\exp1-report.json",
+  "scope": "只评估规则检索；不构成对模型自主工具使用的实验"
+}
+{
+  "code": "empty_records",
+  "context": {},
+  "message": "records 为空"
+}
+{
+  "code": "template_lock_missing",
+  "context": {},
+  "message": "缺少模板锁定（template_sha256）：不得用未锁定模板导出训练视图"
+}
+{
+  "code": "source_lock_invalid",
+  "context": {
+    "problems": [
+      "a 许可未 approved"
+    ]
+  },
+  "message": "来源锁不合规"
+}
+{
+  "code": "source_lock_invalid",
+  "context": {
+    "problems": [
+      "a commit 不是 40 位 hex（不得猜 SHA）"
+    ]
+  },
+  "message": "来源锁不合规"
+}
+{
+  "manifest_sha256": "8fb5a08c6a49ccd77a8d3f3ea83954925858db2bc8497267be2a6675de0dcd97",
+  "note": "本步只登记与校验，不下载权重/受限数据。",
+  "source_count": 1,
+  "source_lock_sha256": "a43b27894b92a783cf8c8ea741085b4742778da64e436b666c86bd386d9f962d",
+  "sources": [
+    {
+      "authorization_scope": "approved",
+      "commit": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+      "license_spdx": "MIT",
+      "name": "a",
+      "repo_url": "u"
+    }
+  ],
+  "stage": "ingest"
+}
+{
+  "code": "no_gpu_budget",
+  "context": {},
+  "message": "未被释放 GPU 预算：不自动扩大预算、不启动第二个 GPU 作业"
+}
+{
+  "code": "rollout_requires_teacher_model",
+  "context": {},
+  "message": "轨迹生成需要许可的教师模型与目标平台环境，交 107 运行统筹执行"
+}
+{
+  "code": "v2_denylist_intersection",
+  "context": {
+    "tasks": [
+      "t1"
+    ]
+  },
+  "message": "V3 train/dev 与 V2 排除清单相交，必须整族隔离"
+}
+{
+  "dedup": {
+    "exact_duplicates": {},
+    "near_duplicates": [],
+    "note": "低于阈值不证明无污染；可疑跨 split 匹配应整族隔离。",
+    "status": "clean",
+    "thresholds": {
+      "minhash_jaccard": 0.8,
+      "permutations": 64,
+      "shingle_tokens": 5,
+      "statement_similarity": 0.9
+    }
+  },
+  "denylist_sha256": "ca3d163bab055381827226140568f3bef7eaac187cebd76878e0b63e9e442356",
+  "manifest_sha256": "39ae4fb8696e5a5992ac7a9d228474b5891ad0b024590058b2a702b85ceb0d0a",
+  "registry_sha256": "ff14b600f29e8f5479ce0874c10b53678bcf6c59f204d4a4d944eb3789d5e225",
+  "salt": "KAGGLE-21-V3-data-v1",
+  "selection": {
+    "by_repo": {
+      "alpha": 1,
+      "beta": 1
+    },
+    "family_count": 2,
+    "note": "实际配额不够时发布 shortfall，不跨 split 补齐。",
+    "salt": "KAGGLE-21-V3-data-v1",
+    "selected": [
+      "t2",
+      "t1"
+    ]
+  },
+  "stage": "split"
+}
+{
+  "blockers": [
+    {
+      "code": "train_lock_invalid",
+      "problems": [
+        "train.packages.accelerate.wheel_sha256 未取得或不是 64 位小写 hex（'PENDING'）",
+        "train.packages.compressed-tensors.wheel_sha256 未取得或不是 64 位小写 hex（'PENDING'）",
+        "train.packages.peft.wheel_sha256 未取得或不是 64 位小写 hex（'PENDING'）",
+        "train.packages.safetensors.wheel_sha256 未取得或不是 64 位小写 hex（'PENDING'）",
+        "train.packages.torch.wheel_sha256 未取得或不是 64 位小写 hex（'PENDING'）",
+        "train.packages.transformers.wheel_sha256 未取得或不是 64 位小写 hex（'PENDING'）",
+        "train.packages.trl.wheel_sha256 未取得或不是 64 位小写 hex（'PENDING'）"
+      ]
+    },
+    {
+      "code": "train_lock_unverified",
+      "message": "train 依赖锁 verified=false：禁止自动取 latest"
+    },
+    {
+      "code": "serving_lock_invalid",
+      "problems": [
+        "serving.packages.compressed-tensors.wheel_sha256 未取得或不是 64 位小写 hex（'PENDING'）",
+        "serving.packages.torch.wheel_sha256 未取得或不是 64 位小写 hex（'PENDING'）",
+        "serving.packages.transformers.wheel_sha256 未取得或不是 64 位小写 hex（'PENDING'）",
+        "serving.packages.vllm.wheel_sha256 未取得或不是 64 位小写 hex（'PENDING'）"
+      ]
+    },
+    {
+      "code": "serving_lock_unverified",
+      "message": "serving 依赖锁 verified=false：禁止自动取 latest"
+    },
+    {
+      "code": "interface_pins_unverified",
+      "message": "未验证的 pin 不得当作已确认事实使用",
+      "pins": [
+        "tokenizer_config_sha256",
+        "tokenizer_vocab_sha256",
+        "vllm_mapper_revision"
+      ]
+    }
+  ],
+  "can_start_training_now": false,
+  "config": {
+    "config_sha256": "9cd10a61779603adeaa907c23b8d4ecfc5afc0a3e95edfd578a5885a3efc7d5f",
+    "lora_rank": 16,
+    "optimizer_updates_cap": 32,
+    "seq_len": 2048
+  },
+  "locks": {
+    "train": {
+      "channel": "train",
+      "lock_sha256": "69d1494004341af179f2c29e08eabf4c39da7187d8b13da0cb715f226ab19b48",
+      "package_count": 7,
+      "packages": {
+        "accelerate": "1.11.0",
+        "compressed-tensors": "PENDING",
+        "peft": "0.21.0",
+        "safetensors": "0.6.2",
+        "torch": "2.10.0",
+        "transformers": "5.17.0",
+        "trl": "PENDING"
+      },
+      "python": "3.11.9",
+      "verified": false
+    }
+  },
+  "mask_fixtures": {
+    "count": 20,
+    "passed": 20,
+    "renderer": "shim-deterministic",
+    "unverified_claims": [
+      "official_template_byte_equality",
+      "real_tokenizer_offsets",
+      "serving_render_parity"
+    ]
+  },
+  "notes": [
+    "未提供真实模块清单：target 模块数按设计值 120 计，实际必须导出后才允许训练"
+  ],
+  "official_interface": {
+    "interface_sha256": "53b1e61328dbdedb750686b53431352ff83bfa5179a9d1da93065d9509295164",
+    "tool_count": 9,
+    "verified_pins": {
+      "graph_edge_types_observed": true,
+      "model_repo_id": true,
+      "model_revision": true,
+      "official_parser": true,
+      "tokenizer_config_sha256": false,
+      "tokenizer_vocab_sha256": false,
+      "vllm_mapper_revision": false
+    }
+  },
+  "stage": "T0-preflight",
+  "target_plan": {
+    "adapter_train_state_gib": 0.4272,
+    "dense_reference_bytes": 62546177752,
+    "disk": {
+      "minimum_gib": 80,
+      "note": "先核查权重/环境/最大快照/日志 + 15% 余量，再按实际文件 manifest 调整。"
+    },
+    "expected_modules": 120,
+    "first_round_seq_len": 2048,
+    "geometry_layers": 60,
+    "gpu_peak_limit_gib": 72.0,
+    "trainable_params": 28672000
+  },
+  "unverified_claims": [
+    "实际训练收益（未跑真实 GPU）",
+    "TP4 / 长上下文行为",
+    "官方模板渲染逐字节一致",
+    "vLLM 实际 mapper 版本与加载回归",
+    "真实模块 shape 与显存峰值"
+  ]
+}
+{
+  "code": "face_missing_fields",
+  "context": {
+    "missing": [
+      "arch",
+      "container_digest",
+      "python_version",
+      "test_runner_version",
+      "dependency_wheel_hashes",
+      "install_commands",
+      "locale",
+      "timezone",
+      "env_allowlist",
+      "network_policy",
+      "cpu",
+      "ram_bytes",
+      "seed",
+      "test_selection",
+      "timeout_seconds",
+      "snapshot_tree_sha256"
+    ]
+  },
+  "message": "env.lock 缺少必需字段"
+}
+
+SUMMARY: run=163 failures=0 errors=0 skipped=1

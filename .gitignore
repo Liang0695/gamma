@@ -1,0 +1,6 @@
+# 本运行时的沙箱禁止写系统临时目录，测试用 <repo>/_tmp/ 作临时目录
+_tmp/
+__pycache__/
+*.pyc
+.venv/
+out/

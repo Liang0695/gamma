@@ -1,0 +1,267 @@
+{
+ "note": "Metrics only. No problem-statement text, no gold patch content, no gold file paths and no per-task gold identifier lists are included: the competition rules forbid redistributing Competition Data.",
+ "protocol": "V0=file guesses from path-like/identifier tokens in the issue; V1=grep the repo for issue-derived tokens, rank files by idf-weighted distinct-token coverage; V2=V1 plus the modules imported by the best-ranked test file; V3=V1 with test files removed from the candidate list.",
+ "metric": "FileRecall@k = the gold non-test file set intersects the top-k candidate list.",
+ "sample_size": 7,
+ "tasks": [
+  {
+   "instance_id": "requests_7205",
+   "repo": "psf/requests",
+   "n_gold_non_test_files": 1,
+   "n_gold_test_files": 0,
+   "n_py_files": 36,
+   "n_issue_tokens": 37,
+   "n_tokens_used": 19,
+   "raw_hit_lines": 985,
+   "raw_hit_chars_est": 59100,
+   "test_bridge_files": 0,
+   "top1_is_test_file": true,
+   "V0_anchor_only": {
+    "@1": 0.0,
+    "@3": 0.0,
+    "@5": 0.0,
+    "@10": 0.0
+   },
+   "V1_lexical_idf": {
+    "@1": 0.0,
+    "@3": 1.0,
+    "@5": 1.0,
+    "@10": 1.0
+   },
+   "V2_lexical_plus_test_bridge": {
+    "@1": 0.0,
+    "@3": 1.0,
+    "@5": 1.0,
+    "@10": 1.0
+   },
+   "V3_lexical_tests_excluded": {
+    "@1": 1.0,
+    "@3": 1.0,
+    "@5": 1.0,
+    "@10": 1.0
+   }
+  },
+  {
+   "instance_id": "requests_7502",
+   "repo": "psf/requests",
+   "n_gold_non_test_files": 1,
+   "n_gold_test_files": 0,
+   "n_py_files": 37,
+   "n_issue_tokens": 5,
+   "n_tokens_used": 5,
+   "raw_hit_lines": 19,
+   "raw_hit_chars_est": 1140,
+   "test_bridge_files": 0,
+   "top1_is_test_file": false,
+   "V0_anchor_only": {
+    "@1": 0.0,
+    "@3": 0.0,
+    "@5": 0.0,
+    "@10": 0.0
+   },
+   "V1_lexical_idf": {
+    "@1": 1.0,
+    "@3": 1.0,
+    "@5": 1.0,
+    "@10": 1.0
+   },
+   "V2_lexical_plus_test_bridge": {
+    "@1": 1.0,
+    "@3": 1.0,
+    "@5": 1.0,
+    "@10": 1.0
+   },
+   "V3_lexical_tests_excluded": {
+    "@1": 1.0,
+    "@3": 1.0,
+    "@5": 1.0,
+    "@10": 1.0
+   }
+  },
+  {
+   "instance_id": "rich_3930",
+   "repo": "Textualize/rich",
+   "n_gold_non_test_files": 26,
+   "n_gold_test_files": 0,
+   "n_py_files": 190,
+   "n_issue_tokens": 90,
+   "n_tokens_used": 19,
+   "raw_hit_lines": 701,
+   "raw_hit_chars_est": 42060,
+   "test_bridge_files": 14,
+   "top1_is_test_file": false,
+   "V0_anchor_only": {
+    "@1": 0.0,
+    "@3": 0.0,
+    "@5": 0.0,
+    "@10": 0.0
+   },
+   "V1_lexical_idf": {
+    "@1": 0.0,
+    "@3": 0.0,
+    "@5": 0.0,
+    "@10": 1.0
+   },
+   "V2_lexical_plus_test_bridge": {
+    "@1": 0.0,
+    "@3": 0.0,
+    "@5": 0.0,
+    "@10": 1.0
+   },
+   "V3_lexical_tests_excluded": {
+    "@1": 0.0,
+    "@3": 0.0,
+    "@5": 0.0,
+    "@10": 1.0
+   }
+  },
+  {
+   "instance_id": "rich_3905",
+   "repo": "Textualize/rich",
+   "n_gold_non_test_files": 1,
+   "n_gold_test_files": 0,
+   "n_py_files": 213,
+   "n_issue_tokens": 103,
+   "n_tokens_used": 20,
+   "raw_hit_lines": 1755,
+   "raw_hit_chars_est": 105300,
+   "test_bridge_files": 6,
+   "top1_is_test_file": false,
+   "V0_anchor_only": {
+    "@1": 0.0,
+    "@3": 0.0,
+    "@5": 1.0,
+    "@10": 1.0
+   },
+   "V1_lexical_idf": {
+    "@1": 1.0,
+    "@3": 1.0,
+    "@5": 1.0,
+    "@10": 1.0
+   },
+   "V2_lexical_plus_test_bridge": {
+    "@1": 1.0,
+    "@3": 1.0,
+    "@5": 1.0,
+    "@10": 1.0
+   },
+   "V3_lexical_tests_excluded": {
+    "@1": 1.0,
+    "@3": 1.0,
+    "@5": 1.0,
+    "@10": 1.0
+   }
+  },
+  {
+   "instance_id": "rich_4077",
+   "repo": "Textualize/rich",
+   "n_gold_non_test_files": 1,
+   "n_gold_test_files": 0,
+   "n_py_files": 213,
+   "n_issue_tokens": 9,
+   "n_tokens_used": 8,
+   "raw_hit_lines": 1204,
+   "raw_hit_chars_est": 72240,
+   "test_bridge_files": 14,
+   "top1_is_test_file": true,
+   "V0_anchor_only": {
+    "@1": 0.0,
+    "@3": 0.0,
+    "@5": 0.0,
+    "@10": 0.0
+   },
+   "V1_lexical_idf": {
+    "@1": 0.0,
+    "@3": 0.0,
+    "@5": 0.0,
+    "@10": 0.0
+   },
+   "V2_lexical_plus_test_bridge": {
+    "@1": 0.0,
+    "@3": 0.0,
+    "@5": 0.0,
+    "@10": 0.0
+   },
+   "V3_lexical_tests_excluded": {
+    "@1": 0.0,
+    "@3": 0.0,
+    "@5": 0.0,
+    "@10": 0.0
+   }
+  },
+  {
+   "instance_id": "fastapi_14962",
+   "repo": "fastapi/fastapi",
+   "n_gold_non_test_files": 3,
+   "n_gold_test_files": 0,
+   "n_py_files": 1079,
+   "n_issue_tokens": 6,
+   "n_tokens_used": 6,
+   "raw_hit_lines": 8559,
+   "raw_hit_chars_est": 513540,
+   "test_bridge_files": 2,
+   "top1_is_test_file": true,
+   "V0_anchor_only": {
+    "@1": 0.0,
+    "@3": 0.0,
+    "@5": 0.0,
+    "@10": 0.0
+   },
+   "V1_lexical_idf": {
+    "@1": 0.0,
+    "@3": 0.0,
+    "@5": 1.0,
+    "@10": 1.0
+   },
+   "V2_lexical_plus_test_bridge": {
+    "@1": 0.0,
+    "@3": 0.0,
+    "@5": 1.0,
+    "@10": 1.0
+   },
+   "V3_lexical_tests_excluded": {
+    "@1": 0.0,
+    "@3": 1.0,
+    "@5": 1.0,
+    "@10": 1.0
+   }
+  },
+  {
+   "instance_id": "fastapi_15030",
+   "repo": "fastapi/fastapi",
+   "n_gold_non_test_files": 9,
+   "n_gold_test_files": 0,
+   "n_py_files": 1104,
+   "n_issue_tokens": 8,
+   "n_tokens_used": 5,
+   "raw_hit_lines": 2523,
+   "raw_hit_chars_est": 151380,
+   "test_bridge_files": 2,
+   "top1_is_test_file": false,
+   "V0_anchor_only": {
+    "@1": 0.0,
+    "@3": 0.0,
+    "@5": 0.0,
+    "@10": 0.0
+   },
+   "V1_lexical_idf": {
+    "@1": 0.0,
+    "@3": 1.0,
+    "@5": 1.0,
+    "@10": 1.0
+   },
+   "V2_lexical_plus_test_bridge": {
+    "@1": 0.0,
+    "@3": 1.0,
+    "@5": 1.0,
+    "@10": 1.0
+   },
+   "V3_lexical_tests_excluded": {
+    "@1": 0.0,
+    "@3": 1.0,
+    "@5": 1.0,
+    "@10": 1.0
+   }
+  }
+ ]
+}

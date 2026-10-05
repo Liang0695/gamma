@@ -1,0 +1,48 @@
+{
+  "channel": "train",
+  "python": "3.11.9",
+  "notes": [
+    "T0 产物：训练面软件锁。与比赛推理面（serving.lock.json）分离，禁止为训练升级正式评分器。",
+    "候选起点来自 KAGGLE-20 §5：PyTorch 2.10.0 / Transformers 5.17.0 / PEFT 0.21.0（设计稿明确标注本轮未安装验证）。",
+    "TRL 与 compressed-tensors 的具体 release/commit 与 wheel SHA 属开训前产物，此处照实写 PENDING，runner 因此 fail-closed。",
+    "verified=false 时任何训练入口必须停止；禁止用 latest 顶替。"
+  ],
+  "packages": {
+    "accelerate": {
+      "source": "pypi",
+      "version": "1.11.0",
+      "wheel_sha256": "PENDING"
+    },
+    "compressed-tensors": {
+      "source": "pypi-or-git",
+      "version": "PENDING",
+      "wheel_sha256": "PENDING"
+    },
+    "peft": {
+      "source": "pypi",
+      "version": "0.21.0",
+      "wheel_sha256": "PENDING"
+    },
+    "safetensors": {
+      "source": "pypi",
+      "version": "0.6.2",
+      "wheel_sha256": "PENDING"
+    },
+    "torch": {
+      "source": "pypi",
+      "version": "2.10.0",
+      "wheel_sha256": "PENDING"
+    },
+    "transformers": {
+      "source": "pypi",
+      "version": "5.17.0",
+      "wheel_sha256": "PENDING"
+    },
+    "trl": {
+      "source": "pypi-or-git",
+      "version": "PENDING",
+      "wheel_sha256": "PENDING"
+    }
+  },
+  "verified": false
+}

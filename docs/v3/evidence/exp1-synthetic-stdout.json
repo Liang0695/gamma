@@ -1,0 +1,202 @@
+{
+  "by_gold_bucket": {
+    "1": {
+      "V0": {
+        "hit@1": 0.1667,
+        "hit@5": 0.1667,
+        "n": 6,
+        "region_hit@1": 0.1667,
+        "top1_is_test_rate": 0.0,
+        "true_recall@5": 0.1667
+      },
+      "V1": {
+        "hit@1": 0.6667,
+        "hit@5": 0.6667,
+        "n": 6,
+        "region_hit@1": 0.1667,
+        "top1_is_test_rate": 0.1667,
+        "true_recall@5": 0.6667
+      },
+      "V2": {
+        "hit@1": 0.6667,
+        "hit@5": 1.0,
+        "n": 6,
+        "region_hit@1": 0.1667,
+        "top1_is_test_rate": 0.0,
+        "true_recall@5": 1.0
+      },
+      "V3": {
+        "hit@1": 0.6667,
+        "hit@5": 0.6667,
+        "n": 6,
+        "region_hit@1": 0.1667,
+        "top1_is_test_rate": 0.0,
+        "true_recall@5": 0.6667
+      }
+    },
+    "2-4": {
+      "V0": {
+        "hit@1": 0.0,
+        "hit@5": 0.0,
+        "n": 2,
+        "region_hit@1": 0.0,
+        "top1_is_test_rate": 0.0,
+        "true_recall@5": 0.0
+      },
+      "V1": {
+        "hit@1": 1.0,
+        "hit@5": 1.0,
+        "n": 2,
+        "region_hit@1": 0.5,
+        "top1_is_test_rate": 0.0,
+        "true_recall@5": 0.5
+      },
+      "V2": {
+        "hit@1": 0.5,
+        "hit@5": 1.0,
+        "n": 2,
+        "region_hit@1": 0.5,
+        "top1_is_test_rate": 0.0,
+        "true_recall@5": 0.75
+      },
+      "V3": {
+        "hit@1": 1.0,
+        "hit@5": 1.0,
+        "n": 2,
+        "region_hit@1": 0.5,
+        "top1_is_test_rate": 0.0,
+        "true_recall@5": 0.5
+      }
+    }
+  },
+  "by_origin_kind": {
+    "mutation": {
+      "V1": {
+        "hit@1": 1.0,
+        "hit@5": 1.0,
+        "n": 4,
+        "region_hit@1": 0.5,
+        "top1_is_test_rate": 0.0,
+        "true_recall@5": 0.75
+      },
+      "V3": {
+        "hit@1": 1.0,
+        "hit@5": 1.0,
+        "n": 4,
+        "region_hit@1": 0.5,
+        "top1_is_test_rate": 0.0,
+        "true_recall@5": 0.75
+      }
+    },
+    "synthetic_behaviour": {
+      "V1": {
+        "hit@1": 0.5,
+        "hit@5": 0.5,
+        "n": 4,
+        "region_hit@1": 0.0,
+        "top1_is_test_rate": 0.25,
+        "true_recall@5": 0.5
+      },
+      "V3": {
+        "hit@1": 0.5,
+        "hit@5": 0.5,
+        "n": 4,
+        "region_hit@1": 0.0,
+        "top1_is_test_rate": 0.0,
+        "true_recall@5": 0.5
+      }
+    }
+  },
+  "corpus": {
+    "corpus_id": "synthetic-exp1-corpus",
+    "corpus_sha256": "72f99fda443e7b1f91f1cb38e588130638eff3358e2d2e5bffe910e3c47857fa",
+    "is_real_data": false,
+    "license": "synthetic-fixture",
+    "question_count": 8,
+    "repo_families": [
+      "alpha",
+      "beta"
+    ]
+  },
+  "cpu": {
+    "per_question": [
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0
+    ],
+    "total_process_seconds": 0.0
+  },
+  "experiment": "EXP-1",
+  "limitations": [
+    "合成题库（若 is_real_data=false）：只能验证流水线",
+    "输出字符数是估算而非实测截断日志",
+    "未做行级 RegionHit 之外的细分；未使用任何模型"
+  ],
+  "output_budget": {
+    "estimate_basis": "命中行数 × 80 字符：这是估算，不是实测官方截断日志",
+    "estimated_chars": [
+      240,
+      480,
+      400,
+      160,
+      320,
+      80,
+      240,
+      320
+    ],
+    "hard_limit_chars": 5000,
+    "p95_estimated_chars": 480,
+    "target_chars": 1500,
+    "truncation_rate_over_hard_limit": 0.0
+  },
+  "overall": {
+    "V0": {
+      "hit@1": 0.125,
+      "hit@5": 0.125,
+      "n": 8,
+      "region_hit@1": 0.125,
+      "top1_is_test_rate": 0.0,
+      "true_recall@5": 0.125
+    },
+    "V1": {
+      "hit@1": 0.75,
+      "hit@5": 0.75,
+      "n": 8,
+      "region_hit@1": 0.25,
+      "top1_is_test_rate": 0.125,
+      "true_recall@5": 0.625
+    },
+    "V2": {
+      "hit@1": 0.625,
+      "hit@5": 1.0,
+      "n": 8,
+      "region_hit@1": 0.25,
+      "top1_is_test_rate": 0.0,
+      "true_recall@5": 0.9375
+    },
+    "V3": {
+      "hit@1": 0.75,
+      "hit@5": 0.75,
+      "n": 8,
+      "region_hit@1": 0.25,
+      "top1_is_test_rate": 0.0,
+      "true_recall@5": 0.625
+    }
+  },
+  "promotion_verdict": {
+    "hit@1_gain_pp": 0.0,
+    "hit@1_not_down": true,
+    "hit@5_gain_pp": 0.0,
+    "hit@5_not_down": true,
+    "promote": false,
+    "truncation_ok": true,
+    "truncation_rate": 0.0
+  },
+  "report_path": "docs/v3/evidence\\exp1-report.json",
+  "scope": "只评估规则检索；不构成对模型自主工具使用的实验"
+}

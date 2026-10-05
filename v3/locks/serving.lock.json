@@ -1,0 +1,33 @@
+{
+  "channel": "serving",
+  "python": "3.11.9",
+  "notes": [
+    "V3 E0 锁定的是比赛推理面的接口常量与候选版本线，不改动评分器实际软件。",
+    "KAGGLE-19 §2：vLLM 候选验收线 0.19.1 或含等价 LoRA 映射修复的锁定版本，并做加载回归。",
+    "实际官方 resolver / mapper 版本未知，故 verified=false：加载回归通过前不得宣称兼容。",
+    "不可配置项（官方硬上限）写进 interface 常量，供搜索协议与输出裁剪使用。"
+  ],
+  "packages": {
+    "compressed-tensors": {
+      "source": "pypi",
+      "version": "0.11.0",
+      "wheel_sha256": "PENDING"
+    },
+    "torch": {
+      "source": "pypi",
+      "version": "2.9.1",
+      "wheel_sha256": "PENDING"
+    },
+    "transformers": {
+      "source": "pypi",
+      "version": "5.16.0",
+      "wheel_sha256": "PENDING"
+    },
+    "vllm": {
+      "source": "pypi",
+      "version": "0.19.1",
+      "wheel_sha256": "PENDING"
+    }
+  },
+  "verified": false
+}

@@ -1,0 +1,114 @@
+{
+  "blockers": [
+    {
+      "code": "train_lock_invalid",
+      "problems": [
+        "train.packages.accelerate.wheel_sha256 未取得或不是 64 位小写 hex（'PENDING'）",
+        "train.packages.compressed-tensors.wheel_sha256 未取得或不是 64 位小写 hex（'PENDING'）",
+        "train.packages.peft.wheel_sha256 未取得或不是 64 位小写 hex（'PENDING'）",
+        "train.packages.safetensors.wheel_sha256 未取得或不是 64 位小写 hex（'PENDING'）",
+        "train.packages.torch.wheel_sha256 未取得或不是 64 位小写 hex（'PENDING'）",
+        "train.packages.transformers.wheel_sha256 未取得或不是 64 位小写 hex（'PENDING'）",
+        "train.packages.trl.wheel_sha256 未取得或不是 64 位小写 hex（'PENDING'）"
+      ]
+    },
+    {
+      "code": "train_lock_unverified",
+      "message": "train 依赖锁 verified=false：禁止自动取 latest"
+    },
+    {
+      "code": "serving_lock_invalid",
+      "problems": [
+        "serving.packages.compressed-tensors.wheel_sha256 未取得或不是 64 位小写 hex（'PENDING'）",
+        "serving.packages.torch.wheel_sha256 未取得或不是 64 位小写 hex（'PENDING'）",
+        "serving.packages.transformers.wheel_sha256 未取得或不是 64 位小写 hex（'PENDING'）",
+        "serving.packages.vllm.wheel_sha256 未取得或不是 64 位小写 hex（'PENDING'）"
+      ]
+    },
+    {
+      "code": "serving_lock_unverified",
+      "message": "serving 依赖锁 verified=false：禁止自动取 latest"
+    },
+    {
+      "code": "interface_pins_unverified",
+      "message": "未验证的 pin 不得当作已确认事实使用",
+      "pins": [
+        "tokenizer_config_sha256",
+        "tokenizer_vocab_sha256",
+        "vllm_mapper_revision"
+      ]
+    }
+  ],
+  "can_start_training_now": false,
+  "config": {
+    "config_sha256": "9cd10a61779603adeaa907c23b8d4ecfc5afc0a3e95edfd578a5885a3efc7d5f",
+    "lora_rank": 16,
+    "optimizer_updates_cap": 32,
+    "seq_len": 2048
+  },
+  "locks": {
+    "train": {
+      "channel": "train",
+      "lock_sha256": "69d1494004341af179f2c29e08eabf4c39da7187d8b13da0cb715f226ab19b48",
+      "package_count": 7,
+      "packages": {
+        "accelerate": "1.11.0",
+        "compressed-tensors": "PENDING",
+        "peft": "0.21.0",
+        "safetensors": "0.6.2",
+        "torch": "2.10.0",
+        "transformers": "5.17.0",
+        "trl": "PENDING"
+      },
+      "python": "3.11.9",
+      "verified": false
+    }
+  },
+  "mask_fixtures": {
+    "count": 20,
+    "passed": 20,
+    "renderer": "shim-deterministic",
+    "unverified_claims": [
+      "official_template_byte_equality",
+      "real_tokenizer_offsets",
+      "serving_render_parity"
+    ]
+  },
+  "notes": [
+    "未提供真实模块清单：target 模块数按设计值 120 计，实际必须导出后才允许训练"
+  ],
+  "official_interface": {
+    "interface_sha256": "53b1e61328dbdedb750686b53431352ff83bfa5179a9d1da93065d9509295164",
+    "tool_count": 9,
+    "verified_pins": {
+      "graph_edge_types_observed": true,
+      "model_repo_id": true,
+      "model_revision": true,
+      "official_parser": true,
+      "tokenizer_config_sha256": false,
+      "tokenizer_vocab_sha256": false,
+      "vllm_mapper_revision": false
+    }
+  },
+  "stage": "T0-preflight",
+  "target_plan": {
+    "adapter_train_state_gib": 0.4272,
+    "dense_reference_bytes": 62546177752,
+    "disk": {
+      "minimum_gib": 80,
+      "note": "先核查权重/环境/最大快照/日志 + 15% 余量，再按实际文件 manifest 调整。"
+    },
+    "expected_modules": 120,
+    "first_round_seq_len": 2048,
+    "geometry_layers": 60,
+    "gpu_peak_limit_gib": 72.0,
+    "trainable_params": 28672000
+  },
+  "unverified_claims": [
+    "实际训练收益（未跑真实 GPU）",
+    "TP4 / 长上下文行为",
+    "官方模板渲染逐字节一致",
+    "vLLM 实际 mapper 版本与加载回归",
+    "真实模块 shape 与显存峰值"
+  ]
+}
