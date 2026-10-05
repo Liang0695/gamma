@@ -1,0 +1,99 @@
+{
+  "generated_at_utc": "2026-10-05T16:56:55Z",
+  "b0_zip_sha256": "93cb223e79ecb610ba281e507f7833811b879718708b749feff77d05247256bb",
+  "a_zip_sha256": "ef2afefafc0fa5026db2be128c2f6647ecea3bb50aa0a61b04019b510dfc3b4a",
+  "a_zip_path": "out\\A-submission.zip",
+  "changed_members": [
+    "prompts/system.md"
+  ],
+  "members": [
+    {
+      "path": "adapters/main_lora/adapter_config.json",
+      "b0_sha256": "75a46da2db7f3c70442e5c728f64059aff52cf64174cee7aeb3a4ec37f6e78fb",
+      "b0_bytes": 664,
+      "a_sha256": "75a46da2db7f3c70442e5c728f64059aff52cf64174cee7aeb3a4ec37f6e78fb",
+      "a_bytes": 664,
+      "unchanged": true
+    },
+    {
+      "path": "adapters/main_lora/adapter_model.safetensors",
+      "b0_sha256": "dcbedd989af34f5201a39606e0bd4014d351a29162dd96da418782cbbe487ad9",
+      "b0_bytes": 217672,
+      "a_sha256": "dcbedd989af34f5201a39606e0bd4014d351a29162dd96da418782cbbe487ad9",
+      "a_bytes": 217672,
+      "unchanged": true
+    },
+    {
+      "path": "adapters/tool_lora/adapter_config.json",
+      "b0_sha256": "75a46da2db7f3c70442e5c728f64059aff52cf64174cee7aeb3a4ec37f6e78fb",
+      "b0_bytes": 664,
+      "a_sha256": "75a46da2db7f3c70442e5c728f64059aff52cf64174cee7aeb3a4ec37f6e78fb",
+      "a_bytes": 664,
+      "unchanged": true
+    },
+    {
+      "path": "adapters/tool_lora/adapter_model.safetensors",
+      "b0_sha256": "dcbedd989af34f5201a39606e0bd4014d351a29162dd96da418782cbbe487ad9",
+      "b0_bytes": 217672,
+      "a_sha256": "dcbedd989af34f5201a39606e0bd4014d351a29162dd96da418782cbbe487ad9",
+      "a_bytes": 217672,
+      "unchanged": true
+    },
+    {
+      "path": "agent.yaml",
+      "b0_sha256": "03b2b73ac79929b384d3cfd46df6c425c5dea08581a55e56c45cb1d256482824",
+      "b0_bytes": 2823,
+      "a_sha256": "03b2b73ac79929b384d3cfd46df6c425c5dea08581a55e56c45cb1d256482824",
+      "a_bytes": 2823,
+      "unchanged": true
+    },
+    {
+      "path": "configs/sampling.yaml",
+      "b0_sha256": "8b98e1c658632aa945320a3e632a7907681ce1ec47d142535bac176b2c6d39ba",
+      "b0_bytes": 2774,
+      "a_sha256": "8b98e1c658632aa945320a3e632a7907681ce1ec47d142535bac176b2c6d39ba",
+      "a_bytes": 2774,
+      "unchanged": true
+    },
+    {
+      "path": "eval_config.yaml",
+      "b0_sha256": "7b7e6f2be06a8e2602ec2ac1e9eaad6e4bbd8958a58edd71e1baaee38b80ced5",
+      "b0_bytes": 3406,
+      "a_sha256": "7b7e6f2be06a8e2602ec2ac1e9eaad6e4bbd8958a58edd71e1baaee38b80ced5",
+      "a_bytes": 3406,
+      "unchanged": true
+    },
+    {
+      "path": "prompts/system.md",
+      "b0_sha256": "43c2298478adaca4af6d7ee594df78ba709b92e04170ea4b229a10ab3ef976c4",
+      "b0_bytes": 4183,
+      "a_sha256": "ed823642663c0aacb4d2bb29c1ea8e1a574938fa24334230df7bf835f7b4fce2",
+      "a_bytes": 4786,
+      "unchanged": false
+    },
+    {
+      "path": "sub_agents/code_analyzer.yaml",
+      "b0_sha256": "a802a7ae10f1cdee71aa44e0733206b67531c8c32d21475733eb4d38ed6daaa2",
+      "b0_bytes": 5219,
+      "a_sha256": "a802a7ae10f1cdee71aa44e0733206b67531c8c32d21475733eb4d38ed6daaa2",
+      "a_bytes": 5219,
+      "unchanged": true
+    }
+  ],
+  "site_report": {
+    "site1": {
+      "old_sha256": "7e6dbdaafb699a20ab3bea2e448519f0654c46f1174e290f60025b1254e985c4",
+      "old_bytes": 379,
+      "new_sha256": "90d587087e72aede37f15b351abb9a9a45d59bdf46f72354ae47821585872f7c",
+      "new_bytes": 558
+    },
+    "site2": {
+      "old_sha256": "d67efc453bf17ab4bbd0dee8937223cbe4a4fbafe8669c8ae55f9b2e646f2223",
+      "old_bytes": 174,
+      "new_sha256": "1907432525fd467c491fa21a7ad0757f7f0bfb7ccb0d7fa773942a407020471b",
+      "new_bytes": 598
+    }
+  },
+  "b0_repacked_sha256": "cf9c8ab5c7dbbe9b22d50fbec011f59300d103bf77eb4ad218605563a1e0972b",
+  "note": "a_zip 为确定性重打包（成员名排序 + 固定时间戳 2026-10-05T00:00:00 + deflate9），仅 prompts/system.md 与 B0 不同。"
+}

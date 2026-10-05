@@ -1,0 +1,231 @@
+{
+  "task": "KAGGLE-15 / V2 E1 G0 —— 官方 compile_submission 编译 B0",
+  "schema_version": "e1-b0-compile-v1",
+  "generated_at_utc": "2026-10-05T16:49:17Z",
+  "gpu_used": 0,
+  "entry_point": "adk_submission.compile_submission",
+  "submission_dir": "L:\\multica工作区\\canopus-3ho-7fd8c6d77d72\\kaggle-16-7cbec32c6aee\\workdir\\deliverable\\out\\work\\A",
+  "official_packages": {
+    "adk_submission_version": "0.2.12",
+    "adk_submission_module": "L:\\multica工作区\\canopus-3ho-7fd8c6d77d72\\kaggle-15-d3a2a21392ed\\workdir\\.venv-e1\\Lib\\site-packages\\adk_submission\\__init__.py",
+    "google_adk_module": "L:\\multica工作区\\canopus-3ho-7fd8c6d77d72\\kaggle-15-d3a2a21392ed\\workdir\\.venv-e1\\Lib\\site-packages\\google\\adk\\__init__.py",
+    "google_adk_version": "1.36.1"
+  },
+  "limits_source": "swegemma.config.build_submission_limits",
+  "limits": {
+    "max_total_size_bytes": 3221225472,
+    "max_agents": 500,
+    "max_sub_agent_depth": 50,
+    "max_instruction_chars": 1000000,
+    "adapter_extensions": [
+      ".safetensors"
+    ],
+    "allowed_file_extensions": [
+      ".json",
+      ".md",
+      ".py",
+      ".safetensors",
+      ".txt",
+      ".yaml",
+      ".yml"
+    ]
+  },
+  "generation_constraints": {
+    "allowed_fields": null,
+    "max_output_tokens": {
+      "min": 1,
+      "max": 32768
+    },
+    "thinking_budget": {
+      "min": 0,
+      "max": 32768
+    },
+    "defaults": {
+      "max_output_tokens": 16384,
+      "thinking_config": {
+        "thinking_budget": 4096
+      }
+    }
+  },
+  "root_config_path": "L:\\multica工作区\\canopus-3ho-7fd8c6d77d72\\kaggle-16-7cbec32c6aee\\workdir\\deliverable\\out\\work\\A\\agent.yaml",
+  "declared_models": [
+    "gemma-4-31b-it-qat-w4a16-ct"
+  ],
+  "skills_declared": [],
+  "adapters_discovered": [
+    {
+      "name": "main_lora",
+      "path": "L:\\multica工作区\\canopus-3ho-7fd8c6d77d72\\kaggle-16-7cbec32c6aee\\workdir\\deliverable\\out\\work\\A\\adapters\\main_lora\\adapter_model.safetensors",
+      "size_bytes": 217672
+    },
+    {
+      "name": "tool_lora",
+      "path": "L:\\multica工作区\\canopus-3ho-7fd8c6d77d72\\kaggle-16-7cbec32c6aee\\workdir\\deliverable\\out\\work\\A\\adapters\\tool_lora\\adapter_model.safetensors",
+      "size_bytes": 217672
+    }
+  ],
+  "tool_registry_mode": "official-swegemma",
+  "tool_registry_note": null,
+  "tool_registry_names": [
+    "edit_file",
+    "get_code_neighbors",
+    "get_code_subgraph",
+    "get_status",
+    "read_file",
+    "run_command",
+    "search_similar_code",
+    "submit_patch",
+    "write_file"
+  ],
+  "model_registry_mode": "official-swegemma",
+  "model_registry_note": null,
+  "model_registry_names": null,
+  "status": "compiled",
+  "object_tree": {
+    "depth": 0,
+    "python_class": "google.adk.agents.llm_agent.LlmAgent",
+    "name": "root_coder_agent",
+    "description": "Autonomous software engineering agent for repository bug fixes.",
+    "model": {
+      "python_class": "google.adk.models.lite_llm.LiteLlm",
+      "model": "openai/gemma-4-31b-it-qat-w4a16-ct",
+      "api_base": null
+    },
+    "instruction": {
+      "chars": 4780,
+      "utf8_bytes": 4786,
+      "sha256": "ed823642663c0aacb4d2bb29c1ea8e1a574938fa24334230df7bf835f7b4fce2",
+      "head": "You are an autonomous senior Python engineer working inside a sandboxed checkout of a real open-source repository at /workspace.\nGoal: resolve the issue in the "
+    },
+    "generate_content_config": {
+      "temperature": 0.2,
+      "top_p": 0.95,
+      "top_k": 40.0,
+      "max_output_tokens": 8192,
+      "thinking_config": {
+        "thinking_budget": 4096,
+        "include_thoughts": true
+      }
+    },
+    "tools": [
+      {
+        "python_class": "builtins.function",
+        "name": "run_command"
+      },
+      {
+        "python_class": "builtins.function",
+        "name": "submit_patch"
+      },
+      {
+        "python_class": "builtins.function",
+        "name": "get_status"
+      },
+      {
+        "python_class": "builtins.function",
+        "name": "read_file"
+      },
+      {
+        "python_class": "builtins.function",
+        "name": "edit_file"
+      },
+      {
+        "python_class": "builtins.function",
+        "name": "write_file"
+      },
+      {
+        "python_class": "builtins.function",
+        "name": "get_code_neighbors"
+      },
+      {
+        "python_class": "builtins.function",
+        "name": "search_similar_code"
+      },
+      {
+        "python_class": "builtins.function",
+        "name": "get_code_subgraph"
+      },
+      {
+        "python_class": "google.adk.tools.agent_tool.AgentTool",
+        "name": "code_analyzer",
+        "wrapped_agent_name": "code_analyzer",
+        "skip_summarization": true
+      }
+    ],
+    "sub_agents": [
+      {
+        "depth": 1,
+        "python_class": "google.adk.agents.llm_agent.LlmAgent",
+        "name": "code_analyzer",
+        "description": "Analyzes repository structure, reads source code, and queries AST code graphs.",
+        "model": {
+          "python_class": "google.adk.models.lite_llm.LiteLlm",
+          "model": "openai/gemma-4-31b-it-qat-w4a16-ct",
+          "api_base": null
+        },
+        "instruction": {
+          "chars": 1727,
+          "utf8_bytes": 1731,
+          "sha256": "8c1078ea48e54e09ad2aac23a374c15808cfea132af001d6e9c67e9bbb4ea9d3",
+          "head": "You are `code_analyzer`, a read-only code navigation specialist. You never modify files.\nGiven an issue, find exactly where it must be fixed.\n\n## Output budget "
+        },
+        "generate_content_config": {
+          "temperature": 0.2,
+          "top_p": 0.95,
+          "top_k": 40.0,
+          "max_output_tokens": 8192,
+          "thinking_config": {
+            "thinking_budget": 4096,
+            "include_thoughts": true
+          }
+        },
+        "tools": [
+          {
+            "python_class": "builtins.function",
+            "name": "read_file"
+          },
+          {
+            "python_class": "builtins.function",
+            "name": "run_command"
+          },
+          {
+            "python_class": "builtins.function",
+            "name": "search_similar_code"
+          },
+          {
+            "python_class": "builtins.function",
+            "name": "get_code_neighbors"
+          },
+          {
+            "python_class": "builtins.function",
+            "name": "get_code_subgraph"
+          }
+        ],
+        "sub_agents": []
+      }
+    ]
+  },
+  "agent_count": 2,
+  "effective_sampling": {
+    "root_coder_agent": {
+      "temperature": 0.2,
+      "top_p": 0.95,
+      "top_k": 40.0,
+      "max_output_tokens": 8192,
+      "thinking_config": {
+        "thinking_budget": 4096,
+        "include_thoughts": true
+      }
+    },
+    "code_analyzer": {
+      "temperature": 0.2,
+      "top_p": 0.95,
+      "top_k": 40.0,
+      "max_output_tokens": 8192,
+      "thinking_config": {
+        "thinking_budget": 4096,
+        "include_thoughts": true
+      }
+    }
+  },
+  "object_tree_txt": "E1-b0-object-tree.txt"
+}

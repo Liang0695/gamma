@@ -1,0 +1,98 @@
+{
+  "task": "KAGGLE-16 / V2 A —— B0/A 官方编译对象树对照",
+  "b0_report": "out\\compile\\B0\\E1-b0-compile-report.json",
+  "a_report": "out\\compile\\A\\E1-b0-compile-report.json",
+  "b0_instruction": {
+    "root_coder_agent": {
+      "chars": 4177,
+      "utf8_bytes": 4183,
+      "sha256": "43c2298478adaca4af6d7ee594df78ba709b92e04170ea4b229a10ab3ef976c4"
+    },
+    "code_analyzer": {
+      "chars": 1727,
+      "utf8_bytes": 1731,
+      "sha256": "8c1078ea48e54e09ad2aac23a374c15808cfea132af001d6e9c67e9bbb4ea9d3"
+    }
+  },
+  "a_instruction": {
+    "root_coder_agent": {
+      "chars": 4780,
+      "utf8_bytes": 4786,
+      "sha256": "ed823642663c0aacb4d2bb29c1ea8e1a574938fa24334230df7bf835f7b4fce2"
+    },
+    "code_analyzer": {
+      "chars": 1727,
+      "utf8_bytes": 1731,
+      "sha256": "8c1078ea48e54e09ad2aac23a374c15808cfea132af001d6e9c67e9bbb4ea9d3"
+    }
+  },
+  "root_instruction_chars_delta": 603,
+  "checks": [
+    {
+      "check": "both_status_compiled",
+      "pass": true,
+      "detail": "B0=compiled A=compiled"
+    },
+    {
+      "check": "agent_count_equal",
+      "pass": true,
+      "detail": "B0=2 A=2"
+    },
+    {
+      "check": "effective_sampling_equal",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "check": "limits_equal",
+      "pass": true,
+      "detail": "source B0=swegemma.config.build_submission_limits A=swegemma.config.build_submission_limits"
+    },
+    {
+      "check": "tool_registry_equal",
+      "pass": true,
+      "detail": "mode B0=official-swegemma A=official-swegemma"
+    },
+    {
+      "check": "declared_models_equal",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "check": "adapters_discovered_equal",
+      "pass": true,
+      "detail": "U 未引入：adapters 仍为 2 个"
+    },
+    {
+      "check": "tree_except_instruction_equal",
+      "pass": true,
+      "detail": "对象树除 instruction 外逐字段一致"
+    },
+    {
+      "check": "instruction_node_names_equal",
+      "pass": true,
+      "detail": "['code_analyzer', 'root_coder_agent']"
+    },
+    {
+      "check": "only_root_instruction_differs",
+      "pass": true,
+      "detail": "['root_coder_agent']"
+    },
+    {
+      "check": "sub_agent_instruction_bytes_identical",
+      "pass": true,
+      "detail": "code_analyzer sha256=8c1078ea48e54e09ad2aac23a374c15808cfea132af001d6e9c67e9bbb4ea9d3"
+    },
+    {
+      "check": "code_analyzer_still_declared",
+      "pass": true,
+      "detail": "条件调用（保留 AgentTool），非删除"
+    },
+    {
+      "check": "code_analyzer_wrapped_as_agenttool",
+      "pass": true,
+      "detail": "[{\"python_class\": \"google.adk.tools.agent_tool.AgentTool\", \"name\": \"code_analyzer\", \"wrapped_agent_name\": \"code_analyzer\", \"skip_summarization\": true}]"
+    }
+  ],
+  "all_pass": true
+}

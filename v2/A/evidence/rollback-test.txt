@@ -1,0 +1,11 @@
+[ok] B0 ZIP SHA256 = 93cb223e79ecb610ba281e507f7833811b879718708b749feff77d05247256bb
+[      ok] 75a46da2db7f3c70442e5c728f64059aff52cf64174cee7aeb3a4ec37f6e78fb  adapters/main_lora/adapter_config.json
+[      ok] dcbedd989af34f5201a39606e0bd4014d351a29162dd96da418782cbbe487ad9  adapters/main_lora/adapter_model.safetensors
+[      ok] 75a46da2db7f3c70442e5c728f64059aff52cf64174cee7aeb3a4ec37f6e78fb  adapters/tool_lora/adapter_config.json
+[      ok] dcbedd989af34f5201a39606e0bd4014d351a29162dd96da418782cbbe487ad9  adapters/tool_lora/adapter_model.safetensors
+[      ok] 03b2b73ac79929b384d3cfd46df6c425c5dea08581a55e56c45cb1d256482824  agent.yaml
+[      ok] 8b98e1c658632aa945320a3e632a7907681ce1ec47d142535bac176b2c6d39ba  configs/sampling.yaml
+[      ok] 7b7e6f2be06a8e2602ec2ac1e9eaad6e4bbd8958a58edd71e1baaee38b80ced5  eval_config.yaml
+[      ok] 43c2298478adaca4af6d7ee594df78ba709b92e04170ea4b229a10ab3ef976c4  prompts/system.md
+[      ok] a802a7ae10f1cdee71aa44e0733206b67531c8c32d21475733eb4d38ed6daaa2  sub_agents/code_analyzer.yaml
+[done] 冻结 B0 已恢复到 out\rollback-test（9/9 成员哈希一致，A 的两处提示改动已撤销）
