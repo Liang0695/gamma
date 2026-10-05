@@ -384,7 +384,7 @@
     "truncation_ok": true,
     "truncation_rate": 0.0
   },
-  "report_path": "L:\\multica工作区\\canopus-3ho-7fd8c6d77d72\\kaggle-24-14e34cc2985b\\workdir\\deliver\\_tmp\\cli_exp1_12\\exp1-report.json",
+  "report_path": "<workdir>\\canopus-3ho-7fd8c6d77d72\\kaggle-24-14e34cc2985b\\workdir\\deliver\\_tmp\\cli_exp1_12\\exp1-report.json",
   "scope": "只评估规则检索；不构成对模型自主工具使用的实验"
 }
 {

@@ -20,6 +20,7 @@ adapter-only 断点续训与导出 manifest、四面数据 schema/exporter、八
 |---|---|
 | `README.md` | 仓库索引（V1/V2/V3 三线关系、快速开始、边界） |
 | `run_tests.py` | 一键跑全部 CPU 回归测试（仅标准库），退出码 0 = 全绿 |
+| `tools/capture_evidence.py` | 重新生成 `docs/v3/evidence/`（真实执行 + 把运行时本地绝对路径替换成 `<workdir>`；UTF-8 无 BOM、LF） |
 | `.gitignore` | 忽略 `_tmp/`、`__pycache__/`、`out/` |
 
 ### `v3/common/` —— 公共底座
@@ -131,6 +132,9 @@ python -m v3.cli rollout     --train-only --budget locks/budget.json
 - 导出 manifest：`window_tokens / window_count / task_count / trace_count / audit / windows_sha256`。
 
 ## 6. 实测结果（本机 CPU，2026-10-05，证据在 `evidence/`）
+
+证据文件由 `python tools/capture_evidence.py` 生成：真实执行 + 把运行时本地绝对路径
+替换成 `<workdir>`（本地路径不作为交付物），输出为 UTF-8 无 BOM、LF。
 
 ### 6.1 测试
 

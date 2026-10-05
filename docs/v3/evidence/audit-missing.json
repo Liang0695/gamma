@@ -1,7 +1,7 @@
 {
   "code": "file_not_found",
   "context": {
-    "path": "docs/v3/evidence/does-not-exist.json"
+    "path": "does-not-exist.json"
   },
-  "message": "--release 不存在：docs/v3/evidence/does-not-exist.json"
+  "message": "--release 不存在：does-not-exist.json"
 }
