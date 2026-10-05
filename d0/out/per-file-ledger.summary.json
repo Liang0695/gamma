@@ -1,0 +1,102 @@
+{
+  "click": {
+    "tracked_files": 166,
+    "license_files": [
+      "LICENSE.txt",
+      "docs/license.md"
+    ],
+    "text_files_scanned": 145,
+    "files_with_spdx_header": 0,
+    "files_with_copyright_line": 3,
+    "files_without_any_header_signal": 142,
+    "spdx_headers_found": []
+  },
+  "more-itertools": {
+    "tracked_files": 39,
+    "license_files": [
+      "LICENSE",
+      "docs/license.rst"
+    ],
+    "text_files_scanned": 33,
+    "files_with_spdx_header": 0,
+    "files_with_copyright_line": 0,
+    "files_without_any_header_signal": 33,
+    "spdx_headers_found": []
+  },
+  "pluggy": {
+    "tracked_files": 62,
+    "license_files": [
+      "LICENSE"
+    ],
+    "text_files_scanned": 56,
+    "files_with_spdx_header": 0,
+    "files_with_copyright_line": 1,
+    "files_without_any_header_signal": 55,
+    "spdx_headers_found": []
+  },
+  "boltons": {
+    "tracked_files": 112,
+    "license_files": [
+      "LICENSE"
+    ],
+    "text_files_scanned": 108,
+    "files_with_spdx_header": 0,
+    "files_with_copyright_line": 29,
+    "files_without_any_header_signal": 79,
+    "spdx_headers_found": []
+  },
+  "attrs": {
+    "tracked_files": 129,
+    "license_files": [
+      "LICENSE",
+      "docs/license.md"
+    ],
+    "text_files_scanned": 104,
+    "files_with_spdx_header": 53,
+    "files_with_copyright_line": 0,
+    "files_without_any_header_signal": 104,
+    "spdx_headers_found": [
+      "MIT"
+    ]
+  },
+  "dateutil": {
+    "tracked_files": 85,
+    "license_files": [
+      "AUTHORS.md",
+      "LICENSE"
+    ],
+    "text_files_scanned": 77,
+    "files_with_spdx_header": 0,
+    "files_with_copyright_line": 1,
+    "files_without_any_header_signal": 76,
+    "spdx_headers_found": []
+  },
+  "packaging": {
+    "tracked_files": 139,
+    "license_files": [
+      "LICENSE",
+      "LICENSE.APACHE",
+      "LICENSE.BSD"
+    ],
+    "text_files_scanned": 118,
+    "files_with_spdx_header": 0,
+    "files_with_copyright_line": 2,
+    "files_without_any_header_signal": 116,
+    "spdx_headers_found": []
+  },
+  "marshmallow": {
+    "tracked_files": 103,
+    "license_files": [
+      "AUTHORS.rst",
+      "LICENSE",
+      "NOTICE",
+      "docs/authors.rst",
+      "docs/license.rst"
+    ],
+    "text_files_scanned": 91,
+    "files_with_spdx_header": 0,
+    "files_with_copyright_line": 2,
+    "files_without_any_header_signal": 89,
+    "spdx_headers_found": []
+  }
+}

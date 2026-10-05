@@ -1,0 +1,1157 @@
+{
+  "generated_by": "d0/build_extras.py",
+  "note": "Public face of the D0 source lock. Contains only metadata, hashes and identifiers from permissively licensed repositories. No gold patch body, no sealed-split source text, no credentials.",
+  "repos": {
+    "click": {
+      "upstream_slug": "pallets/click",
+      "mirror_url": "https://ghfast.top/https://github.com/pallets/click.git",
+      "pinned_tag": "8.5.0",
+      "pinned_commit": "8b19813f2bfca99f1018a587a8cf54fc959f2e5d",
+      "expected_commit": "8b19813f2bfca99f1018a587a8cf54fc959f2e5d",
+      "commit_matches_plan": true,
+      "tree_sha": "2955d48825c98fd7dcbc60eb41cf18a952a2c0a3",
+      "commit_date": "2026-08-21T21:31:25-07:00",
+      "committer": "Edward G <edward.g2013@gmail.com>",
+      "tracked_files": 166,
+      "text_files_scanned": 145,
+      "split_role": "train",
+      "design_license_expectation": "BSD-3-Clause",
+      "spdx_headers_found": [],
+      "packaging_metadata": {
+        "pyproject.toml": {
+          "sha256": "6cca567eef4004426c3a42a94de7ef6b971992f1d7292faea3a17dd322d92717",
+          "declared": [
+            "\"BSD-3-Clause\"",
+            "[\"LICENSE.txt\"]"
+          ]
+        }
+      }
+    },
+    "more-itertools": {
+      "upstream_slug": "more-itertools/more-itertools",
+      "mirror_url": "https://ghfast.top/https://github.com/more-itertools/more-itertools.git",
+      "pinned_tag": "v11.1.0",
+      "pinned_commit": "64be96ceb2a6e836f76f069f4a96d2394d59fd0c",
+      "expected_commit": "64be96ceb2a6e836f76f069f4a96d2394d59fd0c",
+      "commit_matches_plan": true,
+      "tree_sha": "f7409b66b75d5649b9fc6414114f8035362f9fcf",
+      "commit_date": "2026-05-22T09:12:03-05:00",
+      "committer": "GitHub <noreply@github.com>",
+      "tracked_files": 39,
+      "text_files_scanned": 33,
+      "split_role": "train",
+      "design_license_expectation": "MIT",
+      "spdx_headers_found": [],
+      "packaging_metadata": {
+        "pyproject.toml": {
+          "sha256": "9f42e75e2409e8d09cf57e1f575130a6084f49de570d847bb9cae7813485af52",
+          "declared": [
+            "\"MIT\"",
+            "[\"LICENSE\"]"
+          ]
+        },
+        "setup.cfg": {
+          "sha256": "309de2d8409ea9c61b8cd1509a70ef7727184a549f8bd86562fd7ff8ff74b67f"
+        }
+      }
+    },
+    "pluggy": {
+      "upstream_slug": "pytest-dev/pluggy",
+      "mirror_url": "https://ghfast.top/https://github.com/pytest-dev/pluggy.git",
+      "pinned_tag": "1.6.0",
+      "pinned_commit": "fd08ab5f811a9b2fa9124ae8cbbd393221151e2c",
+      "expected_commit": "fd08ab5f811a9b2fa9124ae8cbbd393221151e2c",
+      "commit_matches_plan": true,
+      "tree_sha": "d3aac17eab19c9e8f6f6358ad2dcaec02d734020",
+      "commit_date": "2025-05-15T10:14:23+02:00",
+      "committer": "Ronny Pfannschmidt <opensource@ronnypfannschmidt.de>",
+      "tracked_files": 62,
+      "text_files_scanned": 56,
+      "split_role": "train",
+      "design_license_expectation": "MIT",
+      "spdx_headers_found": [],
+      "packaging_metadata": {
+        "pyproject.toml": {
+          "sha256": "a80661d4d18b92dba406d0df5c9e886d2bceb0d283314ed244aaf0c161a35e2b",
+          "classifiers": [
+            "License :: OSI Approved :: MIT License"
+          ],
+          "declared": [
+            "{text = \"MIT\"}",
+            "{text = \"MIT\"}"
+          ]
+        }
+      }
+    },
+    "boltons": {
+      "upstream_slug": "mahmoud/boltons",
+      "mirror_url": "https://ghfast.top/https://github.com/mahmoud/boltons.git",
+      "pinned_tag": "26.2.0",
+      "pinned_commit": "4332b35a278d694f30c99881faa61cde695c7a96",
+      "expected_commit": "4332b35a278d694f30c99881faa61cde695c7a96",
+      "commit_matches_plan": true,
+      "tree_sha": "d12eba4fbaf37aaf17713e5b202f706d2a53f706",
+      "commit_date": "2026-09-07T03:42:05-07:00",
+      "committer": "Mahmoud Hashemi <mahmoud@hatnote.com>",
+      "tracked_files": 112,
+      "text_files_scanned": 108,
+      "split_role": "train",
+      "design_license_expectation": "BSD-3-Clause",
+      "spdx_headers_found": [],
+      "packaging_metadata": {
+        "pyproject.toml": {
+          "sha256": "23d689cf1d468c6af6442869eb7483402aaea8b3cabdbfb2d7aa9df3a293aa04",
+          "classifiers": [
+            "License :: OSI Approved :: BSD License"
+          ],
+          "declared": [
+            "{ file = \"LICENSE\" }",
+            "{file = \"LICENSE\"}"
+          ]
+        },
+        "setup.cfg": {
+          "sha256": "4024bbca7672ce6a9cebfee0e4cd4017582ca0787dc1f603e859cd9c861147ac",
+          "declared": [
+            "LICENSE"
+          ]
+        }
+      }
+    },
+    "attrs": {
+      "upstream_slug": "python-attrs/attrs",
+      "mirror_url": "https://ghfast.top/https://github.com/python-attrs/attrs.git",
+      "pinned_tag": "26.1.0",
+      "pinned_commit": "7bfc49e9b22d5ba25b6e429524c3d49fee27cb36",
+      "expected_commit": "7bfc49e9b22d5ba25b6e429524c3d49fee27cb36",
+      "commit_matches_plan": true,
+      "tree_sha": "31beb3550ee7198eba22b862471ad6ea7bfb16d2",
+      "commit_date": "2026-03-19T10:06:02-04:00",
+      "committer": "Hynek Schlawack <hs@ox.cx>",
+      "tracked_files": 129,
+      "text_files_scanned": 104,
+      "split_role": "dev",
+      "design_license_expectation": "MIT",
+      "spdx_headers_found": [
+        "MIT"
+      ],
+      "packaging_metadata": {
+        "pyproject.toml": {
+          "sha256": "bc6014ed6ff2b19a6a55adf19438ffc4339876d362083953474bceb453e13f30",
+          "declared": [
+            "\"MIT\"",
+            "[\"LICENSE\"]"
+          ]
+        }
+      }
+    },
+    "dateutil": {
+      "upstream_slug": "dateutil/dateutil",
+      "mirror_url": "https://ghfast.top/https://github.com/dateutil/dateutil.git",
+      "pinned_tag": "2.9.0",
+      "pinned_commit": "db9d018944c41ddc740015cf5f64717c2ba64a5c",
+      "expected_commit": "db9d018944c41ddc740015cf5f64717c2ba64a5c",
+      "commit_matches_plan": true,
+      "tree_sha": "c34b52d7ba16d26f857bfb3be818d9098bd4f2b7",
+      "commit_date": "2024-02-29T22:38:37-05:00",
+      "committer": "GitHub <noreply@github.com>",
+      "tracked_files": 85,
+      "text_files_scanned": 77,
+      "split_role": "dev",
+      "design_license_expectation": "Apache-2.0 OR BSD-3-Clause",
+      "spdx_headers_found": [],
+      "packaging_metadata": {
+        "pyproject.toml": {
+          "sha256": "b6c5fc27de62a10cfd72623e2abf71cfb9c458b9b005fd1a72678fb02484f168"
+        },
+        "setup.cfg": {
+          "sha256": "a71204afa83fdc09e7377952cfdaadc4cb23bc24f2dc237663444e0e2c40ad0c",
+          "classifiers": [
+            "License :: OSI Approved :: Apache Software License",
+            "License :: OSI Approved :: BSD License"
+          ],
+          "declared": [
+            "Dual License"
+          ]
+        },
+        "setup.py": {
+          "sha256": "d94405eec2b79875768247834d9423acdab22488f499ebca957038b3ff2174c7"
+        }
+      }
+    }
+  },
+  "sealed_repos_metadata_only": {
+    "packaging": {
+      "upstream_slug": "pypa/packaging",
+      "pinned_tag": "26.3",
+      "pinned_commit": "929fd4b1410ac7ef61ef3f45b2f5d7e87711a9b5",
+      "tree_sha": "8f42c06d439e9dad27445e8004695930eb99cca7",
+      "commit_date": "2026-08-03T15:55:21-04:00",
+      "license_spdx": "Apache-2.0 OR BSD-2-Clause",
+      "content_committed": false,
+      "reason": "sealed split: keep content and families out of the public manifest"
+    },
+    "marshmallow": {
+      "upstream_slug": "marshmallow-code/marshmallow",
+      "pinned_tag": "4.3.1",
+      "pinned_commit": "c7b559a1fa3aba57ca6dba0ab336841c5038a782",
+      "tree_sha": "09ef226dec750308a6d2e8819487432a61b43aa4",
+      "commit_date": "2026-08-08T10:26:10-04:00",
+      "license_spdx": "MIT",
+      "content_committed": false,
+      "reason": "sealed split: keep content and families out of the public manifest"
+    }
+  },
+  "families": [
+    {
+      "family_id": "v3-train-click-001",
+      "kind": "real",
+      "split": "train",
+      "released": true,
+      "repo": "click",
+      "upstream_slug": "pallets/click",
+      "pinned_revision": "8b19813f2bfca99f1018a587a8cf54fc959f2e5d",
+      "license": {
+        "spdx": "BSD-3-Clause",
+        "license_file": "LICENSE.txt",
+        "license_file_sha256": "757302fe7c41e7026fa46d3315ea8604ed5295fc95c2256d9b38adac43f6fbe5"
+      },
+      "base_commit": "c2c2bacddc1d625e9a0f606f227f356df9d2b172",
+      "oracle_fix_commit": "9da1791476fe79ce77aa7a2a2db370c91a455251",
+      "oracle_patch_sha256": "d1b919b239256026fb5e5e54f6195a055992599bb201b10aaf5fb330f1e0aa5c",
+      "fix_date": "2015-03-31T12:00:12+02:00",
+      "upstream_subject": "Error on nargs=-1 for options.  This fixes #222",
+      "upstream_issue_refs": [
+        "222"
+      ],
+      "symptom_restatement": "An option declared with nargs=-1 accepts a value list whose length is not validated, so a CLI definition that is internally inconsistent is accepted at construction time and only misbehaves later. The task is to make the option constructor reject the unsupported nargs value eagerly with a clear error instead of silently building a broken parameter.",
+      "failure_mechanism": "missing eager validation in the option/parameter constructor path",
+      "touched_files": [
+        {
+          "path": "CHANGES",
+          "kind": "source",
+          "role": "other",
+          "status_at_fix": "modified",
+          "added": 1,
+          "deleted": 0,
+          "sha256_at_base": "928f77fc334ed816d02c760a4eb0e4b9c97b6c6109e075f523260e19d4b0fbfe",
+          "sha256_at_fix": "f677fcb5a40ee94dbf57ec70cb0567304bb92eb5702c7fa32752ec49f1fc448e"
+        },
+        {
+          "path": "click/core.py",
+          "kind": "source",
+          "role": "code",
+          "status_at_fix": "modified",
+          "added": 2,
+          "deleted": 0,
+          "sha256_at_base": "b6913fd2e5cbcf70431f24067e6189bcec51cdb266bc7c163926261e159509c7",
+          "sha256_at_fix": "45b1054706d3d60731d41cb4e420e9efc5640cd8fd58c3bb13c6331f8de58906"
+        },
+        {
+          "path": "tests/test_arguments.py",
+          "kind": "test",
+          "role": "test",
+          "status_at_fix": "modified",
+          "added": 2,
+          "deleted": 2,
+          "sha256_at_base": "43cc5877eefa53c35c0509a92b30bbc573a3ffbc155d16a40676e0f91dfba8f9",
+          "sha256_at_fix": "763ed7ec8cf37ac3a6a050c82a4f68880a0fe409c0ae426d5ef532a3a1e60afe"
+        },
+        {
+          "path": "tests/test_options.py",
+          "kind": "test",
+          "role": "test",
+          "status_at_fix": "modified",
+          "added": 12,
+          "deleted": 0,
+          "sha256_at_base": "39f7d31438a91bd0121e7d2237cb766f351edc8de9c21de1918814d9baec6e69",
+          "sha256_at_fix": "f938f32871edd1ca492c5d516147cf1462180139b18fe0d2582b83ec9f58df6b"
+        }
+      ],
+      "fail_to_pass": [
+        {
+          "node_id": "tests/test_options.py::test_invalid_nargs",
+          "present_at_base": false,
+          "present_at_fix": true,
+          "test_added_by_fix": true
+        }
+      ],
+      "regression_watch": [
+        "tests/test_arguments.py",
+        "tests/test_options.py"
+      ],
+      "oracle_split": {
+        "test_patch_sha256": "8d00cb78f84b1b4ae66de1697f965a5e48b4873bd9a004f704cbce7e1bd4609f",
+        "test_patch_files": [
+          "tests/test_arguments.py",
+          "tests/test_options.py"
+        ],
+        "test_patch_bytes": 1377,
+        "upstream_reference_patch_sha256": "775f8bb96a1647d56c23bfb61865384ce515b533c353da1ce5cbeb4f1f4c20b4",
+        "upstream_reference_patch_files": [
+          "CHANGES",
+          "click/core.py"
+        ],
+        "upstream_reference_patch_bytes": 964,
+        "code_only_patch_sha256": "b966419dcaa0680b01b2ba1f16639708d40f66262618d05bbd6267f9b33823bf",
+        "code_only_patch_files": [
+          "click/core.py"
+        ],
+        "code_only_patch_bytes": 549,
+        "which_patch_is_the_minimal_oracle": "code_only: the upstream commit also edits CI and changelog material, which is not needed to make the fail_to_pass nodes pass and must not be counted as part of the required fix",
+        "apply_test_patch_to_base": "git apply the test patch onto base_commit, run the fail_to_pass nodes, expect failure",
+        "apply_both_then_run": "apply the test patch and the code-only patch onto base_commit, run the fail_to_pass nodes, expect pass",
+        "gold_patch_must_not_reach_actor": true
+      },
+      "runtime_verified": false,
+      "env": {
+        "requires_python": ">=3.10",
+        "runtime_dependencies": [],
+        "test_runner": "pytest (node ids above are pytest node ids)",
+        "packaging_metadata_files": [
+          "pyproject.toml"
+        ]
+      },
+      "checks": {
+        "fix_commit_resolved": true,
+        "base_commit_resolved": true,
+        "base_is_parent_of_fix": true,
+        "patch_hash_present": true,
+        "touched_files_hashed_at_fix": true,
+        "modified_files_hashed_at_base": true,
+        "has_test_file": true,
+        "has_source_file": true,
+        "source_file_actually_changed": true,
+        "f2p_non_empty": true,
+        "f2p_absent_at_base": true,
+        "oracle_split_both_halves_non_empty": true,
+        "code_only_oracle_patch_non_empty": true,
+        "in_train_window": true,
+        "license_approved": true
+      }
+    },
+    {
+      "family_id": "v3-train-more-itertools-001",
+      "kind": "real",
+      "split": "train",
+      "released": true,
+      "repo": "more-itertools",
+      "upstream_slug": "more-itertools/more-itertools",
+      "pinned_revision": "64be96ceb2a6e836f76f069f4a96d2394d59fd0c",
+      "license": {
+        "spdx": "MIT",
+        "license_file": "LICENSE",
+        "license_file_sha256": "2162b6b24a563bf763e00d507e650b2b07b0cd4646efa1e2f62fb99a19f7f85e"
+      },
+      "base_commit": "c0465331cbc0d882cd7dce5c0bd19aaf46dfb968",
+      "oracle_fix_commit": "62411c1618493f94b16901746c34e72ad415061e",
+      "oracle_patch_sha256": "7082e67503d2acb9bc2fae58181566b6e6820afcfd4385f7de38a16075db3b72",
+      "fix_date": "2020-03-30T00:05:42+03:00",
+      "upstream_subject": "Fix spy to make returned iterable immutable",
+      "upstream_issue_refs": [
+        "409"
+      ],
+      "symptom_restatement": "A helper that wraps an iterable and records what was consumed returns an object that callers can still mutate, so a consumer that appends to the returned container corrupts the recorded history. The task is to make the returned container reject mutation while keeping the read path unchanged.",
+      "failure_mechanism": "returned recording container is not immutable",
+      "touched_files": [
+        {
+          "path": "more_itertools/more.py",
+          "kind": "source",
+          "role": "code",
+          "status_at_fix": "modified",
+          "added": 1,
+          "deleted": 1,
+          "sha256_at_base": "29e6fe01e70916fface8dee8dfa231724f4967cc70455e0ae7a9d4b3f8479f2a",
+          "sha256_at_fix": "96f5b6e98aed32d5677576b6334f9231a742a02caf4dc96ef1e9ce17f1517a07"
+        },
+        {
+          "path": "tests/test_more.py",
+          "kind": "test",
+          "role": "test",
+          "status_at_fix": "modified",
+          "added": 9,
+          "deleted": 0,
+          "sha256_at_base": "e69f7993609a4c40b6ba247a073bb5f9013ea4c35bcb53c319436419322df189",
+          "sha256_at_fix": "36aab07057f066b93f825d5af8ea0b3b78e537ed8e7545c3a823462b56f8a7db"
+        }
+      ],
+      "fail_to_pass": [
+        {
+          "node_id": "tests/test_more.py::test_immutable",
+          "present_at_base": false,
+          "present_at_fix": true,
+          "test_added_by_fix": true
+        }
+      ],
+      "regression_watch": [
+        "tests/test_more.py"
+      ],
+      "oracle_split": {
+        "test_patch_sha256": "f91054df8485ad9a91f858ebe79566a89562cfe64e5e73cca679809e4762e2bc",
+        "test_patch_files": [
+          "tests/test_more.py"
+        ],
+        "test_patch_bytes": 659,
+        "upstream_reference_patch_sha256": "4eb64516f068c04d5967d10f9eee72c7dc9c4598f616641c98da107e28a688db",
+        "upstream_reference_patch_files": [
+          "more_itertools/more.py"
+        ],
+        "upstream_reference_patch_bytes": 352,
+        "code_only_patch_sha256": "4eb64516f068c04d5967d10f9eee72c7dc9c4598f616641c98da107e28a688db",
+        "code_only_patch_files": [
+          "more_itertools/more.py"
+        ],
+        "code_only_patch_bytes": 352,
+        "which_patch_is_the_minimal_oracle": "code_only: the upstream commit also edits CI and changelog material, which is not needed to make the fail_to_pass nodes pass and must not be counted as part of the required fix",
+        "apply_test_patch_to_base": "git apply the test patch onto base_commit, run the fail_to_pass nodes, expect failure",
+        "apply_both_then_run": "apply the test patch and the code-only patch onto base_commit, run the fail_to_pass nodes, expect pass",
+        "gold_patch_must_not_reach_actor": true
+      },
+      "runtime_verified": false,
+      "env": {
+        "requires_python": ">=3.10",
+        "runtime_dependencies": [],
+        "test_runner": "pytest (node ids above are pytest node ids)",
+        "packaging_metadata_files": [
+          "pyproject.toml",
+          "setup.cfg"
+        ]
+      },
+      "checks": {
+        "fix_commit_resolved": true,
+        "base_commit_resolved": true,
+        "base_is_parent_of_fix": true,
+        "patch_hash_present": true,
+        "touched_files_hashed_at_fix": true,
+        "modified_files_hashed_at_base": true,
+        "has_test_file": true,
+        "has_source_file": true,
+        "source_file_actually_changed": true,
+        "f2p_non_empty": true,
+        "f2p_absent_at_base": true,
+        "oracle_split_both_halves_non_empty": true,
+        "code_only_oracle_patch_non_empty": true,
+        "in_train_window": true,
+        "license_approved": true
+      }
+    },
+    {
+      "family_id": "v3-train-pluggy-001",
+      "kind": "real",
+      "split": "train",
+      "released": true,
+      "repo": "pluggy",
+      "upstream_slug": "pytest-dev/pluggy",
+      "pinned_revision": "fd08ab5f811a9b2fa9124ae8cbbd393221151e2c",
+      "license": {
+        "spdx": "MIT",
+        "license_file": "LICENSE",
+        "license_file_sha256": "de91589cbcc498cb36d3f979e39d4fb1ea1164d5331f6e0ea90a986525310d51"
+      },
+      "base_commit": "4ba6441e046ff9d0d2dbea5087c5bfd81cc37f5c",
+      "oracle_fix_commit": "9cf2eaa50dd1ad3ebf042978629e78c695197095",
+      "oracle_patch_sha256": "4552535722d46dc3efcae097e4f109b1b5cbe26a27f027ef836729ef743965d4",
+      "fix_date": "2024-11-03T15:39:53+01:00",
+      "upstream_subject": "fix #544: Correctly pass StopIteration trough wrappers",
+      "upstream_issue_refs": [
+        "544"
+      ],
+      "symptom_restatement": "When a hook implementation signals termination by raising StopIteration and the hook is wrapped, the wrapper teardown path turns the signal into a RuntimeError, so the caller sees a generic generator error instead of the original signal. The task is to make the wrapper teardown path resume with the original signal when the RuntimeError was caused by it, for both the modern and the legacy wrapper form.",
+      "failure_mechanism": "generator StopIteration converted to RuntimeError in teardown path",
+      "touched_files": [
+        {
+          "path": "changelog/544.bugfix.rst",
+          "kind": "source",
+          "role": "other",
+          "status_at_fix": "added",
+          "added": 6,
+          "deleted": 0,
+          "sha256_at_base": null,
+          "sha256_at_fix": "7e1ab5565d756dc0a4b7b1b29019be8da7a72d8c0ca69646e9e48576b6de8261"
+        },
+        {
+          "path": "src/pluggy/_callers.py",
+          "kind": "source",
+          "role": "code",
+          "status_at_fix": "modified",
+          "added": 26,
+          "deleted": 2,
+          "sha256_at_base": "e6340bf36f18a036f3ff455e8db16ef1f1012bf4de760de76a84be67086ee578",
+          "sha256_at_fix": "8a2f6ec159092c648a968300cf206f5773001087d40912ee70a473117aba8e4f"
+        },
+        {
+          "path": "testing/test_multicall.py",
+          "kind": "test",
+          "role": "test",
+          "status_at_fix": "modified",
+          "added": 30,
+          "deleted": 0,
+          "sha256_at_base": "c36d25882648ce2f680652d764f6a4e0edda87e428a0127ed8bcc5315e388451",
+          "sha256_at_fix": "cada7d57eafc80f8bca1afcd740d6536f5132d4a4f17604769a7d9e4c75e64fc"
+        }
+      ],
+      "fail_to_pass": [
+        {
+          "node_id": "testing/test_multicall.py::test_wrapper_stopiteration_passtrough[True]",
+          "present_at_base": false,
+          "present_at_fix": true,
+          "test_added_by_fix": true,
+          "derived_from_parametrize": true
+        },
+        {
+          "node_id": "testing/test_multicall.py::test_wrapper_stopiteration_passtrough[False]",
+          "present_at_base": false,
+          "present_at_fix": true,
+          "test_added_by_fix": true,
+          "derived_from_parametrize": true
+        }
+      ],
+      "regression_watch": [
+        "testing/test_multicall.py"
+      ],
+      "oracle_split": {
+        "test_patch_sha256": "92dc43bb4034d9c2e8ad484917608206831d5ef97e52a5531779ace774853a26",
+        "test_patch_files": [
+          "testing/test_multicall.py"
+        ],
+        "test_patch_bytes": 1058,
+        "upstream_reference_patch_sha256": "6fbd2149ae2139722135ea6dc65941a8d81481aa55552ea61a0393e8e24ac436",
+        "upstream_reference_patch_files": [
+          "changelog/544.bugfix.rst",
+          "src/pluggy/_callers.py"
+        ],
+        "upstream_reference_patch_bytes": 2911,
+        "code_only_patch_sha256": "ebce27ca93288f6ec5f7a20f8f4f2b2073db3b1154fcf9578cf3eb764f4a6b87",
+        "code_only_patch_files": [
+          "src/pluggy/_callers.py"
+        ],
+        "code_only_patch_bytes": 2386,
+        "which_patch_is_the_minimal_oracle": "code_only: the upstream commit also edits CI and changelog material, which is not needed to make the fail_to_pass nodes pass and must not be counted as part of the required fix",
+        "apply_test_patch_to_base": "git apply the test patch onto base_commit, run the fail_to_pass nodes, expect failure",
+        "apply_both_then_run": "apply the test patch and the code-only patch onto base_commit, run the fail_to_pass nodes, expect pass",
+        "gold_patch_must_not_reach_actor": true
+      },
+      "runtime_verified": false,
+      "env": {
+        "requires_python": ">=3.9",
+        "runtime_dependencies": [],
+        "test_runner": "pytest (node ids above are pytest node ids)",
+        "packaging_metadata_files": [
+          "pyproject.toml"
+        ]
+      },
+      "checks": {
+        "fix_commit_resolved": true,
+        "base_commit_resolved": true,
+        "base_is_parent_of_fix": true,
+        "patch_hash_present": true,
+        "touched_files_hashed_at_fix": true,
+        "modified_files_hashed_at_base": true,
+        "has_test_file": true,
+        "has_source_file": true,
+        "source_file_actually_changed": true,
+        "f2p_non_empty": true,
+        "f2p_absent_at_base": true,
+        "oracle_split_both_halves_non_empty": true,
+        "code_only_oracle_patch_non_empty": true,
+        "in_train_window": true,
+        "license_approved": true
+      }
+    },
+    {
+      "family_id": "v3-train-boltons-001",
+      "kind": "real",
+      "split": "train",
+      "released": true,
+      "repo": "boltons",
+      "upstream_slug": "mahmoud/boltons",
+      "pinned_revision": "4332b35a278d694f30c99881faa61cde695c7a96",
+      "license": {
+        "spdx": "BSD-3-Clause",
+        "license_file": "LICENSE",
+        "license_file_sha256": "c301912653a8d8c99eab6212aa3aea8d164ea249d8ad53c941e0558a0a5ac1e3"
+      },
+      "base_commit": "c9b3d2452e4ffe43920874f4f6f2e8fe425ebf00",
+      "oracle_fix_commit": "ae21ed2a78064ca1090db069e3f755aa1853b885",
+      "oracle_patch_sha256": "1f229d4d3a80e039ffca09d572afb27eac9dab90d859f35d68b0cd379ae9eec4",
+      "fix_date": "2015-04-19T00:21:19-07:00",
+      "upstream_subject": "Properly parse tracebacks with missing source.  Resolves #30",
+      "upstream_issue_refs": [
+        "30"
+      ],
+      "symptom_restatement": "Exception formatting fails when the frames referenced by a traceback have no retrievable source, for example for code compiled from a string, so printing the traceback raises instead of displaying it. The task is to make the formatter degrade gracefully for frameless/sourceless frames.",
+      "failure_mechanism": "source-unavailable frames not handled during formatting",
+      "touched_files": [
+        {
+          "path": ".travis.yml",
+          "kind": "source",
+          "role": "other",
+          "status_at_fix": "modified",
+          "added": 1,
+          "deleted": 1,
+          "sha256_at_base": "7867fb5f8605c506b3629930ddf70eaa1660dde34251089c753e5a22d0baf01b",
+          "sha256_at_fix": "a4bb62a2734e2f1e75052074f233ffee4303585d67264e833b656a79c7582160"
+        },
+        {
+          "path": "boltons/tbutils.py",
+          "kind": "source",
+          "role": "code",
+          "status_at_fix": "modified",
+          "added": 19,
+          "deleted": 7,
+          "sha256_at_base": "3a326b7fa3251366095c6ae8971fc1de71df02560928b166abd0fa1ded8ad8dc",
+          "sha256_at_fix": "0785d1281304b767524a0ac198d5d4a8d400222513df2c744fa2125cd5c2d26d"
+        },
+        {
+          "path": "tests/__init__.py",
+          "kind": "test",
+          "role": "test",
+          "status_at_fix": "added",
+          "added": 0,
+          "deleted": 0,
+          "sha256_at_base": null,
+          "sha256_at_fix": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        {
+          "path": "tests/tbutils_test.py",
+          "kind": "test",
+          "role": "test",
+          "status_at_fix": "added",
+          "added": 44,
+          "deleted": 0,
+          "sha256_at_base": null,
+          "sha256_at_fix": "3f6bde83a4b2fbc55c6fa248066e7ac485d28c3d86c31fd983e485ae9b4cb99d"
+        },
+        {
+          "path": "tox.ini",
+          "kind": "source",
+          "role": "other",
+          "status_at_fix": "modified",
+          "added": 1,
+          "deleted": 1,
+          "sha256_at_base": "33808f3e31e901f47044e7b3e9ae3fed0b35a56e8514f4b0903d184f38b08b87",
+          "sha256_at_fix": "badbfad1c6129e5f1d51fc48baece86c7744b3c9883e49335d3b55db8cd26d6b"
+        }
+      ],
+      "fail_to_pass": [
+        {
+          "node_id": "tests/tbutils_test.py::test_eval_tb",
+          "present_at_base": false,
+          "present_at_fix": true,
+          "test_added_by_fix": true
+        },
+        {
+          "node_id": "tests/tbutils_test.py::test_normal_tb",
+          "present_at_base": false,
+          "present_at_fix": true,
+          "test_added_by_fix": true
+        }
+      ],
+      "regression_watch": [],
+      "oracle_split": {
+        "test_patch_sha256": "d09e64450316a4763a3ad37843a704549f204e7ab69af5347cc5b4d8c0f9dbef",
+        "test_patch_files": [
+          "tests/__init__.py",
+          "tests/tbutils_test.py"
+        ],
+        "test_patch_bytes": 1537,
+        "upstream_reference_patch_sha256": "58e74474bf42418633dc54b0538b61a61477f99b44ff4e2af8b9c245075d64a3",
+        "upstream_reference_patch_files": [
+          ".travis.yml",
+          "boltons/tbutils.py",
+          "tox.ini"
+        ],
+        "upstream_reference_patch_bytes": 2597,
+        "code_only_patch_sha256": "3ec6d3051372dfa724f0ad874298b45886183b8499a79378bd63fc1371748668",
+        "code_only_patch_files": [
+          "boltons/tbutils.py"
+        ],
+        "code_only_patch_bytes": 2037,
+        "which_patch_is_the_minimal_oracle": "code_only: the upstream commit also edits CI and changelog material, which is not needed to make the fail_to_pass nodes pass and must not be counted as part of the required fix",
+        "apply_test_patch_to_base": "git apply the test patch onto base_commit, run the fail_to_pass nodes, expect failure",
+        "apply_both_then_run": "apply the test patch and the code-only patch onto base_commit, run the fail_to_pass nodes, expect pass",
+        "gold_patch_must_not_reach_actor": true
+      },
+      "runtime_verified": false,
+      "env": {
+        "requires_python": ">=3.7",
+        "runtime_dependencies": [],
+        "test_runner": "pytest (node ids above are pytest node ids)",
+        "packaging_metadata_files": [
+          "pyproject.toml",
+          "setup.cfg"
+        ]
+      },
+      "checks": {
+        "fix_commit_resolved": true,
+        "base_commit_resolved": true,
+        "base_is_parent_of_fix": true,
+        "patch_hash_present": true,
+        "touched_files_hashed_at_fix": true,
+        "modified_files_hashed_at_base": true,
+        "has_test_file": true,
+        "has_source_file": true,
+        "source_file_actually_changed": true,
+        "f2p_non_empty": true,
+        "f2p_absent_at_base": true,
+        "oracle_split_both_halves_non_empty": true,
+        "code_only_oracle_patch_non_empty": true,
+        "in_train_window": true,
+        "license_approved": true
+      }
+    },
+    {
+      "family_id": "v3-train-click-001-var-rename",
+      "kind": "variant",
+      "split": "train",
+      "released": false,
+      "release_blocker": "variant commit does not exist yet: it must be constructed by the coding officer; only the upstream source base is pinned, so no empty SHA is ever published as an example",
+      "repo": "click",
+      "upstream_slug": "pallets/click",
+      "derived_from": "v3-train-click-001",
+      "mutation_class": "symbol-rename",
+      "mutation_recipe": "On top of the real family's base_commit, commit a pure identifier rename of the validation helper and of the public parameter class attribute used by the fix (no behaviour change). Re-express the task text against the renamed API.",
+      "rationale": "Blocks solutions that hard-code the upstream symbol name or replay the upstream patch textually; the agent must re-locate the code.",
+      "expected_patch_shape": {
+        "files": 2,
+        "hunks": 2
+      },
+      "source_base_commit": "c2c2bacddc1d625e9a0f606f227f356df9d2b172",
+      "source_base_date": "2015-03-31T12:00:07+02:00",
+      "source_base_released": true,
+      "variant_commit": null,
+      "oracle_fix_commit": null,
+      "license": {
+        "spdx": "BSD-3-Clause",
+        "license_file": "LICENSE.txt",
+        "license_file_sha256": "757302fe7c41e7026fa46d3315ea8604ed5295fc95c2256d9b38adac43f6fbe5"
+      }
+    },
+    {
+      "family_id": "v3-train-more-itertools-001-var-api",
+      "kind": "variant",
+      "split": "train",
+      "released": false,
+      "release_blocker": "variant commit does not exist yet: it must be constructed by the coding officer; only the upstream source base is pinned, so no empty SHA is ever published as an example",
+      "repo": "more-itertools",
+      "upstream_slug": "more-itertools/more-itertools",
+      "derived_from": "v3-train-more-itertools-001",
+      "mutation_class": "public-api-change",
+      "mutation_recipe": "On top of the real family's base_commit, move the recording helper into a submodule and expose it under a new public name with a thin alias, then re-target the task text and the test import at the new name.",
+      "rationale": "Tests whether the patch follows behaviour rather than a remembered import path, and exercises multi-file patch assembly.",
+      "expected_patch_shape": {
+        "files": 3,
+        "hunks": 3
+      },
+      "source_base_commit": "c0465331cbc0d882cd7dce5c0bd19aaf46dfb968",
+      "source_base_date": "2020-03-29T14:28:44-05:00",
+      "source_base_released": true,
+      "variant_commit": null,
+      "oracle_fix_commit": null,
+      "license": {
+        "spdx": "MIT",
+        "license_file": "LICENSE",
+        "license_file_sha256": "2162b6b24a563bf763e00d507e650b2b07b0cd4646efa1e2f62fb99a19f7f85e"
+      }
+    },
+    {
+      "family_id": "v3-train-pluggy-001-var-backport",
+      "kind": "variant",
+      "split": "train",
+      "released": false,
+      "release_blocker": "variant commit does not exist yet: it must be constructed by the coding officer; only the upstream source base is pinned, so no empty SHA is ever published as an example",
+      "repo": "pluggy",
+      "upstream_slug": "pytest-dev/pluggy",
+      "derived_from": "v3-train-pluggy-001",
+      "mutation_class": "backport",
+      "mutation_recipe": "Forward-port the real family's defect onto the pinned 1.6.0 revision: at the pinned revision remove the neutral-value branch introduced by the fix while keeping the later surrounding refactor, then author the task text against the modern layout.",
+      "rationale": "The upstream patch does not apply and the surrounding code differs, so the agent must re-derive the fix in an evolved codebase.",
+      "expected_patch_shape": {
+        "files": 2,
+        "hunks": 2
+      },
+      "source_base_commit": "fd08ab5f811a9b2fa9124ae8cbbd393221151e2c",
+      "source_base_date": "2025-05-15T10:14:23+02:00",
+      "source_base_released": true,
+      "variant_commit": null,
+      "oracle_fix_commit": null,
+      "license": {
+        "spdx": "MIT",
+        "license_file": "LICENSE",
+        "license_file_sha256": "de91589cbcc498cb36d3f979e39d4fb1ea1164d5331f6e0ea90a986525310d51"
+      }
+    },
+    {
+      "family_id": "v3-train-boltons-001-var-multidefect",
+      "kind": "variant",
+      "split": "train",
+      "released": false,
+      "release_blocker": "variant commit does not exist yet: it must be constructed by the coding officer; only the upstream source base is pinned, so no empty SHA is ever published as an example",
+      "repo": "boltons",
+      "upstream_slug": "mahmoud/boltons",
+      "derived_from": "v3-train-boltons-001",
+      "mutation_class": "multi-defect-split",
+      "mutation_recipe": "Split the real family's single fix into two independently observable defects on the same base_commit (one in the frame-lookup path, one in the rendering path), requiring a two-part patch before the reporting test passes.",
+      "rationale": "Forces a repair that spans more than one function and rewards recovery after a partial patch, matching the patch/verification and recovery supervision buckets.",
+      "expected_patch_shape": {
+        "files": 2,
+        "hunks": 3
+      },
+      "source_base_commit": "c9b3d2452e4ffe43920874f4f6f2e8fe425ebf00",
+      "source_base_date": "2015-04-16T03:02:15-07:00",
+      "source_base_released": true,
+      "variant_commit": null,
+      "oracle_fix_commit": null,
+      "license": {
+        "spdx": "BSD-3-Clause",
+        "license_file": "LICENSE",
+        "license_file_sha256": "c301912653a8d8c99eab6212aa3aea8d164ea249d8ad53c941e0558a0a5ac1e3"
+      }
+    }
+  ],
+  "time_isolation": {
+    "axis_order": [
+      "1. repository family -> split role (fixed by the integrated review)",
+      "2. defect family within the repository (issue / PR / backport / variant)",
+      "3. time window, evaluated last: a family may only be used by the split whose window contains its fix date"
+    ],
+    "windows": {
+      "train": {
+        "end_exclusive": "2025-01-01T00:00:00+00:00",
+        "start": null
+      },
+      "dev": {
+        "start": "2025-01-01T00:00:00+00:00",
+        "end_exclusive": "2026-01-01T00:00:00+00:00"
+      },
+      "sealed": {
+        "start": "2026-01-01T00:00:00+00:00",
+        "end_exclusive": null
+      }
+    },
+    "enforcement": "The three windows are disjoint and ordered train < dev < sealed, so a dev or sealed family is always strictly later than every train family. A candidate whose fix date falls in the dev or sealed window can never be downgraded into train, which is what makes the split time-isolated rather than merely repository-separated."
+  },
+  "license_approvals": {
+    "click": {
+      "spdx": "BSD-3-Clause",
+      "approval": "approved",
+      "basis": "OSI permissive (MIT / BSD-2 / BSD-3 / Apache-2.0); no copyleft, no non-commercial and no research-only clause found in the licence files",
+      "primary_license_file": {
+        "path": "LICENSE.txt",
+        "sha256": "757302fe7c41e7026fa46d3315ea8604ed5295fc95c2256d9b38adac43f6fbe5",
+        "bytes": 1503
+      },
+      "all_license_files": [
+        {
+          "path": "LICENSE.txt",
+          "sha256": "757302fe7c41e7026fa46d3315ea8604ed5295fc95c2256d9b38adac43f6fbe5",
+          "bytes": 1503
+        },
+        {
+          "path": "docs/license.md",
+          "sha256": "286d2b7be5eed212651f48d1402eaab4f2f7ee6d3678eb6023a5db1a34253ac3",
+          "bytes": 93
+        }
+      ],
+      "declared_in_packaging_metadata": {
+        "pyproject.toml": {
+          "sha256": "6cca567eef4004426c3a42a94de7ef6b971992f1d7292faea3a17dd322d92717",
+          "declared": [
+            "\"BSD-3-Clause\"",
+            "[\"LICENSE.txt\"]"
+          ]
+        }
+      },
+      "per_file_scan": {
+        "text_files_scanned": 145,
+        "spdx_headers_found": [],
+        "method": "d0/collect_licenses.py; see per-file-ledger.csv for every file"
+      }
+    },
+    "more-itertools": {
+      "spdx": "MIT",
+      "approval": "approved",
+      "basis": "OSI permissive (MIT / BSD-2 / BSD-3 / Apache-2.0); no copyleft, no non-commercial and no research-only clause found in the licence files",
+      "primary_license_file": {
+        "path": "LICENSE",
+        "sha256": "2162b6b24a563bf763e00d507e650b2b07b0cd4646efa1e2f62fb99a19f7f85e",
+        "bytes": 1072
+      },
+      "all_license_files": [
+        {
+          "path": "LICENSE",
+          "sha256": "2162b6b24a563bf763e00d507e650b2b07b0cd4646efa1e2f62fb99a19f7f85e",
+          "bytes": 1072
+        },
+        {
+          "path": "docs/license.rst",
+          "sha256": "d906e41ab18d96819dec02e364367bad5699716b7723d1b483c9f16e87dca156",
+          "bytes": 662
+        }
+      ],
+      "declared_in_packaging_metadata": {
+        "pyproject.toml": {
+          "sha256": "9f42e75e2409e8d09cf57e1f575130a6084f49de570d847bb9cae7813485af52",
+          "declared": [
+            "\"MIT\"",
+            "[\"LICENSE\"]"
+          ]
+        },
+        "setup.cfg": {
+          "sha256": "309de2d8409ea9c61b8cd1509a70ef7727184a549f8bd86562fd7ff8ff74b67f"
+        }
+      },
+      "per_file_scan": {
+        "text_files_scanned": 33,
+        "spdx_headers_found": [],
+        "method": "d0/collect_licenses.py; see per-file-ledger.csv for every file"
+      }
+    },
+    "pluggy": {
+      "spdx": "MIT",
+      "approval": "approved",
+      "basis": "OSI permissive (MIT / BSD-2 / BSD-3 / Apache-2.0); no copyleft, no non-commercial and no research-only clause found in the licence files",
+      "primary_license_file": {
+        "path": "LICENSE",
+        "sha256": "de91589cbcc498cb36d3f979e39d4fb1ea1164d5331f6e0ea90a986525310d51",
+        "bytes": 1131
+      },
+      "all_license_files": [
+        {
+          "path": "LICENSE",
+          "sha256": "de91589cbcc498cb36d3f979e39d4fb1ea1164d5331f6e0ea90a986525310d51",
+          "bytes": 1131
+        }
+      ],
+      "declared_in_packaging_metadata": {
+        "pyproject.toml": {
+          "sha256": "a80661d4d18b92dba406d0df5c9e886d2bceb0d283314ed244aaf0c161a35e2b",
+          "classifiers": [
+            "License :: OSI Approved :: MIT License"
+          ],
+          "declared": [
+            "{text = \"MIT\"}",
+            "{text = \"MIT\"}"
+          ]
+        }
+      },
+      "per_file_scan": {
+        "text_files_scanned": 56,
+        "spdx_headers_found": [],
+        "method": "d0/collect_licenses.py; see per-file-ledger.csv for every file"
+      }
+    },
+    "boltons": {
+      "spdx": "BSD-3-Clause",
+      "approval": "approved",
+      "basis": "OSI permissive (MIT / BSD-2 / BSD-3 / Apache-2.0); no copyleft, no non-commercial and no research-only clause found in the licence files",
+      "primary_license_file": {
+        "path": "LICENSE",
+        "sha256": "c301912653a8d8c99eab6212aa3aea8d164ea249d8ad53c941e0558a0a5ac1e3",
+        "bytes": 1497
+      },
+      "all_license_files": [
+        {
+          "path": "LICENSE",
+          "sha256": "c301912653a8d8c99eab6212aa3aea8d164ea249d8ad53c941e0558a0a5ac1e3",
+          "bytes": 1497
+        }
+      ],
+      "declared_in_packaging_metadata": {
+        "pyproject.toml": {
+          "sha256": "23d689cf1d468c6af6442869eb7483402aaea8b3cabdbfb2d7aa9df3a293aa04",
+          "classifiers": [
+            "License :: OSI Approved :: BSD License"
+          ],
+          "declared": [
+            "{ file = \"LICENSE\" }",
+            "{file = \"LICENSE\"}"
+          ]
+        },
+        "setup.cfg": {
+          "sha256": "4024bbca7672ce6a9cebfee0e4cd4017582ca0787dc1f603e859cd9c861147ac",
+          "declared": [
+            "LICENSE"
+          ]
+        }
+      },
+      "per_file_scan": {
+        "text_files_scanned": 108,
+        "spdx_headers_found": [],
+        "method": "d0/collect_licenses.py; see per-file-ledger.csv for every file"
+      }
+    },
+    "attrs": {
+      "spdx": "MIT",
+      "approval": "approved",
+      "basis": "OSI permissive (MIT / BSD-2 / BSD-3 / Apache-2.0); no copyleft, no non-commercial and no research-only clause found in the licence files",
+      "primary_license_file": {
+        "path": "LICENSE",
+        "sha256": "882115c95dfc2af1eeb6714f8ec6d5cbcabf667caff8729f42420da63f714e9f",
+        "bytes": 1109
+      },
+      "all_license_files": [
+        {
+          "path": "LICENSE",
+          "sha256": "882115c95dfc2af1eeb6714f8ec6d5cbcabf667caff8729f42420da63f714e9f",
+          "bytes": 1109
+        },
+        {
+          "path": "docs/license.md",
+          "sha256": "b26415d5042a70fcc29edc17112f68311aa09935290a208218d4930d9b571a7a",
+          "bytes": 1289
+        }
+      ],
+      "declared_in_packaging_metadata": {
+        "pyproject.toml": {
+          "sha256": "bc6014ed6ff2b19a6a55adf19438ffc4339876d362083953474bceb453e13f30",
+          "declared": [
+            "\"MIT\"",
+            "[\"LICENSE\"]"
+          ]
+        }
+      },
+      "per_file_scan": {
+        "text_files_scanned": 104,
+        "spdx_headers_found": [
+          "MIT"
+        ],
+        "method": "d0/collect_licenses.py; see per-file-ledger.csv for every file"
+      }
+    },
+    "dateutil": {
+      "spdx": "Apache-2.0 OR BSD-3-Clause",
+      "approval": "approved",
+      "basis": "OSI permissive (MIT / BSD-2 / BSD-3 / Apache-2.0); no copyleft, no non-commercial and no research-only clause found in the licence files",
+      "primary_license_file": {
+        "path": "LICENSE",
+        "sha256": "aedc1c280bcc065a11e10ed8008317c3e91a7371dcae51cc52971243f2577d64",
+        "bytes": 2942
+      },
+      "all_license_files": [
+        {
+          "path": "AUTHORS.md",
+          "sha256": "6a548b9a9d6b36e57c8bac5933357d6eacff0540c1dd2eaf265d916ae9ca2102",
+          "bytes": 6788
+        },
+        {
+          "path": "LICENSE",
+          "sha256": "aedc1c280bcc065a11e10ed8008317c3e91a7371dcae51cc52971243f2577d64",
+          "bytes": 2942
+        }
+      ],
+      "declared_in_packaging_metadata": {
+        "pyproject.toml": {
+          "sha256": "b6c5fc27de62a10cfd72623e2abf71cfb9c458b9b005fd1a72678fb02484f168"
+        },
+        "setup.cfg": {
+          "sha256": "a71204afa83fdc09e7377952cfdaadc4cb23bc24f2dc237663444e0e2c40ad0c",
+          "classifiers": [
+            "License :: OSI Approved :: Apache Software License",
+            "License :: OSI Approved :: BSD License"
+          ],
+          "declared": [
+            "Dual License"
+          ]
+        },
+        "setup.py": {
+          "sha256": "d94405eec2b79875768247834d9423acdab22488f499ebca957038b3ff2174c7"
+        }
+      },
+      "per_file_scan": {
+        "text_files_scanned": 77,
+        "spdx_headers_found": [],
+        "method": "d0/collect_licenses.py; see per-file-ledger.csv for every file"
+      }
+    },
+    "packaging": {
+      "spdx": "Apache-2.0 OR BSD-2-Clause",
+      "approval": "approved",
+      "basis": "OSI permissive (MIT / BSD-2 / BSD-3 / Apache-2.0); no copyleft, no non-commercial and no research-only clause found in the licence files",
+      "primary_license_file": {
+        "path": "LICENSE",
+        "sha256": "8ef81e4c883c5ccb2a08026cc74ba3193279dd5149b36839d976c0a896637d87",
+        "bytes": 200
+      },
+      "all_license_files": [
+        {
+          "path": "LICENSE",
+          "sha256": "8ef81e4c883c5ccb2a08026cc74ba3193279dd5149b36839d976c0a896637d87",
+          "bytes": 200
+        },
+        {
+          "path": "LICENSE.APACHE",
+          "sha256": "eb3d7b5485466acbd81f2b496f595ab637d2792e268206b27d99e793bdb67549",
+          "bytes": 10351
+        },
+        {
+          "path": "LICENSE.BSD",
+          "sha256": "67daf15b478dbd91bcd83bff907efff68471d42d2138226b89f039d658d53435",
+          "bytes": 1367
+        }
+      ],
+      "declared_in_packaging_metadata": {
+        "pyproject.toml": {
+          "sha256": "8497e780f8cb36c109fb25dd26e2981086cd5964074e017f03d36bb1f2fe5e9a",
+          "declared": [
+            "\"Apache-2.0 OR BSD-2-Clause\""
+          ]
+        }
+      },
+      "per_file_scan": {
+        "text_files_scanned": 118,
+        "spdx_headers_found": [],
+        "method": "d0/collect_licenses.py; see per-file-ledger.csv for every file"
+      }
+    },
+    "marshmallow": {
+      "spdx": "MIT",
+      "approval": "approved",
+      "basis": "OSI permissive (MIT / BSD-2 / BSD-3 / Apache-2.0); no copyleft, no non-commercial and no research-only clause found in the licence files",
+      "primary_license_file": {
+        "path": "LICENSE",
+        "sha256": "dec8462f60a3ae3934ec12483514f012af9649b2e5476064fc5647d949cdb60d",
+        "bytes": 1083
+      },
+      "all_license_files": [
+        {
+          "path": "AUTHORS.rst",
+          "sha256": "b585a0524e7961defcaeb0d013616e60ea17fddefb24b19d8b0f59928479746a",
+          "bytes": 10943
+        },
+        {
+          "path": "LICENSE",
+          "sha256": "dec8462f60a3ae3934ec12483514f012af9649b2e5476064fc5647d949cdb60d",
+          "bytes": 1083
+        },
+        {
+          "path": "NOTICE",
+          "sha256": "d67ae34aacd8d5bea962ae34e853e581311be2b5a12259dc5b3804c5b21658c1",
+          "bytes": 1663
+        },
+        {
+          "path": "docs/authors.rst",
+          "sha256": "585abb1a1d4e26cf2add13be364fb6128a8fccb65eab6710b7f7b97b9033b0fb",
+          "bytes": 29
+        },
+        {
+          "path": "docs/license.rst",
+          "sha256": "91654619aa076c353aac303791252fd0eae6018faec63c3900e1885042a4bf96",
+          "bytes": 52
+        }
+      ],
+      "declared_in_packaging_metadata": {
+        "pyproject.toml": {
+          "sha256": "910e50b6b99851b58d62ec3c1f473197f05f001424b05e4ec15a5244da6e8880",
+          "declared": [
+            "\"MIT\""
+          ]
+        }
+      },
+      "per_file_scan": {
+        "text_files_scanned": 91,
+        "spdx_headers_found": [],
+        "method": "d0/collect_licenses.py; see per-file-ledger.csv for every file"
+      }
+    }
+  }
+}

@@ -1,0 +1,64 @@
+{
+  "p0": {
+    "requirement": "8 training families = 4 real + 4 variant from >= 2 repositories",
+    "real_families_released": 4,
+    "variant_specs_ready": 4,
+    "variant_commits_built": 0,
+    "repositories_covered": [
+      "boltons",
+      "click",
+      "more-itertools",
+      "pluggy"
+    ],
+    "verdict": "real half MET (4/4 released, 4 repositories >= 2); variant half has 4/4 specifications but zero constructed commits, so the variant half is specification-complete and construction-pending"
+  },
+  "p1_headroom": {
+    "requirement": "train split of 96 families = 24 real + 40 variant",
+    "raw_candidates_in_train_window": 102,
+    "per_repo": {
+      "click": 48,
+      "more-itertools": 6,
+      "pluggy": 16,
+      "boltons": 32
+    },
+    "assessment": "102 raw candidates against a need for 24 real families is nominal headroom of about 4x, but qualification is unproven for any of them: each still needs a verifier run, an actor-reachability check and a bounded test patch. Do not read 102 as 24 usable.",
+    "weakest_repo": "more-itertools (6 raw candidates) -- thin if it must carry a share"
+  },
+  "blocking_gaps": [],
+  "non_blocking_gaps": [
+    {
+      "gap": "dateutil cannot carry dev families at the pinned revision under the time rule",
+      "evidence": "2024-02-29T22:38:37-05:00 < 2025-01-01T00:00:00+00:00",
+      "options": [
+        "drop it from the dev role and let attrs/packaging/marshmallow carry that split",
+        "or re-pin it to a later revision and redo the per-file licence ledger",
+        "or (only if the split rule is relaxed) keep it and record that this split is repository-separated but not time-separated"
+      ],
+      "owner": "needs a decision from Mika / the custodian, not taken here"
+    },
+    {
+      "gap": "dev and sealed family inventories were not enumerated in D0",
+      "evidence": "D0's mandate is the P0 training set; the dev/sealed repositories were fetched at depth 1 only, so no defect-family history was mined for them",
+      "options": [
+        "a follow-up deepening pass before P1 data production"
+      ],
+      "owner": "D0 follow-up"
+    },
+    {
+      "gap": "no FAIL_TO_PASS run was executed",
+      "evidence": "the research runtime has no reachable package index, so pytest could not be installed; every oracle field here is static evidence",
+      "options": [
+        "E0 builds the environment and runs the four oracles as its T0 deliverable"
+      ],
+      "owner": "E0 (coding officer)"
+    },
+    {
+      "gap": "licence of the upstream issue/PR *prose* was not cleared",
+      "evidence": "the eight repositories are code-licensed; a report body or comment thread is a separate work. The design already requires rewritten task text, and this ledger copies no prose, so nothing is blocked -- but the rewritten text must be reviewed as original writing",
+      "options": [
+        "keep the rewrite policy; have Q0 spot-check the task texts for paraphrase"
+      ],
+      "owner": "Q0"
+    }
+  ]
+}

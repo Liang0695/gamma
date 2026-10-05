@@ -1,0 +1,164 @@
+{
+  "rule": {
+    "axis_order": [
+      "1. repository family -> split role (fixed by the integrated review)",
+      "2. defect family within the repository (issue / PR / backport / variant)",
+      "3. time window, evaluated last: a family may only be used by the split whose window contains its fix date"
+    ],
+    "windows": {
+      "train": {
+        "end_exclusive": "2025-01-01T00:00:00+00:00",
+        "start": null
+      },
+      "dev": {
+        "start": "2025-01-01T00:00:00+00:00",
+        "end_exclusive": "2026-01-01T00:00:00+00:00"
+      },
+      "sealed": {
+        "start": "2026-01-01T00:00:00+00:00",
+        "end_exclusive": null
+      }
+    },
+    "enforcement": "The three windows are disjoint and ordered train < dev < sealed, so a dev or sealed family is always strictly later than every train family. A candidate whose fix date falls in the dev or sealed window can never be downgraded into train, which is what makes the split time-isolated rather than merely repository-separated."
+  },
+  "source_level_split": {
+    "click": {
+      "role": "train",
+      "pinned_tag": "8.5.0",
+      "pinned_commit": "8b19813f2bfca99f1018a587a8cf54fc959f2e5d",
+      "tree_sha": "2955d48825c98fd7dcbc60eb41cf18a952a2c0a3",
+      "pinned_commit_date": "2026-08-21T21:31:25-07:00",
+      "license_spdx": "BSD-3-Clause"
+    },
+    "more-itertools": {
+      "role": "train",
+      "pinned_tag": "v11.1.0",
+      "pinned_commit": "64be96ceb2a6e836f76f069f4a96d2394d59fd0c",
+      "tree_sha": "f7409b66b75d5649b9fc6414114f8035362f9fcf",
+      "pinned_commit_date": "2026-05-22T09:12:03-05:00",
+      "license_spdx": "MIT"
+    },
+    "pluggy": {
+      "role": "train",
+      "pinned_tag": "1.6.0",
+      "pinned_commit": "fd08ab5f811a9b2fa9124ae8cbbd393221151e2c",
+      "tree_sha": "d3aac17eab19c9e8f6f6358ad2dcaec02d734020",
+      "pinned_commit_date": "2025-05-15T10:14:23+02:00",
+      "license_spdx": "MIT"
+    },
+    "boltons": {
+      "role": "train",
+      "pinned_tag": "26.2.0",
+      "pinned_commit": "4332b35a278d694f30c99881faa61cde695c7a96",
+      "tree_sha": "d12eba4fbaf37aaf17713e5b202f706d2a53f706",
+      "pinned_commit_date": "2026-09-07T03:42:05-07:00",
+      "license_spdx": "BSD-3-Clause"
+    },
+    "attrs": {
+      "role": "dev",
+      "pinned_tag": "26.1.0",
+      "pinned_commit": "7bfc49e9b22d5ba25b6e429524c3d49fee27cb36",
+      "tree_sha": "31beb3550ee7198eba22b862471ad6ea7bfb16d2",
+      "pinned_commit_date": "2026-03-19T10:06:02-04:00",
+      "license_spdx": "MIT"
+    },
+    "dateutil": {
+      "role": "dev",
+      "pinned_tag": "2.9.0",
+      "pinned_commit": "db9d018944c41ddc740015cf5f64717c2ba64a5c",
+      "tree_sha": "c34b52d7ba16d26f857bfb3be818d9098bd4f2b7",
+      "pinned_commit_date": "2024-02-29T22:38:37-05:00",
+      "license_spdx": "Apache-2.0 OR BSD-3-Clause"
+    },
+    "packaging": {
+      "role": "sealed",
+      "pinned_tag": "26.3",
+      "pinned_commit": "929fd4b1410ac7ef61ef3f45b2f5d7e87711a9b5",
+      "tree_sha": "8f42c06d439e9dad27445e8004695930eb99cca7",
+      "pinned_commit_date": "2026-08-03T15:55:21-04:00",
+      "license_spdx": "Apache-2.0 OR BSD-2-Clause"
+    },
+    "marshmallow": {
+      "role": "sealed",
+      "pinned_tag": "4.3.1",
+      "pinned_commit": "c7b559a1fa3aba57ca6dba0ab336841c5038a782",
+      "tree_sha": "09ef226dec750308a6d2e8819487432a61b43aa4",
+      "pinned_commit_date": "2026-08-08T10:26:10-04:00",
+      "license_spdx": "MIT"
+    }
+  },
+  "train_inventory": {
+    "click": {
+      "qualified_candidate_families_in_train_window": 48,
+      "oldest": "2014-05-02T10:32:53+01:00",
+      "newest": "2024-11-30T01:45:28+01:00",
+      "all_inside_train_window": true
+    },
+    "more-itertools": {
+      "qualified_candidate_families_in_train_window": 6,
+      "oldest": "2019-03-24T10:18:47+03:00",
+      "newest": "2024-05-29T16:39:12+03:00",
+      "all_inside_train_window": true
+    },
+    "pluggy": {
+      "qualified_candidate_families_in_train_window": 16,
+      "oldest": "2015-09-27T22:22:19-03:00",
+      "newest": "2024-11-03T15:39:53+01:00",
+      "all_inside_train_window": true
+    },
+    "boltons": {
+      "qualified_candidate_families_in_train_window": 32,
+      "oldest": "2015-04-19T00:21:19-07:00",
+      "newest": "2023-10-29T21:31:16-07:00",
+      "all_inside_train_window": true
+    }
+  },
+  "evidence": {
+    "train_candidate_total_in_window": 102,
+    "train_window_upper_bound_observed": "2024-11-30T01:45:28+01:00",
+    "chosen_real_families": [
+      {
+        "family_id": "v3-train-click-001",
+        "repo": "click",
+        "fix_date": "2015-03-31T12:00:12+02:00",
+        "inside_train_window": true,
+        "base_commit": "c2c2bacddc1d625e9a0f606f227f356df9d2b172",
+        "oracle_fix_commit": "9da1791476fe79ce77aa7a2a2db370c91a455251"
+      },
+      {
+        "family_id": "v3-train-more-itertools-001",
+        "repo": "more-itertools",
+        "fix_date": "2020-03-30T00:05:42+03:00",
+        "inside_train_window": true,
+        "base_commit": "c0465331cbc0d882cd7dce5c0bd19aaf46dfb968",
+        "oracle_fix_commit": "62411c1618493f94b16901746c34e72ad415061e"
+      },
+      {
+        "family_id": "v3-train-pluggy-001",
+        "repo": "pluggy",
+        "fix_date": "2024-11-03T15:39:53+01:00",
+        "inside_train_window": true,
+        "base_commit": "4ba6441e046ff9d0d2dbea5087c5bfd81cc37f5c",
+        "oracle_fix_commit": "9cf2eaa50dd1ad3ebf042978629e78c695197095"
+      },
+      {
+        "family_id": "v3-train-boltons-001",
+        "repo": "boltons",
+        "fix_date": "2015-04-19T00:21:19-07:00",
+        "inside_train_window": true,
+        "base_commit": "c9b3d2452e4ffe43920874f4f6f2e8fe425ebf00",
+        "oracle_fix_commit": "ae21ed2a78064ca1090db069e3f755aa1853b885"
+      }
+    ]
+  },
+  "open_items": [
+    {
+      "repo": "dateutil",
+      "role": "dev",
+      "pinned_revision_date": "2024-02-29T22:38:37-05:00",
+      "required_window_start": "2025-01-01T00:00:00+00:00",
+      "status": "cannot supply families in its window at the pinned revision",
+      "consequence": "any dev family drawn from this pinned revision would be older than 2025-01-01T00:00:00+00:00"
+    }
+  ]
+}

@@ -1,0 +1,111 @@
+{
+  "generated_by": "d0/collect_licenses.py",
+  "by_repo": {
+    "click": [
+      {
+        "path": "LICENSE.txt",
+        "sha256": "757302fe7c41e7026fa46d3315ea8604ed5295fc95c2256d9b38adac43f6fbe5",
+        "bytes": 1503
+      },
+      {
+        "path": "docs/license.md",
+        "sha256": "286d2b7be5eed212651f48d1402eaab4f2f7ee6d3678eb6023a5db1a34253ac3",
+        "bytes": 93
+      }
+    ],
+    "more-itertools": [
+      {
+        "path": "LICENSE",
+        "sha256": "2162b6b24a563bf763e00d507e650b2b07b0cd4646efa1e2f62fb99a19f7f85e",
+        "bytes": 1072
+      },
+      {
+        "path": "docs/license.rst",
+        "sha256": "d906e41ab18d96819dec02e364367bad5699716b7723d1b483c9f16e87dca156",
+        "bytes": 662
+      }
+    ],
+    "pluggy": [
+      {
+        "path": "LICENSE",
+        "sha256": "de91589cbcc498cb36d3f979e39d4fb1ea1164d5331f6e0ea90a986525310d51",
+        "bytes": 1131
+      }
+    ],
+    "boltons": [
+      {
+        "path": "LICENSE",
+        "sha256": "c301912653a8d8c99eab6212aa3aea8d164ea249d8ad53c941e0558a0a5ac1e3",
+        "bytes": 1497
+      }
+    ],
+    "attrs": [
+      {
+        "path": "LICENSE",
+        "sha256": "882115c95dfc2af1eeb6714f8ec6d5cbcabf667caff8729f42420da63f714e9f",
+        "bytes": 1109
+      },
+      {
+        "path": "docs/license.md",
+        "sha256": "b26415d5042a70fcc29edc17112f68311aa09935290a208218d4930d9b571a7a",
+        "bytes": 1289
+      }
+    ],
+    "dateutil": [
+      {
+        "path": "AUTHORS.md",
+        "sha256": "6a548b9a9d6b36e57c8bac5933357d6eacff0540c1dd2eaf265d916ae9ca2102",
+        "bytes": 6788
+      },
+      {
+        "path": "LICENSE",
+        "sha256": "aedc1c280bcc065a11e10ed8008317c3e91a7371dcae51cc52971243f2577d64",
+        "bytes": 2942
+      }
+    ],
+    "packaging": [
+      {
+        "path": "LICENSE",
+        "sha256": "8ef81e4c883c5ccb2a08026cc74ba3193279dd5149b36839d976c0a896637d87",
+        "bytes": 200
+      },
+      {
+        "path": "LICENSE.APACHE",
+        "sha256": "eb3d7b5485466acbd81f2b496f595ab637d2792e268206b27d99e793bdb67549",
+        "bytes": 10351
+      },
+      {
+        "path": "LICENSE.BSD",
+        "sha256": "67daf15b478dbd91bcd83bff907efff68471d42d2138226b89f039d658d53435",
+        "bytes": 1367
+      }
+    ],
+    "marshmallow": [
+      {
+        "path": "AUTHORS.rst",
+        "sha256": "b585a0524e7961defcaeb0d013616e60ea17fddefb24b19d8b0f59928479746a",
+        "bytes": 10943
+      },
+      {
+        "path": "LICENSE",
+        "sha256": "dec8462f60a3ae3934ec12483514f012af9649b2e5476064fc5647d949cdb60d",
+        "bytes": 1083
+      },
+      {
+        "path": "NOTICE",
+        "sha256": "d67ae34aacd8d5bea962ae34e853e581311be2b5a12259dc5b3804c5b21658c1",
+        "bytes": 1663
+      },
+      {
+        "path": "docs/authors.rst",
+        "sha256": "585abb1a1d4e26cf2add13be364fb6128a8fccb65eab6710b7f7b97b9033b0fb",
+        "bytes": 29
+      },
+      {
+        "path": "docs/license.rst",
+        "sha256": "91654619aa076c353aac303791252fd0eae6018faec63c3900e1885042a4bf96",
+        "bytes": 52
+      }
+    ]
+  }
+}
