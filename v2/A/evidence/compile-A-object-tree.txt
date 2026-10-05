@@ -1,0 +1,22 @@
+- root_coder_agent  [LlmAgent]  model=openai/gemma-4-31b-it-qat-w4a16-ct
+    generate_content_config={"temperature": 0.2, "top_p": 0.95, "top_k": 40.0, "max_output_tokens": 8192, "thinking_config": {"thinking_budget": 4096, "include_thoughts": true}}
+    instruction: 4780 chars, sha256=ed823642663c0aac
+    tool: run_command
+    tool: submit_patch
+    tool: get_status
+    tool: read_file
+    tool: edit_file
+    tool: write_file
+    tool: get_code_neighbors
+    tool: search_similar_code
+    tool: get_code_subgraph
+    tool: code_analyzer -> code_analyzer
+    [由 AgentTool 包裹，其对象树如下]
+  - code_analyzer  [LlmAgent]  model=openai/gemma-4-31b-it-qat-w4a16-ct
+      generate_content_config={"temperature": 0.2, "top_p": 0.95, "top_k": 40.0, "max_output_tokens": 8192, "thinking_config": {"thinking_budget": 4096, "include_thoughts": true}}
+      instruction: 1727 chars, sha256=8c1078ea48e54e09
+      tool: read_file
+      tool: run_command
+      tool: search_similar_code
+      tool: get_code_neighbors
+      tool: get_code_subgraph

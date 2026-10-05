@@ -1,0 +1,159 @@
+{
+  "b0_zip": "..\\_dl\\submission.zip",
+  "b0_sha256": "93cb223e79ecb610ba281e507f7833811b879718708b749feff77d05247256bb",
+  "a_zip": "out\\A-submission.zip",
+  "a_sha256": "ef2afefafc0fa5026db2be128c2f6647ecea3bb50aa0a61b04019b510dfc3b4a",
+  "changed_members": [
+    "prompts/system.md"
+  ],
+  "member_hashes": {
+    "adapters/main_lora/adapter_config.json": {
+      "b0": "75a46da2db7f3c70442e5c728f64059aff52cf64174cee7aeb3a4ec37f6e78fb",
+      "a": "75a46da2db7f3c70442e5c728f64059aff52cf64174cee7aeb3a4ec37f6e78fb",
+      "unchanged": true
+    },
+    "adapters/main_lora/adapter_model.safetensors": {
+      "b0": "dcbedd989af34f5201a39606e0bd4014d351a29162dd96da418782cbbe487ad9",
+      "a": "dcbedd989af34f5201a39606e0bd4014d351a29162dd96da418782cbbe487ad9",
+      "unchanged": true
+    },
+    "adapters/tool_lora/adapter_config.json": {
+      "b0": "75a46da2db7f3c70442e5c728f64059aff52cf64174cee7aeb3a4ec37f6e78fb",
+      "a": "75a46da2db7f3c70442e5c728f64059aff52cf64174cee7aeb3a4ec37f6e78fb",
+      "unchanged": true
+    },
+    "adapters/tool_lora/adapter_model.safetensors": {
+      "b0": "dcbedd989af34f5201a39606e0bd4014d351a29162dd96da418782cbbe487ad9",
+      "a": "dcbedd989af34f5201a39606e0bd4014d351a29162dd96da418782cbbe487ad9",
+      "unchanged": true
+    },
+    "agent.yaml": {
+      "b0": "03b2b73ac79929b384d3cfd46df6c425c5dea08581a55e56c45cb1d256482824",
+      "a": "03b2b73ac79929b384d3cfd46df6c425c5dea08581a55e56c45cb1d256482824",
+      "unchanged": true
+    },
+    "configs/sampling.yaml": {
+      "b0": "8b98e1c658632aa945320a3e632a7907681ce1ec47d142535bac176b2c6d39ba",
+      "a": "8b98e1c658632aa945320a3e632a7907681ce1ec47d142535bac176b2c6d39ba",
+      "unchanged": true
+    },
+    "eval_config.yaml": {
+      "b0": "7b7e6f2be06a8e2602ec2ac1e9eaad6e4bbd8958a58edd71e1baaee38b80ced5",
+      "a": "7b7e6f2be06a8e2602ec2ac1e9eaad6e4bbd8958a58edd71e1baaee38b80ced5",
+      "unchanged": true
+    },
+    "prompts/system.md": {
+      "b0": "43c2298478adaca4af6d7ee594df78ba709b92e04170ea4b229a10ab3ef976c4",
+      "a": "ed823642663c0aacb4d2bb29c1ea8e1a574938fa24334230df7bf835f7b4fce2",
+      "unchanged": false
+    },
+    "sub_agents/code_analyzer.yaml": {
+      "b0": "a802a7ae10f1cdee71aa44e0733206b67531c8c32d21475733eb4d38ed6daaa2",
+      "a": "a802a7ae10f1cdee71aa44e0733206b67531c8c32d21475733eb4d38ed6daaa2",
+      "unchanged": true
+    }
+  },
+  "checks": [
+    {
+      "check": "b0_sha256_matches_frozen",
+      "pass": true,
+      "detail": "93cb223e79ecb610ba281e507f7833811b879718708b749feff77d05247256bb"
+    },
+    {
+      "check": "a_member_count_is_9",
+      "pass": true,
+      "detail": "A=9"
+    },
+    {
+      "check": "member_sets_identical",
+      "pass": true,
+      "detail": "only_in_A=[] only_in_B0=[]"
+    },
+    {
+      "check": "exactly_one_member_changed",
+      "pass": true,
+      "detail": "['prompts/system.md']"
+    },
+    {
+      "check": "site1_rule_block_exact",
+      "pass": true,
+      "detail": "Phase 1 段落"
+    },
+    {
+      "check": "site2_rule_block_exact",
+      "pass": true,
+      "detail": "Workflow bullet"
+    },
+    {
+      "check": "rule_wording_identical_in_both_sites",
+      "pass": true,
+      "detail": "两处措辞逐字符相同（仅缩进不同）"
+    },
+    {
+      "check": "banned_removed::Before ANY edit, you MUST call the `code",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "check": "banned_removed::Call the `code_analyzer` tool with the f",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "check": "required_kept::Never edit unread code.",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "check": "required_kept::call `code_analyzer` with the full issue",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "check": "required_kept::Read only the lines you need",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "check": "required_kept::grep -rn \"<identifier>\" --include=*.py /",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "check": "required_kept::Always finish by calling `submit_patch`",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "check": "required_kept::Never call `search_similar_code` without",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "check": "site1_old_present_once_in_b0",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "check": "site2_old_present_once_in_b0",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "check": "site1_old_absent_in_a",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "check": "site2_old_absent_in_a",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "check": "a_zip_deterministically_reproducible",
+      "pass": true,
+      "detail": "repacked=ef2afefafc0fa5026db2be128c2f6647ecea3bb50aa0a61b04019b510dfc3b4a"
+    }
+  ],
+  "all_pass": true
+}
