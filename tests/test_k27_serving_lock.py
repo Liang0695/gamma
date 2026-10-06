@@ -51,12 +51,26 @@ def _load_lock(path: str) -> dict:
         return json.loads(handle.read().decode("utf-8"))
 
 
+def _canonical_bytes(raw: bytes) -> bytes:
+    """CRLF → LF 的内容级规范化（见 `tests/test_k27_adapter_contract.py` 的同名助手）。
+
+    `core.autocrlf=true` 的 checkout 会把 LF 翻成 CRLF；仓库已用 `.gitattributes`
+    给 `docs/v3/design/*.json` 打 `-text`，这里再做一层内容级兜底。
+    混合换行视为损坏并直接失败，不放行真正的字节改动。
+    """
+    if b"\r\n" in raw:
+        if b"\r\n" in raw.replace(b"\r\n", b""):
+            raise AssertionError("文件混用 CRLF 与 LF，视为损坏：拒绝按换行转换放过")
+        return raw.replace(b"\r\n", b"\n")
+    return raw
+
+
 def _frozen(path: str, expected_sha: str) -> dict:
     with open(path, "rb") as handle:
         raw = handle.read()
-    if hashlib.sha256(raw).hexdigest() != expected_sha:
+    if hashlib.sha256(_canonical_bytes(raw)).hexdigest() != expected_sha:
         raise AssertionError("冻结证据被改动：%s" % path)
-    return json.loads(raw.decode("utf-8"))
+    return json.loads(raw.decode("utf-8-sig"))
 
 
 class ServingLockAlignmentTests(unittest.TestCase):

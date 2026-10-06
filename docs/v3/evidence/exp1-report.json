@@ -144,14 +144,14 @@
   },
   "cpu": {
     "per_question_wall_seconds": [
-      7.9e-05,
-      5.2e-05,
-      3.3e-05,
-      2.7e-05,
-      2.3e-05,
-      2.1e-05,
+      8.6e-05,
+      4.9e-05,
+      3.7e-05,
       2.9e-05,
-      2.9e-05
+      2.4e-05,
+      2.4e-05,
+      3.1e-05,
+      3.2e-05
     ],
     "timing_clock": "time.perf_counter（墙上时间），不是 time.process_time",
     "timing_note": "Q0 附带项：旧字段 process_time() 在 Windows 粒度约 15.6ms，整段评测恒为 0.0，等于假指标；现如实记墙上时间并改掉字段名。",

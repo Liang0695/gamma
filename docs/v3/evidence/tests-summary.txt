@@ -701,14 +701,14 @@
   },
   "cpu": {
     "per_question_wall_seconds": [
-      6.4e-05,
-      4.9e-05,
-      3.7e-05,
+      5.7e-05,
+      4.3e-05,
+      3.4e-05,
+      2.4e-05,
       2.5e-05,
-      2.5e-05,
-      2.2e-05,
-      3e-05,
-      3.1e-05
+      2.4e-05,
+      3.1e-05,
+      3e-05
     ],
     "timing_clock": "time.perf_counter��ǽ��ʱ�䣩������ time.process_time",
     "timing_note": "Q0 ��������ֶ� process_time() �� Windows ����Լ 15.6ms�����������Ϊ 0.0�����ڼ�ָ�ꣻ����ʵ��ǽ��ʱ�䲢�ĵ��ֶ�����",

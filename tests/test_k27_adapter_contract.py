@@ -28,6 +28,24 @@ from v3.submit import validate as submit
 CONFIG = b'{"r": 16, "lora_alpha": 32, "peft_type": "LORA"}'
 
 
+def _canonical_bytes(raw: bytes) -> bytes:
+    """把 CRLF 收敛成 LF 后返回，用于**内容级**哈希比对。
+
+    为什么需要它：本机与干净克隆的 `core.autocrlf=true` 会在 checkout 时把 LF 翻成
+    CRLF，让工作树字节与提交里的 blob 不是同一份（实测：这在干净克隆上导致 6 条
+    断言失败）。仓库已用 `.gitattributes` 给 `docs/v3/design/*.json` 打了 `-text`
+    （不做任何换行转换），这里再做一层内容级兜底。
+
+    它只吞掉"整份文件都是 CRLF"这一种差异；**混合换行**视为损坏并直接失败，
+    以免把真正的字节改动当成换行转换放过。
+    """
+    if b"\r\n" in raw:
+        if b"\r\n" in raw.replace(b"\r\n", b""):
+            raise AssertionError("文件混用 CRLF 与 LF，视为损坏：拒绝按换行转换放过")
+        return raw.replace(b"\r\n", b"\n")
+    return raw
+
+
 def _write(path: str, payload: bytes) -> str:
     os.makedirs(os.path.dirname(path), exist_ok=True)
     with open(path, "wb") as handle:
@@ -87,11 +105,12 @@ class NamingRuleTests(unittest.TestCase):
         self.assertTrue(os.path.exists(path), path)
         with open(path, "rb") as handle:
             payload = handle.read()
-        # 与 KAGGLE-27 附件里 S1 的字节完全相同（E0 独立重跑得到同一份）
+        # 与 KAGGLE-27 附件里 S1 的字节完全相同（E0 独立重跑得到同一份）。
+        # 哈希按**规范化 LF** 求，兼容 autocrlf=true 的 checkout（见 `_canonical_bytes`）。
         import hashlib
 
         self.assertEqual(
-            hashlib.sha256(payload).hexdigest(),
+            hashlib.sha256(_canonical_bytes(payload)).hexdigest(),
             "fe918929f679165623e6aadc78bfb6a52363cd875ca4c59a7d5a214d7edb4f35",
         )
         # 冻结副本里不得出现本机绝对路径
