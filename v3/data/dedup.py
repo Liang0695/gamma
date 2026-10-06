@@ -16,7 +16,7 @@ import unicodedata
 from typing import Iterable, Mapping, Sequence
 
 from ..common.canonical import problem_family_id, sha256_text
-from ..common.errors import MissingInput, PolicyViolation
+from ..common.errors import IntegrityError, MissingInput, PolicyViolation
 
 SHINGLE_TOKENS = 5
 JACCARD_TRIGGER = 0.80
@@ -177,8 +177,115 @@ def family_components(edges: Sequence[Sequence[str]]) -> dict[str, str]:
 
 
 def _normalize_match_token(value) -> str:
-    """denylist 比对前归一：转字符串、去首尾空白、大小写折叠。"""
-    return str(value).strip().lower()
+    """族标签比对只做 strip + lower；不做 NFC 或内部空白折叠。"""
+    if not isinstance(value, str):
+        raise MissingInput("DENYLIST_ITEM_INVALID", "家族标识必须是字符串", value_type=type(value).__name__)
+    token = value.strip().lower()
+    if not token:
+        raise MissingInput("DENYLIST_ITEM_INVALID", "家族标识不得为空或仅含空白")
+    return token
+
+
+DENYLIST_SCHEMA_VERSION = "v2-dh-exclusion-denylist-1"
+DENYLIST_ARRAY_FIELDS = ("d_family_ids", "h_family_ids", "exposed_family_ids")
+
+
+def validate_denylist_payload(payload: object, expected_counts: Mapping[str, int] | None = None) -> dict:
+    """按 KAGGLE-27 协议 v3 全量校验三数组 denylist，并返回去重并集与计数。
+
+    JSON null/非对象、未知键、错误版本、非法项、空并集及自报计数不一致均整批拒绝。
+    合法字面量 ``"none"`` 保留为普通标签；Python None 不会被转成该字符串。
+    """
+    if not isinstance(payload, dict):
+        raise MissingInput("DENYLIST_SHAPE_INVALID", "denylist 必须是 JSON 对象")
+    required = {"denylist_schema_version", *DENYLIST_ARRAY_FIELDS, "counts_declared"}
+    allowed = required | {"source_sha256", "produced_by", "produced_at"}
+    unknown = sorted(set(payload) - allowed)
+    missing = sorted(required - set(payload))
+    if unknown:
+        raise MissingInput("DENYLIST_UNKNOWN_KEY", "denylist 含未批准字段", keys=unknown)
+    if "counts_declared" not in payload:
+        raise MissingInput("DENYLIST_COUNTS_DECLARED_MISSING", "counts_declared 整块缺失")
+    declared = payload.get("counts_declared")
+    if not isinstance(declared, dict):
+        raise MissingInput("DENYLIST_COUNTS_PARTIAL", "counts_declared 必须恰含三个数组字段")
+    if set(declared) != set(DENYLIST_ARRAY_FIELDS):
+        raise MissingInput("DENYLIST_COUNTS_PARTIAL", "counts_declared 未声明全部三个数组")
+    if missing:
+        raise MissingInput("DENYLIST_FIELD_MISSING", "denylist 缺少必需字段", keys=missing)
+    if payload["denylist_schema_version"] != DENYLIST_SCHEMA_VERSION:
+        raise MissingInput("DENYLIST_SCHEMA_UNSUPPORTED", "denylist schema 版本不受支持")
+
+    union: list[str] = []
+    source_arrays: dict[str, list[str]] = {}
+    counts: dict[str, dict[str, int]] = {}
+    raw_count = 0
+    union_set: set[str] = set()
+    for field in DENYLIST_ARRAY_FIELDS:
+        values = payload[field]
+        if not isinstance(values, list):
+            raise MissingInput("DENYLIST_ARRAY_INVALID", "denylist 字段必须为 JSON array", field=field)
+        local_seen: set[str] = set()
+        raw_count += len(values)
+        for index, value in enumerate(values):
+            if not isinstance(value, str) or not value.strip():
+                raise MissingInput(
+                    "DENYLIST_ITEM_INVALID", "数组项必须是非空字符串；拒绝整批输入",
+                    field=field, index=index, value_type=type(value).__name__,
+                )
+            token = _normalize_match_token(value)
+            local_seen.add(token)
+            arrays = source_arrays.setdefault(token, [])
+            if field not in arrays:
+                arrays.append(field)
+            if token not in union_set:
+                union_set.add(token)
+                union.append(token)
+        counts[field] = {
+            "raw_count": len(values),
+            "effective_count": len(local_seen),
+            "duplicate_count": len(values) - len(local_seen),
+        }
+    if not union:
+        raise MissingInput("DENYLIST_EMPTY", "三数组去重并集为空，拒绝把空集视为零交集")
+
+    duplicate_count = raw_count - len(union)
+    for field in DENYLIST_ARRAY_FIELDS:
+        value = declared[field]
+        actual = counts[field]["effective_count"]
+        if type(value) is not int or value != actual:
+            raise MissingInput(
+                "DENYLIST_COUNT_MISMATCH", "声明计数与实测 effective_count 不一致",
+                field=field, declared=value, actual=actual,
+            )
+    if expected_counts is not None:
+        if not isinstance(expected_counts, Mapping) or set(expected_counts) != set(DENYLIST_ARRAY_FIELDS):
+            raise MissingInput("DENOMINATOR_MISSING", "独立完整性基线未覆盖全部三个数组")
+        for field in DENYLIST_ARRAY_FIELDS:
+            expected = expected_counts[field]
+            actual = counts[field]["effective_count"]
+            if type(expected) is not int or actual != expected:
+                raise MissingInput(
+                    "DENOMINATOR_SHORTFALL", "实测数组分母与独立冻结基线不符",
+                    field=field, expected=expected, actual=actual,
+                )
+    if raw_count != len(union) + duplicate_count:
+        raise MissingInput("COUNT_INVARIANT_BROKEN", "raw_total != effective_total + duplicate_total")
+    multi_source_mapping = [
+        {"family_token_sha256": hashlib.sha256(token.encode("utf-8")).hexdigest(), "source_arrays": arrays}
+        for token, arrays in sorted(source_arrays.items())
+    ]
+    cross_array_duplicate_count = sum(max(0, len(arrays) - 1) for arrays in source_arrays.values())
+    return {
+        "effective": union,
+        "raw_count": raw_count,
+        "effective_count": len(union),
+        "duplicate_count": duplicate_count,
+        "cross_array_duplicate_count": cross_array_duplicate_count,
+        "rejected_count": 0,
+        "per_array": counts,
+        "source_mapping": multi_source_mapping,
+    }
 
 
 #: 不参与 V2 排除清单比对的 split。**必须是空集**：任何 split（含历史别名 `test`
@@ -202,7 +309,11 @@ def assert_no_split_leak(records: Sequence[Mapping], denylist: Iterable[str]) ->
 
     命中 denylist 时保留原错误码 `v2_denylist_intersection`。
     """
-    denied = {_normalize_match_token(item) for item in denylist if _normalize_match_token(item)}
+    if not isinstance(records, list) or isinstance(records, (str, bytes)):
+        raise MissingInput("candidate_shape_invalid", "records 必须为 JSON array / list")
+    if not isinstance(denylist, list) or isinstance(denylist, (str, bytes)):
+        raise MissingInput("denylist_container_invalid", "denylist 必须为可重放的 list")
+    denied = {_normalize_match_token(item) for item in denylist}
     missing: list[str] = []
     problems: list[str] = []
     leaks: dict[str, list[str]] = {}

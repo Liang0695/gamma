@@ -1,0 +1,15 @@
+{
+  "changed_field_count": 2,
+  "changed_json_pointers": [
+    "/wheels/adk_submission/file",
+    "/wheels/swegemma/file"
+  ],
+  "derivation_rule_version": "k24-a2-path-sanitizer-1",
+  "derived_file_bytes_sha256": "412c68aea33cabd522df1c8b19ca7717d38ab7c4e98f42c5df0dd5d953a8430f",
+  "derived_filename": "kaggle-27-a2-limits-evidence-sanitized.json",
+  "schema_version": "k24-a2-limits-derived-manifest-1",
+  "source_file_bytes_sha256": "508bf1a9f3f9da45fb7fbc89fbf2dc6fb1a439e8c8cef94626824e7e8053d4e1",
+  "source_filename": "kaggle-27-a2-limits-evidence.json",
+  "source_modified": false,
+  "transformation": "replace absolute path substrings in exactly two string fields with <LOCAL_PATH_REDACTED>; preserve all other parsed values"
+}

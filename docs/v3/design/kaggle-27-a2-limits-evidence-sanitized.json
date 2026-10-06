@@ -1,0 +1,273 @@
+{
+  "a1_resolver": {
+    "branch_canonical_v2_exists": "k27\\probe\\run\\a1\\kaggle_input\\models\\google\\gemma-4\\transformers\\gemma-4-31b-it-qat-w4a16-ct\\2",
+    "branch_canonical_v2_hits_v2": true,
+    "branch_capital_T_v2_exists": "k27\\probe\\run\\a1\\kaggle_input\\models\\google\\gemma-4\\transformers\\gemma-4-31b-it-qat-w4a16-ct\\2",
+    "branch_direct_flat_dir": "k27\\probe\\run\\a1\\kaggle_input\\gemma-4-31b-it-qat-w4a16-ct",
+    "branch_glob_picks_highest_numeric": true,
+    "branch_glob_sort_key_mixed": "k27\\probe\\run\\a1\\kaggle_input\\models\\google\\gemma-4\\SomethingElse\\gemma-4-31b-it-qat-w4a16-ct\\2",
+    "branch_glob_v1_vs_v2_present": "k27\\probe\\run\\a1\\kaggle_input\\models\\google\\gemma-4\\SomethingElse\\gemma-4-31b-it-qat-w4a16-ct\\2",
+    "branch_none_mounted": "google/gemma-4-31b-it-qat-w4a16-ct",
+    "branch_odd_framework_dir": "k27\\probe\\run\\a1\\kaggle_input\\models\\google\\gemma-4\\SomethingElse\\gemma-4-31b-it-qat-w4a16-ct\\2",
+    "branch_odd_framework_rescued_by_glob": true,
+    "declared_instance_version_observed_KAGGLE15": "2",
+    "glob_sort_key_note": "numeric names rank above non-numeric: _ver_sort_key returns (1,int(name)) if digit else (0,name)",
+    "normalize": {
+      "  GEMMA-4-31B-IT-QAT-W4A16-CT  ": "gemma-4-31b-it-qat-w4a16-ct",
+      "custom/gemma-4-31b-it-qat-w4a16-ct": "gemma-4-31b-it-qat-w4a16-ct",
+      "gemma-4-31b-it-qat-w4a16-ct": "gemma-4-31b-it-qat-w4a16-ct",
+      "google/gemma-4-31b-it-qat-w4a16-ct": "gemma-4-31b-it-qat-w4a16-ct",
+      "hosted_vllm/gemma-4-31b-it-qat-w4a16-ct": "gemma-4-31b-it-qat-w4a16-ct",
+      "openai/gemma-4-31b-it-qat-w4a16-ct": "gemma-4-31b-it-qat-w4a16-ct"
+    },
+    "source_table_entry_count": 16,
+    "source_table_gemma-4-31b-it-qat-w4a16-ct": "1",
+    "source_table_sha256": "a2fe366fa52ffc61aea985d5122de442861aa4b63e41cfaa0c4b170c80ff44c8",
+    "unknown_model_default_lookup_ok": true
+  },
+  "a2_limits": {
+    "adapters_only_in_adk_default": [
+      ".bin",
+      ".ggml",
+      ".gguf",
+      ".pt",
+      ".pth"
+    ],
+    "adk_default_adapter_extensions": [
+      ".bin",
+      ".ggml",
+      ".gguf",
+      ".pt",
+      ".pth",
+      ".safetensors"
+    ],
+    "adk_default_extension_count": 29,
+    "adk_default_extensions": [
+      "",
+      ".bin",
+      ".cfg",
+      ".csv",
+      ".diff",
+      ".ggml",
+      ".gguf",
+      ".html",
+      ".ini",
+      ".jinja",
+      ".json",
+      ".jsonl",
+      ".md",
+      ".model",
+      ".patch",
+      ".pt",
+      ".pth",
+      ".py",
+      ".rst",
+      ".safetensors",
+      ".sh",
+      ".sql",
+      ".tiktoken",
+      ".toml",
+      ".tsv",
+      ".txt",
+      ".xml",
+      ".yaml",
+      ".yml"
+    ],
+    "adk_submission_version": "0.2.12",
+    "built_limits_adapter_extensions": [
+      ".safetensors"
+    ],
+    "built_limits_extension_count": 7,
+    "built_limits_extensions": [
+      ".json",
+      ".md",
+      ".py",
+      ".safetensors",
+      ".txt",
+      ".yaml",
+      ".yml"
+    ],
+    "built_limits_structural": {
+      "max_agents": 500,
+      "max_file_count": 10000,
+      "max_instruction_chars": 1000000,
+      "max_loop_iterations": 500,
+      "max_skill_size_bytes": 52428800,
+      "max_skills": 1000,
+      "max_sub_agent_depth": 50,
+      "max_total_instruction_chars": 10000000,
+      "max_total_size_bytes": 3221225472,
+      "max_yaml_files": 1000,
+      "max_yaml_size_bytes": 52428800
+    },
+    "extensions_only_in_adk_default": [
+      "",
+      ".bin",
+      ".cfg",
+      ".csv",
+      ".diff",
+      ".ggml",
+      ".gguf",
+      ".html",
+      ".ini",
+      ".jinja",
+      ".jsonl",
+      ".model",
+      ".patch",
+      ".pt",
+      ".pth",
+      ".rst",
+      ".sh",
+      ".sql",
+      ".tiktoken",
+      ".toml",
+      ".tsv",
+      ".xml"
+    ],
+    "generation_constraints": {
+      "allowed_fields": null,
+      "defaults": {
+        "max_output_tokens": 16384,
+        "thinking_config": {
+          "thinking_budget": 4096
+        }
+      },
+      "max_output_tokens": [
+        1,
+        32768
+      ],
+      "thinking_budget": [
+        0,
+        32768
+      ]
+    },
+    "max_submission_size_bytes": 3221225472,
+    "swegemma_config_adapter_extensions": [
+      ".safetensors"
+    ],
+    "swegemma_config_extension_count": 7,
+    "swegemma_config_extensions": [
+      ".json",
+      ".md",
+      ".py",
+      ".safetensors",
+      ".txt",
+      ".yaml",
+      ".yml"
+    ],
+    "swegemma_version": "0.2.7"
+  },
+  "a3_adapter_route": {
+    "bin_adapter_default_ext": {
+      "adapters": {
+        "legacy": {
+          "format": "bin",
+          "name": "legacy",
+          "path_name": "legacy.bin",
+          "rank": null,
+          "size_bytes": 32
+        },
+        "v3_policy": {
+          "format": "safetensors",
+          "name": "v3_policy",
+          "path_name": "adapter_model.safetensors",
+          "rank": 16,
+          "size_bytes": 64
+        }
+      },
+      "count": 2,
+      "present": true
+    },
+    "bin_adapter_official_ext": {
+      "adapters": {
+        "v3_policy": {
+          "format": "safetensors",
+          "name": "v3_policy",
+          "path_name": "adapter_model.safetensors",
+          "rank": 16,
+          "size_bytes": 64
+        }
+      },
+      "count": 1,
+      "present": true
+    },
+    "declared": {
+      "compiled": false,
+      "exception_module": "builtins",
+      "exception_type": "TypeError",
+      "message": "compile_submission() missing 2 required positional arguments: 'tool_registry' and 'model_registry'",
+      "submission_dir": "k27\\probe\\run\\a3\\sub_declared"
+    },
+    "discover_adapters_default_ext": {
+      "adapters": {
+        "v3_policy": {
+          "format": "safetensors",
+          "name": "v3_policy",
+          "path_name": "adapter_model.safetensors",
+          "rank": 16,
+          "size_bytes": 64
+        }
+      },
+      "count": 1,
+      "present": true
+    },
+    "discover_adapters_official_ext": {
+      "adapters": {
+        "v3_policy": {
+          "format": "safetensors",
+          "name": "v3_policy",
+          "path_name": "adapter_model.safetensors",
+          "rank": 16,
+          "size_bytes": 64
+        }
+      },
+      "count": 1,
+      "present": true
+    },
+    "misnamed": {
+      "compiled": false,
+      "exception_module": "builtins",
+      "exception_type": "TypeError",
+      "message": "compile_submission() missing 2 required positional arguments: 'tool_registry' and 'model_registry'",
+      "submission_dir": "k27\\probe\\run\\a3\\sub_badname"
+    },
+    "non_adapter_stems_filtered": {
+      "adapters": {
+        "v3_policy": {
+          "format": "safetensors",
+          "name": "v3_policy",
+          "path_name": "adapter_model.safetensors",
+          "rank": 16,
+          "size_bytes": 64
+        }
+      },
+      "count": 1,
+      "present": true
+    },
+    "undeclared": {
+      "compiled": false,
+      "exception_module": "builtins",
+      "exception_type": "TypeError",
+      "message": "compile_submission() missing 2 required positional arguments: 'tool_registry' and 'model_registry'",
+      "submission_dir": "k27\\probe\\run\\a3\\sub_undeclared"
+    }
+  },
+  "errors": [],
+  "probe": "KAGGLE-27 A.1/A.2/A.3",
+  "python": "3.13.7 (tags/v3.13.7:bcee1c3, Aug 14 2025, 14:15:11) [MSC v.1944 64 bit (AMD64)]",
+  "wheels": {
+    "adk_submission": {
+      "file": "<LOCAL_PATH_REDACTED>",
+      "version": "0.2.12"
+    },
+    "google.adk": {
+      "file": null,
+      "version": "1.36.1"
+    },
+    "swegemma": {
+      "file": "<LOCAL_PATH_REDACTED>",
+      "version": "0.2.7"
+    }
+  },
+  "work_dir": "k27\\probe\\run"
+}

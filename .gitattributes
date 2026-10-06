@@ -16,3 +16,7 @@ docs/v3/design/kaggle-27-s1-adapter-matrix.json -text
 docs/v3/design/kaggle-27-s1b-discovery-rule-cells.json -text
 docs/v3/design/kaggle-27-s2-wheel-manifest.json -text
 docs/v3/design/kaggle-27-wheelhouse-material-sha256.json -text
+# Fixed public G2 fixtures and their byte-hash baseline must not vary by checkout EOL.
+tests/fixtures/g2/** -text
+docs/v3/design/kaggle-27-a2-limits-evidence-sanitized.json -text
+docs/v3/design/kaggle-27-a2-limits-derived-manifest.json -text

@@ -1,0 +1,60 @@
+{
+  "baseline_schema_version": "k24-g2-synthetic-input-baseline-1",
+  "provenance": {
+    "protocol_artifact_id": "01a11242-bdc5-78ff-a522-4464369cd80f",
+    "protocol_zip_sha256": "79d329f5dd50deb4d799d90659061b2717064cd285ed9c2180f90d9cb12ead72",
+    "protocol_schema_version": "v3-v2-exclusion-proof-protocol-4",
+    "review_status": "candidate_not_independently_reviewed",
+    "scope": "public synthetic fixtures only; no real candidate, denylist, authorization, or restricted snapshot"
+  },
+  "cases": {
+    "clean": {
+      "registry_sha256": "f884d32431e01d99121319159d147f68b8340e1c1215d33a2929d0f90c9d1d4a",
+      "denylist_sha256": "b5127da590c3b3b87e90ddca5bd2512163f28a9d1512fff5681ec7cd83b44ffb",
+      "candidate_task_count": 1,
+      "denylist_effective_counts": {
+        "d_family_ids": 1,
+        "h_family_ids": 1,
+        "exposed_family_ids": 1
+      },
+      "expected_exit_code": 0,
+      "expected_reason_code": null
+    },
+    "intersection": {
+      "registry_sha256": "02387f712f1141a3606ab3655221640032cda2b1493d262ba9b1bc57f9b5855c",
+      "denylist_sha256": "b5127da590c3b3b87e90ddca5bd2512163f28a9d1512fff5681ec7cd83b44ffb",
+      "candidate_task_count": 1,
+      "denylist_effective_counts": {
+        "d_family_ids": 1,
+        "h_family_ids": 1,
+        "exposed_family_ids": 1
+      },
+      "expected_exit_code": 7,
+      "expected_reason_code": "v2_denylist_intersection"
+    },
+    "missing": {
+      "registry_sha256": "f5277d4455079f701fecc61fb2ef4106cd9ca4189c76eab2c561b10aca8af76f",
+      "denylist_sha256": null,
+      "candidate_task_count": 1,
+      "denylist_effective_counts": null,
+      "expected_exit_code": 4,
+      "expected_reason_code": "file_not_found"
+    },
+    "invalid": {
+      "registry_sha256": "02ce0d9ddc3244d1531c1287034de0b3bc81936b39779e17f07027bfea9f47bb",
+      "denylist_sha256": "abdfbffecbe18ed94df9829819e596ee285b52a94aa108514452a9121721c789",
+      "candidate_task_count": 1,
+      "denylist_effective_counts": null,
+      "expected_exit_code": 4,
+      "expected_reason_code": "denylist_shape_invalid"
+    }
+  },
+  "count_contract": {
+    "counts_declared_required": true,
+    "declared_unit": "effective unique family IDs per source array after strip+lower",
+    "raw_count": "JSON array items before any normalization; invalid items abort and are never dropped",
+    "effective_count": "unique normalized items per array",
+    "duplicate_count": "raw_count - effective_count per array plus cross-array duplicates in union_total",
+    "source_mapping": "each normalized token maps to every source array that supplied it; fixture output stores a token digest, not the identity"
+  }
+}

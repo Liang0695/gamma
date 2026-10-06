@@ -1,0 +1,1 @@
+{"dataset_mode":"synthetic","tasks":[{"task_id":"syn-intersection-1","split":"sealed","problem_family_id":"fam-syn-blocked","repo_family":"repo-syn-clean","problem_statement":"synthetic intersection case"}]}

@@ -1,0 +1,1 @@
+{"dataset_mode":"synthetic","tasks":[{"task_id":"syn-invalid-1","split":"train","problem_family_id":"fam-syn-clean","repo_family":"repo-syn-clean","problem_statement":"synthetic invalid denylist case"}]}

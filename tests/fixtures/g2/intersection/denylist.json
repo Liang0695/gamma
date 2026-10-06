@@ -1,0 +1,1 @@
+{"denylist_schema_version":"v2-dh-exclusion-denylist-1","d_family_ids":["fam-syn-blocked"],"h_family_ids":["fam-syn-held"],"exposed_family_ids":["fam-syn-exposed"],"counts_declared":{"d_family_ids":1,"h_family_ids":1,"exposed_family_ids":1},"produced_by":"checked-in synthetic fixture","produced_at":"2026-10-07T00:00:00Z"}

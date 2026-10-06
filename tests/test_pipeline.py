@@ -3,8 +3,10 @@
 from __future__ import annotations
 
 import json
+import io
 import os
 import unittest
+from contextlib import redirect_stdout
 
 from tests._tmp import temp_dir
 from v3.cli import EXIT_BLOCKED, EXIT_OK, main as cli_main
@@ -224,44 +226,16 @@ class CliTests(unittest.TestCase):
             self.assertEqual(cli_main(["ingest", "--source-lock", lock]), PolicyViolation.exit_code)
 
     def test_split_blocks_on_denylist_intersection(self) -> None:
-        with temp_dir("cli_split_") as root:
-            registry = write_json(
-                os.path.join(root, "registry.json"),
-                {
-                    "tasks": [
-                        {"task_id": "t1", "split": "train", "problem_family_id": "FAM-DENIED",
-                         "repo_family": "alpha", "problem_statement": "one"},
-                        {"task_id": "t2", "split": "train", "problem_family_id": "FAM-OK",
-                         "repo_family": "beta", "problem_statement": "two"},
-                    ],
-                    "quota": {"alpha": 1, "beta": 1},
-                },
-            )
-            denylist = write_json(os.path.join(root, "denylist.json"), {"families": ["FAM-DENIED"], "repos": []})
-            self.assertEqual(
-                cli_main(["split", "--registry", registry, "--denylist", denylist]),
-                PolicyViolation.exit_code,
-            )
+        with redirect_stdout(io.StringIO()):
+            self.assertEqual(cli_main(["split", "--fixture-case", "intersection"]), PolicyViolation.exit_code)
 
     def test_split_selects_when_clean(self) -> None:
-        with temp_dir("cli_split_ok_") as root:
-            registry = write_json(
-                os.path.join(root, "registry.json"),
-                {
-                    "tasks": [
-                        {"task_id": "t1", "split": "train", "problem_family_id": "F1",
-                         "repo_family": "alpha", "problem_statement": "one"},
-                        {"task_id": "t2", "split": "train", "problem_family_id": "F2",
-                         "repo_family": "beta", "problem_statement": "two"},
-                    ],
-                    "quota": {"alpha": 1, "beta": 1},
-                },
-            )
-            out = os.path.join(root, "out", "split.json")
-            self.assertEqual(cli_main(["split", "--registry", registry, "--out", out]), EXIT_OK)
-            with open(out, "r", encoding="utf-8") as handle:
-                manifest = json.load(handle)
-            self.assertEqual(manifest["selection"]["family_count"], 2)
+        output = io.StringIO()
+        with redirect_stdout(output):
+            self.assertEqual(cli_main(["split", "--fixture-case", "clean"]), EXIT_OK)
+        manifest = json.loads(output.getvalue())
+        self.assertEqual(manifest["computation_result"], "COMPUTATION_ONLY")
+        self.assertEqual(manifest["overall"], "NOT_ACCEPTED")
 
     def test_validate_env_requires_all_env_fields(self) -> None:
         with temp_dir("cli_env_") as root:
