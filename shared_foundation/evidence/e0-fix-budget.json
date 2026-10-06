@@ -1,0 +1,25 @@
+{
+  "device_seconds": 40.343000000109896,
+  "attempts": [
+    {
+      "tests": 73,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "elapsed_seconds_including_test_save": 40.343000000109896
+    }
+  ],
+  "delivery_accounting": {
+    "conservative_charged_device_seconds": 300,
+    "measured_regression_and_test_save_seconds": 40.343000000109896,
+    "measured_portable_repro_seconds": 7.452999999979511,
+    "measured_initial_review_repro_seconds": 7.173000000184402,
+    "static_audit_seconds": 0.25,
+    "method": "Charge this repair 5 device minutes including preparation, reproduced failures, verified snapshot loading, tests, reproduction, static checks, saving and delivery allowance; 300 seconds is accounting, not measured CPU time.",
+    "limit_device_seconds": 600,
+    "max_cores": 4,
+    "gpu_used": false,
+    "platform107_used": false,
+    "earlier_unmetered_issue_time": "unknown; not retroactively invented"
+  }
+}

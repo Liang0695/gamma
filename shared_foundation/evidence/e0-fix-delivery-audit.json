@@ -1,0 +1,24 @@
+{
+  "scope": "Static scope/byte checks only, not independent review, ACL or training acceptance.",
+  "baseline_sha": "c9b58151c3d4fc010df81c20310e6c214dd7c3a9",
+  "tested_source_hashes_match": true,
+  "changed_staged_byte_mismatches": [],
+  "staged_changed_paths": [
+    "shared_foundation/README.md",
+    "shared_foundation/evidence/e0-fix-budget.json",
+    "shared_foundation/evidence/e0-fix-test-results.json",
+    "shared_foundation/evidence/e0-reviewed-original.json",
+    "shared_foundation/evidence/e0-spoof-after.json",
+    "shared_foundation/evidence/e0-spoof-before.json",
+    "shared_foundation/native_e0.py",
+    "shared_foundation/native_tests/repro_e0_spoof.py",
+    "shared_foundation/native_tests/test_e0_binding.py",
+    "shared_foundation/native_tests/test_native.py",
+    "shared_foundation/run_e0_fix_checks.py",
+    "shared_foundation/run_native_checks.py"
+  ],
+  "native_text_token_mask_artifact_and_local_execution_sources_unchanged": true,
+  "e0_source_files_unmodified": true,
+  "static_seconds": 0.25,
+  "repro_script_sha256": "9040c5b8f6a2001e7e388c78413ba9db6a905cb056908e34cf8c1416db64b247"
+}

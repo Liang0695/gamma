@@ -14,6 +14,7 @@ from shared_foundation.records import ContractError, Record, canonical, sha
 
 RENDERER = None
 E0_TYPES = None
+E0_MODULE = None
 ARTIFACT_ROOT = None
 
 
@@ -272,13 +273,13 @@ class OfficialChecks(MappingChecks):
             self.skipTest('explicit pinned E0 types not supplied')
         batch_type, plan_type = E0_TYPES
         artifact = self.artifact()
-        plan = adapt_e0(artifact, renderer=RENDERER, e0_sha=E0_SHA, TrainBatch=batch_type, TrainRunPlan=plan_type)
+        plan = adapt_e0(artifact, renderer=RENDERER, e0_sha=E0_SHA, e0_module=E0_MODULE, TrainBatch=batch_type, TrainRunPlan=plan_type)
         self.assertIsInstance(plan, plan_type)
         self.assertIsInstance(plan.batches[0], batch_type)
         self.assertEqual(plan.batches[0].supervised_tokens, artifact.data()['batch']['supervised_tokens'])
         self.assertEqual(plan.batches[0].labels, artifact.data()['batch']['labels'])
         self.rejected(lambda: adapt_e0(artifact, renderer=RENDERER, e0_sha='0'*40,
-                                      TrainBatch=batch_type, TrainRunPlan=plan_type), 'e0_revision_mismatch')
+                                      e0_module=E0_MODULE, TrainBatch=batch_type, TrainRunPlan=plan_type), 'e0_revision_mismatch')
 
 
 # Inherit only the assertion helper; generic mapping checks belong to one suite.

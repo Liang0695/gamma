@@ -183,7 +183,7 @@ review or real-source qualification. Native data artifacts use the separate brid
 This block performs data construction only. It never calls a training backend,
 `run_training`, optimizer, `start()` or model loader. Existing E0/D0/v3 files and the
 original schema/default commands remain unchanged. The primary modules do not import
-`v3` or infer an E0 worktree; E0 types are explicitly supplied by the optional caller.
+`v3` or infer an E0 worktree; the optional caller explicitly loads a byte-pinned E0 snapshot.
 
 `native-material.lock.json` pins these public Google files at
 `google/gemma-4-31B-it-qat-w4a16-ct@52f3f65bc7a02d555763bc923bd1d9094898219d`:
@@ -228,7 +228,8 @@ are **not verified** by these data checks.
 | `target-action-only/0.1` | Target's action output and native termination markers supervised; headers, reasoning, prior assistants, user and tool observations context-only |
 | `native_artifact.build_artifact`, `native-sft-batch-plan/0.1` | Full canonical text/ids/labels/offsets/spans plus complete batch and plan fields, versions, model/material/source/fact hashes; publishable=false |
 | `save_artifact` / `load_artifact` | Canonical UTF-8 envelope, external expected hash, strict version/material checks; re-render and rebuild before acceptance |
-| `native_e0.adapt_e0` | Optional explicitly supplied actual E0 `TrainBatch`/`TrainRunPlan` types; checks fixed source and exact calculated count; constructs/validates data only |
+| `native_e0.load_e0_module` / `verified-e0-module/0.2` | Explicit E0 source root/SHA -> seven-file byte-verified in-memory module, with its actual type identities registered |
+| `native_e0.adapt_e0` | Requires that actual registered module; optional class arguments must be the exact bound objects. Independently compares constructed arrays, real counts and all plan fields; data only |
 
 The target must be the last input step. Post-target feedback is rejected rather than
 silently inserted or truncated. Tool results bind to known pending call IDs/names;
@@ -267,12 +268,65 @@ Optional E0 compatibility is locked to `ffc37b4f3ecde6579117b0012ab4f69b4cff16ab
 `v3/train/runner.py` LF-source SHA256
 `f9d34a7fdab7d6252d1782a49e6049ac7ec059b827d93780dff819cc651b60dd`.
 The explicit test checkout must match that SHA with no tracked v3 differences. The
-primary adapter verifies caller-loaded class source and calls only constructors and
-`assert_runnable()`. It supplies arrays and lets `TrainBatch` calculate the count;
-it does not hand-fill `supervised_tokens` to bypass validation. Source compatibility
+module loader first verifies all seven LF-normalized fixed source files, then executes
+only those captured bytes in a fresh namespace with no disk package search paths.
+Relative dependencies come from the same verified snapshot. The adapter accepts only
+that registered module and its actual class objects, not matching class names,
+`__module__` declarations, copied module attributes or a claimed source path. It calls
+only data constructors and `assert_runnable()`. It supplies arrays and lets `TrainBatch`
+calculate the count; it does not hand-fill `supervised_tokens` to bypass validation.
+Source compatibility
 does not attest ACLs, live code authenticity, all dependencies or training authorization.
 `start()` gates remain required and untouched. One synthetic plan does not prove any
 corpus mix, real data qualification or training benefit (`mix_eligibility=not_assessed`).
+
+The original `c9b5815` adapter's optional E0 binding **failed independent review**:
+spoofed class names/module declarations could pass a source-file hash check and return
+all-zero arrays with a false count. The native text/token/mask/artifact portion passed
+that review separately. The fix is version `verified-e0-module/0.2`; a type-only call
+now fails closed rather than silently implying module identity. Explicit use:
+
+```python
+from shared_foundation.native_e0 import E0_SHA, load_e0_module, adapt_e0
+e0 = load_e0_module(e0_root=explicit_fixed_source_root, e0_sha=E0_SHA)
+plan = adapt_e0(artifact, renderer=renderer, e0_sha=E0_SHA, e0_module=e0,
+                TrainBatch=e0.TrainBatch, TrainRunPlan=e0.TrainRunPlan)
+```
+
+The classes are the actual E0 definitions executed from the verified full module bytes;
+they are not shim or AST substitute classes. A pre-imported mutable worktree module is
+not automatically trusted. `native_e0.E0_SOURCE_LF_SHA` pins runner, streaming,
+canonical/errors and the three package init files. Class/type identity must match the
+factory's recorded objects, including current module exports and registered dependencies.
+This binding is a compatibility contract, not ACL or resistance to arbitrary trusted
+Python code modifying the same process.
+
+After construction, compare exact object types, full integer `input_ids` and `labels`,
+actual non--100 count and reported count, all six plan config fields (value and type),
+and the complete singleton batch list against the **rebuilt** artifact. Checks run
+before and after `assert_runnable()` so late validation-time changes are also rejected.
+No `to_dict()` summary is trusted as a substitute for the actual arrays.
+
+Scoped repair checks (existing official materials; no local process or training tests):
+
+```text
+python -B shared_foundation/run_e0_fix_checks.py --material-root PATH --e0-root EXPLICIT_FIXED_E0_SOURCE_ROOT
+python -B shared_foundation/native_tests/repro_e0_spoof.py --phase before --material-root PATH --e0-root EXPLICIT_FIXED_E0_SOURCE_ROOT
+python -B shared_foundation/native_tests/repro_e0_spoof.py --phase after --material-root PATH --e0-root EXPLICIT_FIXED_E0_SOURCE_ROOT
+```
+
+`before` loads the original production adapter blob at `c9b58151c3d4fc010df81c20310e6c214dd7c3a9`,
+verifies its SHA256 and reproduces the accepted spoof. Its zero exit means **vulnerability
+reproduced**, not adapter success. `after` calls the current production adapter with
+the same spoof and requires rejection before either fake constructor executes. The
+reviewed synthetic artifact is in `evidence/e0-reviewed-original.json`; it is not real
+training data. The repair report includes the original 58 native regressions and 15
+additional E0 binding/output groups. Counterexamples also cover modified dependency
+bytes, missing/short/non-list arrays, zero arrays, wrong counts, every plan config field,
+replaced batches and changes during plan validation. Evidence and the new 600-second
+CPU verification ledger are `e0-fix-test-results.json`, `e0-fix-budget.json` and
+`e0-spoof-before.json` / `e0-spoof-after.json`. The new repair awaits independent review;
+it does not expand the previously unverified HF/serving/real-train boundaries.
 
 Evidence: `native-test-results.json`, `native-budget.json` and byte-preserving ZIPs in
 `evidence/native-artifacts/`. ZIP members include full batch/plan envelopes and per-run

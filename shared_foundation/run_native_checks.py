@@ -62,7 +62,7 @@ except ContractError as error:
     blocker = error.code
 e0_status = 'not_run'
 if args.e0_root and official_status == 'loaded':
-    # Explicit test-only E0 load; primary modules never import it or pick a worktree.
+    # Explicit byte-verified snapshot; never import E0 from a mutable disk package path.
     e0_root = Path(args.e0_root).resolve()
     pinned = checked_lock()['e0']
     head = subprocess.check_output(['git', '-C', str(e0_root), 'rev-parse', 'HEAD']).decode().strip()
@@ -72,8 +72,9 @@ if args.e0_root and official_status == 'loaded':
     data = (e0_root / pinned['runner_path']).read_bytes().replace(b'\r\n', b'\n')
     if hashlib.sha256(data).hexdigest() != pinned['runner_lf_sha256']:
         raise SystemExit('explicit E0 source pin mismatch')
-    sys.path.insert(0, str(e0_root))
-    from v3.train.runner import TrainBatch, TrainRunPlan
+    from shared_foundation.native_e0 import load_e0_module
+    test_native.E0_MODULE = load_e0_module(e0_root=e0_root, e0_sha=pinned['revision'])
+    TrainBatch, TrainRunPlan = test_native.E0_MODULE.TrainBatch, test_native.E0_MODULE.TrainRunPlan
     test_native.E0_TYPES = (TrainBatch, TrainRunPlan)
     e0_status = 'types_loaded_validation_only'
 run_id = uuid.uuid4().hex
