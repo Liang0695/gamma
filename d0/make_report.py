@@ -21,7 +21,7 @@ import os
 HERE = os.path.dirname(os.path.abspath(__file__))
 OUT = os.path.join(HERE, "out")
 ACCESS_DATE = "2026-10-06"
-BRANCH = "agent/research/kaggle-23-d0-source-lock"
+BRANCH = "agent/research/kaggle-23-d0-pr"
 PREVIOUS_COMMIT = "d664c08"
 PREVIOUS_PASS_COMMIT = "65aaa16"
 LOCKED = ["click", "more-itertools", "pluggy", "boltons", "attrs", "dateutil",
@@ -120,10 +120,10 @@ def main():
     a("生成：资料调研与分发 · %s · 访问日期 %s · 分支 `%s`" % (
         ACCESS_DATE, ACCESS_DATE, BRANCH))
     a("")
-    a("> **本文件接续原 D0 分支 `%s`。** 本轮修复许可证据缺失时仍获批准的问题，"
+    a("> **D0 内容基线为 `%s`，当前承载分支是 `%s`。** 本轮修复许可证据缺失时仍获批准的问题，"
       "收紧落地补丁对应判据，并将判据直接接入 `source_preparation` 与 P0 汇总。"
       "既有 click 补位、时间窗口、静态准备/训练放行双轴、训练放行 0、"
-      "公开验证器和显式隔离 SKIP 契约均保留。" % PREVIOUS_COMMIT)
+      "公开验证器和显式隔离 SKIP 契约均保留。" % ("887fe22", BRANCH))
     a("")
 
     a("## 0. 一句话结论")
@@ -218,7 +218,8 @@ def main():
     a("3. 与实际**包装声明**比较；任一正向不一致 ⇒ `decision = \"pending\"`，"
       "冲突逐条写入 `license_conflicts`。`agreement` 只表示预设、正文和包装元数据"
       "三侧证据齐备且一致；`agreement_status` 区分 `consistent`、`partial`、"
-      "`conflict` 与 `missing_required_evidence`，`evidence_coverage` 列明缺侧。"
+      "`conflict`、`missing_required_evidence` 与 `preset_unrecognized`，"
+      "`evidence_coverage` 列明缺侧。预设是期望值，不是独立证据。"
       "**空证据集不是冲突**（“未知”不等于“不一致”），"
       "但许可正文没有正向证据时一律 `pending`；包装元数据缺失可以接受，"
       "前提是固定许可正文与预设相符且现有元数据无冲突。此时可批准，但状态只能是"

@@ -1,0 +1,6 @@
+.tmp/
+src/
+raw/
+out/restricted-oracle.json
+__pycache__/
+*.pyc

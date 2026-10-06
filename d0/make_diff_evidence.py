@@ -25,7 +25,7 @@ HERE = os.path.dirname(os.path.abspath(__file__))
 REPO = os.path.dirname(HERE)
 OUT = os.path.join(HERE, "out")
 DEFAULT_PREV = "d664c08"
-BRANCH = "agent/research/kaggle-23-d0-source-lock"
+BRANCH = "agent/research/kaggle-23-d0-pr"
 OUTPUT_NAME = "v5-diff-evidence.txt"
 
 
@@ -181,9 +181,12 @@ def main():
     prev_full = prev_full.strip() or "(unresolved)"
     rc, head, _ = git("rev-parse", "HEAD")
     head = head.strip()
-    rc, stat, _ = git("diff", "--stat", prev_full)
-    rc, names, _ = git("diff", "--name-status", prev_full)
-    rc, dirty, _ = git("status", "--porcelain")
+    # The PR carrier branch is based on main, while `prev` is from the earlier
+    # standalone D0 history. Restrict file-level comparisons to D0 so unrelated
+    # main files are not misreported as part of this delivery.
+    rc, stat, _ = git("diff", "--stat", prev_full, "--", "d0/")
+    rc, names, _ = git("diff", "--name-status", prev_full, "--", "d0/")
+    rc, dirty, _ = git("status", "--porcelain", "--", "d0/")
     n_dirty = len([l for l in dirty.splitlines() if l.strip()])
 
     L = []

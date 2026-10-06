@@ -73,9 +73,17 @@ LICENSE_REVIEW_SCHEMA = {
     "agreement_fields": [
         "agreement", "agreement_status", "agreement_scope", "evidence_coverage",
     ],
+    "agreement_status_domain": [
+        "consistent", "partial", "missing_required_evidence", "conflict",
+        "preset_unrecognized",
+    ],
+    "preset_role": ("design_license_expectation is the D0 author's expected SPDX value; "
+                    "it is not independent evidence and cannot prove agreement"),
     "agreement_semantics": (
         "agreement is true only when preset, fixed licence text, and packaging "
-        "metadata are all present and consistent. agreement_status is conflict, "
+        "metadata are all present and consistent. The preset is an expectation, "
+        "not an independent evidence source. agreement_status also distinguishes "
+        "an unrecognized preset as preset_unrecognized; the other states are conflict, "
         "missing_required_evidence, partial, or consistent. Missing optional "
         "packaging metadata may still permit approval when fixed licence text "
         "matches the preset; evidence_coverage lists present and missing sides."),
@@ -324,12 +332,16 @@ def licence_agreement_facts(preset, text_families, meta_families, conflicts):
         missing.append("packaging_metadata")
 
     positive_mismatch = bool(conflicts) or (
-        bool(text_families) and not (preset_tokens & text_families)) or (
-        bool(meta_families) and not (preset_tokens & meta_families)) or (
+        bool(preset_tokens) and bool(text_families)
+        and not (preset_tokens & text_families)) or (
+        bool(preset_tokens) and bool(meta_families)
+        and not (preset_tokens & meta_families)) or (
         bool(text_families) and bool(meta_families)
         and not (text_families & meta_families))
     if positive_mismatch:
         status = "conflict"
+    elif not preset_tokens:
+        status = "preset_unrecognized"
     elif not text_families:
         status = "missing_required_evidence"
     elif not meta_families:
@@ -343,7 +355,11 @@ def licence_agreement_facts(preset, text_families, meta_families, conflicts):
         "evidence_coverage": {
             "present_sides": present,
             "missing_sides": missing,
-            "complete_for_three_way_agreement": not missing,
+            "expectation_sides": ["preset_spdx"],
+            "unrecognized_sides": [] if preset_tokens else ["preset_spdx"],
+            "preset_recognized": bool(preset_tokens),
+            "complete_for_three_way_agreement": (
+                bool(preset_tokens) and not missing and not positive_mismatch),
             "metadata_required_for_approval": False,
         },
     }

@@ -35,7 +35,15 @@
       "agreement_scope",
       "evidence_coverage"
     ],
-    "agreement_semantics": "agreement is true only when preset, fixed licence text, and packaging metadata are all present and consistent. agreement_status is conflict, missing_required_evidence, partial, or consistent. Missing optional packaging metadata may still permit approval when fixed licence text matches the preset; evidence_coverage lists present and missing sides.",
+    "agreement_status_domain": [
+      "consistent",
+      "partial",
+      "missing_required_evidence",
+      "conflict",
+      "preset_unrecognized"
+    ],
+    "preset_role": "design_license_expectation is the D0 author's expected SPDX value; it is not independent evidence and cannot prove agreement",
+    "agreement_semantics": "agreement is true only when preset, fixed licence text, and packaging metadata are all present and consistent. The preset is an expectation, not an independent evidence source. agreement_status also distinguishes an unrecognized preset as preset_unrecognized; the other states are conflict, missing_required_evidence, partial, or consistent. Missing optional packaging metadata may still permit approval when fixed licence text matches the preset; evidence_coverage lists present and missing sides.",
     "conflict_rule": "a positive disagreement between the preset, the licence text and/or the packaging metadata forces decision='pending' and is listed verbatim in license_conflicts; it can never read as 'approved'. Packaging metadata is optional when absent, but at least one matching positive family signal from the fixed root licence text is mandatory. An EMPTY evidence set is not a conflict and is never approval.",
     "hash_basis_rule": "every licence file records BOTH the upstream git-blob sha256 and the checkout sha256 plus the newline transformation relating them; the two are different byte strings under core.autocrlf=true and must never be mixed",
     "missing_merge_evidence_note": "this field set settles LICENCE facts only; it does not establish the family window, which needs the merge-event evidence in merge-evidence.json"
@@ -125,6 +133,11 @@
               "packaging_metadata"
             ],
             "missing_sides": [],
+            "expectation_sides": [
+              "preset_spdx"
+            ],
+            "unrecognized_sides": [],
+            "preset_recognized": true,
             "complete_for_three_way_agreement": true,
             "metadata_required_for_approval": false
           },
@@ -293,6 +306,11 @@
               "packaging_metadata"
             ],
             "missing_sides": [],
+            "expectation_sides": [
+              "preset_spdx"
+            ],
+            "unrecognized_sides": [],
+            "preset_recognized": true,
             "complete_for_three_way_agreement": true,
             "metadata_required_for_approval": false
           },
@@ -476,6 +494,11 @@
               "packaging_metadata"
             ],
             "missing_sides": [],
+            "expectation_sides": [
+              "preset_spdx"
+            ],
+            "unrecognized_sides": [],
+            "preset_recognized": true,
             "complete_for_three_way_agreement": true,
             "metadata_required_for_approval": false
           },
@@ -620,6 +643,11 @@
             "missing_sides": [
               "packaging_metadata"
             ],
+            "expectation_sides": [
+              "preset_spdx"
+            ],
+            "unrecognized_sides": [],
+            "preset_recognized": true,
             "complete_for_three_way_agreement": false,
             "metadata_required_for_approval": false
           },
@@ -767,6 +795,11 @@
               "packaging_metadata"
             ],
             "missing_sides": [],
+            "expectation_sides": [
+              "preset_spdx"
+            ],
+            "unrecognized_sides": [],
+            "preset_recognized": true,
             "complete_for_three_way_agreement": true,
             "metadata_required_for_approval": false
           },
@@ -943,6 +976,11 @@
               "packaging_metadata"
             ],
             "missing_sides": [],
+            "expectation_sides": [
+              "preset_spdx"
+            ],
+            "unrecognized_sides": [],
+            "preset_recognized": true,
             "complete_for_three_way_agreement": true,
             "metadata_required_for_approval": false
           },
@@ -1124,6 +1162,11 @@
               "packaging_metadata"
             ],
             "missing_sides": [],
+            "expectation_sides": [
+              "preset_spdx"
+            ],
+            "unrecognized_sides": [],
+            "preset_recognized": true,
             "complete_for_three_way_agreement": true,
             "metadata_required_for_approval": false
           },
@@ -1309,6 +1352,11 @@
               "packaging_metadata"
             ],
             "missing_sides": [],
+            "expectation_sides": [
+              "preset_spdx"
+            ],
+            "unrecognized_sides": [],
+            "preset_recognized": true,
             "complete_for_three_way_agreement": true,
             "metadata_required_for_approval": false
           },
@@ -1544,6 +1592,11 @@
               "packaging_metadata"
             ],
             "missing_sides": [],
+            "expectation_sides": [
+              "preset_spdx"
+            ],
+            "unrecognized_sides": [],
+            "preset_recognized": true,
             "complete_for_three_way_agreement": true,
             "metadata_required_for_approval": false
           },

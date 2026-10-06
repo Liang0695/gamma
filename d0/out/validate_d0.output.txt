@@ -1,4 +1,4 @@
-validator environment: Python 3.12.3 | packaged by conda-forge | (main, Apr 15 2024, 18:20:11) [MSC v.1938 64 bit (AMD64)]; Windows-11-10.0.26200-SP0
+validator environment: Python 3.13.14 (tags/v3.13.14:fd17997, Jun 10 2026, 13:03:48) [MSC v.1944 64 bit (AMD64)]; Windows-11-10.0.26200-SP0
 PASS  all_8_pinned_revisions_are_resolvable_40hex_and_match_plan                           offenders=[]
 PASS  all_locked_repos_have_tree_sha                                                       
 PASS  eight_locked_candidate_repositories_present                                          found=8
@@ -6,7 +6,7 @@ PASS  locked_and_alternative_sets_are_disjoint
 PASS  license_review_machine_readable_fields_present_for_every_repo                        missing=[]
 PASS  license_agreement_schema_defines_scope_and_coverage                                  schema_version=1.2 fields=['agreement', 'agreement_status', 'agreement_scope', 'evidence_coverage']
 PASS  every_license_record_declares_agreement_scope_and_coverage                           all 9 records covered
-PASS  boltons_missing_metadata_is_not_reported_as_three_way_agreement                      decision=approved agreement=False status=partial coverage={'present_sides': ['preset_spdx', 'licence_text'], 'missing_sides': ['packaging_metadata'], 'complete_for_three_way_agreement': False, 'metadata_required_for_approval': False}
+PASS  boltons_missing_metadata_is_not_reported_as_three_way_agreement                      decision=approved agreement=False status=partial coverage={'present_sides': ['preset_spdx', 'licence_text'], 'missing_sides': ['packaging_metadata'], 'expectation_sides': ['preset_spdx'], 'unrecognized_sides': [], 'preset_recognized': True, 'complete_for_three_way_agreement': False, 'metadata_required_for_approval': False}
 PASS  license_review_decision_is_approved_for_every_repo                                   offenders=[]
 PASS  license_review_decisions_cover_the_whole_locked_set                                  
 PASS  license_review_records_the_exact_revision_it_covers                                  
@@ -22,8 +22,10 @@ PASS  no_licence_metadata_conflict_is_approved                                  
 PASS  negative_test_licence_metadata_conflict_withholds_approval                           planted preset=MIT -> decision=pending conflicts=['preset_vs_licence_text', 'preset_vs_packaging_metadata']
 PASS  negative_test_missing_fixed_license_text_cannot_be_approved                          MIT preset with no fixed text/metadata -> pending/False
 PASS  positive_test_fixed_license_text_allows_missing_optional_metadata                    MIT text with absent optional metadata -> approved/True
-PASS  agreement_scope_marks_missing_metadata_as_partial_not_complete                       body evidence allows approval while agreement coverage={'agreement': False, 'agreement_status': 'partial', 'agreement_scope': ['preset_spdx', 'licence_text', 'packaging_metadata'], 'evidence_coverage': {'present_sides': ['preset_spdx', 'licence_text'], 'missing_sides': ['packaging_metadata'], 'complete_for_three_way_agreement': False, 'metadata_required_for_approval': False}}
+PASS  agreement_scope_marks_missing_metadata_as_partial_not_complete                       body evidence allows approval while agreement coverage={'agreement': False, 'agreement_status': 'partial', 'agreement_scope': ['preset_spdx', 'licence_text', 'packaging_metadata'], 'evidence_coverage': {'present_sides': ['preset_spdx', 'licence_text'], 'missing_sides': ['packaging_metadata'], 'expectation_sides': ['preset_spdx'], 'unrecognized_sides': [], 'preset_recognized': True, 'complete_for_three_way_agreement': False, 'metadata_required_for_approval': False}}
 PASS  agreement_scope_marks_complete_match_and_conflict_distinctly                         complete=consistent conflict=conflict
+PASS  unrecognized_license_preset_is_pending_not_a_conflict                                GPL-3.0 expectation -> decision=pending conflicts=[] agreement_status=preset_unrecognized
+PASS  real_license_evidence_conflict_remains_distinct_from_unknown_preset                  GPL-3.0 expectation against disagreeing evidence -> decision=pending conflicts=['licence_text_vs_packaging_metadata'] agreement_status=conflict
 PASS  negative_test_fixed_license_text_metadata_conflict_stays_pending                     MIT preset against BSD text+metadata -> pending/False
 PASS  negative_test_same_file_with_different_patch_is_not_landing_evidence                 same path/different lines -> closed=False state=not_proven
 PASS  negative_test_ancestor_without_merge_proof_has_no_landing_event                      ancestor=True without merge proof -> landing=None shape=unreconciled
@@ -103,7 +105,7 @@ PASS  boltons_reconciliation_names_the_commit_the_pinned_merge_actually_brought_
 PASS  negative_test_a_family_without_landing_evidence_cannot_be_adjudicated                planted found=False present=True -> admitted=None
 PASS  replaced_family_left_a_retrievable_failure_record                                    replaced_records=1
 PASS  the_replaced_commit_is_counted_in_no_quota_and_is_not_a_family                       
-PASS  no_variant_still_inherits_from_a_retired_parent                                      derived_from={'v3-train-boltons-001', 'v3-train-click-001', 'v3-train-more-itertools-001', 'v3-train-pluggy-001'}
+PASS  no_variant_still_inherits_from_a_retired_parent                                      derived_from={'v3-train-pluggy-001', 'v3-train-boltons-001', 'v3-train-click-001', 'v3-train-more-itertools-001'}
 PASS  retired_variant_family_is_gone_and_its_replacement_is_present                        variants=['v3-train-click-001-var-predicate', 'v3-train-more-itertools-001-var-api', 'v3-train-pluggy-001-var-backport', 'v3-train-boltons-001-var-multidefect']
 PASS  time_isolation_open_items_are_recorded                                               
 PASS  dateutil_dev_family_shortfall_is_recorded_and_counted_zero                           
@@ -132,5 +134,5 @@ SKIP  restricted_file_is_marked_not_for_training_authors                        
 SKIP  restricted_file_does_not_claim_an_unverified_split                                   input deliberately not opened by the public validator
 SKIP  restricted_oracle_split_is_really_isolated_from_the_actor                            no negative permission test exists; file presence/name/access path would not establish isolation
 
-128 checks, 0 failed, 4 skipped (a skip is NOT a pass and is NOT isolation evidence)
+130 checks, 0 failed, 4 skipped (a skip is NOT a pass and is NOT isolation evidence)
 skipped checks: restricted_file_covers_every_family, restricted_file_is_marked_not_for_training_authors, restricted_file_does_not_claim_an_unverified_split, restricted_oracle_split_is_really_isolated_from_the_actor

@@ -29,7 +29,7 @@ import platform
 import re
 import shutil
 import sys
-import tempfile
+import uuid
 from unittest.mock import patch
 
 HERE = os.path.dirname(os.path.abspath(__file__))
@@ -128,11 +128,13 @@ def licence_conflict_probe():
 def licence_evidence_probe():
     """Exercise the production licence predicate with positive, missing and conflict inputs."""
     missing = classify_license("MIT", set(), set())
-    # Keep the unique probe directory inside this authorized checkout. Using
-    # mkdtemp avoids TemporaryDirectory's chmod(0o700), which is denied in
-    # some managed Windows workspaces; cleanup remains strict and exceptions
-    # from the probe are allowed to fail the gate.
-    temp_dir = tempfile.mkdtemp(prefix=".validate-d0-", dir=OUT)
+    # Keep this synthetic fixture inside an ignored, non-artifact workspace
+    # directory. os.mkdir(path) intentionally uses its default mode; mkdtemp
+    # requests mode 0o700 and is denied in some Python 3.13 managed workspaces.
+    temp_root = os.path.join(HERE, ".tmp")
+    os.makedirs(temp_root, exist_ok=True)
+    temp_dir = os.path.join(temp_root, ".validate-d0-" + uuid.uuid4().hex)
+    os.mkdir(temp_dir)
     try:
         license_path = os.path.join(temp_dir, "LICENSE")
         with open(license_path, "w", encoding="utf-8") as f:
@@ -140,7 +142,16 @@ def licence_evidence_probe():
                     "to any person obtaining a copy of this software.\n")
         positive_text_families, _ = detect_text_families(
             temp_dir, [{"path": "LICENSE"}])
-    finally:
+    except BaseException as probe_error:
+        try:
+            shutil.rmtree(temp_dir)
+        except BaseException as cleanup_error:
+            # Preserve the probe failure as the reported exception while keeping
+            # the cleanup failure as its explicit cause; neither is swallowed.
+            raise probe_error from cleanup_error
+        raise
+    else:
+        # A cleanup failure on the success path is itself a validator failure.
         shutil.rmtree(temp_dir)
     positive_without_metadata = classify_license(
         "MIT", positive_text_families, set())
@@ -151,8 +162,18 @@ def licence_evidence_probe():
     conflicting = classify_license("MIT", {"BSD-3-Clause"}, {"BSD-3-Clause"})
     conflict_agreement = licence_agreement_facts(
         "MIT", {"BSD-3-Clause"}, {"BSD-3-Clause"}, conflicting[2])
+    unknown_preset = classify_license(
+        "GPL-3.0", {"GPL-3.0"}, {"GPL-3.0"})
+    unknown_preset_agreement = licence_agreement_facts(
+        "GPL-3.0", {"GPL-3.0"}, {"GPL-3.0"}, unknown_preset[2])
+    unknown_preset_conflict = classify_license(
+        "GPL-3.0", {"GPL-3.0"}, {"MIT"})
+    unknown_preset_conflict_agreement = licence_agreement_facts(
+        "GPL-3.0", {"GPL-3.0"}, {"MIT"}, unknown_preset_conflict[2])
     return (missing, positive_without_metadata, conflicting,
-            partial_agreement, complete_agreement, conflict_agreement)
+            partial_agreement, complete_agreement, conflict_agreement,
+            unknown_preset, unknown_preset_agreement,
+            unknown_preset_conflict, unknown_preset_conflict_agreement)
 
 
 def same_file_different_patch_probe():
@@ -258,6 +279,10 @@ def main():
           lock["license_review_schema"].get("schema_version") == "1.2"
           and set(lock["license_review_schema"].get("agreement_fields", []))
           == {"agreement", "agreement_status", "agreement_scope", "evidence_coverage"}
+          and "preset_unrecognized" in lock["license_review_schema"].get(
+              "agreement_status_domain", [])
+          and "not an independent evidence source" in
+          lock["license_review_schema"].get("agreement_semantics", "")
           and "missing metadata prevents a complete" in
           lock["license_review_schema"].get("approved_spdx_is_derived_not_asserted", ""),
           "schema_version=%s fields=%s" % (
@@ -343,7 +368,9 @@ def main():
           % (probe_preset, probe_decision,
              [c["kind"] for c in probe_conflicts]))
     (no_text, valid_text_no_metadata, positive_conflict,
-     partial_agreement, complete_agreement, conflict_agreement) = licence_evidence_probe()
+     partial_agreement, complete_agreement, conflict_agreement,
+     unknown_preset, unknown_preset_agreement, unknown_preset_conflict,
+     unknown_preset_conflict_agreement) = licence_evidence_probe()
     check("negative_test_missing_fixed_license_text_cannot_be_approved",
           no_text[0] == "pending" and no_text[1] is False,
           "MIT preset with no fixed text/metadata -> %s/%s" % (no_text[0], no_text[1]))
@@ -372,6 +399,30 @@ def main():
           "complete=%s conflict=%s"
           % (complete_agreement["agreement_status"],
              conflict_agreement["agreement_status"]))
+    check("unrecognized_license_preset_is_pending_not_a_conflict",
+          unknown_preset[0] == "pending" and unknown_preset[1] is False
+          and not unknown_preset[2]
+          and unknown_preset_agreement["agreement"] is False
+          and unknown_preset_agreement["agreement_status"] == "preset_unrecognized"
+          and unknown_preset_agreement["evidence_coverage"].get(
+              "unrecognized_sides") == ["preset_spdx"]
+          and unknown_preset_agreement["evidence_coverage"].get(
+              "complete_for_three_way_agreement") is False,
+          "GPL-3.0 expectation -> decision=%s conflicts=%s agreement_status=%s"
+          % (unknown_preset[0], [c["kind"] for c in unknown_preset[2]],
+             unknown_preset_agreement["agreement_status"]))
+    check("real_license_evidence_conflict_remains_distinct_from_unknown_preset",
+          unknown_preset_conflict[0] == "pending"
+          and unknown_preset_conflict[1] is False
+          and bool(unknown_preset_conflict[2])
+          and unknown_preset_conflict_agreement["agreement"] is False
+          and unknown_preset_conflict_agreement["agreement_status"] == "conflict"
+          and unknown_preset_conflict_agreement["evidence_coverage"].get(
+              "unrecognized_sides") == ["preset_spdx"],
+          "GPL-3.0 expectation against disagreeing evidence -> decision=%s conflicts=%s agreement_status=%s"
+          % (unknown_preset_conflict[0],
+             [c["kind"] for c in unknown_preset_conflict[2]],
+             unknown_preset_conflict_agreement["agreement_status"]))
     check("negative_test_fixed_license_text_metadata_conflict_stays_pending",
           positive_conflict[0] == "pending" and positive_conflict[1] is False
           and bool(positive_conflict[2]),

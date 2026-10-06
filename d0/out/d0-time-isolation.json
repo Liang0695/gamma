@@ -337,6 +337,11 @@
             "packaging_metadata"
           ],
           "missing_sides": [],
+          "expectation_sides": [
+            "preset_spdx"
+          ],
+          "unrecognized_sides": [],
+          "preset_recognized": true,
           "complete_for_three_way_agreement": true,
           "metadata_required_for_approval": false
         },
