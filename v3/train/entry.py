@@ -29,13 +29,14 @@ import argparse
 import json
 import os
 import sys
+from typing import Sequence
 
-from ..common.errors import Blocked, FailClosed, MissingInput, PolicyViolation
+from ..common.errors import Blocked, FailClosed, MissingInput, PolicyViolation, UnverifiedLock
 from ..t0.deps import DependencyLock, assert_distinct_lock_channels, load_pair
 from ..t0.official import OfficialInterface
 from . import runner
 from .checkpoint import REQUIRED_HASH_KEYS, assert_adapter_valid_frozen_spec
-from .config import DEFAULT_CONFIG, TrainingConfig, assert_start_allowed
+from .config import TrainingConfig, assert_start_allowed
 from .fixtures import run_all as run_fixture_suite
 from .targets import (
     FIRST_ROUND_SEQ_LEN,
@@ -47,6 +48,7 @@ from .targets import (
     disk_budget_gib,
     expected_module_count,
     lora_param_count,
+    target_module_names,
     GEOMETRY,
 )
 
@@ -56,6 +58,106 @@ LOCKS_DIR = os.path.join(REPO_ROOT, "v3", "locks")
 
 #: 三个开训闸门的名字（顺序即报告顺序）。
 GATE_NAMES = ("t1_engineering_pass", "memory_plan_pass", "export_manifest_pass")
+
+#: 真实后端必须从锁里取到的 pin（缺一即拒绝，**没有**硬编码回退）。
+REQUIRED_BACKEND_PINS = ("model_repo_id", "model_revision")
+
+
+def resolve_backend_pins(
+    *,
+    interface_path: str | None = None,
+    model_id: str | None = None,
+    model_revision: str | None = None,
+    target_modules: Sequence[str] | None = None,
+    config: TrainingConfig | None = None,
+) -> dict:
+    """解析真实后端的 `(model_id, revision, target_modules)`：**锁优先，缺 pin 必拒绝**。
+
+    旧实现（🟡-3）三处都错：
+
+    1. `authorization.get("model_id")` —— `authorization` 只有 4 个键（gpu_hours_released /
+       operator / stage / v2_conflict_checked），这个取值**恒为 None**；
+    2. 于是落到硬编码 `"google/gemma-4-1b-it"` —— **不是**锁定模型
+       `google/gemma-4-31B-it-qat-w4a16-ct`；
+    3. `DEFAULT_CONFIG["lora"]["target_suffixes"]` —— 这个键**根本不存在**，
+       `.get(..., [])` 静默返回空清单，即使 revision 修好也会 `lora_not_mounted`。
+
+    现在：显式参数优先；否则从 `official-interface.json` 的 pins 取
+    `model_repo_id` / `model_revision`（`OfficialInterface.pin()` 对 `verified != true`
+    的 pin 抛 `UnverifiedLock`）；`target_modules` 由目标正则机械导出。
+    取不到任何一项都抛 fail-closed 异常，**不猜、不回退**。
+    """
+    config = config or TrainingConfig.default()
+    #: 明确不是 pin 的取值（`latest`/空/None 一律拒绝，绝不静默换成别的 revision）。
+    unpinned = ("", "latest", "main", "head", "none", "null", "unknown")
+    source = "explicit-argument"
+    resolved_id: str | None = None
+    resolved_revision: str | None = None
+    if model_id is not None:
+        text = str(model_id).strip()
+        if not text or text.lower() in unpinned:
+            raise MissingInput(
+                "model_id_pin_missing",
+                "显式给出的 model_id 为空或无意义：不得回退到别处取模型",
+                model_id=model_id,
+            )
+        resolved_id = text
+    if model_revision is not None:
+        text = str(model_revision).strip()
+        if text.lower() in unpinned:
+            raise UnverifiedLock(
+                "model_revision_pin_missing",
+                "显式给出的 revision 不是 pin（%r）：显式传入就必须是精确 revision" % (model_revision,),
+                revision=model_revision,
+            )
+        resolved_revision = text
+
+    if resolved_id is None or resolved_revision is None:
+        path = interface_path or os.path.join(LOCKS_DIR, "official-interface.json")
+        if not os.path.exists(path):
+            raise MissingInput(
+                "official_interface_missing",
+                "找不到官方接口锁，无法取 model_repo_id / model_revision pin：%s" % path,
+                path=path,
+            )
+        interface = OfficialInterface.from_file(path)
+        if resolved_id is None or resolved_revision is None:
+            source = "official-interface.json:pins"
+        if resolved_id is None:
+            resolved_id = interface.pin("model_repo_id")
+        if resolved_revision is None:
+            # `pin()` 先校验 verified == true；再核对原始 value 确实是字符串 pin，
+            # 否则 `str(None)` 会变成 "None" 悄悄通过。
+            resolved_revision = interface.pin("model_revision")
+            raw = interface.pin_entry("model_revision").get("value")
+            if not isinstance(raw, str) or raw.strip().lower() in unpinned:
+                raise UnverifiedLock(
+                    "model_revision_pin_missing",
+                    "official-interface 的 model_revision pin 不是有效 revision：%r" % (raw,),
+                    revision=raw,
+                )
+    if not resolved_id:
+        raise MissingInput(
+            "model_id_pin_missing",
+            "取不到锁定的 model_repo_id：不得回退到硬编码模型",
+        )
+    lora = config.lora
+    modules = [str(item) for item in (target_modules or [])]
+    if not modules:
+        # 从配置里的目标正则导出；无正则时退回冻结常量 TARGET_REGEX。
+        regex = str(lora.get("target_modules_regex") or "").strip()
+        modules = target_module_names(regex) if regex else target_module_names()
+    if not modules:
+        raise MissingInput(
+            "target_modules_missing",
+            "取不到 target_modules：不得用空清单构造 LoRA（会静默变成 lora_not_mounted）",
+        )
+    return {
+        "model_id": resolved_id,
+        "model_revision": str(resolved_revision),
+        "target_modules": sorted(modules),
+        "source": source,
+    }
 
 
 def measure_gates(
@@ -326,8 +428,12 @@ def start(
     gpu_hours: float,
     stage: str | None,
     v2_conflict_checked: bool = False,
+    model_id: str | None = None,
+    model_revision: str | None = None,
+    target_modules: Sequence[str] | None = None,
     train_lock_path: str | None = None,
     serving_lock_path: str | None = None,
+    interface_path: str | None = None,
     config_path: str | None = None,
     memory_profile: dict | None = None,
     export_manifest: dict | None = None,
@@ -344,12 +450,26 @@ def start(
     与旧版的差别：通过全部检查后**不再无条件抛出**。`backend` 省略时使用真实
     `TorchPeftBackend`（缺锁定依赖/GPU 时会以环境原因 `Blocked`）；闸门或授权不满足时
     仍然抛 `PolicyViolation("start_not_allowed")` —— fail-closed 保持不变。
+
+    🟡-3：`model_id` / `model_revision` / `target_modules` 不再有硬编码回退 ——
+    未显式给出时一律走 :func:`resolve_backend_pins`（来自 official-interface 锁的
+    `model_repo_id` / `model_revision` pin，`verified != true` 即 `UnverifiedLock`；
+    `target_modules` 由目标正则机械导出）。缺 pin 在**构造后端之前**就拒绝。
     """
     train_lock_path = train_lock_path or os.path.join(LOCKS_DIR, "train.lock.json")
     serving_lock_path = serving_lock_path or os.path.join(LOCKS_DIR, "serving.lock.json")
     config = TrainingConfig.from_file(config_path) if config_path else TrainingConfig.default()
     config.assert_valid()
     lock = DependencyLock.from_file(train_lock_path)
+
+    # 先把 pin 解析出来：缺 pin 必须在这里就停下，而不是等到构造后端才炸。
+    pins = resolve_backend_pins(
+        interface_path=interface_path,
+        model_id=model_id,
+        model_revision=model_revision,
+        target_modules=target_modules,
+        config=config,
+    )
 
     gate_state = measure_gates(memory_profile=memory_profile, export_manifest=export_manifest)
     gates = gate_state["gates"]
@@ -358,6 +478,10 @@ def start(
         "operator": operator,
         "stage": stage,
         "v2_conflict_checked": v2_conflict_checked,
+        "model_id": pins["model_id"],
+        "model_revision": pins["model_revision"],
+        "target_modules": list(pins["target_modules"]),
+        "pins_source": pins["source"],
     }
 
     problems: list[str] = []
@@ -394,10 +518,11 @@ def start(
             gates=gates,
         )
     if backend is None:
+        # 参数全部来自 resolve_backend_pins：无硬编码模型、无编造的 target 清单。
         backend = runner.TorchPeftBackend(
-            model_id=authorization.get("model_id") or "google/gemma-4-1b-it",
-            revision=authorization.get("model_revision") or "",
-            target_modules=DEFAULT_CONFIG.get("lora", {}).get("target_suffixes", []),
+            model_id=pins["model_id"],
+            revision=pins["model_revision"],
+            target_modules=pins["target_modules"],
             allow_download=allow_download,
         )
     dest_dir = dest_dir or os.path.join(HERE, "_run_adapter")
@@ -405,6 +530,7 @@ def start(
     report["gates"] = gates
     report["gate_evidence"] = gate_state["evidence"]
     report["authorization"] = authorization
+    report["backend_pins"] = pins
     report["operator"] = operator
     report["stage"] = stage
     return report
@@ -422,6 +548,15 @@ def main(argv: list[str] | None = None) -> int:
     parser.add_argument("--config", default=None)
     parser.add_argument("--memory-profile", default=None, help="实测内存 profile 的 JSON 路径")
     parser.add_argument("--export-manifest", default=None, help="导出 manifest 的 JSON 路径")
+    # 🟡-3：显式 pin 可选；不给时一律从 official-interface 锁取（无硬编码回退）。
+    parser.add_argument("--interface", default=None, help="official-interface.json 路径")
+    parser.add_argument("--model-id", default=None, help="显式覆盖锁定的 model_repo_id")
+    parser.add_argument("--model-revision", default=None, help="显式覆盖锁定的 model_revision")
+    parser.add_argument(
+        "--target-modules",
+        default=None,
+        help="逗号分隔的 target_modules（例如 q_proj,o_proj）；不给则从目标正则导出",
+    )
     args = parser.parse_args(argv)
 
     if args.smoke:
@@ -444,6 +579,14 @@ def main(argv: list[str] | None = None) -> int:
                 gpu_hours=args.gpu_hours,
                 stage=args.stage,
                 v2_conflict_checked=args.v2_conflict_checked,
+                model_id=args.model_id,
+                model_revision=args.model_revision,
+                target_modules=(
+                    [item.strip() for item in args.target_modules.split(",") if item.strip()]
+                    if args.target_modules
+                    else None
+                ),
+                interface_path=args.interface,
                 config_path=args.config,
                 memory_profile=memory_profile,
                 export_manifest=export_manifest,
@@ -453,7 +596,7 @@ def main(argv: list[str] | None = None) -> int:
             return exc.exit_code
         return 0
 
-    report = preflight(config_path=args.config)
+    report = preflight(config_path=args.config, interface_path=args.interface)
     print(json.dumps(report, ensure_ascii=False, indent=2, sort_keys=True))
     return 0 if not report["blockers"] else 5
 

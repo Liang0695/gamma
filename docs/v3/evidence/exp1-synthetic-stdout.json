@@ -144,13 +144,13 @@
   },
   "cpu": {
     "per_question_wall_seconds": [
-      7.7e-05,
-      4.9e-05,
-      3.8e-05,
-      3e-05,
+      6.7e-05,
+      4.7e-05,
+      3.6e-05,
       2.7e-05,
       2.4e-05,
-      3.1e-05,
+      2.1e-05,
+      2.9e-05,
       2.8e-05
     ],
     "timing_clock": "time.perf_counter（墙上时间），不是 time.process_time",
@@ -235,6 +235,6 @@
     "truncation_rate": 0.0
   },
   "region_hit_basis": "只用候选自带的行区间（lexsearch.longest_hit_block 由真实命中行推出）；缺失记 NA 并从分母剔除（region_hit_evaluable_n / region_hit_na_n），禁止用写死的 1..1 之类假区间造指标",
-  "report_path": "<workdir>\\canopus-3ho-7fd8c6d77d72\\kaggle-24-e035f78cb7d7\\workdir\\gamma\\docs\\v3\\evidence\\exp1-report.json",
+  "report_path": "<workdir>\\canopus-3ho-7fd8c6d77d72\\kaggle-24-41f3362834fe\\workdir\\gamma\\docs\\v3\\evidence\\exp1-report.json",
   "scope": "只评估规则检索；不构成对模型自主工具使用的实验"
 }

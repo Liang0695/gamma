@@ -1,17 +1,122 @@
 {
-  "code": "source_lock_invalid",
-  "context": {
-    "origin_format": "d0-source-lock/1",
-    "problems": [
-      "attrs 许可未 approved（authorization_scope=unverified）",
-      "boltons 许可未 approved（authorization_scope=unverified）",
-      "click 许可未 approved（authorization_scope=unverified）",
-      "dateutil 许可未 approved（authorization_scope=unverified）",
-      "marshmallow 许可未 approved（authorization_scope=unverified）",
-      "more-itertools 许可未 approved（authorization_scope=unverified）",
-      "packaging 许可未 approved（authorization_scope=unverified）",
-      "pluggy 许可未 approved（authorization_scope=unverified）"
+  "alternative_candidate_status": "imported_only_not_approved_as_replacement_and_not_released",
+  "candidate_pools": {
+    "alternative_candidates": [
+      "python-dotenv"
+    ],
+    "locked_candidates": [
+      "attrs",
+      "boltons",
+      "click",
+      "dateutil",
+      "marshmallow",
+      "more-itertools",
+      "packaging",
+      "pluggy"
     ]
   },
-  "message": "来源锁不合规（8 项）"
+  "excluded_non_train": [
+    "attrs",
+    "dateutil",
+    "marshmallow",
+    "packaging",
+    "python-dotenv"
+  ],
+  "generated_by": "d0/collect_licenses.py",
+  "license_assessment": {
+    "approval_revision_matches_pin": 9,
+    "decision_counts": {
+      "approved": 9,
+      "rejected": 0,
+      "unverified": 0
+    },
+    "independent_review_countersigned": false,
+    "independent_review_pending": 9,
+    "records_assessed": 9,
+    "source": "repos.<name>.license_review.decision（D0 license_review_schema）"
+  },
+  "license_metadata_imported_is_not_independent_approval": true,
+  "manifest_sha256": "7c9788478055cdff451bc87bde59a6a5c0511b1554bf26ebf77efbe9cc623164",
+  "note": "本步只登记与校验，不下载权重/受限数据；未获批的来源不会被静默放行。许可元数据被导入**不等于**独立批准（independent_review 仍是 pending），也**不等于**任何 split 被 released；替代候选被导入不等于已批准替换或发布。",
+  "origin_format": "d0-source-lock/1",
+  "released_splits": [],
+  "source_count": 4,
+  "source_lock_sha256": "ce4bbe9efbd85d0566bf19fa9b4e51635453926fac649a5ce64ac0e1b1f8a28d",
+  "sources": [
+    {
+      "acquired_at": "2026-09-07T03:42:05-07:00",
+      "approval_revision": "4332b35a278d694f30c99881faa61cde695c7a96",
+      "approval_revision_matches_pin": true,
+      "authorization_scope": "approved",
+      "commit": "4332b35a278d694f30c99881faa61cde695c7a96",
+      "independent_review_status": "pending",
+      "license_approved_spdx": "BSD-3-Clause",
+      "license_decision": "approved",
+      "license_decision_source": "d0-license-review.decision",
+      "license_spdx": "BSD-3-Clause",
+      "name": "boltons",
+      "pinned_tag": "26.2.0",
+      "repo_url": "https://ghfast.top/https://github.com/mahmoud/boltons.git",
+      "role_class": "locked_candidate",
+      "split_role": "train",
+      "tree_sha": "d12eba4fbaf37aaf17713e5b202f706d2a53f706"
+    },
+    {
+      "acquired_at": "2026-08-21T21:31:25-07:00",
+      "approval_revision": "8b19813f2bfca99f1018a587a8cf54fc959f2e5d",
+      "approval_revision_matches_pin": true,
+      "authorization_scope": "approved",
+      "commit": "8b19813f2bfca99f1018a587a8cf54fc959f2e5d",
+      "independent_review_status": "pending",
+      "license_approved_spdx": "BSD-3-Clause",
+      "license_decision": "approved",
+      "license_decision_source": "d0-license-review.decision",
+      "license_spdx": "BSD-3-Clause",
+      "name": "click",
+      "pinned_tag": "8.5.0",
+      "repo_url": "https://ghfast.top/https://github.com/pallets/click.git",
+      "role_class": "locked_candidate",
+      "split_role": "train",
+      "tree_sha": "2955d48825c98fd7dcbc60eb41cf18a952a2c0a3"
+    },
+    {
+      "acquired_at": "2026-05-22T09:12:03-05:00",
+      "approval_revision": "64be96ceb2a6e836f76f069f4a96d2394d59fd0c",
+      "approval_revision_matches_pin": true,
+      "authorization_scope": "approved",
+      "commit": "64be96ceb2a6e836f76f069f4a96d2394d59fd0c",
+      "independent_review_status": "pending",
+      "license_approved_spdx": "MIT",
+      "license_decision": "approved",
+      "license_decision_source": "d0-license-review.decision",
+      "license_spdx": "MIT",
+      "name": "more-itertools",
+      "pinned_tag": "v11.1.0",
+      "repo_url": "https://ghfast.top/https://github.com/more-itertools/more-itertools.git",
+      "role_class": "locked_candidate",
+      "split_role": "train",
+      "tree_sha": "f7409b66b75d5649b9fc6414114f8035362f9fcf"
+    },
+    {
+      "acquired_at": "2025-05-15T10:14:23+02:00",
+      "approval_revision": "fd08ab5f811a9b2fa9124ae8cbbd393221151e2c",
+      "approval_revision_matches_pin": true,
+      "authorization_scope": "approved",
+      "commit": "fd08ab5f811a9b2fa9124ae8cbbd393221151e2c",
+      "independent_review_status": "pending",
+      "license_approved_spdx": "MIT",
+      "license_decision": "approved",
+      "license_decision_source": "d0-license-review.decision",
+      "license_spdx": "MIT",
+      "name": "pluggy",
+      "pinned_tag": "1.6.0",
+      "repo_url": "https://ghfast.top/https://github.com/pytest-dev/pluggy.git",
+      "role_class": "locked_candidate",
+      "split_role": "train",
+      "tree_sha": "d3aac17eab19c9e8f6f6358ad2dcaec02d734020"
+    }
+  ],
+  "stage": "ingest",
+  "train_only_view": true,
+  "training_released": false
 }

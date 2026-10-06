@@ -34,6 +34,34 @@ GEOMETRY = {
 
 TARGET_REGEX = r"^model\.language_model\.layers\.\d+\.self_attn\.(q_proj|o_proj)$"
 
+#: 目标正则**末尾的叶子候选择一**（`(...|...)`）。`target_module_names()` 从它导出
+#: 传给 `peft.LoraConfig(target_modules=...)` 的模块名清单 —— 不再硬编码，也不再读一个
+#: 根本不存在的 `DEFAULT_CONFIG["lora"]["target_suffixes"]`（旧的 🟡-3 缺陷）。
+_LEAF_ALTERNATION = re.compile(r"\(([A-Za-z0-9_|]+)\)\$?$")
+
+
+def target_module_names(regex: str = TARGET_REGEX) -> list[str]:
+    """从目标正则导出 `target_modules` 叶子名清单（例如 `["o_proj", "q_proj"]`）。
+
+    无法从正则机械导出时 **fail-closed**（`MissingInput`）：宁可让入口停下来，
+    也不要塞一个空清单进 `LoraConfig` —— 那会让 `lora_not_mounted` 在真实 GPU 上才炸。
+    """
+    match = _LEAF_ALTERNATION.search(str(regex or "").strip())
+    if not match:
+        raise MissingInput(
+            "target_module_names_underivable",
+            "无法从 target 正则导出叶子模块名（缺少末尾的 (a|b|...) 候选组）：%r" % (regex,),
+            target_regex=regex,
+        )
+    names = sorted({part for part in match.group(1).split("|") if part})
+    if not names:
+        raise MissingInput(
+            "target_module_names_empty",
+            "target 正则的候选组解析为空：%r" % (regex,),
+            target_regex=regex,
+        )
+    return names
+
 #: 冻结模块（正则前缀）。
 FROZEN_PATTERNS = (
     r"^model\.vision_tower\.",
@@ -130,7 +158,7 @@ class ModulePlan:
     def expected_names(self) -> list[str]:
         names = []
         for layer in range(GEOMETRY["num_hidden_layers"]):
-            for projection in ("q_proj", "o_proj"):
+            for projection in target_module_names():
                 names.append(
                     "model.language_model.layers.%d.self_attn.%s" % (layer, projection)
                 )
@@ -170,6 +198,7 @@ class ModulePlan:
             "dropout": self.dropout,
             "bias": self.bias,
             "target_regex": TARGET_REGEX,
+            "target_module_names": target_module_names(),
             "matched_count": len(self.matched),
             "expected_count": expected_module_count(),
             "trainable_params": lora_param_count(self.rank),

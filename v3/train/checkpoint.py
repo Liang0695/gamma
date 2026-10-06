@@ -450,16 +450,21 @@ def build_export_manifest(
     }
 
 
-def assert_adapter_valid(
+def _validate_adapter_counts(
     manifest: Mapping,
     *,
     load_ok: bool,
     params_changed: bool,
     fixture_pass: int,
     fixture_total: int,
-    require_frozen_suite: bool = False,
+    require_frozen_suite: bool,
 ) -> dict:
-    """禁止「无效 adapter 静默过关」（KAGGLE-20 §4 验收项）。
+    """禁止「无效 adapter 静默过关」（KAGGLE-20 §4 验收项）—— 内部实现。
+
+    公开入口只有两个（🟡-4 修订后）：
+
+    - `assert_adapter_valid_frozen_spec(...)`：**生产入口**，必须 20/20；
+    - `assert_adapter_valid_lenient_for_tests(...)`：**测试辅助**，允许自洽小集。
 
     缺陷修复说明（原 `min_pass=7` 魔法默认值已删除）：
 
@@ -472,7 +477,7 @@ def assert_adapter_valid(
       `PolicyViolation("adapter_fixture_regression")`：**20 项 mask fixture 必须全过**；
     - 声明少于 20 项的自洽小集（历史 smoke 口径）必须**整份全绿**，否则走
       `PolicyViolation("adapter_invalid")`；返回值里 `frozen_spec_satisfied=False`，
-      生产 preflight 应改用 `assert_adapter_valid_frozen_spec()`；
+      生产 preflight 必须改用 `assert_adapter_valid_frozen_spec()`；
     - `require_frozen_suite=True` 时 `fixture_total` 必须**恰好**等于
       `REQUIRED_FIXTURE_TOTAL`，否则 `PolicyViolation("adapter_fixture_suite_incomplete")`。
 
@@ -586,6 +591,40 @@ def assert_adapter_valid(
     }
 
 
+def assert_adapter_valid_lenient_for_tests(
+    manifest: Mapping,
+    *,
+    load_ok: bool,
+    params_changed: bool,
+    fixture_pass: int,
+    fixture_total: int,
+) -> dict:
+    """**测试辅助入口**：允许"自报 N 项且整份全绿"的小集（历史 smoke 口径）。
+
+    ⚠️ **禁止在生产路径调用**（🟡-4）。名字里的 `_lenient_for_tests` 就是为了让它
+    不可能被误当成生产门槛：KAGGLE-26 复核实测旧名 `assert_adapter_valid` 对
+    `fixture_pass=8, fixture_total=8` **放行**，而 8/8 不等于 20/20 —— 生产侧必须走
+    `assert_adapter_valid_frozen_spec()`。
+
+    "无生产调用点"由 `tests/test_q0_pins_and_guards.py` 的全仓扫描守着
+    （`v3/` 下除注释外不得出现该名字）。
+
+    返回体里 `frozen_spec_satisfied=False`、`production_use_forbidden=True`，
+    调用方不得把它当作冻结验收通过。
+    """
+    result = _validate_adapter_counts(
+        manifest,
+        load_ok=load_ok,
+        params_changed=params_changed,
+        fixture_pass=fixture_pass,
+        fixture_total=fixture_total,
+        require_frozen_suite=False,
+    )
+    result["production_use_forbidden"] = True
+    result["entry_kind"] = "lenient-for-tests"
+    return result
+
+
 def assert_adapter_valid_frozen_spec(
     manifest: Mapping,
     *,
@@ -596,10 +635,9 @@ def assert_adapter_valid_frozen_spec(
 ) -> dict:
     """生产 preflight 入口：必须提交 20/20 的冻结验收证据，缺一即阻断。
 
-    与 `assert_adapter_valid(..., require_frozen_suite=True)` 完全等价，供
-    `entry.preflight()` 直接接线（返回结构见 `assert_adapter_valid`）。
+    返回结构见 `_validate_adapter_counts`；`production_use_forbidden=False`。
     """
-    return assert_adapter_valid(
+    result = _validate_adapter_counts(
         manifest,
         load_ok=load_ok,
         params_changed=params_changed,
@@ -607,3 +645,6 @@ def assert_adapter_valid_frozen_spec(
         fixture_total=fixture_total,
         require_frozen_suite=True,
     )
+    result["production_use_forbidden"] = False
+    result["entry_kind"] = "frozen-spec-20-of-20"
+    return result

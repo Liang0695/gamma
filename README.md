@@ -24,6 +24,8 @@ python run_tests.py                      # 全部 CPU 回归测试
 python -m v3.cli train-preflight         # 训练静态 preflight（当前如实报告阻断项）
 python -m v3.cli exp1 --output-dir out/  # CPU EXP-1（默认跑合成 fixtures）
 python -m v3.cli deps                    # 两侧依赖锁状态
+# D0 来源锁 ingest（真实 D0 manifest 的冻结副本；--train-only 生成训练侧视图，退出码 0）
+python -m v3.cli ingest --source-lock docs/v3/design/d0-source-lock-65aaa16.json --train-only
 ```
 
 Python ≥ 3.11，**不需要任何第三方包**即可跑测试与 CLI。

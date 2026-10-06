@@ -68,6 +68,24 @@
         "optimizer_stepped": true,
         "reload_matches": true
       },
+      "full_state_dict_guard": {
+        "allowed_bytes": 0,
+        "checked": true,
+        "evidence": {
+          "method": "逐参数遍历：从不在同一容器里持有全部参数",
+          "probe": "synthetic-parameter-residency"
+        },
+        "full_state_dict_resident": false,
+        "observation": {
+          "declared_weight_bytes": 11520,
+          "method": "逐参数遍历：从不在同一容器里持有全部参数",
+          "peak_full_state_dict_bytes": 0,
+          "probe": "synthetic-parameter-residency"
+        },
+        "peak_full_state_dict_bytes": 0,
+        "rss_limit_bytes": 12884901888,
+        "total_weight_bytes": 11520
+      },
       "grad_norm_min": 0.007705795046671062,
       "is_real_model_training": false,
       "loss_decreased_observation_only": true,
@@ -112,11 +130,11 @@
       "package_versions_identical": false,
       "serving_channel": "serving",
       "serving_lock_sha256": "8e1e2b8a2e77ecc14c99f6d7d1b549520262de15b2cfad78666843ad4d4bf79a",
-      "serving_path": "<workdir>\\canopus-3ho-7fd8c6d77d72\\kaggle-24-e035f78cb7d7\\workdir\\gamma\\v3\\locks\\serving.lock.json",
+      "serving_path": "<workdir>\\canopus-3ho-7fd8c6d77d72\\kaggle-24-41f3362834fe\\workdir\\gamma\\v3\\locks\\serving.lock.json",
       "serving_source_sha256": "84ae5ddee719d945f832756b88a0342a27a6721ffdf23b00fbb535b9642e700d",
       "train_channel": "train",
       "train_lock_sha256": "69d1494004341af179f2c29e08eabf4c39da7187d8b13da0cb715f226ab19b48",
-      "train_path": "<workdir>\\canopus-3ho-7fd8c6d77d72\\kaggle-24-e035f78cb7d7\\workdir\\gamma\\v3\\locks\\train.lock.json",
+      "train_path": "<workdir>\\canopus-3ho-7fd8c6d77d72\\kaggle-24-41f3362834fe\\workdir\\gamma\\v3\\locks\\train.lock.json",
       "train_source_sha256": "103144121c5d89fbb5597647702538df17b65912682161cacf8c00b206bec876"
     },
     "serving": {
@@ -273,6 +291,24 @@
         "optimizer_step_count": 40,
         "adapter_sha256": "49fbdb8c857e1e888a86c9f2abe6bb2c2314e09e354ba6969a635d1508155147",
         "saved_filename": "adapter.synthetic.json",
+        "full_state_dict_guard": {
+          "checked": true,
+          "full_state_dict_resident": false,
+          "peak_full_state_dict_bytes": 0,
+          "allowed_bytes": 0,
+          "rss_limit_bytes": 12884901888,
+          "total_weight_bytes": 11520,
+          "evidence": {
+            "probe": "synthetic-parameter-residency",
+            "method": "逐参数遍历：从不在同一容器里持有全部参数"
+          },
+          "observation": {
+            "probe": "synthetic-parameter-residency",
+            "method": "逐参数遍历：从不在同一容器里持有全部参数",
+            "peak_full_state_dict_bytes": 0,
+            "declared_weight_bytes": 11520
+          }
+        },
         "note": "合成玩具模型上的自检：只证明前向/反向/优化器步进/保存重载这条链路可用，不证明真实模型可训练，也不产生任何可提交产物。loss_decreased 只作观察值，不作为通过条件。",
         "artifacts_kept": false
       },
@@ -334,6 +370,24 @@
         "optimizer_step_count": 40,
         "adapter_sha256": "49fbdb8c857e1e888a86c9f2abe6bb2c2314e09e354ba6969a635d1508155147",
         "saved_filename": "adapter.synthetic.json",
+        "full_state_dict_guard": {
+          "checked": true,
+          "full_state_dict_resident": false,
+          "peak_full_state_dict_bytes": 0,
+          "allowed_bytes": 0,
+          "rss_limit_bytes": 12884901888,
+          "total_weight_bytes": 11520,
+          "evidence": {
+            "probe": "synthetic-parameter-residency",
+            "method": "逐参数遍历：从不在同一容器里持有全部参数"
+          },
+          "observation": {
+            "probe": "synthetic-parameter-residency",
+            "method": "逐参数遍历：从不在同一容器里持有全部参数",
+            "peak_full_state_dict_bytes": 0,
+            "declared_weight_bytes": 11520
+          }
+        },
         "note": "合成玩具模型上的自检：只证明前向/反向/优化器步进/保存重载这条链路可用，不证明真实模型可训练，也不产生任何可提交产物。loss_decreased 只作观察值，不作为通过条件。",
         "artifacts_kept": false
       },
@@ -540,13 +594,13 @@
   },
   "cpu": {
     "per_question_wall_seconds": [
-      5.7e-05,
-      4.6e-05,
+      6.1e-05,
+      4.3e-05,
       3.5e-05,
       2.4e-05,
-      2.5e-05,
+      2.4e-05,
       2.2e-05,
-      3e-05,
+      2.8e-05,
       2.9e-05
     ],
     "timing_clock": "time.perf_counter（墙上时间），不是 time.process_time",
@@ -631,7 +685,7 @@
     "truncation_rate": 0.0
   },
   "region_hit_basis": "只用候选自带的行区间（lexsearch.longest_hit_block 由真实命中行推出）；缺失记 NA 并从分母剔除（region_hit_evaluable_n / region_hit_na_n），禁止用写死的 1..1 之类假区间造指标",
-  "report_path": "<workdir>\\canopus-3ho-7fd8c6d77d72\\kaggle-24-e035f78cb7d7\\workdir\\gamma\\_tmp\\cli_exp1_12\\exp1-report.json",
+  "report_path": "<workdir>\\canopus-3ho-7fd8c6d77d72\\kaggle-24-41f3362834fe\\workdir\\gamma\\_tmp\\cli_exp1_12\\exp1-report.json",
   "scope": "只评估规则检索；不构成对模型自主工具使用的实验"
 }
 {
@@ -649,7 +703,7 @@
   "context": {
     "origin_format": "v3-source-lock/1",
     "problems": [
-      "a 许可未 approved（authorization_scope=unverified）"
+      "a 许可未 approved（authorization_scope=unverified，decision_source=flat-approval-key）"
     ]
   },
   "message": "来源锁不合规（1 项）"
@@ -665,26 +719,57 @@
   "message": "来源锁不合规（1 项）"
 }
 {
+  "alternative_candidate_status": "imported_only_not_approved_as_replacement_and_not_released",
+  "candidate_pools": {
+    "alternative_candidates": [],
+    "locked_candidates": [
+      "a"
+    ]
+  },
+  "excluded_non_train": [],
   "generated_by": null,
-  "manifest_sha256": "b4a7dd5f49e7a44a893df929dc067f927137a92ea2dd55c677c9d506eedc2622",
-  "note": "本步只登记与校验，不下载权重/受限数据；未获批的来源不会被静默放行。",
+  "license_assessment": {
+    "approval_revision_matches_pin": 0,
+    "decision_counts": {
+      "approved": 1,
+      "rejected": 0,
+      "unverified": 0
+    },
+    "independent_review_countersigned": false,
+    "independent_review_pending": 0,
+    "records_assessed": 1,
+    "source": "repos.<name>.license_review.decision（D0 license_review_schema）"
+  },
+  "license_metadata_imported_is_not_independent_approval": true,
+  "manifest_sha256": "8589cdd4e5f6d673232731253d0f59c0e9546dd59d423a3fb0f598eb005509d3",
+  "note": "本步只登记与校验，不下载权重/受限数据；未获批的来源不会被静默放行。许可元数据被导入**不等于**独立批准（independent_review 仍是 pending），也**不等于**任何 split 被 released；替代候选被导入不等于已批准替换或发布。",
   "origin_format": "v3-source-lock/1",
+  "released_splits": [],
   "source_count": 1,
   "source_lock_sha256": "a43b27894b92a783cf8c8ea741085b4742778da64e436b666c86bd386d9f962d",
   "sources": [
     {
       "acquired_at": "2026-03-01",
+      "approval_revision": null,
+      "approval_revision_matches_pin": null,
       "authorization_scope": "approved",
       "commit": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+      "independent_review_status": null,
+      "license_approved_spdx": null,
+      "license_decision": null,
+      "license_decision_source": "flat-approval-key",
       "license_spdx": "MIT",
       "name": "a",
       "pinned_tag": null,
       "repo_url": "u",
+      "role_class": null,
       "split_role": null,
       "tree_sha": null
     }
   ],
-  "stage": "ingest"
+  "stage": "ingest",
+  "train_only_view": false,
+  "training_released": false
 }
 {
   "code": "no_gpu_budget",
@@ -810,6 +895,24 @@
         "optimizer_stepped": true,
         "reload_matches": true
       },
+      "full_state_dict_guard": {
+        "allowed_bytes": 0,
+        "checked": true,
+        "evidence": {
+          "method": "逐参数遍历：从不在同一容器里持有全部参数",
+          "probe": "synthetic-parameter-residency"
+        },
+        "full_state_dict_resident": false,
+        "observation": {
+          "declared_weight_bytes": 11520,
+          "method": "逐参数遍历：从不在同一容器里持有全部参数",
+          "peak_full_state_dict_bytes": 0,
+          "probe": "synthetic-parameter-residency"
+        },
+        "peak_full_state_dict_bytes": 0,
+        "rss_limit_bytes": 12884901888,
+        "total_weight_bytes": 11520
+      },
       "grad_norm_min": 0.007705795046671062,
       "is_real_model_training": false,
       "loss_decreased_observation_only": true,
@@ -854,11 +957,11 @@
       "package_versions_identical": false,
       "serving_channel": "serving",
       "serving_lock_sha256": "8e1e2b8a2e77ecc14c99f6d7d1b549520262de15b2cfad78666843ad4d4bf79a",
-      "serving_path": "<workdir>\\canopus-3ho-7fd8c6d77d72\\kaggle-24-e035f78cb7d7\\workdir\\gamma\\v3\\locks\\serving.lock.json",
+      "serving_path": "<workdir>\\canopus-3ho-7fd8c6d77d72\\kaggle-24-41f3362834fe\\workdir\\gamma\\v3\\locks\\serving.lock.json",
       "serving_source_sha256": "84ae5ddee719d945f832756b88a0342a27a6721ffdf23b00fbb535b9642e700d",
       "train_channel": "train",
       "train_lock_sha256": "69d1494004341af179f2c29e08eabf4c39da7187d8b13da0cb715f226ab19b48",
-      "train_path": "<workdir>\\canopus-3ho-7fd8c6d77d72\\kaggle-24-e035f78cb7d7\\workdir\\gamma\\v3\\locks\\train.lock.json",
+      "train_path": "<workdir>\\canopus-3ho-7fd8c6d77d72\\kaggle-24-41f3362834fe\\workdir\\gamma\\v3\\locks\\train.lock.json",
       "train_source_sha256": "103144121c5d89fbb5597647702538df17b65912682161cacf8c00b206bec876"
     },
     "serving": {
@@ -992,4 +1095,4 @@
   "message": "env.lock 缺少必需字段"
 }
 
-SUMMARY: run=278 failures=0 errors=0 skipped=1
+SUMMARY: run=346 failures=0 errors=0 skipped=1

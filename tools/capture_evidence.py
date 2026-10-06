@@ -58,6 +58,19 @@ def main() -> int:
         ([py, "-m", "v3.cli", "deps"], "deps-status.json"),
         ([py, "-m", "v3.cli", "exp1", "--output-dir", EVIDENCE_DIR], "exp1-synthetic-stdout.json"),
         ([py, "-m", "v3.cli", "audit", "--release", "does-not-exist.json"], "audit-missing.json"),
+        # 🔴-A：用 D0 冻结副本（65aaa16 的真实产物）跑正向 ingest，退出码必须是 0。
+        (
+            [
+                py,
+                "-m",
+                "v3.cli",
+                "ingest",
+                "--source-lock",
+                "docs/v3/design/d0-source-lock-65aaa16.json",
+                "--train-only",
+            ],
+            "ingest-d0-source-lock.json",
+        ),
     ]
     exit_codes = {name: capture(cmd, name) for cmd, name in jobs}
 

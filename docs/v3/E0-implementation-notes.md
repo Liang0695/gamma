@@ -193,6 +193,12 @@ KAGGLE-23 的许可外部题到位后重跑（见 §7）。
 
 ### 6.5 与 D0（KAGGLE-23）的版本化 manifest 交接实测
 
+> **本节结论已被 §10.1 取代（🔴-A，2026-10-06）。** 下文的 `exit 7` 是**旧版适配器**的
+> 行为：当时 E0 只在平铺层按 `authorization_scope/license_approved/approved/license_status`
+> 找批准信号，而 D0 v2 把批准放在嵌套的 `repos.<name>.license_review.decision` 里，
+> 于是一条都扫不到。Mika 裁定**以 D0 的形状为准、E0 侧适配**后，真实 manifest 现在是
+> **`exit 0`**（证据 `evidence/ingest-d0-source-lock.json`）。原文保留以便复核。
+
 D0 分支 `agent/research/kaggle-23-d0-source-lock` @ `8b8ff5aede6a421b317bc9631c8512a62947aec6`
 的 `d0/out/source-lock.json` 形状与本仓库最初假设不同（`repos` 字典 vs `sources` 列表），
 为此新增了 `v3/data/source_lock.py` 适配器并**用真实文件跑过**：
@@ -205,14 +211,13 @@ exit 7
              "problems": [..., "attrs 许可未 approved（authorization_scope=unverified）", ...]}}
 ```
 
-结论（证据：`evidence/ingest-d0-source-lock.json`）：
+结论（当时）：
 
 - **格式对接成功**：8 个来源全部被识别，commit 都是 40 位 hex（固定 revision ✔）；
 - **但不放行**：D0 的 manifest 里没有逐仓库的人工许可批准字段，适配器按"不猜许可结论"
   标为 `unverified`，`ingest` 因此 fail-closed（8 项问题）。
-- **需要 D0 补一个字段**即可打通：任一被识别键 —— `authorization_scope` / `license_approved`
-  / `approved` / `license_status`，值为 `approved`（或 `train_allowed` / `cleared` / `true`）。
-  这是交接契约，不是我这边的缺陷。
+- 当时设想的"需要 D0 补一个字段：`authorization_scope = approved`"**已被否决**：
+  Mika 明确"不得用无条件 `approved` 别名绕过审核"，批准必须绑定 revision。
 
 另外确认**文件零重叠**：D0 分支的所有产物都在 `d0/` 下，本分支改的是 `v3/`、`tests/`、
 `docs/v3/`、`README.md`，两边没有同时编辑同一文件。
@@ -290,11 +295,13 @@ exit 7
 - **Y2** `assert_roundtrip_arguments`：真正经过 `Renderer.render()`，从 action 通道取回 `arguments_text` 再反序列化比对（传假 renderer 必失败）。
 - **Y3** `thinking` 参数现在有可观测差异（独立 reasoning 通道）；F04/F05 的 purpose 文案与实现对齐，并各带一条断言通道语义的 `extra_check`。
 - **Y4** `checkpoint.py`：删除无出处的 `min_pass=7`，改成具名常量 `REQUIRED_FIXTURE_TOTAL/PASS = 20`（出处 KAGGLE-20 §4），并校验 `0 ≤ fixture_pass ≤ fixture_total`；`assert_adapter_valid_frozen_spec` 是 preflight 用的**严格 20/20** 生产入口。
+  **更正（🟡-4，§10.4）**：当时那个"默认入口"仍对 8/8 放行，已改名为 `assert_adapter_valid_lenient_for_tests` 并禁止生产调用。
 - **Y5** `resume(interrupted_mid_accum=True)`：**真回滚** —— manifest 记录上一份完整快照指针，回滚时把 `global_step/optimizer/cursor/consumed_*/accum_boundary` 全部换成快照值，并返回可判定的 `rollback_applied/rolled_back_from/rolled_back_to`；无快照时诚实返回 `rollback_applied=False`（不再假装）。
 - **Y6** `source_lock._approval_of`：任一拒绝/未决信号即 `unverified`，结果**与键序无关**。
 - **Y7** `assert_train_only`：`split_role` 改为必需字段（缺失 `MissingInput`），并对取值做白名单校验。
 - **Y8** `faces.SPLITS` 增加 `sealed`（并保留历史别名 `test`）；`assert_no_split_leak` 覆盖**所有** split（`LEGACY_UNCHECKED_SPLITS` 恒为空，即无豁免），缺 `problem_family_id`/`repo_family` 即 `MissingInput`。
-- **Y9** 三处未接线全部接进 `preflight()`：`deps.load_pair`（内含 `assert_channels_isolated` + `assert_distinct_lock_channels`）→ 报告 `locks.channels_isolated`；`MemoryPlan.evaluate_or_block(measured)` → 内存门槛必须来自实测；`StreamingPlan.assert_no_full_state_dict` 改成对**行为**断言（无证据即拒）。
+- **Y9** 三处接线：`deps.load_pair`（内含 `assert_channels_isolated` + `assert_distinct_lock_channels`）→ 报告 `locks.channels_isolated`；`MemoryPlan.evaluate_or_block(measured)` → 内存门槛必须来自实测；`StreamingPlan.assert_no_full_state_dict` 改成对**行为**断言（无证据即拒）。
+  **更正（🟡-8，§10.5）**：第三处在 `be9e230` 上**只有 tests 调用点**，"三处均已接入 preflight"的说法当时不成立，现已补上 `runner.run_training` 保存前的真实接线。
 - **Y10** `region_hit` 改为三态（`True/False/NA`），行区间来自候选自带的最长命中块；NA 从分母剔除并输出 `region_hit_evaluable_n`/`region_hit_na_n`；报告加 `region_hit_basis` 口径说明。
 - **Y11** `TrainingConfig.from_file` 深合并 + 未知键 `unknown_config_key` + 全链路 `require_field`，不再抛裸 `KeyError`。
 - **Y12** `SubprocessRunner` 用 `-rA` 解析出**节点名**（`passed/failed/skipped`），命令单独记在 `commands_run`；解析不出节点名即 `Blocked("test_report_unparsable")`，不以空列表冒充"无 skip"。
@@ -312,13 +319,205 @@ exit 7
 1. **真实 GPU 训练**：`TorchPeftBackend` 代码完整但**一次都没跑过**（本机无 GPU、无锁定
    torch/peft/transformers、无下载授权）。已验证的只有 `SyntheticBackend` 的 CPU 训练循环
    （`evidence/train-entry-smoke.json`）。GPU 实耗仍交 Liang 统筹链。
-2. **官方提交限额**：Q0 转述的「7 种扩展名 / 10000 文件 / 1000 YAML / 500 agents / 深度 50」
-   在本仓库内**找不到可引用原文**。`v3/submit/validate.py` 因此只强制有出处的两条
-   （总解压 <3GiB、adapter ≤8 且只 `.safetensors`），其余记入
-   `UNVERIFIED_OFFICIAL_LIMITS` 并标 `official_limits_verified=False` —— **不编数字**。
+2. **官方提交限额**：~~「7 种扩展名 / 10000 文件 / 1000 YAML / 500 agents / 深度 50」
+   在本仓库内**找不到可引用原文**~~ → **该判断是错的，已在 §10.2 更正**：出处就是
+   KAGGLE-27 的 `A-evidence.json → a2_limits`，现将扩展名清单与四项结构限额**强制**，
+   内容级限额单列 `not_locally_checkable`。`official_limits_verified` 仍为 `False`
+   （本机没有官方包，**未实机调用** `build_submission_limits()`）。
 3. **数据隔离与权限**：Q0 §4 的六项（principal→资源权限矩阵、否定测试、封存交接、
    V2 denylist 文件、sealed 独占、actor 联网/历史取答案控制）**不在 E0 范围**，
    本轮未动、也未声称已具备。dev/sealed 发布与验收继续阻断。
 4. **真实 tokenizer / 官方模板逐字节一致**：仍未验证（`tokenizer_vocab_sha256` 仍是 `null`）。
 5. **`SubprocessRunner` 的子进程路径**：本机沙箱限制下未做真实 pytest 端到端执行，
    `-rA` 解析只对着伪造输出验证过。
+
+## 10. KAGGLE-26 独立复核退回：限定整改（🔴-A + 🟡-2/3/4/8）
+
+KAGGLE-26 的独立复核（评论 `01a10fdf-cc58-7c18-9ec7-0fc10b5e62e0`）确认原三项 🔴 与
+Y1–Y14 在 `be9e230` 上**真修复**，但新暴露 1 项 🔴 与 8 项 🟡。Mika 裁定本轮**只做**
+红 A 与黄 2/3/4/8（黄 1/5/6/7 属 D0）。逐项如下，反例全部用**真实产物或对它的最小变异**。
+
+### 10.1 🔴-A：D0↔E0 许可契约冻结（以 D0 形状为准，E0 适配）
+
+**修前**（`be9e230`，真实 D0 manifest @ `65aaa16`）：
+
+```
+$ python -m v3.cli ingest --source-lock <d0>/d0/out/source-lock.json --train-only
+exit 7
+{"code":"source_lock_invalid","context":{"origin_format":"d0-source-lock/1",
+ "problems":["attrs 许可未 approved（authorization_scope=unverified）", ... 共 9 条]}}
+```
+
+根因：D0 把批准放在 `repos.<name>.license_review.decision`，而 E0 的 `_approval_of()`
+只在平铺层按 4 个键名找信号 —— 一个都扫不到。双方各自都对，是**交接契约从未冻结**。
+
+**契约（采用 D0 的 `license_review_schema`，字段名不另立）**：
+
+| 字段 | 语义 | E0 处理 |
+|---|---|---|
+| `license_review.decision` | `approved` / `rejected` / `pending` | 只有 `approved` 可通过；其余立即拒 |
+| `license_review.decided_against_revision` | 批准绑定到哪一个 commit | 必须 == 本记录 `pinned_commit`，否则拒 |
+| `license_review.osi_permissive` | 是否 OSI 宽松 | 非 `true` 即拒 |
+| `license_review.approved_spdx` | 许可表达式 | 空即拒 |
+| `license_review.copyleft_marker_hits` / `restrictive_marker_hits` | 冲突证据 | **任一非空即拒**（自述批准与证据冲突时以证据为准） |
+| `license_review.independent_review.status` | `pending` / `approved` / `rejected` | `pending` 原样保留为事实字段；`rejected` 立即拒 |
+| 11 个必备字段 | `license_review_schema.required_fields` | 缺一即拒绝并逐项报出 |
+
+三条硬规则：**任一拒绝/冲突信号优先拒绝**（不看键序）；**批准按 revision 绑定**；
+**导入 ≠ 独立批准 ≠ released**（同时**不写入**任何顶层无条件 `approved` 别名）。
+
+**修后**（同一份真实 manifest）：
+
+```
+$ python -m v3.cli ingest --source-lock docs/v3/design/d0-source-lock-65aaa16.json --train-only
+exit 0
+license_assessment.records_assessed      = 9
+license_assessment.decision_counts       = {"approved": 9, "rejected": 0, "unverified": 0}
+license_assessment.approval_revision_matches_pin = 9
+license_assessment.independent_review_pending    = 9
+license_assessment.independent_review_countersigned = false
+train_only_view / source_count           = true / 4   (click, boltons, more-itertools, pluggy)
+excluded_non_train                       = [attrs, dateutil, marshmallow, packaging, python-dotenv]
+candidate_pools.alternative_candidates    = [python-dotenv]
+alternative_candidate_status             = imported_only_not_approved_as_replacement_and_not_released
+training_released / released_splits      = false / []
+```
+
+证据文件 `evidence/ingest-d0-source-lock.json`（由 `tools/capture_evidence.py` 真实执行生成）。
+`--train-only` 的语义明确为**训练侧视图**：全量记录都做许可与 revision 判定（所以"9 条"这一
+事实可见），只有 `split_role="train"` 的记录进入 `sources`，其余列在 `excluded_non_train`。
+
+**反例矩阵**（对真实 manifest 逐条最小变异，全部失败）：D0 manifest 冻结副本放在
+`docs/v3/design/d0-source-lock-65aaa16.json`，SHA256 在测试里逐位断言
+（`27aed720bc8ef1390fabee3e8fb9e826c2da7e926277f24f34d64f3010875056`）。
+
+| 反例 | 期望 | 实测 |
+|---|---|---|
+| 某仓库缺 `license_review` 块 | 拒 | `缺少 license_review 批准块` |
+| `decision="rejected"` | 拒 | `license_review.decision=rejected` |
+| `decision="pending"` | 拒 | `license_review.decision=pending` |
+| `decision` 取值域外 | 拒 | `不在取值域` |
+| `copyleft_marker_hits=["GPL-3.0-or-later"]` 而自述 approved | 拒 | `copyleft_marker_hits 命中` |
+| `restrictive_marker_hits=["non-commercial"]` | 拒 | `restrictive_marker_hits 命中` |
+| `osi_permissive=False` | 拒 | `osi_permissive 非真` |
+| `approved_spdx=""` | 拒 | `approved_spdx 为空` |
+| `decided_against_revision` 改为别的 SHA | 拒 | `!= pinned_commit` |
+| 删掉 `decided_against_revision` | 拒 | `缺少必备字段` |
+| `independent_review.status="rejected"` | 拒 | `independent_review.status=rejected` |
+| `independent_review.status` 域外 | 拒 | `不在取值域` |
+| 平铺 `authorization_scope="approved"` 别名 | 拒 | `缺少 license_review 批准块` |
+| 9 条里只有 1 条 `decision=rejected` | 整份拒 | 只有那条被点名，其余 8 条不能"分担" |
+| `pinned_commit=""` | 拒 | `无法核对 revision 绑定` |
+
+回归入口：`tests/test_q0_d0_contract.py`（23 项）。
+
+### 10.2 🟡-2：官方提交限额改用 KAGGLE-27 A 段证据（并强制结构限额）
+
+**更正**：上一版说这组官方数字"在本 checkout 内找不到出处"是**判断错误**。出处是
+KAGGLE-27 的 `A-evidence.json → a2_limits`（官方 wheel 探针一手产物），已在
+`tests/_` 与 `v3/submit/validate.py` 里逐项引用；冻结副本放在
+`docs/v3/design/kaggle-27-a2-limits-evidence.json`，测试直接读它逐位核对。
+
+- 扩展名接受面改为官方 **7 种** `.json .md .py .safetensors .txt .yaml .yml`（旧清单
+  `.yml/.json/.md/.txt` 的 citation 写的是"declared/常识"，现已换成实测出处）；
+- **新增强制**：`max_file_count` 10000 · `max_yaml_files` 1000（`.yaml`+`.yml`）·
+  `max_yaml_size_bytes` 52428800；
+- 总大小：官方 `max_total_size_bytes = 3221225472`（`≤` 口径），设计稿要求**严格小于**
+  3GiB → 取更严的一条，边界反例是"恰好 3 GiB 被拒"；
+- `UNVERIFIED_OFFICIAL_LIMITS` 现在是**空元组**（原先列的五条全部落实出处）；
+- **不假装已强制**：`max_agents` / `max_sub_agent_depth` / `max_skills` /
+  `max_loop_iterations` / `max_instruction_chars` / `max_total_instruction_chars` /
+  `max_skill_size_bytes` 是**提交 YAML 内容**的属性，判定要经官方 compiler/schema；
+  本机没有官方包，**不猜** YAML 结构去近似 —— 单列 `not_locally_checkable`；
+- `official_limits_verified` 仍为 `False`：`official_submission_limits()` 在缺官方包时
+  继续 `Blocked`，**未实机调用**（如实标未验证）。
+
+库默认 vs 官方：`adk_submission.SubmissionLimits()` 默认 **29** 种扩展名 / **6** 种
+adapter 扩展名（含 `.bin .pt .pth .gguf .ggml`）—— 用它得到的"通过"不算官方通过；
+反例里 `.sh` 与 `adapter.gguf` 都被拒。回归入口：`tests/test_q0_submit_limits.py`（15 项）。
+
+### 10.3 🟡-3：真实 `start()` 路径的 pin 绑定
+
+**修前三处错**：`authorization.get("model_id")` 恒为 `None`（`authorization` 只有 4 个键）
+→ 落到硬编码 `"google/gemma-4-1b-it"`（**不是**锁定模型）→
+`DEFAULT_CONFIG["lora"]["target_suffixes"]` **键根本不存在**，`.get(..., [])` 静默给空清单
+（即便 revision 修好也会 `lora_not_mounted`）。
+
+**修后**：新增 `entry.resolve_backend_pins()`。显式参数优先；否则从
+`official-interface.json` 的 pins 取（`model_repo_id` / `model_revision`，
+`verified != true` 即 `UnverifiedLock`）；`target_modules` 由
+`targets.target_module_names()` 从目标正则**机械导出**（`["o_proj","q_proj"]`）。
+**缺 pin 在构造后端之前就拒**。实测：
+
+```
+resolve_backend_pins() ->
+  {"model_id": "google/gemma-4-31B-it-qat-w4a16-ct",
+   "model_revision": "52f3f65bc7a02d555763bc923bd1d9094898219d",
+   "target_modules": ["o_proj", "q_proj"],
+   "source": "official-interface.json:pins"}
+```
+
+**接线证据（CPU 替身，不称真实 GPU 训练）**：`tests/test_q0_pins_and_guards.py`
+用替身后端替换 `TorchPeftBackend`，断言构造参数正是上面这三个值、且**不是**
+`google/gemma-4-1b-it`；另有源码扫描证明旧模型名、旧死键、`authorization.get("model_id")`
+在 `v3/` 的可执行代码里为 0 处（扫描用 AST 剥掉 docstring/注释 —— 文档里必须保留缺陷记录，
+不许因此误报）。缺 pin 的反例：构造器**一次都没被调用**就抛出。
+真实 `TorchPeftBackend` 用解析出的值构造成功、revision 为空仍抛
+`unpinned_model_revision`。
+
+### 10.4 🟡-4：默认 fixture 入口与 20/20 隔离
+
+`assert_adapter_valid`（默认入口，对 8/8 放行）改名为
+**`assert_adapter_valid_lenient_for_tests`**，返回体带
+`production_use_forbidden=True` / `entry_kind="lenient-for-tests"` /
+`frozen_spec_satisfied=False`；`start()` / `preflight()` / `measure_gates` 只走
+`assert_adapter_valid_frozen_spec`（20/20，8/8 → `adapter_fixture_suite_incomplete`）。
+
+**生产零调用证据**：`tests/test_q0_pins_and_guards.py` 扫 `v3/` 的全部可执行代码，
+`assert_adapter_valid_lenient_for_tests` 的非注释出现次数为 **0**；同时断言
+`entry.py` 导入并使用 frozen spec 入口。
+
+### 10.5 🟡-8：`full_state_dict` 保护接入真实观测路径
+
+复核意见是"判据方向对，但生产路径**没有调用点**（只有 4 处 tests）"。现在：
+
+- 新增 `runner.TrainBackend.observe_full_state_dict()`：后端必须自己产出**实测观测**
+  （`peak_full_state_dict_bytes` + `declared_weight_bytes` + `probe` + `method`），
+  默认返回 `None` = "没有能力提供观测"；
+- 新增 `streaming.assert_full_state_dict_guard(observation, ...)`：生产入口，
+  观测缺失即 `PolicyViolation("full_state_dict_observation_missing")`；
+- `runner.run_training()` 在 **`save_adapter()` 之前**调用它，返回值进
+  `report["memory_guard"]` 与 CPU 自检的 `full_state_dict_guard`。
+
+`TorchPeftBackend` 的探针**逐 tensor 单次遍历** `named_parameters()`，从不调用
+`model.state_dict()`（AST 级测试守着"该函数内没有任何 `state_dict` 调用"），
+整份材料化由计数器 `_full_state_dict_materializations` 显式记账。
+
+**诚实边界**：这证明的是**代码路径没有整份材料化**，**不是** RSS/显存实测。
+真实内存门槛仍未验证（本机无 GPU）。反例：后端报 `peak = 58GiB` 时
+`run_training` 抛 `full_state_dict_resident` 且 **`save_adapter` 一次都没被调用**。
+
+### 10.6 本轮测试与证据
+
+```
+python run_tests.py         -> SUMMARY: run=346 failures=0 errors=0 skipped=1   (exit 0)
+python -m v3.train.entry --smoke  -> all_passed=True (7/7 checks)，并回带 full_state_dict_guard
+python tools/capture_evidence.py  -> 全部证据按真实执行重生成；
+                                     ingest-d0-source-lock.json exit=0（旧版是 7）
+```
+
+新增回归：`tests/test_q0_d0_contract.py`(23) · `tests/test_q0_submit_limits.py`(15) ·
+`tests/test_q0_pins_and_guards.py`(29)，均已登记进 `run_tests.py`。
+新增冻结产物：`docs/v3/design/d0-source-lock-65aaa16.json`（D0 @ `65aaa16` 的
+`d0/out/source-lock.json` 逐字节副本）与
+`docs/v3/design/kaggle-27-a2-limits-evidence.json`（KAGGLE-27 `A-evidence.json` 副本）。
+
+### 10.7 本轮仍未解决 / 未验证（不冒充）
+
+1. **真实 GPU 训练**：仍未跑过（本机无 GPU、无锁定 torch/peft、无下载授权）。§10.3 的
+   接线证据是 CPU 替身，**不代表**真实训练可用。
+2. **真实内存门槛**：§10.5 是结构探针，不是 RSS/显存实测。
+3. **官方 compiler 实机调用**：仍 `Blocked`（本机无官方包），`official_limits_verified=False`。
+4. **数据隔离/权限六项**：仍不在 E0 范围，dev/sealed 发布与验收继续阻断。
+5. **🟡-1 / 🟡-5 / 🟡-6 / 🟡-7**：属 D0（`kaggle-23-d0-source-lock`），本轮未动、不代改。
+6. 依赖锁 wheel SHA 仍是 `PENDING`（`verified=false`），`start()` 会先在这里挡住。

@@ -12,6 +12,24 @@
     "optimizer_stepped": true,
     "reload_matches": true
   },
+  "full_state_dict_guard": {
+    "allowed_bytes": 0,
+    "checked": true,
+    "evidence": {
+      "method": "逐参数遍历：从不在同一容器里持有全部参数",
+      "probe": "synthetic-parameter-residency"
+    },
+    "full_state_dict_resident": false,
+    "observation": {
+      "declared_weight_bytes": 11520,
+      "method": "逐参数遍历：从不在同一容器里持有全部参数",
+      "peak_full_state_dict_bytes": 0,
+      "probe": "synthetic-parameter-residency"
+    },
+    "peak_full_state_dict_bytes": 0,
+    "rss_limit_bytes": 12884901888,
+    "total_weight_bytes": 11520
+  },
   "grad_norm_min": 0.007705795046671062,
   "is_real_model_training": false,
   "loss_decreased_observation_only": true,

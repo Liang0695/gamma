@@ -96,11 +96,12 @@ def cmd_ingest(args) -> int:
 
     支持两种形状：本仓库的 `{"sources": [...]}` 与 D0（KAGGLE-23）的
     `{"repos": {...}}`（见 v3/data/source_lock.py）。归一后统一校验；不通过即非零退出。
+
+    `--train-only` 生成训练侧视图：全量记录都做许可/revision 判定，
+    只有 `split_role="train"` 的记录进入 `sources`（其余列在 `excluded_non_train`）。
     """
     lock = _read_json(args.source_lock, "--source-lock")
-    manifest = ingest_manifest(lock)
-    if args.train_only and manifest.get("origin_format") == "d0-source-lock/1":
-        assert_train_only(adapt(lock)["sources"])
+    manifest = ingest_manifest(lock, train_only=bool(args.train_only))
     manifest, digest = _finalize(manifest)
     _write(args.out, manifest)
     print(json.dumps(manifest, ensure_ascii=False, indent=2, sort_keys=True))

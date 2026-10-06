@@ -9,7 +9,7 @@ from tests._tmp import temp_dir
 from v3.common.errors import Blocked, IntegrityError, MissingInput, PolicyViolation, UnverifiedLock
 from v3.train.checkpoint import (
     CheckpointStore,
-    assert_adapter_valid,
+    assert_adapter_valid_lenient_for_tests,
     build_export_manifest,
     resume,
 )
@@ -377,13 +377,13 @@ class CheckpointTests(unittest.TestCase):
 
     def test_invalid_adapter_cannot_pass_silently(self) -> None:
         manifest = {"lora": {"matched_module_count": 120}}
-        assert_adapter_valid(manifest, load_ok=True, params_changed=True, fixture_pass=8, fixture_total=8)
+        assert_adapter_valid_lenient_for_tests(manifest, load_ok=True, params_changed=True, fixture_pass=8, fixture_total=8)
         with self.assertRaises(PolicyViolation):
-            assert_adapter_valid(manifest, load_ok=True, params_changed=False, fixture_pass=8, fixture_total=8)
+            assert_adapter_valid_lenient_for_tests(manifest, load_ok=True, params_changed=False, fixture_pass=8, fixture_total=8)
         with self.assertRaises(PolicyViolation):
-            assert_adapter_valid(manifest, load_ok=True, params_changed=True, fixture_pass=3, fixture_total=8)
+            assert_adapter_valid_lenient_for_tests(manifest, load_ok=True, params_changed=True, fixture_pass=3, fixture_total=8)
         with self.assertRaises(PolicyViolation):
-            assert_adapter_valid({"lora": {"matched_module_count": 0}}, load_ok=True, params_changed=True, fixture_pass=8, fixture_total=8)
+            assert_adapter_valid_lenient_for_tests({"lora": {"matched_module_count": 0}}, load_ok=True, params_changed=True, fixture_pass=8, fixture_total=8)
 
 
 class ConfigTests(unittest.TestCase):
@@ -475,3 +475,4 @@ class EntryTests(unittest.TestCase):
 
 if __name__ == "__main__":  # pragma: no cover
     unittest.main()
+

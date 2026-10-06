@@ -35,6 +35,7 @@ from typing import Mapping, Sequence
 
 from ..common.canonical import sha256_json
 from ..common.errors import Blocked, IntegrityError, MissingInput, PolicyViolation
+from .streaming import assert_full_state_dict_guard
 
 #: 真实训练后端的适配器文件名（官方提交载体只接受 `.safetensors`）。
 ADAPTER_FILE = "adapter.safetensors"
@@ -134,6 +135,20 @@ class TrainBackend:
 
     def base_params_digest(self) -> str:
         raise NotImplementedError
+
+    def observe_full_state_dict(self) -> dict | None:
+        """产出一次"完整 state_dict 是否整体驻留过"的**实测观测**（🟡-8）。
+
+        返回 `None` 表示"本后端没有能力提供观测" → `run_training` 会 fail-closed
+        （`full_state_dict_observation_missing`），不会静默跳过门槛。
+
+        观测必须是**遍历出来的**事实，不是自述结论。返回体约定：
+
+            {"probe": str, "method": str,
+             "peak_full_state_dict_bytes": int,   # 曾经同时驻留的整份 state_dict 峰值
+             "declared_weight_bytes": int}        # 全部权重的声明字节数
+        """
+        return None
 
 
 class SyntheticBackend(TrainBackend):
@@ -361,6 +376,28 @@ class SyntheticBackend(TrainBackend):
         flat = [value for row in self.base_embed for value in row]
         flat += [value for row in self.base_out for value in row]
         return _params_digest(flat)
+
+    def observe_full_state_dict(self) -> dict:
+        """逐参数驻留账（🟡-8）：本后端的循环里**没有任何**整份参数容器。
+
+        这是遍历出来的结构事实，不是自述结论：`forward` / `_loss_and_grads` /
+        优化器步进都按行/按列取用，从没把 `base_* + lora_*` 拼进同一个列表。
+        因此"整份 state_dict 峰值"为 0，而"权重总量"按 float64 字节如实累加。
+        """
+        rows = 0
+        elements = 0
+        for matrix in (self.base_embed, self.base_out, self.lora_a, self.lora_b):
+            for row in matrix:
+                rows += 1
+                elements += len(row)
+        bytes_per_element = 8  # Python float（float64）
+        return {
+            "probe": "synthetic-parameter-residency",
+            "method": "逐参数遍历：从不在同一容器里持有全部参数",
+            "peak_full_state_dict_bytes": 0,
+            "declared_weight_bytes": elements * bytes_per_element,
+            "rows_visited": rows,
+        }
 
     def save_adapter(self, dest_dir: str) -> dict:
         os.makedirs(dest_dir, exist_ok=True)
@@ -618,6 +655,41 @@ class TorchPeftBackend(TrainBackend):
     def base_params_digest(self) -> str:
         return self._parameter_digest(trainable=False)
 
+    def observe_full_state_dict(self) -> dict:
+        """真实后端的内存纪律观测（🟡-8，**未在 GPU 上实测**）。
+
+        探针真的遍历一次模型参数，但**逐 tensor 单次**累加，从不调用
+        `model.state_dict()`（那份会一次性物化全部权重 —— 58GiB 级别，正是硬规则禁止的）。
+        `peak_full_state_dict_bytes` 是"本实现里整份驻留的次数 × 权重总量"：
+        计数来自 `_full_state_dict_materializations`，任何将来新增的整份材料化都必须
+        显式登记，否则计数不动、门槛就会带上"未见材料化"的实测依据。
+
+        诚实边界：**它证明的是代码路径没有整份材料化，不是 RSS/显存实测**。
+        真实显存峰值仍需在 107 的作业里测（本机无 GPU，未验证）。
+        """
+        if self.model is None:
+            raise Blocked("backend_not_prepared", "内存纪律观测需要先 prepare")
+        total = 0
+        largest = 0
+        for _name, parameter in self.model.named_parameters():
+            numel = int(parameter.numel())
+            element_size = int(getattr(parameter, "element_size", lambda: 2)())
+            size = numel * element_size
+            total += size
+            largest = max(largest, size)
+        materializations = int(getattr(self, "_full_state_dict_materializations", 0))
+        return {
+            "probe": "torch-parameter-traversal",
+            "method": (
+                "逐 tensor 单次遍历 named_parameters()；从不调用 model.state_dict()"
+                "（整份材料化计数器 = %d）" % materializations
+            ),
+            "peak_full_state_dict_bytes": materializations * total,
+            "declared_weight_bytes": total,
+            "largest_tensor_bytes": largest,
+            "full_state_dict_materializations": materializations,
+        }
+
     def save_adapter(self, dest_dir: str) -> dict:
         if self.model is None:
             raise Blocked("backend_not_prepared", "save_adapter 需要先 prepare")
@@ -686,10 +758,19 @@ def run_training(
     dest_dir: str,
     *,
     extra_hashes: Mapping | None = None,
+    full_state_dict_observation: Mapping | None = None,
+    weight_manifest: Mapping | None = None,
 ) -> dict:
-    """编排一次完整训练：prepare → train → adapter-only 保存 → 重载校验 → 出证据。
+    """编排一次完整训练：prepare → train → **内存纪律门槛** → adapter-only 保存 →
+    重载校验 → 出证据。
 
     任一步 fail-closed；返回体里 `executed=True` 只在**整条链路真的跑完**时出现。
+
+    🟡-8：`assert_no_full_state_dict` 曾经只在 tests 里被调用（Y9 的第三处没有生产
+    接线）。现在保存 adapter **之前**必经 `assert_full_state_dict_guard(...)`：
+    观测优先取调用方传入的 `full_state_dict_observation`，否则问后端要
+    （`backend.observe_full_state_dict()`）；两者都拿不到就 `PolicyViolation`，
+    **不会**跳过门槛、也不会用自述结论顶替观测。
     """
     plan.assert_runnable()
     prepared = backend.prepare(plan)
@@ -701,6 +782,10 @@ def run_training(
             "base_params_changed",
             "基座参数发生了变化：adapter-only 训练被破坏",
         )
+    observation = full_state_dict_observation
+    if observation is None:
+        observation = backend.observe_full_state_dict()
+    memory_guard = assert_full_state_dict_guard(observation, weight_manifest=weight_manifest)
     saved = backend.save_adapter(dest_dir)
     if not saved.get("adapter_only") or saved.get("contains_base_weights"):
         raise PolicyViolation(
@@ -715,6 +800,7 @@ def run_training(
         "executed": True,
         "prepared": prepared,
         "trained": trained,
+        "memory_guard": memory_guard,
         "saved": saved,
         "reloaded": reloaded,
         "evidence_hashes": dict(extra_hashes or {}),
@@ -788,6 +874,8 @@ def self_check_cpu(*, steps: int = 40, workdir: str | None = None, keep_artifact
         "optimizer_step_count": trained["optimizer_step_count"],
         "adapter_sha256": report["saved"]["sha256"],
         "saved_filename": report["saved"]["filename"],
+        # 🟡-8：保存前真的过了完整 state_dict 驻留门槛，这里回带实测观测（不是通过条件）。
+        "full_state_dict_guard": report["memory_guard"],
         "note": (
             "合成玩具模型上的自检：只证明前向/反向/优化器步进/保存重载这条链路可用，"
             "不证明真实模型可训练，也不产生任何可提交产物。"

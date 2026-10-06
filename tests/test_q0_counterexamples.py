@@ -304,10 +304,30 @@ class Y14SubmissionCarrierTests(unittest.TestCase):
         self.assertEqual(ctx.exception.code, "submission_adapter_missing")
 
     def test_unverified_limits_are_not_silently_enforced(self) -> None:
+        """🟡-2 修订：限额出处已由 KAGGLE-27 A 段证据落实，不再是"找不到出处"。
+
+        仍要守住的两件事：①`source` 还是 `declared`（没调官方 builder）；
+        ②确有出处的数字必须**逐条带 citation**，不能凭记忆手抄；
+        ③本模块判不了的内容级限额单列 `not_locally_checkable`，不得假装已强制。
+        """
         limits = submit.declared_limits()
         self.assertEqual(limits["source"], "declared")
         self.assertFalse(limits["verified_against_official_compiler"])
-        self.assertTrue(limits["unverified_official_limits"])
+        self.assertEqual(limits["evidence"], submit.KAGGLE27_EVIDENCE)
+        self.assertEqual(len(limits["allowed_extensions"]), 7)
+        for key, entry in submit.SOURCED_LIMITS.items():
+            self.assertTrue(entry.get("citation"), key)
+            self.assertEqual(limits["sourced_citations"][key], entry["citation"])
+        # 结构限额必须引用 KAGGLE-27 的一手证据，不能停在设计稿转述
+        for key in ("max_file_count", "max_yaml_files", "max_yaml_size_bytes", "max_total_size_bytes"):
+            self.assertIn("KAGGLE-27", limits["sourced_citations"][key])
+        # 内容级限额有出处但不强制：必须显式分开
+        self.assertTrue(limits["not_locally_checkable"])
+        for key in ("max_agents", "max_sub_agent_depth", "max_skills", "max_loop_iterations"):
+            self.assertIn(key, limits["not_locally_checkable"])
+            self.assertNotIn(key, limits["sourced_limits"])
+        # 库默认值不是官方口径
+        self.assertEqual(limits["library_default_contrast"]["adk_default_extension_count"], 29)
 
     def test_official_limits_are_blocked_not_faked(self) -> None:
         with self.assertRaises(FailClosed) as ctx:

@@ -363,18 +363,61 @@ class SourceLockAdapterTests(unittest.TestCase):
         with self.assertRaises(PolicyViolation) as ctx:
             ingest_manifest(self.D0)
         problems = ctx.exception.context["problems"]
-        self.assertTrue(all("许可未 approved" in item for item in problems), problems)
+        # 每条记录都必须至少报出"许可未 approved"，并附上为什么（缺少 D0 批准块）。
+        names = {"click", "attrs"}
+        for name in names:
+            self.assertTrue(
+                any(item.startswith("%s 许可未 approved" % name) for item in problems), problems
+            )
+            self.assertTrue(
+                any(item.startswith("%s：缺少 license_review 批准块" % name) for item in problems),
+                problems,
+            )
         self.assertEqual(ctx.exception.context["origin_format"], "d0-source-lock/1")
 
-    def test_d0_manifest_passes_once_approval_is_explicit(self) -> None:
-        approved = json.loads(json.dumps(self.D0))
-        for entry in approved["repos"].values():
-            entry["authorization_scope"] = "approved"
-            entry["acquired_at"] = "2026-10-05T00:00:00Z"
+    def _with_license_review(self, manifest: dict, *, decision: str = "approved") -> dict:
+        """给 D0 fixture 的每条记录补上冻结契约的嵌套批准块（revision 绑定到 pinned_commit）。"""
+        payload = json.loads(json.dumps(manifest))
+        for entry in payload["repos"].values():
+            entry["license_review"] = {
+                "decision": decision,
+                "approved_spdx": entry.get("design_license_expectation") or "MIT",
+                "osi_permissive": True,
+                "copyleft_marker_hits": [],
+                "restrictive_marker_hits": [],
+                "evidence": {"primary_license_file": {"path": "LICENSE", "sha256": "0" * 64}},
+                "decision_basis": "fixture",
+                "decided_by": "test",
+                "decided_at": "2026-10-06",
+                "decided_against_revision": entry["pinned_commit"],
+                "independent_review": {"required": True, "status": "pending"},
+            }
+        return payload
+
+    def test_d0_manifest_passes_once_license_review_is_explicit(self) -> None:
+        approved = self._with_license_review(self.D0)
         manifest = ingest_manifest(approved)
         self.assertEqual(manifest["source_count"], 2)
         self.assertEqual(manifest["origin_format"], "d0-source-lock/1")
         self.assertEqual(len(manifest["source_lock_sha256"]), 64)
+        self.assertEqual(
+            [source["authorization_scope"] for source in manifest["sources"]],
+            ["approved", "approved"],
+        )
+        # 导入 ≠ 独立批准、≠ released
+        self.assertFalse(manifest["license_assessment"]["independent_review_countersigned"])
+        self.assertTrue(manifest["license_assessment"]["independent_review_pending"] == 2)
+        self.assertFalse(manifest["training_released"])
+        self.assertEqual(manifest["released_splits"], [])
+
+    def test_d0_flat_authorization_scope_alias_cannot_bypass_license_review(self) -> None:
+        """Mika：不得用无条件 approved 别名绕过审核。"""
+        bypass = json.loads(json.dumps(self.D0))
+        for entry in bypass["repos"].values():
+            entry["authorization_scope"] = "approved"
+        with self.assertRaises(PolicyViolation) as ctx:
+            ingest_manifest(bypass)
+        self.assertIn("缺少 license_review 批准块", " ".join(ctx.exception.context["problems"]))
 
     def test_train_only_guard_blocks_dev_and_sealed_roles(self) -> None:
         normalized = adapt(self.D0)

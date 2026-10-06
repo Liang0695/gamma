@@ -2,7 +2,8 @@
 
 每个测试都对应 Q0 报告里一条具体结论：
 
-- Y4：`assert_adapter_valid` 的 `min_pass=7` 魔数、且不校验 `fixture_pass <= fixture_total`；
+- Y4：默认 fixture 入口的 `min_pass=7` 魔数、且不校验 `fixture_pass <= fixture_total`；
+  该默认入口现名 `assert_adapter_valid_lenient_for_tests`（🟡-4：生产路径禁止调用）；
 - Y5：`resume(interrupted_mid_accum=True)` 只加注解、不回滚 optimizer/global_step/游标；
 - Y9：`deps.load_pair` / `MemoryPlan.evaluate` / `assert_no_full_state_dict` 三处未接线、
   且 `assert_no_full_state_dict` 的方向是"装得下才抛"；
@@ -26,8 +27,8 @@ from v3.train.checkpoint import (
     REQUIRED_FIXTURE_TOTAL,
     REQUIRED_HASH_KEYS,
     CheckpointStore,
-    assert_adapter_valid,
     assert_adapter_valid_frozen_spec,
+    assert_adapter_valid_lenient_for_tests,
     resume,
 )
 from v3.train.config import TrainingConfig
@@ -105,7 +106,7 @@ class Y4AdapterFixtureCountTests(unittest.TestCase):
     def test_pass_exceeding_total_is_rejected(self) -> None:
         """Y4 反例：fixture_pass=7 / fixture_total=2 必须被拒（原来会静默放行）。"""
         with self.assertRaises(FailClosed) as ctx:
-            assert_adapter_valid(
+            assert_adapter_valid_lenient_for_tests(
                 ADAPTER_EXPORT_MANIFEST,
                 load_ok=True,
                 params_changed=True,
@@ -117,7 +118,7 @@ class Y4AdapterFixtureCountTests(unittest.TestCase):
     def test_frozen_20_must_all_pass(self) -> None:
         """Y4：7/20 不达冻结验收（20 项 mask fixture 必须全过）。"""
         with self.assertRaises(FailClosed) as ctx:
-            assert_adapter_valid(
+            assert_adapter_valid_lenient_for_tests(
                 ADAPTER_EXPORT_MANIFEST,
                 load_ok=True,
                 params_changed=True,
@@ -127,7 +128,7 @@ class Y4AdapterFixtureCountTests(unittest.TestCase):
         self.assertEqual(ctx.exception.code, "adapter_fixture_regression")
 
     def test_frozen_20_of_20_passes(self) -> None:
-        result = assert_adapter_valid(
+        result = assert_adapter_valid_lenient_for_tests(
             ADAPTER_EXPORT_MANIFEST,
             load_ok=True,
             params_changed=True,
@@ -152,7 +153,7 @@ class Y4AdapterFixtureCountTests(unittest.TestCase):
 
     def test_default_entry_marks_small_suite_as_not_frozen(self) -> None:
         """向后兼容入口：8/8 这类非冻结小集可以过，但必须自报未满足冻结口径。"""
-        result = assert_adapter_valid(
+        result = assert_adapter_valid_lenient_for_tests(
             ADAPTER_EXPORT_MANIFEST,
             load_ok=True,
             params_changed=True,
@@ -164,7 +165,7 @@ class Y4AdapterFixtureCountTests(unittest.TestCase):
     def test_oversized_suite_is_rejected(self) -> None:
         """不得用自定义大集合冒充验收证据。"""
         with self.assertRaises(FailClosed) as ctx:
-            assert_adapter_valid(
+            assert_adapter_valid_lenient_for_tests(
                 ADAPTER_EXPORT_MANIFEST,
                 load_ok=True,
                 params_changed=True,
@@ -175,7 +176,7 @@ class Y4AdapterFixtureCountTests(unittest.TestCase):
 
     def test_negative_counts_and_bad_types_are_fail_closed(self) -> None:
         with self.assertRaises(FailClosed) as ctx:
-            assert_adapter_valid(
+            assert_adapter_valid_lenient_for_tests(
                 ADAPTER_EXPORT_MANIFEST,
                 load_ok=True,
                 params_changed=True,
@@ -184,7 +185,7 @@ class Y4AdapterFixtureCountTests(unittest.TestCase):
             )
         self.assertEqual(ctx.exception.code, "fixture_count_negative")
         with self.assertRaises(MissingInput):
-            assert_adapter_valid(
+            assert_adapter_valid_lenient_for_tests(
                 ADAPTER_EXPORT_MANIFEST,
                 load_ok=True,
                 params_changed=True,
@@ -505,3 +506,4 @@ class Y11ConfigMergeTests(unittest.TestCase):
 
 if __name__ == "__main__":  # pragma: no cover
     unittest.main()
+

@@ -12,6 +12,8 @@ V3 线 = 共享多任务 LoRA（`v3_policy`）+ 受输出预算约束的搜索�
 | `design/KAGGLE-21-V3-data-eval-spec.md` | KAGGLE-21 附件 | 四面数据契约、生产/验证流水线、隔离与版本 hash、质量抽检 |
 | `design/KAGGLE-22-V3-search-localization-design.md` | KAGGLE-22 附件 | 官方接口一手核验、LOCATE 状态块、预算与升级阶梯、索引策略、EXP-1 协议 |
 | `design/KAGGLE-22-pilot-metrics.json` | KAGGLE-22 附件 | n=7 公开集试点的原始指标 JSON（只作方向性证据） |
+| `design/d0-source-lock-65aaa16.json` | D0（KAGGLE-23）分支 `agent/research/kaggle-23-d0-source-lock` @ `65aaa16` | **逐字节冻结副本**：D0 的 `d0/out/source-lock.json`。🔴-A 冻结的 D0↔E0 许可契约就按这份形状实现，测试直接对它跑正向导入与变异反例（SHA256 在 `tests/test_q0_d0_contract.py` 内断言） |
+| `design/kaggle-27-a2-limits-evidence.json` | KAGGLE-27 A 段 | **逐字节冻结副本**：官方 wheel 探针产物 `A-evidence.json`。官方扩展名与结构限额的唯一出处（`a2_limits`），`v3/submit/validate.py` 与 `tests/test_q0_submit_limits.py` 逐位核对 |
 
 ## 工程实施
 

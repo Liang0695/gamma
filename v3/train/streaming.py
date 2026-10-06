@@ -269,3 +269,68 @@ def bf16_intermediate_disk_estimate(params: int = 31_273_088_876) -> dict:
 def summarize_shards(plan: StreamingPlan, top: int = 5) -> list[dict]:
     ordered = sorted(plan.shards, key=lambda shard: shard.bytes, reverse=True)
     return [shard.to_dict() for shard in ordered[:top]]
+
+
+def assert_full_state_dict_guard(
+    observation: Mapping | None,
+    *,
+    allowed_bytes: int = 0,
+    weight_manifest: Mapping | None = None,
+) -> dict:
+    """**生产路径入口**（🟡-8）：把一次真实观测送进 `assert_no_full_state_dict`。
+
+    KAGGLE-26 复核指出的问题不是判据写错，而是**没有生产调用点**：
+    `assert_no_full_state_dict` 当时只有 4 处 tests 调用，`runner.run_training`
+    在保存 adapter 之前从未经过它。本函数就是那条接线。
+
+    输入必须是**观测值**（`peak_full_state_dict_bytes` + `declared_weight_bytes`
+    + `probe` + `method`），缺失即 fail-closed —— 不接受自述结论。
+    观测由后端自己产出（见 `runner.TrainBackend.observe_full_state_dict`）。
+    """
+    if observation is None:
+        raise PolicyViolation(
+            "full_state_dict_observation_missing",
+            "没有提供『从未整体驻留完整 state_dict』的实测观测："
+            "保存 adapter 前不得跳过该门槛（fail-closed，不接受自述结论）",
+        )
+    if not isinstance(observation, Mapping):
+        raise MissingInput(
+            "full_state_dict_observation_not_mapping",
+            "观测必须是映射（含 peak_full_state_dict_bytes 与 declared_weight_bytes）：%r"
+            % (observation,),
+        )
+    payload = dict(observation)
+    for key in ("peak_full_state_dict_bytes", "declared_weight_bytes"):
+        if key not in payload:
+            raise MissingInput(
+                "full_state_dict_observation_incomplete",
+                "观测缺少必需字段 %s：%r" % (key, sorted(payload)),
+                missing=key,
+            )
+    declared = payload.get("declared_weight_bytes")
+    try:
+        declared_bytes = int(declared)
+    except (TypeError, ValueError):
+        raise PolicyViolation(
+            "full_state_dict_observation_invalid",
+            "declared_weight_bytes 必须是整数：%r" % (declared,),
+        )
+    shards = (weight_manifest or {}).get("shards") if isinstance(weight_manifest, Mapping) else None
+    if not shards:
+        shards = [{"name": "declared-total-weight-budget", "bytes": max(0, declared_bytes)}]
+    plan = StreamingPlan.from_manifest({"shards": list(shards)})
+    result = plan.assert_no_full_state_dict(
+        peak_full_state_dict_bytes=payload["peak_full_state_dict_bytes"],
+        allowed_bytes=allowed_bytes,
+        evidence={
+            "probe": str(payload.get("probe") or "unspecified"),
+            "method": str(payload.get("method") or "unspecified"),
+        },
+    )
+    result["observation"] = {
+        "probe": str(payload.get("probe") or "unspecified"),
+        "method": str(payload.get("method") or "unspecified"),
+        "peak_full_state_dict_bytes": result["peak_full_state_dict_bytes"],
+        "declared_weight_bytes": declared_bytes,
+    }
+    return result
