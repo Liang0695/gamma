@@ -162,13 +162,13 @@ python-dotenv `LICENSE` 复核结果：blob `80619b7049f08c81683ad0e01f08f257a84
 
 未通过的两条：`click 9da1791476fe`（GitHub 报告**没有任何关联 PR**）与 `python-dotenv f5485a61eefa`（无关联 PR；其 commit message 引用的 **#600 是 issue，不是 PR**）。两者都保持 `unverified`，计入 no window。**这是「尚未取得合并证据」，不是「证明不存在原始修复」。**
 
-异常项如实披露：`boltons` 与另外两个 train 家族的 `merge_commit_sha` 与修复 commit 不同（rebase/squash 几何），其中 boltons 的 GitHub 合并 commit 在固定快照中**根本不存在**；这些都由 `merge_commit_geometry` 记录，未被静默对齐。
+异常项如实披露：`more-itertools 62411c161849、pluggy 9cf2eaa50dd1、boltons ae21ed2a7806` 这几个记录的 `merge_commit_sha` 与修复 commit **不同**（rebase/squash 几何，修复 commit 是 PR 的 head），其中 boltons 的 GitHub 合并 commit 在固定快照中**根本不存在**；这些差异都由 `merge_commit_geometry` 逐条记录，未被静默对齐。
 
 ### 2.6 替代 dev 候选核验：python-dotenv
 
 按 Mika 裁决，python-dotenv 仅作为替代候选开展**许可 / 家族 / 环境**三项核验，**不等于替换 dateutil，也不等于批准发布**。
 
-- 许可：`decision = approved`，`BSD-3-Clause`（corrected 2026-10-06 from a mistaken MIT preset to BSD-3-Clause, which is what the pinned LICENSE and pyproject.toml both say; this preset was a transcription error, not a licence change upstream），主许可文件 `LICENSE`，正文与元数据识别结果都是 BSD-3-Clause，冲突 0 条（路径 `repos.python-dotenv.license_review`）。
+- 许可：`decision = approved`，`BSD-3-Clause` —— 固定 LICENSE 与 pyproject.toml 都是这一族，MIT 是生成器预设的转录错误而非上游许可变更（机器可读字段见 `license.spdx_correction`）；主许可文件 `LICENSE`，正文与元数据识别结果一致，冲突 0 条（路径 `repos.python-dotenv.license_review`）。
 - 家族：固定 tag `v1.2.4` = `a565c2cc4159`（快照日期 2026-10-01）；dev/sealed 窗口内 commit 日期**筛选** 6 个，其中**合并事件已验证** 5 个（最早 2026-03-02、最新 2026-10-01）。未验证的那一个是 `f5485a61eefa`。
 - 环境：`requires_python = >=3.10`，运行时依赖 无，测试运行器 `pytest`，并已对其 `6` 个依赖/配置文件计算 SHA256。
 - 边界字段：`replaces = None`；`approval_status` 明确写为替代候选。

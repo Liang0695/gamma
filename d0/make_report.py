@@ -424,9 +424,13 @@ def main():
       "两者都保持 `unverified`，计入 no window。"
       "**这是「尚未取得合并证据」，不是「证明不存在原始修复」。**")
     a("")
-    a("异常项如实披露：`boltons` 与另外两个 train 家族的 `merge_commit_sha` "
-      "与修复 commit 不同（rebase/squash 几何），其中 boltons 的 GitHub 合并 commit "
-      "在固定快照中**根本不存在**；这些都由 `merge_commit_geometry` 记录，未被静默对齐。")
+    a("异常项如实披露：`%s` 这几个记录的 `merge_commit_sha` 与修复 commit **不同**"
+      "（rebase/squash 几何，修复 commit 是 PR 的 head），其中 boltons 的 GitHub 合并 commit "
+      "在固定快照中**根本不存在**；这些差异都由 `merge_commit_geometry` 逐条记录，未被静默对齐。"
+      % "、".join("%s %s" % (r["repo"], r["fix_commit"][:12])
+                 for r in merge["records"]
+                 if r["status"] == "verified"
+                 and not r.get("merge_commit_sha_matches_fix_commit")))
     a("")
 
     a("### 2.6 替代 dev 候选核验：python-dotenv")
@@ -436,10 +440,11 @@ def main():
     a("按 Mika 裁决，python-dotenv 仅作为替代候选开展**许可 / 家族 / 环境**三项核验，"
       "**不等于替换 dateutil，也不等于批准发布**。")
     a("")
-    a("- 许可：`decision = %s`，`%s`（%s），主许可文件 `%s`，"
-      "正文与元数据识别结果都是 BSD-3-Clause，冲突 0 条（路径 `%s`）。" % (
+    a("- 许可：`decision = %s`，`%s` —— 固定 LICENSE 与 pyproject.toml 都是这一族，"
+      "MIT 是生成器预设的转录错误而非上游许可变更（机器可读字段见 "
+      "`license.spdx_correction`）；主许可文件 `%s`，"
+      "正文与元数据识别结果一致，冲突 0 条（路径 `%s`）。" % (
           alt["license"]["decision"], alt["license"]["approved_spdx"],
-          alt["license"]["spdx_correction"],
           (alt["license"]["primary_license_file"] or {}).get("path"),
           alt["license"]["path_in_source_lock"]))
     a("- 家族：固定 tag `%s` = `%s`（快照日期 %s）；dev/sealed 窗口内 commit 日期**筛选** %d 个，"
