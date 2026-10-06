@@ -11,7 +11,7 @@
 - **状态轴已分开（本轮整改 ①）**：家族记录不再只有一个 `released` 布尔值。`source_preparation.status` 回答「静态来源材料是否齐全」，`training_release.status` 回答「能否拿去训练/评测」。本版**没有任何家族获训练放行** —— 不是缺格，而是训练放行门槛（真机 oracle 结果、独立许可 review、gold/dev/sealed 隔离证据、变异半边落地）四项正向证据一项都不存在，因此全部 `blocked` 并逐项写明缺什么。`released` 保留为**兼容别名**，只镜像静态准备轴，并随每个文件携带 `released_scope` 作用域声明。
 - **click 槽位已补位（本轮整改 ②）**：按 Mika 裁决，把没有合并事件的 click `9da1791476fe…`（2015，直接推送到默认分支，issue #222 由 commit 直接引用关闭，交叉引用的 PR #258/#259 均**未合并**关闭）替换为 click `ee56925bc4f5…`（PR #1934，**merged_at 2021-07-03**，真实双亲 merge 落地）。替换走与其余家族**完全相同**的派生与审核路径：同一套字段、同一套否定测试。被替换的 commit 保留失败账、`unverified`、不计任何配额；其派生变异家族 `…-var-rename` 已**停用**，改为在替换父家族上重建的 `…-var-predicate`。日期规则与「4 真实 + 4 变异」目标**未被放宽**。
 - **落地事件已逐一取证（本轮整改 ③）**：不再假定「关联 PR 已合并」就等于家族合格。每个真实候选都重新推导**固定快照里真实的落地事件**，并给出 PR head / merge SHA / 固定快照三者不一致时的**归因**与**补丁等价性**证据；boltons 的 GitHub 合并对象在固定快照中**确实不存在**，已按可核查方式解释而非静默对齐。
-- **仍未运行 FAIL_TO_PASS**；未用 GPU、未申请 107 作业、未读 gold、未改编码官代码。校验 **123 项、0 失败、4 skipped**（PASS 123）。
+- **仍未运行 FAIL_TO_PASS**；未用 GPU、未申请 107 作业、未读 gold、未改编码官代码。校验 **128 项、0 失败、4 skipped**（PASS 128）。
 
 ## 1. 需求回顾
 
@@ -39,25 +39,25 @@
 
 ¹ **快照日期不是家族时间。** 取证方式：`git ls-remote --tags` 取 refs，再按 tag 校验 peeled commit 与计划一致（8/8 match）。本机直连 github.com 不通，全程走 `https://ghfast.top/https://github.com/...` 镜像；完整性由 **commit SHA + tree SHA** 双重锚定，不依赖镜像的字节可复现性。
 
-### 2.2 许可：从「信任预设」到「三方一致性判定」（本轮整改 ①）
+### 2.2 许可：审批依据与三方证据覆盖分开记录（本轮整改 ①）
 
 v2 的错误在于：`collect_licenses.py` 里的手写预设 `design_license_expectation` 被直接抄进 `approved_spdx`，于是 python-dotenv 记录写成 MIT，而同一条记录的包装元数据里明明写着 `{ text = "BSD-3-Clause" }` —— **自相矛盾**。本版改为：
 
 1. **许可正文**中正向识别许可族（只读仓库**自己的**根级 LICENSE/COPYING；NOTICE 与第三方许可副本被排除，因为 marshmallow 的 NOTICE 内嵌了 Django 的 BSD-3-Clause，纳入会凭空制造冲突）；
 2. **包装元数据**中提取显式 SPDX（`license = { text = … }`、`License :: OSI Approved :: …` 分类器；**歧义分类器不给 token**，以免掩盖真实冲突或凭空制造冲突）；
-3. 与实际**包装声明**做三方比对；任一正向不一致 ⇒ `decision = "pending"`，冲突逐条写入 `license_conflicts`。**空证据集不是冲突**（“未知”不等于“不一致”），但许可正文没有正向证据时一律 `pending`；包装元数据缺失可以接受，前提是固定许可正文与预设相符且现有元数据无冲突。
+3. 与实际**包装声明**比较；任一正向不一致 ⇒ `decision = "pending"`，冲突逐条写入 `license_conflicts`。`agreement` 只表示预设、正文和包装元数据三侧证据齐备且一致；`agreement_status` 区分 `consistent`、`partial`、`conflict` 与 `missing_required_evidence`，`evidence_coverage` 列明缺侧。**空证据集不是冲突**（“未知”不等于“不一致”），但许可正文没有正向证据时一律 `pending`；包装元数据缺失可以接受，前提是固定许可正文与预设相符且现有元数据无冲突。此时可批准，但状态只能是 `partial`，不得宣称三方一致。
 
-| 仓库 | decision | approved_spdx | 正文识别 | 元数据声明 | 冲突 | 主许可文件 | copyleft | 限制性 | 独立复核 |
-|---|---|---|---|---|---|---|---|---|---|
-| click | **approved** | BSD-3-Clause | BSD-3-Clause | BSD-3-Clause | 无 | `LICENSE.txt` | 0 | 0 | pending |
-| more-itertools | **approved** | MIT | MIT | MIT | 无 | `LICENSE` | 0 | 0 | pending |
-| pluggy | **approved** | MIT | MIT | MIT | 无 | `LICENSE` | 0 | 0 | pending |
-| boltons | **approved** | BSD-3-Clause | BSD-3-Clause | 无显式 SPDX | 无 | `LICENSE` | 0 | 0 | pending |
-| attrs | **approved** | MIT | MIT | MIT | 无 | `LICENSE` | 0 | 0 | pending |
-| dateutil | **approved** | Apache-2.0 OR BSD-3-Clause | Apache-2.0、BSD-3-Clause | Apache-2.0 | 无 | `LICENSE` | 0 | 0 | pending |
-| packaging | **approved** | Apache-2.0 OR BSD-2-Clause | Apache-2.0、BSD-2-Clause | Apache-2.0、BSD-2-Clause | 无 | `LICENSE` | 0 | 0 | pending |
-| marshmallow | **approved** | MIT | MIT | MIT | 无 | `LICENSE` | 0 | 0 | pending |
-| python-dotenv（替代候选） | **approved** | BSD-3-Clause | BSD-3-Clause | BSD-3-Clause | 无 | `LICENSE` | 0 | 0 | pending |
+| 仓库 | decision | agreement_status | approved_spdx | 正文识别 | 元数据声明 | 冲突 | 主许可文件 | copyleft | 限制性 | 独立复核 |
+|---|---|---|---|---|---|---|---|---|---|---|
+| click | **approved** | `consistent` | BSD-3-Clause | BSD-3-Clause | BSD-3-Clause | 无 | `LICENSE.txt` | 0 | 0 | pending |
+| more-itertools | **approved** | `consistent` | MIT | MIT | MIT | 无 | `LICENSE` | 0 | 0 | pending |
+| pluggy | **approved** | `consistent` | MIT | MIT | MIT | 无 | `LICENSE` | 0 | 0 | pending |
+| boltons | **approved** | `partial` | BSD-3-Clause | BSD-3-Clause | 无显式 SPDX | 无 | `LICENSE` | 0 | 0 | pending |
+| attrs | **approved** | `consistent` | MIT | MIT | MIT | 无 | `LICENSE` | 0 | 0 | pending |
+| dateutil | **approved** | `consistent` | Apache-2.0 OR BSD-3-Clause | Apache-2.0、BSD-3-Clause | Apache-2.0 | 无 | `LICENSE` | 0 | 0 | pending |
+| packaging | **approved** | `consistent` | Apache-2.0 OR BSD-2-Clause | Apache-2.0、BSD-2-Clause | Apache-2.0、BSD-2-Clause | 无 | `LICENSE` | 0 | 0 | pending |
+| marshmallow | **approved** | `consistent` | MIT | MIT | MIT | 无 | `LICENSE` | 0 | 0 | pending |
+| python-dotenv（替代候选） | **approved** | `consistent` | BSD-3-Clause | BSD-3-Clause | BSD-3-Clause | 无 | `LICENSE` | 0 | 0 | pending |
 
 **本轮对 python-dotenv 的具体更正**
 
@@ -191,7 +191,8 @@ python-dotenv `LICENSE` 复核结果：blob `80619b7049f08c81683ad0e01f08f257a84
 
 ### 2.7 校验输出与两条否定测试
 
-`d0/validate_d0.py` 独立于生成脚本、只读产物 JSON 重新断言：**123 项检查、0 失败**（PASS 行 123）。完整输出见 `d0/out/validate_d0.output.txt`。
+`d0/validate_d0.py` 独立于生成脚本、只读产物 JSON 重新断言：**128 项检查、0 失败**（PASS 行 128）。完整输出见 `d0/out/validate_d0.output.txt`。
+未经替身或猴子补丁的公开验证器运行环境：`Python 3.12.3 | packaged by conda-forge | (main, Apr 15 2024, 18:20:11) [MSC v.1938 64 bit (AMD64)]; Windows-11-10.0.26200-SP0`。
 
 本轮新增的**两条否定测试**（都是把真实缺陷重新植入、驱动**同一个**判定函数，因此规则一旦被放宽，门禁立刻失败）：
 
@@ -243,7 +244,7 @@ python-dotenv `LICENSE` 复核结果：blob `80619b7049f08c81683ad0e01f08f257a84
 - **推断**：train 侧 commit 日期筛选 110 个候选对 24 个真实家族需求，名义 headroom 约 4.6 倍，但其中合并事件已验证的只有 4 个，且没有任何一个经过验证器跑通、actor 可达性与有界测试补丁检查，不能把 110 读成 24。
 - **推断**：dev 供给偏薄，只有 attrs 一个锁定 dev 角色仓库产出窗口内家族（3 个，且未验证）；dateutil 在固定 revision 下为 0。
 - **建议**：dev 方案二选一由 Mika / 保管侧裁决 —— ① 以 attrs + 已核验的替代候选承担 dev，或 ② 对 dateutil 重新 pin （但会使本版绑定在该 revision 上的许可批准失效，必须重做逐文件许可台账与新 revision 的批准）。
-- **建议**：请 Q0 对 `license_review` 逐条反证（`independent_review.status` 仍为 pending），重点复核本版新增的许可正文识别与三方一致性判定，以及落地事件归因块（`merge_evidence.landing_event_evidence`）——特别是 boltons 那条：GitHub 合并对象在固定快照中不存在，固定历史里同 PR 的 merge commit 合入的是另一个 commit，该家族已明确为 `needs_review`，补齐独立对应证据前不计入 ready。
+- **建议**：请 Q0 对 `license_review` 逐条反证（`independent_review.status` 仍为 pending），重点复核本版新增的许可正文识别、三侧证据覆盖状态与冲突判定，以及落地事件归因块（`merge_evidence.landing_event_evidence`）——特别是 boltons 那条：GitHub 合并对象在固定快照中不存在，固定历史里同 PR 的 merge commit 合入的是另一个 commit，该家族已明确为 `needs_review`，补齐独立对应证据前不计入 ready。
 - **建议**：E0 在环境就绪后对**静态准备已 ready 的 3 个**真实家族跑 broken/reference 双次干净对照；`training_release.status` 未获放行前不得进入训练发布清单，也不得把本版静态来源验收当成数据 released。
 
 ## 4. 冲突与不确定项
@@ -262,7 +263,7 @@ python-dotenv `LICENSE` 复核结果：blob `80619b7049f08c81683ad0e01f08f257a84
 
 | 文件（`d0/out/`） | 用途 | 接收方 |
 |---|---|---|
-| `source-lock.json` | 8 来源固定 revision + 逐文件许可 + **三方一致性批准字段** + **双哈希口径** | 编码官 / Q0 |
+| `source-lock.json` | 8 来源固定 revision + 逐文件许可 + **审批判据及三侧证据覆盖字段** + **双哈希口径** | 编码官 / Q0 |
 | `license-files.json` | 每个许可文件的上游 blob / checkout 双 SHA256 与换行变换 | Q0 |
 | `per-file-ledger.csv` | 逐文件 SHA256 / SPDX 头 / 版权行 | Q0 |
 | `merge-evidence.json` | 合并事件取证 + **落地事件归因、补丁等价性** + **被替换 commit 的失败账**（`replaced_records`）；来源 URL 与响应 SHA256 | Q0 / Mika |
@@ -273,7 +274,7 @@ python-dotenv `LICENSE` 复核结果：blob `80619b7049f08c81683ad0e01f08f257a84
 | `public-manifest.json` | **可公开**部分：状态契约、训练放行门槛、落地事件归因（不含封存内容与 gold） | 编码官 → 纳入 gamma |
 | `restricted-oracle.json` | 受限 oracle 提示，**不提交 GitHub**；公开验证器在其缺失时显式 SKIP | 独立保管侧 |
 | `kaggle-23-d0-family-table.csv` | 家族一览：两个状态轴、落地形态、补丁等价、合并事件列 | 编码官 |
-| `validate_d0.output.txt` | 校验输出（123 项 / 0 失败 / 4 skipped） | Q0 |
+| `validate_d0.output.txt` | 校验输出（128 项 / 0 失败 / 4 skipped） | Q0 |
 | `kaggle-23-d0-source-lock-report.md` | 本说明 | Mika / Liang |
 
 **可复现入口**：`python d0/run_all.py` 按序跑许可 → 家族挖掘 → 台账 → extras → 合并事件取证 → 门禁 → 报告；门禁非零则不生成报告。合并事件取证是缓存优先的，重跑不会重复消耗 API 配额。
@@ -295,7 +296,7 @@ python-dotenv `LICENSE` 复核结果：blob `80619b7049f08c81683ad0e01f08f257a84
 4. **黄 1/5/6/7 闭环（Mika 裁决 ④）**：公开验证器可不依赖 `restricted-oracle.json` 运行（缺失即显式 `SKIP`，**不算隔离通过**）；新增 `gold_derivability` 与 `actor_isolation` 两个块，把「gold 已扣留但隔离未建立」写成明确结论而非隐含。
 5. **CSV 上移**：`kaggle-23-d0-family-table.csv` 改由 `build_extras.py` 生成（门禁要读它，必须早于门禁存在），并换掉裸 `released` 列，改为 `source_preparation_status` / `training_release_status` / `released_source_preparation_alias` 三列，另加落地形态与补丁等价列。
 6. **计数口径**：train 侧合并事件已验证候选由 3 升至 **4**（补位家族计入）；筛选总数 110 不变。
-7. **校验共 123 项（0 失败、4 skipped）**，新增落地事件、状态轴、gold 可推导性、actor 隔离与替换账五组断言，三个直接调用生产判据的否定反例、一个许可正例和包装元数据可选规则。
+7. **校验共 128 项（0 失败、4 skipped）**，新增落地事件、状态轴、gold 可推导性、actor 隔离与替换账五组断言，三个直接调用生产判据的否定反例、一个许可正例和包装元数据可选规则。
 
 差异的机器可读留证见 `d0/out/v5-diff-evidence.txt`（v3 那一轮保留在 `d0/out/v3-diff-evidence.txt`，v2 在 `v2-diff-evidence.txt`）。
 

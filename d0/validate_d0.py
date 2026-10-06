@@ -25,7 +25,9 @@ import csv
 import datetime as dt
 import json
 import os
+import platform
 import re
+import shutil
 import sys
 import tempfile
 from unittest.mock import patch
@@ -36,7 +38,8 @@ sys.path.insert(0, HERE)
 # the SAME predicate the generator used -- the gate must not re-implement the
 # rule it is checking, or the two can drift apart silently
 from collect_licenses import (classify_license, detect_conflicts,
-                              detect_text_families)  # noqa: E402
+                              detect_text_families,
+                              licence_agreement_facts)  # noqa: E402
 # the status-contract constants, imported from the generator so the gate cannot
 # drift from the values the emitted files were built with
 from build_ledger import (STATUS_CONTRACT_ID,  # noqa: E402
@@ -125,17 +128,31 @@ def licence_conflict_probe():
 def licence_evidence_probe():
     """Exercise the production licence predicate with positive, missing and conflict inputs."""
     missing = classify_license("MIT", set(), set())
-    with tempfile.TemporaryDirectory() as temp_dir:
+    # Keep the unique probe directory inside this authorized checkout. Using
+    # mkdtemp avoids TemporaryDirectory's chmod(0o700), which is denied in
+    # some managed Windows workspaces; cleanup remains strict and exceptions
+    # from the probe are allowed to fail the gate.
+    temp_dir = tempfile.mkdtemp(prefix=".validate-d0-", dir=OUT)
+    try:
         license_path = os.path.join(temp_dir, "LICENSE")
         with open(license_path, "w", encoding="utf-8") as f:
             f.write("MIT License\nPermission is hereby granted, free of charge, "
                     "to any person obtaining a copy of this software.\n")
         positive_text_families, _ = detect_text_families(
             temp_dir, [{"path": "LICENSE"}])
+    finally:
+        shutil.rmtree(temp_dir)
     positive_without_metadata = classify_license(
         "MIT", positive_text_families, set())
+    partial_agreement = licence_agreement_facts(
+        "MIT", positive_text_families, set(), [])
+    complete_agreement = licence_agreement_facts(
+        "MIT", positive_text_families, {"MIT"}, [])
     conflicting = classify_license("MIT", {"BSD-3-Clause"}, {"BSD-3-Clause"})
-    return missing, positive_without_metadata, conflicting
+    conflict_agreement = licence_agreement_facts(
+        "MIT", {"BSD-3-Clause"}, {"BSD-3-Clause"}, conflicting[2])
+    return (missing, positive_without_metadata, conflicting,
+            partial_agreement, complete_agreement, conflict_agreement)
 
 
 def same_file_different_patch_probe():
@@ -197,6 +214,8 @@ def merge_qualification_probe(records):
 
 
 def main():
+    print("validator environment: Python %s; %s" %
+          (sys.version.splitlines()[0], platform.platform()))
     lock = load("source-lock.json")
     ledger = load("family-ledger.json")
     pub = load("public-manifest.json")
@@ -235,6 +254,34 @@ def main():
                 missing.append("%s.%s" % (n, k))
     check("license_review_machine_readable_fields_present_for_every_repo",
           not missing, "missing=%s" % missing)
+    check("license_agreement_schema_defines_scope_and_coverage",
+          lock["license_review_schema"].get("schema_version") == "1.2"
+          and set(lock["license_review_schema"].get("agreement_fields", []))
+          == {"agreement", "agreement_status", "agreement_scope", "evidence_coverage"}
+          and "missing metadata prevents a complete" in
+          lock["license_review_schema"].get("approved_spdx_is_derived_not_asserted", ""),
+          "schema_version=%s fields=%s" % (
+              lock["license_review_schema"].get("schema_version"),
+              lock["license_review_schema"].get("agreement_fields")))
+    check("every_license_record_declares_agreement_scope_and_coverage",
+          all(set((r.get("license_review", {}).get("license_facts") or {}).keys())
+              >= {"agreement", "agreement_status", "agreement_scope", "evidence_coverage"}
+              for r in repos.values()),
+          "all %d records covered" % len(repos))
+    boltons_license = repos.get("boltons", {}).get("license_review", {})
+    boltons_facts = boltons_license.get("license_facts", {})
+    check("boltons_missing_metadata_is_not_reported_as_three_way_agreement",
+          boltons_license.get("decision") == "approved"
+          and boltons_facts.get("agreement") is False
+          and boltons_facts.get("agreement_status") == "partial"
+          and boltons_facts.get("evidence_coverage", {}).get("missing_sides")
+          == ["packaging_metadata"]
+          and boltons_facts.get("evidence_coverage", {}).get(
+              "complete_for_three_way_agreement") is False,
+          "decision=%s agreement=%s status=%s coverage=%s" % (
+              boltons_license.get("decision"), boltons_facts.get("agreement"),
+              boltons_facts.get("agreement_status"),
+              boltons_facts.get("evidence_coverage")))
 
     notapproved = [n for n, r in repos.items()
                    if r["license_review"]["decision"] != "approved"]
@@ -295,7 +342,8 @@ def main():
           "planted preset=%s -> decision=%s conflicts=%s"
           % (probe_preset, probe_decision,
              [c["kind"] for c in probe_conflicts]))
-    no_text, valid_text_no_metadata, positive_conflict = licence_evidence_probe()
+    (no_text, valid_text_no_metadata, positive_conflict,
+     partial_agreement, complete_agreement, conflict_agreement) = licence_evidence_probe()
     check("negative_test_missing_fixed_license_text_cannot_be_approved",
           no_text[0] == "pending" and no_text[1] is False,
           "MIT preset with no fixed text/metadata -> %s/%s" % (no_text[0], no_text[1]))
@@ -305,6 +353,25 @@ def main():
           and not valid_text_no_metadata[2],
           "MIT text with absent optional metadata -> %s/%s"
           % (valid_text_no_metadata[0], valid_text_no_metadata[1]))
+    check("agreement_scope_marks_missing_metadata_as_partial_not_complete",
+          valid_text_no_metadata[0] == "approved"
+          and valid_text_no_metadata[1] is True
+          and partial_agreement["agreement"] is False
+          and partial_agreement["agreement_status"] == "partial"
+          and partial_agreement["evidence_coverage"]["missing_sides"]
+          == ["packaging_metadata"]
+          and partial_agreement["evidence_coverage"]
+          ["complete_for_three_way_agreement"] is False,
+          "body evidence allows approval while agreement coverage=%s"
+          % partial_agreement)
+    check("agreement_scope_marks_complete_match_and_conflict_distinctly",
+          complete_agreement["agreement"] is True
+          and complete_agreement["agreement_status"] == "consistent"
+          and conflict_agreement["agreement"] is False
+          and conflict_agreement["agreement_status"] == "conflict",
+          "complete=%s conflict=%s"
+          % (complete_agreement["agreement_status"],
+             conflict_agreement["agreement_status"]))
     check("negative_test_fixed_license_text_metadata_conflict_stays_pending",
           positive_conflict[0] == "pending" and positive_conflict[1] is False
           and bool(positive_conflict[2]),

@@ -61,6 +61,22 @@
             }
           ],
           "agreement": true,
+          "agreement_status": "consistent",
+          "agreement_scope": [
+            "preset_spdx",
+            "licence_text",
+            "packaging_metadata"
+          ],
+          "evidence_coverage": {
+            "present_sides": [
+              "preset_spdx",
+              "licence_text",
+              "packaging_metadata"
+            ],
+            "missing_sides": [],
+            "complete_for_three_way_agreement": true,
+            "metadata_required_for_approval": false
+          },
           "detection_scope": "licence TEXT is read only from the repository's own root LICENSE/COPYING files; NOTICE and third-party licence copies are excluded because they quote other projects' licences"
         },
         "license_conflicts": [],
@@ -138,7 +154,7 @@
           },
           "per_file_ledger": "per-file-ledger.csv"
         },
-        "decision_basis": "approved_spdx is DERIVED, not asserted: the pinned licence text yields ['BSD-3-Clause'] and the pinned packaging metadata declares ['BSD-3-Clause'], and the declared preset BSD-3-Clause must agree with both. The primary licence file carries no copyleft marker and no non-commercial / research-only / no-derivative clause. Every input is hashed below, so the decision can be re-derived from the pinned bytes alone.",
+        "decision_basis": "approved_spdx is DERIVED, not asserted: the pinned licence text yields ['BSD-3-Clause'] and the pinned packaging metadata declares ['BSD-3-Clause'] when present; the declared preset BSD-3-Clause must agree with available evidence. Missing metadata is reported as incomplete three-way agreement coverage, although it is optional for approval. The primary licence file carries no copyleft marker and no non-commercial / research-only / no-derivative clause. Every input is hashed below, so the decision can be re-derived from the pinned bytes alone.",
         "decided_by": "D0 owner (资料调研与分发)",
         "decided_at": "2026-10-05",
         "decided_against_revision": "8b19813f2bfca99f1018a587a8cf54fc959f2e5d",
@@ -213,6 +229,22 @@
             }
           ],
           "agreement": true,
+          "agreement_status": "consistent",
+          "agreement_scope": [
+            "preset_spdx",
+            "licence_text",
+            "packaging_metadata"
+          ],
+          "evidence_coverage": {
+            "present_sides": [
+              "preset_spdx",
+              "licence_text",
+              "packaging_metadata"
+            ],
+            "missing_sides": [],
+            "complete_for_three_way_agreement": true,
+            "metadata_required_for_approval": false
+          },
           "detection_scope": "licence TEXT is read only from the repository's own root LICENSE/COPYING files; NOTICE and third-party licence copies are excluded because they quote other projects' licences"
         },
         "license_conflicts": [],
@@ -291,7 +323,7 @@
           },
           "per_file_ledger": "per-file-ledger.csv"
         },
-        "decision_basis": "approved_spdx is DERIVED, not asserted: the pinned licence text yields ['MIT'] and the pinned packaging metadata declares ['MIT'], and the declared preset MIT must agree with both. The primary licence file carries no copyleft marker and no non-commercial / research-only / no-derivative clause. Every input is hashed below, so the decision can be re-derived from the pinned bytes alone.",
+        "decision_basis": "approved_spdx is DERIVED, not asserted: the pinned licence text yields ['MIT'] and the pinned packaging metadata declares ['MIT'] when present; the declared preset MIT must agree with available evidence. Missing metadata is reported as incomplete three-way agreement coverage, although it is optional for approval. The primary licence file carries no copyleft marker and no non-commercial / research-only / no-derivative clause. Every input is hashed below, so the decision can be re-derived from the pinned bytes alone.",
         "decided_by": "D0 owner (资料调研与分发)",
         "decided_at": "2026-10-05",
         "decided_against_revision": "64be96ceb2a6e836f76f069f4a96d2394d59fd0c",
@@ -380,6 +412,22 @@
             }
           ],
           "agreement": true,
+          "agreement_status": "consistent",
+          "agreement_scope": [
+            "preset_spdx",
+            "licence_text",
+            "packaging_metadata"
+          ],
+          "evidence_coverage": {
+            "present_sides": [
+              "preset_spdx",
+              "licence_text",
+              "packaging_metadata"
+            ],
+            "missing_sides": [],
+            "complete_for_three_way_agreement": true,
+            "metadata_required_for_approval": false
+          },
           "detection_scope": "licence TEXT is read only from the repository's own root LICENSE/COPYING files; NOTICE and third-party licence copies are excluded because they quote other projects' licences"
         },
         "license_conflicts": [],
@@ -436,7 +484,7 @@
           },
           "per_file_ledger": "per-file-ledger.csv"
         },
-        "decision_basis": "approved_spdx is DERIVED, not asserted: the pinned licence text yields ['MIT'] and the pinned packaging metadata declares ['MIT'], and the declared preset MIT must agree with both. The primary licence file carries no copyleft marker and no non-commercial / research-only / no-derivative clause. Every input is hashed below, so the decision can be re-derived from the pinned bytes alone.",
+        "decision_basis": "approved_spdx is DERIVED, not asserted: the pinned licence text yields ['MIT'] and the pinned packaging metadata declares ['MIT'] when present; the declared preset MIT must agree with available evidence. Missing metadata is reported as incomplete three-way agreement coverage, although it is optional for approval. The primary licence file carries no copyleft marker and no non-commercial / research-only / no-derivative clause. Every input is hashed below, so the decision can be re-derived from the pinned bytes alone.",
         "decided_by": "D0 owner (资料调研与分发)",
         "decided_at": "2026-10-05",
         "decided_against_revision": "fd08ab5f811a9b2fa9124ae8cbbd393221151e2c",
@@ -506,7 +554,24 @@
           ],
           "detected_from_packaging_metadata": [],
           "packaging_metadata_evidence": [],
-          "agreement": true,
+          "agreement": false,
+          "agreement_status": "partial",
+          "agreement_scope": [
+            "preset_spdx",
+            "licence_text",
+            "packaging_metadata"
+          ],
+          "evidence_coverage": {
+            "present_sides": [
+              "preset_spdx",
+              "licence_text"
+            ],
+            "missing_sides": [
+              "packaging_metadata"
+            ],
+            "complete_for_three_way_agreement": false,
+            "metadata_required_for_approval": false
+          },
           "detection_scope": "licence TEXT is read only from the repository's own root LICENSE/COPYING files; NOTICE and third-party licence copies are excluded because they quote other projects' licences"
         },
         "license_conflicts": [],
@@ -564,7 +629,7 @@
           },
           "per_file_ledger": "per-file-ledger.csv"
         },
-        "decision_basis": "approved_spdx is DERIVED, not asserted: the pinned licence text yields ['BSD-3-Clause'] and the pinned packaging metadata declares no explicit SPDX, and the declared preset BSD-3-Clause must agree with both. The primary licence file carries no copyleft marker and no non-commercial / research-only / no-derivative clause. Every input is hashed below, so the decision can be re-derived from the pinned bytes alone.",
+        "decision_basis": "approved_spdx is DERIVED, not asserted: the pinned licence text yields ['BSD-3-Clause'] and the pinned packaging metadata declares no explicit SPDX when present; the declared preset BSD-3-Clause must agree with available evidence. Missing metadata is reported as incomplete three-way agreement coverage, although it is optional for approval. The primary licence file carries no copyleft marker and no non-commercial / research-only / no-derivative clause. Every input is hashed below, so the decision can be re-derived from the pinned bytes alone.",
         "decided_by": "D0 owner (资料调研与分发)",
         "decided_at": "2026-10-05",
         "decided_against_revision": "4332b35a278d694f30c99881faa61cde695c7a96",
@@ -638,6 +703,22 @@
             }
           ],
           "agreement": true,
+          "agreement_status": "consistent",
+          "agreement_scope": [
+            "preset_spdx",
+            "licence_text",
+            "packaging_metadata"
+          ],
+          "evidence_coverage": {
+            "present_sides": [
+              "preset_spdx",
+              "licence_text",
+              "packaging_metadata"
+            ],
+            "missing_sides": [],
+            "complete_for_three_way_agreement": true,
+            "metadata_required_for_approval": false
+          },
           "detection_scope": "licence TEXT is read only from the repository's own root LICENSE/COPYING files; NOTICE and third-party licence copies are excluded because they quote other projects' licences"
         },
         "license_conflicts": [],
@@ -715,7 +796,7 @@
           },
           "per_file_ledger": "per-file-ledger.csv"
         },
-        "decision_basis": "approved_spdx is DERIVED, not asserted: the pinned licence text yields ['MIT'] and the pinned packaging metadata declares ['MIT'], and the declared preset MIT must agree with both. The primary licence file carries no copyleft marker and no non-commercial / research-only / no-derivative clause. Every input is hashed below, so the decision can be re-derived from the pinned bytes alone.",
+        "decision_basis": "approved_spdx is DERIVED, not asserted: the pinned licence text yields ['MIT'] and the pinned packaging metadata declares ['MIT'] when present; the declared preset MIT must agree with available evidence. Missing metadata is reported as incomplete three-way agreement coverage, although it is optional for approval. The primary licence file carries no copyleft marker and no non-commercial / research-only / no-derivative clause. Every input is hashed below, so the decision can be re-derived from the pinned bytes alone.",
         "decided_by": "D0 owner (资料调研与分发)",
         "decided_at": "2026-10-05",
         "decided_against_revision": "7bfc49e9b22d5ba25b6e429524c3d49fee27cb36",
@@ -798,6 +879,22 @@
             }
           ],
           "agreement": true,
+          "agreement_status": "consistent",
+          "agreement_scope": [
+            "preset_spdx",
+            "licence_text",
+            "packaging_metadata"
+          ],
+          "evidence_coverage": {
+            "present_sides": [
+              "preset_spdx",
+              "licence_text",
+              "packaging_metadata"
+            ],
+            "missing_sides": [],
+            "complete_for_three_way_agreement": true,
+            "metadata_required_for_approval": false
+          },
           "detection_scope": "licence TEXT is read only from the repository's own root LICENSE/COPYING files; NOTICE and third-party licence copies are excluded because they quote other projects' licences"
         },
         "license_conflicts": [],
@@ -877,7 +974,7 @@
           },
           "per_file_ledger": "per-file-ledger.csv"
         },
-        "decision_basis": "approved_spdx is DERIVED, not asserted: the pinned licence text yields ['Apache-2.0', 'BSD-3-Clause'] and the pinned packaging metadata declares ['Apache-2.0'], and the declared preset Apache-2.0 OR BSD-3-Clause must agree with both. The primary licence file carries no copyleft marker and no non-commercial / research-only / no-derivative clause. Every input is hashed below, so the decision can be re-derived from the pinned bytes alone.",
+        "decision_basis": "approved_spdx is DERIVED, not asserted: the pinned licence text yields ['Apache-2.0', 'BSD-3-Clause'] and the pinned packaging metadata declares ['Apache-2.0'] when present; the declared preset Apache-2.0 OR BSD-3-Clause must agree with available evidence. Missing metadata is reported as incomplete three-way agreement coverage, although it is optional for approval. The primary licence file carries no copyleft marker and no non-commercial / research-only / no-derivative clause. Every input is hashed below, so the decision can be re-derived from the pinned bytes alone.",
         "decided_by": "D0 owner (资料调研与分发)",
         "decided_at": "2026-10-05",
         "decided_against_revision": "db9d018944c41ddc740015cf5f64717c2ba64a5c",
@@ -947,6 +1044,22 @@
             }
           ],
           "agreement": true,
+          "agreement_status": "consistent",
+          "agreement_scope": [
+            "preset_spdx",
+            "licence_text",
+            "packaging_metadata"
+          ],
+          "evidence_coverage": {
+            "present_sides": [
+              "preset_spdx",
+              "licence_text",
+              "packaging_metadata"
+            ],
+            "missing_sides": [],
+            "complete_for_three_way_agreement": true,
+            "metadata_required_for_approval": false
+          },
           "detection_scope": "licence TEXT is read only from the repository's own root LICENSE/COPYING files; NOTICE and third-party licence copies are excluded because they quote other projects' licences"
         },
         "license_conflicts": [],
@@ -1045,7 +1158,7 @@
           },
           "per_file_ledger": "per-file-ledger.csv"
         },
-        "decision_basis": "approved_spdx is DERIVED, not asserted: the pinned licence text yields ['Apache-2.0', 'BSD-2-Clause'] and the pinned packaging metadata declares ['Apache-2.0', 'BSD-2-Clause'], and the declared preset Apache-2.0 OR BSD-2-Clause must agree with both. The primary licence file carries no copyleft marker and no non-commercial / research-only / no-derivative clause. Every input is hashed below, so the decision can be re-derived from the pinned bytes alone.",
+        "decision_basis": "approved_spdx is DERIVED, not asserted: the pinned licence text yields ['Apache-2.0', 'BSD-2-Clause'] and the pinned packaging metadata declares ['Apache-2.0', 'BSD-2-Clause'] when present; the declared preset Apache-2.0 OR BSD-2-Clause must agree with available evidence. Missing metadata is reported as incomplete three-way agreement coverage, although it is optional for approval. The primary licence file carries no copyleft marker and no non-commercial / research-only / no-derivative clause. Every input is hashed below, so the decision can be re-derived from the pinned bytes alone.",
         "decided_by": "D0 owner (资料调研与分发)",
         "decided_at": "2026-10-05",
         "decided_against_revision": "929fd4b1410ac7ef61ef3f45b2f5d7e87711a9b5",
@@ -1100,6 +1213,22 @@
             }
           ],
           "agreement": true,
+          "agreement_status": "consistent",
+          "agreement_scope": [
+            "preset_spdx",
+            "licence_text",
+            "packaging_metadata"
+          ],
+          "evidence_coverage": {
+            "present_sides": [
+              "preset_spdx",
+              "licence_text",
+              "packaging_metadata"
+            ],
+            "missing_sides": [],
+            "complete_for_three_way_agreement": true,
+            "metadata_required_for_approval": false
+          },
           "detection_scope": "licence TEXT is read only from the repository's own root LICENSE/COPYING files; NOTICE and third-party licence copies are excluded because they quote other projects' licences"
         },
         "license_conflicts": [],
@@ -1240,7 +1369,7 @@
           },
           "per_file_ledger": "per-file-ledger.csv"
         },
-        "decision_basis": "approved_spdx is DERIVED, not asserted: the pinned licence text yields ['MIT'] and the pinned packaging metadata declares ['MIT'], and the declared preset MIT must agree with both. The primary licence file carries no copyleft marker and no non-commercial / research-only / no-derivative clause. Every input is hashed below, so the decision can be re-derived from the pinned bytes alone.",
+        "decision_basis": "approved_spdx is DERIVED, not asserted: the pinned licence text yields ['MIT'] and the pinned packaging metadata declares ['MIT'] when present; the declared preset MIT must agree with available evidence. Missing metadata is reported as incomplete three-way agreement coverage, although it is optional for approval. The primary licence file carries no copyleft marker and no non-commercial / research-only / no-derivative clause. Every input is hashed below, so the decision can be re-derived from the pinned bytes alone.",
         "decided_by": "D0 owner (资料调研与分发)",
         "decided_at": "2026-10-05",
         "decided_against_revision": "c7b559a1fa3aba57ca6dba0ab336841c5038a782",
@@ -1302,6 +1431,22 @@
             }
           ],
           "agreement": true,
+          "agreement_status": "consistent",
+          "agreement_scope": [
+            "preset_spdx",
+            "licence_text",
+            "packaging_metadata"
+          ],
+          "evidence_coverage": {
+            "present_sides": [
+              "preset_spdx",
+              "licence_text",
+              "packaging_metadata"
+            ],
+            "missing_sides": [],
+            "complete_for_three_way_agreement": true,
+            "metadata_required_for_approval": false
+          },
           "detection_scope": "licence TEXT is read only from the repository's own root LICENSE/COPYING files; NOTICE and third-party licence copies are excluded because they quote other projects' licences"
         },
         "license_conflicts": [],
@@ -1379,7 +1524,7 @@
           },
           "per_file_ledger": "per-file-ledger.csv"
         },
-        "decision_basis": "approved_spdx is DERIVED, not asserted: the pinned licence text yields ['BSD-3-Clause'] and the pinned packaging metadata declares ['BSD-3-Clause'], and the declared preset BSD-3-Clause must agree with both. The primary licence file carries no copyleft marker and no non-commercial / research-only / no-derivative clause. Every input is hashed below, so the decision can be re-derived from the pinned bytes alone.",
+        "decision_basis": "approved_spdx is DERIVED, not asserted: the pinned licence text yields ['BSD-3-Clause'] and the pinned packaging metadata declares ['BSD-3-Clause'] when present; the declared preset BSD-3-Clause must agree with available evidence. Missing metadata is reported as incomplete three-way agreement coverage, although it is optional for approval. The primary licence file carries no copyleft marker and no non-commercial / research-only / no-derivative clause. Every input is hashed below, so the decision can be re-derived from the pinned bytes alone.",
         "decided_by": "D0 owner (资料调研与分发)",
         "decided_at": "2026-10-05",
         "decided_against_revision": "a565c2cc41599c48eabc6b7b7f5b826d43c5a6d7",
@@ -3663,6 +3808,22 @@
           }
         ],
         "agreement": true,
+        "agreement_status": "consistent",
+        "agreement_scope": [
+          "preset_spdx",
+          "licence_text",
+          "packaging_metadata"
+        ],
+        "evidence_coverage": {
+          "present_sides": [
+            "preset_spdx",
+            "licence_text",
+            "packaging_metadata"
+          ],
+          "missing_sides": [],
+          "complete_for_three_way_agreement": true,
+          "metadata_required_for_approval": false
+        },
         "detection_scope": "licence TEXT is read only from the repository's own root LICENSE/COPYING files; NOTICE and third-party licence copies are excluded because they quote other projects' licences"
       },
       "license_conflicts": [],
@@ -3677,7 +3838,7 @@
         "note": "self-declared licence-fact assessment; NOT an independent countersignature and must not be read as one"
       },
       "source_of_truth": "repos.click.license_review in source-lock.json",
-      "basis": "approved_spdx is DERIVED, not asserted: the pinned licence text yields ['BSD-3-Clause'] and the pinned packaging metadata declares ['BSD-3-Clause'], and the declared preset BSD-3-Clause must agree with both. The primary licence file carries no copyleft marker and no non-commercial / research-only / no-derivative clause. Every input is hashed below, so the decision can be re-derived from the pinned bytes alone.",
+      "basis": "approved_spdx is DERIVED, not asserted: the pinned licence text yields ['BSD-3-Clause'] and the pinned packaging metadata declares ['BSD-3-Clause'] when present; the declared preset BSD-3-Clause must agree with available evidence. Missing metadata is reported as incomplete three-way agreement coverage, although it is optional for approval. The primary licence file carries no copyleft marker and no non-commercial / research-only / no-derivative clause. Every input is hashed below, so the decision can be re-derived from the pinned bytes alone.",
       "primary_license_file": {
         "path": "LICENSE.txt",
         "git_blob_sha1": "d12a849186982399c537c5b9a8fd77bf2edd5eab",
@@ -3788,6 +3949,22 @@
           }
         ],
         "agreement": true,
+        "agreement_status": "consistent",
+        "agreement_scope": [
+          "preset_spdx",
+          "licence_text",
+          "packaging_metadata"
+        ],
+        "evidence_coverage": {
+          "present_sides": [
+            "preset_spdx",
+            "licence_text",
+            "packaging_metadata"
+          ],
+          "missing_sides": [],
+          "complete_for_three_way_agreement": true,
+          "metadata_required_for_approval": false
+        },
         "detection_scope": "licence TEXT is read only from the repository's own root LICENSE/COPYING files; NOTICE and third-party licence copies are excluded because they quote other projects' licences"
       },
       "license_conflicts": [],
@@ -3802,7 +3979,7 @@
         "note": "self-declared licence-fact assessment; NOT an independent countersignature and must not be read as one"
       },
       "source_of_truth": "repos.more-itertools.license_review in source-lock.json",
-      "basis": "approved_spdx is DERIVED, not asserted: the pinned licence text yields ['MIT'] and the pinned packaging metadata declares ['MIT'], and the declared preset MIT must agree with both. The primary licence file carries no copyleft marker and no non-commercial / research-only / no-derivative clause. Every input is hashed below, so the decision can be re-derived from the pinned bytes alone.",
+      "basis": "approved_spdx is DERIVED, not asserted: the pinned licence text yields ['MIT'] and the pinned packaging metadata declares ['MIT'] when present; the declared preset MIT must agree with available evidence. Missing metadata is reported as incomplete three-way agreement coverage, although it is optional for approval. The primary licence file carries no copyleft marker and no non-commercial / research-only / no-derivative clause. Every input is hashed below, so the decision can be re-derived from the pinned bytes alone.",
       "primary_license_file": {
         "path": "LICENSE",
         "git_blob_sha1": "0a523bece3e50519653c4d7a38399baa487fefa1",
@@ -3930,6 +4107,22 @@
           }
         ],
         "agreement": true,
+        "agreement_status": "consistent",
+        "agreement_scope": [
+          "preset_spdx",
+          "licence_text",
+          "packaging_metadata"
+        ],
+        "evidence_coverage": {
+          "present_sides": [
+            "preset_spdx",
+            "licence_text",
+            "packaging_metadata"
+          ],
+          "missing_sides": [],
+          "complete_for_three_way_agreement": true,
+          "metadata_required_for_approval": false
+        },
         "detection_scope": "licence TEXT is read only from the repository's own root LICENSE/COPYING files; NOTICE and third-party licence copies are excluded because they quote other projects' licences"
       },
       "license_conflicts": [],
@@ -3944,7 +4137,7 @@
         "note": "self-declared licence-fact assessment; NOT an independent countersignature and must not be read as one"
       },
       "source_of_truth": "repos.pluggy.license_review in source-lock.json",
-      "basis": "approved_spdx is DERIVED, not asserted: the pinned licence text yields ['MIT'] and the pinned packaging metadata declares ['MIT'], and the declared preset MIT must agree with both. The primary licence file carries no copyleft marker and no non-commercial / research-only / no-derivative clause. Every input is hashed below, so the decision can be re-derived from the pinned bytes alone.",
+      "basis": "approved_spdx is DERIVED, not asserted: the pinned licence text yields ['MIT'] and the pinned packaging metadata declares ['MIT'] when present; the declared preset MIT must agree with available evidence. Missing metadata is reported as incomplete three-way agreement coverage, although it is optional for approval. The primary licence file carries no copyleft marker and no non-commercial / research-only / no-derivative clause. Every input is hashed below, so the decision can be re-derived from the pinned bytes alone.",
       "primary_license_file": {
         "path": "LICENSE",
         "git_blob_sha1": "85f4dd63d2da8e31d7e84d5180f016fdfe315c2c",
@@ -4026,7 +4219,24 @@
         ],
         "detected_from_packaging_metadata": [],
         "packaging_metadata_evidence": [],
-        "agreement": true,
+        "agreement": false,
+        "agreement_status": "partial",
+        "agreement_scope": [
+          "preset_spdx",
+          "licence_text",
+          "packaging_metadata"
+        ],
+        "evidence_coverage": {
+          "present_sides": [
+            "preset_spdx",
+            "licence_text"
+          ],
+          "missing_sides": [
+            "packaging_metadata"
+          ],
+          "complete_for_three_way_agreement": false,
+          "metadata_required_for_approval": false
+        },
         "detection_scope": "licence TEXT is read only from the repository's own root LICENSE/COPYING files; NOTICE and third-party licence copies are excluded because they quote other projects' licences"
       },
       "license_conflicts": [],
@@ -4041,7 +4251,7 @@
         "note": "self-declared licence-fact assessment; NOT an independent countersignature and must not be read as one"
       },
       "source_of_truth": "repos.boltons.license_review in source-lock.json",
-      "basis": "approved_spdx is DERIVED, not asserted: the pinned licence text yields ['BSD-3-Clause'] and the pinned packaging metadata declares no explicit SPDX, and the declared preset BSD-3-Clause must agree with both. The primary licence file carries no copyleft marker and no non-commercial / research-only / no-derivative clause. Every input is hashed below, so the decision can be re-derived from the pinned bytes alone.",
+      "basis": "approved_spdx is DERIVED, not asserted: the pinned licence text yields ['BSD-3-Clause'] and the pinned packaging metadata declares no explicit SPDX when present; the declared preset BSD-3-Clause must agree with available evidence. Missing metadata is reported as incomplete three-way agreement coverage, although it is optional for approval. The primary licence file carries no copyleft marker and no non-commercial / research-only / no-derivative clause. Every input is hashed below, so the decision can be re-derived from the pinned bytes alone.",
       "primary_license_file": {
         "path": "LICENSE",
         "git_blob_sha1": "6a4c9d2496f53c61c99ae7c113e6ed94b15b038c",
@@ -4140,6 +4350,22 @@
           }
         ],
         "agreement": true,
+        "agreement_status": "consistent",
+        "agreement_scope": [
+          "preset_spdx",
+          "licence_text",
+          "packaging_metadata"
+        ],
+        "evidence_coverage": {
+          "present_sides": [
+            "preset_spdx",
+            "licence_text",
+            "packaging_metadata"
+          ],
+          "missing_sides": [],
+          "complete_for_three_way_agreement": true,
+          "metadata_required_for_approval": false
+        },
         "detection_scope": "licence TEXT is read only from the repository's own root LICENSE/COPYING files; NOTICE and third-party licence copies are excluded because they quote other projects' licences"
       },
       "license_conflicts": [],
@@ -4154,7 +4380,7 @@
         "note": "self-declared licence-fact assessment; NOT an independent countersignature and must not be read as one"
       },
       "source_of_truth": "repos.attrs.license_review in source-lock.json",
-      "basis": "approved_spdx is DERIVED, not asserted: the pinned licence text yields ['MIT'] and the pinned packaging metadata declares ['MIT'], and the declared preset MIT must agree with both. The primary licence file carries no copyleft marker and no non-commercial / research-only / no-derivative clause. Every input is hashed below, so the decision can be re-derived from the pinned bytes alone.",
+      "basis": "approved_spdx is DERIVED, not asserted: the pinned licence text yields ['MIT'] and the pinned packaging metadata declares ['MIT'] when present; the declared preset MIT must agree with available evidence. Missing metadata is reported as incomplete three-way agreement coverage, although it is optional for approval. The primary licence file carries no copyleft marker and no non-commercial / research-only / no-derivative clause. Every input is hashed below, so the decision can be re-derived from the pinned bytes alone.",
       "primary_license_file": {
         "path": "LICENSE",
         "git_blob_sha1": "2bd6453d255e19b973f19b128596a8b6dd65b2c3",
@@ -4267,6 +4493,22 @@
           }
         ],
         "agreement": true,
+        "agreement_status": "consistent",
+        "agreement_scope": [
+          "preset_spdx",
+          "licence_text",
+          "packaging_metadata"
+        ],
+        "evidence_coverage": {
+          "present_sides": [
+            "preset_spdx",
+            "licence_text",
+            "packaging_metadata"
+          ],
+          "missing_sides": [],
+          "complete_for_three_way_agreement": true,
+          "metadata_required_for_approval": false
+        },
         "detection_scope": "licence TEXT is read only from the repository's own root LICENSE/COPYING files; NOTICE and third-party licence copies are excluded because they quote other projects' licences"
       },
       "license_conflicts": [],
@@ -4281,7 +4523,7 @@
         "note": "self-declared licence-fact assessment; NOT an independent countersignature and must not be read as one"
       },
       "source_of_truth": "repos.dateutil.license_review in source-lock.json",
-      "basis": "approved_spdx is DERIVED, not asserted: the pinned licence text yields ['Apache-2.0', 'BSD-3-Clause'] and the pinned packaging metadata declares ['Apache-2.0'], and the declared preset Apache-2.0 OR BSD-3-Clause must agree with both. The primary licence file carries no copyleft marker and no non-commercial / research-only / no-derivative clause. Every input is hashed below, so the decision can be re-derived from the pinned bytes alone.",
+      "basis": "approved_spdx is DERIVED, not asserted: the pinned licence text yields ['Apache-2.0', 'BSD-3-Clause'] and the pinned packaging metadata declares ['Apache-2.0'] when present; the declared preset Apache-2.0 OR BSD-3-Clause must agree with available evidence. Missing metadata is reported as incomplete three-way agreement coverage, although it is optional for approval. The primary licence file carries no copyleft marker and no non-commercial / research-only / no-derivative clause. Every input is hashed below, so the decision can be re-derived from the pinned bytes alone.",
       "primary_license_file": {
         "path": "LICENSE",
         "git_blob_sha1": "1e65815cf0b3132689485874a93034ede7206bf4",
@@ -4408,6 +4650,22 @@
           }
         ],
         "agreement": true,
+        "agreement_status": "consistent",
+        "agreement_scope": [
+          "preset_spdx",
+          "licence_text",
+          "packaging_metadata"
+        ],
+        "evidence_coverage": {
+          "present_sides": [
+            "preset_spdx",
+            "licence_text",
+            "packaging_metadata"
+          ],
+          "missing_sides": [],
+          "complete_for_three_way_agreement": true,
+          "metadata_required_for_approval": false
+        },
         "detection_scope": "licence TEXT is read only from the repository's own root LICENSE/COPYING files; NOTICE and third-party licence copies are excluded because they quote other projects' licences"
       },
       "license_conflicts": [],
@@ -4422,7 +4680,7 @@
         "note": "self-declared licence-fact assessment; NOT an independent countersignature and must not be read as one"
       },
       "source_of_truth": "repos.python-dotenv.license_review in source-lock.json",
-      "basis": "approved_spdx is DERIVED, not asserted: the pinned licence text yields ['BSD-3-Clause'] and the pinned packaging metadata declares ['BSD-3-Clause'], and the declared preset BSD-3-Clause must agree with both. The primary licence file carries no copyleft marker and no non-commercial / research-only / no-derivative clause. Every input is hashed below, so the decision can be re-derived from the pinned bytes alone.",
+      "basis": "approved_spdx is DERIVED, not asserted: the pinned licence text yields ['BSD-3-Clause'] and the pinned packaging metadata declares ['BSD-3-Clause'] when present; the declared preset BSD-3-Clause must agree with available evidence. Missing metadata is reported as incomplete three-way agreement coverage, although it is optional for approval. The primary licence file carries no copyleft marker and no non-commercial / research-only / no-derivative clause. Every input is hashed below, so the decision can be re-derived from the pinned bytes alone.",
       "primary_license_file": {
         "path": "LICENSE",
         "git_blob_sha1": "3a97119010ac82e15e917a69b7b8f9f59b5a4601",
@@ -4503,7 +4761,7 @@
     }
   },
   "license_review_schema": {
-    "schema_version": "1.1",
+    "schema_version": "1.2",
     "applies_to": "every repository in this file, keyed by repository name",
     "required_fields": [
       "decision",
@@ -4529,7 +4787,14 @@
     "gate": "no repository may be used as a family source unless license_review.decision == 'approved' for the exact revision in decided_against_revision",
     "approval_is_revision_bound": "an approval covers one pinned commit; re-pinning a repository invalidates it and it must be re-derived",
     "independent_review_note": "decision is the D0 owner's licence-fact assessment and is self-declared; independent countersignature is tracked separately in independent_review and is NOT claimed here",
-    "approved_spdx_is_derived_not_asserted": "approved_spdx must agree with the families detected in the pinned licence TEXT and with the SPDX declared in the pinned packaging METADATA. The preset in the generator is an expectation, never evidence.",
+    "approved_spdx_is_derived_not_asserted": "approved_spdx must agree with the families detected in the pinned licence TEXT and, when present, the SPDX declared in pinned packaging METADATA. The preset in the generator is an expectation, never evidence. Metadata is optional for approval, but missing metadata prevents a complete three-way agreement claim.",
+    "agreement_fields": [
+      "agreement",
+      "agreement_status",
+      "agreement_scope",
+      "evidence_coverage"
+    ],
+    "agreement_semantics": "agreement is true only when preset, fixed licence text, and packaging metadata are all present and consistent. agreement_status is conflict, missing_required_evidence, partial, or consistent. Missing optional packaging metadata may still permit approval when fixed licence text matches the preset; evidence_coverage lists present and missing sides.",
     "conflict_rule": "a positive disagreement between the preset, the licence text and/or the packaging metadata forces decision='pending' and is listed verbatim in license_conflicts; it can never read as 'approved'. Packaging metadata is optional when absent, but at least one matching positive family signal from the fixed root licence text is mandatory. An EMPTY evidence set is not a conflict and is never approval.",
     "hash_basis_rule": "every licence file records BOTH the upstream git-blob sha256 and the checkout sha256 plus the newline transformation relating them; the two are different byte strings under core.autocrlf=true and must never be mixed",
     "missing_merge_evidence_note": "this field set settles LICENCE facts only; it does not establish the family window, which needs the merge-event evidence in merge-evidence.json"

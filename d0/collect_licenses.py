@@ -47,7 +47,7 @@ ALTERNATIVE_REPOS = {
 }
 
 LICENSE_REVIEW_SCHEMA = {
-    "schema_version": "1.1",
+    "schema_version": "1.2",
     "applies_to": "every repository in this file, keyed by repository name",
     "required_fields": [
         "decision", "approved_spdx", "osi_permissive", "copyleft_marker_hits",
@@ -66,8 +66,19 @@ LICENSE_REVIEW_SCHEMA = {
                                 "separately in independent_review and is NOT claimed here"),
     "approved_spdx_is_derived_not_asserted": (
         "approved_spdx must agree with the families detected in the pinned licence "
-        "TEXT and with the SPDX declared in the pinned packaging METADATA. The "
-        "preset in the generator is an expectation, never evidence."),
+        "TEXT and, when present, the SPDX declared in pinned packaging METADATA. "
+        "The preset in the generator is an expectation, never evidence. Metadata "
+        "is optional for approval, but missing metadata prevents a complete "
+        "three-way agreement claim."),
+    "agreement_fields": [
+        "agreement", "agreement_status", "agreement_scope", "evidence_coverage",
+    ],
+    "agreement_semantics": (
+        "agreement is true only when preset, fixed licence text, and packaging "
+        "metadata are all present and consistent. agreement_status is conflict, "
+        "missing_required_evidence, partial, or consistent. Missing optional "
+        "packaging metadata may still permit approval when fixed licence text "
+        "matches the preset; evidence_coverage lists present and missing sides."),
     "conflict_rule": ("a positive disagreement between the preset, the licence text "
                       "and/or the packaging metadata forces decision='pending' and is "
                       "listed verbatim in license_conflicts; it can never read as "
@@ -291,6 +302,53 @@ def classify_license(preset, text_families, meta_families):
     return ("approved" if approved else "pending"), approved, conflicts
 
 
+def licence_agreement_facts(preset, text_families, meta_families, conflicts):
+    """Describe evidence coverage separately from the approval decision.
+
+    Packaging metadata is optional for approval, but its absence means the
+    record cannot claim complete three-way agreement. The declared preset is
+    an expectation, not evidence.
+    """
+    text_families = set(text_families)
+    meta_families = set(meta_families)
+    preset_tokens = preset_families(preset)
+    present = ["preset_spdx"]
+    missing = []
+    if text_families:
+        present.append("licence_text")
+    else:
+        missing.append("licence_text")
+    if meta_families:
+        present.append("packaging_metadata")
+    else:
+        missing.append("packaging_metadata")
+
+    positive_mismatch = bool(conflicts) or (
+        bool(text_families) and not (preset_tokens & text_families)) or (
+        bool(meta_families) and not (preset_tokens & meta_families)) or (
+        bool(text_families) and bool(meta_families)
+        and not (text_families & meta_families))
+    if positive_mismatch:
+        status = "conflict"
+    elif not text_families:
+        status = "missing_required_evidence"
+    elif not meta_families:
+        status = "partial"
+    else:
+        status = "consistent"
+    return {
+        "agreement": status == "consistent",
+        "agreement_status": status,
+        "agreement_scope": ["preset_spdx", "licence_text", "packaging_metadata"],
+        "evidence_coverage": {
+            "present_sides": present,
+            "missing_sides": missing,
+            "complete_for_three_way_agreement": not missing,
+            "metadata_required_for_approval": False,
+        },
+    }
+
+
 # ---------------------------------------------------------------------------
 # hash basis: upstream blob bytes vs checkout bytes are NOT the same bytes
 # ---------------------------------------------------------------------------
@@ -388,10 +446,14 @@ def build_license_review(name, slug, tag, pinned, design_license, repo_dir,
             "effect": "approval withheld: a non-commercial / research-only / "
                       "no-derivative clause was found in a primary licence file",
         })
+    agreement_facts = licence_agreement_facts(
+        design_license, text_families, meta_families, conflicts)
     basis = (
         "approved_spdx is DERIVED, not asserted: the pinned licence text yields %s "
-        "and the pinned packaging metadata declares %s, and the declared preset %s "
-        "must agree with both. The primary licence file carries no copyleft marker "
+        "and the pinned packaging metadata declares %s when present; the declared "
+        "preset %s must agree with available evidence. Missing metadata is reported "
+        "as incomplete three-way agreement coverage, although it is optional for "
+        "approval. The primary licence file carries no copyleft marker "
         "and no non-commercial / research-only / no-derivative clause. Every input "
         "is hashed below, so the decision can be re-derived from the pinned bytes "
         "alone." % (sorted(text_families) or "no identified family",
@@ -415,7 +477,7 @@ def build_license_review(name, slug, tag, pinned, design_license, repo_dir,
             "licence_text_evidence": text_evidence,
             "detected_from_packaging_metadata": sorted(meta_families),
             "packaging_metadata_evidence": meta_evidence,
-            "agreement": not conflicts,
+            **agreement_facts,
             "detection_scope": (
                 "licence TEXT is read only from the repository's own root "
                 "LICENSE/COPYING files; NOTICE and third-party licence copies are "

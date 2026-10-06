@@ -324,6 +324,22 @@
           }
         ],
         "agreement": true,
+        "agreement_status": "consistent",
+        "agreement_scope": [
+          "preset_spdx",
+          "licence_text",
+          "packaging_metadata"
+        ],
+        "evidence_coverage": {
+          "present_sides": [
+            "preset_spdx",
+            "licence_text",
+            "packaging_metadata"
+          ],
+          "missing_sides": [],
+          "complete_for_three_way_agreement": true,
+          "metadata_required_for_approval": false
+        },
         "detection_scope": "licence TEXT is read only from the repository's own root LICENSE/COPYING files; NOTICE and third-party licence copies are excluded because they quote other projects' licences"
       },
       "primary_license_file": {

@@ -86,6 +86,13 @@ def main():
     gate, n_pass, n_skip = gate_summary()
     n_checks = gate[0] if gate else "?"
     n_failed = gate[1] if gate else "?"
+    gate_env = "未记录"
+    gate_output = os.path.join(OUT, "validate_d0.output.txt")
+    if os.path.isfile(gate_output):
+        with open(gate_output, encoding="utf-8") as f:
+            first_line = f.readline().strip()
+        if first_line.startswith("validator environment:"):
+            gate_env = first_line.split(":", 1)[1].strip()
     locked_approved = sum(1 for n in LOCKED
                           if repos[n]["license_review"]["decision"] == "approved")
     conflict_repos = [n for n, r in repos.items()
@@ -195,7 +202,7 @@ def main():
       "双重锚定，不依赖镜像的字节可复现性。")
     a("")
 
-    a("### 2.2 许可：从「信任预设」到「三方一致性判定」（本轮整改 ①）")
+    a("### 2.2 许可：审批依据与三方证据覆盖分开记录（本轮整改 ①）")
     a("")
     a("v2 的错误在于：`collect_licenses.py` 里的手写预设 `design_license_expectation` "
       "被直接抄进 `approved_spdx`，于是 python-dotenv 记录写成 MIT，"
@@ -208,20 +215,24 @@ def main():
     a("2. **包装元数据**中提取显式 SPDX（`license = { text = … }`、"
       "`License :: OSI Approved :: …` 分类器；**歧义分类器不给 token**，"
       "以免掩盖真实冲突或凭空制造冲突）；")
-    a("3. 与实际**包装声明**做三方比对；任一正向不一致 ⇒ `decision = \"pending\"`，"
-      "冲突逐条写入 `license_conflicts`。**空证据集不是冲突**（“未知”不等于“不一致”），"
+    a("3. 与实际**包装声明**比较；任一正向不一致 ⇒ `decision = \"pending\"`，"
+      "冲突逐条写入 `license_conflicts`。`agreement` 只表示预设、正文和包装元数据"
+      "三侧证据齐备且一致；`agreement_status` 区分 `consistent`、`partial`、"
+      "`conflict` 与 `missing_required_evidence`，`evidence_coverage` 列明缺侧。"
+      "**空证据集不是冲突**（“未知”不等于“不一致”），"
       "但许可正文没有正向证据时一律 `pending`；包装元数据缺失可以接受，"
-      "前提是固定许可正文与预设相符且现有元数据无冲突。")
+      "前提是固定许可正文与预设相符且现有元数据无冲突。此时可批准，但状态只能是"
+      " `partial`，不得宣称三方一致。")
     a("")
-    a("| 仓库 | decision | approved_spdx | 正文识别 | 元数据声明 | 冲突 | 主许可文件 | copyleft | 限制性 | 独立复核 |")
-    a("|---|---|---|---|---|---|---|---|---|---|")
+    a("| 仓库 | decision | agreement_status | approved_spdx | 正文识别 | 元数据声明 | 冲突 | 主许可文件 | copyleft | 限制性 | 独立复核 |")
+    a("|---|---|---|---|---|---|---|---|---|---|---|")
     for name in LOCKED + ["python-dotenv"]:
         lr = repos[name]["license_review"]
         facts = lr["license_facts"]
         pf = lr["evidence"]["primary_license_file"] or {}
-        a("| %s%s | **%s** | %s | %s | %s | %s | `%s` | %d | %d | %s |" % (
+        a("| %s%s | **%s** | `%s` | %s | %s | %s | %s | `%s` | %d | %d | %s |" % (
             name, "（替代候选）" if name == "python-dotenv" else "",
-            lr["decision"], lr["approved_spdx"],
+            lr["decision"], facts["agreement_status"], lr["approved_spdx"],
             "、".join(facts["detected_from_licence_text"]) or "未识别",
             "、".join(facts["detected_from_packaging_metadata"]) or "无显式 SPDX",
             "、".join(c["kind"] for c in lr["license_conflicts"]) or "无",
@@ -497,6 +508,7 @@ def main():
     a("`d0/validate_d0.py` 独立于生成脚本、只读产物 JSON 重新断言："
       "**%s 项检查、%s 失败**（PASS 行 %s）。"
       "完整输出见 `d0/out/validate_d0.output.txt`。" % (n_checks, n_failed, n_pass))
+    a("未经替身或猴子补丁的公开验证器运行环境：`%s`。" % gate_env)
     a("")
     a("本轮新增的**两条否定测试**（都是把真实缺陷重新植入、驱动**同一个**判定函数，"
       "因此规则一旦被放宽，门禁立刻失败）：")
@@ -639,7 +651,7 @@ def main():
       "（但会使本版绑定在该 revision 上的许可批准失效，必须重做逐文件许可台账"
       "与新 revision 的批准）。")
     a("- **建议**：请 Q0 对 `license_review` 逐条反证（`independent_review.status` 仍为 pending），"
-      "重点复核本版新增的许可正文识别与三方一致性判定，以及落地事件归因块"
+      "重点复核本版新增的许可正文识别、三侧证据覆盖状态与冲突判定，以及落地事件归因块"
       "（`merge_evidence.landing_event_evidence`）——"
       "特别是 boltons 那条：GitHub 合并对象在固定快照中不存在，"
       "固定历史里同 PR 的 merge commit 合入的是另一个 commit，"
@@ -684,7 +696,7 @@ def main():
     a("")
     a("| 文件（`d0/out/`） | 用途 | 接收方 |")
     a("|---|---|---|")
-    a("| `source-lock.json` | 8 来源固定 revision + 逐文件许可 + **三方一致性批准字段** + **双哈希口径** | 编码官 / Q0 |")
+    a("| `source-lock.json` | 8 来源固定 revision + 逐文件许可 + **审批判据及三侧证据覆盖字段** + **双哈希口径** | 编码官 / Q0 |")
     a("| `license-files.json` | 每个许可文件的上游 blob / checkout 双 SHA256 与换行变换 | Q0 |")
     a("| `per-file-ledger.csv` | 逐文件 SHA256 / SPDX 头 / 版权行 | Q0 |")
     a("| `merge-evidence.json` | 合并事件取证 + **落地事件归因、补丁等价性** + "
