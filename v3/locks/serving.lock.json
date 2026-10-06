@@ -1,54 +1,169 @@
 {
   "channel": "serving",
-  "python": "3.11.9",
+  "python": "3.13.7",
+  "python_requirement": ">=3.12",
   "notes": [
     "V3 E0 锁定的是比赛推理面的接口常量与候选版本线，不改动评分器实际软件。",
     "KAGGLE-19 §2：vLLM 候选验收线 0.19.1 或含等价 LoRA 映射修复的锁定版本，并做加载回归。",
     "实际官方 resolver / mapper 版本未知，故 verified=false：加载回归通过前不得宣称兼容。",
     "不可配置项（官方硬上限）写进 interface 常量，供搜索协议与输出裁剪使用。",
     "Q0-Y14 修复：官方 compiler / parser 载体（adk_submission / sweegemma）原先不在任何锁里，现补进本锁的 packages。",
-    "版本出处在仓库内已有记录 docs/v3/design/KAGGLE-22-V3-search-localization-design.md:24（F2 软件与权重来源报告：compiler 0.2.12、sweegemma 0.2.7），同文件 :353 另有 adk-submission==0.2.12 的第三方报告记录。",
-    "注：任务书提到的 V0/KAGGLE-27 在本 checkout 内不存在（全仓 grep 无命中），故引用上一条的 KAGGLE-22 记录，不引用不存在的文档。",
-    "两个载体本轮均未安装验证，wheel_sha256 照实写 PENDING、verified=false，runner 因此 fail-closed。"
+    "KAGGLE-27 三项整改之②：本锁此前引用的 transformers 5.16.0 / compressed-tensors 0.11.0 / python 3.11.9 与所引用的官方 wheelhouse 不符，现按物料实际值改正。",
+    "KAGGLE-27 三项整改之③：wheel_sha256 由 E0 本轮**对物料本体逐字节重算**填入（不是抄摘要）；来源哈希已核验，但评分端实际安装版本仍未知。",
+    "wheelhouse 版本 ≠ 评分端实际安装版本：后者未知，单列在 version_scopes.scoring_host_installed，继续标 unknown。",
+    "python 3.13.7 是本机实际运行版本（在装好 sweegemma 0.2.7 / adk_submission 0.2.12 的环境里实测），不是猜的补丁号；硬下界 >=3.12 来自 sweegemma METADATA 的 Requires-Python。",
+    "torch 2.9.1 不在已核验的官方 wheelhouse 清单内 → 未取得物料，wheel_sha256 保持 PENDING。",
+    "verified 仍为 false：真实 adapter 加载回归、官方完整包编译（真实提交包）、评分端实际 vLLM 版本都未验。"
   ],
   "packages": {
+    "adk-eval-core": {
+      "source": "official-wheelhouse",
+      "version": "0.1.0",
+      "wheel_sha256": "194dd8f9aab154857bfa0db9d9ec382db856ee124529e072509634d3071d8643",
+      "wheel_bytes": 90060,
+      "wheel_filename": "adk_eval_core-0.1.0-py3-none-any.whl",
+      "dist_name": "adk-eval-core",
+      "requires_python": ">=3.11",
+      "role": "official-eval-core",
+      "citation": "KAGGLE-27 S2 记录 + E0 本轮对物料本体重算（wheelhouse: kaggle-data/official）",
+      "material_verified_locally": true,
+      "verified": false
+    },
     "adk_submission": {
-      "source": "pypi",
+      "source": "official-wheelhouse",
       "version": "0.2.12",
-      "wheel_sha256": "PENDING",
+      "wheel_sha256": "077c438c426e625b9f722081694e1d32856e6f7e932ef625002fc4a11aabdc10",
+      "wheel_bytes": 65642,
+      "wheel_filename": "adk_submission-0.2.12-py3-none-any.whl",
       "dist_name": "adk-submission",
+      "requires_python": ">=3.11",
       "role": "official-compiler",
-      "citation": "docs/v3/design/KAGGLE-22-V3-search-localization-design.md:24（另见 :353 的 0.2.12 记录）",
+      "citation": "docs/v3/design/KAGGLE-22-V3-search-localization-design.md:24（另见 :353 的 0.2.12 记录）；wheel SHA 见 KAGGLE-27 S2 与 E0 本轮重算",
+      "material_verified_locally": true,
       "verified": false
     },
     "compressed-tensors": {
-      "source": "pypi",
-      "version": "0.11.0",
-      "wheel_sha256": "PENDING"
+      "source": "official-wheelhouse",
+      "version": "0.15.0.1",
+      "wheel_sha256": "e1b1f322e82e475715e242bad46925a304ea8e5c98b5055a15b8eb22fb6bfea9",
+      "wheel_bytes": 194260,
+      "wheel_filename": "compressed_tensors-0.15.0.1-py3-none-any.whl",
+      "role": "quantization-runtime",
+      "citation": "KAGGLE-27 S2 记录 + E0 本轮对物料本体重算（旧值 0.11.0 与 wheelhouse 不符，已改正）",
+      "material_verified_locally": true,
+      "verified": false
+    },
+    "google-adk": {
+      "source": "official-wheelhouse",
+      "version": "1.36.1",
+      "wheel_sha256": "1a2f6868c509e3151fb0de3575a7d18b45c338be86f420924dad74e7193631a0",
+      "wheel_bytes": 2877731,
+      "wheel_filename": "google_adk-1.36.1-py3-none-any.whl",
+      "dist_name": "google-adk",
+      "requires_python": ">=3.10",
+      "role": "official-agent-runtime",
+      "citation": "KAGGLE-27 S2 记录 + E0 本轮对物料本体重算",
+      "material_verified_locally": true,
+      "verified": false
+    },
+    "sweegemma": {
+      "source": "official-wheelhouse",
+      "version": "0.2.7",
+      "wheel_sha256": "27a2f60f8db46c8fef5defc16df722dac0402446c9a6252e7e6b4c280e843c81",
+      "wheel_bytes": 117587,
+      "wheel_filename": "swegemma-0.2.7-py3-none-any.whl",
+      "dist_name": "swegemma",
+      "requires_python": ">=3.12",
+      "role": "official-parser",
+      "citation": "docs/v3/design/KAGGLE-22-V3-search-localization-design.md:24（F2 软件与权重来源报告：sweegemma 0.2.7）；wheel SHA 见 KAGGLE-27 S2 与 E0 本轮重算",
+      "material_verified_locally": true,
+      "verified": false
     },
     "torch": {
       "source": "pypi",
       "version": "2.9.1",
-      "wheel_sha256": "PENDING"
-    },
-    "sweegemma": {
-      "source": "pypi",
-      "version": "0.2.7",
       "wheel_sha256": "PENDING",
-      "dist_name": "sweegemma",
-      "role": "official-parser",
-      "citation": "docs/v3/design/KAGGLE-22-V3-search-localization-design.md:24（F2 软件与权重来源报告：sweegemma 0.2.7）",
+      "role": "serving-runtime",
+      "citation": "未取得物料：不在已核验的官方 wheelhouse 清单内，保持 PENDING（fail-closed）",
+      "material_verified_locally": false,
       "verified": false
     },
     "transformers": {
-      "source": "pypi",
-      "version": "5.16.0",
-      "wheel_sha256": "PENDING"
+      "source": "official-wheelhouse",
+      "version": "5.13.1",
+      "wheel_sha256": "53f0ea8aa397e29244c2377ba981bcaf0c87adcf44fbdd447ef6306522afcacd",
+      "wheel_bytes": 11503977,
+      "wheel_filename": "transformers-5.13.1-py3-none-any.whl",
+      "requires_python": ">=3.10.0",
+      "role": "serving-runtime",
+      "citation": "KAGGLE-27 S2 记录 + E0 本轮对物料本体重算（旧值 5.16.0 与 wheelhouse 不符，已改正）",
+      "material_verified_locally": true,
+      "verified": false
     },
     "vllm": {
-      "source": "pypi",
+      "source": "official-wheelhouse",
       "version": "0.19.1",
-      "wheel_sha256": "PENDING"
+      "wheel_sha256": "6b29fdc200966eda4d0cc4d10b8c338ec32620bb069ad3629d8a78e3b35fd3fa",
+      "wheel_bytes": 433132506,
+      "wheel_filename": "vllm-0.19.1-cp38-abi3-manylinux_2_31_x86_64.whl",
+      "requires_python": "<3.14,>=3.10",
+      "role": "serving-engine",
+      "citation": "KAGGLE-15 wheelhouse v28 清单；wheel SHA 由 E0 本轮对物料本体实测（KAGGLE-27 S2 本轮未下载该包）",
+      "material_verified_locally": true,
+      "verified": false
+    }
+  },
+  "python_evidence": {
+    "measured_running_version": "3.13.7",
+    "measured_where": "本机参与官方 compiler/parser 实测的环境（swegemma 0.2.7 + adk_submission 0.2.12 已安装）",
+    "hard_floor": ">=3.12",
+    "hard_floor_source": "swegemma-0.2.7 wheel METADATA: Requires-Python >=3.12（E0 本轮从 wheel 内直接读出）",
+    "eval_sandbox_base_image": "python:3.13-slim",
+    "eval_sandbox_base_image_source": "Dockerfile.public / Dockerfile.sandbox（官方公开材料）",
+    "scoring_host_exact_patch": "unknown",
+    "note": "3.13.7 是**实测**值，不是猜的补丁号；python:3.13-slim 是浮动 tag，精确补丁号随构建变化，未验。"
+  },
+  "version_scopes": {
+    "material_wheelhouse": {
+      "transformers": "5.13.1",
+      "compressed-tensors": "0.15.0.1",
+      "vllm": "0.19.1",
+      "swegemma": "0.2.7",
+      "adk-submission": "0.2.12",
+      "google-adk": "1.36.1",
+      "adk-eval-core": "0.1.0",
+      "status": "material_sha256_verified_locally"
+    },
+    "scoring_host_installed": {
+      "status": "unknown",
+      "note": "评分端（4×L4 机器）实际安装的包版本没有任何一手来源，保持 unknown；不得用 wheelhouse 版本代替。"
+    },
+    "actual_vllm_version_on_scoring_host": {
+      "status": "unknown",
+      "note": "README §3.1 给 serving 配置但不给 vLLM 版本号。"
+    }
+  },
+  "evidence_levels": {
+    "source_hash_verified": {
+      "value": true,
+      "scope": "8 个物料（含 vllm 与 HARNESS_README.md）的 SHA-256 由 E0 本轮对物料本体逐字节重算，与 KAGGLE-27 S2 记录逐项一致",
+      "does_not_imply": "评分端实际安装这些物料"
+    },
+    "limits_builder_executed": {
+      "value": true,
+      "scope": "官方 sweegemma.config.build_submission_limits() 在本机装好官方包的环境里被真实调用（KAGGLE-27 S1 探针，E0 本轮独立重跑得到字节相同的产物）",
+      "does_not_imply": "提交包通过官方校验"
+    },
+    "full_package_compiler_passed": {
+      "value": true,
+      "scope": "官方 compile_submission() 对**合成 fixture**返回 ok=true：格子为官方命名 adapters/v3_policy/adapter_model.safetensors（该格无 adapter_config.json 也仍解析到 v3_policy）",
+      "real_submission_package": false,
+      "does_not_imply": "真实提交包（真实 adapter 权重）已通过官方 compiler",
+      "note": "本条只证明合成 fixture 的命名契约成立，不证明真实 adapter 可加载。"
+    },
+    "overall_verified": {
+      "value": false,
+      "reason": "真实 adapter 加载回归、真实提交包编译、评分端实际版本三项均未验；不得因上面三条为 true 就把整体置真。"
     }
   },
   "verified": false

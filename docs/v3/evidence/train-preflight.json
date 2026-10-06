@@ -3,37 +3,32 @@
     {
       "code": "train_lock_invalid",
       "problems": [
-        "train.packages.accelerate.wheel_sha256 未取得或不是 64 位小写 hex（'PENDING'）",
-        "train.packages.compressed-tensors.wheel_sha256 未取得或不是 64 位小写 hex（'PENDING'）",
-        "train.packages.peft.wheel_sha256 未取得或不是 64 位小写 hex（'PENDING'）",
-        "train.packages.safetensors.wheel_sha256 未取得或不是 64 位小写 hex（'PENDING'）",
-        "train.packages.torch.wheel_sha256 未取得或不是 64 位小写 hex（'PENDING'）",
-        "train.packages.transformers.wheel_sha256 未取得或不是 64 位小写 hex（'PENDING'）",
-        "train.packages.trl.wheel_sha256 未取得或不是 64 位小写 hex（'PENDING'）"
+        "train.packages.accelerate.wheel_sha256 δȡ�û��� 64 λСд hex��'PENDING'��",
+        "train.packages.compressed-tensors.wheel_sha256 δȡ�û��� 64 λСд hex��'PENDING'��",
+        "train.packages.peft.wheel_sha256 δȡ�û��� 64 λСд hex��'PENDING'��",
+        "train.packages.safetensors.wheel_sha256 δȡ�û��� 64 λСд hex��'PENDING'��",
+        "train.packages.torch.wheel_sha256 δȡ�û��� 64 λСд hex��'PENDING'��",
+        "train.packages.transformers.wheel_sha256 δȡ�û��� 64 λСд hex��'PENDING'��",
+        "train.packages.trl.wheel_sha256 δȡ�û��� 64 λСд hex��'PENDING'��"
       ]
     },
     {
       "code": "train_lock_unverified",
-      "message": "train 依赖锁 verified=false：禁止自动取 latest"
+      "message": "train ������ verified=false����ֹ�Զ�ȡ latest"
     },
     {
       "code": "serving_lock_invalid",
       "problems": [
-        "serving.packages.adk_submission.wheel_sha256 未取得或不是 64 位小写 hex（'PENDING'）",
-        "serving.packages.compressed-tensors.wheel_sha256 未取得或不是 64 位小写 hex（'PENDING'）",
-        "serving.packages.sweegemma.wheel_sha256 未取得或不是 64 位小写 hex（'PENDING'）",
-        "serving.packages.torch.wheel_sha256 未取得或不是 64 位小写 hex（'PENDING'）",
-        "serving.packages.transformers.wheel_sha256 未取得或不是 64 位小写 hex（'PENDING'）",
-        "serving.packages.vllm.wheel_sha256 未取得或不是 64 位小写 hex（'PENDING'）"
+        "serving.packages.torch.wheel_sha256 δȡ�û��� 64 λСд hex��'PENDING'��"
       ]
     },
     {
       "code": "serving_lock_unverified",
-      "message": "serving 依赖锁 verified=false：禁止自动取 latest"
+      "message": "serving ������ verified=false����ֹ�Զ�ȡ latest"
     },
     {
       "code": "interface_pins_unverified",
-      "message": "未验证的 pin 不得当作已确认事实使用",
+      "message": "δ��֤�� pin ���õ�����ȷ����ʵʹ��",
       "pins": [
         "tokenizer_config_sha256",
         "tokenizer_vocab_sha256",
@@ -72,13 +67,13 @@
         "allowed_bytes": 0,
         "checked": true,
         "evidence": {
-          "method": "逐参数遍历：从不在同一容器里持有全部参数",
+          "method": "������������Ӳ���ͬһ���������ȫ������",
           "probe": "synthetic-parameter-residency"
         },
         "full_state_dict_resident": false,
         "observation": {
           "declared_weight_bytes": 11520,
-          "method": "逐参数遍历：从不在同一容器里持有全部参数",
+          "method": "������������Ӳ���ͬһ���������ȫ������",
           "peak_full_state_dict_bytes": 0,
           "probe": "synthetic-parameter-residency"
         },
@@ -91,7 +86,7 @@
       "loss_decreased_observation_only": true,
       "loss_first": 3.4521500786293204,
       "loss_last": 1.0135118580897045,
-      "note": "合成玩具模型上的自检：只证明前向/反向/优化器步进/保存重载这条链路可用，不证明真实模型可训练，也不产生任何可提交产物。loss_decreased 只作观察值，不作为通过条件。",
+      "note": "�ϳ����ģ���ϵ��Լ죺ֻ֤��ǰ��/����/�Ż�������/��������������·���ã���֤����ʵģ�Ϳ�ѵ����Ҳ�������κο��ύ���loss_decreased ֻ���۲�ֵ������Ϊͨ��������",
       "optimizer_step_count": 40,
       "saved_filename": "adapter.synthetic.json",
       "stage": "cpu-training-loop-self-check",
@@ -101,7 +96,7 @@
     "export_manifest": {
       "adapter_validation": null,
       "problems": [
-        "没有提供导出 manifest：必须先有一份可校验的 adapter 导出清单"
+        "û���ṩ���� manifest����������һ�ݿ�У��� adapter �����嵥"
       ],
       "provided": false
     },
@@ -112,14 +107,14 @@
       "renderer": "shim-deterministic"
     },
     "memory_plan": null,
-    "memory_plan_reason": "没有提供实测内存 profile：未实测不得当作通过（设计常量只是上限）"
+    "memory_plan_reason": "û���ṩʵ���ڴ� profile��δʵ�ⲻ�õ���ͨ������Ƴ���ֻ�����ޣ�"
   },
   "locks": {
     "channels_isolated": {
       "checked": true,
       "distinct": true,
       "package_count": {
-        "serving": 6,
+        "serving": 8,
         "train": 7
       },
       "package_overlap": [
@@ -129,9 +124,9 @@
       ],
       "package_versions_identical": false,
       "serving_channel": "serving",
-      "serving_lock_sha256": "8e1e2b8a2e77ecc14c99f6d7d1b549520262de15b2cfad78666843ad4d4bf79a",
+      "serving_lock_sha256": "faee21c3b0e8bc67c1aaa1e915f49d16a1b6d6bf1d8c52662959faad0181ee44",
       "serving_path": "<workdir>/serving.lock.json",
-      "serving_source_sha256": "84ae5ddee719d945f832756b88a0342a27a6721ffdf23b00fbb535b9642e700d",
+      "serving_source_sha256": "9861f11856813b0e2f2ca0acb4724611881996959add1b146d9218f8ecd579d3",
       "train_channel": "train",
       "train_lock_sha256": "69d1494004341af179f2c29e08eabf4c39da7187d8b13da0cb715f226ab19b48",
       "train_path": "<workdir>/train.lock.json",
@@ -139,18 +134,74 @@
     },
     "serving": {
       "channel": "serving",
-      "lock_sha256": "8e1e2b8a2e77ecc14c99f6d7d1b549520262de15b2cfad78666843ad4d4bf79a",
-      "package_count": 6,
+      "evidence_levels": {
+        "full_package_compiler_passed": {
+          "does_not_imply": "��ʵ�ύ������ʵ adapter Ȩ�أ���ͨ���ٷ� compiler",
+          "note": "����ֻ֤���ϳ� fixture ��������Լ��������֤����ʵ adapter �ɼ��ء�",
+          "real_submission_package": false,
+          "scope": "�ٷ� compile_submission() ��**�ϳ� fixture**���� ok=true������Ϊ�ٷ����� adapters/v3_policy/adapter_model.safetensors���ø��� adapter_config.json Ҳ�Խ����� v3_policy��",
+          "value": true
+        },
+        "limits_builder_executed": {
+          "does_not_imply": "�ύ��ͨ���ٷ�У��",
+          "scope": "�ٷ� sweegemma.config.build_submission_limits() �ڱ���װ�ùٷ����Ļ����ﱻ��ʵ���ã�KAGGLE-27 S1 ̽�룬E0 ���ֶ������ܵõ��ֽ���ͬ�Ĳ��",
+          "value": true
+        },
+        "overall_verified": {
+          "reason": "��ʵ adapter ���ػع顢��ʵ�ύ�����롢���ֶ�ʵ�ʰ汾�����δ�飻��������������Ϊ true �Ͱ��������档",
+          "value": false
+        },
+        "source_hash_verified": {
+          "does_not_imply": "���ֶ�ʵ�ʰ�װ��Щ����",
+          "scope": "8 �����ϣ��� vllm �� HARNESS_README.md���� SHA-256 �� E0 ���ֶ����ϱ������ֽ����㣬�� KAGGLE-27 S2 ��¼����һ��",
+          "value": true
+        }
+      },
+      "lock_sha256": "faee21c3b0e8bc67c1aaa1e915f49d16a1b6d6bf1d8c52662959faad0181ee44",
+      "package_count": 8,
       "packages": {
+        "adk-eval-core": "0.1.0",
         "adk_submission": "0.2.12",
-        "compressed-tensors": "0.11.0",
+        "compressed-tensors": "0.15.0.1",
+        "google-adk": "1.36.1",
         "sweegemma": "0.2.7",
         "torch": "2.9.1",
-        "transformers": "5.16.0",
+        "transformers": "5.13.1",
         "vllm": "0.19.1"
       },
-      "python": "3.11.9",
-      "verified": false
+      "python": "3.13.7",
+      "python_evidence": {
+        "eval_sandbox_base_image": "python:3.13-slim",
+        "eval_sandbox_base_image_source": "Dockerfile.public / Dockerfile.sandbox���ٷ��������ϣ�",
+        "hard_floor": ">=3.12",
+        "hard_floor_source": "swegemma-0.2.7 wheel METADATA: Requires-Python >=3.12��E0 ���ִ� wheel ��ֱ�Ӷ�����",
+        "measured_running_version": "3.13.7",
+        "measured_where": "��������ٷ� compiler/parser ʵ��Ļ�����swegemma 0.2.7 + adk_submission 0.2.12 �Ѱ�װ��",
+        "note": "3.13.7 ��**ʵ��**ֵ�����ǲµĲ����ţ�python:3.13-slim �Ǹ��� tag����ȷ�������湹���仯��δ�顣",
+        "scoring_host_exact_patch": "unknown"
+      },
+      "python_requirement": ">=3.12",
+      "verified": false,
+      "version_scopes": {
+        "actual_vllm_version_on_scoring_host": {
+          "note": "README ��3.1 �� serving ���õ����� vLLM �汾�š�",
+          "status": "unknown"
+        },
+        "material_wheelhouse": {
+          "adk-eval-core": "0.1.0",
+          "adk-submission": "0.2.12",
+          "compressed-tensors": "0.15.0.1",
+          "google-adk": "1.36.1",
+          "status": "material_sha256_verified_locally",
+          "swegemma": "0.2.7",
+          "transformers": "5.13.1",
+          "vllm": "0.19.1"
+        },
+        "scoring_host_installed": {
+          "note": "���ֶˣ�4��L4 ������ʵ�ʰ�װ�İ��汾û���κ�һ����Դ������ unknown�������� wheelhouse �汾���档",
+          "status": "unknown"
+        }
+      }
     },
     "train": {
       "channel": "train",
@@ -180,9 +231,9 @@
     ]
   },
   "notes": [
-    "未提供真实模块清单：target 模块数按设计值 120 计，实际必须导出后才允许训练",
-    "开训闸门 memory_plan_pass 未通过（见 gates.evidence）",
-    "开训闸门 export_manifest_pass 未通过（见 gates.evidence）"
+    "δ�ṩ��ʵģ���嵥��target ģ���������ֵ 120 �ƣ�ʵ�ʱ��뵼���������ѵ��",
+    "��ѵբ�� memory_plan_pass δͨ������ gates.evidence��",
+    "��ѵբ�� export_manifest_pass δͨ������ gates.evidence��"
   ],
   "official_interface": {
     "interface_sha256": "53b1e61328dbdedb750686b53431352ff83bfa5179a9d1da93065d9509295164",
@@ -203,7 +254,7 @@
     "dense_reference_bytes": 62546177752,
     "disk": {
       "minimum_gib": 80,
-      "note": "先核查权重/环境/最大快照/日志 + 15% 余量，再按实际文件 manifest 调整。"
+      "note": "�Ⱥ˲�Ȩ��/����/������/��־ + 15% �������ٰ�ʵ���ļ� manifest ������"
     },
     "expected_modules": 120,
     "first_round_seq_len": 2048,
@@ -216,7 +267,7 @@
       "measured_host_rss_gib": 0.0,
       "measured_peak_gpu_gib": 0.0,
       "measured_source": "declared_estimate",
-      "note": "这是**未实测**时的对照：0 GiB 占用当然过门槛，因此该结果不构成任何内存合格结论；真正的门槛由实测 profile 经 measure_gates() 判定",
+      "note": "����**δʵ��**ʱ�Ķ��գ�0 GiB ռ�õ�Ȼ���ż�����˸ý���������κ��ڴ�ϸ���ۣ��������ż���ʵ�� profile �� measure_gates() �ж�",
       "pass": true,
       "seq_len": 2048,
       "status": "pass"
@@ -226,20 +277,20 @@
   },
   "training_entry": {
     "backends": [
-      "synthetic-cpu-loop（CPU 自检）",
-      "torch-peft-bf16-lora（GPU 执行面，未实测）"
+      "synthetic-cpu-loop��CPU �Լ죩",
+      "torch-peft-bf16-lora��GPU ִ���棬δʵ�⣩"
     ],
     "implemented": true,
     "module": "v3/train/runner.py",
-    "note": "训练实现已在仓库内且 CPU 自检可复跑；GPU 实耗交 Liang 统筹链并先过闸门",
+    "note": "ѵ��ʵ�����ڲֿ����� CPU �Լ�ɸ��ܣ�GPU ʵ�Ľ� Liang ͳ�������ȹ�բ��",
     "real_gpu_executed_on_this_machine": false
   },
   "unverified_claims": [
-    "实际训练收益（未跑真实 GPU）",
-    "TP4 / 长上下文行为",
-    "官方模板渲染逐字节一致",
-    "vLLM 实际 mapper 版本与加载回归",
-    "真实模块 shape 与显存峰值",
-    "torch/peft 后端在真实 GPU 上的端到端行为（本机无 GPU、无锁定软件）"
+    "ʵ��ѵ�����棨δ����ʵ GPU��",
+    "TP4 / ����������Ϊ",
+    "�ٷ�ģ����Ⱦ���ֽ�һ��",
+    "vLLM ʵ�� mapper �汾����ػع�",
+    "��ʵģ�� shape ���Դ��ֵ",
+    "torch/peft �������ʵ GPU �ϵĶ˵�����Ϊ�������� GPU��������������"
   ]
 }

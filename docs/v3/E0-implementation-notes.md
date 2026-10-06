@@ -699,3 +699,169 @@ python tools/q0_license_gate_regression.py
 - 语法校验只覆盖本仓库**已支持**的表达式子集（`AND` / `OR` / 单个标识符）；
   括号与 `WITH` 仍是"未实现即拒绝"，本轮没有新增表达式功能。
 
+---
+
+## 13. KAGGLE-27 三项官方契约整改（本轮，2026-10-06）
+
+来源：KAGGLE-24 描述的「KAGGLE-27 新发现限定 CPU 整改」第 1/2/3 条。
+范围限定：**纯 CPU、不依赖训练产物、不读 D/H/gold、不用 GPU**；
+保留 `ffc37b4f` 已通过的消费端许可修复（第 12 节），**未重做**。
+
+输入出处：
+- KAGGLE-27 评论 `01a110b0-f249-7c04-923d-0d01ddd1bfca` + 附件
+  `KAGGLE-27-erratum-and-C-compliance.zip`（SHA256 `d9107734…`，E0 本轮下载后实算一致）；
+- KAGGLE-27 评论 `01a110c1-63d6-7dcb-af35-28f902d11c83` + 附件
+  `KAGGLE-27-supplements-and-protocol.zip`（SHA256 `c2983a19…`，E0 本轮下载后实算一致）。
+
+### 13.1 整改①：统一官方 PEFT adapter 目录 + 强制 config
+
+**修前**（`ffc37b4f`）：`v3/submit/validate.py` 只校验 basename `adapter.safetensors`；
+`v3/train/runner.py::TorchPeftBackend.save_adapter` 把 `save_pretrained()` 直接写进
+提交根目录并去找 `adapter.safetensors`。KAGGLE-27 用官方 `discover_adapters()` 实测：
+`adapters/v3_policy/adapter.safetensors` **缺 `adapter_config.json`** 时，adapter 名会
+退化成**本文件名 stem** `adapter`，于是 `adapter: v3_policy` 解析不到，
+官方编译器抛 `AdapterNotFoundError`；而 E0 旧校验**对这一格放行**。
+
+顺带发现一处**必错**：PEFT 的 `save_pretrained()` 写出的 basename 是
+`adapter_model.safetensors`，所以旧代码在真实路径上**每次**都会抛
+`adapter_safetensors_missing`（本机无 GPU/peft 所以从未触发）。
+
+**修后**：
+- 新增 `v3/submit/adapter_contract.py`：编码官方命名规则
+  `name = 有 config ? 目录名 : (stem == "adapter_model" ? 目录名 : stem)`，
+  并强制 `adapters/<adapter_name>/adapter_model.safetensors` + 同目录**可解析**的
+  `adapter_config.json`；旧命名 `adapter.safetensors` 一律拒。
+- `validate.py` 的 adapter 段改走该契约；新增 `declared_adapter_name` 参数，
+  错声明（目录名与 YAML 声明不一致）即拒。
+- `runner.TorchPeftBackend.save_adapter/load_adapter` 改写到
+  `<dest>/adapters/<adapter_name>/`；`ADAPTER_FILE` = `adapter_model.safetensors`；
+  `TrainRunPlan` 新增 `adapter_name`（默认 `v3_policy`，可被计划覆盖，非法即拒）。
+- `entry.measure_gates` 的导出闸门新增：导出清单必须含官方载体相对路径。
+- `v3/train/checkpoint.py` 的内部 adapter 副本名与官方 basename 对齐。
+
+**接受-拒绝矩阵（合成 fixture，可复跑）**：
+`tools/k27_carrier_contract_probe.py` → `docs/v3/evidence/k27-carrier-contract.json`
+
+| 格 | 结果 |
+|---|---|
+| 官方命名 + 有 config | **接受**，发现名 `v3_policy` |
+| 官方命名 + 缺 config | 拒 `adapter_carrier_config_missing` |
+| 旧命名 `adapter.safetensors` + 有 config | 拒 `adapter_carrier_legacy_name` |
+| 旧命名 + 缺 config | 拒 `adapter_carrier_legacy_name` |
+| 自定义文件名 `v3_policy.safetensors` + config | 拒 `adapter_carrier_wrong_filename` |
+| 权重散放在提交根目录 | 拒 `adapter_carrier_not_in_adapters_dir` |
+| 声明名与目录名不一致 | 拒 `adapter_carrier_declared_name_unresolved` |
+| `adapter_config.json` 不可解析 | 拒 `adapter_carrier_config_unparsable` |
+
+`all_as_expected=true`（1 接受 + 7 拒绝）。
+
+**命名规则的官方验证**（不是源码推断）：
+- KAGGLE-27 的 `S1-adapter-matrix-full.json`（官方 `discover_adapters()` + 官方
+  `compile_submission()` 的真实输出）经 E0 **独立重跑**，产物与附件**字节相同**
+  （SHA256 `fe918929…`），冻结为 `docs/v3/design/kaggle-27-s1-adapter-matrix.json`；
+- 该六格里有两格**无法区分**"目录名判据"与"stem 判据"（目录名与 stem 相同），
+  E0 另补四格消歧（`tools/k27_adapter_naming_probe.py`）：
+  `other.safetensors` 无 config → `other`（stem 判据）；
+  `other.safetensors` 有 config → `v3_policy`（config 判据）；
+  `adapter_model.safetensors` 无 config、目录名 `custom_dir` → `custom_dir`；
+  `adapter.safetensors` 无 config、目录名 `custom_dir` → `adapter`。
+  冻结为 `docs/v3/design/kaggle-27-s1b-discovery-rule-cells.json`。
+  本地实现的规则对这 **10 格**逐格复现（`verify_rule_against_frozen_matrix()`），
+  冻结证据被改动时会 `IntegrityError`（反例见 `tests/test_k27_adapter_contract.py`）。
+
+**不冒充**：本契约只判**静态命名/config**；**真实 adapter 加载仍待验证**
+（报告中 `real_adapter_loading_verified=false`）。
+
+### 13.2 整改②：serving 锁对齐官方 wheelhouse
+
+| 包 | 修前（`ffc37b4f`） | 修后 | 依据 |
+|---|---|---|---|
+| `transformers` | 5.16.0 | **5.13.1** | wheelhouse 物料本体 |
+| `compressed-tensors` | 0.11.0 | **0.15.0.1** | wheelhouse 物料本体 |
+| `python` | 3.11.9 | **3.13.7** | 实测运行版本（见下） |
+| `vllm` | 0.19.1 | 0.19.1（不变） | 一致 |
+
+- **Python 下界**：`swegemma-0.2.7` wheel 的 METADATA `Requires-Python: >=3.12`
+  （E0 本轮**从 wheel 内直接读出**）。旧值 3.11.9 低于硬要求。
+- **精确运行版本**：`3.13.7` 是**实测**值 —— 在装有 `swegemma 0.2.7` /
+  `adk_submission 0.2.12` 的环境里实际跑官方 compiler/parser，
+  与 KAGGLE-27 S1 探针记录的 `python` 字段一致。`3.13.7` **不猜补丁号**，
+  同时记录硬下界 `>=3.12` 与官方评测沙箱基础镜像 `python:3.13-slim`
+  （出处 `Dockerfile.public` / `Dockerfile.sandbox`）。
+- **版本作用域分开**（`version_scopes`）：`material_wheelhouse` = 已核验的物料版本；
+  `scoring_host_installed` = **unknown**；`actual_vllm_version_on_scoring_host` = **unknown**。
+  wheelhouse 版本**不得**代替评分端实际版本。
+- 锁里新增 `google-adk 1.36.1` / `adk-eval-core 0.1.0` 两个随 `swegemma` 一起的官方载体。
+- `torch 2.9.1` **不在**已核验的 wheelhouse 清单内 → `wheel_sha256` 保持 `PENDING`，
+  锁**仍不合法**、`verified=false`（fail-closed 不变）。
+
+### 13.3 整改③：真实 wheel 锁证据 + 证据等级分开表达
+
+**物料哈希由 E0 对本体逐字节重算**（不是抄摘要）：
+
+| wheel | 字节 | SHA256（前 16 位） |
+|---|---:|---|
+| `adk_submission-0.2.12…whl` | 65,642 | `077c438c426e625b…` |
+| `swegemma-0.2.7…whl` | 117,587 | `27a2f60f8db46c8f…` |
+| `google_adk-1.36.1…whl` | 2,877,731 | `1a2f6868c509e315…` |
+| `adk_eval_core-0.1.0…whl` | 90,060 | `194dd8f9aab15485…` |
+| `compressed_tensors-0.15.0.1…whl` | 194,260 | `e1b1f322e82e4757…` |
+| `transformers-5.13.1…whl` | 11,503,977 | `53f0ea8aa397e292…` |
+| `vllm-0.19.1…whl` | 433,132,506 | `6b29fdc200966eda…`（E0 本轮新测） |
+| `HARNESS_README.md` | 49,356 | `3d6e57a13234cb4e…` |
+
+前六个与 KAGGLE-27 S2 记录**逐项一致**；S2 的 `S2-wheel-manifest.json` 经 E0 独立重跑
+**字节相同**（SHA256 `d9f9b8f9…`），冻结为 `docs/v3/design/kaggle-27-s2-wheel-manifest.json`。
+E0 另用 `tools/k27_wheelhouse_hash.py` 采集**整个官方 wheelhouse（41 个 wheel）**，
+冻结为 `docs/v3/design/kaggle-27-wheelhouse-material-sha256.json`（脱敏，无本机路径）。
+
+**三条证据等级在锁里分开表达**（`evidence_levels`，并已带进 `deps` 报告的
+`serving.summary`，不再被压成一个 `verified` 布尔）：
+
+| 等级 | 值 | 边界（does_not_imply） |
+|---|---|---|
+| `source_hash_verified` | **true** | 8 个物料哈希已核验 ≠ 评分端装了这些物料 |
+| `limits_builder_executed` | **true** | 官方 `build_submission_limits()` 真被调用 ≠ 提交包通过官方校验 |
+| `full_package_compiler_passed` | **true**（仅合成 fixture） | 合成 fixture 编译通过 ≠ 真实提交包通过；`real_submission_package=false` |
+| `overall_verified` | **false** | 真实 adapter 加载 / 真实提交包编译 / 评分端实际版本三项未验 |
+
+`official_limits_verified` 与 `declared_limits()["verified_against_official_compiler"]`
+**仍为 false**：跑了 builder 不等于提交包通过官方校验。
+
+### 13.4 本轮实测
+
+```
+python run_tests.py
+    -> SUMMARY: run=429 failures=0 errors=0 skipped=1   (exit 0)
+       修前基线（ffc37b4f）= run=386 failures=0 errors=0 skipped=1
+       新增 43 例：test_k27_adapter_contract(27) + test_k27_serving_lock(16)
+python -m v3.train.entry --smoke
+    -> all_passed=True（7/7 checks），exit 0
+python -m v3.cli deps
+    -> exit 5（BLOCKED，设计要求的 fail-closed）
+       serving.python=3.13.7 / python_requirement=>=3.12 / verified=false
+       serving 报告含 evidence_levels 与 version_scopes
+python tools/k27_carrier_contract_probe.py
+    -> all_as_expected=True（1 接受 + 7 拒绝；规则自检 10 格）
+python tools/capture_evidence.py
+    -> 全部按真实执行重新生成；ingest-d0-source-lock.json exit=0（许可修复未回归）
+```
+
+### 13.5 未验证 / 未做（如实）
+
+1. **真实 adapter 加载与路由仍未验证**：本契约只判静态命名/config；
+   黄 3 的接线仍是 CPU 替身。
+2. **真实提交包未过官方 compiler**：只有合成 fixture 编译通过。
+3. **评分端实际安装版本未知**：`scoring_host_installed=unknown`，
+   实际 vLLM 版本同样 unknown。
+4. **`torch` 物料未取得** → 锁保持不合法、`verified=false`。
+5. **一处已知但本轮未修的证据卫生缺陷**（不是本轮三项范围内，且**不擅自改**
+   已被独立核验的产物）：`docs/v3/design/kaggle-27-a2-limits-evidence.json`
+   第 6 / 10 行仍含两条本机绝对路径（字节级照抄自 KAGGLE-27 原件）。
+   该文件已被 Q0 / Liang 按 SHA256 `508bf1a9…` 独立核验过，
+   E0 **没有**单方面重写它 —— 改动会让已记录的哈希失效。
+   本轮新增的 4 份冻结产物（S1 / S1b / S2 / wheelhouse）**全部脱敏**，
+   有测试守着"冻结副本不得含本机绝对路径"。
+   建议由 Mika / Q0 裁定：是接受"保留原字节+新增脱敏副本"，还是授权重写并更新哈希。
+6. 数据隔离 / 权限六项、D/H denylist、GPU 训练仍**不在本轮范围**。
+

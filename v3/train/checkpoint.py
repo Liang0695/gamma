@@ -22,6 +22,7 @@ from typing import Mapping
 
 from ..common.canonical import canonical_json_bytes, sha256_bytes, sha256_json
 from ..common.errors import IntegrityError, MissingInput, PolicyViolation
+from ..submit import adapter_contract
 
 #: 提交包总量上限（KAGGLE-22 §8.5：总包 <3 GiB）。
 MAX_PACKAGE_BYTES = 3 * (1 << 30)
@@ -30,7 +31,11 @@ KEEP_LAST = 2
 
 COMPLETE_MARKER = "COMPLETE"
 MANIFEST_NAME = "checkpoint_manifest.json"
-ADAPTER_NAME = "adapter.safetensors"
+#: checkpoint 里的 adapter 副本文件名 —— 与官方 PEFT 载体 basename 统一
+#: （KAGGLE-27 整改①：全仓不再出现 `adapter.safetensors`）。
+#: 注意：这是**续训状态**里的副本，不是提交包布局；提交包布局由
+#: `v3/submit/adapter_contract.py` 的 `adapters/<name>/adapter_model.safetensors` 定义。
+ADAPTER_NAME = adapter_contract.ADAPTER_WEIGHTS_FILENAME
 OPTIMIZER_NAME = "optimizer_state.json"
 RNG_NAME = "rng_state.json"
 CURSOR_NAME = "sampler_cursor.json"

@@ -144,28 +144,28 @@
   },
   "cpu": {
     "per_question_wall_seconds": [
-      7.2e-05,
-      4.7e-05,
-      3.2e-05,
+      7.9e-05,
+      5.2e-05,
+      3.3e-05,
+      2.7e-05,
+      2.3e-05,
+      2.1e-05,
       2.9e-05,
-      2.1e-05,
-      2.1e-05,
-      3e-05,
-      3.1e-05
+      2.9e-05
     ],
-    "timing_clock": "time.perf_counter（墙上时间），不是 time.process_time",
-    "timing_note": "Q0 附带项：旧字段 process_time() 在 Windows 粒度约 15.6ms，整段评测恒为 0.0，等于假指标；现如实记墙上时间并改掉字段名。",
+    "timing_clock": "time.perf_counter��ǽ��ʱ�䣩������ time.process_time",
+    "timing_note": "Q0 ��������ֶ� process_time() �� Windows ����Լ 15.6ms�����������Ϊ 0.0�����ڼ�ָ�ꣻ����ʵ��ǽ��ʱ�䲢�ĵ��ֶ�����",
     "total_wall_seconds": 0.0003
   },
   "experiment": "EXP-1",
   "limitations": [
-    "合成题库（若 is_real_data=false）：只能验证流水线",
-    "输出字符数是估算而非实测截断日志",
-    "RegionHit 只用规则检索候选自带行区间，未经模型定位验证；NA 样本已从分母剔除",
-    "未使用任何模型"
+    "�ϳ���⣨�� is_real_data=false����ֻ����֤��ˮ��",
+    "����ַ����ǹ������ʵ��ض���־",
+    "RegionHit ֻ�ù��������ѡ�Դ������䣬δ��ģ�Ͷ�λ��֤��NA �����Ѵӷ�ĸ�޳�",
+    "δʹ���κ�ģ��"
   ],
   "output_budget": {
-    "estimate_basis": "命中行数 × 80 字符：这是估算，不是实测官方截断日志",
+    "estimate_basis": "�������� �� 80 �ַ������ǹ��㣬����ʵ��ٷ��ض���־",
     "estimated_chars": [
       240,
       480,
@@ -179,7 +179,7 @@
     "hard_limit_chars": 5000,
     "p95_estimated_chars": 480,
     "p95_estimated_chars_nearest_rank": 480,
-    "p95_method": "最近秩法（nearest-rank）：sorted[round(0.95*n)-1]。n 较小时等价于最大值，不是插值 p95；样本量足够前不得据此声称尾部分布已刻画",
+    "p95_method": "����ȷ���nearest-rank����sorted[round(0.95*n)-1]��n ��Сʱ�ȼ������ֵ�����ǲ�ֵ p95���������㹻ǰ���þݴ�����β���ֲ��ѿ̻�",
     "target_chars": 1500,
     "truncation_rate_over_hard_limit": 0.0
   },
@@ -234,7 +234,7 @@
     "truncation_ok": true,
     "truncation_rate": 0.0
   },
-  "region_hit_basis": "只用候选自带的行区间（lexsearch.longest_hit_block 由真实命中行推出）；缺失记 NA 并从分母剔除（region_hit_evaluable_n / region_hit_na_n），禁止用写死的 1..1 之类假区间造指标",
+  "region_hit_basis": "ֻ�ú�ѡ�Դ��������䣨lexsearch.longest_hit_block ����ʵ�������Ƴ�����ȱʧ�� NA ���ӷ�ĸ�޳���region_hit_evaluable_n / region_hit_na_n������ֹ��д���� 1..1 ֮���������ָ��",
   "report_path": "<workdir>/exp1-report.json",
-  "scope": "只评估规则检索；不构成对模型自主工具使用的实验"
+  "scope": "ֻ������������������ɶ�ģ����������ʹ�õ�ʵ��"
 }

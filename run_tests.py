@@ -26,6 +26,8 @@ MODULES = (
     "tests.test_q0_license_allowlist",
     "tests.test_q0_submit_limits",
     "tests.test_q0_pins_and_guards",
+    "tests.test_k27_adapter_contract",
+    "tests.test_k27_serving_lock",
 )
 
 

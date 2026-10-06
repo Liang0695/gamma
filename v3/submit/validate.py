@@ -31,7 +31,13 @@ KAGGLE-27 A 段已经用官方 wheel 探针把官方口径实测出来了，出�
 6. `max_total_size_bytes` 3221225472 —— 官方是 `≤` 口径，而设计稿
    （KAGGLE-20:10 / KAGGLE-21:10）要求"总解压 **<**3GiB"。本模块取**更严**的严格小于，
    并在报告里同时给出官方 `≤` 值，边界反例是"恰好 3 GiB 被拒"；
-7. adapter 文件名必须是 `adapter.safetensors`。
+7. adapter 必须符合**官方 PEFT 目录契约**
+   （`v3/submit/adapter_contract.py`，KAGGLE-27 三项整改之①）：
+   权重是 `adapters/<adapter_name>/adapter_model.safetensors`，
+   同目录必须有**可解析**的 `adapter_config.json`，E0 旧命名 `adapter.safetensors` 一律拒。
+   **不是仅改名**：旧命名在缺 config 时会被官方 `discover_adapters()` 退化成
+   本文件名 stem `adapter`，声明的 `adapter: v3_policy` 将解析不到
+   （官方编译器抛 `AdapterNotFoundError`）。
 
 **不强制**（`not_locally_checkable`）：`max_agents` / `max_sub_agent_depth` /
 `max_skills` / `max_loop_iterations` / `max_instruction_chars` /
@@ -48,9 +54,10 @@ from __future__ import annotations
 import os
 
 from ..common.errors import Blocked, MissingInput, PolicyViolation
+from . import adapter_contract
 
-#: adapter 文件名（提交载体只认这一个）。
-ADAPTER_FILENAME = "adapter.safetensors"
+#: adapter 权重文件名（官方 PEFT 载体只认这一个；KAGGLE-27 整改①）。
+ADAPTER_FILENAME = adapter_contract.ADAPTER_WEIGHTS_FILENAME
 #: adapter 只允许的扩展名（官方 `built_limits_adapter_extensions`，仅一种）。
 REQUIRED_ADAPTER_EXTENSION = ".safetensors"
 #: 明确禁止的权重格式：即使体积够小，也不是官方认可的 adapter 载体。
@@ -164,6 +171,18 @@ def declared_limits() -> dict:
             key: entry["citation"] for key, entry in NOT_LOCALLY_CHECKABLE_LIMITS.items()
         },
         "unverified_official_limits": list(UNVERIFIED_OFFICIAL_LIMITS),
+        "adapter_carrier_contract": {
+            "layout": adapter_contract.carrier_weights_relative_path("<adapter_name>"),
+            "weights_filename": ADAPTER_FILENAME,
+            "config_filename": adapter_contract.ADAPTER_CONFIG_FILENAME,
+            "config_required": True,
+            "legacy_filename_rejected": adapter_contract.LEGACY_ADAPTER_FILENAME,
+            "discovery_rule": (
+                "name = adapter_config.json 存在 ? 目录名 : (stem=='adapter_model' ? 目录名 : stem)"
+            ),
+            "citation": adapter_contract.MATRIX_CITATION,
+            "note": "静态命名契约；真实 adapter 加载未验证",
+        },
         "library_default_contrast": {
             "adk_default_extension_count": 29,
             "adk_default_adapter_extensions": [".bin", ".ggml", ".gguf", ".pt", ".pth", ".safetensors"],
@@ -204,13 +223,23 @@ def _collect_files(root: str) -> list[dict]:
     return files
 
 
-def validate_submission_dir(root: str, *, limits: dict | None = None) -> dict:
+def validate_submission_dir(
+    root: str,
+    *,
+    limits: dict | None = None,
+    declared_adapter_name: str | None = None,
+) -> dict:
     """校验一个**已生成**的提交目录，返回结构化报告；不合规即抛 fail-closed 异常。
 
     强制项（每条都有出处，见模块 docstring）：
     目录存在且非空 · 扩展名在官方 7 种内 · 不得出现被禁止的权重扩展名 ·
     `max_file_count` · `max_yaml_files` · `max_yaml_size_bytes` ·
-    总解压 **< 3 GiB** · adapter 必须是 `adapter.safetensors` 且 ≤ 8 个。
+    总解压 **< 3 GiB** · adapter 必须是官方 PEFT 目录载体
+    `adapters/<adapter_name>/adapter_model.safetensors` + 可解析的
+    `adapter_config.json`，且 ≤ 8 个。
+
+    `declared_adapter_name`：提交 YAML 里 `adapter:` 声明的名字。给了就必须能被
+    官方命名规则解析到；不给则只做载体形态校验（不猜 YAML 内容）。
     """
     if not root or not os.path.isdir(root):
         raise MissingInput("submission_dir_missing", "提交目录不存在：%r" % root)
@@ -301,12 +330,13 @@ def validate_submission_dir(root: str, *, limits: dict | None = None) -> dict:
             citation=SOURCED_LIMITS["max_total_unpacked_bytes"]["citation"],
         )
 
-    # 4) adapter 载体。
+    # 4) adapter 载体：官方 PEFT 目录契约（KAGGLE-27 整改①）。
     adapters = [entry for entry in files if entry["extension"] == REQUIRED_ADAPTER_EXTENSION]
     if not adapters:
         raise PolicyViolation(
             "submission_adapter_missing",
-            "提交包里没有 %s" % ADAPTER_FILENAME,
+            "提交包里没有 %s：官方载体是 %s"
+            % (ADAPTER_FILENAME, adapter_contract.carrier_weights_relative_path("<adapter_name>")),
             files=[entry["relative"] for entry in files][:20],
         )
     if len(adapters) > adapter_limit:
@@ -315,13 +345,9 @@ def validate_submission_dir(root: str, *, limits: dict | None = None) -> dict:
             "adapter 文件数 %d 超过上限 %d" % (len(adapters), adapter_limit),
             count=len(adapters),
         )
-    misnamed = [entry["relative"] for entry in adapters if os.path.basename(entry["relative"]) != ADAPTER_FILENAME]
-    if misnamed:
-        raise PolicyViolation(
-            "submission_adapter_name_invalid",
-            "adapter 文件名必须是 %s：%s" % (ADAPTER_FILENAME, misnamed),
-            files=misnamed,
-        )
+    carrier = adapter_contract.assert_official_adapter_carrier(
+        root, declared_adapter_name=declared_adapter_name
+    )
 
     return {
         "ok": True,
@@ -329,6 +355,7 @@ def validate_submission_dir(root: str, *, limits: dict | None = None) -> dict:
         "files": len(files),
         "yaml_files": len(yaml_files),
         "adapter_files": len(adapters),
+        "adapter_carrier": carrier,
         "total_unpacked_bytes": total_bytes,
         "total_unpacked_limit_bytes": total_limit,
         "limits_source": "caller-provided" if limits else "declared",
@@ -348,7 +375,9 @@ def validate_submission_dir(root: str, *, limits: dict | None = None) -> dict:
         "violations": [],
         "note": (
             "官方 compiler 未安装：本报告基于**有出处**的声明式限额（KAGGLE-27 A-evidence.json），"
-            "并强制官方扩展名清单与四项结构限额；YAML 内容级限额需官方 compiler 才判定。"
-            "不得据此声称已通过官方提交校验。"
+            "并强制官方扩展名清单、四项结构限额与官方 PEFT adapter 目录契约"
+            "（adapters/<name>/adapter_model.safetensors + 可解析 adapter_config.json）；"
+            "YAML 内容级限额需官方 compiler 才判定。"
+            "不得据此声称已通过官方提交校验，也不得声称真实 adapter 可加载。"
         ),
     }

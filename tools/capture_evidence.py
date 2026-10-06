@@ -90,6 +90,19 @@ def main() -> int:
             ],
             "ingest-d0-source-lock.json",
         ),
+        # KAGGLE-27 整改①：官方 PEFT adapter 载体契约的接受-拒绝矩阵（合成 fixture）
+        # + 对冻结官方命名矩阵（S1 六格 + E0 补四格）的规则自检。
+        (
+            [
+                py,
+                "tools/k27_carrier_contract_probe.py",
+                "--work",
+                os.path.join(EVIDENCE_DIR, "_k27_carrier_work"),
+                "--out",
+                os.path.join(EVIDENCE_DIR, "k27-carrier-contract.json"),
+            ],
+            "k27-carrier-contract-stdout.json",
+        ),
     ]
     exit_codes = {name: capture(cmd, name) for cmd, name in jobs}
 

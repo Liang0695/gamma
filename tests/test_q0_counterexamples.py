@@ -23,6 +23,7 @@ from v3.data import faces, source_lock  # noqa: E402
 from v3.data.dedup import assert_no_split_leak  # noqa: E402
 from v3.exp import exp1  # noqa: E402
 from v3.search.lexsearch import Candidate, longest_hit_block, region_hit  # noqa: E402
+from v3.submit import adapter_contract  # noqa: E402
 from v3.submit import validate as submit  # noqa: E402
 from v3.t0 import official  # noqa: E402
 
@@ -233,6 +234,18 @@ class Y14SubmissionCarrierTests(unittest.TestCase):
         context = temp_dir("submit_")
         return context
 
+    @staticmethod
+    def _official_adapter(root: str, *, name: str = adapter_contract.DEFAULT_ADAPTER_NAME) -> str:
+        """写官方形态载体：`adapters/<name>/adapter_model.safetensors` + `adapter_config.json`。"""
+        directory = os.path.join(root, *adapter_contract.adapter_dir_relative_path(name).split("/"))
+        os.makedirs(directory, exist_ok=True)
+        weights = os.path.join(directory, adapter_contract.ADAPTER_WEIGHTS_FILENAME)
+        with open(weights, "wb") as handle:
+            handle.write(b"weights")
+        with open(os.path.join(directory, adapter_contract.ADAPTER_CONFIG_FILENAME), "wb") as handle:
+            handle.write(b'{"r": 16, "lora_alpha": 32, "peft_type": "LORA"}')
+        return weights
+
     def test_service_lock_pins_official_carriers(self) -> None:
         path = os.path.join(REPO_ROOT, "v3", "locks", "serving.lock.json")
         with open(path, "r", encoding="utf-8") as handle:
@@ -247,14 +260,17 @@ class Y14SubmissionCarrierTests(unittest.TestCase):
 
     def test_allowed_submission_passes(self) -> None:
         with temp_dir("submit_ok_") as root:
-            with open(os.path.join(root, "adapter.safetensors"), "wb") as handle:
-                handle.write(b"weights")
+            self._official_adapter(root)
             with open(os.path.join(root, "agent.yaml"), "w", encoding="utf-8") as handle:
                 handle.write("name: demo\n")
-            report = submit.validate_submission_dir(root)
+            report = submit.validate_submission_dir(
+                root, declared_adapter_name=adapter_contract.DEFAULT_ADAPTER_NAME
+            )
         self.assertTrue(report["ok"])
         self.assertEqual(report["violations"], [])
         self.assertFalse(report["official_limits_verified"])
+        self.assertEqual(report["adapter_carrier"]["carrier"], "official-peft-directory")
+        self.assertFalse(report["adapter_carrier"]["real_adapter_loading_verified"])
 
     def test_non_safetensors_adapter_is_rejected(self) -> None:
         with temp_dir("submit_bin_") as root:
@@ -266,8 +282,7 @@ class Y14SubmissionCarrierTests(unittest.TestCase):
 
     def test_disallowed_extension_is_rejected(self) -> None:
         with temp_dir("submit_exe_") as root:
-            with open(os.path.join(root, "adapter.safetensors"), "wb") as handle:
-                handle.write(b"w")
+            self._official_adapter(root)
             with open(os.path.join(root, "run.exe"), "wb") as handle:
                 handle.write(b"MZ")
             with self.assertRaises(PolicyViolation) as ctx:
@@ -276,8 +291,7 @@ class Y14SubmissionCarrierTests(unittest.TestCase):
 
     def test_total_size_limit_is_enforced(self) -> None:
         with temp_dir("submit_big_") as root:
-            with open(os.path.join(root, "adapter.safetensors"), "wb") as handle:
-                handle.write(b"weights")
+            self._official_adapter(root)
             with self.assertRaises(PolicyViolation) as ctx:
                 submit.validate_submission_dir(root, limits={"max_total_unpacked_bytes": 4})
         self.assertEqual(ctx.exception.code, "submission_total_size_exceeded")

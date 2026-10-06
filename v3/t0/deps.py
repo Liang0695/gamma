@@ -131,7 +131,7 @@ class DependencyLock:
 
     def summary(self) -> dict:
         packages = self.payload.get("packages") or {}
-        return {
+        summary = {
             "channel": self.channel,
             "python": self.payload.get("python"),
             "package_count": len(packages),
@@ -141,6 +141,15 @@ class DependencyLock:
             "verified": bool(self.payload.get("verified")),
             "lock_sha256": self.lock_sha256(),
         }
+        # KAGGLE-27 整改②③：把"版本作用域"与"证据等级"带进 preflight 报告，让
+        # **物料版本 / 评分端实际版本 / 三种证据等级**在报告里就是分开的字段，
+        # 而不是被压成一个 `verified` 布尔值。
+        if self.payload.get("python_requirement"):
+            summary["python_requirement"] = self.payload["python_requirement"]
+        for key in ("python_evidence", "version_scopes", "evidence_levels"):
+            if self.payload.get(key):
+                summary[key] = self.payload[key]
+        return summary
 
 
 def assert_channels_isolated(train: DependencyLock, serving: DependencyLock) -> None:

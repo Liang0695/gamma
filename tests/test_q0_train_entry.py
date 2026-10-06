@@ -333,7 +333,7 @@ class GateMeasurementTests(unittest.TestCase):
                 **{key: "a" * 64 for key in ("source_sha256", "data_sha256", "config_sha256",
                                              "code_sha256", "deps_sha256")},
                 "adapter_only": True,
-                "files": ["adapter.safetensors"],
+                "files": ["adapters/v3_policy/adapter_model.safetensors"],
             },
             run_cpu_self_check=False,
         )
@@ -355,7 +355,7 @@ class GateMeasurementTests(unittest.TestCase):
             **{key: "a" * 64 for key in ("source_sha256", "data_sha256", "config_sha256",
                                          "code_sha256", "deps_sha256")},
             "adapter_only": True,
-            "files": ["adapter.safetensors"],
+            "files": ["adapters/v3_policy/adapter_model.safetensors"],
         }
         with self.assertRaises(FailClosed) as ctx:
             entry.start(

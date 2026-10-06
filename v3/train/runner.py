@@ -35,10 +35,15 @@ from typing import Mapping, Sequence
 
 from ..common.canonical import sha256_json
 from ..common.errors import Blocked, IntegrityError, MissingInput, PolicyViolation
+from ..submit import adapter_contract
 from .streaming import assert_full_state_dict_guard
 
-#: 真实训练后端的适配器文件名（官方提交载体只接受 `.safetensors`）。
-ADAPTER_FILE = "adapter.safetensors"
+#: 真实训练后端的适配器权重文件名 —— **官方 PEFT 载体**的 basename
+#: （KAGGLE-27 整改①：不是 `adapter.safetensors`）。
+ADAPTER_FILE = adapter_contract.ADAPTER_WEIGHTS_FILENAME
+#: 导出时的 adapter 名（= 提交 YAML 里 `adapter:` 声明的名字）。
+#: 它不是模型 pin 的替身：模型/revision 仍必须来自锁定参数（见 `resolve_backend_pins`）。
+DEFAULT_ADAPTER_NAME = adapter_contract.DEFAULT_ADAPTER_NAME
 #: 合成后端的适配器文件名。**不是**提交载体，故意不叫 .safetensors，
 #: 避免被任何提交校验器误当官方适配器。
 SYNTHETIC_ADAPTER_FILE = "adapter.synthetic.json"
@@ -99,6 +104,8 @@ class TrainRunPlan:
     lora_alpha: int
     batches: list[TrainBatch] = field(default_factory=list)
     seed: int = 20261005
+    #: 导出时的官方 PEFT adapter 目录名（必须与提交 YAML 的 `adapter:` 一致）。
+    adapter_name: str = DEFAULT_ADAPTER_NAME
 
     def assert_runnable(self) -> None:
         if self.steps <= 0:
@@ -109,6 +116,8 @@ class TrainRunPlan:
             raise PolicyViolation("non_positive_lr", "学习率必须为正")
         if self.lora_rank <= 0 or self.lora_alpha <= 0:
             raise PolicyViolation("bad_lora_geometry", "LoRA rank/alpha 必须为正")
+        # adapter 名必须能构成合法官方 PEFT 目录（空/带分隔符/`..` 一律拒）。
+        adapter_contract.adapter_dir_relative_path(self.adapter_name)
 
 
 class TrainBackend:
@@ -124,10 +133,10 @@ class TrainBackend:
     def train_steps(self, plan: TrainRunPlan) -> dict:
         raise NotImplementedError
 
-    def save_adapter(self, dest_dir: str) -> dict:
+    def save_adapter(self, dest_dir: str, *, adapter_name: str | None = None) -> dict:
         raise NotImplementedError
 
-    def load_adapter(self, src_dir: str) -> dict:
+    def load_adapter(self, src_dir: str, *, adapter_name: str | None = None) -> dict:
         raise NotImplementedError
 
     def adapter_params_digest(self) -> str:
@@ -399,7 +408,9 @@ class SyntheticBackend(TrainBackend):
             "rows_visited": rows,
         }
 
-    def save_adapter(self, dest_dir: str) -> dict:
+    def save_adapter(self, dest_dir: str, *, adapter_name: str | None = None) -> dict:
+        # 合成后端**不是**提交载体，故意不产出 .safetensors，也不建官方 PEFT 目录：
+        # `adapter_name` 参数只为接口一致而接受，不参与落盘。
         os.makedirs(dest_dir, exist_ok=True)
         payload = {
             "format": "synthetic-lora-adapter/1",
@@ -424,7 +435,7 @@ class SyntheticBackend(TrainBackend):
             "is_official_submission_carrier": False,
         }
 
-    def load_adapter(self, src_dir: str) -> dict:
+    def load_adapter(self, src_dir: str, *, adapter_name: str | None = None) -> dict:
         path = os.path.join(src_dir, SYNTHETIC_ADAPTER_FILE)
         if not os.path.exists(path):
             raise MissingInput("adapter_file_missing", "找不到合成 adapter：%s" % path)
@@ -690,48 +701,73 @@ class TorchPeftBackend(TrainBackend):
             "full_state_dict_materializations": materializations,
         }
 
-    def save_adapter(self, dest_dir: str) -> dict:
+    def save_adapter(self, dest_dir: str, *, adapter_name: str | None = None) -> dict:
+        """导出到**官方 PEFT 载体目录**：`<dest_dir>/adapters/<name>/`。
+
+        KAGGLE-27 整改①：官方口径是 `adapters/<adapter_name>/adapter_model.safetensors`
+        加同目录 `adapter_config.json`（README §3.4）。旧版把 `save_pretrained` 直接
+        写进 `dest_dir` 并去找 `adapter.safetensors` —— 两者都不对：
+        PEFT 真实写出的 basename 是 `adapter_model.safetensors`，所以旧检查
+        **必定失败**；即便改名，缺 config 时官方 `discover_adapters()` 仍会把
+        adapter 名退化成本文件名 stem，声明名解析不到（`AdapterNotFoundError`）。
+        """
         if self.model is None:
             raise Blocked("backend_not_prepared", "save_adapter 需要先 prepare")
-        os.makedirs(dest_dir, exist_ok=True)
-        self.model.save_pretrained(dest_dir, safe_serialization=True)
-        files = sorted(os.listdir(dest_dir))
+        name = str(adapter_name or DEFAULT_ADAPTER_NAME).strip()
+        peft_dir = os.path.join(dest_dir, *adapter_contract.adapter_dir_relative_path(name).split("/"))
+        os.makedirs(peft_dir, exist_ok=True)
+        self.model.save_pretrained(peft_dir, safe_serialization=True)
+        files = sorted(os.listdir(peft_dir))
         if ADAPTER_FILE not in files:
             raise IntegrityError(
                 "adapter_safetensors_missing",
                 "save_pretrained 后没有 %s；官方提交载体只接受 .safetensors" % ADAPTER_FILE,
                 files=files,
+                adapter_dir=peft_dir,
             )
-        weights = os.path.join(dest_dir, ADAPTER_FILE)
+        # 强制 config 存在且可解析 —— 不靠"PEFT 应该会写"来假定。
+        config = adapter_contract.assert_adapter_config_present(peft_dir)
+        weights = os.path.join(peft_dir, ADAPTER_FILE)
         with open(weights, "rb") as handle:
             raw = handle.read()
+        carrier = adapter_contract.assert_official_adapter_carrier(
+            dest_dir, declared_adapter_name=name
+        )
         return {
-            "path": dest_dir,
+            "path": peft_dir,
+            "carrier_root": dest_dir,
             "files": files,
             "filename": ADAPTER_FILE,
+            "relative": adapter_contract.carrier_weights_relative_path(name),
+            "adapter_name": name,
+            "adapter_config": config,
             "bytes": len(raw),
             "sha256": _sha256_bytes(raw),
             "adapter_only": True,
             "contains_base_weights": False,
             "is_official_submission_carrier": True,
+            "carrier_contract": carrier,
         }
 
-    def load_adapter(self, src_dir: str) -> dict:
+    def load_adapter(self, src_dir: str, *, adapter_name: str | None = None) -> dict:
         """重载校验：**新建**基座 + `PeftModel.from_pretrained`，比对 adapter 参数摘要。"""
         module = self._import_stack()
         _torch, _peft, _LoraConfig, _get_peft_model, AutoModelForCausalLM, _AutoTokenizer = module
         from peft import PeftModel  # type: ignore
 
-        weights = os.path.join(src_dir, ADAPTER_FILE)
+        name = str(adapter_name or DEFAULT_ADAPTER_NAME).strip()
+        peft_dir = os.path.join(src_dir, *adapter_contract.adapter_dir_relative_path(name).split("/"))
+        weights = os.path.join(peft_dir, ADAPTER_FILE)
         if not os.path.exists(weights):
             raise MissingInput("adapter_file_missing", "找不到 adapter：%s" % weights)
+        adapter_contract.assert_official_adapter_carrier(src_dir, declared_adapter_name=name)
         before = self.adapter_params_digest()
         fresh_base = AutoModelForCausalLM.from_pretrained(
             self.model_id,
             revision=self.revision,
             torch_dtype=self._torch.bfloat16,
         )
-        reloaded = PeftModel.from_pretrained(fresh_base, src_dir)
+        reloaded = PeftModel.from_pretrained(fresh_base, peft_dir)
         reloaded.to(self.device)
         previous_model = self.model
         self.model = reloaded
@@ -745,7 +781,8 @@ class TorchPeftBackend(TrainBackend):
                 after=after,
             )
         return {
-            "path": src_dir,
+            "path": peft_dir,
+            "adapter_name": name,
             "reloaded_adapter_params": after,
             "matches_saved_adapter": True,
             "base_reloaded_from_scratch": True,
@@ -786,13 +823,14 @@ def run_training(
     if observation is None:
         observation = backend.observe_full_state_dict()
     memory_guard = assert_full_state_dict_guard(observation, weight_manifest=weight_manifest)
-    saved = backend.save_adapter(dest_dir)
+    adapter_name = str(getattr(plan, "adapter_name", "") or DEFAULT_ADAPTER_NAME).strip()
+    saved = backend.save_adapter(dest_dir, adapter_name=adapter_name)
     if not saved.get("adapter_only") or saved.get("contains_base_weights"):
         raise PolicyViolation(
             "adapter_payload_not_adapter_only",
             "保存产物不是纯 adapter，禁止把完整权重当 adapter 交付",
         )
-    reloaded = backend.load_adapter(dest_dir)
+    reloaded = backend.load_adapter(dest_dir, adapter_name=adapter_name)
     report = {
         "backend": backend.name,
         "requires_gpu": backend.requires_gpu,

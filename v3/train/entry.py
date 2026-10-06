@@ -32,6 +32,7 @@ import sys
 from typing import Sequence
 
 from ..common.errors import Blocked, FailClosed, MissingInput, PolicyViolation, UnverifiedLock
+from ..submit import adapter_contract
 from ..t0.deps import DependencyLock, assert_distinct_lock_channels, load_pair
 from ..t0.official import OfficialInterface
 from . import runner
@@ -214,6 +215,18 @@ def measure_gates(
             manifest_problems.append("导出 manifest 没有任何文件条目")
         elif any(str(name).endswith((".bin", ".pt", ".ckpt", ".pth")) for name in files):
             manifest_problems.append("导出清单里出现非 .safetensors 权重文件")
+        else:
+            # KAGGLE-27 整改①：导出清单必须声明**官方 PEFT 载体**相对路径，
+            # 不允许再用旧的 `adapter.safetensors`（缺 config 时官方会退化成 stem）。
+            expected_carrier = adapter_contract.carrier_weights_relative_path(
+                str(export_manifest.get("adapter_name") or adapter_contract.DEFAULT_ADAPTER_NAME)
+            )
+            normalized = {str(name).replace("\\", "/") for name in files}
+            if expected_carrier not in normalized:
+                manifest_problems.append(
+                    "导出清单缺少官方 PEFT 载体路径 %s（现有：%s）"
+                    % (expected_carrier, sorted(normalized))
+                )
         # Q0 Y4：带 fixture 计数时走**严格 20/20** 的生产入口，而不是宽松默认入口。
         if export_manifest.get("fixture_total") is not None or export_manifest.get("fixture_pass") is not None:
             try:

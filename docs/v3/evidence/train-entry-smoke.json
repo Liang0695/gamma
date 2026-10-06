@@ -16,13 +16,13 @@
     "allowed_bytes": 0,
     "checked": true,
     "evidence": {
-      "method": "逐参数遍历：从不在同一容器里持有全部参数",
+      "method": "������������Ӳ���ͬһ���������ȫ������",
       "probe": "synthetic-parameter-residency"
     },
     "full_state_dict_resident": false,
     "observation": {
       "declared_weight_bytes": 11520,
-      "method": "逐参数遍历：从不在同一容器里持有全部参数",
+      "method": "������������Ӳ���ͬһ���������ȫ������",
       "peak_full_state_dict_bytes": 0,
       "probe": "synthetic-parameter-residency"
     },
@@ -35,7 +35,7 @@
   "loss_decreased_observation_only": true,
   "loss_first": 3.4521500786293204,
   "loss_last": 1.0135118580897045,
-  "note": "合成玩具模型上的自检：只证明前向/反向/优化器步进/保存重载这条链路可用，不证明真实模型可训练，也不产生任何可提交产物。loss_decreased 只作观察值，不作为通过条件。",
+  "note": "�ϳ����ģ���ϵ��Լ죺ֻ֤��ǰ��/����/�Ż�������/��������������·���ã���֤����ʵģ�Ϳ�ѵ����Ҳ�������κο��ύ���loss_decreased ֻ���۲�ֵ������Ϊͨ��������",
   "optimizer_step_count": 40,
   "saved_filename": "adapter.synthetic.json",
   "stage": "cpu-training-loop-self-check",

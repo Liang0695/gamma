@@ -443,7 +443,7 @@ class FullStateDictGuardWiringTests(unittest.TestCase):
         # 且它排在 save_adapter 之前
         self.assertLess(
             text.index("assert_full_state_dict_guard(observation"),
-            text.index("saved = backend.save_adapter(dest_dir)"),
+            text.index("saved = backend.save_adapter(dest_dir, adapter_name=adapter_name)"),
         )
 
     def test_self_check_reports_the_guard(self) -> None:

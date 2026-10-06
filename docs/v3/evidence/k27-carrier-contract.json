@@ -1,0 +1,150 @@
+{
+  "probe": "V3 E0: official PEFT adapter carrier contract (synthetic fixtures)",
+  "probe_tool": "tools/k27_carrier_contract_probe.py",
+  "contract": {
+    "layout": "adapters/<adapter_name>/adapter_model.safetensors",
+    "config_filename": "adapter_config.json",
+    "legacy_filename_rejected": "adapter.safetensors"
+  },
+  "rule_self_check": {
+    "checked": [
+      {
+        "source": "s1",
+        "tag": "official_name__no_config",
+        "name": "v3_policy"
+      },
+      {
+        "source": "s1",
+        "tag": "official_name__with_config",
+        "name": "v3_policy"
+      },
+      {
+        "source": "s1",
+        "tag": "e0_name__with_config",
+        "name": "v3_policy"
+      },
+      {
+        "source": "s1",
+        "tag": "e0_name__no_config",
+        "name": "adapter"
+      },
+      {
+        "source": "s1",
+        "tag": "custom_dirname__with_config",
+        "name": "v3_policy"
+      },
+      {
+        "source": "s1",
+        "tag": "custom_dirname__no_config",
+        "name": "v3_policy"
+      },
+      {
+        "source": "e0-supplement",
+        "tag": "v3_policy/other.safetensors",
+        "name": "other"
+      },
+      {
+        "source": "e0-supplement",
+        "tag": "v3_policy/other.safetensors",
+        "name": "v3_policy"
+      },
+      {
+        "source": "e0-supplement",
+        "tag": "custom_dir/adapter_model.safetensors",
+        "name": "custom_dir"
+      },
+      {
+        "source": "e0-supplement",
+        "tag": "custom_dir/adapter.safetensors",
+        "name": "adapter"
+      }
+    ],
+    "problems": [],
+    "ok": true,
+    "cell_count": 10
+  },
+  "cells": [
+    {
+      "tag": "official_name_with_config__accept",
+      "declared_adapter_name": "v3_policy",
+      "outcome": "accepted",
+      "discovered_adapter_names": [
+        "v3_policy"
+      ],
+      "expected": "accepted",
+      "as_expected": true
+    },
+    {
+      "tag": "official_name_without_config__reject",
+      "declared_adapter_name": "v3_policy",
+      "outcome": "rejected",
+      "error_code": "adapter_carrier_config_missing",
+      "expected": "adapter_carrier_config_missing",
+      "as_expected": true
+    },
+    {
+      "tag": "legacy_e0_name_with_config__reject",
+      "declared_adapter_name": "v3_policy",
+      "outcome": "rejected",
+      "error_code": "adapter_carrier_legacy_name",
+      "expected": "adapter_carrier_legacy_name",
+      "as_expected": true
+    },
+    {
+      "tag": "legacy_e0_name_without_config__reject",
+      "declared_adapter_name": "v3_policy",
+      "outcome": "rejected",
+      "error_code": "adapter_carrier_legacy_name",
+      "expected": "adapter_carrier_legacy_name",
+      "as_expected": true
+    },
+    {
+      "tag": "custom_filename_with_config__reject",
+      "declared_adapter_name": "v3_policy",
+      "outcome": "rejected",
+      "error_code": "adapter_carrier_wrong_filename",
+      "expected": "adapter_carrier_wrong_filename",
+      "as_expected": true
+    },
+    {
+      "tag": "flat_top_level__reject",
+      "declared_adapter_name": "v3_policy",
+      "outcome": "rejected",
+      "error_code": "adapter_carrier_not_in_adapters_dir",
+      "expected": "adapter_carrier_not_in_adapters_dir",
+      "as_expected": true
+    },
+    {
+      "tag": "declared_name_mismatch__reject",
+      "declared_adapter_name": "policy_beta",
+      "outcome": "rejected",
+      "error_code": "adapter_carrier_declared_name_unresolved",
+      "expected": "adapter_carrier_declared_name_unresolved",
+      "as_expected": true
+    },
+    {
+      "tag": "unparsable_config__reject",
+      "declared_adapter_name": "v3_policy",
+      "outcome": "rejected",
+      "error_code": "adapter_carrier_config_unparsable",
+      "expected": "adapter_carrier_config_unparsable",
+      "as_expected": true
+    }
+  ],
+  "real_adapter_loading_verified": false,
+  "note": "合成 fixture；不构成真实 adapter 可加载的证据，也不构成官方 compiler 通过证据。",
+  "accepted_cells": [
+    "official_name_with_config__accept"
+  ],
+  "rejected_cells": [
+    "official_name_without_config__reject",
+    "legacy_e0_name_with_config__reject",
+    "legacy_e0_name_without_config__reject",
+    "custom_filename_with_config__reject",
+    "flat_top_level__reject",
+    "declared_name_mismatch__reject",
+    "unparsable_config__reject"
+  ],
+  "problems": [],
+  "all_as_expected": true
+}

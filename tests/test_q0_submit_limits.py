@@ -18,6 +18,7 @@ import unittest
 
 from tests._tmp import temp_dir
 from v3.common.errors import PolicyViolation
+from v3.submit import adapter_contract
 from v3.submit import validate as submit
 
 #: KAGGLE-27 A 段证据里的官方结构限额（本文件独立抄一份用于交叉核对）。
@@ -44,6 +45,19 @@ def _write(root: str, name: str, payload: bytes = b"x") -> str:
     with open(path, "wb") as handle:
         handle.write(payload)
     return path
+
+
+def _adapter(root: str, *, name: str = adapter_contract.DEFAULT_ADAPTER_NAME, size: int = 1) -> str:
+    """写一个**官方形态**的 PEFT adapter 载体：`adapters/<name>/adapter_model.safetensors`
+    加同目录 `adapter_config.json`（KAGGLE-27 整改①，本文件全部正例都用它）。"""
+    directory = os.path.join(root, *adapter_contract.adapter_dir_relative_path(name).split("/"))
+    os.makedirs(directory, exist_ok=True)
+    weights = os.path.join(directory, adapter_contract.ADAPTER_WEIGHTS_FILENAME)
+    with open(weights, "wb") as handle:
+        handle.write(b"w" * int(size))
+    with open(os.path.join(directory, adapter_contract.ADAPTER_CONFIG_FILENAME), "wb") as handle:
+        handle.write(b'{"r": 16, "lora_alpha": 32, "peft_type": "LORA"}')
+    return weights
 
 
 class EvidenceCrossCheckTests(unittest.TestCase):
@@ -75,7 +89,7 @@ class BoundaryTests(unittest.TestCase):
 
     def test_structured_limits_are_exposed_in_the_report(self) -> None:
         with temp_dir("lim_ok_") as root:
-            _write(root, "adapter.safetensors", b"w")
+            _adapter(root)
             _write(root, "agent.yaml", b"name: demo\n")
             report = submit.validate_submission_dir(root)
         self.assertTrue(report["ok"])
@@ -86,17 +100,17 @@ class BoundaryTests(unittest.TestCase):
         self.assertEqual(report["official_limits_evidence"], submit.KAGGLE27_EVIDENCE)
 
     def test_file_count_boundary(self) -> None:
-        # 恰好等于上限：通过
+        # 官方载体占 2 个文件（权重 + config）。恰好等于上限：通过
         with temp_dir("lim_fc_ok_") as root:
-            _write(root, "adapter.safetensors", b"w")
-            for index in range(3):
+            _adapter(root)
+            for index in range(2):
                 _write(root, "f%d.txt" % index, b"x")
             report = submit.validate_submission_dir(root, limits={"max_file_count": 4})
             self.assertEqual(report["files"], 4)
         # 上限 + 1：拒绝
         with temp_dir("lim_fc_bad_") as root:
-            _write(root, "adapter.safetensors", b"w")
-            for index in range(4):
+            _adapter(root)
+            for index in range(3):
                 _write(root, "f%d.txt" % index, b"x")
             with self.assertRaises(PolicyViolation) as ctx:
                 submit.validate_submission_dir(root, limits={"max_file_count": 4})
@@ -104,13 +118,13 @@ class BoundaryTests(unittest.TestCase):
 
     def test_yaml_count_boundary_counts_yml_too(self) -> None:
         with temp_dir("lim_yc_ok_") as root:
-            _write(root, "adapter.safetensors", b"w")
+            _adapter(root)
             _write(root, "a.yaml", b"x")
             _write(root, "b.yml", b"x")
             report = submit.validate_submission_dir(root, limits={"max_yaml_files": 2})
             self.assertEqual(report["yaml_files"], 2)
         with temp_dir("lim_yc_bad_") as root:
-            _write(root, "adapter.safetensors", b"w")
+            _adapter(root)
             _write(root, "a.yaml", b"x")
             _write(root, "b.yml", b"x")
             _write(root, "c.yaml", b"x")
@@ -120,12 +134,12 @@ class BoundaryTests(unittest.TestCase):
 
     def test_yaml_size_boundary(self) -> None:
         with temp_dir("lim_ys_ok_") as root:
-            _write(root, "adapter.safetensors", b"w")
+            _adapter(root)
             _write(root, "a.yaml", b"x" * 10)
             report = submit.validate_submission_dir(root, limits={"max_yaml_size_bytes": 10})
             self.assertTrue(report["ok"])
         with temp_dir("lim_ys_bad_") as root:
-            _write(root, "adapter.safetensors", b"w")
+            _adapter(root)
             _write(root, "a.yaml", b"x" * 11)
             with self.assertRaises(PolicyViolation) as ctx:
                 submit.validate_submission_dir(root, limits={"max_yaml_size_bytes": 10})
@@ -139,13 +153,26 @@ class BoundaryTests(unittest.TestCase):
             submit.SOURCED_LIMITS["max_total_size_bytes"]["value"], 3 * (1 << 30)
         )
         self.assertTrue(submit.SOURCED_LIMITS["max_total_unpacked_bytes"]["strictly_less_than"])
-        # 恰好 3 GiB → 拒（严格小于的边界）
+        # 恰好 3 GiB（权重 + config 合计）→ 拒（严格小于的边界）
         with temp_dir("lim_3gib_") as root:
-            big = os.path.join(root, "adapter.safetensors")
+            config_bytes = len(b'{"r": 16, "lora_alpha": 32, "peft_type": "LORA"}')
+            directory = os.path.join(
+                root,
+                *adapter_contract.adapter_dir_relative_path(
+                    adapter_contract.DEFAULT_ADAPTER_NAME
+                ).split("/")
+            )
+            os.makedirs(directory, exist_ok=True)
+            big = os.path.join(directory, adapter_contract.ADAPTER_WEIGHTS_FILENAME)
+            # 稀疏写：不在内存里物化 3 GiB。
             with open(big, "wb") as handle:
-                handle.seek(limit - 1)
+                handle.seek(limit - config_bytes - 1)
                 handle.write(b"\0")
-            self.assertEqual(os.path.getsize(big), limit)
+            with open(
+                os.path.join(directory, adapter_contract.ADAPTER_CONFIG_FILENAME), "wb"
+            ) as handle:
+                handle.write(b'{"r": 16, "lora_alpha": 32, "peft_type": "LORA"}')
+            self.assertEqual(os.path.getsize(big), limit - config_bytes)
             with self.assertRaises(PolicyViolation) as ctx:
                 submit.validate_submission_dir(root)
             self.assertEqual(ctx.exception.code, "submission_total_size_exceeded")
@@ -153,7 +180,7 @@ class BoundaryTests(unittest.TestCase):
 
     def test_extension_allowlist_cannot_be_widened_by_caller(self) -> None:
         with temp_dir("lim_ext_") as root:
-            _write(root, "adapter.safetensors", b"w")
+            _adapter(root)
             with self.assertRaises(PolicyViolation) as ctx:
                 submit.validate_submission_dir(
                     root, limits={"allowed_extensions": [".sh"], "max_extension_count": 7}
@@ -163,7 +190,7 @@ class BoundaryTests(unittest.TestCase):
     def test_library_default_extensions_are_not_official(self) -> None:
         """`.sh` 在库默认的 29 种里，但不在官方 7 种里 —— 必须拒。"""
         with temp_dir("lim_sh_") as root:
-            _write(root, "adapter.safetensors", b"w")
+            _adapter(root)
             _write(root, "setup.sh", b"echo hi\n")
             with self.assertRaises(PolicyViolation) as ctx:
                 submit.validate_submission_dir(root)

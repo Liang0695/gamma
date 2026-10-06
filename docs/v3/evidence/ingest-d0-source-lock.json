@@ -33,11 +33,11 @@
     "independent_review_countersigned": false,
     "independent_review_pending": 9,
     "records_assessed": 9,
-    "source": "repos.<name>.license_review.decision（D0 license_review_schema）"
+    "source": "repos.<name>.license_review.decision��D0 license_review_schema��"
   },
   "license_metadata_imported_is_not_independent_approval": true,
   "manifest_sha256": "7c9788478055cdff451bc87bde59a6a5c0511b1554bf26ebf77efbe9cc623164",
-  "note": "本步只登记与校验，不下载权重/受限数据；未获批的来源不会被静默放行。许可元数据被导入**不等于**独立批准（independent_review 仍是 pending），也**不等于**任何 split 被 released；替代候选被导入不等于已批准替换或发布。",
+  "note": "����ֻ�Ǽ���У�飬������Ȩ��/�������ݣ�δ��������Դ���ᱻ��Ĭ���С�����Ԫ���ݱ�����**������**������׼��independent_review ���� pending����Ҳ**������**�κ� split �� released�������ѡ�����벻��������׼�滻�򷢲���",
   "origin_format": "d0-source-lock/1",
   "released_splits": [],
   "source_count": 4,
