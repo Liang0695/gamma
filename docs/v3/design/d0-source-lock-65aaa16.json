@@ -1,0 +1,779 @@
+{
+  "generated_by": "d0/collect_licenses.py",
+  "policy_id": "v3-source-lock-2026-10-05-mika",
+  "license_review_schema": {
+    "schema_version": "1.0",
+    "applies_to": "every repository in this file, keyed by repository name",
+    "required_fields": [
+      "decision",
+      "approved_spdx",
+      "osi_permissive",
+      "copyleft_marker_hits",
+      "restrictive_marker_hits",
+      "evidence",
+      "decision_basis",
+      "decided_by",
+      "decided_at",
+      "decided_against_revision",
+      "independent_review"
+    ],
+    "decision_domain": [
+      "approved",
+      "rejected",
+      "pending"
+    ],
+    "gate": "no repository may be used as a family source unless license_review.decision == 'approved' for the exact revision in decided_against_revision",
+    "approval_is_revision_bound": "an approval covers one pinned commit; re-pinning a repository invalidates it and it must be re-derived",
+    "independent_review_note": "decision is the D0 owner's licence-fact assessment and is self-declared; independent countersignature is tracked separately in independent_review and is NOT claimed here"
+  },
+  "locked_candidate_repositories": [
+    "attrs",
+    "boltons",
+    "click",
+    "dateutil",
+    "marshmallow",
+    "more-itertools",
+    "packaging",
+    "pluggy"
+  ],
+  "alternative_candidate_repositories": [
+    "python-dotenv"
+  ],
+  "repos": {
+    "click": {
+      "role_class": "locked_candidate",
+      "upstream_slug": "pallets/click",
+      "mirror_url": "https://ghfast.top/https://github.com/pallets/click.git",
+      "pinned_tag": "8.5.0",
+      "pinned_commit": "8b19813f2bfca99f1018a587a8cf54fc959f2e5d",
+      "expected_commit": "8b19813f2bfca99f1018a587a8cf54fc959f2e5d",
+      "commit_matches_plan": true,
+      "tree_sha": "2955d48825c98fd7dcbc60eb41cf18a952a2c0a3",
+      "commit_date": "2026-08-21T21:31:25-07:00",
+      "commit_date_role": "the pinned SNAPSHOT's own commit date. It is NOT a family fix time and must never be used to assign a defect family to a split window.",
+      "committer": "Edward G <edward.g2013@gmail.com>",
+      "tracked_files": 166,
+      "text_files_scanned": 145,
+      "split_role": "train",
+      "design_license_expectation": "BSD-3-Clause",
+      "spdx_headers_found": [],
+      "packaging_metadata": {
+        "pyproject.toml": {
+          "sha256": "6cca567eef4004426c3a42a94de7ef6b971992f1d7292faea3a17dd322d92717",
+          "declared": [
+            "\"BSD-3-Clause\"",
+            "[\"LICENSE.txt\"]"
+          ]
+        }
+      },
+      "license_review": {
+        "decision": "approved",
+        "approved_spdx": "BSD-3-Clause",
+        "osi_permissive": true,
+        "copyleft_marker_hits": [],
+        "restrictive_marker_hits": [],
+        "evidence": {
+          "primary_license_file": {
+            "path": "LICENSE.txt",
+            "sha256": "757302fe7c41e7026fa46d3315ea8604ed5295fc95c2256d9b38adac43f6fbe5",
+            "bytes": 1503
+          },
+          "all_license_file_hashes": [
+            {
+              "path": "LICENSE.txt",
+              "sha256": "757302fe7c41e7026fa46d3315ea8604ed5295fc95c2256d9b38adac43f6fbe5",
+              "bytes": 1503
+            },
+            {
+              "path": "docs/license.md",
+              "sha256": "286d2b7be5eed212651f48d1402eaab4f2f7ee6d3678eb6023a5db1a34253ac3",
+              "bytes": 93
+            }
+          ],
+          "packaging_metadata_sha256": {
+            "pyproject.toml": "6cca567eef4004426c3a42a94de7ef6b971992f1d7292faea3a17dd322d92717"
+          },
+          "per_file_scan": {
+            "text_files_scanned": 145,
+            "files_with_spdx_header": 0,
+            "files_with_copyright_line": 3,
+            "method": "d0/collect_licenses.py; every file row is in per-file-ledger.csv"
+          },
+          "per_file_ledger": "per-file-ledger.csv"
+        },
+        "decision_basis": "declared licence family is OSI-permissive (BSD-3-Clause); the primary licence file at the pinned revision carries no copyleft marker and no non-commercial / research-only / no-derivative clause. Hit lists below are recorded verbatim so this decision can be re-derived from the hashed files alone.",
+        "decided_by": "D0 owner (资料调研与分发)",
+        "decided_at": "2026-10-05",
+        "decided_against_revision": "8b19813f2bfca99f1018a587a8cf54fc959f2e5d",
+        "decided_against_tag": "8.5.0",
+        "upstream_slug": "pallets/click",
+        "independent_review": {
+          "required": true,
+          "status": "pending",
+          "reviewer_role": "Q0",
+          "note": "self-declared licence-fact assessment; NOT an independent countersignature and must not be read as one"
+        }
+      }
+    },
+    "more-itertools": {
+      "role_class": "locked_candidate",
+      "upstream_slug": "more-itertools/more-itertools",
+      "mirror_url": "https://ghfast.top/https://github.com/more-itertools/more-itertools.git",
+      "pinned_tag": "v11.1.0",
+      "pinned_commit": "64be96ceb2a6e836f76f069f4a96d2394d59fd0c",
+      "expected_commit": "64be96ceb2a6e836f76f069f4a96d2394d59fd0c",
+      "commit_matches_plan": true,
+      "tree_sha": "f7409b66b75d5649b9fc6414114f8035362f9fcf",
+      "commit_date": "2026-05-22T09:12:03-05:00",
+      "commit_date_role": "the pinned SNAPSHOT's own commit date. It is NOT a family fix time and must never be used to assign a defect family to a split window.",
+      "committer": "GitHub <noreply@github.com>",
+      "tracked_files": 39,
+      "text_files_scanned": 33,
+      "split_role": "train",
+      "design_license_expectation": "MIT",
+      "spdx_headers_found": [],
+      "packaging_metadata": {
+        "pyproject.toml": {
+          "sha256": "9f42e75e2409e8d09cf57e1f575130a6084f49de570d847bb9cae7813485af52",
+          "declared": [
+            "\"MIT\"",
+            "[\"LICENSE\"]"
+          ]
+        },
+        "setup.cfg": {
+          "sha256": "309de2d8409ea9c61b8cd1509a70ef7727184a549f8bd86562fd7ff8ff74b67f"
+        }
+      },
+      "license_review": {
+        "decision": "approved",
+        "approved_spdx": "MIT",
+        "osi_permissive": true,
+        "copyleft_marker_hits": [],
+        "restrictive_marker_hits": [],
+        "evidence": {
+          "primary_license_file": {
+            "path": "LICENSE",
+            "sha256": "2162b6b24a563bf763e00d507e650b2b07b0cd4646efa1e2f62fb99a19f7f85e",
+            "bytes": 1072
+          },
+          "all_license_file_hashes": [
+            {
+              "path": "LICENSE",
+              "sha256": "2162b6b24a563bf763e00d507e650b2b07b0cd4646efa1e2f62fb99a19f7f85e",
+              "bytes": 1072
+            },
+            {
+              "path": "docs/license.rst",
+              "sha256": "d906e41ab18d96819dec02e364367bad5699716b7723d1b483c9f16e87dca156",
+              "bytes": 662
+            }
+          ],
+          "packaging_metadata_sha256": {
+            "pyproject.toml": "9f42e75e2409e8d09cf57e1f575130a6084f49de570d847bb9cae7813485af52",
+            "setup.cfg": "309de2d8409ea9c61b8cd1509a70ef7727184a549f8bd86562fd7ff8ff74b67f"
+          },
+          "per_file_scan": {
+            "text_files_scanned": 33,
+            "files_with_spdx_header": 0,
+            "files_with_copyright_line": 0,
+            "method": "d0/collect_licenses.py; every file row is in per-file-ledger.csv"
+          },
+          "per_file_ledger": "per-file-ledger.csv"
+        },
+        "decision_basis": "declared licence family is OSI-permissive (MIT); the primary licence file at the pinned revision carries no copyleft marker and no non-commercial / research-only / no-derivative clause. Hit lists below are recorded verbatim so this decision can be re-derived from the hashed files alone.",
+        "decided_by": "D0 owner (资料调研与分发)",
+        "decided_at": "2026-10-05",
+        "decided_against_revision": "64be96ceb2a6e836f76f069f4a96d2394d59fd0c",
+        "decided_against_tag": "v11.1.0",
+        "upstream_slug": "more-itertools/more-itertools",
+        "independent_review": {
+          "required": true,
+          "status": "pending",
+          "reviewer_role": "Q0",
+          "note": "self-declared licence-fact assessment; NOT an independent countersignature and must not be read as one"
+        }
+      }
+    },
+    "pluggy": {
+      "role_class": "locked_candidate",
+      "upstream_slug": "pytest-dev/pluggy",
+      "mirror_url": "https://ghfast.top/https://github.com/pytest-dev/pluggy.git",
+      "pinned_tag": "1.6.0",
+      "pinned_commit": "fd08ab5f811a9b2fa9124ae8cbbd393221151e2c",
+      "expected_commit": "fd08ab5f811a9b2fa9124ae8cbbd393221151e2c",
+      "commit_matches_plan": true,
+      "tree_sha": "d3aac17eab19c9e8f6f6358ad2dcaec02d734020",
+      "commit_date": "2025-05-15T10:14:23+02:00",
+      "commit_date_role": "the pinned SNAPSHOT's own commit date. It is NOT a family fix time and must never be used to assign a defect family to a split window.",
+      "committer": "Ronny Pfannschmidt <opensource@ronnypfannschmidt.de>",
+      "tracked_files": 62,
+      "text_files_scanned": 56,
+      "split_role": "train",
+      "design_license_expectation": "MIT",
+      "spdx_headers_found": [],
+      "packaging_metadata": {
+        "pyproject.toml": {
+          "sha256": "a80661d4d18b92dba406d0df5c9e886d2bceb0d283314ed244aaf0c161a35e2b",
+          "classifiers": [
+            "License :: OSI Approved :: MIT License"
+          ],
+          "declared": [
+            "{text = \"MIT\"}",
+            "{text = \"MIT\"}"
+          ]
+        }
+      },
+      "license_review": {
+        "decision": "approved",
+        "approved_spdx": "MIT",
+        "osi_permissive": true,
+        "copyleft_marker_hits": [],
+        "restrictive_marker_hits": [],
+        "evidence": {
+          "primary_license_file": {
+            "path": "LICENSE",
+            "sha256": "de91589cbcc498cb36d3f979e39d4fb1ea1164d5331f6e0ea90a986525310d51",
+            "bytes": 1131
+          },
+          "all_license_file_hashes": [
+            {
+              "path": "LICENSE",
+              "sha256": "de91589cbcc498cb36d3f979e39d4fb1ea1164d5331f6e0ea90a986525310d51",
+              "bytes": 1131
+            }
+          ],
+          "packaging_metadata_sha256": {
+            "pyproject.toml": "a80661d4d18b92dba406d0df5c9e886d2bceb0d283314ed244aaf0c161a35e2b"
+          },
+          "per_file_scan": {
+            "text_files_scanned": 56,
+            "files_with_spdx_header": 0,
+            "files_with_copyright_line": 1,
+            "method": "d0/collect_licenses.py; every file row is in per-file-ledger.csv"
+          },
+          "per_file_ledger": "per-file-ledger.csv"
+        },
+        "decision_basis": "declared licence family is OSI-permissive (MIT); the primary licence file at the pinned revision carries no copyleft marker and no non-commercial / research-only / no-derivative clause. Hit lists below are recorded verbatim so this decision can be re-derived from the hashed files alone.",
+        "decided_by": "D0 owner (资料调研与分发)",
+        "decided_at": "2026-10-05",
+        "decided_against_revision": "fd08ab5f811a9b2fa9124ae8cbbd393221151e2c",
+        "decided_against_tag": "1.6.0",
+        "upstream_slug": "pytest-dev/pluggy",
+        "independent_review": {
+          "required": true,
+          "status": "pending",
+          "reviewer_role": "Q0",
+          "note": "self-declared licence-fact assessment; NOT an independent countersignature and must not be read as one"
+        }
+      }
+    },
+    "boltons": {
+      "role_class": "locked_candidate",
+      "upstream_slug": "mahmoud/boltons",
+      "mirror_url": "https://ghfast.top/https://github.com/mahmoud/boltons.git",
+      "pinned_tag": "26.2.0",
+      "pinned_commit": "4332b35a278d694f30c99881faa61cde695c7a96",
+      "expected_commit": "4332b35a278d694f30c99881faa61cde695c7a96",
+      "commit_matches_plan": true,
+      "tree_sha": "d12eba4fbaf37aaf17713e5b202f706d2a53f706",
+      "commit_date": "2026-09-07T03:42:05-07:00",
+      "commit_date_role": "the pinned SNAPSHOT's own commit date. It is NOT a family fix time and must never be used to assign a defect family to a split window.",
+      "committer": "Mahmoud Hashemi <mahmoud@hatnote.com>",
+      "tracked_files": 112,
+      "text_files_scanned": 108,
+      "split_role": "train",
+      "design_license_expectation": "BSD-3-Clause",
+      "spdx_headers_found": [],
+      "packaging_metadata": {
+        "pyproject.toml": {
+          "sha256": "23d689cf1d468c6af6442869eb7483402aaea8b3cabdbfb2d7aa9df3a293aa04",
+          "classifiers": [
+            "License :: OSI Approved :: BSD License"
+          ],
+          "declared": [
+            "{ file = \"LICENSE\" }",
+            "{file = \"LICENSE\"}"
+          ]
+        },
+        "setup.cfg": {
+          "sha256": "4024bbca7672ce6a9cebfee0e4cd4017582ca0787dc1f603e859cd9c861147ac",
+          "declared": [
+            "LICENSE"
+          ]
+        }
+      },
+      "license_review": {
+        "decision": "approved",
+        "approved_spdx": "BSD-3-Clause",
+        "osi_permissive": true,
+        "copyleft_marker_hits": [],
+        "restrictive_marker_hits": [],
+        "evidence": {
+          "primary_license_file": {
+            "path": "LICENSE",
+            "sha256": "c301912653a8d8c99eab6212aa3aea8d164ea249d8ad53c941e0558a0a5ac1e3",
+            "bytes": 1497
+          },
+          "all_license_file_hashes": [
+            {
+              "path": "LICENSE",
+              "sha256": "c301912653a8d8c99eab6212aa3aea8d164ea249d8ad53c941e0558a0a5ac1e3",
+              "bytes": 1497
+            }
+          ],
+          "packaging_metadata_sha256": {
+            "pyproject.toml": "23d689cf1d468c6af6442869eb7483402aaea8b3cabdbfb2d7aa9df3a293aa04",
+            "setup.cfg": "4024bbca7672ce6a9cebfee0e4cd4017582ca0787dc1f603e859cd9c861147ac"
+          },
+          "per_file_scan": {
+            "text_files_scanned": 108,
+            "files_with_spdx_header": 0,
+            "files_with_copyright_line": 29,
+            "method": "d0/collect_licenses.py; every file row is in per-file-ledger.csv"
+          },
+          "per_file_ledger": "per-file-ledger.csv"
+        },
+        "decision_basis": "declared licence family is OSI-permissive (BSD-3-Clause); the primary licence file at the pinned revision carries no copyleft marker and no non-commercial / research-only / no-derivative clause. Hit lists below are recorded verbatim so this decision can be re-derived from the hashed files alone.",
+        "decided_by": "D0 owner (资料调研与分发)",
+        "decided_at": "2026-10-05",
+        "decided_against_revision": "4332b35a278d694f30c99881faa61cde695c7a96",
+        "decided_against_tag": "26.2.0",
+        "upstream_slug": "mahmoud/boltons",
+        "independent_review": {
+          "required": true,
+          "status": "pending",
+          "reviewer_role": "Q0",
+          "note": "self-declared licence-fact assessment; NOT an independent countersignature and must not be read as one"
+        }
+      }
+    },
+    "attrs": {
+      "role_class": "locked_candidate",
+      "upstream_slug": "python-attrs/attrs",
+      "mirror_url": "https://ghfast.top/https://github.com/python-attrs/attrs.git",
+      "pinned_tag": "26.1.0",
+      "pinned_commit": "7bfc49e9b22d5ba25b6e429524c3d49fee27cb36",
+      "expected_commit": "7bfc49e9b22d5ba25b6e429524c3d49fee27cb36",
+      "commit_matches_plan": true,
+      "tree_sha": "31beb3550ee7198eba22b862471ad6ea7bfb16d2",
+      "commit_date": "2026-03-19T10:06:02-04:00",
+      "commit_date_role": "the pinned SNAPSHOT's own commit date. It is NOT a family fix time and must never be used to assign a defect family to a split window.",
+      "committer": "Hynek Schlawack <hs@ox.cx>",
+      "tracked_files": 129,
+      "text_files_scanned": 104,
+      "split_role": "dev",
+      "design_license_expectation": "MIT",
+      "spdx_headers_found": [
+        "MIT"
+      ],
+      "packaging_metadata": {
+        "pyproject.toml": {
+          "sha256": "bc6014ed6ff2b19a6a55adf19438ffc4339876d362083953474bceb453e13f30",
+          "declared": [
+            "\"MIT\"",
+            "[\"LICENSE\"]"
+          ]
+        }
+      },
+      "license_review": {
+        "decision": "approved",
+        "approved_spdx": "MIT",
+        "osi_permissive": true,
+        "copyleft_marker_hits": [],
+        "restrictive_marker_hits": [],
+        "evidence": {
+          "primary_license_file": {
+            "path": "LICENSE",
+            "sha256": "882115c95dfc2af1eeb6714f8ec6d5cbcabf667caff8729f42420da63f714e9f",
+            "bytes": 1109
+          },
+          "all_license_file_hashes": [
+            {
+              "path": "LICENSE",
+              "sha256": "882115c95dfc2af1eeb6714f8ec6d5cbcabf667caff8729f42420da63f714e9f",
+              "bytes": 1109
+            },
+            {
+              "path": "docs/license.md",
+              "sha256": "b26415d5042a70fcc29edc17112f68311aa09935290a208218d4930d9b571a7a",
+              "bytes": 1289
+            }
+          ],
+          "packaging_metadata_sha256": {
+            "pyproject.toml": "bc6014ed6ff2b19a6a55adf19438ffc4339876d362083953474bceb453e13f30"
+          },
+          "per_file_scan": {
+            "text_files_scanned": 104,
+            "files_with_spdx_header": 53,
+            "files_with_copyright_line": 0,
+            "method": "d0/collect_licenses.py; every file row is in per-file-ledger.csv"
+          },
+          "per_file_ledger": "per-file-ledger.csv"
+        },
+        "decision_basis": "declared licence family is OSI-permissive (MIT); the primary licence file at the pinned revision carries no copyleft marker and no non-commercial / research-only / no-derivative clause. Hit lists below are recorded verbatim so this decision can be re-derived from the hashed files alone.",
+        "decided_by": "D0 owner (资料调研与分发)",
+        "decided_at": "2026-10-05",
+        "decided_against_revision": "7bfc49e9b22d5ba25b6e429524c3d49fee27cb36",
+        "decided_against_tag": "26.1.0",
+        "upstream_slug": "python-attrs/attrs",
+        "independent_review": {
+          "required": true,
+          "status": "pending",
+          "reviewer_role": "Q0",
+          "note": "self-declared licence-fact assessment; NOT an independent countersignature and must not be read as one"
+        }
+      }
+    },
+    "dateutil": {
+      "role_class": "locked_candidate",
+      "upstream_slug": "dateutil/dateutil",
+      "mirror_url": "https://ghfast.top/https://github.com/dateutil/dateutil.git",
+      "pinned_tag": "2.9.0",
+      "pinned_commit": "db9d018944c41ddc740015cf5f64717c2ba64a5c",
+      "expected_commit": "db9d018944c41ddc740015cf5f64717c2ba64a5c",
+      "commit_matches_plan": true,
+      "tree_sha": "c34b52d7ba16d26f857bfb3be818d9098bd4f2b7",
+      "commit_date": "2024-02-29T22:38:37-05:00",
+      "commit_date_role": "the pinned SNAPSHOT's own commit date. It is NOT a family fix time and must never be used to assign a defect family to a split window.",
+      "committer": "GitHub <noreply@github.com>",
+      "tracked_files": 85,
+      "text_files_scanned": 77,
+      "split_role": "dev",
+      "design_license_expectation": "Apache-2.0 OR BSD-3-Clause",
+      "spdx_headers_found": [],
+      "packaging_metadata": {
+        "pyproject.toml": {
+          "sha256": "b6c5fc27de62a10cfd72623e2abf71cfb9c458b9b005fd1a72678fb02484f168"
+        },
+        "setup.cfg": {
+          "sha256": "a71204afa83fdc09e7377952cfdaadc4cb23bc24f2dc237663444e0e2c40ad0c",
+          "classifiers": [
+            "License :: OSI Approved :: Apache Software License",
+            "License :: OSI Approved :: BSD License"
+          ],
+          "declared": [
+            "Dual License"
+          ]
+        },
+        "setup.py": {
+          "sha256": "d94405eec2b79875768247834d9423acdab22488f499ebca957038b3ff2174c7"
+        }
+      },
+      "license_review": {
+        "decision": "approved",
+        "approved_spdx": "Apache-2.0 OR BSD-3-Clause",
+        "osi_permissive": true,
+        "copyleft_marker_hits": [],
+        "restrictive_marker_hits": [],
+        "evidence": {
+          "primary_license_file": {
+            "path": "LICENSE",
+            "sha256": "aedc1c280bcc065a11e10ed8008317c3e91a7371dcae51cc52971243f2577d64",
+            "bytes": 2942
+          },
+          "all_license_file_hashes": [
+            {
+              "path": "AUTHORS.md",
+              "sha256": "6a548b9a9d6b36e57c8bac5933357d6eacff0540c1dd2eaf265d916ae9ca2102",
+              "bytes": 6788
+            },
+            {
+              "path": "LICENSE",
+              "sha256": "aedc1c280bcc065a11e10ed8008317c3e91a7371dcae51cc52971243f2577d64",
+              "bytes": 2942
+            }
+          ],
+          "packaging_metadata_sha256": {
+            "pyproject.toml": "b6c5fc27de62a10cfd72623e2abf71cfb9c458b9b005fd1a72678fb02484f168",
+            "setup.cfg": "a71204afa83fdc09e7377952cfdaadc4cb23bc24f2dc237663444e0e2c40ad0c",
+            "setup.py": "d94405eec2b79875768247834d9423acdab22488f499ebca957038b3ff2174c7"
+          },
+          "per_file_scan": {
+            "text_files_scanned": 77,
+            "files_with_spdx_header": 0,
+            "files_with_copyright_line": 1,
+            "method": "d0/collect_licenses.py; every file row is in per-file-ledger.csv"
+          },
+          "per_file_ledger": "per-file-ledger.csv"
+        },
+        "decision_basis": "declared licence family is OSI-permissive (Apache-2.0 OR BSD-3-Clause); the primary licence file at the pinned revision carries no copyleft marker and no non-commercial / research-only / no-derivative clause. Hit lists below are recorded verbatim so this decision can be re-derived from the hashed files alone.",
+        "decided_by": "D0 owner (资料调研与分发)",
+        "decided_at": "2026-10-05",
+        "decided_against_revision": "db9d018944c41ddc740015cf5f64717c2ba64a5c",
+        "decided_against_tag": "2.9.0",
+        "upstream_slug": "dateutil/dateutil",
+        "independent_review": {
+          "required": true,
+          "status": "pending",
+          "reviewer_role": "Q0",
+          "note": "self-declared licence-fact assessment; NOT an independent countersignature and must not be read as one"
+        }
+      }
+    },
+    "packaging": {
+      "role_class": "locked_candidate",
+      "upstream_slug": "pypa/packaging",
+      "mirror_url": "https://ghfast.top/https://github.com/pypa/packaging.git",
+      "pinned_tag": "26.3",
+      "pinned_commit": "929fd4b1410ac7ef61ef3f45b2f5d7e87711a9b5",
+      "expected_commit": "929fd4b1410ac7ef61ef3f45b2f5d7e87711a9b5",
+      "commit_matches_plan": true,
+      "tree_sha": "8f42c06d439e9dad27445e8004695930eb99cca7",
+      "commit_date": "2026-08-03T15:55:21-04:00",
+      "commit_date_role": "the pinned SNAPSHOT's own commit date. It is NOT a family fix time and must never be used to assign a defect family to a split window.",
+      "committer": "Henry Schreiner <henryfs@princeton.edu>",
+      "tracked_files": 139,
+      "text_files_scanned": 118,
+      "split_role": "sealed",
+      "design_license_expectation": "Apache-2.0 OR BSD-2-Clause",
+      "spdx_headers_found": [],
+      "packaging_metadata": {
+        "pyproject.toml": {
+          "sha256": "8497e780f8cb36c109fb25dd26e2981086cd5964074e017f03d36bb1f2fe5e9a",
+          "declared": [
+            "\"Apache-2.0 OR BSD-2-Clause\""
+          ]
+        }
+      },
+      "license_review": {
+        "decision": "approved",
+        "approved_spdx": "Apache-2.0 OR BSD-2-Clause",
+        "osi_permissive": true,
+        "copyleft_marker_hits": [],
+        "restrictive_marker_hits": [],
+        "evidence": {
+          "primary_license_file": {
+            "path": "LICENSE",
+            "sha256": "8ef81e4c883c5ccb2a08026cc74ba3193279dd5149b36839d976c0a896637d87",
+            "bytes": 200
+          },
+          "all_license_file_hashes": [
+            {
+              "path": "LICENSE",
+              "sha256": "8ef81e4c883c5ccb2a08026cc74ba3193279dd5149b36839d976c0a896637d87",
+              "bytes": 200
+            },
+            {
+              "path": "LICENSE.APACHE",
+              "sha256": "eb3d7b5485466acbd81f2b496f595ab637d2792e268206b27d99e793bdb67549",
+              "bytes": 10351
+            },
+            {
+              "path": "LICENSE.BSD",
+              "sha256": "67daf15b478dbd91bcd83bff907efff68471d42d2138226b89f039d658d53435",
+              "bytes": 1367
+            }
+          ],
+          "packaging_metadata_sha256": {
+            "pyproject.toml": "8497e780f8cb36c109fb25dd26e2981086cd5964074e017f03d36bb1f2fe5e9a"
+          },
+          "per_file_scan": {
+            "text_files_scanned": 118,
+            "files_with_spdx_header": 0,
+            "files_with_copyright_line": 2,
+            "method": "d0/collect_licenses.py; every file row is in per-file-ledger.csv"
+          },
+          "per_file_ledger": "per-file-ledger.csv"
+        },
+        "decision_basis": "declared licence family is OSI-permissive (Apache-2.0 OR BSD-2-Clause); the primary licence file at the pinned revision carries no copyleft marker and no non-commercial / research-only / no-derivative clause. Hit lists below are recorded verbatim so this decision can be re-derived from the hashed files alone.",
+        "decided_by": "D0 owner (资料调研与分发)",
+        "decided_at": "2026-10-05",
+        "decided_against_revision": "929fd4b1410ac7ef61ef3f45b2f5d7e87711a9b5",
+        "decided_against_tag": "26.3",
+        "upstream_slug": "pypa/packaging",
+        "independent_review": {
+          "required": true,
+          "status": "pending",
+          "reviewer_role": "Q0",
+          "note": "self-declared licence-fact assessment; NOT an independent countersignature and must not be read as one"
+        }
+      }
+    },
+    "marshmallow": {
+      "role_class": "locked_candidate",
+      "upstream_slug": "marshmallow-code/marshmallow",
+      "mirror_url": "https://ghfast.top/https://github.com/marshmallow-code/marshmallow.git",
+      "pinned_tag": "4.3.1",
+      "pinned_commit": "c7b559a1fa3aba57ca6dba0ab336841c5038a782",
+      "expected_commit": "c7b559a1fa3aba57ca6dba0ab336841c5038a782",
+      "commit_matches_plan": true,
+      "tree_sha": "09ef226dec750308a6d2e8819487432a61b43aa4",
+      "commit_date": "2026-08-08T10:26:10-04:00",
+      "commit_date_role": "the pinned SNAPSHOT's own commit date. It is NOT a family fix time and must never be used to assign a defect family to a split window.",
+      "committer": "Steven Loria <git@stevenloria.com>",
+      "tracked_files": 103,
+      "text_files_scanned": 91,
+      "split_role": "sealed",
+      "design_license_expectation": "MIT",
+      "spdx_headers_found": [],
+      "packaging_metadata": {
+        "pyproject.toml": {
+          "sha256": "910e50b6b99851b58d62ec3c1f473197f05f001424b05e4ec15a5244da6e8880",
+          "declared": [
+            "\"MIT\""
+          ]
+        }
+      },
+      "license_review": {
+        "decision": "approved",
+        "approved_spdx": "MIT",
+        "osi_permissive": true,
+        "copyleft_marker_hits": [],
+        "restrictive_marker_hits": [],
+        "evidence": {
+          "primary_license_file": {
+            "path": "LICENSE",
+            "sha256": "dec8462f60a3ae3934ec12483514f012af9649b2e5476064fc5647d949cdb60d",
+            "bytes": 1083
+          },
+          "all_license_file_hashes": [
+            {
+              "path": "AUTHORS.rst",
+              "sha256": "b585a0524e7961defcaeb0d013616e60ea17fddefb24b19d8b0f59928479746a",
+              "bytes": 10943
+            },
+            {
+              "path": "LICENSE",
+              "sha256": "dec8462f60a3ae3934ec12483514f012af9649b2e5476064fc5647d949cdb60d",
+              "bytes": 1083
+            },
+            {
+              "path": "NOTICE",
+              "sha256": "d67ae34aacd8d5bea962ae34e853e581311be2b5a12259dc5b3804c5b21658c1",
+              "bytes": 1663
+            },
+            {
+              "path": "docs/authors.rst",
+              "sha256": "585abb1a1d4e26cf2add13be364fb6128a8fccb65eab6710b7f7b97b9033b0fb",
+              "bytes": 29
+            },
+            {
+              "path": "docs/license.rst",
+              "sha256": "91654619aa076c353aac303791252fd0eae6018faec63c3900e1885042a4bf96",
+              "bytes": 52
+            }
+          ],
+          "packaging_metadata_sha256": {
+            "pyproject.toml": "910e50b6b99851b58d62ec3c1f473197f05f001424b05e4ec15a5244da6e8880"
+          },
+          "per_file_scan": {
+            "text_files_scanned": 91,
+            "files_with_spdx_header": 0,
+            "files_with_copyright_line": 2,
+            "method": "d0/collect_licenses.py; every file row is in per-file-ledger.csv"
+          },
+          "per_file_ledger": "per-file-ledger.csv"
+        },
+        "decision_basis": "declared licence family is OSI-permissive (MIT); the primary licence file at the pinned revision carries no copyleft marker and no non-commercial / research-only / no-derivative clause. Hit lists below are recorded verbatim so this decision can be re-derived from the hashed files alone.",
+        "decided_by": "D0 owner (资料调研与分发)",
+        "decided_at": "2026-10-05",
+        "decided_against_revision": "c7b559a1fa3aba57ca6dba0ab336841c5038a782",
+        "decided_against_tag": "4.3.1",
+        "upstream_slug": "marshmallow-code/marshmallow",
+        "independent_review": {
+          "required": true,
+          "status": "pending",
+          "reviewer_role": "Q0",
+          "note": "self-declared licence-fact assessment; NOT an independent countersignature and must not be read as one"
+        }
+      }
+    },
+    "python-dotenv": {
+      "role_class": "alternative_candidate",
+      "upstream_slug": "theskumar/python-dotenv",
+      "mirror_url": "https://ghfast.top/https://github.com/theskumar/python-dotenv.git",
+      "pinned_tag": "v1.2.4",
+      "pinned_commit": "a565c2cc41599c48eabc6b7b7f5b826d43c5a6d7",
+      "expected_commit": "a565c2cc41599c48eabc6b7b7f5b826d43c5a6d7",
+      "commit_matches_plan": true,
+      "tree_sha": "145d0c987d0553796cdf42bac82ca41808ffcc1e",
+      "commit_date": "2026-10-01T11:05:30+05:30",
+      "commit_date_role": "the pinned SNAPSHOT's own commit date. It is NOT a family fix time and must never be used to assign a defect family to a split window.",
+      "committer": "Saurabh Kumar <theskumar@users.noreply.github.com>",
+      "tracked_files": 47,
+      "text_files_scanned": 42,
+      "split_role": "dev",
+      "design_license_expectation": "MIT",
+      "spdx_headers_found": [],
+      "packaging_metadata": {
+        "pyproject.toml": {
+          "sha256": "5f236b69d04b043b095935369588915e4e68d9bdb36a79393cdf5fa3fbc2b6aa",
+          "declared": [
+            "{ text = \"BSD-3-Clause\" }",
+            "{text = \"BSD-3-Clause\"}"
+          ]
+        }
+      },
+      "license_review": {
+        "decision": "approved",
+        "approved_spdx": "MIT",
+        "osi_permissive": true,
+        "copyleft_marker_hits": [],
+        "restrictive_marker_hits": [],
+        "evidence": {
+          "primary_license_file": {
+            "path": "LICENSE",
+            "sha256": "dd1c70c9434fdeb24d08f37fcc43a4eef9cf80db4cee3eb7755e0d888af67a19",
+            "bytes": 1583
+          },
+          "all_license_file_hashes": [
+            {
+              "path": "LICENSE",
+              "sha256": "dd1c70c9434fdeb24d08f37fcc43a4eef9cf80db4cee3eb7755e0d888af67a19",
+              "bytes": 1583
+            },
+            {
+              "path": "docs/license.md",
+              "sha256": "1e881ecf2862d01e6e5bc2b861e46886d2a6fb01499c0c508a209a7271b13cf2",
+              "bytes": 10
+            }
+          ],
+          "packaging_metadata_sha256": {
+            "pyproject.toml": "5f236b69d04b043b095935369588915e4e68d9bdb36a79393cdf5fa3fbc2b6aa"
+          },
+          "per_file_scan": {
+            "text_files_scanned": 42,
+            "files_with_spdx_header": 0,
+            "files_with_copyright_line": 0,
+            "method": "d0/collect_licenses.py; every file row is in per-file-ledger.csv"
+          },
+          "per_file_ledger": "per-file-ledger.csv"
+        },
+        "decision_basis": "declared licence family is OSI-permissive (MIT); the primary licence file at the pinned revision carries no copyleft marker and no non-commercial / research-only / no-derivative clause. Hit lists below are recorded verbatim so this decision can be re-derived from the hashed files alone.",
+        "decided_by": "D0 owner (资料调研与分发)",
+        "decided_at": "2026-10-05",
+        "decided_against_revision": "a565c2cc41599c48eabc6b7b7f5b826d43c5a6d7",
+        "decided_against_tag": "v1.2.4",
+        "upstream_slug": "theskumar/python-dotenv",
+        "independent_review": {
+          "required": true,
+          "status": "pending",
+          "reviewer_role": "Q0",
+          "note": "self-declared licence-fact assessment; NOT an independent countersignature and must not be read as one"
+        }
+      }
+    }
+  },
+  "summary": {
+    "repositories": 9,
+    "decision_counts": {
+      "approved": 9,
+      "rejected": 0,
+      "pending": 0
+    },
+    "decision_by_repo": {
+      "click": "approved",
+      "more-itertools": "approved",
+      "pluggy": "approved",
+      "boltons": "approved",
+      "attrs": "approved",
+      "dateutil": "approved",
+      "packaging": "approved",
+      "marshmallow": "approved",
+      "python-dotenv": "approved"
+    },
+    "api_field": "repos.<name>.license_review.decision",
+    "gate_satisfied": true,
+    "independent_countersignature_claimed": false
+  }
+}

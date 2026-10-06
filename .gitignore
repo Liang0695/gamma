@@ -1,0 +1,9 @@
+# 本运行时的沙箱禁止写系统临时目录，测试用 <repo>/_tmp/ 作临时目录
+_tmp/
+__pycache__/
+*.pyc
+.venv/
+out/
+# 训练自检的产物目录（默认跑完即删；被中断时可能残留，且 ACL 受限无法删除）
+v3/train/_smoke_run/
+v3/train/_run_adapter/

@@ -1,0 +1,44 @@
+{
+  "adapter_sha256": "49fbdb8c857e1e888a86c9f2abe6bb2c2314e09e354ba6969a635d1508155147",
+  "all_passed": true,
+  "artifacts_kept": false,
+  "backend": "synthetic-cpu-loop",
+  "checks": {
+    "adapter_changed": true,
+    "adapter_only_saved": true,
+    "base_frozen": true,
+    "forward_backward_ran": true,
+    "loss_finite": true,
+    "optimizer_stepped": true,
+    "reload_matches": true
+  },
+  "full_state_dict_guard": {
+    "allowed_bytes": 0,
+    "checked": true,
+    "evidence": {
+      "method": "������������Ӳ���ͬһ���������ȫ������",
+      "probe": "synthetic-parameter-residency"
+    },
+    "full_state_dict_resident": false,
+    "observation": {
+      "declared_weight_bytes": 11520,
+      "method": "������������Ӳ���ͬһ���������ȫ������",
+      "peak_full_state_dict_bytes": 0,
+      "probe": "synthetic-parameter-residency"
+    },
+    "peak_full_state_dict_bytes": 0,
+    "rss_limit_bytes": 12884901888,
+    "total_weight_bytes": 11520
+  },
+  "grad_norm_min": 0.007705795046671062,
+  "is_real_model_training": false,
+  "loss_decreased_observation_only": true,
+  "loss_first": 3.4521500786293204,
+  "loss_last": 1.0135118580897045,
+  "note": "�ϳ����ģ���ϵ��Լ죺ֻ֤��ǰ��/����/�Ż�������/��������������·���ã���֤����ʵģ�Ϳ�ѵ����Ҳ�������κο��ύ���loss_decreased ֻ���۲�ֵ������Ϊͨ��������",
+  "optimizer_step_count": 40,
+  "saved_filename": "adapter.synthetic.json",
+  "stage": "cpu-training-loop-self-check",
+  "steps": 40,
+  "supervised_tokens_seen": 360
+}

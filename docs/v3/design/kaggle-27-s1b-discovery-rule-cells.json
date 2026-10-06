@@ -1,0 +1,50 @@
+{
+  "probe": "V3 E0 supplement: official adapter discovery rule, 4 disambiguating cells",
+  "probe_tool": "tools/k27_adapter_naming_probe.py",
+  "official_packages": {
+    "adk_submission_discovery": "adk_submission.discovery.discover_adapters",
+    "swegemma_limits": "swegemma.config.build_submission_limits"
+  },
+  "python": "3.13.7 (tags/v3.13.7:bcee1c3, Aug 14 2025, 14:15:11) [MSC v.1944 64 bit (AMD64)]",
+  "official_adapter_extensions": [
+    ".safetensors"
+  ],
+  "cases": [
+    {
+      "filename": "other.safetensors",
+      "has_adapter_config_json": false,
+      "adapter_dir_name": "v3_policy",
+      "discovered_adapter_names": [
+        "other"
+      ],
+      "declared_name_resolves": false
+    },
+    {
+      "filename": "other.safetensors",
+      "has_adapter_config_json": true,
+      "adapter_dir_name": "v3_policy",
+      "discovered_adapter_names": [
+        "v3_policy"
+      ],
+      "declared_name_resolves": true
+    },
+    {
+      "filename": "adapter_model.safetensors",
+      "has_adapter_config_json": false,
+      "adapter_dir_name": "custom_dir",
+      "discovered_adapter_names": [
+        "custom_dir"
+      ],
+      "declared_name_resolves": false
+    },
+    {
+      "filename": "adapter.safetensors",
+      "has_adapter_config_json": false,
+      "adapter_dir_name": "custom_dir",
+      "discovered_adapter_names": [
+        "adapter"
+      ],
+      "declared_name_resolves": false
+    }
+  ]
+}

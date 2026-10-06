@@ -1,0 +1,160 @@
+{
+  "evaluation_budget": {
+    "max_time_minutes": 4,
+    "max_tool_calls": 100,
+    "max_turns": 100,
+    "timeout_seconds": 300
+  },
+  "limits": {
+    "compaction_interval": 5,
+    "compaction_threshold_chars": 14336,
+    "event_retention_size": 5,
+    "max_file_chars": 10000,
+    "max_file_lines": 150,
+    "max_neighbors": 50,
+    "max_stdout_chars": 5000,
+    "overlap_size": 2,
+    "search_output_hard_chars": 5000,
+    "search_output_target_chars": 1500,
+    "tool_timeout_seconds": 300
+  },
+  "notes": [
+    "除 evaluation.* 四个字段外，其余上限在比赛环境中不可配置（KAGGLE-22 §4.1）。",
+    "run_command 的 5000 字符截断按字母序取前若干行，信息被系统性扭曲，必须两段式收窄输出。",
+    "图中边类型只观察到小写 calls；传 CALLS 很可能返回 0 邻居。",
+    "节点无 file/line 字段，图工具输出只能当符号候选，必须再用文本检索还原 path:line。"
+  ],
+  "pins": {
+    "graph_edge_types_observed": {
+      "source": "KAGGLE-22 §1.3（两个仓库图样本逐字段核对）",
+      "value": [
+        "calls"
+      ],
+      "verified": true
+    },
+    "model_revision": {
+      "source": "KAGGLE-20 §3（公开 HF revision，非已确认评分 resolver）",
+      "value": "52f3f65bc7a02d555763bc923bd1d9094898219d",
+      "verified": true
+    },
+    "model_repo_id": {
+      "source": "KAGGLE-20 §3",
+      "value": "google/gemma-4-31B-it-qat-w4a16-ct",
+      "verified": true
+    },
+    "official_parser": {
+      "source": "KAGGLE-20 §4（gemma4 parser 与该 revision 的 canonical template 配套）",
+      "value": "gemma4",
+      "verified": true
+    },
+    "tokenizer_config_sha256": {
+      "source": "KAGGLE-20 §4（CT tokenizer_config SHA，词表仍须下游下载锁定）",
+      "value": "b8045a4576903e86903291d5cbdd4adfc8859e9ce3c98621bdbd957f73ed394b",
+      "verified": false
+    },
+    "tokenizer_vocab_sha256": {
+      "source": "未取得：必须以真实 tokenizer 下载后复核",
+      "value": null,
+      "verified": false
+    },
+    "vllm_mapper_revision": {
+      "source": "KAGGLE-19 §2：实际官方 resolver/mapper 版本未知，须做加载回归",
+      "value": null,
+      "verified": false
+    }
+  },
+  "tools": {
+    "edit_file": {
+      "args": [
+        "filepath",
+        "new_content",
+        "start_line",
+        "end_line"
+      ],
+      "billed": true,
+      "purpose": "编辑（非检索）",
+      "required": [
+        "filepath"
+      ]
+    },
+    "get_code_neighbors": {
+      "args": [
+        "edge_type",
+        "max_neighbors",
+        "node"
+      ],
+      "billed": true,
+      "purpose": "图邻接扩展；需符号全名，返回邻居名字（无路径无行号）",
+      "required": [
+        "node"
+      ]
+    },
+    "get_code_subgraph": {
+      "args": [
+        "nodes"
+      ],
+      "billed": true,
+      "purpose": "候选间连接；返回节点名与边",
+      "required": [
+        "nodes"
+      ]
+    },
+    "get_status": {
+      "args": [],
+      "billed": false,
+      "purpose": "状态查询（不计 tool_calls）",
+      "required": []
+    },
+    "read_file": {
+      "args": [
+        "end_line",
+        "filepath",
+        "start_line"
+      ],
+      "billed": true,
+      "purpose": "确认候选；150 行 + 10000 字符双上限",
+      "required": [
+        "filepath"
+      ]
+    },
+    "run_command": {
+      "args": [
+        "command"
+      ],
+      "billed": true,
+      "purpose": "唯一可扩展的检索引擎（bash + 离线 Python）",
+      "required": [
+        "command"
+      ]
+    },
+    "search_similar_code": {
+      "args": [
+        "k",
+        "query"
+      ],
+      "billed": true,
+      "purpose": "节点名字典查询；query 必须是已有符号名/后缀，不接受自然语言",
+      "required": [
+        "query"
+      ]
+    },
+    "submit_patch": {
+      "args": [],
+      "billed": false,
+      "purpose": "提交补丁（不计 tool_calls）",
+      "required": []
+    },
+    "write_file": {
+      "args": [
+        "content",
+        "filepath"
+      ],
+      "billed": true,
+      "purpose": "写入新文件（非检索）",
+      "required": [
+        "filepath",
+        "content"
+      ]
+    }
+  }
+}

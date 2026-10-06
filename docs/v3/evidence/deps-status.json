@@ -1,0 +1,89 @@
+{
+  "serving": {
+    "channel": "serving",
+    "evidence_levels": {
+      "full_package_compiler_passed": {
+        "does_not_imply": "��ʵ�ύ������ʵ adapter Ȩ�أ���ͨ���ٷ� compiler",
+        "note": "����ֻ֤���ϳ� fixture ��������Լ��������֤����ʵ adapter �ɼ��ء�",
+        "real_submission_package": false,
+        "scope": "�ٷ� compile_submission() ��**�ϳ� fixture**���� ok=true������Ϊ�ٷ����� adapters/v3_policy/adapter_model.safetensors���ø��� adapter_config.json Ҳ�Խ����� v3_policy��",
+        "value": true
+      },
+      "limits_builder_executed": {
+        "does_not_imply": "�ύ��ͨ���ٷ�У��",
+        "scope": "�ٷ� sweegemma.config.build_submission_limits() �ڱ���װ�ùٷ����Ļ����ﱻ��ʵ���ã�KAGGLE-27 S1 ̽�룬E0 ���ֶ������ܵõ��ֽ���ͬ�Ĳ��",
+        "value": true
+      },
+      "overall_verified": {
+        "reason": "��ʵ adapter ���ػع顢��ʵ�ύ�����롢���ֶ�ʵ�ʰ汾�����δ�飻��������������Ϊ true �Ͱ��������档",
+        "value": false
+      },
+      "source_hash_verified": {
+        "does_not_imply": "���ֶ�ʵ�ʰ�װ��Щ����",
+        "scope": "8 �����ϣ��� vllm �� HARNESS_README.md���� SHA-256 �� E0 ���ֶ����ϱ������ֽ����㣬�� KAGGLE-27 S2 ��¼����һ��",
+        "value": true
+      }
+    },
+    "lock_sha256": "faee21c3b0e8bc67c1aaa1e915f49d16a1b6d6bf1d8c52662959faad0181ee44",
+    "package_count": 8,
+    "packages": {
+      "adk-eval-core": "0.1.0",
+      "adk_submission": "0.2.12",
+      "compressed-tensors": "0.15.0.1",
+      "google-adk": "1.36.1",
+      "sweegemma": "0.2.7",
+      "torch": "2.9.1",
+      "transformers": "5.13.1",
+      "vllm": "0.19.1"
+    },
+    "python": "3.13.7",
+    "python_evidence": {
+      "eval_sandbox_base_image": "python:3.13-slim",
+      "eval_sandbox_base_image_source": "Dockerfile.public / Dockerfile.sandbox���ٷ��������ϣ�",
+      "hard_floor": ">=3.12",
+      "hard_floor_source": "swegemma-0.2.7 wheel METADATA: Requires-Python >=3.12��E0 ���ִ� wheel ��ֱ�Ӷ�����",
+      "measured_running_version": "3.13.7",
+      "measured_where": "��������ٷ� compiler/parser ʵ��Ļ�����swegemma 0.2.7 + adk_submission 0.2.12 �Ѱ�װ��",
+      "note": "3.13.7 ��**ʵ��**ֵ�����ǲµĲ����ţ�python:3.13-slim �Ǹ��� tag����ȷ�������湹���仯��δ�顣",
+      "scoring_host_exact_patch": "unknown"
+    },
+    "python_requirement": ">=3.12",
+    "verified": false,
+    "version_scopes": {
+      "actual_vllm_version_on_scoring_host": {
+        "note": "README ��3.1 �� serving ���õ����� vLLM �汾�š�",
+        "status": "unknown"
+      },
+      "material_wheelhouse": {
+        "adk-eval-core": "0.1.0",
+        "adk-submission": "0.2.12",
+        "compressed-tensors": "0.15.0.1",
+        "google-adk": "1.36.1",
+        "status": "material_sha256_verified_locally",
+        "swegemma": "0.2.7",
+        "transformers": "5.13.1",
+        "vllm": "0.19.1"
+      },
+      "scoring_host_installed": {
+        "note": "���ֶˣ�4��L4 ������ʵ�ʰ�װ�İ��汾û���κ�һ����Դ������ unknown�������� wheelhouse �汾���档",
+        "status": "unknown"
+      }
+    }
+  },
+  "train": {
+    "channel": "train",
+    "lock_sha256": "69d1494004341af179f2c29e08eabf4c39da7187d8b13da0cb715f226ab19b48",
+    "package_count": 7,
+    "packages": {
+      "accelerate": "1.11.0",
+      "compressed-tensors": "PENDING",
+      "peft": "0.21.0",
+      "safetensors": "0.6.2",
+      "torch": "2.10.0",
+      "transformers": "5.17.0",
+      "trl": "PENDING"
+    },
+    "python": "3.11.9",
+    "verified": false
+  }
+}

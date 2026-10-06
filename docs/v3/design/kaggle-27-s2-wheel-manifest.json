@@ -1,0 +1,227 @@
+{
+  "probe": "KAGGLE-27 supplement-2: wheel name -> sha256 -> METADATA",
+  "method": "sha256 file bytes; read *.dist-info/METADATA from inside the wheel",
+  "wheels": {
+    "adk_eval_core-0.1.0-py3-none-any.whl": {
+      "filename": "adk_eval_core-0.1.0-py3-none-any.whl",
+      "size_bytes": 90060,
+      "sha256": "194dd8f9aab154857bfa0db9d9ec382db856ee124529e072509634d3071d8643",
+      "metadata_entry": "adk_eval_core-0.1.0.dist-info/METADATA",
+      "Requires-Python": ">=3.11",
+      "Requires-Dist": [
+        "pydantic~=2.0",
+        "google-adk>=1.34.0",
+        "docker>=7.0.0",
+        "pyyaml>=6.0",
+        "rich>=13.0",
+        "numpy>=2.0.0"
+      ],
+      "Requires-Dist_count_incl_extras": 11,
+      "Name": "adk-eval-core",
+      "Version": "0.1.0"
+    },
+    "adk_submission-0.2.12-py3-none-any.whl": {
+      "filename": "adk_submission-0.2.12-py3-none-any.whl",
+      "size_bytes": 65642,
+      "sha256": "077c438c426e625b9f722081694e1d32856e6f7e932ef625002fc4a11aabdc10",
+      "metadata_entry": "adk_submission-0.2.12.dist-info/METADATA",
+      "Requires-Python": ">=3.11",
+      "Requires-Dist": [
+        "google-adk<2.0,>=1.34.0",
+        "pyyaml>=6.0",
+        "pydantic>=2.0"
+      ],
+      "Requires-Dist_count_incl_extras": 7,
+      "Name": "adk-submission",
+      "Version": "0.2.12"
+    },
+    "compressed_tensors-0.15.0.1-py3-none-any.whl": {
+      "filename": "compressed_tensors-0.15.0.1-py3-none-any.whl",
+      "size_bytes": 194260,
+      "sha256": "e1b1f322e82e475715e242bad46925a304ea8e5c98b5055a15b8eb22fb6bfea9",
+      "metadata_entry": "compressed_tensors-0.15.0.1.dist-info/METADATA",
+      "Requires-Dist": [
+        "torch>=1.7.0",
+        "transformers>=4.45.0",
+        "pydantic>=2.0",
+        "loguru"
+      ],
+      "Requires-Dist_count_incl_extras": 12,
+      "Name": "compressed-tensors",
+      "Version": "0.15.0.1",
+      "License": "Apache 2.0"
+    },
+    "google_adk-1.36.1-py3-none-any.whl": {
+      "filename": "google_adk-1.36.1-py3-none-any.whl",
+      "size_bytes": 2877731,
+      "sha256": "1a2f6868c509e3151fb0de3575a7d18b45c338be86f420924dad74e7193631a0",
+      "metadata_entry": "google_adk-1.36.1.dist-info/METADATA",
+      "Requires-Python": ">=3.10",
+      "Requires-Dist": [
+        "aiosqlite>=0.21",
+        "anyio>=4.9,<5",
+        "authlib>=1.6.6,<2",
+        "click>=8.1.8,<9",
+        "fastapi>=0.124.1,<1",
+        "google-api-python-client>=2.157,<3",
+        "google-auth[pyopenssl]>=2.47",
+        "google-cloud-aiplatform[agent-engines]>=1.148.1,<2",
+        "google-cloud-bigquery>=2.2",
+        "google-cloud-bigquery-storage>=2",
+        "google-cloud-bigtable>=2.32",
+        "google-cloud-dataplex>=1.7,<3",
+        "google-cloud-discoveryengine>=0.13.12,<0.14",
+        "google-cloud-pubsub>=2,<3",
+        "google-cloud-secret-manager>=2.22,<3",
+        "google-cloud-spanner>=3.56,<4",
+        "google-cloud-speech>=2.30,<3",
+        "google-cloud-storage>=2.18,<4",
+        "google-genai>=2.9,<3",
+        "graphviz>=0.20.2,<1",
+        "httpx>=0.27,<1",
+        "jsonschema>=4.23,<5",
+        "mcp>=1.24,<2",
+        "opentelemetry-api>=1.36,<=1.41.1",
+        "opentelemetry-exporter-gcp-logging>=1.9.0a0,<=1.12.0a0",
+        "opentelemetry-exporter-gcp-monitoring>=1.9.0a0,<2",
+        "opentelemetry-exporter-gcp-trace>=1.9,<2",
+        "opentelemetry-exporter-otlp-proto-http>=1.36",
+        "opentelemetry-resourcedetector-gcp>=1.9.0a0,<2",
+        "opentelemetry-sdk>=1.36,<=1.41.1",
+        "pyarrow>=14",
+        "pydantic>=2.12,<3",
+        "python-dateutil>=2.9.0.post0,<3",
+        "python-dotenv>=1,<2",
+        "pyyaml>=6.0.2,<7",
+        "requests>=2.32.4,<3",
+        "sqlalchemy>=2,<3",
+        "sqlalchemy-spanner>=1.14",
+        "starlette>=0.49.1,<1",
+        "tenacity>=9,<10",
+        "typing-extensions>=4.5,<5",
+        "tzlocal>=5.3,<6",
+        "uvicorn>=0.34,<1",
+        "watchdog>=6,<7",
+        "websockets>=15.0.1,<16"
+      ],
+      "Requires-Dist_count_incl_extras": 107,
+      "Name": "google-adk",
+      "Version": "1.36.1"
+    },
+    "swegemma-0.2.7-py3-none-any.whl": {
+      "filename": "swegemma-0.2.7-py3-none-any.whl",
+      "size_bytes": 117587,
+      "sha256": "27a2f60f8db46c8fef5defc16df722dac0402446c9a6252e7e6b4c280e843c81",
+      "metadata_entry": "swegemma-0.2.7.dist-info/METADATA",
+      "Requires-Python": ">=3.12",
+      "Requires-Dist": [
+        "adk-submission",
+        "cachetools>=5.0.0",
+        "docker>=7.0.0",
+        "google-adk>=1.34.0",
+        "google-genai>=1.0.0",
+        "networkx>=3.0",
+        "numpy>=1.26.0",
+        "pydantic>=2.0.0",
+        "python-dotenv>=1.0.0",
+        "pyyaml>=6.0.0",
+        "rich>=13.0.0",
+        "adk-eval-core",
+        "litellm>=1.0.0",
+        "pandas>=2.0.0",
+        "tokenizers>=0.20.0",
+        "torchvision",
+        "transformers>=4.40.0",
+        "safetensors",
+        "accelerate"
+      ],
+      "Requires-Dist_count_incl_extras": 19,
+      "Name": "swegemma",
+      "Version": "0.2.7"
+    },
+    "transformers-5.13.1-py3-none-any.whl": {
+      "filename": "transformers-5.13.1-py3-none-any.whl",
+      "size_bytes": 11503977,
+      "sha256": "53f0ea8aa397e29244c2377ba981bcaf0c87adcf44fbdd447ef6306522afcacd",
+      "metadata_entry": "transformers-5.13.1.dist-info/METADATA",
+      "Requires-Python": ">=3.10.0",
+      "Requires-Dist": [
+        "huggingface-hub<2.0,>=1.5.0",
+        "numpy>=1.17",
+        "packaging>=20.0",
+        "pyyaml>=5.1",
+        "regex>=2025.10.22",
+        "tokenizers<=0.23.0,>=0.22.0",
+        "typer",
+        "safetensors>=0.8.0",
+        "tqdm>=4.60"
+      ],
+      "Requires-Dist_count_incl_extras": 251,
+      "Name": "transformers",
+      "Version": "5.13.1",
+      "License": "Apache 2.0 License"
+    }
+  },
+  "frozen_readme": {
+    "filename": "HARNESS_README.md",
+    "size_bytes": 49356,
+    "sha256": "3d6e57a13234cb4e783ba24eaab486459af76e0923ea4c6607cd41cc8961bbbb",
+    "note": "官方冻结件；由 kaggle competitions download -c gemma-4-developer-agent -f HARNESS_README.md 取得"
+  },
+  "not_locally_hashed": [
+    {
+      "filename": "bitsandbytes-0.46.1-py3-none-manylinux_2_24_x86_64.whl",
+      "size_bytes": 72865511,
+      "sha256": null,
+      "reason": "本轮未下载（体积/非核心）；仅文件名+大小来自 KAGGLE-15 wheelhouse v28 清单，不给 SHA"
+    },
+    {
+      "filename": "flashinfer_cubin-0.6.6-py3-none-any.whl",
+      "size_bytes": 267661457,
+      "sha256": null,
+      "reason": "本轮未下载（体积/非核心）；仅文件名+大小来自 KAGGLE-15 wheelhouse v28 清单，不给 SHA"
+    },
+    {
+      "filename": "flashinfer_python-0.6.6-py3-none-any.whl",
+      "size_bytes": 7817047,
+      "sha256": null,
+      "reason": "本轮未下载（体积/非核心）；仅文件名+大小来自 KAGGLE-15 wheelhouse v28 清单，不给 SHA"
+    },
+    {
+      "filename": "gguf-0.19.0-py3-none-any.whl",
+      "size_bytes": 118475,
+      "sha256": null,
+      "reason": "本轮未下载（体积/非核心）；仅文件名+大小来自 KAGGLE-15 wheelhouse v28 清单，不给 SHA"
+    },
+    {
+      "filename": "google_genai-2.11.0-py3-none-any.whl",
+      "size_bytes": 984162,
+      "sha256": null,
+      "reason": "本轮未下载（体积/非核心）；仅文件名+大小来自 KAGGLE-15 wheelhouse v28 清单，不给 SHA"
+    },
+    {
+      "filename": "safetensors-0.8.0-cp310-abi3-manylinux_2_17_x86_64.manylinux2014_x86_64.whl",
+      "size_bytes": 506502,
+      "sha256": null,
+      "reason": "本轮未下载（体积/非核心）；仅文件名+大小来自 KAGGLE-15 wheelhouse v28 清单，不给 SHA"
+    },
+    {
+      "filename": "tokenizers-0.22.2-cp39-abi3-manylinux_2_17_x86_64.manylinux2014_x86_64.whl",
+      "size_bytes": 3274982,
+      "sha256": null,
+      "reason": "本轮未下载（体积/非核心）；仅文件名+大小来自 KAGGLE-15 wheelhouse v28 清单，不给 SHA"
+    },
+    {
+      "filename": "vllm-0.19.1-cp38-abi3-manylinux_2_31_x86_64.whl",
+      "size_bytes": 433132506,
+      "sha256": null,
+      "reason": "本轮未下载（体积/非核心）；仅文件名+大小来自 KAGGLE-15 wheelhouse v28 清单，不给 SHA"
+    },
+    {
+      "filename": "xgrammar-0.2.5.post1-cp312-cp312-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl",
+      "size_bytes": 48149933,
+      "sha256": null,
+      "reason": "本轮未下载（体积/非核心）；仅文件名+大小来自 KAGGLE-15 wheelhouse v28 清单，不给 SHA"
+    }
+  ]
+}

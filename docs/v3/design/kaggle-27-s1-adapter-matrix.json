@@ -1,0 +1,155 @@
+{
+  "probe": "KAGGLE-27 supplement-1: adapter naming matrix (6 cells) + compiler error",
+  "declared_adapter_name_in_yaml": "v3_policy",
+  "adapter_dir": "adapters/v3_policy",
+  "cells": {
+    "official_name__no_config": {
+      "filename": "adapter_model.safetensors",
+      "has_adapter_config_json": false,
+      "discovered_adapter_names": [
+        "v3_policy"
+      ],
+      "discovered_count": 1,
+      "declared_name_resolves": true,
+      "detail": {
+        "v3_policy": {
+          "name": "v3_policy",
+          "format": "safetensors",
+          "rank": null,
+          "path_name": "adapter_model.safetensors"
+        }
+      }
+    },
+    "official_name__with_config": {
+      "filename": "adapter_model.safetensors",
+      "has_adapter_config_json": true,
+      "discovered_adapter_names": [
+        "v3_policy"
+      ],
+      "discovered_count": 1,
+      "declared_name_resolves": true,
+      "detail": {
+        "v3_policy": {
+          "name": "v3_policy",
+          "format": "safetensors",
+          "rank": 16,
+          "path_name": "adapter_model.safetensors"
+        }
+      }
+    },
+    "e0_name__with_config": {
+      "filename": "adapter.safetensors",
+      "has_adapter_config_json": true,
+      "discovered_adapter_names": [
+        "v3_policy"
+      ],
+      "discovered_count": 1,
+      "declared_name_resolves": true,
+      "detail": {
+        "v3_policy": {
+          "name": "v3_policy",
+          "format": "safetensors",
+          "rank": 16,
+          "path_name": "adapter.safetensors"
+        }
+      }
+    },
+    "e0_name__no_config": {
+      "filename": "adapter.safetensors",
+      "has_adapter_config_json": false,
+      "discovered_adapter_names": [
+        "adapter"
+      ],
+      "discovered_count": 1,
+      "declared_name_resolves": false,
+      "detail": {
+        "adapter": {
+          "name": "adapter",
+          "format": "safetensors",
+          "rank": null,
+          "path_name": "adapter.safetensors"
+        }
+      }
+    },
+    "custom_dirname__with_config": {
+      "filename": "v3_policy.safetensors",
+      "has_adapter_config_json": true,
+      "discovered_adapter_names": [
+        "v3_policy"
+      ],
+      "discovered_count": 1,
+      "declared_name_resolves": true,
+      "detail": {
+        "v3_policy": {
+          "name": "v3_policy",
+          "format": "safetensors",
+          "rank": 16,
+          "path_name": "v3_policy.safetensors"
+        }
+      }
+    },
+    "custom_dirname__no_config": {
+      "filename": "v3_policy.safetensors",
+      "has_adapter_config_json": false,
+      "discovered_adapter_names": [
+        "v3_policy"
+      ],
+      "discovered_count": 1,
+      "declared_name_resolves": true,
+      "detail": {
+        "v3_policy": {
+          "name": "v3_policy",
+          "format": "safetensors",
+          "rank": null,
+          "path_name": "v3_policy.safetensors"
+        }
+      }
+    }
+  },
+  "compiler_path": {
+    "official_name__no_config": {
+      "manifest_adapter_names": [
+        "v3_policy"
+      ],
+      "yaml_declares": "v3_policy",
+      "resolve_model": {
+        "ok": true,
+        "model": "openai/v3_policy"
+      },
+      "compile_submission": {
+        "ok": true,
+        "root_agent": "root"
+      }
+    },
+    "e0_name__no_config": {
+      "manifest_adapter_names": [
+        "adapter"
+      ],
+      "yaml_declares": "v3_policy",
+      "resolve_model": {
+        "ok": false,
+        "exception_type": "AdapterNotFoundError",
+        "exception_module": "adk_submission.errors",
+        "message": "Adapter 'v3_policy' not found in discovered adapters. Available adapters: adapter"
+      },
+      "compile_submission": {
+        "ok": false,
+        "exception_type": "AdapterNotFoundError",
+        "exception_module": "adk_submission.errors",
+        "mro": [
+          "AdapterNotFoundError",
+          "SubmissionError",
+          "Exception",
+          "BaseException",
+          "object"
+        ],
+        "message": "Adapter 'v3_policy' not found in discovered adapters. Available adapters: adapter"
+      }
+    }
+  },
+  "errors": [],
+  "python": "3.13.7 (tags/v3.13.7:bcee1c3, Aug 14 2025, 14:15:11) [MSC v.1944 64 bit (AMD64)]",
+  "official_adapter_extensions": [
+    ".safetensors"
+  ]
+}

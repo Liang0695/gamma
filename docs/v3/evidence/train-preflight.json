@@ -1,0 +1,296 @@
+{
+  "blockers": [
+    {
+      "code": "train_lock_invalid",
+      "problems": [
+        "train.packages.accelerate.wheel_sha256 δȡ�û��� 64 λСд hex��'PENDING'��",
+        "train.packages.compressed-tensors.wheel_sha256 δȡ�û��� 64 λСд hex��'PENDING'��",
+        "train.packages.peft.wheel_sha256 δȡ�û��� 64 λСд hex��'PENDING'��",
+        "train.packages.safetensors.wheel_sha256 δȡ�û��� 64 λСд hex��'PENDING'��",
+        "train.packages.torch.wheel_sha256 δȡ�û��� 64 λСд hex��'PENDING'��",
+        "train.packages.transformers.wheel_sha256 δȡ�û��� 64 λСд hex��'PENDING'��",
+        "train.packages.trl.wheel_sha256 δȡ�û��� 64 λСд hex��'PENDING'��"
+      ]
+    },
+    {
+      "code": "train_lock_unverified",
+      "message": "train ������ verified=false����ֹ�Զ�ȡ latest"
+    },
+    {
+      "code": "serving_lock_invalid",
+      "problems": [
+        "serving.packages.torch.wheel_sha256 δȡ�û��� 64 λСд hex��'PENDING'��"
+      ]
+    },
+    {
+      "code": "serving_lock_unverified",
+      "message": "serving ������ verified=false����ֹ�Զ�ȡ latest"
+    },
+    {
+      "code": "interface_pins_unverified",
+      "message": "δ��֤�� pin ���õ�����ȷ����ʵʹ��",
+      "pins": [
+        "tokenizer_config_sha256",
+        "tokenizer_vocab_sha256",
+        "vllm_mapper_revision"
+      ]
+    }
+  ],
+  "can_start_training_now": false,
+  "config": {
+    "config_sha256": "9cd10a61779603adeaa907c23b8d4ecfc5afc0a3e95edfd578a5885a3efc7d5f",
+    "lora_rank": 16,
+    "optimizer_updates_cap": 32,
+    "seq_len": 2048
+  },
+  "gates": {
+    "export_manifest_pass": false,
+    "memory_plan_pass": false,
+    "t1_engineering_pass": true
+  },
+  "gates_evidence": {
+    "cpu_training_self_check": {
+      "adapter_sha256": "49fbdb8c857e1e888a86c9f2abe6bb2c2314e09e354ba6969a635d1508155147",
+      "all_passed": true,
+      "artifacts_kept": false,
+      "backend": "synthetic-cpu-loop",
+      "checks": {
+        "adapter_changed": true,
+        "adapter_only_saved": true,
+        "base_frozen": true,
+        "forward_backward_ran": true,
+        "loss_finite": true,
+        "optimizer_stepped": true,
+        "reload_matches": true
+      },
+      "full_state_dict_guard": {
+        "allowed_bytes": 0,
+        "checked": true,
+        "evidence": {
+          "method": "������������Ӳ���ͬһ���������ȫ������",
+          "probe": "synthetic-parameter-residency"
+        },
+        "full_state_dict_resident": false,
+        "observation": {
+          "declared_weight_bytes": 11520,
+          "method": "������������Ӳ���ͬһ���������ȫ������",
+          "peak_full_state_dict_bytes": 0,
+          "probe": "synthetic-parameter-residency"
+        },
+        "peak_full_state_dict_bytes": 0,
+        "rss_limit_bytes": 12884901888,
+        "total_weight_bytes": 11520
+      },
+      "grad_norm_min": 0.007705795046671062,
+      "is_real_model_training": false,
+      "loss_decreased_observation_only": true,
+      "loss_first": 3.4521500786293204,
+      "loss_last": 1.0135118580897045,
+      "note": "�ϳ����ģ���ϵ��Լ죺ֻ֤��ǰ��/����/�Ż�������/��������������·���ã���֤����ʵģ�Ϳ�ѵ����Ҳ�������κο��ύ���loss_decreased ֻ���۲�ֵ������Ϊͨ��������",
+      "optimizer_step_count": 40,
+      "saved_filename": "adapter.synthetic.json",
+      "stage": "cpu-training-loop-self-check",
+      "steps": 40,
+      "supervised_tokens_seen": 360
+    },
+    "export_manifest": {
+      "adapter_validation": null,
+      "problems": [
+        "û���ṩ���� manifest����������һ�ݿ�У��� adapter �����嵥"
+      ],
+      "provided": false
+    },
+    "mask_fixtures": {
+      "all_passed": true,
+      "count": 20,
+      "passed": 20,
+      "renderer": "shim-deterministic"
+    },
+    "memory_plan": null,
+    "memory_plan_reason": "û���ṩʵ���ڴ� profile��δʵ�ⲻ�õ���ͨ������Ƴ���ֻ�����ޣ�"
+  },
+  "locks": {
+    "channels_isolated": {
+      "checked": true,
+      "distinct": true,
+      "package_count": {
+        "serving": 8,
+        "train": 7
+      },
+      "package_overlap": [
+        "compressed-tensors",
+        "torch",
+        "transformers"
+      ],
+      "package_versions_identical": false,
+      "serving_channel": "serving",
+      "serving_lock_sha256": "faee21c3b0e8bc67c1aaa1e915f49d16a1b6d6bf1d8c52662959faad0181ee44",
+      "serving_path": "<workdir>/serving.lock.json",
+      "serving_source_sha256": "9861f11856813b0e2f2ca0acb4724611881996959add1b146d9218f8ecd579d3",
+      "train_channel": "train",
+      "train_lock_sha256": "69d1494004341af179f2c29e08eabf4c39da7187d8b13da0cb715f226ab19b48",
+      "train_path": "<workdir>/train.lock.json",
+      "train_source_sha256": "103144121c5d89fbb5597647702538df17b65912682161cacf8c00b206bec876"
+    },
+    "serving": {
+      "channel": "serving",
+      "evidence_levels": {
+        "full_package_compiler_passed": {
+          "does_not_imply": "��ʵ�ύ������ʵ adapter Ȩ�أ���ͨ���ٷ� compiler",
+          "note": "����ֻ֤���ϳ� fixture ��������Լ��������֤����ʵ adapter �ɼ��ء�",
+          "real_submission_package": false,
+          "scope": "�ٷ� compile_submission() ��**�ϳ� fixture**���� ok=true������Ϊ�ٷ����� adapters/v3_policy/adapter_model.safetensors���ø��� adapter_config.json Ҳ�Խ����� v3_policy��",
+          "value": true
+        },
+        "limits_builder_executed": {
+          "does_not_imply": "�ύ��ͨ���ٷ�У��",
+          "scope": "�ٷ� sweegemma.config.build_submission_limits() �ڱ���װ�ùٷ����Ļ����ﱻ��ʵ���ã�KAGGLE-27 S1 ̽�룬E0 ���ֶ������ܵõ��ֽ���ͬ�Ĳ��",
+          "value": true
+        },
+        "overall_verified": {
+          "reason": "��ʵ adapter ���ػع顢��ʵ�ύ�����롢���ֶ�ʵ�ʰ汾�����δ�飻��������������Ϊ true �Ͱ��������档",
+          "value": false
+        },
+        "source_hash_verified": {
+          "does_not_imply": "���ֶ�ʵ�ʰ�װ��Щ����",
+          "scope": "8 �����ϣ��� vllm �� HARNESS_README.md���� SHA-256 �� E0 ���ֶ����ϱ������ֽ����㣬�� KAGGLE-27 S2 ��¼����һ��",
+          "value": true
+        }
+      },
+      "lock_sha256": "faee21c3b0e8bc67c1aaa1e915f49d16a1b6d6bf1d8c52662959faad0181ee44",
+      "package_count": 8,
+      "packages": {
+        "adk-eval-core": "0.1.0",
+        "adk_submission": "0.2.12",
+        "compressed-tensors": "0.15.0.1",
+        "google-adk": "1.36.1",
+        "sweegemma": "0.2.7",
+        "torch": "2.9.1",
+        "transformers": "5.13.1",
+        "vllm": "0.19.1"
+      },
+      "python": "3.13.7",
+      "python_evidence": {
+        "eval_sandbox_base_image": "python:3.13-slim",
+        "eval_sandbox_base_image_source": "Dockerfile.public / Dockerfile.sandbox���ٷ��������ϣ�",
+        "hard_floor": ">=3.12",
+        "hard_floor_source": "swegemma-0.2.7 wheel METADATA: Requires-Python >=3.12��E0 ���ִ� wheel ��ֱ�Ӷ�����",
+        "measured_running_version": "3.13.7",
+        "measured_where": "��������ٷ� compiler/parser ʵ��Ļ�����swegemma 0.2.7 + adk_submission 0.2.12 �Ѱ�װ��",
+        "note": "3.13.7 ��**ʵ��**ֵ�����ǲµĲ����ţ�python:3.13-slim �Ǹ��� tag����ȷ�������湹���仯��δ�顣",
+        "scoring_host_exact_patch": "unknown"
+      },
+      "python_requirement": ">=3.12",
+      "verified": false,
+      "version_scopes": {
+        "actual_vllm_version_on_scoring_host": {
+          "note": "README ��3.1 �� serving ���õ����� vLLM �汾�š�",
+          "status": "unknown"
+        },
+        "material_wheelhouse": {
+          "adk-eval-core": "0.1.0",
+          "adk-submission": "0.2.12",
+          "compressed-tensors": "0.15.0.1",
+          "google-adk": "1.36.1",
+          "status": "material_sha256_verified_locally",
+          "swegemma": "0.2.7",
+          "transformers": "5.13.1",
+          "vllm": "0.19.1"
+        },
+        "scoring_host_installed": {
+          "note": "���ֶˣ�4��L4 ������ʵ�ʰ�װ�İ��汾û���κ�һ����Դ������ unknown�������� wheelhouse �汾���档",
+          "status": "unknown"
+        }
+      }
+    },
+    "train": {
+      "channel": "train",
+      "lock_sha256": "69d1494004341af179f2c29e08eabf4c39da7187d8b13da0cb715f226ab19b48",
+      "package_count": 7,
+      "packages": {
+        "accelerate": "1.11.0",
+        "compressed-tensors": "PENDING",
+        "peft": "0.21.0",
+        "safetensors": "0.6.2",
+        "torch": "2.10.0",
+        "transformers": "5.17.0",
+        "trl": "PENDING"
+      },
+      "python": "3.11.9",
+      "verified": false
+    }
+  },
+  "mask_fixtures": {
+    "count": 20,
+    "passed": 20,
+    "renderer": "shim-deterministic",
+    "unverified_claims": [
+      "official_template_byte_equality",
+      "real_tokenizer_offsets",
+      "serving_render_parity"
+    ]
+  },
+  "notes": [
+    "δ�ṩ��ʵģ���嵥��target ģ���������ֵ 120 �ƣ�ʵ�ʱ��뵼���������ѵ��",
+    "��ѵբ�� memory_plan_pass δͨ������ gates.evidence��",
+    "��ѵբ�� export_manifest_pass δͨ������ gates.evidence��"
+  ],
+  "official_interface": {
+    "interface_sha256": "53b1e61328dbdedb750686b53431352ff83bfa5179a9d1da93065d9509295164",
+    "tool_count": 9,
+    "verified_pins": {
+      "graph_edge_types_observed": true,
+      "model_repo_id": true,
+      "model_revision": true,
+      "official_parser": true,
+      "tokenizer_config_sha256": false,
+      "tokenizer_vocab_sha256": false,
+      "vllm_mapper_revision": false
+    }
+  },
+  "stage": "T0-preflight",
+  "target_plan": {
+    "adapter_train_state_gib": 0.4272,
+    "dense_reference_bytes": 62546177752,
+    "disk": {
+      "minimum_gib": 80,
+      "note": "�Ⱥ˲�Ȩ��/����/������/��־ + 15% �������ٰ�ʵ���ļ� manifest ������"
+    },
+    "expected_modules": 120,
+    "first_round_seq_len": 2048,
+    "geometry_layers": 60,
+    "gpu_peak_limit_gib": 72.0,
+    "memory_plan_unmeasured_baseline": {
+      "gpu_limit_gib": 72.0,
+      "host_rss_limit_gib": 12.0,
+      "measured": false,
+      "measured_host_rss_gib": 0.0,
+      "measured_peak_gpu_gib": 0.0,
+      "measured_source": "declared_estimate",
+      "note": "����**δʵ��**ʱ�Ķ��գ�0 GiB ռ�õ�Ȼ���ż�����˸ý���������κ��ڴ�ϸ���ۣ��������ż���ʵ�� profile �� measure_gates() �ж�",
+      "pass": true,
+      "seq_len": 2048,
+      "status": "pass"
+    },
+    "memory_plan_upper_bound_only": true,
+    "trainable_params": 28672000
+  },
+  "training_entry": {
+    "backends": [
+      "synthetic-cpu-loop��CPU �Լ죩",
+      "torch-peft-bf16-lora��GPU ִ���棬δʵ�⣩"
+    ],
+    "implemented": true,
+    "module": "v3/train/runner.py",
+    "note": "ѵ��ʵ�����ڲֿ����� CPU �Լ�ɸ��ܣ�GPU ʵ�Ľ� Liang ͳ�������ȹ�բ��",
+    "real_gpu_executed_on_this_machine": false
+  },
+  "unverified_claims": [
+    "ʵ��ѵ�����棨δ����ʵ GPU��",
+    "TP4 / ����������Ϊ",
+    "�ٷ�ģ����Ⱦ���ֽ�һ��",
+    "vLLM ʵ�� mapper �汾����ػع�",
+    "��ʵģ�� shape ���Դ��ֵ",
+    "torch/peft �������ʵ GPU �ϵĶ˵�����Ϊ�������� GPU��������������"
+  ]
+}
