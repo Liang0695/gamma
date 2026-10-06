@@ -1,12 +1,18 @@
-# 冻结证据必须**逐字节**保真：这些文件的内容哈希在测试里被断言，
+# 冻结证据必须**逐字节**保真：这几份的内容 SHA256 在测试里被断言，
 # 换行转换会让「提交里的 blob」与「checkout 出来的工作树」不是同一份字节。
 #
-# 背景（实测）：本机 / 干净克隆的 `core.autocrlf=true` 会把 LF 翻成 CRLF，
-# 于是 docs/v3/design/*.json 的字节 SHA256 在干净克隆里与仓库记录的不一致，
-# 6 条断言在干净克隆上失败。给这些路径标记 `-text`（不做任何换行转换）。
+# 背景（实测）：本机与干净克隆的 `core.autocrlf=true` 会在 checkout 时把 LF 翻成
+# CRLF，于是这些冻结副本的字节 SHA256 与仓库记录不一致 —— 干净克隆上曾因此
+# 失败 6 条断言。给它们标记 `-text`（add / checkout 都不做换行转换）。
 #
-# 注意：`-text` 只影响 add / checkout 时的转换，不会改写已有 blob —— 所以
-# d0-source-lock-65aaa16.json（blob 本身就是 CRLF）仍保持原字节与原哈希。
-docs/v3/design/*.json -text
-docs/v3/design/*.md -text
-docs/v3/evidence/* -text
+# 作用域刻意**只覆盖本轮新增的 KAGGLE-27 冻结产物**，不动既有文件：
+# `docs/v3/design/d0-source-lock-65aaa16.json` 的既有断言
+# （`tests/test_q0_d0_contract.py::D0_MANIFEST_SHA256 = 27aed720…`）记录的是
+# **CRLF 工作树**形态的哈希，给它加 `-text` 反而会让那条既有断言失败。
+# 那属于既有测试的换行假设问题，不在本轮 KAGGLE-27 三项整改范围内，故不擅自改动。
+# 本轮的测试助手（`_canonical_bytes`）对 CRLF / LF 两种 checkout 都成立，
+# 并把「混用换行」判为损坏，因此即使属性被忽略也不会静默放过字节改动。
+docs/v3/design/kaggle-27-s1-adapter-matrix.json -text
+docs/v3/design/kaggle-27-s1b-discovery-rule-cells.json -text
+docs/v3/design/kaggle-27-s2-wheel-manifest.json -text
+docs/v3/design/kaggle-27-wheelhouse-material-sha256.json -text
