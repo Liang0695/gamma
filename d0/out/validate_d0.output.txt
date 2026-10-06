@@ -1,0 +1,138 @@
+validator environment: Python 3.13.14 (tags/v3.13.14:fd17997, Jun 10 2026, 13:03:48) [MSC v.1944 64 bit (AMD64)]; Windows-11-10.0.26200-SP0
+PASS  all_8_pinned_revisions_are_resolvable_40hex_and_match_plan                           offenders=[]
+PASS  all_locked_repos_have_tree_sha                                                       
+PASS  eight_locked_candidate_repositories_present                                          found=8
+PASS  locked_and_alternative_sets_are_disjoint                                             
+PASS  license_review_machine_readable_fields_present_for_every_repo                        missing=[]
+PASS  license_agreement_schema_defines_scope_and_coverage                                  schema_version=1.2 fields=['agreement', 'agreement_status', 'agreement_scope', 'evidence_coverage']
+PASS  every_license_record_declares_agreement_scope_and_coverage                           all 9 records covered
+PASS  boltons_missing_metadata_is_not_reported_as_three_way_agreement                      decision=approved agreement=False status=partial coverage={'present_sides': ['preset_spdx', 'licence_text'], 'missing_sides': ['packaging_metadata'], 'expectation_sides': ['preset_spdx'], 'unrecognized_sides': [], 'preset_recognized': True, 'complete_for_three_way_agreement': False, 'metadata_required_for_approval': False}
+PASS  license_review_decision_is_approved_for_every_repo                                   offenders=[]
+PASS  license_review_decisions_cover_the_whole_locked_set                                  
+PASS  license_review_records_the_exact_revision_it_covers                                  
+PASS  license_review_approval_is_revision_bound_to_the_pin                                 
+PASS  no_copyleft_or_restrictive_marker_found                                              offenders=[]
+PASS  license_review_declares_it_is_not_an_independent_countersignature                    
+PASS  all_8_licences_are_osi_permissive                                                    offenders=[]
+PASS  licence_approval_recorded_for_all_locked_repos_in_public_manifest                    
+PASS  public_manifest_approval_agrees_with_source_lock                                     
+PASS  every_licence_file_is_hashed                                                         
+PASS  license_review_schema_declares_a_gate                                                
+PASS  no_licence_metadata_conflict_is_approved                                             offenders=[]
+PASS  negative_test_licence_metadata_conflict_withholds_approval                           planted preset=MIT -> decision=pending conflicts=['preset_vs_licence_text', 'preset_vs_packaging_metadata']
+PASS  negative_test_missing_fixed_license_text_cannot_be_approved                          MIT preset with no fixed text/metadata -> pending/False
+PASS  positive_test_fixed_license_text_allows_missing_optional_metadata                    MIT text with absent optional metadata -> approved/True
+PASS  agreement_scope_marks_missing_metadata_as_partial_not_complete                       body evidence allows approval while agreement coverage={'agreement': False, 'agreement_status': 'partial', 'agreement_scope': ['preset_spdx', 'licence_text', 'packaging_metadata'], 'evidence_coverage': {'present_sides': ['preset_spdx', 'licence_text'], 'missing_sides': ['packaging_metadata'], 'expectation_sides': ['preset_spdx'], 'unrecognized_sides': [], 'preset_recognized': True, 'complete_for_three_way_agreement': False, 'metadata_required_for_approval': False}}
+PASS  agreement_scope_marks_complete_match_and_conflict_distinctly                         complete=consistent conflict=conflict
+PASS  unrecognized_license_preset_is_pending_not_a_conflict                                GPL-3.0 expectation -> decision=pending conflicts=[] agreement_status=preset_unrecognized
+PASS  real_license_evidence_conflict_remains_distinct_from_unknown_preset                  GPL-3.0 expectation against disagreeing evidence -> decision=pending conflicts=['licence_text_vs_packaging_metadata'] agreement_status=conflict
+PASS  negative_test_fixed_license_text_metadata_conflict_stays_pending                     MIT preset against BSD text+metadata -> pending/False
+PASS  negative_test_same_file_with_different_patch_is_not_landing_evidence                 same path/different lines -> closed=False state=not_proven
+PASS  negative_test_ancestor_without_merge_proof_has_no_landing_event                      ancestor=True without merge proof -> landing=None shape=unreconciled
+PASS  licence_decision_matches_a_fresh_re_run_of_the_same_predicate                        decision is re-derived from the recorded facts, not trusted
+PASS  python_dotenv_licence_is_bsd_3_clause_not_mit                                        approved_spdx=BSD-3-Clause text=['BSD-3-Clause']
+PASS  all_licence_files_record_both_hash_bases                                             
+PASS  licence_review_hash_basis_covers_every_licence_file                                  offenders=[]
+PASS  checkout_hash_of_dotenv_licence_is_the_crlf_transformation_of_the_blob               blob=80619b7049f08c81/1556 checkout=dd1c70c9434fdeb2/1583
+PASS  no_released_record_has_empty_sha                                                     offenders=[]
+PASS  every_variant_pins_a_real_upstream_source_base                                       offenders=[]
+PASS  no_released_record_carries_a_null_sha_field                                          
+PASS  p0_has_four_real_and_four_variant_records                                            real=4 variant=4
+PASS  released_real_families_all_carry_verified_merge_evidence                             released=3
+PASS  every_unprepared_real_family_records_a_reason_and_a_shortfall                        unprepared=['v3-train-boltons-001']
+PASS  source_preparation_count_is_truthfully_carried_into_the_shortfall_report             shortfall says 3/4 prepared
+PASS  training_release_count_is_truthfully_carried_into_the_shortfall_report               shortfall says 0 training-released
+PASS  p0_covers_at_least_two_repositories                                                  repos=['click', 'more-itertools', 'pluggy']
+PASS  boltons_unproven_patch_correspondence_is_needs_review_and_shortfall                  boltons=[('needs_review', True)] shortfall=[{'family_id': 'v3-train-boltons-001', 'status': 'needs_review', 'blocking_checks': ['landing_patch_correspondence_proven']}]
+PASS  every_family_carries_both_status_axes                                                offenders=[]
+PASS  every_family_scopes_its_released_alias_to_source_preparation                         offenders=[]
+PASS  released_alias_mirrors_only_the_source_preparation_axis                              offenders=[]
+PASS  no_family_is_training_released_without_every_evidence_item                           offenders=[]
+PASS  status_contract_id_and_scope_agree_across_ledger_shortfall_and_manifest              ids={'v3-status-axes-2026-10-06-mika'}
+PASS  negative_test_a_training_release_claim_without_evidence_cannot_be_admitted           planted missing evidence=['gold_and_sealed_material_isolated_from_the_actor', 'licence_independently_reviewed', 'runtime_oracle_verified_on_the_actor_environment', 'variant_half_constructed'] -> admitted=False
+PASS  public_manifest_carries_the_same_two_axis_contract_as_the_ledger                     approved=[] blocked=8
+PASS  csv_exposes_both_axes_and_never_a_bare_released_column                               rows=8 offenders=[]
+PASS  csv_axis_columns_agree_with_the_ledger                                               offenders=[]
+PASS  source_preparation_status_matches_the_structural_checks_v3-train-click-001           prep=ready failed=[]
+PASS  unprepared_family_records_its_blocking_checks_v3-train-click-001                     blocking=[]
+PASS  source_preparation_status_matches_the_structural_checks_v3-train-more-itertools-001  prep=ready failed=[]
+PASS  unprepared_family_records_its_blocking_checks_v3-train-more-itertools-001            blocking=[]
+PASS  source_preparation_status_matches_the_structural_checks_v3-train-pluggy-001          prep=ready failed=[]
+PASS  unprepared_family_records_its_blocking_checks_v3-train-pluggy-001                    blocking=[]
+PASS  source_preparation_status_matches_the_structural_checks_v3-train-boltons-001         prep=needs_review failed=['landing_patch_correspondence_proven']
+PASS  unprepared_family_records_its_blocking_checks_v3-train-boltons-001                   blocking=['landing_patch_correspondence_proven']
+PASS  policy_id_is_recorded_on_ledger_and_isolation_and_shortfall                          
+PASS  train_window_end_is_2025_12_31_inclusive                                             end_exclusive=2026-01-01T00:00:00+00:00
+PASS  dev_sealed_window_is_2026_01_01_to_2026_10_04                                        window=2026-01-01T00:00:00+00:00..2026-10-05T00:00:00+00:00 (last day inclusive=2026-10-04)
+PASS  dev_and_sealed_share_one_window_and_claim_no_ordering                                
+PASS  withdrawn_unapproved_split_is_recorded                                               
+PASS  time_axis_authority_is_the_original_merge_event                                      substitutes=['release/tag date', 'snapshot or pin date', 'backport date', 'cherry-pick date']
+PASS  merge_evidence_artifact_is_declared_with_its_rule                                    records=10 verified=9 unverified=1
+PASS  merge_evidence_records_carry_a_source_and_a_response_hash                            
+PASS  merge_evidence_is_labelled_unauthenticated_and_token_free                            
+PASS  author_and_committer_dates_are_downgraded_to_audit_fields                            
+PASS  no_family_time_is_derived_from_a_release_or_snapshot_date                            
+PASS  every_snapshot_date_is_labelled_as_not_a_family_time                                 
+PASS  fix_commit_inside_pinned_snapshot_v3-train-click-001                                 
+PASS  fix_commit_is_not_a_backport_or_cherry_pick_v3-train-click-001                       
+PASS  commit_dates_corroborate_the_window_audit_only_v3-train-click-001                    author=2021-05-24T16:49:32+02:00 committer=2021-07-03T06:53:45-07:00
+PASS  fix_commit_inside_pinned_snapshot_v3-train-more-itertools-001                        
+PASS  fix_commit_is_not_a_backport_or_cherry_pick_v3-train-more-itertools-001              
+PASS  commit_dates_corroborate_the_window_audit_only_v3-train-more-itertools-001           author=2020-03-29T23:48:00+03:00 committer=2020-03-30T00:05:42+03:00
+PASS  fix_commit_inside_pinned_snapshot_v3-train-pluggy-001                                
+PASS  fix_commit_is_not_a_backport_or_cherry_pick_v3-train-pluggy-001                      
+PASS  commit_dates_corroborate_the_window_audit_only_v3-train-pluggy-001                   author=2024-10-31T14:17:18+01:00 committer=2024-11-03T15:39:53+01:00
+PASS  fix_commit_inside_pinned_snapshot_v3-train-boltons-001                               
+PASS  fix_commit_is_not_a_backport_or_cherry_pick_v3-train-boltons-001                     
+PASS  commit_dates_corroborate_the_window_audit_only_v3-train-boltons-001                  author=2015-04-19T00:13:33-07:00 committer=2015-04-19T00:21:19-07:00
+PASS  merge_event_in_train_window_v3-train-click-001                                       merged_at=2021-07-03T13:56:47Z
+PASS  no_released_family_falls_in_dev_sealed_window_v3-train-click-001                     
+PASS  merge_event_in_train_window_v3-train-more-itertools-001                              merged_at=2020-03-30T00:56:55Z
+PASS  no_released_family_falls_in_dev_sealed_window_v3-train-more-itertools-001            
+PASS  merge_event_in_train_window_v3-train-pluggy-001                                      merged_at=2024-11-12T09:24:31Z
+PASS  no_released_family_falls_in_dev_sealed_window_v3-train-pluggy-001                    
+PASS  negative_test_missing_merge_evidence_cannot_qualify                                  planted fix_commit=f5485a61eefa status=unverified -> qualified=False
+PASS  unverified_records_are_counted_in_no_quota                                           unverified=['f5485a61eefa5e686d6d5bdc7aa9ad6b104b1e92']
+PASS  issue_reference_is_not_treated_as_merge_evidence                                     
+PASS  every_counted_family_records_an_adjudicated_landing_event                            offenders=[]
+PASS  every_adjudicated_landing_event_is_an_ancestor_of_the_pinned_revision                offenders=[]
+PASS  landing_event_shape_is_one_of_the_defined_values                                     shapes={'v3-train-click-001': 'two_parent_merge_commit', 'v3-train-more-itertools-001': 'two_parent_merge_commit', 'v3-train-pluggy-001': 'two_parent_merge_commit', 'v3-train-boltons-001': 'two_parent_merge_commit'}
+PASS  a_two_parent_landing_event_is_actually_a_two_parent_merge                            checked=4
+PASS  patch_equivalence_was_computed_for_every_counted_family                              offenders=[]
+PASS  every_fix_file_is_carried_by_the_landing_event                                       offenders=[]
+PASS  boltons_missing_merge_object_is_explained_with_ancestry_evidence                     geometry=[(False, True)]
+PASS  boltons_reconciliation_names_the_commit_the_pinned_merge_actually_brought_in         landing_merged_in=['078a215bfd37da5045ec6302bcba9505a11582dc']
+PASS  negative_test_a_family_without_landing_evidence_cannot_be_adjudicated                planted found=False present=True -> admitted=None
+PASS  replaced_family_left_a_retrievable_failure_record                                    replaced_records=1
+PASS  the_replaced_commit_is_counted_in_no_quota_and_is_not_a_family                       
+PASS  no_variant_still_inherits_from_a_retired_parent                                      derived_from={'v3-train-pluggy-001', 'v3-train-boltons-001', 'v3-train-click-001', 'v3-train-more-itertools-001'}
+PASS  retired_variant_family_is_gone_and_its_replacement_is_present                        variants=['v3-train-click-001-var-predicate', 'v3-train-more-itertools-001-var-api', 'v3-train-pluggy-001-var-backport', 'v3-train-boltons-001-var-multidefect']
+PASS  time_isolation_open_items_are_recorded                                               
+PASS  dateutil_dev_family_shortfall_is_recorded_and_counted_zero                           
+PASS  alternative_candidate_is_recorded_for_python_dotenv                                  screened=6 merge-verified=5 spdx=BSD-3-Clause
+PASS  alternative_candidate_families_separate_screened_from_qualified                      one in-window commit has no merge event and is excluded
+PASS  alternative_candidate_does_not_claim_to_replace_or_release                           
+PASS  alternative_candidate_has_environment_material                                       
+PASS  no_family_in_the_ledger_comes_from_the_alternative_candidate                         
+PASS  family_inventory_covers_every_locked_repository                                      missing=[]
+PASS  every_inventory_entry_asserts_ancestry_and_window                                    
+PASS  train_headroom_total_matches_per_repo_counts                                         
+PASS  inventory_counts_declare_themselves_as_screenings_not_quotas                         
+PASS  merge_verified_inventory_count_never_exceeds_the_screened_count                      
+PASS  public_manifest_contains_no_oracle_assertions                                        offenders=[]
+PASS  public_manifest_keeps_sealed_repo_content_out                                        
+PASS  train_gold_derivability_is_stated_for_every_family                                   covered=8 of 8
+PASS  gold_is_withheld_from_the_actor_in_every_family                                      
+PASS  every_family_states_what_the_actor_receives_so_gold_is_not_reconstructible           
+PASS  actor_side_isolation_gaps_are_declared_rather_than_implied                           gaps=['actor_network_access_not_controlled', 'actor_git_history_not_controlled', 'restricted_oracle_split_not_adjudicated']
+PASS  actor_isolation_is_not_claimed_anywhere_in_the_deliverable                           isolation_established=False
+PASS  per_file_ledger_non_empty                                                            rows=774
+PASS  per_file_ledger_every_row_has_sha256                                                 
+PASS  per_file_ledger_covers_every_scanned_repository                                      repos=9
+SKIP  restricted_file_covers_every_family                                                  restricted-oracle.json is deliberately not opened by the public validator; a reviewer with only the repository cannot evaluate its contents
+SKIP  restricted_file_is_marked_not_for_training_authors                                   input deliberately not opened by the public validator
+SKIP  restricted_file_does_not_claim_an_unverified_split                                   input deliberately not opened by the public validator
+SKIP  restricted_oracle_split_is_really_isolated_from_the_actor                            no negative permission test exists; file presence/name/access path would not establish isolation
+
+130 checks, 0 failed, 4 skipped (a skip is NOT a pass and is NOT isolation evidence)
+skipped checks: restricted_file_covers_every_family, restricted_file_is_marked_not_for_training_authors, restricted_file_does_not_claim_an_unverified_split, restricted_oracle_split_is_really_isolated_from_the_actor

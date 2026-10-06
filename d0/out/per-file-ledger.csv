@@ -1,0 +1,775 @@
+repo,path,sha256,bytes,spdx_header,copyright_lines,license_mention,is_license_file
+click,.devcontainer/devcontainer.json,209250cff43f16788acdad21661b393c318d69429d85f935640b22c29fef2d89,451,,,,False
+click,.devcontainer/on-create-command.sh,f5a9ec38ad078391bc4c9c82ec9b21ffbd07f768f53a277acb35a4762898a3b5,172,,,,False
+click,.github/ISSUE_TEMPLATE/bug-report.md,49a51a09692442cdbab1ed9da74df7d824287cd0170f1013426a39a40ffad25f,642,,,,False
+click,.github/ISSUE_TEMPLATE/config.yml,4dd2efe5570e97ffb3ec8c53719ded644f92f2c484cb2ee6a3f66ebab267fd85,340,,,,False
+click,.github/ISSUE_TEMPLATE/feature-request.md,e718714799e8ab69d3257717f3e3ded616c146c7ce108feb71db20d986b4cc69,431,,,,False
+click,.github/pull_request_template.md,6f23762ad5438254c086573fff093db29d1bc4e88343fad20ec1caa9fba1ada0,847,,,,False
+click,.github/workflows/lock.yaml,182c5279b244fa550b6a1f7bdc3327f286578e09d197f56ed13d4916507b27fc,767,,,,False
+click,.github/workflows/nightly.yaml,a001028cc4cc5a9c1154abeed62ce48175d2fa36597f280e97d222022aaca95b,2890,,,,False
+click,.github/workflows/pre-commit.yaml,c32a387456145f9c8432f2d7c3bd3814903b56d4a28bd9abe6a479e8e0521369,1047,,,,False
+click,.github/workflows/publish.yaml,8497a57d32124547c16ff51ec6a4a2af5cd6a939ed7382e51ea0c9fd534dc7ac,2025,,,,False
+click,.github/workflows/tests.yaml,de27f026917017b2111cb158986250cac26481017dce2dd464178e0f4f84b3de,2192,,,,False
+click,.github/workflows/zizmor.yaml,6f9ca3ec8c9a785ba89895498485aa6892b4ea8072c4e1edbe62be727123792b,676,,,,False
+click,.pre-commit-config.yaml,176cf8ecd66f06351c415c4ce777ff9ca609eedaaabcc931f30c24016deb509c,949,,,,False
+click,.readthedocs.yaml,817b2b7afdf9b347e4a4c9270d837f5485d747cb8a3c190f4351a49f0c6a8ccf,521,,,,False
+click,CHANGES.md,1d7e8ee98f0a264cd469e77dc59b9d9aca105727ad32ad4bb6cb3d097cb3627a,71835,,,,False
+click,LICENSE.txt,757302fe7c41e7026fa46d3315ea8604ed5295fc95c2256d9b38adac43f6fbe5,1503,,Copyright 2014 Pallets | Copyright 2014 Pallets,,True
+click,README.md,751923fa6122718444ea8744d184c34084e047422d9d2a637145d872e2cc7fde,1840,,,,False
+click,docs/advanced.md,b05be7fc71d9eb8f75a9a461c8d0edd5445c4bfa7173259cfa5c8e8530e4f997,14593,,,,False
+click,docs/api.md,f6dd06bc7a0f12787df0de38d160b06d3fc39c6e4c1dc4646205a7b8304153f3,4688,,,,False
+click,docs/arguments.md,4b9cff9ce389ed2d4c76ffa75d54c5b21fabf3605e4510cc776cb9ab86467aac,5183,,,,False
+click,docs/changes.md,21a635240d1630f263bc9dfe1c98119f335680467d86ad51397448293d81721d,46,,,,False
+click,docs/click-concepts.md,553b45551bd51b478361021fef24ed0788fabf60191ebc28e1b8e90cd4020061,2934,,,,False
+click,docs/command-line-reference.md,3279cf1b89e7903b8cd7c4c816963f9a5855cb35dc35acdc1598a721a2178b4f,1244,,,,False
+click,docs/commands-and-groups.md,deefd54bdfba005a51e4dac6291d7888743fac03adee915e3c69f856c1483aeb,12061,,,,False
+click,docs/commands.md,c7c53cdc57b0431820007f95cafe45e0ac0f2263cda3ebd9ea7c0354c9150fe9,15164,,,,False
+click,docs/complex.md,48b063b8f232bf419809fbc1bab6303fafb9832ece27fb0c3d4547fd909a0fb1,13261,,,,False
+click,docs/conf.py,d301723e390a52b71b487274bb36188fbd87b5d42e7306df9c6f0a0ac321c27e,2055,,"copyright = ""2014 Pallets""",,False
+click,docs/contrib.md,3a7cc481998a612de8eae90d807ba15dea2781e9a515e7ab56d15ec4feb2cb04,3993,,,,False
+click,docs/contributing.md,9d19dcd00603423736f0a1c4d5119d3260b997968e7a2cb76fc3edeba4899a32,1240,,,,False
+click,docs/design-opinions.md,0114a1710b7409a06f25cb4ee025a3b0e4dcd986e376bcc01eb53e2d390c911a,925,,,,False
+click,docs/documentation.md,0600140e368e1689c5af3dbd5b2171c11cb2ab3ab2e7e19e342086f4a6e34f8e,10379,,,,False
+click,docs/entry-points.md,37c4cd2cd6b4234a0822fc7f51d8175fd3eba5a694b4d0f09b35503ba8a1ece6,2302,,,,False
+click,docs/exceptions.md,e047557e62f76360d803bc8f97a2dcc741d0605cbf9e1d7a41bcd1ef0d58624a,4384,,,,False
+click,docs/extending-click.md,abb56f44ab96831bcb5dab0c997c05ac2ef6c5ce6b38c18b2f3e4a86548da308,3884,,,,False
+click,docs/faqs.md,2bd544b58d8e0220960eaf95ac136577e662e79659eb6adececcb6589c3e1c26,3980,,,,False
+click,docs/handling-files.md,eef700640a7da45335c43c0b3102da9c188228fa22b816ba560f32eedf4b35a5,3675,,,,False
+click,docs/index.md,43a843edca2c89318b58e30fbd65f6ce3b972aa9d1fbf2e04f28a6d367943a10,2731,,,,False
+click,docs/license.md,286d2b7be5eed212651f48d1402eaab4f2f7ee6d3678eb6023a5db1a34253ac3,93,,,,True
+click,docs/option-decorators.md,ee001cac67984868e59c13e19c284e8391b8042251ff7b13745aa03468aea4e8,2512,,,,False
+click,docs/options.md,742b7b07f63845b542a819137f0fbf40a09d1881d5e5895bf811352f176c44e6,26513,,,,False
+click,docs/parameter-types.md,50a299c8956d987bd69056d75ad4113a0f38ba749e0cc1579a02c111f7121b87,6593,,,,False
+click,docs/parameters.md,74d20001f47701db8a0ec73984de69b48e7b7d104af9bbe08cea1e3c54f20cdb,2076,,,,False
+click,docs/prompts.md,dc335d2146035801b0836849c750ed33560031abbd15311e64f261443574ca0c,4743,,,,False
+click,docs/quickstart.md,01ee21ba31193c15aaeb368eb163624e6e0919cfdee388f2180383fd46785966,7013,,,,False
+click,docs/setuptools.md,af9c328158769d49cb436e65154c1ef1b4b48ab0545a6b5e5e7667a079ed169d,85,,,,False
+click,docs/shell-completion.md,081c086c3441ae9222b590c0f703fcd66cfd36e1830a526c04f8dc671041e8e6,10422,,,,False
+click,docs/standalone-apps.md,a716b27647ddd6962bea1d5698674b1dd65d2ca0547e473ede9bf48017f3ce36,3986,,,,False
+click,docs/support-multiple-versions.md,6a390bbb8d895d763d61d91e6d634678ad38d0f96e5538c61d9ea4f188305f8b,2184,,,,False
+click,docs/testing.md,753608f8995ded9aa1e744e178da7db76f30a343c859b3ecc529e7e656d1de59,8158,,,,False
+click,docs/unicode-support.md,e06cdec9a7de88d235b479a0b9dce678a6f019f6911f21724389a86c1e36d7b2,4381,,,,False
+click,docs/upgrade-guides.md,c96febc4ff5ca1bb040be6bb0a1b4fe7f91cc67a7af924e4efd5c8d4070b89bb,1630,,,,False
+click,docs/utils.md,2c619aa6b77b2f6d9ff9d44336ebd04095c14a1ebcb11bbe8ce30f7720b2697f,12309,,,,False
+click,docs/virtualenv.md,3ed554e0739723ed1ec088027df56ac0b00d5d828647fc8af42ab09584f370aa,1309,,,,False
+click,docs/why.md,919c88aaa802b343b08cf07ca407931f64a1ff46918e15eb43936fd55719c1a6,7054,,,,False
+click,docs/wincmd.md,0703cc43530cadd111d62537822531e9a817c3c1095f14403e182bae34b64cfe,3074,,,,False
+click,examples/aliases/aliases.ini,c6cb19c00b192d6f5e15b77eb4126f29fbe162e01ed833f6256b4828d9d52de5,22,,,,False
+click,examples/aliases/aliases.py,591f34b0d2bd334f5397471a97baccd283f32b8c6fd41a172db663c45bfdcac4,4205,,,,False
+click,examples/aliases/pyproject.toml,4e7a5ad1ebd31d9c3638b64dac64078e2e6dc693bcb3d0b45f8d160b83b4fb26,339,,,,False
+click,examples/colors/colors.py,906bc8b5e05891a55aca19b71959afb196cc83b06233897d612f59ceb07d54ea,965,,,,False
+click,examples/colors/pyproject.toml,c943a3fc57a986724155dda6d954ddeb28a51fe4dd41ad5ee2cbd62dd0b8a6e7,334,,,,False
+click,examples/completion/completion.py,a7d81907d9fd3726d27587b12a8fcb688f98b8663e4b25c85115aadc634ade07,1444,,,,False
+click,examples/completion/pyproject.toml,e339f499d4cce4de87d90d730b48562a6ad8e7f14ef4530243f04837090d17c6,354,,,,False
+click,examples/complex/complex/__init__.py,e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855,0,,,,False
+click,examples/complex/complex/cli.py,50d5ba9d1c411c52c79b61e2e17396fb8b6f3cc6ace74276b72323b5a7287c68,1668,,,,False
+click,examples/complex/complex/commands/__init__.py,e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855,0,,,,False
+click,examples/complex/complex/commands/cmd_init.py,6d765bd8f1b53bdd0bec4ab8565d5653d09c2fd9ece4372dd91c7afb00a40330,398,,,,False
+click,examples/complex/complex/commands/cmd_status.py,f94a2703f3a911d1721df6910ff077e83570c89db45729fe4f14d940e836e581,297,,,,False
+click,examples/complex/pyproject.toml,25a50d3cbbf6c7df09dadaaba523ee1b54d26b7588ac361bcc725696fc1a3cdc,343,,,,False
+click,examples/imagepipe/imagepipe.py,1c6743acb2bafa2b50c74c9765c459b50dce6cef0c4a4d7de089fdc6d2cf78a5,8545,,,,False
+click,examples/imagepipe/pyproject.toml,6378fc17e92854ad650c9029a9a8a3f43ca8e299042b31bf3cd5fbbfbe7f9d82,364,,,,False
+click,examples/inout/inout.py,ada14773efe7de0ce0d148115fbb6423319d1b2a625d5d5ed520917a122b2774,752,,,,False
+click,examples/inout/pyproject.toml,6e08443a26dde8acabb429d7efa78dbed4b14fc498c8462337bac173631ec4e4,329,,,,False
+click,examples/naval/naval.py,68754e329ba511aa303b4fe5124d3090a22e55337bfce449304c042d0e31568a,1769,,,,False
+click,examples/naval/pyproject.toml,e18ee3da809a8a1f4abfb93d64cd1f8247e37945e95f54e8b5661629dbf658ac,329,,,,False
+click,examples/repo/pyproject.toml,7c5410d8f5909910093b056f7701c0eabda4d49227ab9ced98a2837a7de92ecc,324,,,,False
+click,examples/repo/repo.py,40402f788897afe38b3ee4ca632da896154681642dc2abc8360ee7180f1eec6f,4880,,,,False
+click,examples/termui/pyproject.toml,a0d2c4ed016b1abf6e8ab4cc28b763d1e1c9ffee314ed995ece140493bc1f761,334,,,,False
+click,examples/termui/termui.py,393c1cc36e464b71feed87182b6736fbcc68ff56c81da662d80628e5166cc153,4319,,,,False
+click,examples/validation/pyproject.toml,c74dcb853a79fc2b979eb612645596194ae19b274981b56fe60032aceadacf11,354,,,,False
+click,examples/validation/validation.py,c24723f7b33da8ad6a3970cdea185f7a35509a1292216f1d04887075f91478b8,1501,,,,False
+click,pyproject.toml,af67f8a90edc0431fd5849e4313da75fde345d7efb498c21eda3b9f28315b379,5551,,,,False
+click,src/click/__init__.py,ba9e015c8efa915f677d3631465cdb7a1248f15703e4d24c8eacc8890ec7e947,5289,,,,False
+click,src/click/_compat.py,dc80a122b31f21f2aca389b351d1dc57f5317c5b5664aa0e4e7f719bede44e12,18529,,,,False
+click,src/click/_termui_impl.py,251d096c9bab12d1f061afdc632ab2db5cc6823ca010846b70e158f71d4a2e36,33777,,,,False
+click,src/click/_textwrap.py,0afcec064a6c7b7079f0da741a85f7b004933b82e7b9bd134ea48ef2a0eff924,6458,,,,False
+click,src/click/_utils.py,25f4e4e86f8cce960719cadc6b9972f1d2376c5389436747d58e844cdcee6dfb,1032,,,,False
+click,src/click/_winconsole.py,4e85495e41c751eed9f60d364ba711fa374af35ca31e83252c2829c111c5033a,8840,,,,False
+click,src/click/core.py,f5f7b170efa2d6a5577872b000e0849fef55bd68c648c5bdd28224067afb8710,151644,,,,False
+click,src/click/decorators.py,2fa721588ecc4465da89ce00731f83f25e8ebc93d5daa68685ab4f0704258143,22307,,,,False
+click,src/click/exceptions.py,21bc1b1f64525fd6512fbadf80679b15a6ce14e5134795cb6d000631a39f9387,12240,,,,False
+click,src/click/formatting.py,ca034e08c87c755916086a8e22f5c716c626b495374cdfe26096297e5bb93548,10764,,,,False
+click,src/click/globals.py,a04afa8359a321f88433c3689045a9cde5763eb1938ceb983c7749798ffbb46f,1990,,,,False
+click,src/click/parser.py,3dd9f5e4ff56975d00fc532379bddfce0d7569b7384e666cdd099cb39c15c2ad,19585,,Copyright 2001-2006 Gregory P. Ward. All rights reserved. | Copyright 2002-2006 Python Software Foundation. All rights reserved. | # Copyright 2001-2006 Gregory P. Ward | # Copyright 2002-2006 Python Software Foundation | Copyright 2001-2006 Gregory P. Ward. All rights reserved. | Copyright 2002-2006 Python Software Foundation. All rights reserved.,,False
+click,src/click/shell_completion.py,07a62865e43f35f0978fa7748a177567502b528ed9d85f6350f1edc1cb425d2b,26973,,,,False
+click,src/click/termui.py,a85650429e003d5f64874105b108b330119dfb44d06772c174a5c3c8ef635b55,36384,,,,False
+click,src/click/testing.py,217596e0e94e4d8e7e2ee0109379128e1aa0c5adc3efa035560b05cc34603f17,28382,,,,False
+click,src/click/types.py,d322ee4271b1dd86294d43f51245ca9f7c10ab71d5b8c77ce4e208088af782b0,48264,,,,False
+click,src/click/utils.py,bee4f1a94965aa34e4525fb610f84403f4aae4a39e1064707a802e98cdd8553a,22171,,,,False
+click,tests/conftest.py,b0c4189c83125946326c1f2a864a4d02a8ba47f09ac878aa149c83832be8f566,139,,,,False
+click,tests/test_arguments.py,458827bd7f0ac9d8cfc961922cf06ab5f991065bf8c7e8436573cf2c4282b285,23631,,,,False
+click,tests/test_basic.py,27b934b13b2d41fdeca8275f07b818a10994f856bd69a7fd63fe58c65b2cc719,28770,,,,False
+click,tests/test_chain.py,62ed20984bdf3caa68a122d96c53bcd75b1c6c92c21da95c32ac70fbf2417023,6031,,,,False
+click,tests/test_command_decorators.py,12492336fe606245f1bb5d3d1d4f621805f5c68e8b86a3d4632179fdf018cbee,1972,,,,False
+click,tests/test_commands.py,7a5d094b361036e76e518bd9bd0c1065dbb2dd3553622b649c108a004910b519,22879,,,,False
+click,tests/test_compat.py,fc1433d1070146c2436167f9ab19caf84375e0f496b2bd427dfbae68e3ac152e,8785,,,,False
+click,tests/test_context.py,1be3a766ff6739b1275ba62ab020f25420aa77cb73d3d41191d8d88f23e3037a,23824,,,,False
+click,tests/test_custom_classes.py,65c8807cd81d0fca9dd708cd7e71e011ee653efea3da05f59628d42df456400d,3134,,,,False
+click,tests/test_defaults.py,ecff1b4ea799c5508740f2621d7c8fe95399074eb7aec9d68cd23b2de73247c2,19974,,,,False
+click,tests/test_deprecations.py,105d2594ccf05e6dccb309f17a14da9811a946b81eb6e9aecf4823c60674c8b0,3003,,,,False
+click,tests/test_formatting.py,ec268f2d889e36493850915fb1f65ce659f49cbbf3f6b1eee10371918cbc8601,18977,,,,False
+click,tests/test_imports.py,de93829e8ceb879ea5b413db97899a80912938483c97eddf8e8e5bfc10774122,1640,,,,False
+click,tests/test_info_dict.py,3343d35a619f109d70d78595c909ccb0c05053dc62fc72cfd8202b111ac48385,9528,,,,False
+click,tests/test_normalization.py,8e4045f5da37328421a54b9e6014ff3446e1f131735ca988e4c06ad0920c0723,1857,,,,False
+click,tests/test_options.py,21e8a41d09fd27e945a327c65e5404128819091ed75f1ed2e7a9709a3328640e,124454,,,,False
+click,tests/test_parser.py,c5543494cb04d29656c0cbf97a90144e55793b9b6fe9ac9d052f949f5799345a,947,,,,False
+click,tests/test_shell_completion.py,7441702f7af2d96ba141a27da95ee695b7fe8013f9f58b84dae6a474ecf84d23,21066,,,,False
+click,tests/test_stream_lifecycle.py,b143262d1ba2fd0790a21404cabdf58dcabad1203f9449d45cc693b85b49dfd0,16798,,,,False
+click,tests/test_termui.py,f2c4eebce4ce7ea47b646cff2a9bdfdec24e00574f2e57a14bbea019cab21b73,71671,,,,False
+click,tests/test_testing.py,f00e4d13550ca23d8af688fa81c1fd05f3b8cd2e6c187abec96b165982f71c16,25155,,,,False
+click,tests/test_types.py,483a3d8348df7d8f17f9fc77b05a1b311309c62551e094643dc141510fb8b9fa,10810,,,,False
+click,tests/test_utils/__init__.py,e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855,0,,,,False
+click,tests/test_utils/test_KeepOpenFile.py,9dc2815f3bbc88cc5b4427090242fe9c9c56ee767d0aa5a74ff0e52f8772bff9,341,,,,False
+click,tests/test_utils/test_LazyFile.py,23f909b7626ede450bfa3140be68136607751e94b785ed6fc6eed4cbf5eb5f9c,370,,,,False
+click,tests/test_utils/test__detect_program_name.py,3d3a578972eedc3a7c5e3994f693f85eb998d06e4101671541af084d7258f8aa,789,,,,False
+click,tests/test_utils/test__expand_args.py,4cbe4638c2c839c69c473a615e25d815d848c182fa61366a6b4e8a0c172f8e97,683,,,,False
+click,tests/test_utils/test_confirm.py,805e65029e4b017e5bbc6fb506cfa4bdedd42adc0bbb57b29c47cd059e7b4895,1459,,,,False
+click,tests/test_utils/test_echo.py,63c75e996c8a2a9ac7294edb5d85a849e6e53e9e0270aa2eb70a4268eb961208,5279,,,,False
+click,tests/test_utils/test_echo_via_pager.py,781cc632cef4445b7a5d5ad66dd33a7bc34345f88305fa7e425ea44f160a2f36,9054,,,,False
+click,tests/test_utils/test_format_filename.py,3d15d81b53094bd5785b19c0760c0946c63940a3cf41d2c1c79069c666c917a4,392,,,,False
+click,tests/test_utils/test_make_default_short_help.py,b7bbc9f9caa7fbd637b7ac7872e6a83bc5905f0291e213d25ec4d28889adbb88,1220,,,,False
+click,tests/test_utils/test_open_file.py,d81cb79dd932f0c19b05a3ba3782f21f02407942b4e116936c53ee4b2143ce26,3538,,,,False
+click,tests/test_utils/test_prompt.py,02b8cc68ff330ad34d5943a81e227d22ed4f94fd7b7e5f101c16ec93bbb36bfb,3255,,,,False
+click,tests/test_utils/test_sentinel.py,3fa7a0f26c9d1847e41b99f3a1d61a5824fbac4de6e5ff0e344decef0dc74726,1122,,,,False
+click,tests/test_utils/test_style.py,4a0e41e7765c087ac96a6c4a78f3a62869e4ee7544f6da088c55e53a2b275fcc,4936,,,,False
+click,tests/typing/typing_aliased_group.py,bc55363b90fab3c5cf978304fb91c7742dac9a39db263022c922749dc9973648,1238,,,,False
+click,tests/typing/typing_confirmation_option.py,0801ae00eb7a3ad2f4c6a312851029d9234c76234ef3936a576260abc5696e16,341,,,,False
+click,tests/typing/typing_edit.py,0211447b1eeedb0bf2f1a91ac371adced26af1f48eeb06514dfdf32d093fad16,315,,,,False
+click,tests/typing/typing_group_kw_options.py,20d3d9619545e39276b28b13e1dea56c18aaa5e3ba32cf9183b7e6ed1c1fbdb2,167,,,,False
+click,tests/typing/typing_help_option.py,eae3dccca6776909ec4d7a9fe0e281b9f29decd2db48f5e0af1aff11ec5b02e3,275,,,,False
+click,tests/typing/typing_options.py,7f5d5360c1983fa80cc73b211f9292bc4b0a86c902017f7933370e8e31b8431d,407,,,,False
+click,tests/typing/typing_password_option.py,fbdf62834bb6dca2a12bcf8bb0941bac5157d4c5164694bf65be1c0ca34a5612,269,,,,False
+click,tests/typing/typing_progressbar.py,4606760c7da68958d38a648301362adb2ce52f9b647c2047066f10038511f805,583,,,,False
+click,tests/typing/typing_prompt.py,89b6edc90ef248f3daa6709ada64f794a956a351f24e34041f6ee9377f45b3fe,1596,,,,False
+click,tests/typing/typing_simple_example.py,898170c4850a120690b5017c574f62021fe5ebfe3980db97d8ee38cc53fcc778,525,,,,False
+click,tests/typing/typing_version_option.py,670cbacb31aa102447712770e22d185937005e945104ea65e366f81f9bbfa2d2,304,,,,False
+more-itertools,.github/ISSUE_TEMPLATE/other-issues.md,7d81d86d6144ed70139247f49be44dbd82f9f10087eb577a086d3b206560af06,98,,,,False
+more-itertools,.github/ISSUE_TEMPLATE/propose-a-new-itertool.md,bbbd75a38e4eb12c4f953284f16de7f97eb9dfb54a607aa951a2c7fe802e0dd9,609,,,,False
+more-itertools,.github/PULL_REQUEST_TEMPLATE.md,b3d77af4bdc888d5917cd319575fe8376ff61bef971d39b0fc67c7e23b54bfad,699,,,,False
+more-itertools,.github/workflows/python-app.yml,3576ee7d623fdc53151652549dee570743c636beee3c80cd4ec2edb33bc733e1,1001,,,,False
+more-itertools,.readthedocs.yaml,dd521a49d13f8ac1890f75b92c3a747c8eafd8f2039f7d56e2a486d81e5ad7f7,215,,,,False
+more-itertools,MANIFEST.in,350ab2a8e9fb2468c14b5ab76ed8092e62ad882272b59b6538c26404b18c4b66,186,,,,False
+more-itertools,README.rst,0fe157eb9d505efa89ea67310b9447ab95816cb42e4ab9b0b28b2843aefc41d2,40484,,,,False
+more-itertools,docs/_static/theme_overrides.css,9bddb260de2739c8abb1c57fefd098eeb787739a0b6c10fdb969077c8bac0477,451,,,,False
+more-itertools,docs/api.rst,181567d839b2c80d9052d060b6ce2f2285bfaa69e76359ee0dfb8d96cab421f8,8227,,,,False
+more-itertools,docs/conf.py,186b7ecca7e3be726045ca80a26dad5e42af43a04d65749245b5eac46a215042,9327,,,,False
+more-itertools,docs/index.rst,9c4321710f0df7cb20f9a4f5d598e86309a82224fc166eb25b9b3fafebe85908,34,,,,False
+more-itertools,docs/license.rst,d906e41ab18d96819dec02e364367bad5699716b7723d1b483c9f16e87dca156,662,,,MIT License,True
+more-itertools,docs/make.bat,9eb516e2fc9ff1c26c83fb7d64bdf4a2426ca735dd8e97acad916b126581e8a2,5302,,,,False
+more-itertools,docs/requirements.txt,1149f9228d6f06effc25be04f9db665f01719c6d001ba28695c43c8d0bd79b63,26,,,,False
+more-itertools,docs/testing.rst,4ef0a9129247b2e9b15ca47926e0517eda4c5533c4e224b903e9d4e0ac3e916c,321,,,,False
+more-itertools,docs/toctree.rst,17d93977e0cd3265d12e0bc480cbe849b0d3f19515754dc436c9c65aef69054b,152,,,,False
+more-itertools,docs/versions.rst,4a9ffd8e3ce08715af423010c58b6da1b08a0cc24a9710847ccfd6ea9bf4d2ef,38976,,,,False
+more-itertools,more_itertools/__init__.py,22aac635f58a1a6cfae80e7aa190366e4d772532e593b40308e33bd3e208cc69,155,,,,False
+more-itertools,more_itertools/__init__.pyi,793060aafbe2e30d0643bf9955e33aa2a6c304a28ccc14521437c6b059c8dcdc,45,,,,False
+more-itertools,more_itertools/more.py,c379faf81e62443e7a0a06c81cb9d6eab2e2fab58e848a8f77708c7d47402ff5,175854,,,,False
+more-itertools,more_itertools/more.pyi,1f3b76abba7c3d6c56726d4aeedae659ca33a6217918c93dac0e6a7c7c4a04e2,28658,,,,False
+more-itertools,more_itertools/recipes.py,281d4e172d45d260e3522b7486cb614b55071d3bbe18051ab2f14ecf21f030d2,47351,,,,False
+more-itertools,more_itertools/recipes.pyi,f1bddab63da57b2ef5aa22c804ea0953dd78baaa320c5b9ce6268b60edeb5018,7290,,,,False
+more-itertools,pyproject.toml,9fd10bee51de333d03a4b56b4e478d2044c08e72bae7f25bf852a2f0b283d440,1601,,,,False
+more-itertools,requirements/development.txt,a5f212ff53de4a5865e6976b1b2f8967dcb72837287c536ca2d0c3a0e87e3640,126,,,,False
+more-itertools,requirements/packaging.txt,bd9f2cefe4b1d9db19f2d3fb91349c5767d2539d0e8b3ea51adeaedfd09d9d1f,32,,,,False
+more-itertools,requirements/testing.txt,3382fe0eab8317bfe437dfc84e00086706cffa9bca6237d19b69e4bf7da52d18,16,,,,False
+more-itertools,requirements/typechecks.txt,b87bf57e11654a7cc28ba22d9c2ab6c5a705133bfaa5bf8540f6cf2f310ad54d,6,,,,False
+more-itertools,setup.cfg,7c23c74245d1a4372c1db0b48db2ae7b48b4a5057eba1c179f5b7888c8886b03,627,,,,False
+more-itertools,tests/__init__.py,e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855,0,,,,False
+more-itertools,tests/test_more.py,3820660f8afec2c8d134ea5cd9a9685d890b14bbecece2818b9ad1bcf026d7a3,246026,,,,False
+more-itertools,tests/test_recipes.py,d1464e825c781c2a7de0fd6e407cad06c7ceaa0897c407207aae8d4564f968cf,55722,,,,False
+more-itertools,tox.ini,11e4b239165d720617d7d72fe9abcab9a6aeeab8fc7e3298116f10c49e3268d7,127,,,,False
+pluggy,.github/FUNDING.yml,ad9af52b49ce88af09e32c449eedf4df872ea256c609bab3faf48d35d210a93f,220,,,,False
+pluggy,.github/dependabot.yml,6d3e5533cf5470324a31108d0675958239a6f79146f5afd6aee7cfdb02be78e3,124,,,,False
+pluggy,.github/workflows/main.yml,5dc09e2703fe009b4b63302a35e543783419ad8403af3ed68cfc81561d713a70,3841,,,,False
+pluggy,.pre-commit-config.yaml,fa58a833e2d6f4a1f5c4291db6e10c5db0f19dfa1da7ae7061e50a9709f46100,1486,,,,False
+pluggy,.readthedocs.yml,4d5bbd903b5ab9156d48420098c2a7e130433ba5701fe3ea89574418aeec2b15,276,,,,False
+pluggy,CHANGELOG.rst,4cc86d5fa2c6f9a24709d3505da5691a7eca6b46d4febbf2eb25cc11bc786194,21632,,,,False
+pluggy,MANIFEST.in,3fa9189f1ec663fff26d1b883ab90cd2c8b8b420c8fb0cb4e02ce5f9440a5805,139,,,,False
+pluggy,README.rst,6d669f243d4a2d859a6a1ec5835705dcc9b62b2b0eb54931646d8e03f01e9fdc,3478,,,,False
+pluggy,RELEASING.rst,5061e1571a97c5edd31748853c07d06abc0be9395705fd13c9e9b7ab78daec71,882,,,,False
+pluggy,SECURITY.md,7d2e55348752e9670458f02a0c34ff39f9fb4e4d312000e36af12f93f608f4f4,108,,,,False
+pluggy,TIDELIFT.rst,82d54a2ee8eb19c7ce5a2dbe4360b2dd5828159b1349752a4eabbdad82ed419f,2472,,,,False
+pluggy,changelog/README.rst,0d5ca145aedd66d869737c89413b2650ee0b4f5719057522f1c93af0d598ec71,1694,,,,False
+pluggy,changelog/_template.rst,edeec657c9060b238c80671ec06568edd9b2860c6d0dbcd634b3b532290456f6,979,,,,False
+pluggy,codecov.yml,cfe7bd9064c0599bb205e6869e35e031a02c99e2626676bab4c7c9d413df488a,93,,,,False
+pluggy,docs/api_reference.rst,0113c298c61d32bac23156fc92da2b58985fcaf642faf9c7c6d9bfa46ac3a538,1170,,,,False
+pluggy,docs/changelog.rst,88af8968ec8cd5b855db5b8a98d913949aa8266444c7dcf81c1c3f1ae7074e1a,31,,,,False
+pluggy,docs/conf.py,9d5fbe8fdad3336dbdf3fca77ec7569484300c84bb2db3fc9bb7bc5d4b26b1c0,3986,,"copyright = ""2016, Holger Krekel""",,False
+pluggy,docs/examples/eggsample-spam/eggsample_spam.py,f2a33e6e827f48d16c1b3b0333e4db2de9fa677b02a3c0df801a5b29ebbd2eaa,638,,,,False
+pluggy,docs/examples/eggsample-spam/setup.py,f8f185b727e411229d8f215f83739da11f4e7f7f9cd791cc312c06613ea8e51b,204,,,,False
+pluggy,docs/examples/eggsample/eggsample/__init__.py,9673eac6e3a2b35769e550bc18068566176d5eaad2eb696193d8b0b6a59ccb75,145,,,,False
+pluggy,docs/examples/eggsample/eggsample/hookspecs.py,614315f2073b0f639b57114d36de1a4287fd5f8fa48357bfdd67b02e81083149,535,,,,False
+pluggy,docs/examples/eggsample/eggsample/host.py,9a9444ff0a5da767cad8cee7f36d51fa2412dce46542800a396b5f64b001f2e7,1638,,,,False
+pluggy,docs/examples/eggsample/eggsample/lib.py,0b01c5c5e33cbbaaf455a06c4b11686594cb95a79519b80c08b62f9b4efba3c7,349,,,,False
+pluggy,docs/examples/eggsample/setup.py,4aaa7022c408c7274f2fd3af5d4a2653f1e590b5aa240b0001e24fc28223271a,253,,,,False
+pluggy,docs/examples/toy-example.py,2f58b7194e9a882297e4ff02366d26625dcb98bc9b16bd8967e578567ac696fd,930,,,,False
+pluggy,docs/index.rst,8e2faf24f33fb26244fadb7bcffae45c86741778524977a83a4e732e3781bf22,34846,,,,False
+pluggy,docs/requirements.txt,c3d0736e5c4b4e613208465fd366458fc4a30c5f375801798f98e7a8e1d44ce2,115,,,,False
+pluggy,downstream/README.md,4dce564b2cd6d484eb1b0328e9a7bac8fffd404b8ec6d77c52943d7d93070274,109,,,,False
+pluggy,downstream/conda.sh,6893eabe4bbdc1cd050c14e355ed3885888eb186293c8d06e497754bc14a6c44,267,,,,False
+pluggy,downstream/datasette.sh,f85d1dd7150c9edc18c9a6ad9cc2f75e3f4c7f7d396594821d223a0d45949a6c,254,,,,False
+pluggy,downstream/devpi.sh,c8a5e2541ecfdf17cde64f9c73c9f5e734505997eb478ccca1402d6f3e031ca3,330,,,,False
+pluggy,downstream/hatch.sh,7460aea37795c132f39eae26d15731d193b7688c74ced45e0913bf69f35f2e5d,255,,,,False
+pluggy,downstream/pytest.sh,841a34922099dad16d6b1d310930e28001b65082e7e94624ebed9fed4086aa83,252,,,,False
+pluggy,downstream/tox.sh,c9de249904852b6e4c4363ef3d4fa5becd83aac0e0e93f1c285c761f1949ccf1,230,,,,False
+pluggy,pyproject.toml,d0609fb56f08e7c7b01ea09448ff7806b70efac2b8aa62f23426c78caed0c90e,3560,,,MIT License,False
+pluggy,scripts/release.py,eb0c79cf534a3b447903aedfe3ba3b2012fe6a030402e0866f3af36f41147e25,2152,,,,False
+pluggy,scripts/towncrier-draft-to-file.py,664b11df97b4c79d3660ac242570c24dd50d389de4a943623efdd028f173cb7b,451,,,,False
+pluggy,src/pluggy/__init__.py,49eaddc3146052c04ada43fd53413e1bb9a8bd15101f53470123e055f1ea107e,841,,,,False
+pluggy,src/pluggy/_callers.py,5b030b62cffe690cc058180e621392f97f8850323f02b0eecfe2b464da4c4b99,6160,,,,False
+pluggy,src/pluggy/_hooks.py,6fc84da82cff2ccc7be1dc40c33c0cbee0ba3d8e41ebd0e3a15ab0a9c3fb622d,25932,,,,False
+pluggy,src/pluggy/_manager.py,54fefac894efb3cea10acb1b917aaf360655b6cfa4dbb84cee56ad6928fbeed0,20742,,,,False
+pluggy,src/pluggy/_result.py,f469c5f5a7fbff7b1cb5d45fcd36828744724b5e1bfb6599c3c2ae8cb9b923c7,3205,,,,False
+pluggy,src/pluggy/_tracing.py,8c2618e542503adcf9e6b28790a74a5484a1cff13b654a1d87e4c902e7b646e0,2145,,,,False
+pluggy,src/pluggy/_warnings.py,83924f4cd71dcbce17fc801ecca3dd1b62472ad5da3208538dc2f05f3b664d1c,855,,,,False
+pluggy,testing/benchmark.py,3a0cddf6f423a8196890930042f596b3219c0e0cb03aa2f568542c9abd9278e1,2731,,,,False
+pluggy,testing/conftest.py,42553852230359607c1d5089c746d30e860a5c446905e045736f8cea365322c5,594,,,,False
+pluggy,testing/test_details.py,861f635452420e2623b5195197b79839910f4cf755f11775b0a6e6c08cf86092,7355,,,,False
+pluggy,testing/test_helpers.py,a78be0af87ca741120467ccbe63cb33304988caf3aa3366b125f3d7de6c66ec3,2626,,,,False
+pluggy,testing/test_hookcaller.py,92616ddeb9429f1dabf1b11c9c31417bbad09f1b90f7c4b0da87f4731df89c5a,12793,,,,False
+pluggy,testing/test_invocations.py,f957468b3fdbd38022e18e34a22519b3e9cfe76d0be4e22335c0b1966924284c,9417,,,,False
+pluggy,testing/test_multicall.py,fec80ec67763bb7e1d7fcc4c45666565b268eb5500adf1037fb6ea5e360138c3,11124,,,,False
+pluggy,testing/test_pluginmanager.py,32180468c0c8c660e07e77dfa69b4421ca97022a1ceea02bdb8a94bb1c53f4c4,20521,,,,False
+pluggy,testing/test_result.py,389afc786e5876aa6c56b5794b0e81becfc1bfc926d665cbdea03827a692206e,624,,,,False
+pluggy,testing/test_tracer.py,a6f9949af4b3adb7df7366c909ea82a915b08f447dd158f6a4b78b1d5b3eef44,1952,,,,False
+pluggy,testing/test_warnings.py,b8b9506bc9ce42a8f4dd5da71e4a8f1213ed932b3b72d6497fa0761d140ecf1c,1230,,,,False
+pluggy,tox.ini,87a23f705b13c72e8d1187c3ad282f6da166c4846e0307ef2f413f1ca25cbb1f,1434,,,,False
+boltons,.github/workflows/publish.yml,c3cce6501760266774a2d5de376c302eaeae1a52c26da431f0654e2b743d1920,2720,,,,False
+boltons,.github/workflows/tests.yaml,5815e74ef27c823f387972b5cface0019628d691ef7edfd76b24f400249d4433,1674,,,,False
+boltons,.omp/skills/release/SKILL.md,fd7d64923aadda23bd4f7b9f0505749c5ffa47e33c77a1b0fd89b2e8f4f29672,6559,,,,False
+boltons,.readthedocs.yaml,bbc92bb95cbdbce07092ad3952ff4460c29a1eee85018b9ca4179e4a81b748d8,665,,,,False
+boltons,CHANGELOG.md,3d987fb7d18ab2cd1a85889afdd5750b10153af2ce654f5a1cb950a8fbca985e,75076,,,,False
+boltons,README.md,eeed2dddc89dce183589d77cebe0a7fedc202a58c4852c75f860b68f040bdeb8,5863,,,,False
+boltons,TODO.rst,b0c668d9e4caf40b1d7e7ddeb804325d4ac31e929ee135c016d2644d5996d123,2583,,,,False
+boltons,boltons/__init__.py,f8a0ab78920d0c3727dd3eddae099dcb06191c85efd3ff457224ff87a97f8bb5,22,,,,False
+boltons,boltons/cacheutils.py,11071d2fa0c615e23f727ee4d1754ea2f5c40b1ddd166d46da53169b1c66164c,31277,,"# Copyright (c) 2013, Mahmoud Hashemi | #      copyright notice, this list of conditions and the following | # Copyright (c) 2013, Mahmoud Hashemi",,False
+boltons,boltons/debugutils.py,9be7bba35c25952074bcd82b8fff6c6b702c438d2844332901600e5ced47e1d2,10612,,"# Copyright (c) 2013, Mahmoud Hashemi | #      copyright notice, this list of conditions and the following | # Copyright (c) 2013, Mahmoud Hashemi",,False
+boltons,boltons/deprutils.py,a28ab815c0833e9c6a4759280b44fc67d3f011c5c289dd82f32958f79649e243,2541,,"# Copyright (c) 2013, Mahmoud Hashemi | #      copyright notice, this list of conditions and the following | # Copyright (c) 2013, Mahmoud Hashemi",,False
+boltons,boltons/dictutils.py,fdfde7db7307af965b4b8677e56793f674e0ec200cf27b154b27fc72214a05ec,39432,,"# Copyright (c) 2013, Mahmoud Hashemi | #      copyright notice, this list of conditions and the following | # Copyright (c) 2013, Mahmoud Hashemi",,False
+boltons,boltons/easterutils.py,1de2c30fc9ba32b40af311f1aaa1b81953a11732460b50662cc7ecac8905604b,1842,,"# Copyright (c) 2013, Mahmoud Hashemi | #      copyright notice, this list of conditions and the following | # Copyright (c) 2013, Mahmoud Hashemi",,False
+boltons,boltons/ecoutils.py,34589ae1d7c9d8c5faacd7a0ba6f2fdf9afad71ac2020e5eff267b663c145d9e,14602,,"# Copyright (c) 2013, Mahmoud Hashemi | #      copyright notice, this list of conditions and the following | # Copyright (c) 2013, Mahmoud Hashemi",,False
+boltons,boltons/excutils.py,6b94f06e006a1a28c9d6f532be0856bffbe651b51aab32d8744a73eb977d196b,9259,,"# Copyright (c) 2013, Mahmoud Hashemi | #      copyright notice, this list of conditions and the following | # Copyright (c) 2013, Mahmoud Hashemi",,False
+boltons,boltons/fileutils.py,38361617659546431db4183e21a6f99ed6433e3556c93cd51a19d53607b5efc1,26267,,"# Copyright (c) 2013, Mahmoud Hashemi | #      copyright notice, this list of conditions and the following | # Copyright (c) 2013, Mahmoud Hashemi",,False
+boltons,boltons/formatutils.py,9ea732109b73c3dc63516bbcc2e253a81596ae54499dc3392459634932260601,13084,,"# Copyright (c) 2013, Mahmoud Hashemi | #      copyright notice, this list of conditions and the following | # Copyright (c) 2013, Mahmoud Hashemi",,False
+boltons,boltons/funcutils.py,656da1c12f6f7f1f746ece39e4e1a6ae3a49b730300d59b6e4d5ac49d99f6599,40732,,"# Copyright (c) 2013, Mahmoud Hashemi | #      copyright notice, this list of conditions and the following | # Copyright (c) 2013, Mahmoud Hashemi",,False
+boltons,boltons/gcutils.py,7bf38c1f9bb9d63c9f5fa6406f4d7fc517a6f7705d1bfabb206ad8bd629d0c2d,6393,,"# Copyright (c) 2013, Mahmoud Hashemi | #      copyright notice, this list of conditions and the following | # Copyright (c) 2013, Mahmoud Hashemi",,False
+boltons,boltons/ioutils.py,c6feb16f987e6d5488197d80129457d545faee2e6270f94d820316175866c8c1,18578,,"# Copyright (c) 2013, Mahmoud Hashemi | #      copyright notice, this list of conditions and the following | # Copyright (c) 2013, Mahmoud Hashemi",,False
+boltons,boltons/iterutils.py,3122f1868cb9c3140a538fe95a5bb9e879fdcf339311200616d55d15d38ebfa7,61000,,"# Copyright (c) 2013, Mahmoud Hashemi | #      copyright notice, this list of conditions and the following | # Copyright (c) 2013, Mahmoud Hashemi",,False
+boltons,boltons/jsonutils.py,756a3d374f3ea940d558956e794736e9163be1686491c20a55ffc05d535a7a09,10441,,"# Copyright (c) 2013, Mahmoud Hashemi | #      copyright notice, this list of conditions and the following | # Copyright (c) 2013, Mahmoud Hashemi",,False
+boltons,boltons/listutils.py,a84dc0b0fc9ce9d23fc0285eb163c5d24234430973a2d039c4421f97e92b007a,12666,,"# Copyright (c) 2013, Mahmoud Hashemi | #      copyright notice, this list of conditions and the following | # Copyright (c) 2013, Mahmoud Hashemi",,False
+boltons,boltons/mathutils.py,710226a29f01557fd0f4a63f53ac6a0c8e139d2e89469aa72d1f8f82700482ed,8403,,"# Copyright (c) 2013, Mahmoud Hashemi | #      copyright notice, this list of conditions and the following | # Copyright (c) 2013, Mahmoud Hashemi",,False
+boltons,boltons/mboxutils.py,f2262e2bbcc8a2a9b64188a1e1282dbe18ed79b4dcc16a1b341cb7f6246e08d2,6088,,"# Copyright (c) 2013, Mahmoud Hashemi | #      copyright notice, this list of conditions and the following | # Copyright (c) 2013, Mahmoud Hashemi",,False
+boltons,boltons/namedutils.py,3fbc90bdc6e9323a6fd8ad6e845e62a1dceb6e9052fb6c251d786d992e0c0c37,15416,,"# Copyright (c) 2013, Mahmoud Hashemi | #      copyright notice, this list of conditions and the following | # Copyright (c) 2013, Mahmoud Hashemi",,False
+boltons,boltons/pathutils.py,189d623ba2c0145fa4b2cfeb85904267e4f37e0461b2181bc2d81f37d1535072,6680,,"# Copyright (c) 2013, Mahmoud Hashemi | #      copyright notice, this list of conditions and the following | # Copyright (c) 2013, Mahmoud Hashemi",,False
+boltons,boltons/queueutils.py,3e0633ed4c9985ab4acbb617e6ff87ca0bdf8bf8f034ad79e579fd12855f20a5,7873,,"# Copyright (c) 2013, Mahmoud Hashemi | #      copyright notice, this list of conditions and the following | # Copyright (c) 2013, Mahmoud Hashemi",,False
+boltons,boltons/setutils.py,7b215a175984619ce77fca240b91ae91d9d9be24528c7aaba7febabd1c817f9a,35652,,"# Copyright (c) 2013, Mahmoud Hashemi | #      copyright notice, this list of conditions and the following | # Copyright (c) 2013, Mahmoud Hashemi",,False
+boltons,boltons/socketutils.py,720618ea2689ed9d8c8186f0c759be9eaea6dffc58ce24b6e433142af1d99cbc,30666,,"# Copyright (c) 2013, Mahmoud Hashemi | #      copyright notice, this list of conditions and the following | # Copyright (c) 2013, Mahmoud Hashemi",,False
+boltons,boltons/statsutils.py,c85c6fad12d4e00b9e4ffce31da897eeba8adff7e725af621f50cd7193e1e1d7,31956,,"# Copyright (c) 2013, Mahmoud Hashemi | #      copyright notice, this list of conditions and the following | # Copyright (c) 2013, Mahmoud Hashemi",,False
+boltons,boltons/strutils.py,2589a16c6fc2c4aa71e084a02b5d133e49d52385818dc8e200ae89cd039e4302,48684,,"# Copyright (c) 2013, Mahmoud Hashemi | #      copyright notice, this list of conditions and the following | # Copyright (c) 2013, Mahmoud Hashemi",,False
+boltons,boltons/tableutils.py,7cf9539dea56bad60cd2fc2e929ae37f9fd9322ee12ae66b0bedcf62795eec81,22733,,"# Copyright (c) 2013, Mahmoud Hashemi | #      copyright notice, this list of conditions and the following | # Copyright (c) 2013, Mahmoud Hashemi",,False
+boltons,boltons/tbutils.py,baf4f147223c7414faf0d1d7fe000c1213dffe6e16e61d0e58c7376fff23c962,32004,,"# Copyright (c) 2013, Mahmoud Hashemi | #      copyright notice, this list of conditions and the following | # Copyright (c) 2013, Mahmoud Hashemi",,False
+boltons,boltons/timeutils.py,4d667e16fe112bf1627e2677f9f9ba9c0553981f1c0331192e7a6bdad483a2db,23594,,"# Copyright (c) 2013, Mahmoud Hashemi | #      copyright notice, this list of conditions and the following | # Copyright (c) 2013, Mahmoud Hashemi",,False
+boltons,boltons/typeutils.py,e87eb6b320159b5e354a052159c38824fff59969aa682a1b43f52d1089d44bfb,5994,,"# Copyright (c) 2013, Mahmoud Hashemi | #      copyright notice, this list of conditions and the following | # Copyright (c) 2013, Mahmoud Hashemi",,False
+boltons,boltons/urlutils.py,184020378dbbbd049f599b8be28247221f29fd58e016c06148f58490c4524b83,59352,,"# Copyright (c) 2013, Mahmoud Hashemi | #      copyright notice, this list of conditions and the following | # Copyright (c) 2013, Mahmoud Hashemi",,False
+boltons,docs/_templates/page.html,4a77d91d5a52a11b1ffd7d020d3980f35ffdb8b4c3d62f62e46e87b153ccf24b,299,,,,False
+boltons,docs/architecture.rst,364988d538edc36531540a3dba7ac08ba9fb22e66cc9c3e8a629f7ee9b7c9571,3551,,,,False
+boltons,docs/cacheutils.rst,c359ecc7e01e3cae298a2b3cbedb0c74325debcf73b638f9f8127894fb7c7f8c,1859,,,,False
+boltons,docs/conf.py,5407132c2098e2d12f4fffbfc5f03850a808b0e55f18c427ac7abb8aa5f0d378,10043,,,,False
+boltons,docs/debugutils.rst,9948fdf4fbe7c4d041138ee2e3cd5f8a9355de35b560e85d3fc80355e4f73b2c,148,,,,False
+boltons,docs/dictutils.rst,cb35b56767654caa636cbda03581e4dc925a556905a6f976d2b98c1806601e8d,145,,,,False
+boltons,docs/ecoutils.rst,0671668e8fac3146f6cc9fe4debad528073cad41d4a8c395e12bacba45f1aa96,122,,,,False
+boltons,docs/fileutils.rst,f4e2e56c923eea840345bd6a6a0aa9c7e3f6208f2ea26edeba94d3b8e7888d0a,1736,,,,False
+boltons,docs/formatutils.rst,01b8deb19f7b9150e6a0b9ae32b73dc2b50fbf59d5975b61c1e0525805c6f028,161,,,,False
+boltons,docs/funcutils.rst,fa876075cabf726c1c04d46009a50d9c6ac17018d17665c32dc1bdf5b8d67e4c,1186,,,,False
+boltons,docs/gcutils.rst,2d6f5b586e17a183d1850913a376bedbfc1d45b56ac58f1e9522e6746e24da20,149,,,,False
+boltons,docs/index.rst,8e69465346475af862ee35bb1a34740c8cbafaa3f73edf8d11a770ee5ac056b6,4466,,,,False
+boltons,docs/ioutils.rst,c061f95a3e5542f4fef5862e9ab664ff0c7c9146630e60577322c39d06a959a1,3025,,,,False
+boltons,docs/iterutils.rst,0cc8551196ff5f2b11fea967572c517bb0228da721bd2e6512d396fa8f88705e,3058,,,,False
+boltons,docs/jsonutils.rst,11e8938ebc457ccbdb2c37fdc892aa17e2cd88c8e7a4e4072056e79067f46141,141,,,,False
+boltons,docs/listutils.rst,694cc13eed010e465d51eb428d4e8856ab82e3484fcdd44deb9b60f983956e0f,147,,,,False
+boltons,docs/make.bat,60ef34ac76affe07ca2dfc3a9666a142eee0b998a7f4a550c2b375d79d96d6c8,7246,,,,False
+boltons,docs/mathutils.rst,d0c20ab218f3a7af494c5478624ddf9939f84ce133cac9e6c935620d75af8b64,807,,,,False
+boltons,docs/mboxutils.rst,d11778102c549658a19196bb83618b1d4dcbc530c81a8ee935a8deb6f1218d62,151,,,,False
+boltons,docs/namedutils.rst,2dfb626463790c8c05307859c26ad218a76dbb51a6a19588cadea2a853ceda64,154,,,,False
+boltons,docs/pathutils.rst,67b36f5d31513676e9a2d4e335481e8fcd1a3da3d3760a9ecadf09b7356239f4,135,,,,False
+boltons,docs/queueutils.rst,07a8aad018849099c5a63381963017cf4c420ec678eb9e67efdb37d3f2a2d613,140,,,,False
+boltons,docs/requirements-rtd.txt,206f3d33a440e0e7dd96f7cab32623fdf024eda5f9e6a1f1d2823266c8f8591b,42,,,,False
+boltons,docs/setutils.rst,6791a13ba417ea3c5f8ad7dec77e1aa2e14b8e59626970114eb9857af4243e08,122,,,,False
+boltons,docs/socketutils.rst,558c388ff5f19490c83c16617bd343fe3bba647ed529ae4865ea61603801d219,968,,,,False
+boltons,docs/statsutils.rst,1b50d6c9ba54a60971e1de290d5f33de59b46cc772ed0ebf74993162473a1a80,156,,,,False
+boltons,docs/strutils.rst,92e621a7eba3ec750c3ce4507babd38f95b5c05577364582d8940b626c60c46d,139,,,,False
+boltons,docs/tableutils.rst,c08a574974014a1b76ec0c8a4f61ef88bfd66022b10e762c03c89695722fbcfc,144,,,,False
+boltons,docs/tbutils.rst,dbff595ac84fdac44fa846ecd82dd290113de2c619af82188e1097fa09f8ca5e,133,,,,False
+boltons,docs/timeutils.rst,da024a86c172d58fe694d0e9cf650a5610b1b3fc39114dc319756cd026f60d30,1887,,,,False
+boltons,docs/typeutils.rst,5f7bbf55302d238b7f7a51ccc44ecdd22ef670e8a58a0c58cc3363e85638aa87,113,,,,False
+boltons,docs/urlutils.rst,964f9a4ab753f35f804c27e2e746643200f5b7e51128439170e2d5a295c1c3e0,6144,,,,False
+boltons,misc/bench_omd.py,16eca1985a2d4c149cf93473d1971f01e8656cf6b41eb756b2b7a14c892cfce6,3304,,,,False
+boltons,misc/linkify_changelog.py,731186204233b0ae31aba90a28ffb8c0368996f3a5ff82bd4b0feb27d1887eba,1364,,,,False
+boltons,misc/table_html_app.py,512fae84435350a61b4a5f12d946fd41e7445e6aedeeb73af2475d33f9314114,5770,,,,False
+boltons,pyproject.toml,a4ea96d45aa5cf8ce91a91e0f2489b6d32e6e83ddc3bd33d273a2e42f4a94cae,1877,,,BSD License,False
+boltons,setup.cfg,e5187d580ae979c9959b554822c9ab22ce09f7e95099d3cda910088b2312d89b,37,,,,False
+boltons,tests/__init__.py,e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855,0,,,,False
+boltons,tests/conftest.py,b7356aca4fc8ac35f34f02071c78f420e2c6306e6cd83f564fa5a5483a9a904a,826,,,,False
+boltons,tests/jsonl_test_data.txt,4f6d3f31f738ac781785f798e08339412c55992ca4ea73cd3df16cbb73372b79,44,,,,False
+boltons,tests/newlines_test_data.txt,264c9f73ed310260efe165047bc1f03bed6e58d607c3bc3f27a6afbbe19178f7,50,,,,False
+boltons,tests/test_cacheutils.py,37fef16a5f1f845c3cd66223ef83096fba9c712fe21743291655901a60131a51,14516,,,,False
+boltons,tests/test_debugutils_trace.py,bd7a9d241a1bb6512dfc84013062f12d1b3a4f91467f200c280ff47eb25d77d5,1804,,,,False
+boltons,tests/test_dictutils.py,dc98587a552d5a721cdbc9668f0af5f0165cdbeb26580002e04dd0361cb1307c,15616,,,,False
+boltons,tests/test_ecoutils.py,a5d46ff9b4dfc7537e47cb64b15d4e23188ec4e7e3b7e0d6614ec04e01cc2e9c,1302,,,,False
+boltons,tests/test_fileutils.py,33d241e902c7bcd9f69147525f561cd2eb5a934f18ea445a4cb4bd4b3c6cb258,3274,,,,False
+boltons,tests/test_formatutils.py,c2c5087be527949346d6227564610ba258f498ed7a95049daf6d02d000a7b28a,2135,,,,False
+boltons,tests/test_funcutils.py,b8f8c832ff12d3962ba0db71375ad1d83e0d357158c0471a29c4df927cff6100,3613,,,,False
+boltons,tests/test_funcutils_fb.py,9559cb2d9350ede49006178d9ca12a6fed1bc856bf2c3f88a9ece42ff4acefc7,8227,,,,False
+boltons,tests/test_funcutils_fb_py3.py,5fd6f9f350b29af4f6c4f5be77675ddc6e2708bb28a807ee5a8e934c6d609658,11059,,,,False
+boltons,tests/test_gcutils.py,11f0ba80f9d7a65d2a3b74d46e215e04b3976999c5c92b7ad8c21332098a83ac,764,,,,False
+boltons,tests/test_ioutils.py,4bfcdc150349d223474770037945670df90a40b3a12b7134399f8fd0bbc742ac,19998,,,,False
+boltons,tests/test_iterutils.py,171ce14c8b7efa69814853b8f478319025079cb1df6fb2e51e143696a653bb5e,22612,,,,False
+boltons,tests/test_jsonutils.py,0fae69ffb93107024b022125d60e03579fcdac6869d342986524059c80fb2271,4483,,,,False
+boltons,tests/test_listutils.py,ccf9bf738f1eafb587aeaf71eeac930b9b98e674d43f71a17943a35cad8e3a28,8267,,,,False
+boltons,tests/test_mathutils.py,94dd269acb221cf8b0919cfd47ef2c9a9f13238987eff72854497eff8fbfa660,4688,,,,False
+boltons,tests/test_namedutils.py,4303b59b6f98f06ce9655b6998b81cda7dc0444891601e7d3ca9371c5e3f2f0c,1336,,,,False
+boltons,tests/test_pathutils.py,979a56e2ca1e1f1413268ba23adff8019edb03b15ed14d1e16d51c2530b8ab8b,1913,,,,False
+boltons,tests/test_queueutils.py,26c73a0cd1572852a2aa0a9c4e356a6338893b0d04c691ff0f47cadaec45417d,1098,,,,False
+boltons,tests/test_setutils.py,bed1cd855a4c7d9214adecbd9f73594f283edfd1862dd0cb15fa3c1c6e2ba215,11222,,,,False
+boltons,tests/test_socketutils.py,1d9c1665fa28553e769747c155c71b8446e15a51c6fe3d6c687b81dceefdee23,12313,,,,False
+boltons,tests/test_statsutils.py,1525efd1a4712d8e89b2963ade24c98b0f9f0a907ff4fb3db79168d9c87b53b7,1609,,,,False
+boltons,tests/test_statsutils_histogram.py,322dbd070619aa847be114cc0ee70810abe85a1f11d7a15c7cb0b66135dc2fdf,3885,,,,False
+boltons,tests/test_strutils.py,0347065a3250594443d19bbf70a4d1da555af22b24b429f82178f8c6d2aafae4,16652,,,,False
+boltons,tests/test_tableutils.py,84a908f81d2590ae1e61b35183d78d046b2f5feb53355aa0a47424537cea4dd0,2613,,,,False
+boltons,tests/test_tbutils.py,e38a5ce9745454ff85857cdbd814d8e933969e791b460209689d2f423526f491,3220,,,,False
+boltons,tests/test_tbutils_parsed_exc.py,1e8557ec227e00d5b658f6aeb2dea8a9d843a2c7e4d540d4901084acdfe39ff7,4378,,,,False
+boltons,tests/test_timeutils.py,3c52c1891c29cf948db7ece6e0e9326c8a407a60f5f161e08ffe9869e376185d,5783,,,,False
+boltons,tests/test_typeutils.py,903af644f5342e900f79714a2b36062003f6ff5ade7534f9d8ec1eeeff37242e,397,,,,False
+boltons,tests/test_urlutils.py,75cf0e1d735c5f9e0fcf9f275ebefdbaf7ad34824deb359211765b0484f69e23,18125,,,,False
+boltons,tox.ini,b7a82ac4b3d1f741b812ebabdaefc0f90581ea741fb6db0d1d2c97f67491831d,240,,,,False
+attrs,.git_archival.txt,dbff7491d4b53ce49032e65f042530eaa36339bbbb223a7c0e6a6d1009a51a45,102,,,,False
+attrs,.github/AI_POLICY.md,27b06e9b8c45aa8b57a0b994ba59a5f6b202ff9b7462b158812ec5e35f561fee,4174,,,,False
+attrs,.github/CODE_OF_CONDUCT.md,81c5d9c2990ae9755dc78f517ed86bb7215c5a082077a98a69e8062ed5aa0533,918,,,,False
+attrs,.github/CONTRIBUTING.md,b31a943c94c2690e3c522f66c03e11d7c8e9b695e7cca42ca40f77eaf4bd4221,12179,,,,False
+attrs,.github/FUNDING.yml,1928f51a6bc0c1d5585de0fc9d04d85476a7828588060a9a209445fbd6aeefe8,106,,,,False
+attrs,.github/PULL_REQUEST_TEMPLATE.md,e1d2af2dc45e1b3d8101241fe6c18c425f568c240a81a5e28e4e5cfc7b3ac746,2662,,,,False
+attrs,.github/SECURITY.md,d0b2da82fc325e249e15807a189d0311faf10d25b2d94d72617e586a4af0ec43,947,,,,False
+attrs,.github/dependabot.yml,330df52508d5e24667c91ecf14e03502555875e2f08dd3cfef13904878320b37,311,,,,False
+attrs,.github/workflows/build-docset.yml,41f11bd5b36e230002629377ff947c16c82b99a0ce112a972f640db077bb8981,802,,,,False
+attrs,.github/workflows/ci.yml,028e6d702bd866dee4f86ab4f91a7006714660815544f6bf0a13f53a46e7b038,6691,,,,False
+attrs,.github/workflows/codeql-analysis.yml,29147a2cf39afda83bb237ec229a2a5a7649df2a9473fd594473b9167e0e79d0,934,,,,False
+attrs,.github/workflows/codspeed.yml,aee95390e92ca1aca303fc645cc89644c6f01c55535f22463883de75541a5b72,1132,,,,False
+attrs,.github/workflows/pinact.yml,992b4df19b9038f25f116513dc1679af3268144fd4566a8851d0f1090b3e8a8e,446,,,,False
+attrs,.github/workflows/pypi-package.yml,c8e1cae1af9524e7678a446ba7f83a74ba6bad1fccc258fce66c07d62032a773,2234,,,,False
+attrs,.github/workflows/zizmor.yml,7107db61d55982e86906dbaa46efcbff7fb8cfa28378508c2c6357dbd1da6843,1081,,,,False
+attrs,.pre-commit-config.yaml,e1b7dd379578a07f622ebfa9078645e0bc3d0051fbd1c6b643452c34a2bbc381,989,,,,False
+attrs,.readthedocs.yaml,278d66724a5763b47038c9bba598c31ac1551506b1af4f9bb7c29c760cb6eecb,477,,,,False
+attrs,CHANGELOG.md,eaef1cc78e639c0a206ef3349d82d5aa378f979e060ec9db68786c0cd614de5a,71849,,,,False
+attrs,README.md,114dedc6bafcbcc1b9fcd000d689b2542cc5ec4608815e565de5f7314de6aee4,7407,,,,False
+attrs,bench/test_benchmarks.py,7e29d8b56e4654bf39be08c713cf81fb46036ad48e6059c73afc498361e7df37,4288,,,,False
+attrs,docs/_static/custom.css,428781d4178a9699c149b5bcab1e362d164df84e5bae80eb1375c316f8a22421,277,,,,False
+attrs,docs/api-attr.rst,877b587ac618fb7e2030766061811069c8e9be037dd1e96fc78a5bcb5bf33f2a,5503,,,,False
+attrs,docs/api.rst,72981c453ecb456945bcf93981f0b439a2540845491988ebdb1bf7746be6c0d7,24870,,,,False
+attrs,docs/changelog.md,fadc4516db6612d819db865542d4ee7f91016e9c0cb064eff01d566ddb33257a,215,,,,False
+attrs,docs/comparison.md,4c213476ce293717909e20b68a17f486fa221c75f3a2d8c1aed30023dac7ef5a,2113,,,,False
+attrs,docs/conf.py,05e7f28d42e260e26830e2742127d060fa3dcc2ab80cb88fff232158b5e323e0,5981,MIT,,,False
+attrs,docs/examples.md,15c0060b1229b5b9b641f70951a2c3f0aa16427564abfafac69da46c3ebf5e20,21885,,,,False
+attrs,docs/extending.md,e6a7102fef55c2860dd291e6b8db4fe6c13b7a8c5dd67656906a038bdfc890aa,9949,,,,False
+attrs,docs/glossary.md,a185f646b684762a0bfdc03a4cc41269e48f89d5a1cca07f5b2cf634efd24d06,6668,,,,False
+attrs,docs/hashing.md,2bf64384930cac8c2fe3bc84b45db14f009356808182f5dafb7536f88d461ef9,5127,,,,False
+attrs,docs/how-does-it-work.md,1783b2810deb0b150f256e473a12f68911689468bf81ab83f6bc4ce16e68149c,5503,,,,False
+attrs,docs/index.md,9ef3fdd974b0fb44f2b38e38bd58c148dbcb22b5c87be4b230e2722736a19007,4736,,,,False
+attrs,docs/init.md,49b8b68e5d76f7c380e3ccd7f7b5f9b323c113185efe0400a5467db2e36e1421,20161,,,,False
+attrs,docs/license.md,b26415d5042a70fcc29edc17112f68311aa09935290a208218d4930d9b571a7a,1289,,,licensed under,True
+attrs,docs/names.md,7a579900e178aba7c44f4599194fe4641cc18fda61ff6aaea522a0f795f2d12b,7688,,,,False
+attrs,docs/overview.md,a924d95e999c979dd4bd5d9ff81d762485b691de2cd25844b36d9578992a8e73,3123,,,,False
+attrs,docs/types.md,9cd5ef7900dd94843b6201bbd59881bf27979f822f3e537667fadd91a0cd79cb,7109,,,,False
+attrs,docs/why.md,b2c813e4b32100b15ed77729762e5d58b93544f1d26cf9de4ebc8cbf67fc0e21,13556,,,,False
+attrs,pyproject.toml,bc6014ed6ff2b19a6a55adf19438ffc4339876d362083953474bceb453e13f30,8852,MIT,,,False
+attrs,src/attr/__init__.py,7ce608bedd5e192a90adee2e092dec256299d26c00b82f140faa9b6b9392f7f5,2057,MIT,,,False
+attrs,src/attr/__init__.pyi,a55188980515a2fab6fd3625febfc72189c697239aa02b84871a3e12fb279d27,11325,,,,False
+attrs,src/attr/_cmp.py,dcd9f54e3c659546225ff9c9a159c4917a0393484cd4360a8f90c4ec665ee22d,4117,MIT,,,False
+attrs,src/attr/_cmp.pyi,53efd153f5193b23d4110cd713a44c61041c8e4651636e704c7f7db0dd2cecc3,368,,,,False
+attrs,src/attr/_compat.py,c7483b88450e9c15490bbdb3c850a06f578aab2c52fbb7f62c69cdc99febf79b,2829,MIT,,,False
+attrs,src/attr/_config.py,746ab7c51e9f819105e9406dfcbd13f9e507201e22e37911987d0fdbcb09570f,843,MIT,,,False
+attrs,src/attr/_funcs.py,231e481134dfcf9174d45fb5d8c17f0921689889f687c6faec4555cf6802b411,16479,MIT,,,False
+attrs,src/attr/_make.py,1fb387d9e592e429c1ccb5233451355b299f3eb985d6bf1fbf644f76df4cb980,106129,MIT,,,False
+attrs,src/attr/_next_gen.py,050b42525cf08368161d3617050beb118067cc152b0ef3b9eeed0fcba5023e17,26274,MIT,,,False
+attrs,src/attr/_typing_compat.pyi,5c33f9e13527f992a10fad9339079b9b3af0172a268540a8191a5c95be9a9510,469,,,,False
+attrs,src/attr/_version_info.py,c3847e1580b734afe43241945899583f87150251fd1d1682fae9b77dc8d89073,2222,MIT,,,False
+attrs,src/attr/_version_info.pyi,c7f3372f75ae07baff50b5c05a3c7de7db9d290e072c1f25fa1b1cd450c636f9,209,,,,False
+attrs,src/attr/converters.py,1a50de3b33de4c581e0412db8fd1b9ec4cf994093af2e85200b45827f7b17bce,3861,MIT,,,False
+attrs,src/attr/converters.pyi,a2b5366df7fe56341ada4303caf9cc415ef7a094f6591c90bb0e19475ca6d5b1,643,,,,False
+attrs,src/attr/exceptions.py,6f8bcc6e7a10dd5a7059986aad88bfb2c5d508af28d9ce074124b4f5c49433da,1990,MIT,,,False
+attrs,src/attr/exceptions.pyi,cd9abc6c2527280cbd983b41130e366613e1014207a1329e7434089c90fcf373,539,,,,False
+attrs,src/attr/filters.py,64188a58ba774742df099b2aed7d75a67f565fc36c952db05cce23b272ce19cf,1795,MIT,,,False
+attrs,src/attr/filters.pyi,dc9e411be753c65b41935ffe46e351507aefdaabb5bfcbf868334043bfe689f0,208,,,,False
+attrs,src/attr/setters.py,e7e75c4fadc640adf938d1334a07d70a46c1ee93e4691faabf5e669b83d54b34,1617,MIT,,,False
+attrs,src/attr/setters.pyi,367564685535041e0907c13826e5f2af34d482fb4ca63f29df005d258eee8b1e,584,,,,False
+attrs,src/attr/validators.py,9b7411cd94c036be1fd82e1e55d528160d753605d66a4f166ade2a4131a1bdcb,21553,MIT,,,False
+attrs,src/attr/validators.pyi,80cd59987681724c98588d848aba51373aa6dc1d7d730e48aba0782a7a3d6023,4087,,,,False
+attrs,src/attrs/__init__.py,47168064dc1888487e7dcbc72d936943f0d62a78bbdccfe3c443c47ed8aad597,1183,MIT,,,False
+attrs,src/attrs/__init__.pyi,da057bf60f54c49a69192338f2101927a87f3076fbd1d66824bdf564d25e6582,9416,,,,False
+attrs,src/attrs/converters.py,f244258eb5707d24d1bbc20dc0493c488d1e1abce659fb6c4fbaccd04ab2a213,76,MIT,,,False
+attrs,src/attrs/exceptions.py,0020829a0d7dfaf0c56833d8f6f165d7df523d709030dfdb10db380c02e3ce6b,76,MIT,,,False
+attrs,src/attrs/filters.py,54e50c66e83db8453a754b80d1d1758c89d42b43cbddf2e03f45414b977e0831,73,MIT,,,False
+attrs,src/attrs/setters.py,78bd5889d6105774f687dfd2608652651d4501c1c66f54ee093cb41342efd925,73,MIT,,,False
+attrs,src/attrs/validators.py,c5ccbac03e53b5391d086d5fe1759ba1c3d23b47da06393921f5497cfe92523d,76,MIT,,,False
+attrs,tests/__init__.py,5be230fa13a76b43315ce684e1e849c7104db7aa30af69f7d91144b4b665e2d3,31,MIT,,,False
+attrs,tests/attr_import_star.py,f90fdab39f0d15f71ae30daf64873ce0696138a6135fc40f344cdbde6087a436,249,MIT,,,False
+attrs,tests/conftest.py,c0ae4057c2d73a00d723084f48e266068303ed7c2480fa7b4306a3da1a944454,900,MIT,,,False
+attrs,tests/dataclass_transform_example.py,29398ee3e836498d584aabf11589a6e3a694e41093b9a05f499461992e189fb5,820,MIT,,,False
+attrs,tests/strategies.py,48738566bdeb3546860c0ab10542850078051c465f2d83b14db15be215c24a05,6177,MIT,,,False
+attrs,tests/test_3rd_party.py,82ffcfff1a44a7e14e5edb49bdb2ee32fefbb16a8084ff1d26c96ee7eb4f128e,694,MIT,,,False
+attrs,tests/test_abc.py,55dc6f530c9d3fce3fe812ede3c2d6b5e7407875327f07c8b924536f31b014a7,1638,MIT,,,False
+attrs,tests/test_annotations.py,ebb87e5913fc660b223b2184389ad29a6928530dc005a77c317bf579d53056c0,18206,MIT,,,False
+attrs,tests/test_cmp.py,76651ab5477fecd5022760ed4f99a0341dded85d93fecdd6f22f6e009711bf0d,15151,MIT,,,False
+attrs,tests/test_compat.py,1c2e6740a0618b84ce39d24513baa5a86cda7cfe8ec2d81fd02364c478cc16b8,1661,MIT,,,False
+attrs,tests/test_config.py,968a38cc8caa9837407d1a5b8d6c3d3cf01c47bc0cf9726c1a3a8116419e60d7,1122,MIT,,,False
+attrs,tests/test_converters.py,ecd9f3004a18547fd1a8e0eba2319aaa59c9ff3fc379e3d147ffa27a8412fe17,9093,MIT,,,False
+attrs,tests/test_dunders.py,7a573d0306ccc81b92aa2e75a3cadfa6134048841c75fd206687816849e11f18,28742,MIT,,,False
+attrs,tests/test_filters.py,04cd3c53577f15fc01a1fa1333ed1dc2c2981d4b82f0eed5bdffd6513e5b6b4b,2896,MIT,,,False
+attrs,tests/test_forward_references.py,ca3eb5b3dfbf46727cf3a16148a7cd86fb8b2626bec55757312b3c4f955c95ab,357,,,,False
+attrs,tests/test_funcs.py,908bb7f6f174c63a0e8b4613c63c01e5710f1c1b6562ff312f4d8350529e9bc9,24293,MIT,,,False
+attrs,tests/test_functional.py,b9c5e8b864335a680f783b253a018886715dfde8db0fef5f5eb0432d9dd0cf34,20791,MIT,,,False
+attrs,tests/test_hooks.py,64c296a8fe6cb0d8a8919c5e3803406bcd24523411259c300e09e1df73117dff,12733,MIT,,,False
+attrs,tests/test_import.py,8d54679f76f34f62e52a4f2dc299c8a36b882fea05315b0dbf2d86f56faf110e,347,MIT,,,False
+attrs,tests/test_init_subclass.py,63c61d21576132d2b88378c90cbc77b9b41607bed5362ab90c6dff4fbb377c44,1368,MIT,,,False
+attrs,tests/test_make.py,6164d33af3a71e968b905e9e91643f38732340767aba67e8005dc79f22e2d373,85301,MIT,,,False
+attrs,tests/test_mypy.yml,bef81df6dc7d525881ed878866b6c055d620c629eca93ba754c9c86086ff9df3,46843,,,,False
+attrs,tests/test_next_gen.py,f68e7329a19909efbc0c4a3cbab635c67d0abf09415fc8282a2c9bb4ec19b0ff,14092,MIT,,,False
+attrs,tests/test_packaging.py,e13f9905b5c8d3f8ec3c42b7e28ee22a256c308f7adec77b2fe60a451b6a0d96,1033,MIT,,,False
+attrs,tests/test_pattern_matching.py,b812afdba0cd4832fc34a0b9b9edc19540b2da80609d9cb6b8fa17942b281617,2245,MIT,,,False
+attrs,tests/test_pyright.py,2b8512ec5b45c53166e8895be926c2733da20d3efba1b822c16a2e51b47a45bc,3453,MIT,,,False
+attrs,tests/test_setattr.py,e48f546e2524779b4d4e9c775cf9ad7276fdc17be1be741635b4287cc451bdec,12272,MIT,,,False
+attrs,tests/test_slots.py,4966065569370f6a569166f0ea85bff25e1ca759b315d386fa9c6f5edd2ae83a,27231,MIT,,,False
+attrs,tests/test_utils.py,3e570bef589393b51320d6cb269b781c2575e209ae26c47d28b7a671b17fe11c,440,,,,False
+attrs,tests/test_validators.py,06d9374759ff93514641486b82648cb53db30e117cab3e95dec2d42aa14fdc7c,37670,MIT,,,False
+attrs,tests/test_version_info.py,2e0276a89f5c83e789c1c08655aa0a4c44b44b35b9bfc6dddd042220d7a7d10a,1608,MIT,,,False
+attrs,tests/utils.py,4c346bc2af0a686e7b2a78044b3c8ca3ab497398b38b9de4bca10421a3b24e30,1279,MIT,,,False
+attrs,tox.ini,9e7833572fe21bfe02495bd052866a811fe52279cb435f4bd393be483f7296eb,4213,MIT,,,False
+attrs,typing-examples/README.md,57d8ec16217c69c61620fce66e7a14cd5d70fd899efc4ea449146c6624b5668f,244,,,,False
+attrs,typing-examples/baseline.py,3a6a6d477b381f9cb50fd03f1b15820c3abef08d9a92c38d1f72eaf4d17dd2c5,4112,MIT,,,False
+attrs,typing-examples/mypy.py,f9a10e2bfd8f1702e8ed308f617cadafd03a2b79c4688befb84a6f90e9765350,8241,MIT,,,False
+dateutil,.github/pull_request_template.md,964a428e0f4074bf2979f1795268afd1e8276649eabc626efc85024ee116e8a0,527,,,,False
+dateutil,.github/workflows/publish.yml,8cce2b6cb1f1346b4a98a6baa2536127848b107232ba905888ff2622d92d6d0b,2018,,,,False
+dateutil,.github/workflows/validate.yml,11fdaa4949518d9945313eacc4aed54823756f64f1b9d68dc4b7f55f8219b0a2,4610,,,,False
+dateutil,.pre-commit-config.yaml,442c1f5e39e4475896f6a15f7e73d216392daada5efe9b61b85195f367a5c943,340,,,,False
+dateutil,.readthedocs.yml,a606966e3b5c45a42becd1d6e8f833542c5be69f3abb356bc4564a10c54d67a5,225,,,,False
+dateutil,.travis.yml,0c33306ddf5d155a2a15517cef071aae76fc6e2557ce79e67e887d76cd8ee040,829,,,,False
+dateutil,AUTHORS.md,6a548b9a9d6b36e57c8bac5933357d6eacff0540c1dd2eaf265d916ae9ca2102,6788,,,BSD 3-clause,True
+dateutil,CONTRIBUTING.md,6840a926b4f356bf1d7d50af8b0a1af7f506593455d0bf2549e006617e4d03d2,6731,,,BSD License,False
+dateutil,MANIFEST.in,0b4014135093ad4763ec200d4e135ace00a818bd9c7262e759b72be3e82f7560,156,,,,False
+dateutil,README.rst,dbf0af62b62a206243eab2f4e03ffb3294e808045c13678adcdff480b913953e,6986,,,,False
+dateutil,appveyor.yml,293de3e34250d8cc14c3ca834effc5a90667773e74e766cbcef440558a5c8ce2,1239,,,,False
+dateutil,azure-pipelines.yml,0c65bab38547ba2a10b8849a63c93a34d22cf3eea18f1991bf42a506d1cf3a26,2213,,,,False
+dateutil,changelog.d/template.rst,fe115bd6f242bab6ac7eb5fcf85b4d1d014067209305e4d121116cb8a433f705,674,,,,False
+dateutil,ci_tools/make_zonefile_metadata.py,d9853d551403b38be23827eb18052da84a0664777ae170c3c692fb7e13be71b0,1585,,,,False
+dateutil,ci_tools/retry.bat,796427537d031da9c757d813135ce427bc573858d79215cfa223e5f90ab31bbd,472,,,,False
+dateutil,ci_tools/retry.sh,090d0ad0764f45b798a2cec433cc83075330a87c5b303413206691f833ac3179,143,,,,False
+dateutil,ci_tools/run_tz_master_env.sh,57a3536f8f587f9d66d14693c63192ae3f757d34f7e199568e37a8991dc9194a,2227,,,,False
+dateutil,codecov.yml,43e7c8a7a0ffc58a5d1850ddd7c33269c52924b84e3a61650c0c7e5811eb1ebd,128,,,,False
+dateutil,docs/changelog.rst,b32ce88ace2724ae946c50cfb0d65fcc972135c8f24d1a73445d7d41e011d5f7,104,,,,False
+dateutil,docs/conf.py,f295044a9aff9165ca9634a57704f8560877242c8736a038398c21b824e4d17c,9298,,"copyright = '2019, dateutil'",,False
+dateutil,docs/easter.rst,cd52f8cfb179fbdb5eebbd0a9920a158e50e6ab6642d67da6dcb869922ed2dbe,91,,,,False
+dateutil,docs/examples.rst,dc6f15ea3c6726b2eabf90bff7d2519e21090c621d9837681dd36f3626ae241e,41867,,,,False
+dateutil,docs/exercises/index.rst,81b7e9b4391c6113444005cc98520de8cfc880f6d0f2a70d608755f71757182d,8001,,,,False
+dateutil,docs/exercises/solutions/mlk-day-rrule.rst,4eadb69da4fbff0c22d22f907472c0a1425c71b3693e0c37656298954e72d035,244,,,,False
+dateutil,docs/exercises/solutions/mlk_day_rrule_solution.py,788f07871e668c32020c7858f8e0f59be8db86608261a84a6dd04c7741075c10,1120,,,,False
+dateutil,docs/index.rst,1d7f7c2745fdb14d4dd6e9e552a76e369c35d6c2c10c2a8198e9723555f2d60c,667,,,,False
+dateutil,docs/make.bat,85cb8f97fa68e42e6bf11747fae73a7ed0a52a4cfb98d9909d4ba91e41b8cd4a,6705,,,,False
+dateutil,docs/parser.rst,10056333902a1abf6d4a224fb1a9fc7b98536cb2984648ee6daff8d36655cd3c,426,,,,False
+dateutil,docs/relativedelta.rst,4f2333475a627e68e61fa9de7c15a14c0e627e9406d2d182ea26106f40ad2080,5796,,,,False
+dateutil,docs/requirements-docs.txt,9d25bdd56d7bea9ef5d4a74472e0e018551607d030804798b2d7b5eefc198a0d,71,,,,False
+dateutil,docs/rrule.rst,7047efd9dc431759ee9ff9c326f3b33d669af9aee048772dc0b733e983918107,21502,,,,False
+dateutil,docs/tz.rst,df3f48a41f4d821b9ccb172d2a2b4f49793532acec5317ec5d615aa56b7e695e,917,,,,False
+dateutil,docs/tzwin.rst,60789983f6d6f65f360c3f82c2d8048bc6abbb6c71190347c6556edc9cd1d17a,334,,,,False
+dateutil,docs/utils.rst,70455f47e6c23b7f45295c06c03bd12480b6f2982483c13cb6cf9acd0cc923e1,87,,,,False
+dateutil,docs/zoneinfo.rst,e1a9deef8e387414d25335c115dbfbe14b48b01f2558e9bfa4b7af51194982ee,544,,,,False
+dateutil,pyproject.toml,254419b72d4954e9fc4ae49eb9fd97e6cee6f4ef9f2ee833f3759c951ae4ae41,1471,,,,False
+dateutil,requirements-dev.txt,4f5c6ebbbc56380086f458d35ca6a47139c558b3ddef0fe98ba3c46858e822ef,221,,,,False
+dateutil,requirements/3.3/constraints.txt,a75eae34774a67fa135d0692a33a3197dc2692c9574faecb53c38823aeece621,242,,,,False
+dateutil,requirements/3.3/requirements-dev.txt,06f5779c364dc2d5a3946369cff4b896e46c6cd750768e355d70da74580b0ce3,126,,,,False
+dateutil,setup.cfg,23d975d7a26f644919d66fb7b08450b31e41d91d5cb3aa61208b5e4f07585c15,2096,,,BSD License,False
+dateutil,setup.py,af9ab90e983ee315bd0647081f71f060bb6adedc6f1bc6ef356329b12949bc2c,1433,,,,False
+dateutil,src/dateutil/__init__.py,b54edff828d0a847178b8b47c766b9f18e8efb41dc4c59bee419bbf18ed4aa42,644,,,,False
+dateutil,src/dateutil/_common.py,1f4ce4415066989dc06fc6cb65077df786eec4b13f00bc8e5e29d1efbdc9d338,975,,,,False
+dateutil,src/dateutil/easter.py,3fc0effafdf4f58c21bc5b24798c4722096765280c352164503c196e83b3b038,2767,,,,False
+dateutil,src/dateutil/parser/__init__.py,9e7efb4b5d521f12b06b7eea85aa47d0969f758b09a66fa1c7abcb8b77604d24,1827,,,,False
+dateutil,src/dateutil/parser/_parser.py,b4cb6d51ef9504aff63bc33b125f16e33c1beb3077932cfbb883575d0b239a79,60409,,,,False
+dateutil,src/dateutil/parser/isoparser.py,69a2c9806522bcf7e7af7d8795a1d51690f589768a8f0ca6005cd5913d130b7a,13649,,,,False
+dateutil,src/dateutil/relativedelta.py,abc031b39e6cf131ae9740be0fd61e2ef7aa0dc56ac17d779a220fd90ef2997e,25502,,,,False
+dateutil,src/dateutil/rrule.py,b3af688f361febc0766eeba4521e10075c8f9e1e9793d8a0af68cf8c54eda332,68294,,,,False
+dateutil,src/dateutil/tz/__init__.py,0a93d353899482bb821393b835c19dcc54bf01a96400cf06ae63815be4782dcf,456,,,,False
+dateutil,src/dateutil/tz/_common.py,6f6691a2fcbdf861aeaac226a25c184bb6373d0c74d4475022187520b5058317,13396,,,,False
+dateutil,src/dateutil/tz/_factories.py,090dc8f88bdd4fed042f3aa7afb0cccf33f12cce3ebf1b3a9ae57a9750361317,2649,,,,False
+dateutil,src/dateutil/tz/tz.py,a3d921641d3c0d258764e1edf0e8ddedf3c467be6e2e9dd4e98b316493a66ea1,64704,,,,False
+dateutil,src/dateutil/tz/win.py,990997effc9dba44787bfd227fe2357f9a73b71614faebe64056679c44b5074a,13305,,,,False
+dateutil,src/dateutil/tzwin.py,6a4c1f60b61d81279d5b6ad86940bd2f45b622c9bc992bff83f05449a18d4d2a,61,,,,False
+dateutil,src/dateutil/utils.py,33dd64806ee13f2842ce596469d26cb69ff22f3c6044ea4c0edda053683a50c1,2036,,,,False
+dateutil,src/dateutil/zoneinfo/__init__.py,b40d4a89f4689611d4ab0f9b1779f5198fa1b3611d8c20144b7669f92845198b,6056,,,,False
+dateutil,src/dateutil/zoneinfo/rebuild.py,65f5250627e0e0d15485192ef0fe87f1db670f5a8de396544737e138c27210c0,2467,,,,False
+dateutil,tests/__init__.py,e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855,0,,,,False
+dateutil,tests/_common.py,6340d7094af1cf65552b5daf76f617a183a715e624cdb9435950dd96fddce4db,6942,,,,False
+dateutil,tests/conftest.py,fe084758c3b9a881893401eafb96835ce63de8e69bb7ee169f76e84d3d626db9,1100,,,,False
+dateutil,tests/property/test_isoparse_prop.py,c83350ae37aebc3d25433b3f2b211864fd04b1595f56ddf149c008f81fee8f2e,851,,,,False
+dateutil,tests/property/test_parser_prop.py,d5c495ff2f1a6214903768949e0fb958fc1bc363cf81d6a00e8c7a0a6bc56715,572,,,,False
+dateutil,tests/property/test_tz_prop.py,70cb2eb561d576dc2b3c2610cd16b8584a26509e88317bc22df8c65b93420ff1,998,,,,False
+dateutil,tests/test_easter.py,0e16ac62b446e3546a05a0b41580cf767d06fd1f1b02f43fb840a6c3af1a3f71,4343,,,,False
+dateutil,tests/test_import_star.py,f4d7edb5b034bc6417558b7b02cda506df5edcb385e045f55e6961d05b1cd2f6,1108,,,,False
+dateutil,tests/test_imports.py,517dccfad70acdcb6ed4c74fb0c14fc835fe91a6c042e7a00d45f7dabcb1f3b9,6559,,,,False
+dateutil,tests/test_internals.py,d23114890fcb3e090e5cbabb8ad4ddd0b28c24b8b023672ff76d6817ee40deb2,2473,,,,False
+dateutil,tests/test_isoparser.py,f2357df609638643fe2f65b83d4c4401a16dd73944299c2d8fbd372e6885868f,18796,,,,False
+dateutil,tests/test_parser.py,7ae444cfb27749ffe6a041a0c91ae586b1636c834ca8fac4b51f11d1b451ac06,39528,,,,False
+dateutil,tests/test_relativedelta.py,b97bbb3556dfe7d704fe6d7694d2049574bfd989b37faeb3c8b448a39e5d6d8d,30093,,,,False
+dateutil,tests/test_rrule.py,c540f8b1959faa6f21f6362fcf8a3623c94f1f43696d00911dfcab51d3409302,221310,,,,False
+dateutil,tests/test_tz.py,6a255fdeb465ad31bf9b86c6808eee4fa68bef646dea80587022e12a3243a0d4,103231,,,,False
+dateutil,tests/test_utils.py,5b45bebc3c590fff3d39484a9fdd6c65abf313bb38c20c89d32931321ecf0bcd,1509,,,,False
+dateutil,tox.ini,a5296a159e930e3c6f942327562467fe44e0fa5f491cc1570b3c3b7795ef708c,4116,,,,False
+dateutil,updatezinfo.py,e12e293d943a37e325e508b9b9abbd8d68246defe048809e6de9d9c7a8ce93fe,2242,,,,False
+dateutil,zonefile_metadata.json,4e912e0843e2b9cdbe6328a2d2dd66a50493a3287700b0f5b27bf19183f3a58e,600,,,,False
+packaging,.github/dependabot.yml,206b0ac203dbed28c1b0a4a362edfd962ab6da5c8322c1d0616497b427d7c6be,440,,,,False
+packaging,.github/release.yml,da9c983f5e1811f7b5f49f1d37b1f37f46c274244bb2c47b544203bac63c718d,63,,,,False
+packaging,.github/workflows/codeql.yml,3953871ef547da7cdc6f93c64ce2789d6d51f11527e01042fe19ab22b0bbf89d,2414,,,,False
+packaging,.github/workflows/docs.yml,038ce2cd83415e86baf39ac62f7fc7550048271fd13bf19bf0309243d200c61b,834,,,,False
+packaging,.github/workflows/lint.yml,591d1f25bb3c2b59bc6adcad8dde2318164f57815f1ee1f85746cbc5a61b9ffb,1940,,,,False
+packaging,.github/workflows/perf.yml,a2ed01b86f5647a2ef3a0da8cf5d9e5ef4ae077542998c0ccc8e9dbcd1dcb471,1268,,,,False
+packaging,.github/workflows/publish.yml,c880168fd6944ff6bcb8469fcf9919e60d3ee75e5444e1c2ae0a54880c78d77e,2849,,,,False
+packaging,.github/workflows/test.yml,01183114912e12a1ae22e245a37e0253f87a49aa66208844422da41e11f32f47,5121,,,,False
+packaging,.pre-commit-config.yaml,bcaeb226cad9ed8e2315e906d91f357452ba7ff23f4a1b195bc64a58726320c0,1983,,,,False
+packaging,.readthedocs.yml,56e106ee6733d98d8802a2082e280055c6453dd15a36b2827af9e872837686a0,354,,,,False
+packaging,CHANGELOG.rst,bee04c96f47a5a14060b1d4cad783e263ada894eac651611b387e9c9ef33be42,35803,,,,False
+packaging,CONTRIBUTING.rst,ffe62c14b208d130f697265ea100d1c1254ae348017e885e0cf5c5f7fdfbdfb3,606,,,,False
+packaging,README.rst,8185741939e685f8793bfb9578467881374da5d12cda34ecbc560b744630f5a2,2336,,,,False
+packaging,SECURITY.md,67b050b683af223478d1c6355caf6c517a8eff15156f519fc24a4002a4b59c1f,229,,,,False
+packaging,asv.conf.json,2ed6870461772ec62a73e1361f883dcffdf9b026675b67528d30eee4fd6cf8d6,580,,,,False
+packaging,benchmarks/__init__.py,8d7e5d5971f0140066cea0589065e11365e102499b6e2022645e0a3a7c10d3d3,421,,,,False
+packaging,benchmarks/dist_sample.txt,86a8c8f2dc859d4b00e0306a1586e29a2b50354adcfb9d506cd68c6406b2b8a8,19356,,,,False
+packaging,benchmarks/markers.py,fed25721a4dfc69a0f64e1314e9a40e634db75304268a444347dac0f7a30dbe8,945,,,,False
+packaging,benchmarks/requirement.py,71a4595f1be7a9b53a44eeeb4ee9c0e8b78de82e8a08881334e2370c234cd946,537,,,,False
+packaging,benchmarks/resolver.py,594420eb8f6feb3775f3667e66cb1ddcb71abb4980dfce711a5650db58cce2e4,1280,,,,False
+packaging,benchmarks/specifiers.py,d95ea280b080033a839f9a8cc81d9b2da63b7c05afca8453e65667cc1f456691,4662,,,,False
+packaging,benchmarks/specs_sample.txt,d5210c540140d0b09da26f4f55a507a6b6986f7f02e5e8b4fa9f067630142c70,8365,,,,False
+packaging,benchmarks/utils.py,84e659602d55c9949ef02c4aec3307268a58a3418bd7cfd18aa033cd56b61d77,718,,,,False
+packaging,benchmarks/version.py,a7bde43d544f70e1eaf34aedbb7de46d7a13c29dd95daafb37dd1916702962a5,2159,,,,False
+packaging,benchmarks/version_sample.txt,b404b865b596c514f82ce85bf81df3397624ddc31bd747f2be0ac93a4aef12ab,12227,,,,False
+packaging,docs/changelog.rst,88af8968ec8cd5b855db5b8a98d913949aa8266444c7dcf81c1c3f1ae7074e1a,31,,,,False
+packaging,docs/conf.py,cddccab204cb98b5bfb19069824465fac5aaaa09cb9eaa4558f67e8e00fc1e7f,5122,,"copyright = ABOUT[""__copyright__""]",licensed under,False
+packaging,docs/dependency_groups.rst,dc282e10546fe463ed0be64de53554dd64be94178154a925fb33247ac10d7ed9,2353,,,,False
+packaging,docs/development/getting-started.rst,d902ae49f4b6d4198418584493aaccbb15fb980eb70c08153bf4c2bb6cdcfe31,3136,,,,False
+packaging,docs/development/index.rst,cbdd9ad62cb42e94efc708d7d53e0140a947487076ada04ee830ebd01bd774a2,562,,,,False
+packaging,docs/development/release-process.rst,16d7599a9e7fb241374d7bf7e078caaddbd5c6275402bda26f61dfd5520eb605,1664,,,,False
+packaging,docs/development/reviewing-patches.rst,0e4337a4a541cec8589a0abe3c4c39d2646f703a33bcc4339bd111b459b0616d,1051,,,,False
+packaging,docs/development/submitting-patches.rst,02d4b73d76bc1985df77e5f4c9a6a49e0ce3e5c96a0de51e6020ab0556c7d67b,2627,,,licensed under,False
+packaging,docs/direct_url.rst,4a3c962f0b96f503a4dea42421365d7e5156bfbd11da4d928f067a29a4b4881c,2276,,,,False
+packaging,docs/errors.rst,9661d7478454426760921bc11c63db396adf094a2441cbd6caac84927d4017ff,1345,,,,False
+packaging,docs/index.rst,3700415cd23d511a423cdfb44774c9a87ae20367cee6b09d7e46d25ed7e9c806,730,,,,False
+packaging,docs/licenses.rst,a4d98c5b899ccf5ad50e93cfc4b412205572b51f825077efc069b6338fa521c2,364,,,,False
+packaging,docs/markers.rst,6688dce50b07bac0b14d612f4281ee4c66e6dcbefe38dff71ad4a071c5b1f1a3,2675,,,,False
+packaging,docs/metadata.rst,081a70fd3bca8ae51628931dd5d9fabac5be931d739eef7a1be592ea27456151,1943,,,,False
+packaging,docs/pylock.rst,4f2ef6a2f4a7064382487586d80cc16fc6989145a7ec7dca64c7b483c6128a1f,3847,,,,False
+packaging,docs/ranges.rst,b4916c81a8ba2c371565987c441699a5166bd8bc132b7500f0d0da0a10a29dab,11848,,,,False
+packaging,docs/requirements.rst,defae6e024b66c2b98a4066591b50dee96c857696bd31df12e6e96b63d583c2b,4809,,,,False
+packaging,docs/security.rst,03aa13c9e37d25caa3eb9eb3c48abd9064583fa98ab48d545f8c60992f7ab1ac,703,,,,False
+packaging,docs/specifiers.rst,6567e487c9f0ee5d9e58f6ee5465cf85b738a40c77287903c0ee5271fd11e00d,3580,,,,False
+packaging,docs/tags.rst,70bcb6c3879440bcf29cf848bfc47a6dc8c142ed2c8db524ea239a52b2988d92,2939,,,,False
+packaging,docs/utils.rst,3c946f3e2fc04f0b0b0a7e7b9a0fc70214f309c68528faa672a6cc2d00e72ff1,166,,,,False
+packaging,docs/version.rst,6366334fcad45afd46a442a397f8cce6e276f048d79876126c33da5e7e5bd44e,1202,,,,False
+packaging,noxfile.py,fd1f98b79e1854cf850283c69531abdfd686f41c9ce5165aeb61f66949ddfb0c,25065,,,,False
+packaging,pyproject.toml,998b892beaca9a4255b385bc105b19c0da4d071f39f27aa03f87761eb87953a2,4807,,,,False
+packaging,src/packaging/__init__.py,b0205fc2cd2b6bb7d0c68a0395bf6a1a4430dc19cf973d229e6c605a09a10ab5,509,,,licensed under,False
+packaging,src/packaging/_elffile.py,c70b6459d4567c9d1f9808c6230795e91a4484f19a6f8abb5bcf3fc235d744db,3344,,,,False
+packaging,src/packaging/_manylinux.py,2d79153515ab34ab5279879b9d73ae98ef0c02aa87bd41700300d9c0c570aae9,10278,,,,False
+packaging,src/packaging/_musllinux.py,1b45120f3bff5267e5403d6698bf6f6a3a1d9096ed6c9215733a39d4d9681704,2862,,,,False
+packaging,src/packaging/_parser.py,ce608ac717ddad6415f656e04e420cbf7c9e11852fae7c57f5bab8b96348f5f0,13057,,,,False
+packaging,src/packaging/_ranges.py,f66beeb5f211e2999e31ea71a711813ace97b06ba623757384199998b0cd0740,31686,,,licensed under,False
+packaging,src/packaging/_structures.py,81438819febd58fda963b80ba761792e59474e345e0c8f4ff96178ce8c89bd03,1142,,,licensed under,False
+packaging,src/packaging/_tokenizer.py,e88eff25d2c7dfd4ec6bd159b62a0e6509c1abe064b7d86b4c9b2bcb9e8c7bb5,5773,,,,False
+packaging,src/packaging/dependency_groups.py,322a70b64257e75983ae9c3672652bdbd18e78facc8157936438c95330e269c1,11559,,,,False
+packaging,src/packaging/direct_url.py,a4f1200532e199ed3be2357c4db528dba284017aa732399ddac6c727f1f72167,11994,,,,False
+packaging,src/packaging/errors.py,9d0e6a042682d4c1d72edbc24ee595a082c2b69ad99e31bb813d3e6dcf486dc0,2774,,,,False
+packaging,src/packaging/licenses/__init__.py,64070990226176a46373fc68244bf865b595c0ab45b306c569602cb4c46c876d,8057,,# Copyright (c) 2017-present Ofek Lev <oss@ofek.dev> | # Copyright (c) 2017-present Ofek Lev <oss@ofek.dev>,MIT License,False
+packaging,src/packaging/licenses/_spdx.py,14ade76d395b7e32438dd8ae1cc021954ce0ce1bfedf1f5ceec4d337c2ce8b97,51921,,,,False
+packaging,src/packaging/markers.py,c1ef7e095af44e9e4b76f3d8bed09b8dd10caae197c78850ae86f6d88de39f36,21130,,,licensed under,False
+packaging,src/packaging/metadata.py,8e5b50693ed567370903dc53671e8f7fcb47ad7ba5cca56972884652781ed354,43113,,,,False
+packaging,src/packaging/pylock.py,7712d9433a9cde6df6417fe56525721c25179dd1d4de0fc38043a0f97228db99,36175,,,,False
+packaging,src/packaging/ranges.py,1a4621b54ceb4a239cb698e7754d9da57b066045e1e00c9975b27fea2bc92baa,85121,,,licensed under,False
+packaging,src/packaging/requirements.py,fb362ca045546fcf94a954d20b7fb4a0efbc65ceefee4a64057efbc86f63c4b9,7232,,,licensed under,False
+packaging,src/packaging/specifiers.py,f5d275259fff11b8b412dc3c5733e90760baf02191712f5dec99859711fe7efd,54255,,,licensed under,False
+packaging,src/packaging/tags.py,7b156e5060f196f585f7c4127a9d60daf7ef1f4f8130fc178fb9548aaf8c5fb7,39355,,,licensed under,False
+packaging,src/packaging/utils.py,f527f9c757a6d5506a9756c21ee3e26772c4f3f30e7ad00f9b6004a67a72b997,12585,,,licensed under,False
+packaging,src/packaging/version.py,f5936cb3183a891bfd46dd2944e29b5058ae3fcba91c7a699e9686dc8adf5174,40292,,,licensed under,False
+packaging,tasks/__init__.py,276800c00bc954b40a35f1450aa9ef28e020c6abe40a7a5c79a11895794e54d7,183,,,licensed under,False
+packaging,tasks/check_frozen_revs.py,bf2c2aec1ab8e399128da596080254f34c1509e6b91fe640ad0ec0e80dc6d20a,3401,,,,False
+packaging,tasks/licenses.py,af3db4d982504d63667edb54984c2423356eccadc7d5755e8a5eda32fc29c56a,2873,,,,False
+packaging,tasks/paths.py,4ed36734e392d360901146c50b51a447b6d129160bddcf95d3155621d239da5c,317,,,licensed under,False
+packaging,tasks/pickle_compat.py,eb2658ee5eb0cf362b37479c5c1974ccff3f6fb34ccfd8c3f4add62828b4d2bd,6374,,,licensed under,False
+packaging,tasks/select_pypi_dist.py,ca4f6d3a21268026b8a4577a5edcb48866e1d013d8823bd21c8aae14eef1be6a,952,,,,False
+packaging,tasks/select_pypi_specs.py,a6ad4df7679ef1efbd5568f2f352a36bfbb22d59e1ec8bc78cb842b4ea6f779e,785,,,,False
+packaging,tasks/select_pypi_versions.py,cce203300fc85aba193557dfd0f5e938fc959ac3198095ab0e76acfc959b1542,1902,,,,False
+packaging,tests/__init__.py,276800c00bc954b40a35f1450aa9ef28e020c6abe40a7a5c79a11895794e54d7,183,,,licensed under,False
+packaging,tests/conftest.py,9355fc2dcf08e571db4ab48a1042c265fb3cc7b58b7fea2c2be4ac3251e35e7f,837,,,,False
+packaging,tests/hello-world.c,6fce5790d1a3ae9fee87bf88135a3ad436b351fbaf56d8fe2e299453df479ef3,99,,,,False
+packaging,tests/manylinux/build.sh,70b7ae6e9f8f7fc8de63b2251724cfa0a235efd88e491b0d5ffa830e5f13db27,1833,,,,False
+packaging,tests/musllinux/build.sh,599e919cf32f417fc7d2c95acdbcd78d8eb5e44f75cc9225099f6a495773a06a,1710,,,,False
+packaging,tests/property/__init__.py,e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855,0,,,,False
+packaging,tests/property/strategies.py,17acb6aeca551162b7428652962c2847df0c83669208c1524b87fd12a8b396c6,11821,,,licensed under,False
+packaging,tests/property/test_ranges_cross_epoch.py,9f51a9ef91c133cde425e42b75eab56e18afefc655744daea7bbdbc8fe4c41b7,3444,,,licensed under,False
+packaging,tests/property/test_ranges_pep440_extended.py,cf2daca679e2c401b657814b2346ad743a850f3b1c48754b351336255a233261,9573,,,licensed under,False
+packaging,tests/property/test_ranges_pubgrub.py,9d44158b4c4d38117892ba819a98255b8ae39cb8e461fd2d39e42996008630e1,15766,,,licensed under,False
+packaging,tests/property/test_ranges_set_algebra.py,7238fd6ae82fb4830b0f74fdc691615b9b9b922a77c980402900e5a1b5238471,17318,,,licensed under,False
+packaging,tests/property/test_ranges_set_relations.py,6e22e26e61b31c1fadc7c4ceea4e80d3e4d8d9feec5568c416da8e03ffb50161,4144,,,licensed under,False
+packaging,tests/property/test_ranges_to_specifier_set.py,7d5c0055934f5e5a7c3f7ebdce5f9251ba74fc25ab5cbcb98268794bedfeb971,11215,,,licensed under,False
+packaging,tests/property/test_specifier_comparison.py,da2656bdf1ab291e60db42c84d4541b8faf788ad8b44d9e7eb36a86320a317c5,32812,,,licensed under,False
+packaging,tests/property/test_specifier_extended.py,354b5238780810c13914fe2b4d2a750ff300c2dc4717cb59ecbbcdb38d45c4f1,4939,,,licensed under,False
+packaging,tests/property/test_specifier_implied.py,cabf1885ae92a8a25b261f25ff9933cac842cae3c679b6f123428987ca49158e,31651,,,licensed under,False
+packaging,tests/property/test_specifier_matching.py,61c902f34a1d921e6f7f16224ec9def17d9e9bdee363ec422336e0daacf5a54b,27914,,,licensed under,False
+packaging,tests/property/test_version_format.py,c8435f7325cbdd0a5cd18a93b39b97833a0b2629abd88bac07fbc651cbef76c1,27888,,,licensed under,False
+packaging,tests/property/test_version_normalization.py,2687f1c5c83c34649585bafd2b52bb13fd7cd31bf17913ae38580af9e98993cf,25287,,,licensed under,False
+packaging,tests/property/test_version_ordering.py,8ee115610be4440d1c4dfce319700c69d04bda0f532bc91b1814c7f7b2f4c715,17437,,,licensed under,False
+packaging,tests/property/test_version_releases.py,abe4f87c93258e70c35bc7a55cf7ef94c59c9e5b5404a252f68b5057dc35a211,36267,,,licensed under,False
+packaging,tests/pylock/pylock.spec-example.toml,61cf02bccc2ea86bf2c585592ecfcacb329cde1f1bd90485a6893d8adfa71a20,2840,,,,False
+packaging,tests/test_dependency_groups.py,ba695d8e91184f42d5f26ec412a68b384f3439ac0f1ff24757c9ce73463dea2b,17779,,,,False
+packaging,tests/test_direct_url.py,1fc9816148af9a6732bba32a91bcaaa79b3a5bc643bc86e64c2fe737863b315e,10647,,,,False
+packaging,tests/test_elffile.py,2ebe2ac0927cf323dfc5152abeb9f356ffe4e238f787766ec607b7307b21536c,3421,,,,False
+packaging,tests/test_errors.py,9de1bfb0e622196737b8dc593c8f89e32d736f20f9a794ff5c9768ddd7e4d443,3770,,,,False
+packaging,tests/test_licenses.py,2d48c89900bc2cfbcb8b3d8a2c3277c8e8e877015828e6fa5718506c8a16ecdc,1092,,,,False
+packaging,tests/test_manylinux.py,784b866b67f5c897da74f35e81fa4d4e5e2fbbc6c1827c55c1545ed8b1b78825,7289,,,,False
+packaging,tests/test_markers.py,edc85b0123105ef2df25b02b38f42a443c262983f618fc5b3a5b3ebde68f2740,35529,,,licensed under,False
+packaging,tests/test_metadata.py,b4cfa856d1e9918a1b2054b27e9ec76214d90bd5ce38120872d6778cb2fab98d,58947,,,,False
+packaging,tests/test_musllinux.py,0797624d1ca1bf44c5cde893daab6386c03f8fb3063ca4d15b1e54dc73557dc6,3000,,,,False
+packaging,tests/test_pylock.py,60e247fa66ef52f3b3db787573088bf9ca472a69046840c2d52c8b9237fbdc71,26952,,,,False
+packaging,tests/test_pylock_select.py,d6483327767d3e4b69dc4ca468307be80ac0f27ea8d5f8d42168f319f3e9ab99,15414,,,,False
+packaging,tests/test_ranges.py,6df0629678e3b748ceb67ceeaa3e864ecac27151686426264fd59c64538a6ce3,96364,,,licensed under,False
+packaging,tests/test_requirements.py,09d92f973949b9103d70d5461523e4f57ea68cba979771f5edfaa384c3b3b7a2,37114,,,licensed under,False
+packaging,tests/test_specifiers.py,8c4f58e543e1f6ef8ab15ffcc8b9a10c39459ce3468927eb9180966dc028ce7e,149966,,,licensed under,False
+packaging,tests/test_tags.py,b435640b4ae5dff4a8f5531fea164757b1f8d8221caa4c5330133deb2d5251ce,90323,,,licensed under,False
+packaging,tests/test_utils.py,36bfcbca6afc855584e3b96edfa3c7bd8fc668d4beba15bd2865bf3e67d72399,8032,,,licensed under,False
+packaging,tests/test_version.py,628445d885d6d13bbb13bf4eef85d2838c9a172dbbc2038a34faa90b6188914e,52528,,,licensed under,False
+marshmallow,.github/FUNDING.yml,32ccd6def30370314700b04f6c1f20c26e2f51e78513b825f8ff18d6470def10,62,,,,False
+marshmallow,.github/workflows/build-release.yml,a460d1e3ab7aa990d8eec3654d58ba1743db8dc50367bfe9898868cb142ab10e,2699,,,,False
+marshmallow,.pre-commit-config.yaml,53577f38cc80a8607ab5abdbeafe51498da7dc87848109330098895e2c6fe0a9,756,,,,False
+marshmallow,.readthedocs.yml,306ee1a2ba0394538890a9e01acaa8a74527ab9efb5f17444b8ba34c4f309403,544,,,,False
+marshmallow,AUTHORS.rst,b585a0524e7961defcaeb0d013616e60ea17fddefb24b19d8b0f59928479746a,10943,,,,True
+marshmallow,CHANGELOG.rst,336e2201000f5371b8bb4956d983d32303ce3f54694959cd6953c8df6e016366,100735,,,,False
+marshmallow,README.rst,669af5e1df3115bc385319c96f7903592a1dad47dd1cf33c67ee0dddcfae671c,5583,,,,False
+marshmallow,RELEASING.md,b5a7f7484559dff0ece0d3d6181e98586c8d583015a20f5a9c0499308fbb8fe3,301,,,,False
+marshmallow,SECURITY.md,8ebd963586921337a4bc118fbfa5b7952ec0ee82c2ea8dafa0b041a0c27aae47,197,,,,False
+marshmallow,docs/_static/custom.css,7a62165834e3810dd9cef648e8bbb85d9944dc966fa92b5a3e6464bead4a3613,696,,,,False
+marshmallow,docs/api_reference.rst,c37c839501d09153243aa7b98af7e6aab9f7545f754188afe41bc60476a228b4,420,,,,False
+marshmallow,docs/authors.rst,585abb1a1d4e26cf2add13be364fb6128a8fccb65eab6710b7f7b97b9033b0fb,29,,,,True
+marshmallow,docs/changelog.rst,afd7186b1227c209450c70dabe9bede122a08af33f16fcced4cffb429eee2b63,139,,,,False
+marshmallow,docs/conf.py,2e32e320b70ed24c730d6f679295326cd93260e42cd4dabb7a23d1242917dbb0,2285,,"copyright = ""Steven Loria and contributors""  # noqa: A001",,False
+marshmallow,docs/custom_fields.rst,4d27ed89242d3faf872a56101cdb1c5fe44eed1669d1cb44ef910545802ca9c8,6529,,,,False
+marshmallow,docs/dashing.json,d5a9ef84ac2857ae3ce6578e7fb8b76e39916151a6f4f01aa3fbc5748ac05981,415,,,,False
+marshmallow,docs/donate.rst,aa05af63754136d6cd66097b541ee38c2203de7a326c179b6d83a384a7d4413a,358,,,,False
+marshmallow,docs/examples/index.rst,5a768755721210b272f0e3ff037e62b5b97cdbdf66dd7b577f0fce76787f8d63,522,,,,False
+marshmallow,docs/examples/inflection.rst,9576161b857b22ebdc410c1b2139ddd2259a8e912127440e92a1ec4121e9c44c,638,,,,False
+marshmallow,docs/examples/quotes_api.rst,caad83c37c1df842474fe560469f9e1e3540e62c654979a8d5ce0156676f0ccc,2602,,,,False
+marshmallow,docs/examples/validating_package_json.rst,7a2499098d3f0046d359b79d39462f8e5d6735b78eb0d1493077ad4a3209aeb5,1622,,,,False
+marshmallow,docs/extending/custom_error_handling.rst,2bb18a2f562be51bcc35dcf860994477fb07d8f3ac0f93823f3e502266154b2f,1051,,,,False
+marshmallow,docs/extending/custom_error_messages.rst,9cdfeb601c4ccd12cb66d62984a6214766ee1706c1dc0adbae3ad5913aecd98b,1119,,,,False
+marshmallow,docs/extending/custom_options.rst,fec1573aa130fdfaf6ef48450d6bd0b359dc916036997a4723a2722870078bd1,2551,,,,False
+marshmallow,docs/extending/index.rst,185f3571f9234a1a0621d263c347298cc6475d49228f38f27be203933ca6a369,319,,,,False
+marshmallow,docs/extending/overriding_attribute_access.rst,fc01e5390b19c644d0b4e6ca024e9430cbed80b832961f762fafcd7417916ad0,759,,,,False
+marshmallow,docs/extending/pre_and_post_processing.rst,daf9e50524dec224c38ccd4c269535c350b2dbd4905b0abadb3804546d98c255,8389,,,,False
+marshmallow,docs/extending/schema_validation.rst,80bea69137ab69cbec90cf92ef83c04f6219ad2ed0d9f131eb259ad1c0d9bca3,3008,,,,False
+marshmallow,docs/extending/using_original_input_data.rst,552282792ddba0c3cc72cf73a7924510fccbf9d7a8c91f759c95e0d69a91a427,982,,,,False
+marshmallow,docs/index.rst,aab4356d62ba84a9df52b952a735715528a717b044b488bd2cb7fd6b01e932f4,2122,,,,False
+marshmallow,docs/install.rst,0ba0523749cb374d7b7e977c699704e353fd0f9e33fe0412a62125f3c4da0a66,698,,,,False
+marshmallow,docs/kudos.rst,045b5ef23ed0362b215d5f153158656310d9d810f2ef7f2c53ee8f5d91f16933,336,,,,False
+marshmallow,docs/license.rst,91654619aa076c353aac303791252fd0eae6018faec63c3900e1885042a4bf96,52,,,,True
+marshmallow,docs/marshmallow.class_registry.rst,ed5e92119d0355f90e4a19c1130ad83b5412a76774c2e5eb276c3dc49eab96fc,93,,,,False
+marshmallow,docs/marshmallow.decorators.rst,fa942d1d49b4a4517200e837dacf5526b623639d117a6bdee7802584902b16ba,100,,,,False
+marshmallow,docs/marshmallow.error_store.rst,815a1bbb84698656eb178b975d01a2a561dea27048cd78f2a0839b6727783608,107,,,,False
+marshmallow,docs/marshmallow.exceptions.rst,05d6051a08ffebde6f09187b31b25a0555bf3b65c0c5128e896a30ea63fe14c9,81,,,,False
+marshmallow,docs/marshmallow.experimental.context.rst,f6e22eed646a1ea87e58e29c4871ad53c1639a4a3992720666d0e5aa1560eadb,115,,,,False
+marshmallow,docs/marshmallow.fields.rst,b64369592e3de3252cc43a7b635d4de02420f5f7cd9ebd920a3dece74d85becf,349,,,,False
+marshmallow,docs/marshmallow.schema.rst,75a3e816a3693a8c303ce817cb861c099ef0b64f5a1c76e09aef260ebb839eeb,179,,,,False
+marshmallow,docs/marshmallow.types.rst,50071c8a10b5b971aa6de0388dcea2a628669aa872e85cbb97f8b416e88fba8b,66,,,,False
+marshmallow,docs/marshmallow.utils.rst,60bf9f45b468cfcebd7c1f2615795674c942e692d93803bf858c6e4ade42da2d,90,,,,False
+marshmallow,docs/marshmallow.validate.rst,66ef45cd10497474dd5c51733fa5f81513af483fa7fb775a73ee9a71105866e3,121,,,,False
+marshmallow,docs/nesting.rst,6bfe32dd5034f70ab6e6657f4ac7587c9f11c4d4cb824fc3155b5e5a87355b7c,9515,,,,False
+marshmallow,docs/quickstart.rst,46dbaab2331c7e45b9cb30f3eeaa66184b8947ea2494890f746126f0197ba7cb,18621,,,,False
+marshmallow,docs/top_level.rst,26e0cae14b20830e64807befef843334633e621d2989f972c204b1147b9b9aba,967,,,,False
+marshmallow,docs/upgrading.rst,4d18ec75ecdd24bcd2320fe93efab914c7157b56f3ed220f163ea095d0fe1382,69356,,,,False
+marshmallow,docs/whos_using.rst,eb700d5f02728032e4e0cc290f667e46eb2cd3cb1ce5f22fe2eb975c247880e5,279,,,,False
+marshmallow,docs/why.rst,dfda7044fd9fb915bcb4fde44f1ba98e30944035007558d12e8d0171e81ea1e3,4415,,,,False
+marshmallow,examples/flask_example.py,13c5356bbbaea96e9fa48a21eb67d6d7099e8f53040a8f24fd1e251863138fac,4713,,,,False
+marshmallow,examples/inflection_example.py,737fa717f8c4c582a025d599ee3e066c291d7ab9743a9eefee2cf2d829c189c2,959,,,,False
+marshmallow,examples/invalid_package.json,6f9eb4ea790e2aa00976d549979ce31d78c859c38763603afc54d62231bda458,156,,,,False
+marshmallow,examples/package.json,e1a247cb6e3b49ef6f88b7d81bcad71af1795b9eb49a294308d735b5153779dc,246,,,,False
+marshmallow,examples/package_json_example.py,a58f430c6de5b6b69dec2368ab9f355059dddea43c4b8a0f2b54001d78fc6b42,1656,,,,False
+marshmallow,performance/benchmark.py,97415c7a6608865c72d39697813c685aae39df020bccf82da59eb2d8f849660a,4011,,,,False
+marshmallow,pyproject.toml,9b8c869c6f937a811e8ceae42ca2456dd08dc5e4ffbea21677b6b161a47102f6,5225,,,,False
+marshmallow,renovate.json,f9232de404e139f5596e041aefd83f8e6cdd3908b36367d2a3410a64918108e2,131,,,,False
+marshmallow,src/marshmallow/__init__.py,4fa7f906a1979f47ce18029665f8e8934f1c54c6a5fdaeb60d7fccdbe7ca0c69,603,,,,False
+marshmallow,src/marshmallow/class_registry.py,4a78d96500bae4945344291fa0645169d68960bb679105d30efa4a3266bfdc39,3132,,,,False
+marshmallow,src/marshmallow/constants.py,5bb588aa78627085b3fbe8b20a6625bbd7c9f1a0a19fa57f94f7587c04ec6690,440,,,,False
+marshmallow,src/marshmallow/decorators.py,3b9ac6015545fc508cf830333106e78b8bdc0679e4ce0d2c546c7907ff3d4dec,10419,,,,False
+marshmallow,src/marshmallow/error_store.py,27803f02eebe7e6d525816015b4a1cfb387519c90e6cdae7c9ad11b04956512f,2515,,,,False
+marshmallow,src/marshmallow/exceptions.py,7d5ad39a5cdc92139a407196b78c4e34b9f7a6839d2f44ae6d925c63d0f74939,2343,,,,False
+marshmallow,src/marshmallow/experimental/__init__.py,d97277a64af2b70a08498eadcce017e6434c96966bf362280ebc253828096e4c,152,,,,False
+marshmallow,src/marshmallow/experimental/context.py,9a42ef87d4e1a448211e123d584e193851fde0d7927965045b8239a76936a61c,2113,,,,False
+marshmallow,src/marshmallow/fields.py,1fe393947b9de78185d2419aac8045e800a600d7436fd3da30a85dd5804d6b3d,77488,,,,False
+marshmallow,src/marshmallow/orderedset.py,dbe4dcc50bccea77a213cab10814d694bd9c193b6923b8e6594eb3fc076ba166,3042,,# Copyright (c) 2009 Raymond Hettinger | # Copyright (c) 2009 Raymond Hettinger,,False
+marshmallow,src/marshmallow/schema.py,fde6291ca76e4bfa03c58bbe567dac929f202cb501bd11dfa2c33d846c9777cf,51372,,,,False
+marshmallow,src/marshmallow/types.py,9623166f1b8349ac9d710e951d3c3fe91a242a4582534fa730aa1fe7a45f9ca8,1688,,,,False
+marshmallow,src/marshmallow/utils.py,4a2db3e9b00925873d10d1b062e74f5f873cd9562176bdcf4ca4f1690deef7e0,5596,,,,False
+marshmallow,src/marshmallow/validate.py,eadf89d013e51c01fa2d74bdb48f3dc70ccb1e434f2f5e32721e5077de7d1209,25588,,,,False
+marshmallow,tests/__init__.py,e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855,0,,,,False
+marshmallow,tests/base.py,092a62f0a8f7d00eae00528ad3104e060535956be36dbe3778390746bd53d800,7633,,,,False
+marshmallow,tests/conftest.py,7d99cbd57c5731a6a6041f0513677168996c3168231838b480aa3559078ccbb2,593,,,,False
+marshmallow,tests/foo_serializer.py,0c853487d02b9756b2a6246364cde0169dbe163caaead87a88f3c944393ba823,102,,,,False
+marshmallow,tests/mypy_test_cases/test_class_registry.py,9d29cdafe9c6ed60371eb53d53460c9ac7370f0aa62efbb9029e6128c5efe854,111,,,,False
+marshmallow,tests/mypy_test_cases/test_schema.py,d6a352a6a9ebe4e4b41bcb2812fc17b7dcb124feb5cf4438395a54ef45e3852f,777,,,,False
+marshmallow,tests/mypy_test_cases/test_validation_error.py,f371fa2766375b92a46a762fc440fab5c57cbf8ec75e0cee1f5c2102f31666f5,599,,,,False
+marshmallow,tests/test_context.py,8ca0e7912c8db0c527c9a3fd4ddf597b6a561e74322930d6de15302ddd7a4b44,8641,,,,False
+marshmallow,tests/test_decorators.py,a74f629c0ab6840c270c2693c1ef13833c4da193f67ea2fb3a3dc776342c5796,35379,,,,False
+marshmallow,tests/test_deserialization.py,445fd45a72e328f0eb2dbcd97ad5aa8b5ba7a15131ce29bbf1a8b75be13bdf52,93916,,,,False
+marshmallow,tests/test_error_store.py,603267c1f33fc3507a590908a7071bd9ca5d2df3297cc808d439fb049bc12e92,5916,,,,False
+marshmallow,tests/test_exceptions.py,f20addc4884ec39b10a4dcad1c45b236c302a78a43cf6ba944e991379461ee28,1458,,,,False
+marshmallow,tests/test_fields.py,740232bd88c977728945b858e7f991d92539fc64ca5ddf5db5c1fd753d6a8833,28637,,,,False
+marshmallow,tests/test_options.py,34a979dcd7e97f68f8f964ded80c69f79255e3490dbc60a6836fe08143075a60,4917,,,,False
+marshmallow,tests/test_registry.py,1b55a256a09a1b5fa62611d7f1cc0cb4d0769d2ed6d73a32e75bf835ea1b6142,7559,,,,False
+marshmallow,tests/test_schema.py,2cd3509dddb6b8f17f38e4d1ac7c484f9473292b267244f69febce8e42d131ec,81252,,,,False
+marshmallow,tests/test_serialization.py,54708ed8fc4574257186569ae03ee126deaba402dc5c0123f5980faef65a846a,38610,,,,False
+marshmallow,tests/test_utils.py,49730facd3191a5c7f675ba1350cd895beee2c1c16412e11c16e1a360ed8c152,4476,,,,False
+marshmallow,tests/test_validate.py,9e2d781aa00373384505acf5970a6a555eadaca5d660968bc3dc6ecad16973da,37112,,,,False
+marshmallow,tox.ini,2ab478cc333a68170025793a2668d2b6fbf74430e207bdb450f4b6afa36924f0,1008,,,,False
+python-dotenv,.bumpversion.cfg,d48bd615fbc156876a1d5b65d671d62b61c2e18b7d926a387d88abdca205e42e,111,,,,False
+python-dotenv,.github/SECURITY.md,08f73a5e6008a02d6107283443db2da39722be68c413007ad0c141e23200e69b,698,,,,False
+python-dotenv,.github/dependabot.yml,fdf8aaccef030ac852a5895eb72ae76e0e144ec41240db28b4e9571de29fabc8,854,,,,False
+python-dotenv,.github/workflows/release.yml,e0eb01b4d39842780d4d2717a7279ea159c27244b3e4e272ddd19460e71a0276,1430,,,,False
+python-dotenv,.github/workflows/test.yml,3b0e11ad9b850973379710d1f507fe88504c95c51c77677dc55be5651987e993,1339,,,,False
+python-dotenv,.pre-commit-config.yaml,01b60aa71acdb9731acb58d821b3b8b188ee6a0df9c3bad2b05b24f15613a00c,190,,,,False
+python-dotenv,CHANGELOG.md,bcf564d42456f4ca167c21c3be3e2b46cabed684eaf289b2b607a96f1a788cc4,21261,,,,False
+python-dotenv,CONTRIBUTING.md,358afc34c30d9cc4c52977cd0d08b701d64807e040b3ca2aa48e3a8ca46dd63f,735,,,,False
+python-dotenv,MANIFEST.in,354f6f453672a81399f36c7dc05c5c3c2a3f30d62b5bd8e22fb7b7d5bc986d3f,296,,,,False
+python-dotenv,README.md,cdad22d1886d1f371c6e8aeacc7501d2b7561895c8ef8ab3331a2047a7a90873,8233,,,,False
+python-dotenv,RELEASING.md,6dfc5f83c48e8d37e69594573d9fc0d4a069faad49d8ee9c992991eafe8cceb9,2881,,,,False
+python-dotenv,docs/changelog.md,5b1ace6cbf670b5d35b515086985890d889090026e075bb900834cea4945afba,15,,,,False
+python-dotenv,docs/contributing.md,3b4a07b9c92d73f838166d1bc5907f6d4305d0661b13e4617d9820f4d21e7207,18,,,,False
+python-dotenv,docs/index.md,dbcc210d7f4962499db6d4cfa18658e26d05ee700c962a811cac911f095e22fd,12,,,,False
+python-dotenv,docs/license.md,1e881ecf2862d01e6e5bc2b861e46886d2a6fb01499c0c508a209a7271b13cf2,10,,,,True
+python-dotenv,docs/reference.md,b66e7e8485d135d75a2d538f01e4bb87b4a0745fe7e629d7f9d4e2445b71d622,16,,,,False
+python-dotenv,mkdocs.yml,3fb156f739209128ccaa2433e284e4d961591d2f9462fd0fcf07a71182ef6874,660,,,,False
+python-dotenv,pyproject.toml,3445955d824e98a62e6864884c1c5d99f7cbd61dda37a93adcd15e784aa7880b,2220,,,,False
+python-dotenv,requirements-docs.txt,8328f0f2e5047051f4eb86cfc6b2245ab1b09d0af80b341e7d32675c5124141a,135,,,,False
+python-dotenv,requirements.txt,fe8952c0e6ceacadc7e672fbe7f633e22251853645de3272a5d6e8c1dac601a4,93,,,,False
+python-dotenv,ruff.toml,7321789d3eb79715085c400295ca4cca4a0e931ad402fad7fbd173f7ae7c1553,197,,,,False
+python-dotenv,src/dotenv/__init__.py,a80359f51323db70d28da783832a1764c47c68810aa9b8072ed99bbba629e7e0,1281,,,,False
+python-dotenv,src/dotenv/__main__.py,f7a57c4412241a28c92793853fd02d1c988794a974a5f95c1ae43703904d82d5,135,,,,False
+python-dotenv,src/dotenv/cli.py,db94a561c5fa403c0846dc84a1a85d52566f45bc358249970e9b5e60780c7d67,7215,,,,False
+python-dotenv,src/dotenv/ipython.py,123ef45515e87adc17290e39dc2b29b3f2fe8c8353028888bc7e2ab100d1fce1,1376,,,,False
+python-dotenv,src/dotenv/main.py,816ab6c0cd1d06fc178aca2a229d358994deb6b8199bdef4056e15e211f0302d,15666,,,,False
+python-dotenv,src/dotenv/parser.py,1898a1370e44471c1b559a85d9b05b9634459dd6ea7178dc4b1ee7d338d4c9ec,5997,,,,False
+python-dotenv,src/dotenv/variables.py,585f4061cd9cca9abe0d3d03f811b1d33191daf41bbdb578dbddb04c086dbc42,2434,,,,False
+python-dotenv,src/dotenv/version.py,fd8e6ec4653033183c56e92c5a48865d4fd0393c519d5b6400bbcdb66b338ce2,23,,,,False
+python-dotenv,tests/__init__.py,e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855,0,,,,False
+python-dotenv,tests/conftest.py,ff289b656b770b023a9278db9f9035f2e8dcb8894f06d1ec941c2e9cb62a8c57,295,,,,False
+python-dotenv,tests/test_cli.py,c2d5eedad192c442dc04e61a1052e8b591aab9f0dba789ef128496edfee5b4cc,10155,,,,False
+python-dotenv,tests/test_fifo_dotenv.py,dd67f178c4f7a107796fe2ec781543f2d1eb53bc228b7419be8c286fad53efa5,774,,,,False
+python-dotenv,tests/test_ipython.py,05a0b42b2481ccb2bac0e50feb7ca6bace65f2d0c47fd853a73076c5157d98df,1802,,,,False
+python-dotenv,tests/test_is_interactive.py,c480e1282553c912df0b5f94f5e7754f1a032fa4a230c96778cfa5d2d50bee82,9153,,,,False
+python-dotenv,tests/test_lib.py,02a503f46a6c22efe8757eae54c7120298b16fc724f1fb34a8adb8a31607981d,1168,,,,False
+python-dotenv,tests/test_main.py,b1b586220ca10c0e131d56588f0418405242b4567e9bc79d4de2d6aca8721f0f,22040,,,,False
+python-dotenv,tests/test_parser.py,022383b51b4421bb77c0e03f2a7180f09e9a3e324a5ec0130a22514aec060534,19902,,,,False
+python-dotenv,tests/test_utils.py,f3a0574224769d31106fd2558c8b908f99dfab7e1aef5fea017929c24fb8b5e1,766,,,,False
+python-dotenv,tests/test_variables.py,02e9ed5cba1312cf8b854189bfdcda611d79ea33784ad531c82b53b60433d714,919,,,,False
+python-dotenv,tests/test_zip_imports.py,d2c74447d1edf623e20dde17174f647459af1c5596feb3e9c44715a8f1901014,2973,,,,False
+python-dotenv,tox.ini,6c09c76a14a8c9937e5285903bfea83eec30488342a939d012517847c5472893,1271,,,,False
