@@ -512,6 +512,11 @@ python tools/capture_evidence.py  -> 全部证据按真实执行重生成；
 `d0/out/source-lock.json` 逐字节副本）与
 `docs/v3/design/kaggle-27-a2-limits-evidence.json`（KAGGLE-27 `A-evidence.json` 副本）。
 
+顺带修掉一处证据卫生缺陷：`tools/capture_evidence.py` 的路径脱敏原先只替换到**第一个**
+路径分隔符，于是 `<workdir>\\canopus-…\\kaggle-24-<runid>\\workdir\\gamma\\…` 这样的运行时
+目录名仍留在证据里（既是本地路径泄漏，又让每次运行的证据都不同）。现在整条绝对路径收敛成
+`<workdir>/<文件名>`，`C:\\Users\\…` 收敛成 `<home>/<文件名>`，且替换结果仍是合法 JSON。
+
 ### 10.7 本轮仍未解决 / 未验证（不冒充）
 
 1. **真实 GPU 训练**：仍未跑过（本机无 GPU、无锁定 torch/peft、无下载授权）。§10.3 的

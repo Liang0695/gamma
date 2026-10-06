@@ -130,11 +130,11 @@
       "package_versions_identical": false,
       "serving_channel": "serving",
       "serving_lock_sha256": "8e1e2b8a2e77ecc14c99f6d7d1b549520262de15b2cfad78666843ad4d4bf79a",
-      "serving_path": "<workdir>\\canopus-3ho-7fd8c6d77d72\\kaggle-24-41f3362834fe\\workdir\\gamma\\v3\\locks\\serving.lock.json",
+      "serving_path": "<workdir>/serving.lock.json",
       "serving_source_sha256": "84ae5ddee719d945f832756b88a0342a27a6721ffdf23b00fbb535b9642e700d",
       "train_channel": "train",
       "train_lock_sha256": "69d1494004341af179f2c29e08eabf4c39da7187d8b13da0cb715f226ab19b48",
-      "train_path": "<workdir>\\canopus-3ho-7fd8c6d77d72\\kaggle-24-41f3362834fe\\workdir\\gamma\\v3\\locks\\train.lock.json",
+      "train_path": "<workdir>/train.lock.json",
       "train_source_sha256": "103144121c5d89fbb5597647702538df17b65912682161cacf8c00b206bec876"
     },
     "serving": {
@@ -594,18 +594,18 @@
   },
   "cpu": {
     "per_question_wall_seconds": [
-      6.1e-05,
+      5.9e-05,
       4.3e-05,
-      3.5e-05,
-      2.4e-05,
-      2.4e-05,
+      3.3e-05,
       2.2e-05,
-      2.8e-05,
-      2.9e-05
+      2.1e-05,
+      1.9e-05,
+      2.5e-05,
+      2.6e-05
     ],
     "timing_clock": "time.perf_counter（墙上时间），不是 time.process_time",
     "timing_note": "Q0 附带项：旧字段 process_time() 在 Windows 粒度约 15.6ms，整段评测恒为 0.0，等于假指标；现如实记墙上时间并改掉字段名。",
-    "total_wall_seconds": 0.0003
+    "total_wall_seconds": 0.0002
   },
   "experiment": "EXP-1",
   "limitations": [
@@ -685,7 +685,7 @@
     "truncation_rate": 0.0
   },
   "region_hit_basis": "只用候选自带的行区间（lexsearch.longest_hit_block 由真实命中行推出）；缺失记 NA 并从分母剔除（region_hit_evaluable_n / region_hit_na_n），禁止用写死的 1..1 之类假区间造指标",
-  "report_path": "<workdir>\\canopus-3ho-7fd8c6d77d72\\kaggle-24-41f3362834fe\\workdir\\gamma\\_tmp\\cli_exp1_12\\exp1-report.json",
+  "report_path": "<workdir>/exp1-report.json",
   "scope": "只评估规则检索；不构成对模型自主工具使用的实验"
 }
 {
@@ -957,11 +957,11 @@
       "package_versions_identical": false,
       "serving_channel": "serving",
       "serving_lock_sha256": "8e1e2b8a2e77ecc14c99f6d7d1b549520262de15b2cfad78666843ad4d4bf79a",
-      "serving_path": "<workdir>\\canopus-3ho-7fd8c6d77d72\\kaggle-24-41f3362834fe\\workdir\\gamma\\v3\\locks\\serving.lock.json",
+      "serving_path": "<workdir>/serving.lock.json",
       "serving_source_sha256": "84ae5ddee719d945f832756b88a0342a27a6721ffdf23b00fbb535b9642e700d",
       "train_channel": "train",
       "train_lock_sha256": "69d1494004341af179f2c29e08eabf4c39da7187d8b13da0cb715f226ab19b48",
-      "train_path": "<workdir>\\canopus-3ho-7fd8c6d77d72\\kaggle-24-41f3362834fe\\workdir\\gamma\\v3\\locks\\train.lock.json",
+      "train_path": "<workdir>/train.lock.json",
       "train_source_sha256": "103144121c5d89fbb5597647702538df17b65912682161cacf8c00b206bec876"
     },
     "serving": {

@@ -19,11 +19,30 @@ import sys
 REPO_ROOT = os.path.abspath(os.path.join(os.path.dirname(os.path.abspath(__file__)), ".."))
 EVIDENCE_DIR = os.path.join(REPO_ROOT, "docs", "v3", "evidence")
 
-#: 本机绝对路径 → 占位符（含反斜杠与正斜杠两种写法）。
+#: 本机绝对路径 → 占位符。
+#:
+#: 旧实现只替换到**第一个路径分隔符**就停（`L:\\multica工作区` → `<workdir>`），
+#: 于是 `<workdir>\\canopus-...\\kaggle-24-<runid>\\workdir\\gamma\\...` 里的
+#: 运行时目录名仍留在证据里：既是运行时本地路径泄漏，又让每次运行的证据都不一样。
+#: 现在整条路径都吃掉，只保留最后一段文件名（用正斜杠，保证 JSON 安全）。
+_WINDOWS_ABS_PATH = re.compile(r"(?:L:|C:)(?:\\\\|\\)(?:[^\"'\n\\]|\\\\)+")
+_POSIX_ABS_PATH = re.compile(r"L:/[^\"'\s]*")
+_USERS_HOME_PATH = re.compile(r"C:(?:\\\\|\\)Users(?:\\\\|\\)(?:[^\"'\n\\]|\\\\)*")
+SANITIZE_MARKER = "<workdir>"
+
+
+def _shorten_absolute_path(match: "re.Match") -> str:
+    parts = [part for part in re.split(r"\\{1,2}", match.group(0)) if part]
+    tail = parts[-1] if parts else ""
+    # 正斜杠：替换结果会落在 JSON 字符串里，单个反斜杠会破坏转义。
+    return SANITIZE_MARKER + ("/" + tail if tail else "")
+
+
+#: 顺序敏感：先处理 `C:\Users\...`（换成 <home>），再处理其余绝对路径。
 SANITIZE = (
-    (re.compile(r"L:\\\\[^\"']*?(?=\\\\|[\"'\n])"), "<workdir>"),
-    (re.compile(r"L:/[^\"'\s]*"), "<workdir>"),
-    (re.compile(r"C:\\\\Users\\\\[^\"'\\]*"), "<home>"),
+    (_USERS_HOME_PATH, lambda match: "<home>"),
+    (_WINDOWS_ABS_PATH, _shorten_absolute_path),
+    (_POSIX_ABS_PATH, _shorten_absolute_path),
 )
 
 

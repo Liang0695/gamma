@@ -130,11 +130,11 @@
       "package_versions_identical": false,
       "serving_channel": "serving",
       "serving_lock_sha256": "8e1e2b8a2e77ecc14c99f6d7d1b549520262de15b2cfad78666843ad4d4bf79a",
-      "serving_path": "<workdir>\\canopus-3ho-7fd8c6d77d72\\kaggle-24-41f3362834fe\\workdir\\gamma\\v3\\locks\\serving.lock.json",
+      "serving_path": "<workdir>/serving.lock.json",
       "serving_source_sha256": "84ae5ddee719d945f832756b88a0342a27a6721ffdf23b00fbb535b9642e700d",
       "train_channel": "train",
       "train_lock_sha256": "69d1494004341af179f2c29e08eabf4c39da7187d8b13da0cb715f226ab19b48",
-      "train_path": "<workdir>\\canopus-3ho-7fd8c6d77d72\\kaggle-24-41f3362834fe\\workdir\\gamma\\v3\\locks\\train.lock.json",
+      "train_path": "<workdir>/train.lock.json",
       "train_source_sha256": "103144121c5d89fbb5597647702538df17b65912682161cacf8c00b206bec876"
     },
     "serving": {
