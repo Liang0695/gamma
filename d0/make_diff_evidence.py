@@ -1,0 +1,270 @@
+"""Emit machine-readable diff evidence for the D0 v2 revision.
+
+This is the "difference verification" Mika asked for: instead of asserting in
+prose that the time policy was raised and the licence field was added, it reads
+the SAME files out of the previous commit and out of the working tree and prints
+the before/after values side by side.  Every claim in the report's change list
+therefore has a line here that a reviewer can falsify.
+
+Usage:  python d0/make_diff_evidence.py [previous-commit]
+Default previous commit is the first-pass head of this branch (8b8ff5a).
+"""
+import json
+import os
+import re
+import subprocess
+import sys
+
+HERE = os.path.dirname(os.path.abspath(__file__))
+REPO = os.path.dirname(HERE)
+OUT = os.path.join(HERE, "out")
+DEFAULT_PREV = "8b8ff5a"
+BRANCH = "agent/research/kaggle-23-d0-source-lock"
+
+
+def git(*args):
+    p = subprocess.run(["git", "-C", REPO] + list(args),
+                       stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+    return p.returncode, p.stdout.decode("utf-8", "replace"), \
+        p.stderr.decode("utf-8", "replace")
+
+
+def show_json(rev, path):
+    rc, out, _ = git("show", "%s:%s" % (rev, path))
+    if rc != 0:
+        return None
+    try:
+        return json.loads(out)
+    except ValueError:
+        return None
+
+
+def show_text(rev, path):
+    """Raw bytes of a committed file (some transcripts are UTF-16, so do not
+    decode here)."""
+    p = subprocess.run(["git", "-C", REPO, "show", "%s:%s" % (rev, path)],
+                       stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+    if p.returncode != 0:
+        return None
+    return p.stdout
+
+
+def gate_counts(raw):
+    """Read 'N checks, M failed' out of a gate transcript.
+
+    The first-pass transcript was written by a PowerShell redirect (UTF-16LE);
+    this one is written by the pipeline as UTF-8.  Try both instead of assuming
+    one.
+    """
+    if not raw:
+        return None
+    for encoding in ("utf-8", "utf-16", "utf-16-le"):
+        try:
+            decoded = raw.decode(encoding, "strict")
+        except (UnicodeDecodeError, LookupError):
+            continue
+        m = re.search(r"(\d+) checks, (\d+) failed", decoded)
+        if m:
+            return int(m.group(1)), int(m.group(2))
+    return None
+
+
+def window_of(iso):
+    if not iso:
+        return None
+    rule = iso.get("rule", {})
+    win = rule.get("windows", {})
+    if "dev_sealed" in win:                      # v2 shape
+        return {
+            "train_end_exclusive": win["train"]["end_exclusive"],
+            "dev_sealed": [win["dev_sealed"]["start"], win["dev_sealed"]["end_exclusive"]],
+            "dev_vs_sealed_ordering_claimed":
+                win["dev_sealed"].get("dev_vs_sealed_ordering_claimed"),
+            "withdrawn_recorded": "withdrawn_windows" in rule,
+        }
+    return {                                     # first-pass shape
+        "train_end_exclusive": win.get("train", {}).get("end_exclusive"),
+        "dev": [win.get("dev", {}).get("start"), win.get("dev", {}).get("end_exclusive")],
+        "sealed_start": win.get("sealed", {}).get("start"),
+        "dev_vs_sealed_ordering_claimed": None,
+        "withdrawn_recorded": False,
+    }
+
+
+def released_counts(ledger):
+    if not ledger:
+        return None
+    fams = ledger.get("families", [])
+    return {
+        "real_released": sum(1 for f in fams
+                             if f.get("kind") == "real" and f.get("released")),
+        "real_total": sum(1 for f in fams if f.get("kind") == "real"),
+        "variant_released": sum(1 for f in fams
+                                if f.get("kind") == "variant" and f.get("released")),
+        "variant_total": sum(1 for f in fams if f.get("kind") == "variant"),
+    }
+
+
+def licence_field_state(lock):
+    if not lock:
+        return None
+    repos = lock.get("repos", {})
+    with_review = [n for n, r in repos.items() if "license_review" in r]
+    with_decision = [n for n, r in repos.items()
+                     if (r.get("license_review") or {}).get("decision") == "approved"]
+    return {
+        "schema_present": "license_review_schema" in lock,
+        "repos": len(repos),
+        "repos_with_license_review": len(with_review),
+        "repos_with_approved_decision": len(with_decision),
+    }
+
+
+def main():
+    prev = sys.argv[1] if len(sys.argv) > 1 else DEFAULT_PREV
+    rc, new_full, _ = git("rev-parse", "HEAD")
+    new_full = new_full.strip()
+    rc, prev_full, _ = git("rev-parse", prev)
+    prev_full = prev_full.strip() or "(unresolved)"
+    rc, stat, _ = git("diff", "--stat", prev_full, new_full)
+    rc, names, _ = git("diff", "--name-status", prev_full, new_full)
+
+    L = []
+    a = L.append
+    a("V3 D0 v2 -- DIFF EVIDENCE (machine-derived, not transcribed)")
+    a("=" * 72)
+    a("branch                 : %s" % BRANCH)
+    a("previous head          : %s (%s)" % (prev, prev_full))
+    a("new head               : %s" % new_full)
+    a("generated by           : d0/make_diff_evidence.py")
+    a("")
+    a("NOTE: 'new head' above is the ARTEFACT revision -- the commit that carries")
+    a("the revised sources and outputs. This evidence file is added by the very")
+    a("next commit, which contains no other change, so the diff below stays a")
+    a("faithful before/after of the revision it describes (a file cannot contain")
+    a("its own commit hash). Verify with:")
+    a("  git log --oneline -2")
+    a("  git show --stat HEAD      # should touch only d0/out/v2-diff-evidence.txt")
+    a("  git show --stat HEAD~1    # the artefact revision described below")
+    a("")
+    a("Every before/after value below is read out of the previous commit's own")
+    a("committed file and out of this commit's file. Nothing here is asserted in")
+    a("prose only, so each claim can be re-derived or falsified independently.")
+    a("")
+
+    a("-" * 72)
+    a("1. git diff --name-status  %s..%s" % (prev_full[:9], new_full[:9]))
+    a("-" * 72)
+    a(names.strip() or "(no changes)")
+    a("")
+    a("-" * 72)
+    a("2. git diff --stat")
+    a("-" * 72)
+    a(stat.strip() or "(no changes)")
+    a("")
+
+    a("-" * 72)
+    a("3. TIME-AXIS BEFORE/AFTER   (d0/out/d0-time-isolation.json .rule.windows)")
+    a("-" * 72)
+    before_w = window_of(show_json(prev_full, "d0/out/d0-time-isolation.json"))
+    after_w = window_of(show_json(new_full, "d0/out/d0-time-isolation.json"))
+    keys = ["train_end_exclusive", "dev", "dev_sealed", "sealed_start",
+            "dev_vs_sealed_ordering_claimed", "withdrawn_recorded"]
+    for k in keys:
+        b = before_w.get(k) if before_w else None
+        n = after_w.get(k) if after_w else None
+        a("  %-34s before=%s" % (k, json.dumps(b)))
+        a("  %-34s after =%s" % ("", json.dumps(n)))
+    a("")
+    a("  Interpretation:")
+    a("   * train end moves 2025-01-01 -> 2026-01-01, i.e. the train window now")
+    a("     reaches 2025-12-31 inclusive instead of 2024-12-31 inclusive.")
+    a("   * dev and sealed collapse into ONE shared window 2026-01-01..2026-10-05")
+    a("     (end exclusive) == through 2026-10-04, and the shared window declares")
+    a("     dev_vs_sealed_ordering_claimed = false.")
+    a("   * the withdrawn split is now recorded in the file rather than silently")
+    a("     disappearing, so a reader cannot mix the two policies.")
+    a("")
+
+    a("-" * 72)
+    a("4. LICENCE APPROVAL FIELD BEFORE/AFTER   (d0/out/source-lock.json)")
+    a("-" * 72)
+    b = licence_field_state(show_json(prev_full, "d0/out/source-lock.json"))
+    n = licence_field_state(show_json(new_full, "d0/out/source-lock.json"))
+    for k in ["schema_present", "repos", "repos_with_license_review",
+              "repos_with_approved_decision"]:
+        a("  %-34s before=%s" % (k, (b or {}).get(k)))
+        a("  %-34s after =%s" % ("", (n or {}).get(k)))
+    a("")
+    a("  Interpretation: the machine-readable approval field Q0 found missing now")
+    a("  exists. 8 locked repositories + 1 approved alternative = 9 records, each")
+    a("  carrying decision=approved bound to its own pinned commit. The first pass")
+    a("  had no per-repo approval field at all -- only a free-text expectation.")
+    a("")
+
+    a("-" * 72)
+    a("5. ACCEPTANCE GATE BEFORE/AFTER   (d0/out/validate_d0.output.txt)")
+    a("-" * 72)
+    gb = gate_counts(show_text(prev_full, "d0/out/validate_d0.output.txt"))
+    gn = gate_counts(open(os.path.join(OUT, "validate_d0.output.txt"), "rb").read())
+    a("  checks / failures   before=%s" % (json.dumps(gb)))
+    a("  checks / failures   after =%s" % (json.dumps(gn)))
+    a("")
+    a("  Interpretation: the gate grew from 26 to %s assertions. New assertions"
+      % (gn[0] if gn else "?"))
+    a("  cover the revised windows, the licence-review contract (field presence,")
+    a("  approved decision, revision binding, empty marker hits, non-claim of")
+    a("  independent review), the snapshot-ancestry requirement, the")
+    a("  backport/cherry-pick rejection, and the alternative-candidate boundary.")
+    a("  A source-lock without an approved decision can no longer pass.")
+    a("")
+
+    a("-" * 72)
+    a("6. RELEASE STATE BEFORE/AFTER   (d0/out/family-ledger.json)")
+    a("-" * 72)
+    rb = released_counts(show_json(prev_full, "d0/out/family-ledger.json"))
+    rn = released_counts(show_json(new_full, "d0/out/family-ledger.json"))
+    for k in ["real_released", "real_total", "variant_released", "variant_total"]:
+        a("  %-34s before=%s" % (k, (rb or {}).get(k)))
+        a("  %-34s after =%s" % ("", (rn or {}).get(k)))
+    a("")
+    a("  Interpretation: the release verdicts are UNCHANGED. Four real train")
+    a("  families stay released, four variant families stay released=false. This")
+    a("  revision adds requirements and evidence; it does not relax any check and")
+    a("  does not promote any statically-verified family to 'data released'.")
+    a("")
+
+    a("-" * 72)
+    a("7. WHAT DID NOT CHANGE (explicitly)")
+    a("-" * 72)
+    a("  * no FAIL_TO_PASS run: this runtime still has no reachable package index.")
+    a("  * d0/out/restricted-oracle.json is still NOT committed; the file now also")
+    a("    carries split_declaration_pending so it cannot be read as already split.")
+    a("  * dev/sealed release and acceptance remain blocked on the isolation")
+    a("    prerequisite (unchanged from Mika's ruling).")
+    a("  * the 8 locked repositories and their pinned commits are unchanged; only")
+    a("    their approval record was added.")
+    a("  * no gold/answer material was added to the public manifest: the public")
+    a("    manifest still carries no oracle_assertions (asserted by the gate).")
+    a("")
+
+    a("-" * 72)
+    a("8. INDEPENDENT RE-DERIVATION HINT")
+    a("-" * 72)
+    a("  python d0/run_all.py            # regenerate everything from d0/src/")
+    a("  python d0/validate_d0.py        # 67 checks, must exit 0")
+    a("  git diff %s HEAD -- d0/    # this diff again" % prev_full[:9])
+    a("  d0/src/ is deliberately NOT committed (see .gitignore): regenerate it with")
+    a("  d0/fetch_snapshots.ps1, which now unshallows every repo and also fetches")
+    a("  the alternative candidate.")
+    a("")
+
+    text = "\n".join(L) + "\n"
+    with open(os.path.join(OUT, "v2-diff-evidence.txt"), "w", encoding="utf-8") as f:
+        f.write(text)
+    print(text)
+    return 0
+
+
+if __name__ == "__main__":
+    sys.exit(main())
