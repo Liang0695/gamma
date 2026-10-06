@@ -85,6 +85,8 @@ def main():
     lock = load("source-lock.json")
     cand = load("family-candidates.json")
     ledger = load("family-ledger.json")
+    merge = load("merge-evidence.json")
+    merge_index = {r["fix_commit"]: r for r in merge["records"]}
 
     # ---------- 1. time isolation ----------
     iso = {
@@ -115,9 +117,27 @@ def main():
                 "status": "withdrawn 2026-10-05 after Mika's ruling; never approved",
             },
             "time_axis_authority": (
-                "the ORIGINAL upstream fix commit's own time, recorded as BOTH author date and "
-                "committer date, with both required inside the window so the classification "
-                "never rests on a single rewriteable date"),
+                "the ORIGINAL upstream fix's MERGE event -- merged_at_utc of the pull "
+                "request the fix commit belongs to -- recorded with its metadata source "
+                "and raw-response sha256 in out/merge-evidence.json. The commit's own "
+                "author and committer dates are audit corroboration ONLY and never "
+                "qualify a family."),
+            "merge_event_evidence": {
+                "artifact": "out/merge-evidence.json",
+                "producer": "d0/fetch_merge_evidence.py",
+                "records": merge["summary"]["records"],
+                "verified": merge["summary"]["verified"],
+                "unverified": merge["summary"]["unverified"],
+                "unverified_commits": merge["summary"]["unverified_commits"],
+                "missing_evidence_rule": merge["policy"]["missing_merge_evidence"],
+                "scope_caveat": (
+                    "merge evidence has been collected for the families this delivery "
+                    "INTENDS TO COUNT and for the alternative candidate's in-window "
+                    "commits. The bulk per-repository inventory counts below are still "
+                    "commit-date SCREENINGS: they are headroom observations, and no "
+                    "individual count in them is window-qualified until that commit's "
+                    "merge event is retrieved and verified."),
+            },
             "rejected_time_substitutes": [
                 "release/tag date", "snapshot or pin date",
                 "backport date", "cherry-pick date",
@@ -166,12 +186,23 @@ def main():
             rec = lock["repos"][name]
             role = rec["split_role"]
             floor = TRAIN_END_EXCLUSIVE if role == "train" else DEVSEALED_START
+            qualified = [c for c in cs if merge_index.get(c["fix_commit"], {})
+                         .get("window_qualified_by_merge_event") is True]
             out[name] = {
                 "role": role,
                 "window": "train" if role == "train" else "dev_sealed",
-                "qualified_candidate_families_in_window": len(cs),
+                "screened_candidate_commits_in_window": len(cs),
                 "oldest_fix_time": dates[0] if dates else None,
                 "newest_fix_time": dates[-1] if dates else None,
+                "merge_event_verified_and_in_window": len(qualified),
+                "merge_event_verified_commits": sorted(
+                    c["fix_commit"] for c in qualified),
+                "count_semantics": (
+                    "screened_candidate_commits_in_window is a COMMIT-DATE screening "
+                    "count (both author and committer dates inside the window). It is "
+                    "headroom evidence, NOT a qualified quota. "
+                    "merge_event_verified_and_in_window is the only count that has the "
+                    "merge-event evidence the time rule requires."),
                 "all_fix_times_inside_window": all(
                     c["fix_time_both_dates_in_window"] for c in cs),
                 "all_fix_commits_ancestors_of_pinned_revision": all(
@@ -185,13 +216,20 @@ def main():
     iso["train_inventory"] = inventory(TRAIN_REPOS)
     iso["dev_sealed_inventory"] = inventory(DEV_REPOS + SEALED_REPOS)
 
-    total = sum(v["qualified_candidate_families_in_window"]
+    total = sum(v["screened_candidate_commits_in_window"]
                 for v in iso["train_inventory"].values())
-    dev_total = sum(v["qualified_candidate_families_in_window"]
+    dev_total = sum(v["screened_candidate_commits_in_window"]
                     for v in iso["dev_sealed_inventory"].values()
                     if v["role"] == "dev")
-    iso["evidence"]["train_candidate_total_in_window"] = total
-    iso["evidence"]["dev_candidate_total_in_window"] = dev_total
+    iso["evidence"]["train_candidate_total_screened_in_window"] = total
+    iso["evidence"]["dev_candidate_total_screened_in_window"] = dev_total
+    iso["evidence"]["train_candidate_total_merge_verified"] = sum(
+        1 for c in cand["candidates_by_repo"].get("click", []) +
+        cand["candidates_by_repo"].get("more-itertools", []) +
+        cand["candidates_by_repo"].get("pluggy", []) +
+        cand["candidates_by_repo"].get("boltons", [])
+        if merge_index.get(c["fix_commit"], {}).get("window_qualified_by_merge_event")
+        is True)
     iso["evidence"]["train_window_upper_bound_observed"] = max(
         (v["newest_fix_time"] for v in iso["train_inventory"].values()
          if v["newest_fix_time"]), default=None)
@@ -207,6 +245,10 @@ def main():
         {"family_id": f["family_id"], "repo": f["repo"],
          "fix_time_author": f["fix_time"]["author_date"],
          "fix_time_committer": f["fix_time"]["committer_date"],
+         "merge_event_utc": f["fix_time"]["merge_event_utc"],
+         "qualifies_by_merge_event": f["fix_time"]["qualifies_by_merge_event"],
+         "merge_evidence_status": f["merge_evidence"]["status"],
+         "released": f["released"],
          "both_dates_in_train_window": f["fix_time"]["both_dates_in_train_window"],
          "is_ancestor_of_pinned_revision": f["fix_commit_is_ancestor_of_pinned_revision"],
          "backport_or_cherry_pick_marker": f["backport_or_cherry_pick_marker"],
@@ -216,7 +258,44 @@ def main():
     # ---------- 1b. alternative dev candidate (python-dotenv) ----------
     alt = cand["alternative_candidates"][ALTERNATIVE_DEV]
     alt_lock = lock["repos"][ALTERNATIVE_DEV]
-    alt_dates = sorted(c["fix_time_primary"] for c in alt["candidates"])
+
+    def alt_family(c):
+        merc = merge_index.get(c["fix_commit"]) or {}
+        pr = merc.get("pull_request") or {}
+        qualified = merc.get("window_qualified_by_merge_event") is True
+        return {
+            "fix_commit": c["fix_commit"], "base_commit": c["base_commit"],
+            "fix_time_author": c["fix_time_primary"],
+            "fix_time_committer": c["fix_time_committer"],
+            "fix_time_author_and_committer_role":
+                "audit corroboration only; not the window basis",
+            "is_ancestor_of_pinned_revision": c["is_ancestor_of_pinned_revision"],
+            "merge_evidence": {
+                "status": merc.get("status", "not_collected"),
+                "pull_request": merc.get("pull_request_url"),
+                "merged_at_utc": merc.get("merged_at_utc"),
+                "merge_commit_sha": merc.get("merge_commit_sha"),
+                "merge_commit_sha_matches_fix_commit":
+                    merc.get("merge_commit_sha_matches_fix_commit"),
+                "window_qualified_by_merge_event": qualified,
+                "reason": merc.get("reason"),
+                "metadata_source_url": pr.get("url"),
+                "raw_response_sha256": {
+                    "commit_to_pr_lookup": (merc.get("commit_to_pr_lookup") or {})
+                    .get("raw_response_sha256"),
+                    "pull_request": pr.get("raw_response_sha256"),
+                },
+                "artifact": "out/merge-evidence.json",
+            },
+            "counted_in_qualified_quota": qualified,
+            "test_files": c["test_files"], "src_files": c["src_files"],
+            "lines_changed": c["lines_changed"],
+        }
+
+    alt_families = [alt_family(c) for c in alt["candidates"]]
+    alt_qualified = [f for f in alt_families if f["counted_in_qualified_quota"]]
+    alt_qualified_dates = sorted(f["merge_evidence"]["merged_at_utc"]
+                                 for f in alt_qualified)
     iso["alternative_dev_candidate"] = {
         "repo": ALTERNATIVE_DEV,
         "upstream_slug": alt_lock["upstream_slug"],
@@ -234,30 +313,38 @@ def main():
         "license": {
             "decision": alt_lock["license_review"]["decision"],
             "approved_spdx": alt_lock["license_review"]["approved_spdx"],
+            "spdx_correction": (
+                "corrected 2026-10-06 from a mistaken MIT preset to BSD-3-Clause, "
+                "which is what the pinned LICENSE and pyproject.toml both say; this "
+                "preset was a transcription error, not a licence change upstream"),
+            "license_conflicts": alt_lock["license_review"]["license_conflicts"],
+            "license_facts": alt_lock["license_review"]["license_facts"],
             "primary_license_file": alt_lock["license_review"]["evidence"][
                 "primary_license_file"],
+            "hash_basis": alt_lock["license_review"]["hash_basis"]["per_file"],
             "copyleft_marker_hits": alt_lock["license_review"]["copyleft_marker_hits"],
             "restrictive_marker_hits": alt_lock["license_review"]["restrictive_marker_hits"],
             "path_in_source_lock": "repos.%s.license_review" % ALTERNATIVE_DEV,
         },
         "family_inventory": {
             "window": "dev_sealed (2026-01-01 .. 2026-10-04)",
-            "qualified_candidate_families_in_window": len(alt["candidates"]),
-            "oldest_fix_time": alt_dates[0] if alt_dates else None,
-            "newest_fix_time": alt_dates[-1] if alt_dates else None,
-            "families": [
-                {"fix_commit": c["fix_commit"], "base_commit": c["base_commit"],
-                 "fix_time_author": c["fix_time_primary"],
-                 "fix_time_committer": c["fix_time_committer"],
-                 "is_ancestor_of_pinned_revision": c["is_ancestor_of_pinned_revision"],
-                 "test_files": c["test_files"], "src_files": c["src_files"],
-                 "lines_changed": c["lines_changed"]}
-                for c in alt["candidates"]],
+            "count_semantics": (
+                "screened_candidate_commits_in_window is a commit-date screening "
+                "count of headroom. merge_event_verified_and_in_window is the only "
+                "count backed by the merge-event evidence the time rule requires."),
+            "screened_candidate_commits_in_window": len(alt["candidates"]),
+            "merge_event_verified_and_in_window": len(alt_qualified),
+            "oldest_merge_event_utc": alt_qualified_dates[0] if alt_qualified_dates else None,
+            "newest_merge_event_utc": alt_qualified_dates[-1] if alt_qualified_dates else None,
+            "families": alt_families,
         },
         "environment_material": env_material(ALTERNATIVE_DEV),
         "open_items": [
             "custodian has not ruled on replacing dateutil; this record does not replace it",
             "no FAIL_TO_PASS run was executed for any of its families",
+            ("one in-window commit (f5485a61eefa5e686d6d5bdc7aa9ad6b104b1e92) has NO "
+             "retrievable merge event: its commit message references #600, which is an "
+             "ISSUE, not a pull request. It is unverified and counted in no quota."),
         ],
     }
 
@@ -266,7 +353,7 @@ def main():
     for name in DEV_REPOS + SEALED_REPOS:
         rec = lock["repos"][name]
         role = rec["split_role"]
-        n = iso["dev_sealed_inventory"][name]["qualified_candidate_families_in_window"]
+        n = iso["dev_sealed_inventory"][name]["screened_candidate_commits_in_window"]
         if n == 0:
             risks.append({
                 "repo": name,
@@ -294,32 +381,45 @@ def main():
         "p0": {
             "requirement": "8 training families = 4 real + 4 variant from >= 2 repositories",
             "real_families_released": sum(1 for f in real if f["released"]),
+            "real_families_total": len(real),
+            "real_families_blocked_on_window_evidence": [
+                f["family_id"] for f in real if not f["released"]],
             "variant_specs_ready": sum(1 for f in variant if f["mutation_recipe"]),
             "variant_commits_built": 0,
             "repositories_covered": repos_covered,
-            "verdict": ("real half MET (4/4 released, 4 repositories >= 2); variant half has "
-                        "4/4 specifications but zero constructed commits, so the variant half "
-                        "is specification-complete and construction-pending"),
+            "verdict": ("real half SHORT: %d/%d released under the merge-event rule. "
+                        "v3-train-click-001 has no retrievable merge event (the 2015 fix "
+                        "was pushed straight to main; its issue #222 was closed by a "
+                        "direct commit reference and pull requests #258/#259 were closed "
+                        "UNMERGED), so it is released=false and counted in no quota. "
+                        "Variant half has 4/4 specifications but zero constructed "
+                        "commits." % (sum(1 for f in real if f["released"]), len(real))),
         },
         "p1_headroom": {
             "requirement": "train split of 96 families = 24 real + 40 variant",
-            "raw_candidates_in_train_window": total,
-            "per_repo": {k: v["qualified_candidate_families_in_window"]
+            "screened_candidate_commits_in_train_window": total,
+            "merge_event_verified_train_candidates":
+                iso["evidence"]["train_candidate_total_merge_verified"],
+            "per_repo": {k: v["screened_candidate_commits_in_window"]
                          for k, v in iso["train_inventory"].items()},
-            "assessment": ("%d raw candidates against a need for 24 real families is nominal "
-                           "headroom of about %.1fx, but qualification is unproven for any of "
-                           "them: each still needs a verifier run, an actor-reachability check "
-                           "and a bounded test patch. Do not read %d as 24 usable."
-                           % (total, total / 24.0, total)),
-            "weakest_repo": "more-itertools (%d raw candidates) -- thin if it must carry a share"
-                            % iso["train_inventory"]["more-itertools"][
-                                "qualified_candidate_families_in_window"],
+            "assessment": ("%d commit-date SCREENED candidates against a need for 24 real "
+                           "families is nominal headroom of about %.1fx, but the count is a "
+                           "screening, not a qualified quota: each candidate still needs its "
+                           "merge event retrieved (%d have one today), a verifier run, an "
+                           "actor-reachability check and a bounded test patch. Do not read "
+                           "%d as 24 usable."
+                           % (total, total / 24.0,
+                              iso["evidence"]["train_candidate_total_merge_verified"],
+                              total)),
+            "weakest_repo": "more-itertools (%d screened candidates) -- thin if it must carry "
+                            "a share" % iso["train_inventory"]["more-itertools"][
+                                "screened_candidate_commits_in_window"],
         },
         "dev_supply": {
             "requirement": ("a dev split needs families whose original fix time is in "
                             "2026-01-01 .. 2026-10-04, from the dev-role repositories"),
-            "qualified_dev_families_found": dev_total,
-            "per_repo": {k: v["qualified_candidate_families_in_window"]
+            "screened_dev_candidates_found": dev_total,
+            "per_repo": {k: v["screened_candidate_commits_in_window"]
                          for k, v in iso["dev_sealed_inventory"].items()},
             "dateutil_verdict": ("0 qualified dev families. dateutil's pinned revision is dated "
                                  "2024-02-29, entirely before the window, so no family in that "
@@ -336,6 +436,41 @@ def main():
 
     if any(f["repo"] == "dateutil" for f in real):
         shortfall["blocking_gaps"].append("dateutil used as a train source (unexpected)")
+    for f in real:
+        if f["released"]:
+            continue
+        me = f["merge_evidence"]
+        shortfall["blocking_gaps"].append({
+            "gap": ("%s is released=false: the original fix's MERGE event could not be "
+                    "retrieved, and the time rule requires the merge event, not a "
+                    "commit date" % f["family_id"]),
+            "impact": ("the P0 real half is %d/4 instead of 4/4, so the 8-task set is "
+                       "short by one REAL family until this is ruled on"
+                       % sum(1 for x in real if x["released"])),
+            "evidence": {
+                "family_id": f["family_id"],
+                "repo": f["repo"],
+                "fix_commit": f["oracle_fix_commit"],
+                "merge_evidence_status": me["status"],
+                "commit_to_pr_lookup_url": me["provenance"].get(
+                    "commit_to_pr_lookup_url"),
+                "author_date_audit_only": f["fix_time"]["author_date"],
+                "committer_date_audit_only": f["fix_time"]["committer_date"],
+                "extra_observation": (
+                    "the two pull requests cross-referenced from the upstream issue "
+                    "(pallets/click#258 and #259) were both closed UNMERGED, so no "
+                    "pull-request merge event exists for this fix at all"),
+            },
+            "options": [
+                "accept a defined alternative landing-event evidence standard for "
+                "direct-to-default-branch pushes (a policy decision, not taken here)",
+                "or substitute another train-split family whose merge event IS "
+                "retrievable, from the screened inventory, after running the same "
+                "derivation and review",
+                "or drop the 4th real family and record the P0 quota as short",
+            ],
+            "owner": "Mika / custodian decision; D0 does not silently swap a family",
+        })
     for r in risks:
         shortfall["non_blocking_gaps"].append({
             "gap": ("%s cannot carry %s families at the pinned revision under the time rule"
@@ -355,10 +490,23 @@ def main():
     shortfall["non_blocking_gaps"].append({
         "gap": ("dev/sealed family inventories exist but are unverified headroom, and only one "
                 "locked dev-role repository (attrs) yields in-window dev families"),
-        "evidence": ("counts in dev_supply above; every candidate still needs a verifier run "
-                     "and an actor-reachability check"),
+        "evidence": ("counts in dev_supply above; every candidate still needs its merge "
+                     "event retrieved, a verifier run and an actor-reachability check"),
         "options": ["treat attrs plus an approved alternative as the dev supply, or re-pin"],
         "owner": "D0 follow-up / custodian decision",
+    })
+    shortfall["non_blocking_gaps"].append({
+        "gap": ("the bulk per-repository inventory counts are commit-date SCREENINGS, not "
+                "window-qualified families"),
+        "evidence": ("out/d0-time-isolation.json records screened_candidate_commits_in_window "
+                     "and merge_event_verified_and_in_window separately; merge events were "
+                     "retrieved only for the families this delivery intends to count and for "
+                     "the alternative candidate's in-window commits (%d train candidates "
+                     "verified so far)"
+                     % iso["evidence"]["train_candidate_total_merge_verified"]),
+        "options": ["fetch the merge event for a candidate before promoting it, or keep it "
+                    "labelled as headroom"],
+        "owner": "D0 follow-up; no quota claim is made from a screening count",
     })
     shortfall["non_blocking_gaps"].append({
         "gap": "no FAIL_TO_PASS run was executed",
@@ -444,10 +592,13 @@ def main():
         public_lock["license_approvals"][name] = {
             # machine-readable approval, taken straight from source-lock.json so the two
             # files can never disagree
-            "schema_version": "1.0",
+            "schema_version": "1.1",
             "decision": review["decision"],
             "approval": "approved" if review["decision"] == "approved" else review["decision"],
             "spdx": review["approved_spdx"],
+            "spdx_is_derived": True,
+            "license_facts": review["license_facts"],
+            "license_conflicts": review["license_conflicts"],
             "osi_permissive": review["osi_permissive"],
             "decided_against_revision": review["decided_against_revision"],
             "copyleft_marker_hits": review["copyleft_marker_hits"],
@@ -457,6 +608,7 @@ def main():
             "basis": review["decision_basis"],
             "primary_license_file": review["evidence"]["primary_license_file"],
             "all_license_files": review["evidence"]["all_license_file_hashes"],
+            "hash_basis": review["hash_basis"],
             "declared_in_packaging_metadata": rec["packaging_metadata"],
             "per_file_scan": review["evidence"]["per_file_scan"],
         }
@@ -476,15 +628,21 @@ def main():
         }, f, indent=2, ensure_ascii=False)
 
     print("time-isolation open items:", [r["repo"] for r in risks])
-    print("train candidate total:", total, "| per repo:",
-          {k: v["qualified_candidate_families_in_window"]
+    print("train candidates SCREENED by commit date:", total, "| per repo:",
+          {k: v["screened_candidate_commits_in_window"]
            for k, v in iso["train_inventory"].items()})
-    print("dev/sealed inventory:",
-          {k: v["qualified_candidate_families_in_window"]
+    print("train candidates MERGE-EVENT verified:",
+          iso["evidence"]["train_candidate_total_merge_verified"])
+    print("dev/sealed inventory (screened):",
+          {k: v["screened_candidate_commits_in_window"]
            for k, v in iso["dev_sealed_inventory"].items()})
-    print("alternative dev candidate families:",
-          iso["alternative_dev_candidate"]["family_inventory"][
-              "qualified_candidate_families_in_window"])
+    print("alternative dev candidate families: screened=%d merge-verified=%d" % (
+        iso["alternative_dev_candidate"]["family_inventory"][
+            "screened_candidate_commits_in_window"],
+        iso["alternative_dev_candidate"]["family_inventory"][
+            "merge_event_verified_and_in_window"]))
+    print("blocking gaps:", [g if isinstance(g, str) else g["gap"][:70]
+                             for g in shortfall["blocking_gaps"]])
     print("public manifest families:", len(public_families))
     print("restricted families:", len(restricted_families))
 

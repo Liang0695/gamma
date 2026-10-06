@@ -34,18 +34,26 @@ REPOS = {
 # family inventory and environment material, but NOT a member of the locked
 # eight and NOT approved for release: it only replaces dateutil if the
 # custodian says so.
+#
+# SPDX corrected 2026-10-06: this entry used to say MIT. Both the pinned LICENSE
+# (git blob 3a97119010ac82e15e917a69b7b8f9f59b5a4601) and the pinned
+# pyproject.toml (`license = { text = "BSD-3-Clause" }`) say BSD-3-Clause, so MIT
+# was a transcription error in this preset, not a licence change upstream. The
+# earlier candidate pin 791414804eff08a23f0b7970968e1717e3b28e66 carries the same
+# LICENSE blob. The approval below is re-derived from the pinned bytes.
 ALTERNATIVE_REPOS = {
     "python-dotenv": ("theskumar/python-dotenv", "v1.2.4",
-                      "a565c2cc41599c48eabc6b7b7f5b826d43c5a6d7", "MIT", "dev"),
+                      "a565c2cc41599c48eabc6b7b7f5b826d43c5a6d7", "BSD-3-Clause", "dev"),
 }
 
 LICENSE_REVIEW_SCHEMA = {
-    "schema_version": "1.0",
+    "schema_version": "1.1",
     "applies_to": "every repository in this file, keyed by repository name",
     "required_fields": [
         "decision", "approved_spdx", "osi_permissive", "copyleft_marker_hits",
         "restrictive_marker_hits", "evidence", "decision_basis", "decided_by",
         "decided_at", "decided_against_revision", "independent_review",
+        "license_facts", "license_conflicts", "hash_basis",
     ],
     "decision_domain": ["approved", "rejected", "pending"],
     "gate": ("no repository may be used as a family source unless "
@@ -56,6 +64,21 @@ LICENSE_REVIEW_SCHEMA = {
     "independent_review_note": ("decision is the D0 owner's licence-fact assessment and "
                                 "is self-declared; independent countersignature is tracked "
                                 "separately in independent_review and is NOT claimed here"),
+    "approved_spdx_is_derived_not_asserted": (
+        "approved_spdx must agree with the families detected in the pinned licence "
+        "TEXT and with the SPDX declared in the pinned packaging METADATA. The "
+        "preset in the generator is an expectation, never evidence."),
+    "conflict_rule": ("a positive disagreement between the preset, the licence text "
+                      "and/or the packaging metadata forces decision='pending' and is "
+                      "listed verbatim in license_conflicts; it can never read as "
+                      "'approved'. An EMPTY evidence set is not a conflict."),
+    "hash_basis_rule": (
+        "every licence file records BOTH the upstream git-blob sha256 and the "
+        "checkout sha256 plus the newline transformation relating them; the two are "
+        "different byte strings under core.autocrlf=true and must never be mixed"),
+    "missing_merge_evidence_note": (
+        "this field set settles LICENCE facts only; it does not establish the family "
+        "window, which needs the merge-event evidence in merge-evidence.json"),
 }
 
 LICENSE_FILE_RE = re.compile(
@@ -107,6 +130,195 @@ RESTRICTIVE_MARKERS = [
 APPROVED_SPDX_SET = {"MIT", "BSD-2-Clause", "BSD-3-Clause", "Apache-2.0",
                      "Apache-2.0 OR BSD-3-Clause", "Apache-2.0 OR BSD-2-Clause"}
 
+# ---------------------------------------------------------------------------
+# SPDX conflict detection (Mika's targeted return, 2026-10-06)
+# ---------------------------------------------------------------------------
+# The v2 pass took `design_license_expectation` -- a hand-written preset in this
+# file -- and copied it straight into `approved_spdx`.  For python-dotenv the
+# preset said MIT while both the pinned LICENSE and pyproject.toml said
+# BSD-3-Clause, so the record approved a licence the repository does not have
+# and even contradicted its own packaging metadata a few lines below.
+#
+# The preset is therefore no longer trusted.  Every approval must now survive a
+# three-way agreement check between
+#     (a) the preset in this file,
+#     (b) the SPDX family/ies detected in the pinned licence TEXT, and
+#     (c) the SPDX declared in the pinned packaging METADATA.
+# Any positive disagreement withholds the approval (decision -> "pending"), so
+# a licence-metadata conflict can never be machine-read as "approved".
+FAMILY_TOKENS = ("MIT", "BSD-2-Clause", "BSD-3-Clause", "Apache-2.0")
+
+# Only a repository's OWN root licence files are read for the text check.
+# NOTICE files routinely quote a third party's licence (marshmallow's NOTICE
+# embeds Django's BSD-3-Clause next to its own MIT), so including them would
+# manufacture a conflict out of nothing.
+OWN_LICENCE_RE = re.compile(r"^(licen[cs]e|copying)([-_.].*)?$", re.I)
+
+MIT_BODY = "permission is hereby granted, free of charge"
+BSD_BODY = "redistribution and use in source and binary forms"
+BSD_ENDORSE_RE = re.compile(
+    r"neither the name|may not be used to endorse or promote products|"
+    r"to endorse or promote products derived",
+    re.I,
+)
+APACHE_RE = re.compile(r"apache license", re.I)
+APACHE_VER_RE = re.compile(r"version 2\.0", re.I)
+
+# packaging metadata -> SPDX. Deliberately conservative: an ambiguous classifier
+# ("License :: OSI Approved :: BSD License") yields NO token rather than a guess,
+# because a guess would either mask a real conflict or invent one.
+CLASSIFIER_SPDX = [
+    ("License :: OSI Approved :: MIT License", "MIT"),
+    ("License :: OSI Approved :: Apache Software License", "Apache-2.0"),
+]
+SPDX_LITERAL_RE = re.compile(r"\b(MIT|BSD-2-Clause|BSD-3-Clause|Apache-2\.0)\b")
+
+
+def detect_text_families(repo_dir, lic_files):
+    """SPDX families positively identified in the pinned licence TEXT.
+
+    Returns (families, per_file) where per_file records which file produced
+    which token, so a reviewer can re-derive the set from the hashed bytes.
+    """
+    families, per_file = set(), []
+    for lf in lic_files:
+        if not OWN_LICENCE_RE.match(os.path.basename(lf["path"])):
+            continue
+        full = os.path.join(repo_dir, lf["path"].replace("/", os.sep))
+        try:
+            text = open(full, encoding="utf-8", errors="replace").read()
+        except OSError:
+            continue
+        found = []
+        # licences are hard-wrapped, so every probe runs on whitespace-flattened
+        # text: boltons' third clause reads "...may not be used to endorse or\n
+        # promote products..." and a raw substring test misses it, which would
+        # mis-report a 3-clause BSD as 2-clause.
+        flat = re.sub(r"\s+", " ", text).lower()
+        if MIT_BODY in flat:
+            found.append("MIT")
+        if BSD_BODY in flat:
+            found.append("BSD-3-Clause" if BSD_ENDORSE_RE.search(flat)
+                         else "BSD-2-Clause")
+        if APACHE_RE.search(flat) and APACHE_VER_RE.search(flat):
+            found.append("Apache-2.0")
+        if found:
+            families.update(found)
+            per_file.append({"path": lf["path"], "families": sorted(set(found))})
+    return families, per_file
+
+
+def detect_metadata_families(meta):
+    """SPDX families explicitly declared in the pinned packaging metadata."""
+    families, evidence = set(), []
+    for fname, info in sorted(meta.items()):
+        for decl in info.get("declared", []) or []:
+            for m in SPDX_LITERAL_RE.finditer(decl):
+                families.add(m.group(1))
+                evidence.append({"file": fname, "declaration": decl,
+                                 "families": [m.group(1)]})
+        for cls in info.get("classifiers", []) or []:
+            for prefix, spdx in CLASSIFIER_SPDX:
+                if cls.strip() == prefix:
+                    families.add(spdx)
+                    evidence.append({"file": fname, "declaration": cls,
+                                     "families": [spdx]})
+    return families, evidence
+
+
+def preset_families(preset):
+    return {t.strip() for t in preset.split("OR") if t.strip() in FAMILY_TOKENS}
+
+
+def detect_conflicts(preset, text_families, meta_families):
+    """Return the list of licence-metadata disagreements.
+
+    An empty evidence set is NOT a conflict: "unknown" is not "disagrees".
+    The three comparisons are independent so a reviewer can see exactly which
+    pair of sources disagreed.
+    """
+    preset_t = preset_families(preset)
+    conflicts = []
+    if text_families and preset_t and not (preset_t & text_families):
+        conflicts.append({
+            "kind": "preset_vs_licence_text",
+            "preset_spdx": preset,
+            "preset_families": sorted(preset_t),
+            "licence_text_families": sorted(text_families),
+            "effect": "approval withheld: the declared preset is not among the "
+                      "families the pinned licence text actually contains",
+        })
+    if meta_families and preset_t and not (preset_t & meta_families):
+        conflicts.append({
+            "kind": "preset_vs_packaging_metadata",
+            "preset_spdx": preset,
+            "preset_families": sorted(preset_t),
+            "packaging_metadata_families": sorted(meta_families),
+            "effect": "approval withheld: the declared preset disagrees with the "
+                      "repository's own pinned packaging metadata",
+        })
+    if text_families and meta_families and not (text_families & meta_families):
+        conflicts.append({
+            "kind": "licence_text_vs_packaging_metadata",
+            "licence_text_families": sorted(text_families),
+            "packaging_metadata_families": sorted(meta_families),
+            "effect": "approval withheld: the pinned licence text and the pinned "
+                      "packaging metadata name different licence families",
+        })
+    return conflicts
+
+
+def classify_license(preset, text_families, meta_families):
+    """The single decision predicate, shared by the generator and the gate.
+
+    Kept as a free function so validate_d0.py can re-run THE SAME rule over
+    synthetic records in its regression test instead of re-implementing it.
+    """
+    conflicts = detect_conflicts(preset, text_families, meta_families)
+    approved = preset in APPROVED_SPDX_SET
+    if conflicts:
+        return "pending", False, conflicts
+    return ("approved" if approved else "pending"), approved, conflicts
+
+
+# ---------------------------------------------------------------------------
+# hash basis: upstream blob bytes vs checkout bytes are NOT the same bytes
+# ---------------------------------------------------------------------------
+# core.autocrlf=true makes the working tree carry CRLF while the git object
+# still holds LF, so the same licence file has two legitimate sha256 values.
+# The v2 pass recorded only the checkout hash and did not say which one it was,
+# which is how a CRLF-converted hash could be misread as "the licence changed".
+# Both are now recorded, together with the transformation that relates them.
+def hash_basis_entry(repo_dir, path, checkout_sha256, checkout_bytes):
+    full = os.path.join(repo_dir, path.replace("/", os.sep))
+    checkout = open(full, "rb").read()
+    blob = git_blob_bytes(repo_dir, path)
+    rc, blob_sha1, _ = git(repo_dir, "rev-parse", "HEAD:%s" % path)
+    entry = {
+        "path": path,
+        "git_blob_sha1": blob_sha1 if rc == 0 else None,
+        "sha256": checkout_sha256,
+        "bytes": checkout_bytes,
+        "checkout_sha256": checkout_sha256,
+        "checkout_bytes": checkout_bytes,
+        "upstream_blob_sha256": None,
+        "upstream_blob_bytes": None,
+        "newline_transformation": "unknown",
+        "sha256_basis": ("checkout worktree bytes; git core.autocrlf=true rewrites "
+                         "LF to CRLF on checkout, so this is NOT the upstream blob"),
+    }
+    if blob is None:
+        return entry
+    entry["upstream_blob_sha256"] = hashlib.sha256(blob).hexdigest()
+    entry["upstream_blob_bytes"] = len(blob)
+    if blob == checkout:
+        entry["newline_transformation"] = "none"
+    elif blob.replace(b"\n", b"\r\n") == checkout:
+        entry["newline_transformation"] = "lf_to_crlf_on_checkout"
+    else:
+        entry["newline_transformation"] = "other"
+    return entry
+
 
 def marker_scan(repo_dir, lic_files):
     """Scan primary licence files for copyleft / restrictive-use markers.
@@ -154,23 +366,67 @@ def build_license_review(name, slug, tag, pinned, design_license, repo_dir,
     if primary is None and lic_files:
         primary = lic_files[0]
     copyleft, restrictive = marker_scan(repo_dir, lic_files)
-    approved = design_license in APPROVED_SPDX_SET
-    decision = "approved" if (approved and not restrictive) else "pending"
-    basis = (
-        "declared licence family is OSI-permissive (%s); the primary licence file at the "
-        "pinned revision carries no copyleft marker and no non-commercial / research-only / "
-        "no-derivative clause. Hit lists below are recorded verbatim so this decision can be "
-        "re-derived from the hashed files alone." % design_license)
-    if not approved:
-        basis = "declared licence family %s is outside the approved permissive set" % design_license
+    text_families, text_evidence = detect_text_families(repo_dir, lic_files)
+    meta_families, meta_evidence = detect_metadata_families(meta)
+    decision, approved, conflicts = classify_license(
+        design_license, text_families, meta_families)
     if restrictive:
-        basis += " ; RESTRICTIVE MARKER FOUND -> decision withheld"
+        # a restrictive clause withholds the approval regardless of SPDX agreement
+        decision, approved = "pending", False
+        conflicts.append({
+            "kind": "restrictive_marker",
+            "effect": "approval withheld: a non-commercial / research-only / "
+                      "no-derivative clause was found in a primary licence file",
+        })
+    basis = (
+        "approved_spdx is DERIVED, not asserted: the pinned licence text yields %s "
+        "and the pinned packaging metadata declares %s, and the declared preset %s "
+        "must agree with both. The primary licence file carries no copyleft marker "
+        "and no non-commercial / research-only / no-derivative clause. Every input "
+        "is hashed below, so the decision can be re-derived from the pinned bytes "
+        "alone." % (sorted(text_families) or "no identified family",
+                    sorted(meta_families) or "no explicit SPDX",
+                    design_license))
+    if not approved and not conflicts:
+        basis = ("declared licence family %s is outside the approved permissive set"
+                 % design_license)
+    if conflicts:
+        basis += " ; CONFLICT -> decision withheld: " + "; ".join(
+            c["kind"] for c in conflicts)
     return {
         "decision": decision,
         "approved_spdx": design_license,
         "osi_permissive": bool(approved),
         "copyleft_marker_hits": copyleft,
         "restrictive_marker_hits": restrictive,
+        "license_facts": {
+            "preset_spdx": design_license,
+            "detected_from_licence_text": sorted(text_families),
+            "licence_text_evidence": text_evidence,
+            "detected_from_packaging_metadata": sorted(meta_families),
+            "packaging_metadata_evidence": meta_evidence,
+            "agreement": not conflicts,
+            "detection_scope": (
+                "licence TEXT is read only from the repository's own root "
+                "LICENSE/COPYING files; NOTICE and third-party licence copies are "
+                "excluded because they quote other projects' licences"),
+        },
+        "license_conflicts": conflicts,
+        "hash_basis": {
+            "rule": ("upstream_blob_sha256 is the committed git object's bytes; "
+                     "checkout_sha256 is the working-tree bytes after git's newline "
+                     "conversion. They are different strings and must never be mixed."),
+            "core_autocrlf": True,
+            "per_file": {lf["path"]: {
+                "git_blob_sha1": lf.get("git_blob_sha1"),
+                "upstream_blob_sha256": lf.get("upstream_blob_sha256"),
+                "upstream_blob_bytes": lf.get("upstream_blob_bytes"),
+                "checkout_sha256": lf.get("checkout_sha256"),
+                "checkout_bytes": lf.get("checkout_bytes"),
+                "newline_transformation": lf.get("newline_transformation"),
+                "sha256_basis": lf.get("sha256_basis"),
+            } for lf in lic_files},
+        },
         "evidence": {
             "primary_license_file": primary,
             "all_license_file_hashes": lic_files,
@@ -205,7 +461,14 @@ def sha256_of(path):
 def git(repo_dir, *args):
     p = subprocess.run(["git", "-C", repo_dir] + list(args),
                        stdout=subprocess.PIPE, stderr=subprocess.PIPE)
-    return p.returncode, p.stdout.decode("utf-8", "replace").strip(), p.stderr.decode("utf-8", "replace").strip()
+    return p.returncode, p.stdout.decode("utf-8", "replace").strip(), p.stderr.decode("utf-8", "replace")
+
+
+def git_blob_bytes(repo_dir, path):
+    """Raw bytes of a committed blob -- no checkout newline conversion applied."""
+    p = subprocess.run(["git", "-C", repo_dir, "cat-file", "blob", "HEAD:%s" % path],
+                       stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+    return p.stdout if p.returncode == 0 else None.strip()
 
 
 def scan_header(path):
@@ -301,11 +564,10 @@ def main():
             if LICENSE_FILE_RE.match(base):
                 full = os.path.join(repo_dir, f.replace("/", os.sep))
                 if os.path.isfile(full):
-                    lic_files.append({
-                        "path": f,
-                        "sha256": sha256_of(full),
-                        "bytes": os.path.getsize(full),
-                    })
+                    # both the upstream blob hash and the checkout hash, plus the
+                    # newline transformation that relates them -- never one alone
+                    lic_files.append(hash_basis_entry(
+                        repo_dir, f, sha256_of(full), os.path.getsize(full)))
         lic_files.sort(key=lambda d: d["path"])
 
         per_file = []
@@ -395,6 +657,15 @@ def main():
         "gate_satisfied": all(r["license_review"]["decision"] == "approved"
                               for r in lock["repos"].values()),
         "independent_countersignature_claimed": False,
+        "repos_with_licence_metadata_conflicts": [
+            n for n, r in lock["repos"].items()
+            if r["license_review"]["license_conflicts"]],
+        "approved_spdx_by_repo": {n: r["license_review"]["approved_spdx"]
+                                  for n, r in lock["repos"].items()},
+        "licence_text_families_by_repo": {
+            n: r["license_review"]["license_facts"]["detected_from_licence_text"]
+            for n, r in lock["repos"].items()},
+        "hash_basis_recorded_per_licence_file": True,
     }
 
     with open(os.path.join(OUT, "source-lock.json"), "w", encoding="utf-8") as f:

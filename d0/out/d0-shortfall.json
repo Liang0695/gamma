@@ -2,7 +2,11 @@
   "policy_id": "v3-time-policy-2026-10-05-mika",
   "p0": {
     "requirement": "8 training families = 4 real + 4 variant from >= 2 repositories",
-    "real_families_released": 4,
+    "real_families_released": 3,
+    "real_families_total": 4,
+    "real_families_blocked_on_window_evidence": [
+      "v3-train-click-001"
+    ],
     "variant_specs_ready": 4,
     "variant_commits_built": 0,
     "repositories_covered": [
@@ -11,23 +15,24 @@
       "more-itertools",
       "pluggy"
     ],
-    "verdict": "real half MET (4/4 released, 4 repositories >= 2); variant half has 4/4 specifications but zero constructed commits, so the variant half is specification-complete and construction-pending"
+    "verdict": "real half SHORT: 3/4 released under the merge-event rule. v3-train-click-001 has no retrievable merge event (the 2015 fix was pushed straight to main; its issue #222 was closed by a direct commit reference and pull requests #258/#259 were closed UNMERGED), so it is released=false and counted in no quota. Variant half has 4/4 specifications but zero constructed commits."
   },
   "p1_headroom": {
     "requirement": "train split of 96 families = 24 real + 40 variant",
-    "raw_candidates_in_train_window": 110,
+    "screened_candidate_commits_in_train_window": 110,
+    "merge_event_verified_train_candidates": 3,
     "per_repo": {
       "click": 56,
       "more-itertools": 6,
       "pluggy": 16,
       "boltons": 32
     },
-    "assessment": "110 raw candidates against a need for 24 real families is nominal headroom of about 4.6x, but qualification is unproven for any of them: each still needs a verifier run, an actor-reachability check and a bounded test patch. Do not read 110 as 24 usable.",
-    "weakest_repo": "more-itertools (6 raw candidates) -- thin if it must carry a share"
+    "assessment": "110 commit-date SCREENED candidates against a need for 24 real families is nominal headroom of about 4.6x, but the count is a screening, not a qualified quota: each candidate still needs its merge event retrieved (3 have one today), a verifier run, an actor-reachability check and a bounded test patch. Do not read 110 as 24 usable.",
+    "weakest_repo": "more-itertools (6 screened candidates) -- thin if it must carry a share"
   },
   "dev_supply": {
     "requirement": "a dev split needs families whose original fix time is in 2026-01-01 .. 2026-10-04, from the dev-role repositories",
-    "qualified_dev_families_found": 3,
+    "screened_dev_candidates_found": 3,
     "per_repo": {
       "attrs": 3,
       "dateutil": 0,
@@ -38,7 +43,28 @@
     "attrs_observation": "attrs is the only locked dev-role repository that does yield in-window dev families. The count is thin and unverified; it is headroom evidence, not a released dev set.",
     "assessment": "dev family supply is thin and depends on attrs plus an alternative."
   },
-  "blocking_gaps": [],
+  "blocking_gaps": [
+    {
+      "gap": "v3-train-click-001 is released=false: the original fix's MERGE event could not be retrieved, and the time rule requires the merge event, not a commit date",
+      "impact": "the P0 real half is 3/4 instead of 4/4, so the 8-task set is short by one REAL family until this is ruled on",
+      "evidence": {
+        "family_id": "v3-train-click-001",
+        "repo": "click",
+        "fix_commit": "9da1791476fe79ce77aa7a2a2db370c91a455251",
+        "merge_evidence_status": "unverified",
+        "commit_to_pr_lookup_url": "https://api.github.com/repos/pallets/click/commits/9da1791476fe79ce77aa7a2a2db370c91a455251/pulls",
+        "author_date_audit_only": "2015-03-31T11:58:13+02:00",
+        "committer_date_audit_only": "2015-03-31T12:00:12+02:00",
+        "extra_observation": "the two pull requests cross-referenced from the upstream issue (pallets/click#258 and #259) were both closed UNMERGED, so no pull-request merge event exists for this fix at all"
+      },
+      "options": [
+        "accept a defined alternative landing-event evidence standard for direct-to-default-branch pushes (a policy decision, not taken here)",
+        "or substitute another train-split family whose merge event IS retrievable, from the screened inventory, after running the same derivation and review",
+        "or drop the 4th real family and record the P0 quota as short"
+      ],
+      "owner": "Mika / custodian decision; D0 does not silently swap a family"
+    }
+  ],
   "non_blocking_gaps": [
     {
       "gap": "dateutil cannot carry dev families at the pinned revision under the time rule",
@@ -52,11 +78,19 @@
     },
     {
       "gap": "dev/sealed family inventories exist but are unverified headroom, and only one locked dev-role repository (attrs) yields in-window dev families",
-      "evidence": "counts in dev_supply above; every candidate still needs a verifier run and an actor-reachability check",
+      "evidence": "counts in dev_supply above; every candidate still needs its merge event retrieved, a verifier run and an actor-reachability check",
       "options": [
         "treat attrs plus an approved alternative as the dev supply, or re-pin"
       ],
       "owner": "D0 follow-up / custodian decision"
+    },
+    {
+      "gap": "the bulk per-repository inventory counts are commit-date SCREENINGS, not window-qualified families",
+      "evidence": "out/d0-time-isolation.json records screened_candidate_commits_in_window and merge_event_verified_and_in_window separately; merge events were retrieved only for the families this delivery intends to count and for the alternative candidate's in-window commits (3 train candidates verified so far)",
+      "options": [
+        "fetch the merge event for a candidate before promoting it, or keep it labelled as headroom"
+      ],
+      "owner": "D0 follow-up; no quota claim is made from a screening count"
     },
     {
       "gap": "no FAIL_TO_PASS run was executed",

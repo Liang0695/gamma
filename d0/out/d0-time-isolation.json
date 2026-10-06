@@ -31,7 +31,20 @@
       "sealed_start": "2026-01-01T00:00:00+00:00",
       "status": "withdrawn 2026-10-05 after Mika's ruling; never approved"
     },
-    "time_axis_authority": "the ORIGINAL upstream fix commit's own time, recorded as BOTH author date and committer date, with both required inside the window so the classification never rests on a single rewriteable date",
+    "time_axis_authority": "the ORIGINAL upstream fix's MERGE event -- merged_at_utc of the pull request the fix commit belongs to -- recorded with its metadata source and raw-response sha256 in out/merge-evidence.json. The commit's own author and committer dates are audit corroboration ONLY and never qualify a family.",
+    "merge_event_evidence": {
+      "artifact": "out/merge-evidence.json",
+      "producer": "d0/fetch_merge_evidence.py",
+      "records": 10,
+      "verified": 8,
+      "unverified": 2,
+      "unverified_commits": [
+        "9da1791476fe79ce77aa7a2a2db370c91a455251",
+        "f5485a61eefa5e686d6d5bdc7aa9ad6b104b1e92"
+      ],
+      "missing_evidence_rule": "status=unverified, window_qualified_by_merge_event=false, counted in no window. An issue reference in the commit message is not merge evidence and can never promote such a record.",
+      "scope_caveat": "merge evidence has been collected for the families this delivery INTENDS TO COUNT and for the alternative candidate's in-window commits. The bulk per-repository inventory counts below are still commit-date SCREENINGS: they are headroom observations, and no individual count in them is window-qualified until that commit's merge event is retrieved and verified."
+    },
     "rejected_time_substitutes": [
       "release/tag date",
       "snapshot or pin date",
@@ -135,9 +148,12 @@
     "click": {
       "role": "train",
       "window": "train",
-      "qualified_candidate_families_in_window": 56,
+      "screened_candidate_commits_in_window": 56,
       "oldest_fix_time": "2014-05-02T10:32:53+01:00",
       "newest_fix_time": "2025-10-07T20:52:09+05:30",
+      "merge_event_verified_and_in_window": 0,
+      "merge_event_verified_commits": [],
+      "count_semantics": "screened_candidate_commits_in_window is a COMMIT-DATE screening count (both author and committer dates inside the window). It is headroom evidence, NOT a qualified quota. merge_event_verified_and_in_window is the only count that has the merge-event evidence the time rule requires.",
       "all_fix_times_inside_window": true,
       "all_fix_commits_ancestors_of_pinned_revision": true,
       "pinned_snapshot_date": "2026-08-21T21:31:25-07:00",
@@ -147,9 +163,14 @@
     "more-itertools": {
       "role": "train",
       "window": "train",
-      "qualified_candidate_families_in_window": 6,
+      "screened_candidate_commits_in_window": 6,
       "oldest_fix_time": "2019-03-24T10:14:12+03:00",
       "newest_fix_time": "2023-04-19T15:20:52+02:00",
+      "merge_event_verified_and_in_window": 1,
+      "merge_event_verified_commits": [
+        "62411c1618493f94b16901746c34e72ad415061e"
+      ],
+      "count_semantics": "screened_candidate_commits_in_window is a COMMIT-DATE screening count (both author and committer dates inside the window). It is headroom evidence, NOT a qualified quota. merge_event_verified_and_in_window is the only count that has the merge-event evidence the time rule requires.",
       "all_fix_times_inside_window": true,
       "all_fix_commits_ancestors_of_pinned_revision": true,
       "pinned_snapshot_date": "2026-05-22T09:12:03-05:00",
@@ -159,9 +180,14 @@
     "pluggy": {
       "role": "train",
       "window": "train",
-      "qualified_candidate_families_in_window": 16,
+      "screened_candidate_commits_in_window": 16,
       "oldest_fix_time": "2015-09-27T22:22:19-03:00",
       "newest_fix_time": "2024-10-31T14:17:18+01:00",
+      "merge_event_verified_and_in_window": 1,
+      "merge_event_verified_commits": [
+        "9cf2eaa50dd1ad3ebf042978629e78c695197095"
+      ],
+      "count_semantics": "screened_candidate_commits_in_window is a COMMIT-DATE screening count (both author and committer dates inside the window). It is headroom evidence, NOT a qualified quota. merge_event_verified_and_in_window is the only count that has the merge-event evidence the time rule requires.",
       "all_fix_times_inside_window": true,
       "all_fix_commits_ancestors_of_pinned_revision": true,
       "pinned_snapshot_date": "2025-05-15T10:14:23+02:00",
@@ -171,9 +197,14 @@
     "boltons": {
       "role": "train",
       "window": "train",
-      "qualified_candidate_families_in_window": 32,
+      "screened_candidate_commits_in_window": 32,
       "oldest_fix_time": "2015-04-19T00:13:33-07:00",
       "newest_fix_time": "2023-10-29T21:31:16-07:00",
+      "merge_event_verified_and_in_window": 1,
+      "merge_event_verified_commits": [
+        "ae21ed2a78064ca1090db069e3f755aa1853b885"
+      ],
+      "count_semantics": "screened_candidate_commits_in_window is a COMMIT-DATE screening count (both author and committer dates inside the window). It is headroom evidence, NOT a qualified quota. merge_event_verified_and_in_window is the only count that has the merge-event evidence the time rule requires.",
       "all_fix_times_inside_window": true,
       "all_fix_commits_ancestors_of_pinned_revision": true,
       "pinned_snapshot_date": "2026-09-07T03:42:05-07:00",
@@ -185,9 +216,12 @@
     "attrs": {
       "role": "dev",
       "window": "dev_sealed",
-      "qualified_candidate_families_in_window": 3,
+      "screened_candidate_commits_in_window": 3,
       "oldest_fix_time": "2026-03-14T14:14:10+01:00",
       "newest_fix_time": "2026-03-14T18:51:51+01:00",
+      "merge_event_verified_and_in_window": 0,
+      "merge_event_verified_commits": [],
+      "count_semantics": "screened_candidate_commits_in_window is a COMMIT-DATE screening count (both author and committer dates inside the window). It is headroom evidence, NOT a qualified quota. merge_event_verified_and_in_window is the only count that has the merge-event evidence the time rule requires.",
       "all_fix_times_inside_window": true,
       "all_fix_commits_ancestors_of_pinned_revision": true,
       "pinned_snapshot_date": "2026-03-19T10:06:02-04:00",
@@ -197,9 +231,12 @@
     "dateutil": {
       "role": "dev",
       "window": "dev_sealed",
-      "qualified_candidate_families_in_window": 0,
+      "screened_candidate_commits_in_window": 0,
       "oldest_fix_time": null,
       "newest_fix_time": null,
+      "merge_event_verified_and_in_window": 0,
+      "merge_event_verified_commits": [],
+      "count_semantics": "screened_candidate_commits_in_window is a COMMIT-DATE screening count (both author and committer dates inside the window). It is headroom evidence, NOT a qualified quota. merge_event_verified_and_in_window is the only count that has the merge-event evidence the time rule requires.",
       "all_fix_times_inside_window": true,
       "all_fix_commits_ancestors_of_pinned_revision": true,
       "pinned_snapshot_date": "2024-02-29T22:38:37-05:00",
@@ -209,9 +246,12 @@
     "packaging": {
       "role": "sealed",
       "window": "dev_sealed",
-      "qualified_candidate_families_in_window": 66,
+      "screened_candidate_commits_in_window": 66,
       "oldest_fix_time": "2026-01-05T10:42:39-05:00",
       "newest_fix_time": "2026-08-01T06:44:18+05:30",
+      "merge_event_verified_and_in_window": 0,
+      "merge_event_verified_commits": [],
+      "count_semantics": "screened_candidate_commits_in_window is a COMMIT-DATE screening count (both author and committer dates inside the window). It is headroom evidence, NOT a qualified quota. merge_event_verified_and_in_window is the only count that has the merge-event evidence the time rule requires.",
       "all_fix_times_inside_window": true,
       "all_fix_commits_ancestors_of_pinned_revision": true,
       "pinned_snapshot_date": "2026-08-03T15:55:21-04:00",
@@ -221,9 +261,12 @@
     "marshmallow": {
       "role": "sealed",
       "window": "dev_sealed",
-      "qualified_candidate_families_in_window": 10,
+      "screened_candidate_commits_in_window": 10,
       "oldest_fix_time": "2026-02-04T17:45:08+02:00",
       "newest_fix_time": "2026-08-08T07:24:08-07:00",
+      "merge_event_verified_and_in_window": 0,
+      "merge_event_verified_commits": [],
+      "count_semantics": "screened_candidate_commits_in_window is a COMMIT-DATE screening count (both author and committer dates inside the window). It is headroom evidence, NOT a qualified quota. merge_event_verified_and_in_window is the only count that has the merge-event evidence the time rule requires.",
       "all_fix_times_inside_window": true,
       "all_fix_commits_ancestors_of_pinned_revision": true,
       "pinned_snapshot_date": "2026-08-08T10:26:10-04:00",
@@ -244,11 +287,75 @@
     "snapshot_date_role": "SNAPSHOT axis only; not a family fix time",
     "license": {
       "decision": "approved",
-      "approved_spdx": "MIT",
+      "approved_spdx": "BSD-3-Clause",
+      "spdx_correction": "corrected 2026-10-06 from a mistaken MIT preset to BSD-3-Clause, which is what the pinned LICENSE and pyproject.toml both say; this preset was a transcription error, not a licence change upstream",
+      "license_conflicts": [],
+      "license_facts": {
+        "preset_spdx": "BSD-3-Clause",
+        "detected_from_licence_text": [
+          "BSD-3-Clause"
+        ],
+        "licence_text_evidence": [
+          {
+            "path": "LICENSE",
+            "families": [
+              "BSD-3-Clause"
+            ]
+          }
+        ],
+        "detected_from_packaging_metadata": [
+          "BSD-3-Clause"
+        ],
+        "packaging_metadata_evidence": [
+          {
+            "file": "pyproject.toml",
+            "declaration": "{ text = \"BSD-3-Clause\" }",
+            "families": [
+              "BSD-3-Clause"
+            ]
+          },
+          {
+            "file": "pyproject.toml",
+            "declaration": "{text = \"BSD-3-Clause\"}",
+            "families": [
+              "BSD-3-Clause"
+            ]
+          }
+        ],
+        "agreement": true,
+        "detection_scope": "licence TEXT is read only from the repository's own root LICENSE/COPYING files; NOTICE and third-party licence copies are excluded because they quote other projects' licences"
+      },
       "primary_license_file": {
         "path": "LICENSE",
+        "git_blob_sha1": "3a97119010ac82e15e917a69b7b8f9f59b5a4601",
         "sha256": "dd1c70c9434fdeb24d08f37fcc43a4eef9cf80db4cee3eb7755e0d888af67a19",
-        "bytes": 1583
+        "bytes": 1583,
+        "checkout_sha256": "dd1c70c9434fdeb24d08f37fcc43a4eef9cf80db4cee3eb7755e0d888af67a19",
+        "checkout_bytes": 1583,
+        "upstream_blob_sha256": "80619b7049f08c81683ad0e01f08f257a840652dd71ee83146d36658c7d2c2b9",
+        "upstream_blob_bytes": 1556,
+        "newline_transformation": "lf_to_crlf_on_checkout",
+        "sha256_basis": "checkout worktree bytes; git core.autocrlf=true rewrites LF to CRLF on checkout, so this is NOT the upstream blob"
+      },
+      "hash_basis": {
+        "LICENSE": {
+          "git_blob_sha1": "3a97119010ac82e15e917a69b7b8f9f59b5a4601",
+          "upstream_blob_sha256": "80619b7049f08c81683ad0e01f08f257a840652dd71ee83146d36658c7d2c2b9",
+          "upstream_blob_bytes": 1556,
+          "checkout_sha256": "dd1c70c9434fdeb24d08f37fcc43a4eef9cf80db4cee3eb7755e0d888af67a19",
+          "checkout_bytes": 1583,
+          "newline_transformation": "lf_to_crlf_on_checkout",
+          "sha256_basis": "checkout worktree bytes; git core.autocrlf=true rewrites LF to CRLF on checkout, so this is NOT the upstream blob"
+        },
+        "docs/license.md": {
+          "git_blob_sha1": "ea5b60640b01f74e295037aa8a6b7d4ea278a739",
+          "upstream_blob_sha256": "1e881ecf2862d01e6e5bc2b861e46886d2a6fb01499c0c508a209a7271b13cf2",
+          "upstream_blob_bytes": 10,
+          "checkout_sha256": "1e881ecf2862d01e6e5bc2b861e46886d2a6fb01499c0c508a209a7271b13cf2",
+          "checkout_bytes": 10,
+          "newline_transformation": "none",
+          "sha256_basis": "checkout worktree bytes; git core.autocrlf=true rewrites LF to CRLF on checkout, so this is NOT the upstream blob"
+        }
       },
       "copyleft_marker_hits": [],
       "restrictive_marker_hits": [],
@@ -256,16 +363,35 @@
     },
     "family_inventory": {
       "window": "dev_sealed (2026-01-01 .. 2026-10-04)",
-      "qualified_candidate_families_in_window": 6,
-      "oldest_fix_time": "2026-03-02T06:21:15+01:00",
-      "newest_fix_time": "2026-09-30T22:34:45-07:00",
+      "count_semantics": "screened_candidate_commits_in_window is a commit-date screening count of headroom. merge_event_verified_and_in_window is the only count backed by the merge-event evidence the time rule requires.",
+      "screened_candidate_commits_in_window": 6,
+      "merge_event_verified_and_in_window": 5,
+      "oldest_merge_event_utc": "2026-03-02T05:21:15Z",
+      "newest_merge_event_utc": "2026-10-01T05:34:45Z",
       "families": [
         {
           "fix_commit": "f215c0274dc4c310e5ca5feb4c6bddade25ece21",
           "base_commit": "58f2d7c112235b347040bb5cb579d4ebc0a0ad91",
           "fix_time_author": "2026-09-30T22:34:45-07:00",
           "fix_time_committer": "2026-10-01T11:04:45+05:30",
+          "fix_time_author_and_committer_role": "audit corroboration only; not the window basis",
           "is_ancestor_of_pinned_revision": true,
+          "merge_evidence": {
+            "status": "verified",
+            "pull_request": "https://github.com/theskumar/python-dotenv/pull/700",
+            "merged_at_utc": "2026-10-01T05:34:45Z",
+            "merge_commit_sha": "f215c0274dc4c310e5ca5feb4c6bddade25ece21",
+            "merge_commit_sha_matches_fix_commit": true,
+            "window_qualified_by_merge_event": true,
+            "reason": "merge event retrieved from the pull-request metadata; qualification uses merged_at_utc, not the commit's author/committer dates",
+            "metadata_source_url": "https://api.github.com/repos/theskumar/python-dotenv/pulls/700",
+            "raw_response_sha256": {
+              "commit_to_pr_lookup": "9c75f3877b8b99ebf955cf19e193ee8f08976484de8e559f18f7f900919fe30a",
+              "pull_request": "ada302b2daaa3a0184ddebe1bcfc8e288a5ebb0ef73aeb60a1f59d751a9b5fcb"
+            },
+            "artifact": "out/merge-evidence.json"
+          },
+          "counted_in_qualified_quota": true,
           "test_files": [
             "tests/test_cli.py"
           ],
@@ -279,7 +405,24 @@
           "base_commit": "a00cb2eed0704cd6d2071b2004c37e95ccc86ee5",
           "fix_time_author": "2026-09-30T11:05:56+08:00",
           "fix_time_committer": "2026-09-30T08:35:56+05:30",
+          "fix_time_author_and_committer_role": "audit corroboration only; not the window basis",
           "is_ancestor_of_pinned_revision": true,
+          "merge_evidence": {
+            "status": "verified",
+            "pull_request": "https://github.com/theskumar/python-dotenv/pull/698",
+            "merged_at_utc": "2026-09-30T03:05:57Z",
+            "merge_commit_sha": "e0310e5bb3f2b701b11bbc007ca0c82c1bd56f38",
+            "merge_commit_sha_matches_fix_commit": true,
+            "window_qualified_by_merge_event": true,
+            "reason": "merge event retrieved from the pull-request metadata; qualification uses merged_at_utc, not the commit's author/committer dates",
+            "metadata_source_url": "https://api.github.com/repos/theskumar/python-dotenv/pulls/698",
+            "raw_response_sha256": {
+              "commit_to_pr_lookup": "70d764beeada2e757f5dd2a3eee853762926c56855f8ee0c0475074241918d4e",
+              "pull_request": "638fd2f2422e4a19b4fc96afc54eb9c73891d75a39a149e0d99115ea0f5c9955"
+            },
+            "artifact": "out/merge-evidence.json"
+          },
+          "counted_in_qualified_quota": true,
           "test_files": [
             "tests/test_cli.py"
           ],
@@ -293,7 +436,24 @@
           "base_commit": "49515afee2d50c33cad9419b3800b3a0dc93fc59",
           "fix_time_author": "2026-06-17T12:26:34-04:00",
           "fix_time_committer": "2026-08-17T13:11:31+05:30",
+          "fix_time_author_and_committer_role": "audit corroboration only; not the window basis",
           "is_ancestor_of_pinned_revision": true,
+          "merge_evidence": {
+            "status": "unverified",
+            "pull_request": null,
+            "merged_at_utc": null,
+            "merge_commit_sha": null,
+            "merge_commit_sha_matches_fix_commit": false,
+            "window_qualified_by_merge_event": false,
+            "reason": "GitHub reports no pull request associated with this commit. Absence of merge evidence is NOT evidence that no original fix exists; the record simply cannot be counted.",
+            "metadata_source_url": null,
+            "raw_response_sha256": {
+              "commit_to_pr_lookup": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+              "pull_request": null
+            },
+            "artifact": "out/merge-evidence.json"
+          },
+          "counted_in_qualified_quota": false,
           "test_files": [
             "tests/test_main.py",
             "tests/test_parser.py"
@@ -308,7 +468,24 @@
           "base_commit": "751f8c148222e58aa173c83c4e5e6cfccb2cc124",
           "fix_time_author": "2026-08-16T20:53:35+05:30",
           "fix_time_committer": "2026-08-16T20:53:35+05:30",
+          "fix_time_author_and_committer_role": "audit corroboration only; not the window basis",
           "is_ancestor_of_pinned_revision": true,
+          "merge_evidence": {
+            "status": "verified",
+            "pull_request": "https://github.com/theskumar/python-dotenv/pull/680",
+            "merged_at_utc": "2026-08-16T15:23:35Z",
+            "merge_commit_sha": "f7b18d9c72d1abcc2ad4023424b84f5bee30d266",
+            "merge_commit_sha_matches_fix_commit": true,
+            "window_qualified_by_merge_event": true,
+            "reason": "merge event retrieved from the pull-request metadata; qualification uses merged_at_utc, not the commit's author/committer dates",
+            "metadata_source_url": "https://api.github.com/repos/theskumar/python-dotenv/pulls/680",
+            "raw_response_sha256": {
+              "commit_to_pr_lookup": "6344b5ada1698424f4f8adcbc35f9f8e6cddd68e52f805342549d8a190ae920e",
+              "pull_request": "412bfe64adf5adaab329db960e79b981bc161d1fd6df4cea5d7af1e259258f0c"
+            },
+            "artifact": "out/merge-evidence.json"
+          },
+          "counted_in_qualified_quota": true,
           "test_files": [
             "tests/test_main.py",
             "tests/test_parser.py"
@@ -324,7 +501,24 @@
           "base_commit": "68ea2d10dd8e97e6dea67c32742085f27729e3fe",
           "fix_time_author": "2026-04-19T20:39:11+01:00",
           "fix_time_committer": "2026-04-20T01:09:11+05:30",
+          "fix_time_author_and_committer_role": "audit corroboration only; not the window basis",
           "is_ancestor_of_pinned_revision": true,
+          "merge_evidence": {
+            "status": "verified",
+            "pull_request": "https://github.com/theskumar/python-dotenv/pull/640",
+            "merged_at_utc": "2026-04-19T19:39:11Z",
+            "merge_commit_sha": "bca6644d9aedbe287b792b756b3ae3d650cd0d3a",
+            "merge_commit_sha_matches_fix_commit": true,
+            "window_qualified_by_merge_event": true,
+            "reason": "merge event retrieved from the pull-request metadata; qualification uses merged_at_utc, not the commit's author/committer dates",
+            "metadata_source_url": "https://api.github.com/repos/theskumar/python-dotenv/pulls/640",
+            "raw_response_sha256": {
+              "commit_to_pr_lookup": "c4952103935768462d0c79ced0e6dcb58cbb52c2c7c5ecbe6ace50dcb66c9399",
+              "pull_request": "4a319b62c004fac6b1b8ab81f8825dd3bf569c7a1e1acc9b97a10bca17d62da3"
+            },
+            "artifact": "out/merge-evidence.json"
+          },
+          "counted_in_qualified_quota": true,
           "test_files": [
             "tests/test_parser.py"
           ],
@@ -338,7 +532,24 @@
           "base_commit": "dc71adbd8105188602907f6653d3c58d113de554",
           "fix_time_author": "2026-03-02T06:21:15+01:00",
           "fix_time_committer": "2026-03-02T10:51:15+05:30",
+          "fix_time_author_and_committer_role": "audit corroboration only; not the window basis",
           "is_ancestor_of_pinned_revision": true,
+          "merge_evidence": {
+            "status": "verified",
+            "pull_request": "https://github.com/theskumar/python-dotenv/pull/606",
+            "merged_at_utc": "2026-03-02T05:21:15Z",
+            "merge_commit_sha": "da0c82054f1ec1e03d57356d49b0b9ad09eb4209",
+            "merge_commit_sha_matches_fix_commit": true,
+            "window_qualified_by_merge_event": true,
+            "reason": "merge event retrieved from the pull-request metadata; qualification uses merged_at_utc, not the commit's author/committer dates",
+            "metadata_source_url": "https://api.github.com/repos/theskumar/python-dotenv/pulls/606",
+            "raw_response_sha256": {
+              "commit_to_pr_lookup": "66effc99dac6d7909d09d28064830974223e416bbbc5a666dcb5fd9c338d8a32",
+              "pull_request": "69a15ba996d8a3228759c7c62cb8d71be865533e6ed7951802788e0b297e309f"
+            },
+            "artifact": "out/merge-evidence.json"
+          },
+          "counted_in_qualified_quota": true,
           "test_files": [
             "tests/test_cli.py"
           ],
@@ -400,12 +611,14 @@
     },
     "open_items": [
       "custodian has not ruled on replacing dateutil; this record does not replace it",
-      "no FAIL_TO_PASS run was executed for any of its families"
+      "no FAIL_TO_PASS run was executed for any of its families",
+      "one in-window commit (f5485a61eefa5e686d6d5bdc7aa9ad6b104b1e92) has NO retrievable merge event: its commit message references #600, which is an ISSUE, not a pull request. It is unverified and counted in no quota."
     ]
   },
   "evidence": {
-    "train_candidate_total_in_window": 110,
-    "dev_candidate_total_in_window": 3,
+    "train_candidate_total_screened_in_window": 110,
+    "dev_candidate_total_screened_in_window": 3,
+    "train_candidate_total_merge_verified": 3,
     "train_window_upper_bound_observed": "2025-10-07T20:52:09+05:30",
     "backport_marked_commits_observed_in_window": {
       "click": 2,
@@ -425,6 +638,10 @@
         "repo": "click",
         "fix_time_author": "2015-03-31T11:58:13+02:00",
         "fix_time_committer": "2015-03-31T12:00:12+02:00",
+        "merge_event_utc": null,
+        "qualifies_by_merge_event": false,
+        "merge_evidence_status": "unverified",
+        "released": false,
         "both_dates_in_train_window": true,
         "is_ancestor_of_pinned_revision": true,
         "backport_or_cherry_pick_marker": null,
@@ -436,6 +653,10 @@
         "repo": "more-itertools",
         "fix_time_author": "2020-03-29T23:48:00+03:00",
         "fix_time_committer": "2020-03-30T00:05:42+03:00",
+        "merge_event_utc": "2020-03-30T00:56:55Z",
+        "qualifies_by_merge_event": true,
+        "merge_evidence_status": "verified",
+        "released": true,
         "both_dates_in_train_window": true,
         "is_ancestor_of_pinned_revision": true,
         "backport_or_cherry_pick_marker": null,
@@ -447,6 +668,10 @@
         "repo": "pluggy",
         "fix_time_author": "2024-10-31T14:17:18+01:00",
         "fix_time_committer": "2024-11-03T15:39:53+01:00",
+        "merge_event_utc": "2024-11-12T09:24:31Z",
+        "qualifies_by_merge_event": true,
+        "merge_evidence_status": "verified",
+        "released": true,
         "both_dates_in_train_window": true,
         "is_ancestor_of_pinned_revision": true,
         "backport_or_cherry_pick_marker": null,
@@ -458,6 +683,10 @@
         "repo": "boltons",
         "fix_time_author": "2015-04-19T00:13:33-07:00",
         "fix_time_committer": "2015-04-19T00:21:19-07:00",
+        "merge_event_utc": "2015-04-19T08:51:36Z",
+        "qualifies_by_merge_event": true,
+        "merge_evidence_status": "verified",
+        "released": true,
         "both_dates_in_train_window": true,
         "is_ancestor_of_pinned_revision": true,
         "backport_or_cherry_pick_marker": null,

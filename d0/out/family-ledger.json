@@ -18,7 +18,13 @@
       "sealed_start": "2026-01-01T00:00:00+00:00",
       "status": "withdrawn 2026-10-05: never approved; superseded by the windows above. dev and sealed share ONE window and no ordering between them is claimed."
     },
-    "time_axis_authority": "a family's time is the ORIGINAL upstream fix commit's own time, recorded as BOTH author date and committer date with both required inside the window. Release/tag dates, snapshot or pin dates, backport dates and cherry-pick dates are rejected substitutes and must never classify a family.",
+    "time_axis_authority": "a family's window is decided by the ORIGINAL upstream fix's MERGE event -- merged_at_utc of the pull request the fix commit belongs to, recorded with its metadata source and raw-response hash. The commit's own author and committer dates are kept ONLY as audit corroboration: a rebase, squash or re-land can rewrite them, so they never qualify a family. Release/tag dates, snapshot or pin dates, backport dates and cherry-pick dates are rejected substitutes.",
+    "merge_evidence_artifact": {
+      "path": "out/merge-evidence.json",
+      "producer": "d0/fetch_merge_evidence.py",
+      "policy": "the ORIGINAL family fix's upstream MERGE event: the merged_at_utc of the pull request whose merge_commit_sha equals the fix commit",
+      "missing_merge_evidence": "status=unverified, window_qualified_by_merge_event=false, counted in no window. An issue reference in the commit message is not merge evidence and can never promote such a record."
+    },
     "snapshot_axis_is_separate": "the pinned revision decides which CONTENT exists (the fix commit must be an ancestor of it); it never decides which WINDOW a family belongs to.",
     "p0_requirement": "8 training families = 4 real + 4 variant, from >= 2 repos",
     "issue_text_policy": "No upstream issue/PR prose is copied into the deliverable. Only the numeric issue reference is recorded for traceability; every task statement is rewritten from the observed defect, per the integrated review's rule that code being open source does not license its comments.",
@@ -30,25 +36,67 @@
       "family_id": "v3-train-click-001",
       "kind": "real",
       "split": "train",
-      "released": true,
+      "released": false,
+      "release_decision": {
+        "released": false,
+        "window_decided_by": "none",
+        "blocking_checks": [
+          "merge_event_evidence_present",
+          "merge_event_qualifies_window"
+        ],
+        "note": "not released: at least one structural check failed. An unreleased family is counted in no window and is never promoted by a commit date."
+      },
       "repo": "click",
       "upstream_slug": "pallets/click",
       "pinned_revision": "8b19813f2bfca99f1018a587a8cf54fc959f2e5d",
       "license": {
         "spdx": "BSD-3-Clause",
+        "spdx_is_derived": true,
         "license_file": "LICENSE.txt",
-        "license_file_sha256": "757302fe7c41e7026fa46d3315ea8604ed5295fc95c2256d9b38adac43f6fbe5",
+        "license_file_checkout_sha256": "757302fe7c41e7026fa46d3315ea8604ed5295fc95c2256d9b38adac43f6fbe5",
+        "license_file_upstream_blob_sha256": "9a8ad106a394e853bfe21f42f4e72d592819a22805d991b5f3275029292b658d",
+        "license_file_newline_transformation": "lf_to_crlf_on_checkout",
         "license_review_decision": "approved",
+        "license_conflicts": [],
         "license_review_path": "repos.click.license_review in source-lock.json"
       },
       "base_commit": "c2c2bacddc1d625e9a0f606f227f356df9d2b172",
       "oracle_fix_commit": "9da1791476fe79ce77aa7a2a2db370c91a455251",
       "oracle_patch_sha256": "d1b919b239256026fb5e5e54f6195a055992599bb201b10aaf5fb330f1e0aa5c",
+      "merge_evidence": {
+        "status": "unverified",
+        "pull_request_number": null,
+        "pull_request_url": null,
+        "merged_at_utc": null,
+        "merge_commit_sha": null,
+        "merge_commit_sha_matches_fix_commit": false,
+        "merge_commit_geometry": null,
+        "window_qualified_by_merge_event": false,
+        "reason": "GitHub reports no pull request associated with this commit. Absence of merge evidence is NOT evidence that no original fix exists; the record simply cannot be counted.",
+        "provenance": {
+          "producer": "d0/fetch_merge_evidence.py",
+          "artifact": "out/merge-evidence.json",
+          "commit_to_pr_lookup_url": "https://api.github.com/repos/pallets/click/commits/9da1791476fe79ce77aa7a2a2db370c91a455251/pulls",
+          "pull_request_metadata_url": null,
+          "raw_response_paths": [
+            "pr-evidence/raw/click-commit-9da1791476fe-pulls.json",
+            null
+          ],
+          "raw_response_sha256": {
+            "commit_to_pr_lookup": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+            "pull_request": null
+          },
+          "authentication": "unauthenticated; no token used"
+        }
+      },
       "fix_time": {
         "author_date": "2015-03-31T11:58:13+02:00",
         "committer_date": "2015-03-31T12:00:12+02:00",
-        "primary": "2015-03-31T11:58:13+02:00",
-        "basis": "author date of the original upstream fix commit",
+        "author_and_committer_dates_role": "audit corroboration ONLY. They are recorded so a reviewer can see whether the commit dates agree with the merge event, and they never qualify a family into a window.",
+        "merge_event_utc": null,
+        "qualifies_by_merge_event": false,
+        "primary": null,
+        "basis": "merged_at_utc of the original upstream pull request the fix commit belongs to; falls back to nothing when the merge event could not be retrieved",
         "both_dates_in_train_window": true,
         "not_derived_from": [
           "release/tag date",
@@ -61,7 +109,7 @@
       "fix_date_committer": "2015-03-31T12:00:12+02:00",
       "fix_commit_is_ancestor_of_pinned_revision": true,
       "backport_or_cherry_pick_marker": null,
-      "snapshot_axis_note": "the pinned revision decides which content exists; the family's own fix time decides the window. The two axes are checked separately.",
+      "snapshot_axis_note": "the pinned revision decides which content exists; the family's own original merge event decides the window. The two axes are checked separately.",
       "upstream_subject": "Error on nargs=-1 for options.  This fixes #222",
       "upstream_issue_refs": [
         "222"
@@ -172,12 +220,15 @@
         "f2p_absent_at_base": true,
         "oracle_split_both_halves_non_empty": true,
         "code_only_oracle_patch_non_empty": true,
-        "in_train_window_author_date": true,
-        "in_train_window_committer_date": true,
+        "merge_event_evidence_present": false,
+        "merge_event_qualifies_window": false,
+        "in_train_window_author_date_audit_only": true,
+        "in_train_window_committer_date_audit_only": true,
         "fix_commit_is_ancestor_of_pinned_revision": true,
         "fix_commit_is_not_a_backport_or_cherry_pick": true,
         "license_approved": true,
-        "license_approved_for_this_exact_revision": true
+        "license_approved_for_this_exact_revision": true,
+        "license_metadata_has_no_conflict": true
       }
     },
     {
@@ -185,24 +236,68 @@
       "kind": "real",
       "split": "train",
       "released": true,
+      "release_decision": {
+        "released": true,
+        "window_decided_by": "merge_event",
+        "blocking_checks": [],
+        "note": null
+      },
       "repo": "more-itertools",
       "upstream_slug": "more-itertools/more-itertools",
       "pinned_revision": "64be96ceb2a6e836f76f069f4a96d2394d59fd0c",
       "license": {
         "spdx": "MIT",
+        "spdx_is_derived": true,
         "license_file": "LICENSE",
-        "license_file_sha256": "2162b6b24a563bf763e00d507e650b2b07b0cd4646efa1e2f62fb99a19f7f85e",
+        "license_file_checkout_sha256": "2162b6b24a563bf763e00d507e650b2b07b0cd4646efa1e2f62fb99a19f7f85e",
+        "license_file_upstream_blob_sha256": "09f1c8c9e941af3e584d59641ea9b87d83c0cb0fd007eb5ef391a7e2643c1a46",
+        "license_file_newline_transformation": "lf_to_crlf_on_checkout",
         "license_review_decision": "approved",
+        "license_conflicts": [],
         "license_review_path": "repos.more-itertools.license_review in source-lock.json"
       },
       "base_commit": "c0465331cbc0d882cd7dce5c0bd19aaf46dfb968",
       "oracle_fix_commit": "62411c1618493f94b16901746c34e72ad415061e",
       "oracle_patch_sha256": "7082e67503d2acb9bc2fae58181566b6e6820afcfd4385f7de38a16075db3b72",
+      "merge_evidence": {
+        "status": "verified",
+        "pull_request_number": 412,
+        "pull_request_url": "https://github.com/more-itertools/more-itertools/pull/412",
+        "merged_at_utc": "2020-03-30T00:56:55Z",
+        "merge_commit_sha": "a5a14f61d8331fb6d67c00eace8e22d5c6226ddf",
+        "merge_commit_sha_matches_fix_commit": false,
+        "merge_commit_geometry": {
+          "merge_commit_present_in_pinned_clone": true,
+          "merge_commit_is_ancestor_of_pinned_revision": true,
+          "fix_commit_is_the_pull_request_head": true,
+          "mismatch_pattern": "rebase_or_squash_merge: the fix commit is the pull request head and GitHub's merge_commit_sha is the commit the base branch moved to"
+        },
+        "window_qualified_by_merge_event": true,
+        "reason": "merge event retrieved from the pull-request metadata; qualification uses merged_at_utc, not the commit's author/committer dates",
+        "provenance": {
+          "producer": "d0/fetch_merge_evidence.py",
+          "artifact": "out/merge-evidence.json",
+          "commit_to_pr_lookup_url": "https://api.github.com/repos/more-itertools/more-itertools/commits/62411c1618493f94b16901746c34e72ad415061e/pulls",
+          "pull_request_metadata_url": "https://api.github.com/repos/more-itertools/more-itertools/pulls/412",
+          "raw_response_paths": [
+            "pr-evidence/raw/more-itertools-commit-62411c161849-pulls.json",
+            "pr-evidence/raw/more-itertools-pr412.json"
+          ],
+          "raw_response_sha256": {
+            "commit_to_pr_lookup": "cbaf6877f3fe19211ff088888e5838975057ce2a6085c999c5fb9916eebeaa77",
+            "pull_request": "00c6b6b83232c8003ae72827d8f1686ef0f7c54157eb2e96deeb8b5376cd5388"
+          },
+          "authentication": "unauthenticated; no token used"
+        }
+      },
       "fix_time": {
         "author_date": "2020-03-29T23:48:00+03:00",
         "committer_date": "2020-03-30T00:05:42+03:00",
-        "primary": "2020-03-29T23:48:00+03:00",
-        "basis": "author date of the original upstream fix commit",
+        "author_and_committer_dates_role": "audit corroboration ONLY. They are recorded so a reviewer can see whether the commit dates agree with the merge event, and they never qualify a family into a window.",
+        "merge_event_utc": "2020-03-30T00:56:55Z",
+        "qualifies_by_merge_event": true,
+        "primary": "2020-03-30T00:56:55Z",
+        "basis": "merged_at_utc of the original upstream pull request the fix commit belongs to; falls back to nothing when the merge event could not be retrieved",
         "both_dates_in_train_window": true,
         "not_derived_from": [
           "release/tag date",
@@ -215,7 +310,7 @@
       "fix_date_committer": "2020-03-30T00:05:42+03:00",
       "fix_commit_is_ancestor_of_pinned_revision": true,
       "backport_or_cherry_pick_marker": null,
-      "snapshot_axis_note": "the pinned revision decides which content exists; the family's own fix time decides the window. The two axes are checked separately.",
+      "snapshot_axis_note": "the pinned revision decides which content exists; the family's own original merge event decides the window. The two axes are checked separately.",
       "upstream_subject": "Fix spy to make returned iterable immutable",
       "upstream_issue_refs": [
         "409"
@@ -301,12 +396,15 @@
         "f2p_absent_at_base": true,
         "oracle_split_both_halves_non_empty": true,
         "code_only_oracle_patch_non_empty": true,
-        "in_train_window_author_date": true,
-        "in_train_window_committer_date": true,
+        "merge_event_evidence_present": true,
+        "merge_event_qualifies_window": true,
+        "in_train_window_author_date_audit_only": true,
+        "in_train_window_committer_date_audit_only": true,
         "fix_commit_is_ancestor_of_pinned_revision": true,
         "fix_commit_is_not_a_backport_or_cherry_pick": true,
         "license_approved": true,
-        "license_approved_for_this_exact_revision": true
+        "license_approved_for_this_exact_revision": true,
+        "license_metadata_has_no_conflict": true
       }
     },
     {
@@ -314,24 +412,68 @@
       "kind": "real",
       "split": "train",
       "released": true,
+      "release_decision": {
+        "released": true,
+        "window_decided_by": "merge_event",
+        "blocking_checks": [],
+        "note": null
+      },
       "repo": "pluggy",
       "upstream_slug": "pytest-dev/pluggy",
       "pinned_revision": "fd08ab5f811a9b2fa9124ae8cbbd393221151e2c",
       "license": {
         "spdx": "MIT",
+        "spdx_is_derived": true,
         "license_file": "LICENSE",
-        "license_file_sha256": "de91589cbcc498cb36d3f979e39d4fb1ea1164d5331f6e0ea90a986525310d51",
+        "license_file_checkout_sha256": "de91589cbcc498cb36d3f979e39d4fb1ea1164d5331f6e0ea90a986525310d51",
+        "license_file_upstream_blob_sha256": "d6b65e6c213a5d0b577911d34d6e5949b9f59d76c238c5071a2f3fc16cfb2606",
+        "license_file_newline_transformation": "lf_to_crlf_on_checkout",
         "license_review_decision": "approved",
+        "license_conflicts": [],
         "license_review_path": "repos.pluggy.license_review in source-lock.json"
       },
       "base_commit": "4ba6441e046ff9d0d2dbea5087c5bfd81cc37f5c",
       "oracle_fix_commit": "9cf2eaa50dd1ad3ebf042978629e78c695197095",
       "oracle_patch_sha256": "4552535722d46dc3efcae097e4f109b1b5cbe26a27f027ef836729ef743965d4",
+      "merge_evidence": {
+        "status": "verified",
+        "pull_request_number": 545,
+        "pull_request_url": "https://github.com/pytest-dev/pluggy/pull/545",
+        "merged_at_utc": "2024-11-12T09:24:31Z",
+        "merge_commit_sha": "9d19d4b8e07dc3d66a512124ccbb8dfdd9e4bfb1",
+        "merge_commit_sha_matches_fix_commit": false,
+        "merge_commit_geometry": {
+          "merge_commit_present_in_pinned_clone": true,
+          "merge_commit_is_ancestor_of_pinned_revision": true,
+          "fix_commit_is_the_pull_request_head": true,
+          "mismatch_pattern": "rebase_or_squash_merge: the fix commit is the pull request head and GitHub's merge_commit_sha is the commit the base branch moved to"
+        },
+        "window_qualified_by_merge_event": true,
+        "reason": "merge event retrieved from the pull-request metadata; qualification uses merged_at_utc, not the commit's author/committer dates",
+        "provenance": {
+          "producer": "d0/fetch_merge_evidence.py",
+          "artifact": "out/merge-evidence.json",
+          "commit_to_pr_lookup_url": "https://api.github.com/repos/pytest-dev/pluggy/commits/9cf2eaa50dd1ad3ebf042978629e78c695197095/pulls",
+          "pull_request_metadata_url": "https://api.github.com/repos/pytest-dev/pluggy/pulls/545",
+          "raw_response_paths": [
+            "pr-evidence/raw/pluggy-commit-9cf2eaa50dd1-pulls.json",
+            "pr-evidence/raw/pluggy-pr545.json"
+          ],
+          "raw_response_sha256": {
+            "commit_to_pr_lookup": "3ec12ec38770646ccf1fc9a4302652552589097616c8cb6fb3d4b0b2891acb83",
+            "pull_request": "464c2db81182bbe6ddd438b288452be6fe3e805e8b7aa7e9fd03d436e110c1e7"
+          },
+          "authentication": "unauthenticated; no token used"
+        }
+      },
       "fix_time": {
         "author_date": "2024-10-31T14:17:18+01:00",
         "committer_date": "2024-11-03T15:39:53+01:00",
-        "primary": "2024-10-31T14:17:18+01:00",
-        "basis": "author date of the original upstream fix commit",
+        "author_and_committer_dates_role": "audit corroboration ONLY. They are recorded so a reviewer can see whether the commit dates agree with the merge event, and they never qualify a family into a window.",
+        "merge_event_utc": "2024-11-12T09:24:31Z",
+        "qualifies_by_merge_event": true,
+        "primary": "2024-11-12T09:24:31Z",
+        "basis": "merged_at_utc of the original upstream pull request the fix commit belongs to; falls back to nothing when the merge event could not be retrieved",
         "both_dates_in_train_window": true,
         "not_derived_from": [
           "release/tag date",
@@ -344,7 +486,7 @@
       "fix_date_committer": "2024-11-03T15:39:53+01:00",
       "fix_commit_is_ancestor_of_pinned_revision": true,
       "backport_or_cherry_pick_marker": null,
-      "snapshot_axis_note": "the pinned revision decides which content exists; the family's own fix time decides the window. The two axes are checked separately.",
+      "snapshot_axis_note": "the pinned revision decides which content exists; the family's own original merge event decides the window. The two axes are checked separately.",
       "upstream_subject": "fix #544: Correctly pass StopIteration trough wrappers",
       "upstream_issue_refs": [
         "544"
@@ -450,12 +592,15 @@
         "f2p_absent_at_base": true,
         "oracle_split_both_halves_non_empty": true,
         "code_only_oracle_patch_non_empty": true,
-        "in_train_window_author_date": true,
-        "in_train_window_committer_date": true,
+        "merge_event_evidence_present": true,
+        "merge_event_qualifies_window": true,
+        "in_train_window_author_date_audit_only": true,
+        "in_train_window_committer_date_audit_only": true,
         "fix_commit_is_ancestor_of_pinned_revision": true,
         "fix_commit_is_not_a_backport_or_cherry_pick": true,
         "license_approved": true,
-        "license_approved_for_this_exact_revision": true
+        "license_approved_for_this_exact_revision": true,
+        "license_metadata_has_no_conflict": true
       }
     },
     {
@@ -463,24 +608,68 @@
       "kind": "real",
       "split": "train",
       "released": true,
+      "release_decision": {
+        "released": true,
+        "window_decided_by": "merge_event",
+        "blocking_checks": [],
+        "note": null
+      },
       "repo": "boltons",
       "upstream_slug": "mahmoud/boltons",
       "pinned_revision": "4332b35a278d694f30c99881faa61cde695c7a96",
       "license": {
         "spdx": "BSD-3-Clause",
+        "spdx_is_derived": true,
         "license_file": "LICENSE",
-        "license_file_sha256": "c301912653a8d8c99eab6212aa3aea8d164ea249d8ad53c941e0558a0a5ac1e3",
+        "license_file_checkout_sha256": "c301912653a8d8c99eab6212aa3aea8d164ea249d8ad53c941e0558a0a5ac1e3",
+        "license_file_upstream_blob_sha256": "c301912653a8d8c99eab6212aa3aea8d164ea249d8ad53c941e0558a0a5ac1e3",
+        "license_file_newline_transformation": "none",
         "license_review_decision": "approved",
+        "license_conflicts": [],
         "license_review_path": "repos.boltons.license_review in source-lock.json"
       },
       "base_commit": "c9b3d2452e4ffe43920874f4f6f2e8fe425ebf00",
       "oracle_fix_commit": "ae21ed2a78064ca1090db069e3f755aa1853b885",
       "oracle_patch_sha256": "1f229d4d3a80e039ffca09d572afb27eac9dab90d859f35d68b0cd379ae9eec4",
+      "merge_evidence": {
+        "status": "verified",
+        "pull_request_number": 31,
+        "pull_request_url": "https://github.com/mahmoud/boltons/pull/31",
+        "merged_at_utc": "2015-04-19T08:51:36Z",
+        "merge_commit_sha": "1efa511206d0f27474efcb6d00bab5404f290bda",
+        "merge_commit_sha_matches_fix_commit": false,
+        "merge_commit_geometry": {
+          "merge_commit_present_in_pinned_clone": false,
+          "merge_commit_is_ancestor_of_pinned_revision": false,
+          "fix_commit_is_the_pull_request_head": false,
+          "mismatch_pattern": "merge_commit_sha is neither the fix commit nor the pull request head; disclosed for review, not reconciled here"
+        },
+        "window_qualified_by_merge_event": true,
+        "reason": "merge event retrieved from the pull-request metadata; qualification uses merged_at_utc, not the commit's author/committer dates",
+        "provenance": {
+          "producer": "d0/fetch_merge_evidence.py",
+          "artifact": "out/merge-evidence.json",
+          "commit_to_pr_lookup_url": "https://api.github.com/repos/mahmoud/boltons/commits/ae21ed2a78064ca1090db069e3f755aa1853b885/pulls",
+          "pull_request_metadata_url": "https://api.github.com/repos/mahmoud/boltons/pulls/31",
+          "raw_response_paths": [
+            "pr-evidence/raw/boltons-commit-ae21ed2a7806-pulls.json",
+            "pr-evidence/raw/boltons-pr31.json"
+          ],
+          "raw_response_sha256": {
+            "commit_to_pr_lookup": "ba21eeebcbe088cf1c52da6ca16ca11b318e7e4acd819c07d21af0a8ae5744b6",
+            "pull_request": "37a41fac4d0e893b79dff324ecab1f3d9c2b52cccef43c68ee31a9e50e13ce83"
+          },
+          "authentication": "unauthenticated; no token used"
+        }
+      },
       "fix_time": {
         "author_date": "2015-04-19T00:13:33-07:00",
         "committer_date": "2015-04-19T00:21:19-07:00",
-        "primary": "2015-04-19T00:13:33-07:00",
-        "basis": "author date of the original upstream fix commit",
+        "author_and_committer_dates_role": "audit corroboration ONLY. They are recorded so a reviewer can see whether the commit dates agree with the merge event, and they never qualify a family into a window.",
+        "merge_event_utc": "2015-04-19T08:51:36Z",
+        "qualifies_by_merge_event": true,
+        "primary": "2015-04-19T08:51:36Z",
+        "basis": "merged_at_utc of the original upstream pull request the fix commit belongs to; falls back to nothing when the merge event could not be retrieved",
         "both_dates_in_train_window": true,
         "not_derived_from": [
           "release/tag date",
@@ -493,7 +682,7 @@
       "fix_date_committer": "2015-04-19T00:21:19-07:00",
       "fix_commit_is_ancestor_of_pinned_revision": true,
       "backport_or_cherry_pick_marker": null,
-      "snapshot_axis_note": "the pinned revision decides which content exists; the family's own fix time decides the window. The two axes are checked separately.",
+      "snapshot_axis_note": "the pinned revision decides which content exists; the family's own original merge event decides the window. The two axes are checked separately.",
       "upstream_subject": "Properly parse tracebacks with missing source.  Resolves #30",
       "upstream_issue_refs": [
         "30"
@@ -621,12 +810,15 @@
         "f2p_absent_at_base": true,
         "oracle_split_both_halves_non_empty": true,
         "code_only_oracle_patch_non_empty": true,
-        "in_train_window_author_date": true,
-        "in_train_window_committer_date": true,
+        "merge_event_evidence_present": true,
+        "merge_event_qualifies_window": true,
+        "in_train_window_author_date_audit_only": true,
+        "in_train_window_committer_date_audit_only": true,
         "fix_commit_is_ancestor_of_pinned_revision": true,
         "fix_commit_is_not_a_backport_or_cherry_pick": true,
         "license_approved": true,
-        "license_approved_for_this_exact_revision": true
+        "license_approved_for_this_exact_revision": true,
+        "license_metadata_has_no_conflict": true
       }
     },
     {
@@ -648,14 +840,20 @@
       "source_base_commit": "c2c2bacddc1d625e9a0f606f227f356df9d2b172",
       "source_base_date": "2015-03-31T12:00:07+02:00",
       "source_base_date_role": "SNAPSHOT-axis date of the upstream source base, recorded for reproducibility. It is NOT this variant's fix time and does not classify the variant into a window. A constructed variant inherits its parent family's train window.",
-      "source_base_released": true,
+      "source_base_released": false,
+      "source_base_release_note": "a variant can only inherit a window from a parent family that is itself released; here the parent is v3-train-click-001 (released=False)",
+      "inherits_window_from": "v3-train-click-001",
       "variant_commit": null,
       "oracle_fix_commit": null,
       "license": {
         "spdx": "BSD-3-Clause",
+        "spdx_is_derived": true,
         "license_file": "LICENSE.txt",
-        "license_file_sha256": "757302fe7c41e7026fa46d3315ea8604ed5295fc95c2256d9b38adac43f6fbe5",
+        "license_file_checkout_sha256": "757302fe7c41e7026fa46d3315ea8604ed5295fc95c2256d9b38adac43f6fbe5",
+        "license_file_upstream_blob_sha256": "9a8ad106a394e853bfe21f42f4e72d592819a22805d991b5f3275029292b658d",
+        "license_file_newline_transformation": "lf_to_crlf_on_checkout",
         "license_review_decision": "approved",
+        "license_conflicts": [],
         "license_review_path": "repos.click.license_review in source-lock.json"
       }
     },
@@ -679,13 +877,19 @@
       "source_base_date": "2020-03-29T14:28:44-05:00",
       "source_base_date_role": "SNAPSHOT-axis date of the upstream source base, recorded for reproducibility. It is NOT this variant's fix time and does not classify the variant into a window. A constructed variant inherits its parent family's train window.",
       "source_base_released": true,
+      "source_base_release_note": "a variant can only inherit a window from a parent family that is itself released; here the parent is v3-train-more-itertools-001 (released=True)",
+      "inherits_window_from": "v3-train-more-itertools-001",
       "variant_commit": null,
       "oracle_fix_commit": null,
       "license": {
         "spdx": "MIT",
+        "spdx_is_derived": true,
         "license_file": "LICENSE",
-        "license_file_sha256": "2162b6b24a563bf763e00d507e650b2b07b0cd4646efa1e2f62fb99a19f7f85e",
+        "license_file_checkout_sha256": "2162b6b24a563bf763e00d507e650b2b07b0cd4646efa1e2f62fb99a19f7f85e",
+        "license_file_upstream_blob_sha256": "09f1c8c9e941af3e584d59641ea9b87d83c0cb0fd007eb5ef391a7e2643c1a46",
+        "license_file_newline_transformation": "lf_to_crlf_on_checkout",
         "license_review_decision": "approved",
+        "license_conflicts": [],
         "license_review_path": "repos.more-itertools.license_review in source-lock.json"
       }
     },
@@ -709,13 +913,19 @@
       "source_base_date": "2025-05-15T10:14:23+02:00",
       "source_base_date_role": "SNAPSHOT-axis date of the upstream source base, recorded for reproducibility. It is NOT this variant's fix time and does not classify the variant into a window. A constructed variant inherits its parent family's train window.",
       "source_base_released": true,
+      "source_base_release_note": "a variant can only inherit a window from a parent family that is itself released; here the parent is v3-train-pluggy-001 (released=True)",
+      "inherits_window_from": "v3-train-pluggy-001",
       "variant_commit": null,
       "oracle_fix_commit": null,
       "license": {
         "spdx": "MIT",
+        "spdx_is_derived": true,
         "license_file": "LICENSE",
-        "license_file_sha256": "de91589cbcc498cb36d3f979e39d4fb1ea1164d5331f6e0ea90a986525310d51",
+        "license_file_checkout_sha256": "de91589cbcc498cb36d3f979e39d4fb1ea1164d5331f6e0ea90a986525310d51",
+        "license_file_upstream_blob_sha256": "d6b65e6c213a5d0b577911d34d6e5949b9f59d76c238c5071a2f3fc16cfb2606",
+        "license_file_newline_transformation": "lf_to_crlf_on_checkout",
         "license_review_decision": "approved",
+        "license_conflicts": [],
         "license_review_path": "repos.pluggy.license_review in source-lock.json"
       }
     },
@@ -739,13 +949,19 @@
       "source_base_date": "2015-04-16T03:02:15-07:00",
       "source_base_date_role": "SNAPSHOT-axis date of the upstream source base, recorded for reproducibility. It is NOT this variant's fix time and does not classify the variant into a window. A constructed variant inherits its parent family's train window.",
       "source_base_released": true,
+      "source_base_release_note": "a variant can only inherit a window from a parent family that is itself released; here the parent is v3-train-boltons-001 (released=True)",
+      "inherits_window_from": "v3-train-boltons-001",
       "variant_commit": null,
       "oracle_fix_commit": null,
       "license": {
         "spdx": "BSD-3-Clause",
+        "spdx_is_derived": true,
         "license_file": "LICENSE",
-        "license_file_sha256": "c301912653a8d8c99eab6212aa3aea8d164ea249d8ad53c941e0558a0a5ac1e3",
+        "license_file_checkout_sha256": "c301912653a8d8c99eab6212aa3aea8d164ea249d8ad53c941e0558a0a5ac1e3",
+        "license_file_upstream_blob_sha256": "c301912653a8d8c99eab6212aa3aea8d164ea249d8ad53c941e0558a0a5ac1e3",
+        "license_file_newline_transformation": "none",
         "license_review_decision": "approved",
+        "license_conflicts": [],
         "license_review_path": "repos.boltons.license_review in source-lock.json"
       }
     }

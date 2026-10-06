@@ -2,7 +2,8 @@
   "policy_id": "v3-time-policy-2026-10-05-mika",
   "criteria": {
     "revision_mined": "the PINNED commit of each repository, never a moving branch head",
-    "time_axis_authority": "the original upstream fix commit's own time, recorded as BOTH author date and committer date, with both required inside the window",
+    "time_axis_authority": "the ORIGINAL upstream fix's MERGE event (merged_at_utc of the pull request the fix commit belongs to), evidenced in out/merge-evidence.json. The commit's own author and committer dates are audit corroboration ONLY and never qualify a family.",
+    "count_semantics": "the candidate lists below are COMMIT-DATE SCREENINGS: both dates inside the window. A screened candidate is headroom, NOT a window-qualified family; qualification requires its merge event to be retrieved and verified (status=verified and window_qualified_by_merge_event=true).",
     "time_substitutes_rejected": [
       "release/tag date",
       "snapshot or pin date",

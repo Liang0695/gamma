@@ -1,13 +1,19 @@
-"""Emit machine-readable diff evidence for the D0 v2 revision.
+"""Emit machine-readable diff evidence for the D0 v3 revision.
 
 This is the "difference verification" Mika asked for: instead of asserting in
-prose that the time policy was raised and the licence field was added, it reads
-the SAME files out of the previous commit and out of the working tree and prints
-the before/after values side by side.  Every claim in the report's change list
-therefore has a line here that a reviewer can falsify.
+prose that the licence was corrected and the window basis moved to the merge
+event, it reads the SAME files out of the previous commit and out of the current
+WORKING TREE and prints the before/after values side by side.  Every claim in
+the report's change list therefore has a line here that a reviewer can falsify.
+
+The "after" side is the working tree rather than a commit on purpose: it lets
+the artefacts and their diff evidence land in ONE commit.  Once that commit
+exists the same evidence is reproducible with
+
+    git diff <previous> HEAD -- d0/
 
 Usage:  python d0/make_diff_evidence.py [previous-commit]
-Default previous commit is the first-pass head of this branch (8b8ff5a).
+Default previous commit is the v2 artefact head of this branch (65aaa16).
 """
 import json
 import os
@@ -18,8 +24,9 @@ import sys
 HERE = os.path.dirname(os.path.abspath(__file__))
 REPO = os.path.dirname(HERE)
 OUT = os.path.join(HERE, "out")
-DEFAULT_PREV = "8b8ff5a"
+DEFAULT_PREV = "65aaa16"
 BRANCH = "agent/research/kaggle-23-d0-source-lock"
+OUTPUT_NAME = "v3-diff-evidence.txt"
 
 
 def git(*args):
@@ -30,6 +37,15 @@ def git(*args):
 
 
 def show_json(rev, path):
+    """Committed JSON at `rev`, or the working-tree file when rev is None."""
+    if rev is None:
+        full = os.path.join(HERE, path.replace("d0/", "", 1))
+        if not os.path.isfile(full):
+            return None
+        try:
+            return json.load(open(full, encoding="utf-8"))
+        except ValueError:
+            return None
     rc, out, _ = git("show", "%s:%s" % (rev, path))
     if rc != 0:
         return None
@@ -53,8 +69,7 @@ def gate_counts(raw):
     """Read 'N checks, M failed' out of a gate transcript.
 
     The first-pass transcript was written by a PowerShell redirect (UTF-16LE);
-    this one is written by the pipeline as UTF-8.  Try both instead of assuming
-    one.
+    later ones are written by the pipeline as UTF-8.  Try both.
     """
     if not raw:
         return None
@@ -69,25 +84,19 @@ def gate_counts(raw):
     return None
 
 
-def window_of(iso):
+def time_basis(iso):
     if not iso:
         return None
     rule = iso.get("rule", {})
-    win = rule.get("windows", {})
-    if "dev_sealed" in win:                      # v2 shape
-        return {
-            "train_end_exclusive": win["train"]["end_exclusive"],
-            "dev_sealed": [win["dev_sealed"]["start"], win["dev_sealed"]["end_exclusive"]],
-            "dev_vs_sealed_ordering_claimed":
-                win["dev_sealed"].get("dev_vs_sealed_ordering_claimed"),
-            "withdrawn_recorded": "withdrawn_windows" in rule,
-        }
-    return {                                     # first-pass shape
-        "train_end_exclusive": win.get("train", {}).get("end_exclusive"),
-        "dev": [win.get("dev", {}).get("start"), win.get("dev", {}).get("end_exclusive")],
-        "sealed_start": win.get("sealed", {}).get("start"),
-        "dev_vs_sealed_ordering_claimed": None,
-        "withdrawn_recorded": False,
+    return {
+        "time_axis_authority": (rule.get("time_axis_authority") or "")[:110],
+        "merge_evidence_artifact": bool(rule.get("merge_event_evidence")),
+        "count_semantics_field_present": bool(
+            iso.get("train_inventory", {}).get("click", {})
+            .get("screened_candidate_commits_in_window") is not None),
+        "old_field_qualified_candidate_families_present": bool(
+            iso.get("train_inventory", {}).get("click", {})
+            .get("qualified_candidate_families_in_window") is not None),
     }
 
 
@@ -105,164 +114,240 @@ def released_counts(ledger):
     }
 
 
-def licence_field_state(lock):
+def dotenv_licence_state(lock):
+    """Every field the licence correction touched, for one repository."""
     if not lock:
         return None
-    repos = lock.get("repos", {})
-    with_review = [n for n, r in repos.items() if "license_review" in r]
-    with_decision = [n for n, r in repos.items()
-                     if (r.get("license_review") or {}).get("decision") == "approved"]
+    lr = (lock.get("repos", {}).get("python-dotenv", {}) or {}).get(
+        "license_review", {})
+    facts = lr.get("license_facts") or {}
+    hb = (lr.get("hash_basis") or {}).get("per_file") or {}
+    lic = hb.get("LICENSE") or {}
     return {
-        "schema_present": "license_review_schema" in lock,
-        "repos": len(repos),
-        "repos_with_license_review": len(with_review),
-        "repos_with_approved_decision": len(with_decision),
+        "declared_preset": (lock.get("repos", {}).get("python-dotenv", {}) or {})
+        .get("design_license_expectation"),
+        "approved_spdx": lr.get("approved_spdx"),
+        "decision": lr.get("decision"),
+        "license_facts_present": bool(facts),
+        "detected_from_licence_text": facts.get("detected_from_licence_text"),
+        "detected_from_packaging_metadata":
+            facts.get("detected_from_packaging_metadata"),
+        "license_conflicts": [c.get("kind") for c in (lr.get("license_conflicts") or [])],
+        "hash_basis_present": bool(hb),
+        "license_upstream_blob_sha256": (lic.get("upstream_blob_sha256") or "")[:16],
+        "license_checkout_sha256": (lic.get("checkout_sha256") or "")[:16],
+        "license_newline_transformation": lic.get("newline_transformation"),
+        "independent_review_status":
+            (lr.get("independent_review") or {}).get("status"),
+    }
+
+
+def merge_state(merge, ledger):
+    """Merge-event coverage, before and after."""
+    if not merge:
+        return None
+    verified = [r for r in merge["records"] if r["status"] == "verified"]
+    fams = (ledger or {}).get("families", [])
+    return {
+        "artifact_present": True,
+        "records": len(merge["records"]),
+        "verified": len(verified),
+        "unverified": len(merge["records"]) - len(verified),
+        "unverified_commits": [r["fix_commit"][:12] for r in merge["records"]
+                               if r["status"] != "verified"],
+        "raw_responses_hashed": all(
+            "raw_response_sha256" in r["commit_to_pr_lookup"]
+            for r in merge["records"]),
+        "families_with_merge_block": sum(1 for f in fams
+                                         if "merge_evidence" in f),
     }
 
 
 def main():
     prev = sys.argv[1] if len(sys.argv) > 1 else DEFAULT_PREV
-    rc, new_full, _ = git("rev-parse", "HEAD")
-    new_full = new_full.strip()
     rc, prev_full, _ = git("rev-parse", prev)
     prev_full = prev_full.strip() or "(unresolved)"
-    rc, stat, _ = git("diff", "--stat", prev_full, new_full)
-    rc, names, _ = git("diff", "--name-status", prev_full, new_full)
+    rc, head, _ = git("rev-parse", "HEAD")
+    head = head.strip()
+    rc, stat, _ = git("diff", "--stat", prev_full)
+    rc, names, _ = git("diff", "--name-status", prev_full)
 
     L = []
     a = L.append
-    a("V3 D0 v2 -- DIFF EVIDENCE (machine-derived, not transcribed)")
+    a("V3 D0 v3 -- DIFF EVIDENCE (machine-derived, not transcribed)")
     a("=" * 72)
     a("branch                 : %s" % BRANCH)
-    a("previous head          : %s (%s)" % (prev, prev_full))
-    a("new head               : %s" % new_full)
+    a("previous head (v2)     : %s (%s)" % (prev, prev_full))
+    a("HEAD at generation     : %s  <- still the previous commit" % head)
+    a("'after' side read from : the WORKING TREE (d0/out/*.json on disk)")
     a("generated by           : d0/make_diff_evidence.py")
     a("")
-    a("NOTE: 'new head' above is the ARTEFACT revision -- the commit that carries")
-    a("the revised sources and outputs. This evidence file is added by the very")
-    a("next commit, which contains no other change, so the diff below stays a")
-    a("faithful before/after of the revision it describes (a file cannot contain")
-    a("its own commit hash). Verify with:")
+    a("NOTE: the 'after' side is the working tree, not a commit, so this evidence")
+    a("file can be committed TOGETHER with the artefacts it describes (a file")
+    a("cannot contain its own commit hash). Every value below is read out of the")
+    a("previous commit's own committed file and out of the on-disk file, so each")
+    a("claim is falsifiable. Once the artefacts are committed, reproduce with:")
     a("  git log --oneline -2")
-    a("  git show --stat HEAD      # should touch only d0/out/v2-diff-evidence.txt")
-    a("  git show --stat HEAD~1    # the artefact revision described below")
+    a("  git diff %s HEAD -- d0/ | head" % prev_full[:9])
     a("")
-    a("Every before/after value below is read out of the previous commit's own")
-    a("committed file and out of this commit's file. Nothing here is asserted in")
-    a("prose only, so each claim can be re-derived or falsified independently.")
+    a("  NOTE: the 'after' label means the working tree. Structural diff below")
+    a("  therefore uses `git diff <prev>` with no second revision.")
     a("")
 
     a("-" * 72)
-    a("1. git diff --name-status  %s..%s" % (prev_full[:9], new_full[:9]))
+    a("1. git diff --name-status  %s..WORKTREE" % prev_full[:9])
     a("-" * 72)
     a(names.strip() or "(no changes)")
     a("")
     a("-" * 72)
-    a("2. git diff --stat")
+    a("2. git diff --stat  %s..WORKTREE" % prev_full[:9])
     a("-" * 72)
     a(stat.strip() or "(no changes)")
     a("")
 
     a("-" * 72)
-    a("3. TIME-AXIS BEFORE/AFTER   (d0/out/d0-time-isolation.json .rule.windows)")
+    a("3. LICENCE CORRECTION   (d0/out/source-lock.json .repos.python-dotenv)")
     a("-" * 72)
-    before_w = window_of(show_json(prev_full, "d0/out/d0-time-isolation.json"))
-    after_w = window_of(show_json(new_full, "d0/out/d0-time-isolation.json"))
-    keys = ["train_end_exclusive", "dev", "dev_sealed", "sealed_start",
-            "dev_vs_sealed_ordering_claimed", "withdrawn_recorded"]
+    lb = dotenv_licence_state(show_json(prev_full, "d0/out/source-lock.json"))
+    ln = dotenv_licence_state(show_json(None, "d0/out/source-lock.json"))
+    keys = ["declared_preset", "approved_spdx", "decision",
+            "license_facts_present", "detected_from_licence_text",
+            "detected_from_packaging_metadata", "license_conflicts",
+            "hash_basis_present", "license_upstream_blob_sha256",
+            "license_checkout_sha256", "license_newline_transformation",
+            "independent_review_status"]
     for k in keys:
-        b = before_w.get(k) if before_w else None
-        n = after_w.get(k) if after_w else None
-        a("  %-34s before=%s" % (k, json.dumps(b)))
-        a("  %-34s after =%s" % ("", json.dumps(n)))
+        a("  %-40s before=%s" % (k, json.dumps((lb or {}).get(k))))
+        a("  %-40s after =%s" % ("", json.dumps((ln or {}).get(k))))
     a("")
     a("  Interpretation:")
-    a("   * train end moves 2025-01-01 -> 2026-01-01, i.e. the train window now")
-    a("     reaches 2025-12-31 inclusive instead of 2024-12-31 inclusive.")
-    a("   * dev and sealed collapse into ONE shared window 2026-01-01..2026-10-05")
-    a("     (end exclusive) == through 2026-10-04, and the shared window declares")
-    a("     dev_vs_sealed_ordering_claimed = false.")
-    a("   * the withdrawn split is now recorded in the file rather than silently")
-    a("     disappearing, so a reader cannot mix the two policies.")
+    a("   * the preset and the approved SPDX move MIT -> BSD-3-Clause, which is")
+    a("     what the pinned LICENSE (blob 3a97119010ac82e15e917a69b7b8f9f59b5a4601)")
+    a("     and the pinned pyproject.toml both say. The MIT value was a")
+    a("     transcription error in the generator's preset, not an upstream change:")
+    a("     the earlier candidate pin 791414804eff08a23f0b7970968e1717e3b28e66")
+    a("     carries the same LICENSE blob.")
+    a("   * license_facts / license_conflicts / hash_basis are NEW. The before side")
+    a("     is null for all three because the v2 record had no derivation and no")
+    a("     conflict list: that is exactly how the contradiction survived review.")
+    a("   * the two hash bases are now both recorded and related by an explicit")
+    a("     newline transformation, so a CRLF-converted hash can no longer be read")
+    a("     as a licence change.")
+    a("   * independent_review_status stays 'pending': this revision does NOT")
+    a("     convert a self-declared assessment into an independent signature.")
     a("")
 
     a("-" * 72)
-    a("4. LICENCE APPROVAL FIELD BEFORE/AFTER   (d0/out/source-lock.json)")
+    a("4. WINDOW BASIS CORRECTION   (d0/out/d0-time-isolation.json .rule)")
     a("-" * 72)
-    b = licence_field_state(show_json(prev_full, "d0/out/source-lock.json"))
-    n = licence_field_state(show_json(new_full, "d0/out/source-lock.json"))
-    for k in ["schema_present", "repos", "repos_with_license_review",
-              "repos_with_approved_decision"]:
-        a("  %-34s before=%s" % (k, (b or {}).get(k)))
-        a("  %-34s after =%s" % ("", (n or {}).get(k)))
+    tb = time_basis(show_json(prev_full, "d0/out/d0-time-isolation.json"))
+    tn = time_basis(show_json(None, "d0/out/d0-time-isolation.json"))
+    for k in ["time_axis_authority", "merge_evidence_artifact",
+              "count_semantics_field_present",
+              "old_field_qualified_candidate_families_present"]:
+        a("  %-40s before=%s" % (k, json.dumps((tb or {}).get(k))))
+        a("  %-40s after =%s" % ("", json.dumps((tn or {}).get(k))))
     a("")
-    a("  Interpretation: the machine-readable approval field Q0 found missing now")
-    a("  exists. 8 locked repositories + 1 approved alternative = 9 records, each")
-    a("  carrying decision=approved bound to its own pinned commit. The first pass")
-    a("  had no per-repo approval field at all -- only a free-text expectation.")
+    a("  BEFORE (v2): %s" % json.dumps((tb or {}).get("time_axis_authority")))
+    a("  AFTER  (v3): %s" % json.dumps((tn or {}).get("time_axis_authority")))
+    a("")
+    a("  Interpretation: the window is no longer decided by the commit's own dates")
+    a("  (which a rebase, squash or re-land can rewrite) but by the original fix's")
+    a("  upstream MERGE event. The author/committer dates survive only as audit")
+    a("  corroboration, and the inventory counts are split into a commit-date")
+    a("  SCREENING count and a merge-event VERIFIED count.")
     a("")
 
     a("-" * 72)
-    a("5. ACCEPTANCE GATE BEFORE/AFTER   (d0/out/validate_d0.output.txt)")
+    a("5. MERGE-EVENT EVIDENCE ARTIFACT   (d0/out/merge-evidence.json)")
     a("-" * 72)
-    gb = gate_counts(show_text(prev_full, "d0/out/validate_d0.output.txt"))
-    gn = gate_counts(open(os.path.join(OUT, "validate_d0.output.txt"), "rb").read())
-    a("  checks / failures   before=%s" % (json.dumps(gb)))
-    a("  checks / failures   after =%s" % (json.dumps(gn)))
+    mb = merge_state(show_json(prev_full, "d0/out/merge-evidence.json"),
+                     show_json(prev_full, "d0/out/family-ledger.json"))
+    mn = merge_state(show_json(None, "d0/out/merge-evidence.json"),
+                     show_json(None, "d0/out/family-ledger.json"))
+    for k in ["artifact_present", "records", "verified", "unverified",
+              "unverified_commits", "raw_responses_hashed",
+              "families_with_merge_block"]:
+        a("  %-40s before=%s" % (k, json.dumps((mb or {}).get(k))))
+        a("  %-40s after =%s" % ("", json.dumps((mn or {}).get(k))))
     a("")
-    a("  Interpretation: the gate grew from 26 to %s assertions. New assertions"
-      % (gn[0] if gn else "?"))
-    a("  cover the revised windows, the licence-review contract (field presence,")
-    a("  approved decision, revision binding, empty marker hits, non-claim of")
-    a("  independent review), the snapshot-ancestry requirement, the")
-    a("  backport/cherry-pick rejection, and the alternative-candidate boundary.")
-    a("  A source-lock without an approved decision can no longer pass.")
+    a("  Interpretation: the artifact is NEW (the before side is None). Every")
+    a("  record carries merged_at_utc, the pull-request URL, the raw API response")
+    a("  sha256, and the merge-commit geometry. Two records are UNVERIFIED and are")
+    a("  counted in no quota: click 9da1791476fe (no pull request exists for the")
+    a("  commit at all) and python-dotenv f5485a61eefa (its commit message cites")
+    a("  #600, which is an ISSUE, not a pull request).")
     a("")
 
     a("-" * 72)
     a("6. RELEASE STATE BEFORE/AFTER   (d0/out/family-ledger.json)")
     a("-" * 72)
     rb = released_counts(show_json(prev_full, "d0/out/family-ledger.json"))
-    rn = released_counts(show_json(new_full, "d0/out/family-ledger.json"))
+    rn = released_counts(show_json(None, "d0/out/family-ledger.json"))
     for k in ["real_released", "real_total", "variant_released", "variant_total"]:
-        a("  %-34s before=%s" % (k, (rb or {}).get(k)))
-        a("  %-34s after =%s" % ("", (rn or {}).get(k)))
+        a("  %-40s before=%s" % (k, (rb or {}).get(k)))
+        a("  %-40s after =%s" % ("", (rn or {}).get(k)))
     a("")
-    a("  Interpretation: the release verdicts are UNCHANGED. Four real train")
-    a("  families stay released, four variant families stay released=false. This")
-    a("  revision adds requirements and evidence; it does not relax any check and")
-    a("  does not promote any statically-verified family to 'data released'.")
+    a("  Interpretation: THIS IS THE ONE PLACE THE REVISION IS NOT NEUTRAL. The")
+    a("  real half drops from 4/4 to 3/4 because v3-train-click-001 has no")
+    a("  retrievable merge event and therefore cannot be window-qualified under the")
+    a("  rule the reviewer required. It is released=false, counted in no quota, and")
+    a("  recorded as a blocking gap; it is NOT silently replaced. Everything else")
+    a("  is unchanged: the four variant families stay released=false, because their")
+    a("  variant commit does not exist until an author builds it.")
     a("")
 
     a("-" * 72)
-    a("7. WHAT DID NOT CHANGE (explicitly)")
+    a("7. ACCEPTANCE GATE BEFORE/AFTER   (d0/out/validate_d0.output.txt)")
     a("-" * 72)
+    gb = gate_counts(show_text(prev_full, "d0/out/validate_d0.output.txt"))
+    gn = gate_counts(open(os.path.join(OUT, "validate_d0.output.txt"), "rb").read())
+    a("  checks / failures   before=%s" % json.dumps(gb))
+    a("  checks / failures   after =%s" % json.dumps(gn))
+    a("")
+    a("  Interpretation: the gate gained the licence-conflict regression test, the")
+    a("  missing-merge-evidence negative test, two consistency assertions that")
+    a("  re-derive the licence decision and pin the dotenv hash pair, and the")
+    a("  merge-event window checks. It now asserts CONSISTENCY rather than")
+    a("  'everything released': a family may be released=false, but then its")
+    a("  blocking checks and its shortfall must be recorded and it may not be")
+    a("  counted anywhere. Hard-coding '4/4 released' would reward a family whose")
+    a("  merge event was never retrieved.")
+    a("")
+
+    a("-" * 72)
+    a("8. WHAT DID NOT CHANGE (explicitly)")
+    a("-" * 72)
+    a("  * the 8 locked repositories and their pinned commits / tree SHAs are")
+    a("    unchanged; no repository was re-pinned and no other repository's")
+    a("    per-file licence ledger was re-reviewed in this round.")
     a("  * no FAIL_TO_PASS run: this runtime still has no reachable package index.")
-    a("  * d0/out/restricted-oracle.json is still NOT committed; the file now also")
-    a("    carries split_declaration_pending so it cannot be read as already split.")
+    a("  * d0/out/restricted-oracle.json is still NOT committed, and still carries")
+    a("    split_declaration_pending so it cannot be read as already split.")
     a("  * dev/sealed release and acceptance remain blocked on the isolation")
     a("    prerequisite (unchanged from Mika's ruling).")
-    a("  * the 8 locked repositories and their pinned commits are unchanged; only")
-    a("    their approval record was added.")
-    a("  * no gold/answer material was added to the public manifest: the public")
-    a("    manifest still carries no oracle_assertions (asserted by the gate).")
+    a("  * the public manifest still carries no oracle_assertions (gate-asserted).")
+    a("  * no gold/answer material and no credential entered the repository; the")
+    a("    merge-evidence fetch is unauthenticated and reads no token.")
     a("")
 
     a("-" * 72)
-    a("8. INDEPENDENT RE-DERIVATION HINT")
+    a("9. INDEPENDENT RE-DERIVATION HINT")
     a("-" * 72)
     a("  python d0/run_all.py            # regenerate everything from d0/src/")
-    a("  python d0/validate_d0.py        # 67 checks, must exit 0")
+    a("  python d0/validate_d0.py        # all checks, must exit 0")
     a("  git diff %s HEAD -- d0/    # this diff again" % prev_full[:9])
     a("  d0/src/ is deliberately NOT committed (see .gitignore): regenerate it with")
-    a("  d0/fetch_snapshots.ps1, which now unshallows every repo and also fetches")
-    a("  the alternative candidate.")
+    a("  d0/fetch_snapshots.ps1, which unshallows every repo and also fetches the")
+    a("  alternative candidate.")
+    a("  d0/pr-evidence/raw/ IS committed, so every merge-evidence raw_response_sha256")
+    a("  can be re-hashed offline without touching the network.")
     a("")
 
     text = "\n".join(L) + "\n"
-    with open(os.path.join(OUT, "v2-diff-evidence.txt"), "w", encoding="utf-8") as f:
+    with open(os.path.join(OUT, OUTPUT_NAME), "w", encoding="utf-8") as f:
         f.write(text)
-    print(text)
+    print("wrote d0/out/%s (%d bytes)" % (OUTPUT_NAME, len(text.encode("utf-8"))))
     return 0
 
 

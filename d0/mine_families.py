@@ -20,11 +20,13 @@ The withdrawn (never approved) rule was train < 2025-01-01 / dev = calendar
 2025 / sealed >= 2026-01-01.  It is recorded as withdrawn so that no downstream
 reader can mix the two policies.
 
-A family's time is the ORIGINAL upstream fix commit's own time.  It is recorded
-TWICE -- author date and committer date -- and BOTH must fall inside the
-window, so the classification never rests on a single mutable date.  Release
+A family's WINDOW is decided by the ORIGINAL upstream fix's MERGE event -- the
+merged_at_utc of the pull request the fix commit belongs to (see
+fetch_merge_evidence.py / out/merge-evidence.json).  The commit's own author and
+committer dates are recorded TWICE but as AUDIT CORROBORATION ONLY: a rebase,
+squash or re-land can rewrite them, so they never qualify a family.  Release
 tag dates, snapshot/pin dates, backport dates and cherry-pick dates are
-explicitly NOT accepted as a family's time:
+explicitly NOT accepted as a family's time either:
 
   * the fix commit must be an ANCESTOR of the pinned snapshot, so the pin
     decides which content exists but never what time a family belongs to;
@@ -283,8 +285,16 @@ def main():
             "criteria": {
                 "revision_mined": "the PINNED commit of each repository, never a moving branch head",
                 "time_axis_authority": (
-                    "the original upstream fix commit's own time, recorded as BOTH author date "
-                    "and committer date, with both required inside the window"),
+                    "the ORIGINAL upstream fix's MERGE event (merged_at_utc of the pull "
+                    "request the fix commit belongs to), evidenced in "
+                    "out/merge-evidence.json. The commit's own author and committer "
+                    "dates are audit corroboration ONLY and never qualify a family."),
+                "count_semantics": (
+                    "the candidate lists below are COMMIT-DATE SCREENINGS: both dates "
+                    "inside the window. A screened candidate is headroom, NOT a "
+                    "window-qualified family; qualification requires its merge event "
+                    "to be retrieved and verified (status=verified and "
+                    "window_qualified_by_merge_event=true)."),
                 "time_substitutes_rejected": [
                     "release/tag date", "snapshot or pin date",
                     "backport date", "cherry-pick date",

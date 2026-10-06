@@ -234,10 +234,90 @@ def blob_sha256(repo, rev, path):
     return hashlib.sha256(out.encode("utf-8", "replace")).hexdigest()
 
 
+def merge_record_for(index, fix_full):
+    """Return the merge-evidence record for a fix commit, or None.
+
+    Absence is reported as ``not_collected`` and then fails the qualification
+    predicate -- it is never treated as "probably merged".
+    """
+    return index.get(fix_full)
+
+
+def merge_qualifies(rec):
+    return bool(rec) and rec.get("status") == "verified" \
+        and rec.get("window_qualified_by_merge_event") is True
+
+
+def merge_evidence_block(rec):
+    """The per-family view of merge-evidence.json, with its provenance."""
+    if not rec:
+        return {
+            "status": "not_collected",
+            "window_qualified_by_merge_event": False,
+            "reason": ("no merge-evidence record exists for this fix commit; per "
+                       "policy it is counted in no window"),
+            "artifact": "out/merge-evidence.json",
+            "provenance": {
+                "producer": "d0/fetch_merge_evidence.py",
+                "metadata_source": "out/merge-evidence.json (GitHub REST API v3)",
+            },
+        }
+    pr = rec.get("pull_request") or {}
+    lookup = rec.get("commit_to_pr_lookup") or {}
+    return {
+        "status": rec.get("status"),
+        "pull_request_number": pr.get("number"),
+        "pull_request_url": rec.get("pull_request_url"),
+        "merged_at_utc": rec.get("merged_at_utc"),
+        "merge_commit_sha": rec.get("merge_commit_sha"),
+        "merge_commit_sha_matches_fix_commit":
+            rec.get("merge_commit_sha_matches_fix_commit"),
+        "merge_commit_geometry": rec.get("merge_commit_geometry"),
+        "window_qualified_by_merge_event": rec.get("window_qualified_by_merge_event"),
+        "reason": rec.get("reason"),
+        "provenance": {
+            "producer": "d0/fetch_merge_evidence.py",
+            "artifact": "out/merge-evidence.json",
+            "commit_to_pr_lookup_url": lookup.get("url"),
+            "pull_request_metadata_url": pr.get("url"),
+            "raw_response_paths": [lookup.get("raw_path"), pr.get("raw_path")],
+            "raw_response_sha256": {
+                "commit_to_pr_lookup": lookup.get("raw_response_sha256"),
+                "pull_request": pr.get("raw_response_sha256"),
+            },
+            "authentication": "unauthenticated; no token used",
+        },
+    }
+
+
+def license_block(lock, name, lic):
+    """Licence facts for a family, taken from source-lock so the two cannot drift."""
+    review = lock["repos"][name]["license_review"]
+    entry = [x for x in lic["by_repo"][name]
+             if x["path"] == REPOS[name]["license_file"]]
+    entry = entry[0] if entry else None
+    return {
+        "spdx": review["approved_spdx"],
+        "spdx_is_derived": True,
+        "license_file": entry["path"] if entry else REPOS[name]["license_file"],
+        "license_file_checkout_sha256": entry["sha256"] if entry else None,
+        "license_file_upstream_blob_sha256":
+            entry.get("upstream_blob_sha256") if entry else None,
+        "license_file_newline_transformation":
+            entry.get("newline_transformation") if entry else None,
+        "license_review_decision": review["decision"],
+        "license_conflicts": review["license_conflicts"],
+        "license_review_path": "repos.%s.license_review in source-lock.json" % name,
+    }
+
+
 def main():
     os.makedirs(OUT, exist_ok=True)
     lock = json.load(open(os.path.join(OUT, "source-lock.json"), encoding="utf-8"))
     lic = json.load(open(os.path.join(OUT, "license-files.json"), encoding="utf-8"))
+    merge_doc = json.load(open(os.path.join(OUT, "merge-evidence.json"),
+                               encoding="utf-8"))
+    merge_index = {r["fix_commit"]: r for r in merge_doc["records"]}
     ledger = {
         "policy_id": POLICY_ID,
         "spec": {
@@ -249,10 +329,20 @@ def main():
                                   "dev_vs_sealed_ordering_claimed": False},
             "withdrawn_windows": WITHDRAWN_WINDOWS,
             "time_axis_authority": (
-                "a family's time is the ORIGINAL upstream fix commit's own time, recorded as "
-                "BOTH author date and committer date with both required inside the window. "
-                "Release/tag dates, snapshot or pin dates, backport dates and cherry-pick "
-                "dates are rejected substitutes and must never classify a family."),
+                "a family's window is decided by the ORIGINAL upstream fix's MERGE "
+                "event -- merged_at_utc of the pull request the fix commit belongs "
+                "to, recorded with its metadata source and raw-response hash. The "
+                "commit's own author and committer dates are kept ONLY as audit "
+                "corroboration: a rebase, squash or re-land can rewrite them, so "
+                "they never qualify a family. Release/tag dates, snapshot or pin "
+                "dates, backport dates and cherry-pick dates are rejected "
+                "substitutes."),
+            "merge_evidence_artifact": {
+                "path": "out/merge-evidence.json",
+                "producer": "d0/fetch_merge_evidence.py",
+                "policy": merge_doc["policy"]["window_qualification_basis"],
+                "missing_merge_evidence": merge_doc["policy"]["missing_merge_evidence"],
+            },
             "snapshot_axis_is_separate": (
                 "the pinned revision decides which CONTENT exists (the fix commit must be an "
                 "ancestor of it); it never decides which WINDOW a family belongs to."),
@@ -441,8 +531,8 @@ def main():
                 deps += [d.strip().strip('",\'') for d in m.group(1).splitlines()
                          if d.strip().strip(',')]
 
-        lic_entry = [x for x in lic["by_repo"][name]
-                     if x["path"] == REPOS[name]["license_file"]][0]
+        merc = merge_record_for(merge_index, fix_full)
+        merge_ok = merge_qualifies(merc)
 
         structural = {
             "fix_commit_resolved": bool(re.fullmatch(r"[0-9a-f]{40}", fix_full)),
@@ -461,14 +551,21 @@ def main():
             "f2p_absent_at_base": all(not x["present_at_base"] for x in f2p) if f2p else False,
             "oracle_split_both_halves_non_empty": bool(test_patch) and bool(gold_patch),
             "code_only_oracle_patch_non_empty": bool(code_patch),
-            "in_train_window_author_date": adate < TRAIN_WINDOW_END,
-            "in_train_window_committer_date": cdate < TRAIN_WINDOW_END,
+            # THE window check: the original fix's merge event, not a commit date.
+            "merge_event_evidence_present": bool(merc)
+            and merc.get("status") == "verified",
+            "merge_event_qualifies_window": merge_ok,
+            # audit-only, kept so a reviewer can see the two dates corroborate
+            "in_train_window_author_date_audit_only": adate < TRAIN_WINDOW_END,
+            "in_train_window_committer_date_audit_only": cdate < TRAIN_WINDOW_END,
             "fix_commit_is_ancestor_of_pinned_revision": fix_is_ancestor,
             "fix_commit_is_not_a_backport_or_cherry_pick": backport_marker is None,
             "license_approved": lock["repos"][name]["license_review"]["decision"] == "approved",
             "license_approved_for_this_exact_revision":
                 lock["repos"][name]["license_review"]["decided_against_revision"]
                 == lock["repos"][name]["pinned_commit"],
+            "license_metadata_has_no_conflict":
+                not lock["repos"][name]["license_review"]["license_conflicts"],
         }
         released = all(structural.values()) and not any(
             v is None or v == "" for v in (base_full, fix_full, patch_sha))
@@ -477,23 +574,36 @@ def main():
             "kind": "real",
             "split": "train",
             "released": released,
+            "release_decision": {
+                "released": released,
+                "window_decided_by": "merge_event" if merge_ok else "none",
+                "blocking_checks": sorted(k for k, v in structural.items() if not v),
+                "note": (None if released else
+                         "not released: at least one structural check failed. An "
+                         "unreleased family is counted in no window and is never "
+                         "promoted by a commit date."),
+            },
             "repo": name,
             "upstream_slug": REPOS[name]["slug"],
             "pinned_revision": lock["repos"][name]["pinned_commit"],
-            "license": {"spdx": REPOS[name]["spdx"],
-                        "license_file": lic_entry["path"],
-                        "license_file_sha256": lic_entry["sha256"],
-                        "license_review_decision":
-                            lock["repos"][name]["license_review"]["decision"],
-                        "license_review_path": "repos.%s.license_review in source-lock.json" % name},
+            "license": license_block(lock, name, lic),
             "base_commit": base_full,
             "oracle_fix_commit": fix_full,
             "oracle_patch_sha256": patch_sha,
+            "merge_evidence": merge_evidence_block(merc),
             "fix_time": {
                 "author_date": adate,
                 "committer_date": cdate,
-                "primary": adate,
-                "basis": "author date of the original upstream fix commit",
+                "author_and_committer_dates_role": (
+                    "audit corroboration ONLY. They are recorded so a reviewer can "
+                    "see whether the commit dates agree with the merge event, and "
+                    "they never qualify a family into a window."),
+                "merge_event_utc": merc.get("merged_at_utc") if merc else None,
+                "qualifies_by_merge_event": merge_ok,
+                "primary": (merc.get("merged_at_utc") if merge_ok else None),
+                "basis": ("merged_at_utc of the original upstream pull request the fix "
+                          "commit belongs to; falls back to nothing when the merge "
+                          "event could not be retrieved"),
                 "both_dates_in_train_window": (adate < TRAIN_WINDOW_END
                                                and cdate < TRAIN_WINDOW_END),
                 "not_derived_from": ["release/tag date", "snapshot or pin date",
@@ -505,8 +615,9 @@ def main():
             "backport_or_cherry_pick_marker": (backport_marker.group(0)
                                                if backport_marker else None),
             "snapshot_axis_note": (
-                "the pinned revision decides which content exists; the family's own fix time "
-                "decides the window. The two axes are checked separately."),
+                "the pinned revision decides which content exists; the family's own "
+                "original merge event decides the window. The two axes are checked "
+                "separately."),
             "upstream_subject": subject,
             "upstream_issue_refs": spec["issue_refs"],
             "symptom_restatement": spec["symptom_restatement"],
@@ -560,7 +671,12 @@ def main():
                 "SNAPSHOT-axis date of the upstream source base, recorded for reproducibility. "
                 "It is NOT this variant's fix time and does not classify the variant into a "
                 "window. A constructed variant inherits its parent family's train window."),
-            "source_base_released": True,
+            "source_base_released": parent_fam["released"],
+            "source_base_release_note": (
+                "a variant can only inherit a window from a parent family that is "
+                "itself released; here the parent is %s (released=%s)"
+                % (parent_fam["family_id"], parent_fam["released"])),
+            "inherits_window_from": parent_fam["family_id"],
             "variant_commit": None,
             "oracle_fix_commit": None,
             "license": parent_fam["license"],

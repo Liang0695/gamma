@@ -17,9 +17,10 @@ import sys
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 STEPS = [
+    "fetch_merge_evidence.py",  # merge events -> out/merge-evidence.json (cache-first)
     "collect_licenses.py",   # source-lock.json + licence_review + per-file ledger
     "mine_families.py",      # family-candidates.json for every role
-    "build_ledger.py",       # family-ledger.json (oracle material + time evidence)
+    "build_ledger.py",       # family-ledger.json (oracle material + merge evidence)
     "build_extras.py",       # time isolation, shortfall, public/restricted split
 ]
 

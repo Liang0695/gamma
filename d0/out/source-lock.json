@@ -2,7 +2,7 @@
   "generated_by": "d0/collect_licenses.py",
   "policy_id": "v3-source-lock-2026-10-05-mika",
   "license_review_schema": {
-    "schema_version": "1.0",
+    "schema_version": "1.1",
     "applies_to": "every repository in this file, keyed by repository name",
     "required_fields": [
       "decision",
@@ -15,7 +15,10 @@
       "decided_by",
       "decided_at",
       "decided_against_revision",
-      "independent_review"
+      "independent_review",
+      "license_facts",
+      "license_conflicts",
+      "hash_basis"
     ],
     "decision_domain": [
       "approved",
@@ -24,7 +27,11 @@
     ],
     "gate": "no repository may be used as a family source unless license_review.decision == 'approved' for the exact revision in decided_against_revision",
     "approval_is_revision_bound": "an approval covers one pinned commit; re-pinning a repository invalidates it and it must be re-derived",
-    "independent_review_note": "decision is the D0 owner's licence-fact assessment and is self-declared; independent countersignature is tracked separately in independent_review and is NOT claimed here"
+    "independent_review_note": "decision is the D0 owner's licence-fact assessment and is self-declared; independent countersignature is tracked separately in independent_review and is NOT claimed here",
+    "approved_spdx_is_derived_not_asserted": "approved_spdx must agree with the families detected in the pinned licence TEXT and with the SPDX declared in the pinned packaging METADATA. The preset in the generator is an expectation, never evidence.",
+    "conflict_rule": "a positive disagreement between the preset, the licence text and/or the packaging metadata forces decision='pending' and is listed verbatim in license_conflicts; it can never read as 'approved'. An EMPTY evidence set is not a conflict.",
+    "hash_basis_rule": "every licence file records BOTH the upstream git-blob sha256 and the checkout sha256 plus the newline transformation relating them; the two are different byte strings under core.autocrlf=true and must never be mixed",
+    "missing_merge_evidence_note": "this field set settles LICENCE facts only; it does not establish the family window, which needs the merge-event evidence in merge-evidence.json"
   },
   "locked_candidate_repositories": [
     "attrs",
@@ -72,22 +79,96 @@
         "osi_permissive": true,
         "copyleft_marker_hits": [],
         "restrictive_marker_hits": [],
+        "license_facts": {
+          "preset_spdx": "BSD-3-Clause",
+          "detected_from_licence_text": [
+            "BSD-3-Clause"
+          ],
+          "licence_text_evidence": [
+            {
+              "path": "LICENSE.txt",
+              "families": [
+                "BSD-3-Clause"
+              ]
+            }
+          ],
+          "detected_from_packaging_metadata": [
+            "BSD-3-Clause"
+          ],
+          "packaging_metadata_evidence": [
+            {
+              "file": "pyproject.toml",
+              "declaration": "\"BSD-3-Clause\"",
+              "families": [
+                "BSD-3-Clause"
+              ]
+            }
+          ],
+          "agreement": true,
+          "detection_scope": "licence TEXT is read only from the repository's own root LICENSE/COPYING files; NOTICE and third-party licence copies are excluded because they quote other projects' licences"
+        },
+        "license_conflicts": [],
+        "hash_basis": {
+          "rule": "upstream_blob_sha256 is the committed git object's bytes; checkout_sha256 is the working-tree bytes after git's newline conversion. They are different strings and must never be mixed.",
+          "core_autocrlf": true,
+          "per_file": {
+            "LICENSE.txt": {
+              "git_blob_sha1": "d12a849186982399c537c5b9a8fd77bf2edd5eab",
+              "upstream_blob_sha256": "9a8ad106a394e853bfe21f42f4e72d592819a22805d991b5f3275029292b658d",
+              "upstream_blob_bytes": 1475,
+              "checkout_sha256": "757302fe7c41e7026fa46d3315ea8604ed5295fc95c2256d9b38adac43f6fbe5",
+              "checkout_bytes": 1503,
+              "newline_transformation": "lf_to_crlf_on_checkout",
+              "sha256_basis": "checkout worktree bytes; git core.autocrlf=true rewrites LF to CRLF on checkout, so this is NOT the upstream blob"
+            },
+            "docs/license.md": {
+              "git_blob_sha1": "dd761fd120dff321af0f8877b34017564513aa06",
+              "upstream_blob_sha256": "b4aa3a8b0dfd4c8cea97ea65b3f19ef54bd280665533478f35c0a5d205a7d341",
+              "upstream_blob_bytes": 86,
+              "checkout_sha256": "286d2b7be5eed212651f48d1402eaab4f2f7ee6d3678eb6023a5db1a34253ac3",
+              "checkout_bytes": 93,
+              "newline_transformation": "lf_to_crlf_on_checkout",
+              "sha256_basis": "checkout worktree bytes; git core.autocrlf=true rewrites LF to CRLF on checkout, so this is NOT the upstream blob"
+            }
+          }
+        },
         "evidence": {
           "primary_license_file": {
             "path": "LICENSE.txt",
+            "git_blob_sha1": "d12a849186982399c537c5b9a8fd77bf2edd5eab",
             "sha256": "757302fe7c41e7026fa46d3315ea8604ed5295fc95c2256d9b38adac43f6fbe5",
-            "bytes": 1503
+            "bytes": 1503,
+            "checkout_sha256": "757302fe7c41e7026fa46d3315ea8604ed5295fc95c2256d9b38adac43f6fbe5",
+            "checkout_bytes": 1503,
+            "upstream_blob_sha256": "9a8ad106a394e853bfe21f42f4e72d592819a22805d991b5f3275029292b658d",
+            "upstream_blob_bytes": 1475,
+            "newline_transformation": "lf_to_crlf_on_checkout",
+            "sha256_basis": "checkout worktree bytes; git core.autocrlf=true rewrites LF to CRLF on checkout, so this is NOT the upstream blob"
           },
           "all_license_file_hashes": [
             {
               "path": "LICENSE.txt",
+              "git_blob_sha1": "d12a849186982399c537c5b9a8fd77bf2edd5eab",
               "sha256": "757302fe7c41e7026fa46d3315ea8604ed5295fc95c2256d9b38adac43f6fbe5",
-              "bytes": 1503
+              "bytes": 1503,
+              "checkout_sha256": "757302fe7c41e7026fa46d3315ea8604ed5295fc95c2256d9b38adac43f6fbe5",
+              "checkout_bytes": 1503,
+              "upstream_blob_sha256": "9a8ad106a394e853bfe21f42f4e72d592819a22805d991b5f3275029292b658d",
+              "upstream_blob_bytes": 1475,
+              "newline_transformation": "lf_to_crlf_on_checkout",
+              "sha256_basis": "checkout worktree bytes; git core.autocrlf=true rewrites LF to CRLF on checkout, so this is NOT the upstream blob"
             },
             {
               "path": "docs/license.md",
+              "git_blob_sha1": "dd761fd120dff321af0f8877b34017564513aa06",
               "sha256": "286d2b7be5eed212651f48d1402eaab4f2f7ee6d3678eb6023a5db1a34253ac3",
-              "bytes": 93
+              "bytes": 93,
+              "checkout_sha256": "286d2b7be5eed212651f48d1402eaab4f2f7ee6d3678eb6023a5db1a34253ac3",
+              "checkout_bytes": 93,
+              "upstream_blob_sha256": "b4aa3a8b0dfd4c8cea97ea65b3f19ef54bd280665533478f35c0a5d205a7d341",
+              "upstream_blob_bytes": 86,
+              "newline_transformation": "lf_to_crlf_on_checkout",
+              "sha256_basis": "checkout worktree bytes; git core.autocrlf=true rewrites LF to CRLF on checkout, so this is NOT the upstream blob"
             }
           ],
           "packaging_metadata_sha256": {
@@ -101,7 +182,7 @@
           },
           "per_file_ledger": "per-file-ledger.csv"
         },
-        "decision_basis": "declared licence family is OSI-permissive (BSD-3-Clause); the primary licence file at the pinned revision carries no copyleft marker and no non-commercial / research-only / no-derivative clause. Hit lists below are recorded verbatim so this decision can be re-derived from the hashed files alone.",
+        "decision_basis": "approved_spdx is DERIVED, not asserted: the pinned licence text yields ['BSD-3-Clause'] and the pinned packaging metadata declares ['BSD-3-Clause'], and the declared preset BSD-3-Clause must agree with both. The primary licence file carries no copyleft marker and no non-commercial / research-only / no-derivative clause. Every input is hashed below, so the decision can be re-derived from the pinned bytes alone.",
         "decided_by": "D0 owner (资料调研与分发)",
         "decided_at": "2026-10-05",
         "decided_against_revision": "8b19813f2bfca99f1018a587a8cf54fc959f2e5d",
@@ -150,22 +231,96 @@
         "osi_permissive": true,
         "copyleft_marker_hits": [],
         "restrictive_marker_hits": [],
+        "license_facts": {
+          "preset_spdx": "MIT",
+          "detected_from_licence_text": [
+            "MIT"
+          ],
+          "licence_text_evidence": [
+            {
+              "path": "LICENSE",
+              "families": [
+                "MIT"
+              ]
+            }
+          ],
+          "detected_from_packaging_metadata": [
+            "MIT"
+          ],
+          "packaging_metadata_evidence": [
+            {
+              "file": "pyproject.toml",
+              "declaration": "\"MIT\"",
+              "families": [
+                "MIT"
+              ]
+            }
+          ],
+          "agreement": true,
+          "detection_scope": "licence TEXT is read only from the repository's own root LICENSE/COPYING files; NOTICE and third-party licence copies are excluded because they quote other projects' licences"
+        },
+        "license_conflicts": [],
+        "hash_basis": {
+          "rule": "upstream_blob_sha256 is the committed git object's bytes; checkout_sha256 is the working-tree bytes after git's newline conversion. They are different strings and must never be mixed.",
+          "core_autocrlf": true,
+          "per_file": {
+            "LICENSE": {
+              "git_blob_sha1": "0a523bece3e50519653c4d7a38399baa487fefa1",
+              "upstream_blob_sha256": "09f1c8c9e941af3e584d59641ea9b87d83c0cb0fd007eb5ef391a7e2643c1a46",
+              "upstream_blob_bytes": 1053,
+              "checkout_sha256": "2162b6b24a563bf763e00d507e650b2b07b0cd4646efa1e2f62fb99a19f7f85e",
+              "checkout_bytes": 1072,
+              "newline_transformation": "lf_to_crlf_on_checkout",
+              "sha256_basis": "checkout worktree bytes; git core.autocrlf=true rewrites LF to CRLF on checkout, so this is NOT the upstream blob"
+            },
+            "docs/license.rst": {
+              "git_blob_sha1": "123c0f54dcaeeaaeda93329a17872b5b128089c6",
+              "upstream_blob_sha256": "f4a8d4c0f47ec36904fba4fb1f7be3fcaa045cc3fdd4766200ba755d892f0d18",
+              "upstream_blob_bytes": 646,
+              "checkout_sha256": "d906e41ab18d96819dec02e364367bad5699716b7723d1b483c9f16e87dca156",
+              "checkout_bytes": 662,
+              "newline_transformation": "lf_to_crlf_on_checkout",
+              "sha256_basis": "checkout worktree bytes; git core.autocrlf=true rewrites LF to CRLF on checkout, so this is NOT the upstream blob"
+            }
+          }
+        },
         "evidence": {
           "primary_license_file": {
             "path": "LICENSE",
+            "git_blob_sha1": "0a523bece3e50519653c4d7a38399baa487fefa1",
             "sha256": "2162b6b24a563bf763e00d507e650b2b07b0cd4646efa1e2f62fb99a19f7f85e",
-            "bytes": 1072
+            "bytes": 1072,
+            "checkout_sha256": "2162b6b24a563bf763e00d507e650b2b07b0cd4646efa1e2f62fb99a19f7f85e",
+            "checkout_bytes": 1072,
+            "upstream_blob_sha256": "09f1c8c9e941af3e584d59641ea9b87d83c0cb0fd007eb5ef391a7e2643c1a46",
+            "upstream_blob_bytes": 1053,
+            "newline_transformation": "lf_to_crlf_on_checkout",
+            "sha256_basis": "checkout worktree bytes; git core.autocrlf=true rewrites LF to CRLF on checkout, so this is NOT the upstream blob"
           },
           "all_license_file_hashes": [
             {
               "path": "LICENSE",
+              "git_blob_sha1": "0a523bece3e50519653c4d7a38399baa487fefa1",
               "sha256": "2162b6b24a563bf763e00d507e650b2b07b0cd4646efa1e2f62fb99a19f7f85e",
-              "bytes": 1072
+              "bytes": 1072,
+              "checkout_sha256": "2162b6b24a563bf763e00d507e650b2b07b0cd4646efa1e2f62fb99a19f7f85e",
+              "checkout_bytes": 1072,
+              "upstream_blob_sha256": "09f1c8c9e941af3e584d59641ea9b87d83c0cb0fd007eb5ef391a7e2643c1a46",
+              "upstream_blob_bytes": 1053,
+              "newline_transformation": "lf_to_crlf_on_checkout",
+              "sha256_basis": "checkout worktree bytes; git core.autocrlf=true rewrites LF to CRLF on checkout, so this is NOT the upstream blob"
             },
             {
               "path": "docs/license.rst",
+              "git_blob_sha1": "123c0f54dcaeeaaeda93329a17872b5b128089c6",
               "sha256": "d906e41ab18d96819dec02e364367bad5699716b7723d1b483c9f16e87dca156",
-              "bytes": 662
+              "bytes": 662,
+              "checkout_sha256": "d906e41ab18d96819dec02e364367bad5699716b7723d1b483c9f16e87dca156",
+              "checkout_bytes": 662,
+              "upstream_blob_sha256": "f4a8d4c0f47ec36904fba4fb1f7be3fcaa045cc3fdd4766200ba755d892f0d18",
+              "upstream_blob_bytes": 646,
+              "newline_transformation": "lf_to_crlf_on_checkout",
+              "sha256_basis": "checkout worktree bytes; git core.autocrlf=true rewrites LF to CRLF on checkout, so this is NOT the upstream blob"
             }
           ],
           "packaging_metadata_sha256": {
@@ -180,7 +335,7 @@
           },
           "per_file_ledger": "per-file-ledger.csv"
         },
-        "decision_basis": "declared licence family is OSI-permissive (MIT); the primary licence file at the pinned revision carries no copyleft marker and no non-commercial / research-only / no-derivative clause. Hit lists below are recorded verbatim so this decision can be re-derived from the hashed files alone.",
+        "decision_basis": "approved_spdx is DERIVED, not asserted: the pinned licence text yields ['MIT'] and the pinned packaging metadata declares ['MIT'], and the declared preset MIT must agree with both. The primary licence file carries no copyleft marker and no non-commercial / research-only / no-derivative clause. Every input is hashed below, so the decision can be re-derived from the pinned bytes alone.",
         "decided_by": "D0 owner (资料调研与分发)",
         "decided_at": "2026-10-05",
         "decided_against_revision": "64be96ceb2a6e836f76f069f4a96d2394d59fd0c",
@@ -229,17 +384,89 @@
         "osi_permissive": true,
         "copyleft_marker_hits": [],
         "restrictive_marker_hits": [],
+        "license_facts": {
+          "preset_spdx": "MIT",
+          "detected_from_licence_text": [
+            "MIT"
+          ],
+          "licence_text_evidence": [
+            {
+              "path": "LICENSE",
+              "families": [
+                "MIT"
+              ]
+            }
+          ],
+          "detected_from_packaging_metadata": [
+            "MIT"
+          ],
+          "packaging_metadata_evidence": [
+            {
+              "file": "pyproject.toml",
+              "declaration": "{text = \"MIT\"}",
+              "families": [
+                "MIT"
+              ]
+            },
+            {
+              "file": "pyproject.toml",
+              "declaration": "{text = \"MIT\"}",
+              "families": [
+                "MIT"
+              ]
+            },
+            {
+              "file": "pyproject.toml",
+              "declaration": "License :: OSI Approved :: MIT License",
+              "families": [
+                "MIT"
+              ]
+            }
+          ],
+          "agreement": true,
+          "detection_scope": "licence TEXT is read only from the repository's own root LICENSE/COPYING files; NOTICE and third-party licence copies are excluded because they quote other projects' licences"
+        },
+        "license_conflicts": [],
+        "hash_basis": {
+          "rule": "upstream_blob_sha256 is the committed git object's bytes; checkout_sha256 is the working-tree bytes after git's newline conversion. They are different strings and must never be mixed.",
+          "core_autocrlf": true,
+          "per_file": {
+            "LICENSE": {
+              "git_blob_sha1": "85f4dd63d2da8e31d7e84d5180f016fdfe315c2c",
+              "upstream_blob_sha256": "d6b65e6c213a5d0b577911d34d6e5949b9f59d76c238c5071a2f3fc16cfb2606",
+              "upstream_blob_bytes": 1110,
+              "checkout_sha256": "de91589cbcc498cb36d3f979e39d4fb1ea1164d5331f6e0ea90a986525310d51",
+              "checkout_bytes": 1131,
+              "newline_transformation": "lf_to_crlf_on_checkout",
+              "sha256_basis": "checkout worktree bytes; git core.autocrlf=true rewrites LF to CRLF on checkout, so this is NOT the upstream blob"
+            }
+          }
+        },
         "evidence": {
           "primary_license_file": {
             "path": "LICENSE",
+            "git_blob_sha1": "85f4dd63d2da8e31d7e84d5180f016fdfe315c2c",
             "sha256": "de91589cbcc498cb36d3f979e39d4fb1ea1164d5331f6e0ea90a986525310d51",
-            "bytes": 1131
+            "bytes": 1131,
+            "checkout_sha256": "de91589cbcc498cb36d3f979e39d4fb1ea1164d5331f6e0ea90a986525310d51",
+            "checkout_bytes": 1131,
+            "upstream_blob_sha256": "d6b65e6c213a5d0b577911d34d6e5949b9f59d76c238c5071a2f3fc16cfb2606",
+            "upstream_blob_bytes": 1110,
+            "newline_transformation": "lf_to_crlf_on_checkout",
+            "sha256_basis": "checkout worktree bytes; git core.autocrlf=true rewrites LF to CRLF on checkout, so this is NOT the upstream blob"
           },
           "all_license_file_hashes": [
             {
               "path": "LICENSE",
+              "git_blob_sha1": "85f4dd63d2da8e31d7e84d5180f016fdfe315c2c",
               "sha256": "de91589cbcc498cb36d3f979e39d4fb1ea1164d5331f6e0ea90a986525310d51",
-              "bytes": 1131
+              "bytes": 1131,
+              "checkout_sha256": "de91589cbcc498cb36d3f979e39d4fb1ea1164d5331f6e0ea90a986525310d51",
+              "checkout_bytes": 1131,
+              "upstream_blob_sha256": "d6b65e6c213a5d0b577911d34d6e5949b9f59d76c238c5071a2f3fc16cfb2606",
+              "upstream_blob_bytes": 1110,
+              "newline_transformation": "lf_to_crlf_on_checkout",
+              "sha256_basis": "checkout worktree bytes; git core.autocrlf=true rewrites LF to CRLF on checkout, so this is NOT the upstream blob"
             }
           ],
           "packaging_metadata_sha256": {
@@ -253,7 +480,7 @@
           },
           "per_file_ledger": "per-file-ledger.csv"
         },
-        "decision_basis": "declared licence family is OSI-permissive (MIT); the primary licence file at the pinned revision carries no copyleft marker and no non-commercial / research-only / no-derivative clause. Hit lists below are recorded verbatim so this decision can be re-derived from the hashed files alone.",
+        "decision_basis": "approved_spdx is DERIVED, not asserted: the pinned licence text yields ['MIT'] and the pinned packaging metadata declares ['MIT'], and the declared preset MIT must agree with both. The primary licence file carries no copyleft marker and no non-commercial / research-only / no-derivative clause. Every input is hashed below, so the decision can be re-derived from the pinned bytes alone.",
         "decided_by": "D0 owner (资料调研与分发)",
         "decided_at": "2026-10-05",
         "decided_against_revision": "fd08ab5f811a9b2fa9124ae8cbbd393221151e2c",
@@ -308,17 +535,65 @@
         "osi_permissive": true,
         "copyleft_marker_hits": [],
         "restrictive_marker_hits": [],
+        "license_facts": {
+          "preset_spdx": "BSD-3-Clause",
+          "detected_from_licence_text": [
+            "BSD-3-Clause"
+          ],
+          "licence_text_evidence": [
+            {
+              "path": "LICENSE",
+              "families": [
+                "BSD-3-Clause"
+              ]
+            }
+          ],
+          "detected_from_packaging_metadata": [],
+          "packaging_metadata_evidence": [],
+          "agreement": true,
+          "detection_scope": "licence TEXT is read only from the repository's own root LICENSE/COPYING files; NOTICE and third-party licence copies are excluded because they quote other projects' licences"
+        },
+        "license_conflicts": [],
+        "hash_basis": {
+          "rule": "upstream_blob_sha256 is the committed git object's bytes; checkout_sha256 is the working-tree bytes after git's newline conversion. They are different strings and must never be mixed.",
+          "core_autocrlf": true,
+          "per_file": {
+            "LICENSE": {
+              "git_blob_sha1": "6a4c9d2496f53c61c99ae7c113e6ed94b15b038c",
+              "upstream_blob_sha256": "c301912653a8d8c99eab6212aa3aea8d164ea249d8ad53c941e0558a0a5ac1e3",
+              "upstream_blob_bytes": 1497,
+              "checkout_sha256": "c301912653a8d8c99eab6212aa3aea8d164ea249d8ad53c941e0558a0a5ac1e3",
+              "checkout_bytes": 1497,
+              "newline_transformation": "none",
+              "sha256_basis": "checkout worktree bytes; git core.autocrlf=true rewrites LF to CRLF on checkout, so this is NOT the upstream blob"
+            }
+          }
+        },
         "evidence": {
           "primary_license_file": {
             "path": "LICENSE",
+            "git_blob_sha1": "6a4c9d2496f53c61c99ae7c113e6ed94b15b038c",
             "sha256": "c301912653a8d8c99eab6212aa3aea8d164ea249d8ad53c941e0558a0a5ac1e3",
-            "bytes": 1497
+            "bytes": 1497,
+            "checkout_sha256": "c301912653a8d8c99eab6212aa3aea8d164ea249d8ad53c941e0558a0a5ac1e3",
+            "checkout_bytes": 1497,
+            "upstream_blob_sha256": "c301912653a8d8c99eab6212aa3aea8d164ea249d8ad53c941e0558a0a5ac1e3",
+            "upstream_blob_bytes": 1497,
+            "newline_transformation": "none",
+            "sha256_basis": "checkout worktree bytes; git core.autocrlf=true rewrites LF to CRLF on checkout, so this is NOT the upstream blob"
           },
           "all_license_file_hashes": [
             {
               "path": "LICENSE",
+              "git_blob_sha1": "6a4c9d2496f53c61c99ae7c113e6ed94b15b038c",
               "sha256": "c301912653a8d8c99eab6212aa3aea8d164ea249d8ad53c941e0558a0a5ac1e3",
-              "bytes": 1497
+              "bytes": 1497,
+              "checkout_sha256": "c301912653a8d8c99eab6212aa3aea8d164ea249d8ad53c941e0558a0a5ac1e3",
+              "checkout_bytes": 1497,
+              "upstream_blob_sha256": "c301912653a8d8c99eab6212aa3aea8d164ea249d8ad53c941e0558a0a5ac1e3",
+              "upstream_blob_bytes": 1497,
+              "newline_transformation": "none",
+              "sha256_basis": "checkout worktree bytes; git core.autocrlf=true rewrites LF to CRLF on checkout, so this is NOT the upstream blob"
             }
           ],
           "packaging_metadata_sha256": {
@@ -333,7 +608,7 @@
           },
           "per_file_ledger": "per-file-ledger.csv"
         },
-        "decision_basis": "declared licence family is OSI-permissive (BSD-3-Clause); the primary licence file at the pinned revision carries no copyleft marker and no non-commercial / research-only / no-derivative clause. Hit lists below are recorded verbatim so this decision can be re-derived from the hashed files alone.",
+        "decision_basis": "approved_spdx is DERIVED, not asserted: the pinned licence text yields ['BSD-3-Clause'] and the pinned packaging metadata declares no explicit SPDX, and the declared preset BSD-3-Clause must agree with both. The primary licence file carries no copyleft marker and no non-commercial / research-only / no-derivative clause. Every input is hashed below, so the decision can be re-derived from the pinned bytes alone.",
         "decided_by": "D0 owner (资料调研与分发)",
         "decided_at": "2026-10-05",
         "decided_against_revision": "4332b35a278d694f30c99881faa61cde695c7a96",
@@ -381,22 +656,96 @@
         "osi_permissive": true,
         "copyleft_marker_hits": [],
         "restrictive_marker_hits": [],
+        "license_facts": {
+          "preset_spdx": "MIT",
+          "detected_from_licence_text": [
+            "MIT"
+          ],
+          "licence_text_evidence": [
+            {
+              "path": "LICENSE",
+              "families": [
+                "MIT"
+              ]
+            }
+          ],
+          "detected_from_packaging_metadata": [
+            "MIT"
+          ],
+          "packaging_metadata_evidence": [
+            {
+              "file": "pyproject.toml",
+              "declaration": "\"MIT\"",
+              "families": [
+                "MIT"
+              ]
+            }
+          ],
+          "agreement": true,
+          "detection_scope": "licence TEXT is read only from the repository's own root LICENSE/COPYING files; NOTICE and third-party licence copies are excluded because they quote other projects' licences"
+        },
+        "license_conflicts": [],
+        "hash_basis": {
+          "rule": "upstream_blob_sha256 is the committed git object's bytes; checkout_sha256 is the working-tree bytes after git's newline conversion. They are different strings and must never be mixed.",
+          "core_autocrlf": true,
+          "per_file": {
+            "LICENSE": {
+              "git_blob_sha1": "2bd6453d255e19b973f19b128596a8b6dd65b2c3",
+              "upstream_blob_sha256": "882115c95dfc2af1eeb6714f8ec6d5cbcabf667caff8729f42420da63f714e9f",
+              "upstream_blob_bytes": 1109,
+              "checkout_sha256": "882115c95dfc2af1eeb6714f8ec6d5cbcabf667caff8729f42420da63f714e9f",
+              "checkout_bytes": 1109,
+              "newline_transformation": "none",
+              "sha256_basis": "checkout worktree bytes; git core.autocrlf=true rewrites LF to CRLF on checkout, so this is NOT the upstream blob"
+            },
+            "docs/license.md": {
+              "git_blob_sha1": "b26ffac123c23aa6bc8c2b74eb3124ab1db69a83",
+              "upstream_blob_sha256": "b26415d5042a70fcc29edc17112f68311aa09935290a208218d4930d9b571a7a",
+              "upstream_blob_bytes": 1289,
+              "checkout_sha256": "b26415d5042a70fcc29edc17112f68311aa09935290a208218d4930d9b571a7a",
+              "checkout_bytes": 1289,
+              "newline_transformation": "none",
+              "sha256_basis": "checkout worktree bytes; git core.autocrlf=true rewrites LF to CRLF on checkout, so this is NOT the upstream blob"
+            }
+          }
+        },
         "evidence": {
           "primary_license_file": {
             "path": "LICENSE",
+            "git_blob_sha1": "2bd6453d255e19b973f19b128596a8b6dd65b2c3",
             "sha256": "882115c95dfc2af1eeb6714f8ec6d5cbcabf667caff8729f42420da63f714e9f",
-            "bytes": 1109
+            "bytes": 1109,
+            "checkout_sha256": "882115c95dfc2af1eeb6714f8ec6d5cbcabf667caff8729f42420da63f714e9f",
+            "checkout_bytes": 1109,
+            "upstream_blob_sha256": "882115c95dfc2af1eeb6714f8ec6d5cbcabf667caff8729f42420da63f714e9f",
+            "upstream_blob_bytes": 1109,
+            "newline_transformation": "none",
+            "sha256_basis": "checkout worktree bytes; git core.autocrlf=true rewrites LF to CRLF on checkout, so this is NOT the upstream blob"
           },
           "all_license_file_hashes": [
             {
               "path": "LICENSE",
+              "git_blob_sha1": "2bd6453d255e19b973f19b128596a8b6dd65b2c3",
               "sha256": "882115c95dfc2af1eeb6714f8ec6d5cbcabf667caff8729f42420da63f714e9f",
-              "bytes": 1109
+              "bytes": 1109,
+              "checkout_sha256": "882115c95dfc2af1eeb6714f8ec6d5cbcabf667caff8729f42420da63f714e9f",
+              "checkout_bytes": 1109,
+              "upstream_blob_sha256": "882115c95dfc2af1eeb6714f8ec6d5cbcabf667caff8729f42420da63f714e9f",
+              "upstream_blob_bytes": 1109,
+              "newline_transformation": "none",
+              "sha256_basis": "checkout worktree bytes; git core.autocrlf=true rewrites LF to CRLF on checkout, so this is NOT the upstream blob"
             },
             {
               "path": "docs/license.md",
+              "git_blob_sha1": "b26ffac123c23aa6bc8c2b74eb3124ab1db69a83",
               "sha256": "b26415d5042a70fcc29edc17112f68311aa09935290a208218d4930d9b571a7a",
-              "bytes": 1289
+              "bytes": 1289,
+              "checkout_sha256": "b26415d5042a70fcc29edc17112f68311aa09935290a208218d4930d9b571a7a",
+              "checkout_bytes": 1289,
+              "upstream_blob_sha256": "b26415d5042a70fcc29edc17112f68311aa09935290a208218d4930d9b571a7a",
+              "upstream_blob_bytes": 1289,
+              "newline_transformation": "none",
+              "sha256_basis": "checkout worktree bytes; git core.autocrlf=true rewrites LF to CRLF on checkout, so this is NOT the upstream blob"
             }
           ],
           "packaging_metadata_sha256": {
@@ -410,7 +759,7 @@
           },
           "per_file_ledger": "per-file-ledger.csv"
         },
-        "decision_basis": "declared licence family is OSI-permissive (MIT); the primary licence file at the pinned revision carries no copyleft marker and no non-commercial / research-only / no-derivative clause. Hit lists below are recorded verbatim so this decision can be re-derived from the hashed files alone.",
+        "decision_basis": "approved_spdx is DERIVED, not asserted: the pinned licence text yields ['MIT'] and the pinned packaging metadata declares ['MIT'], and the declared preset MIT must agree with both. The primary licence file carries no copyleft marker and no non-commercial / research-only / no-derivative clause. Every input is hashed below, so the decision can be re-derived from the pinned bytes alone.",
         "decided_by": "D0 owner (资料调研与分发)",
         "decided_at": "2026-10-05",
         "decided_against_revision": "7bfc49e9b22d5ba25b6e429524c3d49fee27cb36",
@@ -465,22 +814,98 @@
         "osi_permissive": true,
         "copyleft_marker_hits": [],
         "restrictive_marker_hits": [],
+        "license_facts": {
+          "preset_spdx": "Apache-2.0 OR BSD-3-Clause",
+          "detected_from_licence_text": [
+            "Apache-2.0",
+            "BSD-3-Clause"
+          ],
+          "licence_text_evidence": [
+            {
+              "path": "LICENSE",
+              "families": [
+                "Apache-2.0",
+                "BSD-3-Clause"
+              ]
+            }
+          ],
+          "detected_from_packaging_metadata": [
+            "Apache-2.0"
+          ],
+          "packaging_metadata_evidence": [
+            {
+              "file": "setup.cfg",
+              "declaration": "License :: OSI Approved :: Apache Software License",
+              "families": [
+                "Apache-2.0"
+              ]
+            }
+          ],
+          "agreement": true,
+          "detection_scope": "licence TEXT is read only from the repository's own root LICENSE/COPYING files; NOTICE and third-party licence copies are excluded because they quote other projects' licences"
+        },
+        "license_conflicts": [],
+        "hash_basis": {
+          "rule": "upstream_blob_sha256 is the committed git object's bytes; checkout_sha256 is the working-tree bytes after git's newline conversion. They are different strings and must never be mixed.",
+          "core_autocrlf": true,
+          "per_file": {
+            "AUTHORS.md": {
+              "git_blob_sha1": "793a2fd59586c099e4db9475b79d92c8427363fa",
+              "upstream_blob_sha256": "8747ac728d6aa5d1f66949b9f57513f0be05080c8ff0d3be26ffb94ebb4d437d",
+              "upstream_blob_bytes": 6655,
+              "checkout_sha256": "6a548b9a9d6b36e57c8bac5933357d6eacff0540c1dd2eaf265d916ae9ca2102",
+              "checkout_bytes": 6788,
+              "newline_transformation": "lf_to_crlf_on_checkout",
+              "sha256_basis": "checkout worktree bytes; git core.autocrlf=true rewrites LF to CRLF on checkout, so this is NOT the upstream blob"
+            },
+            "LICENSE": {
+              "git_blob_sha1": "1e65815cf0b3132689485874a93034ede7206bf4",
+              "upstream_blob_sha256": "ba00f51a0d92823b5a1cde27d8b5b9d2321e67ed8da9bc163eff96d5e17e577e",
+              "upstream_blob_bytes": 2889,
+              "checkout_sha256": "aedc1c280bcc065a11e10ed8008317c3e91a7371dcae51cc52971243f2577d64",
+              "checkout_bytes": 2942,
+              "newline_transformation": "lf_to_crlf_on_checkout",
+              "sha256_basis": "checkout worktree bytes; git core.autocrlf=true rewrites LF to CRLF on checkout, so this is NOT the upstream blob"
+            }
+          }
+        },
         "evidence": {
           "primary_license_file": {
             "path": "LICENSE",
+            "git_blob_sha1": "1e65815cf0b3132689485874a93034ede7206bf4",
             "sha256": "aedc1c280bcc065a11e10ed8008317c3e91a7371dcae51cc52971243f2577d64",
-            "bytes": 2942
+            "bytes": 2942,
+            "checkout_sha256": "aedc1c280bcc065a11e10ed8008317c3e91a7371dcae51cc52971243f2577d64",
+            "checkout_bytes": 2942,
+            "upstream_blob_sha256": "ba00f51a0d92823b5a1cde27d8b5b9d2321e67ed8da9bc163eff96d5e17e577e",
+            "upstream_blob_bytes": 2889,
+            "newline_transformation": "lf_to_crlf_on_checkout",
+            "sha256_basis": "checkout worktree bytes; git core.autocrlf=true rewrites LF to CRLF on checkout, so this is NOT the upstream blob"
           },
           "all_license_file_hashes": [
             {
               "path": "AUTHORS.md",
+              "git_blob_sha1": "793a2fd59586c099e4db9475b79d92c8427363fa",
               "sha256": "6a548b9a9d6b36e57c8bac5933357d6eacff0540c1dd2eaf265d916ae9ca2102",
-              "bytes": 6788
+              "bytes": 6788,
+              "checkout_sha256": "6a548b9a9d6b36e57c8bac5933357d6eacff0540c1dd2eaf265d916ae9ca2102",
+              "checkout_bytes": 6788,
+              "upstream_blob_sha256": "8747ac728d6aa5d1f66949b9f57513f0be05080c8ff0d3be26ffb94ebb4d437d",
+              "upstream_blob_bytes": 6655,
+              "newline_transformation": "lf_to_crlf_on_checkout",
+              "sha256_basis": "checkout worktree bytes; git core.autocrlf=true rewrites LF to CRLF on checkout, so this is NOT the upstream blob"
             },
             {
               "path": "LICENSE",
+              "git_blob_sha1": "1e65815cf0b3132689485874a93034ede7206bf4",
               "sha256": "aedc1c280bcc065a11e10ed8008317c3e91a7371dcae51cc52971243f2577d64",
-              "bytes": 2942
+              "bytes": 2942,
+              "checkout_sha256": "aedc1c280bcc065a11e10ed8008317c3e91a7371dcae51cc52971243f2577d64",
+              "checkout_bytes": 2942,
+              "upstream_blob_sha256": "ba00f51a0d92823b5a1cde27d8b5b9d2321e67ed8da9bc163eff96d5e17e577e",
+              "upstream_blob_bytes": 2889,
+              "newline_transformation": "lf_to_crlf_on_checkout",
+              "sha256_basis": "checkout worktree bytes; git core.autocrlf=true rewrites LF to CRLF on checkout, so this is NOT the upstream blob"
             }
           ],
           "packaging_metadata_sha256": {
@@ -496,7 +921,7 @@
           },
           "per_file_ledger": "per-file-ledger.csv"
         },
-        "decision_basis": "declared licence family is OSI-permissive (Apache-2.0 OR BSD-3-Clause); the primary licence file at the pinned revision carries no copyleft marker and no non-commercial / research-only / no-derivative clause. Hit lists below are recorded verbatim so this decision can be re-derived from the hashed files alone.",
+        "decision_basis": "approved_spdx is DERIVED, not asserted: the pinned licence text yields ['Apache-2.0', 'BSD-3-Clause'] and the pinned packaging metadata declares ['Apache-2.0'], and the declared preset Apache-2.0 OR BSD-3-Clause must agree with both. The primary licence file carries no copyleft marker and no non-commercial / research-only / no-derivative clause. Every input is hashed below, so the decision can be re-derived from the pinned bytes alone.",
         "decided_by": "D0 owner (资料调研与分发)",
         "decided_at": "2026-10-05",
         "decided_against_revision": "db9d018944c41ddc740015cf5f64717c2ba64a5c",
@@ -541,27 +966,132 @@
         "osi_permissive": true,
         "copyleft_marker_hits": [],
         "restrictive_marker_hits": [],
+        "license_facts": {
+          "preset_spdx": "Apache-2.0 OR BSD-2-Clause",
+          "detected_from_licence_text": [
+            "Apache-2.0",
+            "BSD-2-Clause"
+          ],
+          "licence_text_evidence": [
+            {
+              "path": "LICENSE.APACHE",
+              "families": [
+                "Apache-2.0"
+              ]
+            },
+            {
+              "path": "LICENSE.BSD",
+              "families": [
+                "BSD-2-Clause"
+              ]
+            }
+          ],
+          "detected_from_packaging_metadata": [
+            "Apache-2.0",
+            "BSD-2-Clause"
+          ],
+          "packaging_metadata_evidence": [
+            {
+              "file": "pyproject.toml",
+              "declaration": "\"Apache-2.0 OR BSD-2-Clause\"",
+              "families": [
+                "Apache-2.0"
+              ]
+            },
+            {
+              "file": "pyproject.toml",
+              "declaration": "\"Apache-2.0 OR BSD-2-Clause\"",
+              "families": [
+                "BSD-2-Clause"
+              ]
+            }
+          ],
+          "agreement": true,
+          "detection_scope": "licence TEXT is read only from the repository's own root LICENSE/COPYING files; NOTICE and third-party licence copies are excluded because they quote other projects' licences"
+        },
+        "license_conflicts": [],
+        "hash_basis": {
+          "rule": "upstream_blob_sha256 is the committed git object's bytes; checkout_sha256 is the working-tree bytes after git's newline conversion. They are different strings and must never be mixed.",
+          "core_autocrlf": true,
+          "per_file": {
+            "LICENSE": {
+              "git_blob_sha1": "6f62d44e4ef733c0e713afcd2371fed7f2b3de67",
+              "upstream_blob_sha256": "cad1ef5bd340d73e074ba614d26f7deaca5c7940c3d8c34852e65c4909686c48",
+              "upstream_blob_bytes": 197,
+              "checkout_sha256": "8ef81e4c883c5ccb2a08026cc74ba3193279dd5149b36839d976c0a896637d87",
+              "checkout_bytes": 200,
+              "newline_transformation": "lf_to_crlf_on_checkout",
+              "sha256_basis": "checkout worktree bytes; git core.autocrlf=true rewrites LF to CRLF on checkout, so this is NOT the upstream blob"
+            },
+            "LICENSE.APACHE": {
+              "git_blob_sha1": "f433b1a53f5b830a205fd2df78e2b34974656c7b",
+              "upstream_blob_sha256": "0d542e0c8804e39aa7f37eb00da5a762149dc682d7829451287e11b938e94594",
+              "upstream_blob_bytes": 10174,
+              "checkout_sha256": "eb3d7b5485466acbd81f2b496f595ab637d2792e268206b27d99e793bdb67549",
+              "checkout_bytes": 10351,
+              "newline_transformation": "lf_to_crlf_on_checkout",
+              "sha256_basis": "checkout worktree bytes; git core.autocrlf=true rewrites LF to CRLF on checkout, so this is NOT the upstream blob"
+            },
+            "LICENSE.BSD": {
+              "git_blob_sha1": "42ce7b75c92fb01a3f6ed17eea363f756b7da582",
+              "upstream_blob_sha256": "b70e7e9b742f1cc6f948b34c16aa39ffece94196364bc88ff0d2180f0028fac5",
+              "upstream_blob_bytes": 1344,
+              "checkout_sha256": "67daf15b478dbd91bcd83bff907efff68471d42d2138226b89f039d658d53435",
+              "checkout_bytes": 1367,
+              "newline_transformation": "lf_to_crlf_on_checkout",
+              "sha256_basis": "checkout worktree bytes; git core.autocrlf=true rewrites LF to CRLF on checkout, so this is NOT the upstream blob"
+            }
+          }
+        },
         "evidence": {
           "primary_license_file": {
             "path": "LICENSE",
+            "git_blob_sha1": "6f62d44e4ef733c0e713afcd2371fed7f2b3de67",
             "sha256": "8ef81e4c883c5ccb2a08026cc74ba3193279dd5149b36839d976c0a896637d87",
-            "bytes": 200
+            "bytes": 200,
+            "checkout_sha256": "8ef81e4c883c5ccb2a08026cc74ba3193279dd5149b36839d976c0a896637d87",
+            "checkout_bytes": 200,
+            "upstream_blob_sha256": "cad1ef5bd340d73e074ba614d26f7deaca5c7940c3d8c34852e65c4909686c48",
+            "upstream_blob_bytes": 197,
+            "newline_transformation": "lf_to_crlf_on_checkout",
+            "sha256_basis": "checkout worktree bytes; git core.autocrlf=true rewrites LF to CRLF on checkout, so this is NOT the upstream blob"
           },
           "all_license_file_hashes": [
             {
               "path": "LICENSE",
+              "git_blob_sha1": "6f62d44e4ef733c0e713afcd2371fed7f2b3de67",
               "sha256": "8ef81e4c883c5ccb2a08026cc74ba3193279dd5149b36839d976c0a896637d87",
-              "bytes": 200
+              "bytes": 200,
+              "checkout_sha256": "8ef81e4c883c5ccb2a08026cc74ba3193279dd5149b36839d976c0a896637d87",
+              "checkout_bytes": 200,
+              "upstream_blob_sha256": "cad1ef5bd340d73e074ba614d26f7deaca5c7940c3d8c34852e65c4909686c48",
+              "upstream_blob_bytes": 197,
+              "newline_transformation": "lf_to_crlf_on_checkout",
+              "sha256_basis": "checkout worktree bytes; git core.autocrlf=true rewrites LF to CRLF on checkout, so this is NOT the upstream blob"
             },
             {
               "path": "LICENSE.APACHE",
+              "git_blob_sha1": "f433b1a53f5b830a205fd2df78e2b34974656c7b",
               "sha256": "eb3d7b5485466acbd81f2b496f595ab637d2792e268206b27d99e793bdb67549",
-              "bytes": 10351
+              "bytes": 10351,
+              "checkout_sha256": "eb3d7b5485466acbd81f2b496f595ab637d2792e268206b27d99e793bdb67549",
+              "checkout_bytes": 10351,
+              "upstream_blob_sha256": "0d542e0c8804e39aa7f37eb00da5a762149dc682d7829451287e11b938e94594",
+              "upstream_blob_bytes": 10174,
+              "newline_transformation": "lf_to_crlf_on_checkout",
+              "sha256_basis": "checkout worktree bytes; git core.autocrlf=true rewrites LF to CRLF on checkout, so this is NOT the upstream blob"
             },
             {
               "path": "LICENSE.BSD",
+              "git_blob_sha1": "42ce7b75c92fb01a3f6ed17eea363f756b7da582",
               "sha256": "67daf15b478dbd91bcd83bff907efff68471d42d2138226b89f039d658d53435",
-              "bytes": 1367
+              "bytes": 1367,
+              "checkout_sha256": "67daf15b478dbd91bcd83bff907efff68471d42d2138226b89f039d658d53435",
+              "checkout_bytes": 1367,
+              "upstream_blob_sha256": "b70e7e9b742f1cc6f948b34c16aa39ffece94196364bc88ff0d2180f0028fac5",
+              "upstream_blob_bytes": 1344,
+              "newline_transformation": "lf_to_crlf_on_checkout",
+              "sha256_basis": "checkout worktree bytes; git core.autocrlf=true rewrites LF to CRLF on checkout, so this is NOT the upstream blob"
             }
           ],
           "packaging_metadata_sha256": {
@@ -575,7 +1105,7 @@
           },
           "per_file_ledger": "per-file-ledger.csv"
         },
-        "decision_basis": "declared licence family is OSI-permissive (Apache-2.0 OR BSD-2-Clause); the primary licence file at the pinned revision carries no copyleft marker and no non-commercial / research-only / no-derivative clause. Hit lists below are recorded verbatim so this decision can be re-derived from the hashed files alone.",
+        "decision_basis": "approved_spdx is DERIVED, not asserted: the pinned licence text yields ['Apache-2.0', 'BSD-2-Clause'] and the pinned packaging metadata declares ['Apache-2.0', 'BSD-2-Clause'], and the declared preset Apache-2.0 OR BSD-2-Clause must agree with both. The primary licence file carries no copyleft marker and no non-commercial / research-only / no-derivative clause. Every input is hashed below, so the decision can be re-derived from the pinned bytes alone.",
         "decided_by": "D0 owner (资料调研与分发)",
         "decided_at": "2026-10-05",
         "decided_against_revision": "929fd4b1410ac7ef61ef3f45b2f5d7e87711a9b5",
@@ -620,37 +1150,159 @@
         "osi_permissive": true,
         "copyleft_marker_hits": [],
         "restrictive_marker_hits": [],
+        "license_facts": {
+          "preset_spdx": "MIT",
+          "detected_from_licence_text": [
+            "MIT"
+          ],
+          "licence_text_evidence": [
+            {
+              "path": "LICENSE",
+              "families": [
+                "MIT"
+              ]
+            }
+          ],
+          "detected_from_packaging_metadata": [
+            "MIT"
+          ],
+          "packaging_metadata_evidence": [
+            {
+              "file": "pyproject.toml",
+              "declaration": "\"MIT\"",
+              "families": [
+                "MIT"
+              ]
+            }
+          ],
+          "agreement": true,
+          "detection_scope": "licence TEXT is read only from the repository's own root LICENSE/COPYING files; NOTICE and third-party licence copies are excluded because they quote other projects' licences"
+        },
+        "license_conflicts": [],
+        "hash_basis": {
+          "rule": "upstream_blob_sha256 is the committed git object's bytes; checkout_sha256 is the working-tree bytes after git's newline conversion. They are different strings and must never be mixed.",
+          "core_autocrlf": true,
+          "per_file": {
+            "AUTHORS.rst": {
+              "git_blob_sha1": "e4161f924e7cf97d3ec4f389a5b65577bb0d8489",
+              "upstream_blob_sha256": "a241b3d536557cf57c91773da631c105f41aea1ab176e0c4dcdaa1b86ecdf083",
+              "upstream_blob_bytes": 10752,
+              "checkout_sha256": "b585a0524e7961defcaeb0d013616e60ea17fddefb24b19d8b0f59928479746a",
+              "checkout_bytes": 10943,
+              "newline_transformation": "lf_to_crlf_on_checkout",
+              "sha256_basis": "checkout worktree bytes; git core.autocrlf=true rewrites LF to CRLF on checkout, so this is NOT the upstream blob"
+            },
+            "LICENSE": {
+              "git_blob_sha1": "b20df7cab259cfce3d02bd8da515ce65870612b7",
+              "upstream_blob_sha256": "906b5d9051e426144cb173ad911667b8ebd05a9c584c2c26c135b32a3ed12001",
+              "upstream_blob_bytes": 1064,
+              "checkout_sha256": "dec8462f60a3ae3934ec12483514f012af9649b2e5476064fc5647d949cdb60d",
+              "checkout_bytes": 1083,
+              "newline_transformation": "lf_to_crlf_on_checkout",
+              "sha256_basis": "checkout worktree bytes; git core.autocrlf=true rewrites LF to CRLF on checkout, so this is NOT the upstream blob"
+            },
+            "NOTICE": {
+              "git_blob_sha1": "3dccd6be9940be23c7aef2850243b3bc6bb230c0",
+              "upstream_blob_sha256": "136504a775edb2c343eec9cc09b8380d8ef042d0ac6808bfa8e17dfcdd7e531b",
+              "upstream_blob_bytes": 1631,
+              "checkout_sha256": "d67ae34aacd8d5bea962ae34e853e581311be2b5a12259dc5b3804c5b21658c1",
+              "checkout_bytes": 1663,
+              "newline_transformation": "lf_to_crlf_on_checkout",
+              "sha256_basis": "checkout worktree bytes; git core.autocrlf=true rewrites LF to CRLF on checkout, so this is NOT the upstream blob"
+            },
+            "docs/authors.rst": {
+              "git_blob_sha1": "e122f914a87b277e565fc9567af1a7545ec9872b",
+              "upstream_blob_sha256": "0ba8e9a403475ae12773cfce9fc7a32bce591e9801a1adde71927982f51d901b",
+              "upstream_blob_bytes": 28,
+              "checkout_sha256": "585abb1a1d4e26cf2add13be364fb6128a8fccb65eab6710b7f7b97b9033b0fb",
+              "checkout_bytes": 29,
+              "newline_transformation": "lf_to_crlf_on_checkout",
+              "sha256_basis": "checkout worktree bytes; git core.autocrlf=true rewrites LF to CRLF on checkout, so this is NOT the upstream blob"
+            },
+            "docs/license.rst": {
+              "git_blob_sha1": "8f3cf1fb7bcd7c0b4461f0bda1841b90ff8c1a49",
+              "upstream_blob_sha256": "f982e6fd97ba00973e94605b972ff04894b22c4fa937b868828b32ae8f0a7c2e",
+              "upstream_blob_bytes": 48,
+              "checkout_sha256": "91654619aa076c353aac303791252fd0eae6018faec63c3900e1885042a4bf96",
+              "checkout_bytes": 52,
+              "newline_transformation": "lf_to_crlf_on_checkout",
+              "sha256_basis": "checkout worktree bytes; git core.autocrlf=true rewrites LF to CRLF on checkout, so this is NOT the upstream blob"
+            }
+          }
+        },
         "evidence": {
           "primary_license_file": {
             "path": "LICENSE",
+            "git_blob_sha1": "b20df7cab259cfce3d02bd8da515ce65870612b7",
             "sha256": "dec8462f60a3ae3934ec12483514f012af9649b2e5476064fc5647d949cdb60d",
-            "bytes": 1083
+            "bytes": 1083,
+            "checkout_sha256": "dec8462f60a3ae3934ec12483514f012af9649b2e5476064fc5647d949cdb60d",
+            "checkout_bytes": 1083,
+            "upstream_blob_sha256": "906b5d9051e426144cb173ad911667b8ebd05a9c584c2c26c135b32a3ed12001",
+            "upstream_blob_bytes": 1064,
+            "newline_transformation": "lf_to_crlf_on_checkout",
+            "sha256_basis": "checkout worktree bytes; git core.autocrlf=true rewrites LF to CRLF on checkout, so this is NOT the upstream blob"
           },
           "all_license_file_hashes": [
             {
               "path": "AUTHORS.rst",
+              "git_blob_sha1": "e4161f924e7cf97d3ec4f389a5b65577bb0d8489",
               "sha256": "b585a0524e7961defcaeb0d013616e60ea17fddefb24b19d8b0f59928479746a",
-              "bytes": 10943
+              "bytes": 10943,
+              "checkout_sha256": "b585a0524e7961defcaeb0d013616e60ea17fddefb24b19d8b0f59928479746a",
+              "checkout_bytes": 10943,
+              "upstream_blob_sha256": "a241b3d536557cf57c91773da631c105f41aea1ab176e0c4dcdaa1b86ecdf083",
+              "upstream_blob_bytes": 10752,
+              "newline_transformation": "lf_to_crlf_on_checkout",
+              "sha256_basis": "checkout worktree bytes; git core.autocrlf=true rewrites LF to CRLF on checkout, so this is NOT the upstream blob"
             },
             {
               "path": "LICENSE",
+              "git_blob_sha1": "b20df7cab259cfce3d02bd8da515ce65870612b7",
               "sha256": "dec8462f60a3ae3934ec12483514f012af9649b2e5476064fc5647d949cdb60d",
-              "bytes": 1083
+              "bytes": 1083,
+              "checkout_sha256": "dec8462f60a3ae3934ec12483514f012af9649b2e5476064fc5647d949cdb60d",
+              "checkout_bytes": 1083,
+              "upstream_blob_sha256": "906b5d9051e426144cb173ad911667b8ebd05a9c584c2c26c135b32a3ed12001",
+              "upstream_blob_bytes": 1064,
+              "newline_transformation": "lf_to_crlf_on_checkout",
+              "sha256_basis": "checkout worktree bytes; git core.autocrlf=true rewrites LF to CRLF on checkout, so this is NOT the upstream blob"
             },
             {
               "path": "NOTICE",
+              "git_blob_sha1": "3dccd6be9940be23c7aef2850243b3bc6bb230c0",
               "sha256": "d67ae34aacd8d5bea962ae34e853e581311be2b5a12259dc5b3804c5b21658c1",
-              "bytes": 1663
+              "bytes": 1663,
+              "checkout_sha256": "d67ae34aacd8d5bea962ae34e853e581311be2b5a12259dc5b3804c5b21658c1",
+              "checkout_bytes": 1663,
+              "upstream_blob_sha256": "136504a775edb2c343eec9cc09b8380d8ef042d0ac6808bfa8e17dfcdd7e531b",
+              "upstream_blob_bytes": 1631,
+              "newline_transformation": "lf_to_crlf_on_checkout",
+              "sha256_basis": "checkout worktree bytes; git core.autocrlf=true rewrites LF to CRLF on checkout, so this is NOT the upstream blob"
             },
             {
               "path": "docs/authors.rst",
+              "git_blob_sha1": "e122f914a87b277e565fc9567af1a7545ec9872b",
               "sha256": "585abb1a1d4e26cf2add13be364fb6128a8fccb65eab6710b7f7b97b9033b0fb",
-              "bytes": 29
+              "bytes": 29,
+              "checkout_sha256": "585abb1a1d4e26cf2add13be364fb6128a8fccb65eab6710b7f7b97b9033b0fb",
+              "checkout_bytes": 29,
+              "upstream_blob_sha256": "0ba8e9a403475ae12773cfce9fc7a32bce591e9801a1adde71927982f51d901b",
+              "upstream_blob_bytes": 28,
+              "newline_transformation": "lf_to_crlf_on_checkout",
+              "sha256_basis": "checkout worktree bytes; git core.autocrlf=true rewrites LF to CRLF on checkout, so this is NOT the upstream blob"
             },
             {
               "path": "docs/license.rst",
+              "git_blob_sha1": "8f3cf1fb7bcd7c0b4461f0bda1841b90ff8c1a49",
               "sha256": "91654619aa076c353aac303791252fd0eae6018faec63c3900e1885042a4bf96",
-              "bytes": 52
+              "bytes": 52,
+              "checkout_sha256": "91654619aa076c353aac303791252fd0eae6018faec63c3900e1885042a4bf96",
+              "checkout_bytes": 52,
+              "upstream_blob_sha256": "f982e6fd97ba00973e94605b972ff04894b22c4fa937b868828b32ae8f0a7c2e",
+              "upstream_blob_bytes": 48,
+              "newline_transformation": "lf_to_crlf_on_checkout",
+              "sha256_basis": "checkout worktree bytes; git core.autocrlf=true rewrites LF to CRLF on checkout, so this is NOT the upstream blob"
             }
           ],
           "packaging_metadata_sha256": {
@@ -664,7 +1316,7 @@
           },
           "per_file_ledger": "per-file-ledger.csv"
         },
-        "decision_basis": "declared licence family is OSI-permissive (MIT); the primary licence file at the pinned revision carries no copyleft marker and no non-commercial / research-only / no-derivative clause. Hit lists below are recorded verbatim so this decision can be re-derived from the hashed files alone.",
+        "decision_basis": "approved_spdx is DERIVED, not asserted: the pinned licence text yields ['MIT'] and the pinned packaging metadata declares ['MIT'], and the declared preset MIT must agree with both. The primary licence file carries no copyleft marker and no non-commercial / research-only / no-derivative clause. Every input is hashed below, so the decision can be re-derived from the pinned bytes alone.",
         "decided_by": "D0 owner (资料调研与分发)",
         "decided_at": "2026-10-05",
         "decided_against_revision": "c7b559a1fa3aba57ca6dba0ab336841c5038a782",
@@ -693,7 +1345,7 @@
       "tracked_files": 47,
       "text_files_scanned": 42,
       "split_role": "dev",
-      "design_license_expectation": "MIT",
+      "design_license_expectation": "BSD-3-Clause",
       "spdx_headers_found": [],
       "packaging_metadata": {
         "pyproject.toml": {
@@ -706,26 +1358,107 @@
       },
       "license_review": {
         "decision": "approved",
-        "approved_spdx": "MIT",
+        "approved_spdx": "BSD-3-Clause",
         "osi_permissive": true,
         "copyleft_marker_hits": [],
         "restrictive_marker_hits": [],
+        "license_facts": {
+          "preset_spdx": "BSD-3-Clause",
+          "detected_from_licence_text": [
+            "BSD-3-Clause"
+          ],
+          "licence_text_evidence": [
+            {
+              "path": "LICENSE",
+              "families": [
+                "BSD-3-Clause"
+              ]
+            }
+          ],
+          "detected_from_packaging_metadata": [
+            "BSD-3-Clause"
+          ],
+          "packaging_metadata_evidence": [
+            {
+              "file": "pyproject.toml",
+              "declaration": "{ text = \"BSD-3-Clause\" }",
+              "families": [
+                "BSD-3-Clause"
+              ]
+            },
+            {
+              "file": "pyproject.toml",
+              "declaration": "{text = \"BSD-3-Clause\"}",
+              "families": [
+                "BSD-3-Clause"
+              ]
+            }
+          ],
+          "agreement": true,
+          "detection_scope": "licence TEXT is read only from the repository's own root LICENSE/COPYING files; NOTICE and third-party licence copies are excluded because they quote other projects' licences"
+        },
+        "license_conflicts": [],
+        "hash_basis": {
+          "rule": "upstream_blob_sha256 is the committed git object's bytes; checkout_sha256 is the working-tree bytes after git's newline conversion. They are different strings and must never be mixed.",
+          "core_autocrlf": true,
+          "per_file": {
+            "LICENSE": {
+              "git_blob_sha1": "3a97119010ac82e15e917a69b7b8f9f59b5a4601",
+              "upstream_blob_sha256": "80619b7049f08c81683ad0e01f08f257a840652dd71ee83146d36658c7d2c2b9",
+              "upstream_blob_bytes": 1556,
+              "checkout_sha256": "dd1c70c9434fdeb24d08f37fcc43a4eef9cf80db4cee3eb7755e0d888af67a19",
+              "checkout_bytes": 1583,
+              "newline_transformation": "lf_to_crlf_on_checkout",
+              "sha256_basis": "checkout worktree bytes; git core.autocrlf=true rewrites LF to CRLF on checkout, so this is NOT the upstream blob"
+            },
+            "docs/license.md": {
+              "git_blob_sha1": "ea5b60640b01f74e295037aa8a6b7d4ea278a739",
+              "upstream_blob_sha256": "1e881ecf2862d01e6e5bc2b861e46886d2a6fb01499c0c508a209a7271b13cf2",
+              "upstream_blob_bytes": 10,
+              "checkout_sha256": "1e881ecf2862d01e6e5bc2b861e46886d2a6fb01499c0c508a209a7271b13cf2",
+              "checkout_bytes": 10,
+              "newline_transformation": "none",
+              "sha256_basis": "checkout worktree bytes; git core.autocrlf=true rewrites LF to CRLF on checkout, so this is NOT the upstream blob"
+            }
+          }
+        },
         "evidence": {
           "primary_license_file": {
             "path": "LICENSE",
+            "git_blob_sha1": "3a97119010ac82e15e917a69b7b8f9f59b5a4601",
             "sha256": "dd1c70c9434fdeb24d08f37fcc43a4eef9cf80db4cee3eb7755e0d888af67a19",
-            "bytes": 1583
+            "bytes": 1583,
+            "checkout_sha256": "dd1c70c9434fdeb24d08f37fcc43a4eef9cf80db4cee3eb7755e0d888af67a19",
+            "checkout_bytes": 1583,
+            "upstream_blob_sha256": "80619b7049f08c81683ad0e01f08f257a840652dd71ee83146d36658c7d2c2b9",
+            "upstream_blob_bytes": 1556,
+            "newline_transformation": "lf_to_crlf_on_checkout",
+            "sha256_basis": "checkout worktree bytes; git core.autocrlf=true rewrites LF to CRLF on checkout, so this is NOT the upstream blob"
           },
           "all_license_file_hashes": [
             {
               "path": "LICENSE",
+              "git_blob_sha1": "3a97119010ac82e15e917a69b7b8f9f59b5a4601",
               "sha256": "dd1c70c9434fdeb24d08f37fcc43a4eef9cf80db4cee3eb7755e0d888af67a19",
-              "bytes": 1583
+              "bytes": 1583,
+              "checkout_sha256": "dd1c70c9434fdeb24d08f37fcc43a4eef9cf80db4cee3eb7755e0d888af67a19",
+              "checkout_bytes": 1583,
+              "upstream_blob_sha256": "80619b7049f08c81683ad0e01f08f257a840652dd71ee83146d36658c7d2c2b9",
+              "upstream_blob_bytes": 1556,
+              "newline_transformation": "lf_to_crlf_on_checkout",
+              "sha256_basis": "checkout worktree bytes; git core.autocrlf=true rewrites LF to CRLF on checkout, so this is NOT the upstream blob"
             },
             {
               "path": "docs/license.md",
+              "git_blob_sha1": "ea5b60640b01f74e295037aa8a6b7d4ea278a739",
               "sha256": "1e881ecf2862d01e6e5bc2b861e46886d2a6fb01499c0c508a209a7271b13cf2",
-              "bytes": 10
+              "bytes": 10,
+              "checkout_sha256": "1e881ecf2862d01e6e5bc2b861e46886d2a6fb01499c0c508a209a7271b13cf2",
+              "checkout_bytes": 10,
+              "upstream_blob_sha256": "1e881ecf2862d01e6e5bc2b861e46886d2a6fb01499c0c508a209a7271b13cf2",
+              "upstream_blob_bytes": 10,
+              "newline_transformation": "none",
+              "sha256_basis": "checkout worktree bytes; git core.autocrlf=true rewrites LF to CRLF on checkout, so this is NOT the upstream blob"
             }
           ],
           "packaging_metadata_sha256": {
@@ -739,7 +1472,7 @@
           },
           "per_file_ledger": "per-file-ledger.csv"
         },
-        "decision_basis": "declared licence family is OSI-permissive (MIT); the primary licence file at the pinned revision carries no copyleft marker and no non-commercial / research-only / no-derivative clause. Hit lists below are recorded verbatim so this decision can be re-derived from the hashed files alone.",
+        "decision_basis": "approved_spdx is DERIVED, not asserted: the pinned licence text yields ['BSD-3-Clause'] and the pinned packaging metadata declares ['BSD-3-Clause'], and the declared preset BSD-3-Clause must agree with both. The primary licence file carries no copyleft marker and no non-commercial / research-only / no-derivative clause. Every input is hashed below, so the decision can be re-derived from the pinned bytes alone.",
         "decided_by": "D0 owner (资料调研与分发)",
         "decided_at": "2026-10-05",
         "decided_against_revision": "a565c2cc41599c48eabc6b7b7f5b826d43c5a6d7",
@@ -774,6 +1507,50 @@
     },
     "api_field": "repos.<name>.license_review.decision",
     "gate_satisfied": true,
-    "independent_countersignature_claimed": false
+    "independent_countersignature_claimed": false,
+    "repos_with_licence_metadata_conflicts": [],
+    "approved_spdx_by_repo": {
+      "click": "BSD-3-Clause",
+      "more-itertools": "MIT",
+      "pluggy": "MIT",
+      "boltons": "BSD-3-Clause",
+      "attrs": "MIT",
+      "dateutil": "Apache-2.0 OR BSD-3-Clause",
+      "packaging": "Apache-2.0 OR BSD-2-Clause",
+      "marshmallow": "MIT",
+      "python-dotenv": "BSD-3-Clause"
+    },
+    "licence_text_families_by_repo": {
+      "click": [
+        "BSD-3-Clause"
+      ],
+      "more-itertools": [
+        "MIT"
+      ],
+      "pluggy": [
+        "MIT"
+      ],
+      "boltons": [
+        "BSD-3-Clause"
+      ],
+      "attrs": [
+        "MIT"
+      ],
+      "dateutil": [
+        "Apache-2.0",
+        "BSD-3-Clause"
+      ],
+      "packaging": [
+        "Apache-2.0",
+        "BSD-2-Clause"
+      ],
+      "marshmallow": [
+        "MIT"
+      ],
+      "python-dotenv": [
+        "BSD-3-Clause"
+      ]
+    },
+    "hash_basis_recorded_per_licence_file": true
   }
 }
