@@ -183,6 +183,12 @@ class Candidate:
     concentration: float
     src_priority: int
     origin: str = "lexical"
+    #: 候选**自带**的行区间（1 基、闭区间）——Q0 Y10 要求 RegionHit 用真实预测区间，
+    #: 而不是在评测层写死 1..1。无可用行信息时保持 None，评测记 NA（不猜、不回填）。
+    start_line: int | None = None
+    end_line: int | None = None
+    #: 行区间的来源说明（例如 "hit_lines" / "symbol_region"），供报告标注口径。
+    line_span_source: str | None = None
 
     def rank_key(self):
         # ① 不同锚点覆盖降序 ② 局部命中集中度降序 ③ 非测试优先 ④ 路径字节序
@@ -202,6 +208,9 @@ class Candidate:
             "concentration": round(self.concentration, 6),
             "src_priority": self.src_priority,
             "origin": self.origin,
+            "start_line": self.start_line,
+            "end_line": self.end_line,
+            "line_span_source": self.line_span_source,
         }
 
 
@@ -218,11 +227,41 @@ def _concentration(text: str, token: str) -> float:
     return best / float(len(hit_indexes))
 
 
+def _hit_line_numbers(text: str, token: str) -> list[int]:
+    """token 在 text 里出现的**行号**（1 基）。"""
+    return [index + 1 for index, line in enumerate(text.splitlines()) if token in line]
+
+
+def longest_hit_block(lines: Sequence[int]) -> tuple[int | None, int | None]:
+    """命中行里最长的连续块（允许相邻行间隔 ≤1）→ `(start, end)` 闭区间。
+
+    这是候选**自带**的行区间来源：它由真实命中行推出，不是评测层假定。
+    没有命中行时返回 `(None, None)`，即"无行信息"，评测必须记 NA。
+    """
+    ordered = sorted({int(line) for line in lines})
+    if not ordered:
+        return (None, None)
+    best_start = best_end = ordered[0]
+    cur_start = prev = ordered[0]
+    for line in ordered[1:]:
+        if line - prev <= 2:
+            prev = line
+        else:
+            if prev - cur_start > best_end - best_start:
+                best_start, best_end = cur_start, prev
+            cur_start = prev = line
+    if prev - cur_start > best_end - best_start:
+        best_start, best_end = cur_start, prev
+    return (best_start, best_end)
+
+
 def lexical_rank(files: Mapping[str, str], tokens: Sequence[str]) -> list[Candidate]:
     """V1：idf 加权 + 命中不同 token 数。"""
     total = max(1, len(files))
     df = document_frequencies(files, tokens)
-    per_file: dict[str, dict] = defaultdict(lambda: {"tokens": set(), "hits": 0, "score": 0.0, "conc": 0.0})
+    per_file: dict[str, dict] = defaultdict(
+        lambda: {"tokens": set(), "hits": 0, "score": 0.0, "conc": 0.0, "lines": []}
+    )
     for token in tokens:
         if df[token] == 0 or df[token] == total:
             continue
@@ -236,17 +275,24 @@ def lexical_rank(files: Mapping[str, str], tokens: Sequence[str]) -> list[Candid
             entry["hits"] += hits
             entry["score"] += weight * math.log(1 + hits)
             entry["conc"] = max(entry["conc"], _concentration(text, token))
-    candidates = [
-        Candidate(
-            path=path,
-            score=data["score"],
-            distinct_queries=len(data["tokens"]),
-            hits=data["hits"],
-            concentration=data["conc"],
-            src_priority=src_side_priority(path),
+            # Y10：同时记录命中行号，供候选自带真实行区间（而不是评测层写死 1..1）。
+            entry["lines"].extend(_hit_line_numbers(text, token))
+    candidates = []
+    for path, data in per_file.items():
+        start_line, end_line = longest_hit_block(data["lines"])
+        candidates.append(
+            Candidate(
+                path=path,
+                score=data["score"],
+                distinct_queries=len(data["tokens"]),
+                hits=data["hits"],
+                concentration=data["conc"],
+                src_priority=src_side_priority(path),
+                start_line=start_line,
+                end_line=end_line,
+                line_span_source="hit_lines_longest_block" if start_line is not None else None,
+            )
         )
-        for path, data in per_file.items()
-    ]
     candidates.sort(key=lambda c: c.rank_key())
     return candidates
 
@@ -340,13 +386,31 @@ def true_recall_at_k(candidates: Sequence[Candidate], gold_files: Iterable[str],
     return len(top & gold) / float(len(gold))
 
 
-def region_hit(chosen: Mapping | None, gold_hunks: Sequence[Mapping]) -> bool:
-    """RegionHit@1：chosen 的 (file, 行区间) 与 gold hunk 相交。"""
+def region_hit(chosen: Mapping | None, gold_hunks: Sequence[Mapping]) -> bool | None:
+    """RegionHit@1：chosen 的 (file, 行区间) 与 gold hunk 相交。
+
+    返回值三态（Q0 Y10）：
+
+    - `True` / `False`：chosen 带**真实**行区间时给出的判定；
+    - `None`：**NA —— 未评估**。没有候选、候选没有行区间、或 chosen 里
+      `start`/`end` 显式为 `None` 时返回 NA。
+
+    旧实现把缺失区间折成 `0`（等价第 1 行），于是"命中"退化成"gold hunk 是否覆盖
+    第 1 行"，报出 0.125/0.25 这类看似合理的假数字。现在缺失就是缺失，
+    由调用方从分母里剔除，**不允许**用假区间造指标。
+    """
     if not chosen:
-        return False
+        return None
+    raw_start = chosen.get("start", chosen.get("start_line"))
+    raw_end = chosen.get("end", chosen.get("end_line"))
+    if raw_start is None or raw_end is None:
+        return None
     path = str(chosen.get("path", "")).replace("\\", "/")
-    start = int(chosen.get("start", chosen.get("start_line", 0)) or 0)
-    end = int(chosen.get("end", chosen.get("end_line", start)) or start)
+    try:
+        start = int(raw_start)
+        end = int(raw_end)
+    except (TypeError, ValueError):
+        return None
     for hunk in gold_hunks:
         if str(hunk.get("file", "")).replace("\\", "/") != path:
             continue

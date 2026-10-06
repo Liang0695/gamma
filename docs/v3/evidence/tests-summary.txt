@@ -19,7 +19,9 @@
     {
       "code": "serving_lock_invalid",
       "problems": [
+        "serving.packages.adk_submission.wheel_sha256 未取得或不是 64 位小写 hex（'PENDING'）",
         "serving.packages.compressed-tensors.wheel_sha256 未取得或不是 64 位小写 hex（'PENDING'）",
+        "serving.packages.sweegemma.wheel_sha256 未取得或不是 64 位小写 hex（'PENDING'）",
         "serving.packages.torch.wheel_sha256 未取得或不是 64 位小写 hex（'PENDING'）",
         "serving.packages.transformers.wheel_sha256 未取得或不是 64 位小写 hex（'PENDING'）",
         "serving.packages.vllm.wheel_sha256 未取得或不是 64 位小写 hex（'PENDING'）"
@@ -46,7 +48,92 @@
     "optimizer_updates_cap": 32,
     "seq_len": 2048
   },
+  "gates": {
+    "export_manifest_pass": false,
+    "memory_plan_pass": false,
+    "t1_engineering_pass": true
+  },
+  "gates_evidence": {
+    "cpu_training_self_check": {
+      "adapter_sha256": "49fbdb8c857e1e888a86c9f2abe6bb2c2314e09e354ba6969a635d1508155147",
+      "all_passed": true,
+      "artifacts_kept": false,
+      "backend": "synthetic-cpu-loop",
+      "checks": {
+        "adapter_changed": true,
+        "adapter_only_saved": true,
+        "base_frozen": true,
+        "forward_backward_ran": true,
+        "loss_finite": true,
+        "optimizer_stepped": true,
+        "reload_matches": true
+      },
+      "grad_norm_min": 0.007705795046671062,
+      "is_real_model_training": false,
+      "loss_decreased_observation_only": true,
+      "loss_first": 3.4521500786293204,
+      "loss_last": 1.0135118580897045,
+      "note": "合成玩具模型上的自检：只证明前向/反向/优化器步进/保存重载这条链路可用，不证明真实模型可训练，也不产生任何可提交产物。loss_decreased 只作观察值，不作为通过条件。",
+      "optimizer_step_count": 40,
+      "saved_filename": "adapter.synthetic.json",
+      "stage": "cpu-training-loop-self-check",
+      "steps": 40,
+      "supervised_tokens_seen": 360
+    },
+    "export_manifest": {
+      "adapter_validation": null,
+      "problems": [
+        "没有提供导出 manifest：必须先有一份可校验的 adapter 导出清单"
+      ],
+      "provided": false
+    },
+    "mask_fixtures": {
+      "all_passed": true,
+      "count": 20,
+      "passed": 20,
+      "renderer": "shim-deterministic"
+    },
+    "memory_plan": null,
+    "memory_plan_reason": "没有提供实测内存 profile：未实测不得当作通过（设计常量只是上限）"
+  },
   "locks": {
+    "channels_isolated": {
+      "checked": true,
+      "distinct": true,
+      "package_count": {
+        "serving": 6,
+        "train": 7
+      },
+      "package_overlap": [
+        "compressed-tensors",
+        "torch",
+        "transformers"
+      ],
+      "package_versions_identical": false,
+      "serving_channel": "serving",
+      "serving_lock_sha256": "8e1e2b8a2e77ecc14c99f6d7d1b549520262de15b2cfad78666843ad4d4bf79a",
+      "serving_path": "<workdir>\\canopus-3ho-7fd8c6d77d72\\kaggle-24-e035f78cb7d7\\workdir\\gamma\\v3\\locks\\serving.lock.json",
+      "serving_source_sha256": "84ae5ddee719d945f832756b88a0342a27a6721ffdf23b00fbb535b9642e700d",
+      "train_channel": "train",
+      "train_lock_sha256": "69d1494004341af179f2c29e08eabf4c39da7187d8b13da0cb715f226ab19b48",
+      "train_path": "<workdir>\\canopus-3ho-7fd8c6d77d72\\kaggle-24-e035f78cb7d7\\workdir\\gamma\\v3\\locks\\train.lock.json",
+      "train_source_sha256": "103144121c5d89fbb5597647702538df17b65912682161cacf8c00b206bec876"
+    },
+    "serving": {
+      "channel": "serving",
+      "lock_sha256": "8e1e2b8a2e77ecc14c99f6d7d1b549520262de15b2cfad78666843ad4d4bf79a",
+      "package_count": 6,
+      "packages": {
+        "adk_submission": "0.2.12",
+        "compressed-tensors": "0.11.0",
+        "sweegemma": "0.2.7",
+        "torch": "2.9.1",
+        "transformers": "5.16.0",
+        "vllm": "0.19.1"
+      },
+      "python": "3.11.9",
+      "verified": false
+    },
     "train": {
       "channel": "train",
       "lock_sha256": "69d1494004341af179f2c29e08eabf4c39da7187d8b13da0cb715f226ab19b48",
@@ -75,7 +162,9 @@
     ]
   },
   "notes": [
-    "未提供真实模块清单：target 模块数按设计值 120 计，实际必须导出后才允许训练"
+    "未提供真实模块清单：target 模块数按设计值 120 计，实际必须导出后才允许训练",
+    "开训闸门 memory_plan_pass 未通过（见 gates.evidence）",
+    "开训闸门 export_manifest_pass 未通过（见 gates.evidence）"
   ],
   "official_interface": {
     "interface_sha256": "53b1e61328dbdedb750686b53431352ff83bfa5179a9d1da93065d9509295164",
@@ -102,44 +191,162 @@
     "first_round_seq_len": 2048,
     "geometry_layers": 60,
     "gpu_peak_limit_gib": 72.0,
+    "memory_plan_unmeasured_baseline": {
+      "gpu_limit_gib": 72.0,
+      "host_rss_limit_gib": 12.0,
+      "measured": false,
+      "measured_host_rss_gib": 0.0,
+      "measured_peak_gpu_gib": 0.0,
+      "measured_source": "declared_estimate",
+      "note": "这是**未实测**时的对照：0 GiB 占用当然过门槛，因此该结果不构成任何内存合格结论；真正的门槛由实测 profile 经 measure_gates() 判定",
+      "pass": true,
+      "seq_len": 2048,
+      "status": "pass"
+    },
+    "memory_plan_upper_bound_only": true,
     "trainable_params": 28672000
+  },
+  "training_entry": {
+    "backends": [
+      "synthetic-cpu-loop（CPU 自检）",
+      "torch-peft-bf16-lora（GPU 执行面，未实测）"
+    ],
+    "implemented": true,
+    "module": "v3/train/runner.py",
+    "note": "训练实现已在仓库内且 CPU 自检可复跑；GPU 实耗交 Liang 统筹链并先过闸门",
+    "real_gpu_executed_on_this_machine": false
   },
   "unverified_claims": [
     "实际训练收益（未跑真实 GPU）",
     "TP4 / 长上下文行为",
     "官方模板渲染逐字节一致",
     "vLLM 实际 mapper 版本与加载回归",
-    "真实模块 shape 与显存峰值"
+    "真实模块 shape 与显存峰值",
+    "torch/peft 后端在真实 GPU 上的端到端行为（本机无 GPU、无锁定软件）"
   ]
 }
 {
   "code": "start_not_allowed",
-  "message": "开训闸门未通过（8 项）：GPU 执行交 Liang 统筹且门槛验收后才启动",
+  "message": "开训闸门未通过（7 项）：GPU 执行交 Liang 统筹且门槛验收后才启动",
   "context": {
     "problems": [
       "未显式授权 GPU：本编码任务不独自申请作业，GPU 执行交 Liang 统筹",
       "训练依赖锁 verified=false",
-      "门槛未通过：t1_engineering_pass",
       "门槛未通过：memory_plan_pass",
       "门槛未通过：export_manifest_pass",
       "未被释放任何 GPU 预算（本编码任务不独自申请作业）",
       "未指定 107 作业操作者（所有 107 操作仅 Liang 运行时）",
       "未确认与 V2 排期无冲突（单账号单 GPU 必须串行）"
-    ]
+    ],
+    "gates": {
+      "t1_engineering_pass": true,
+      "memory_plan_pass": false,
+      "export_manifest_pass": false
+    },
+    "gate_evidence": {
+      "mask_fixtures": {
+        "count": 20,
+        "passed": 20,
+        "all_passed": true,
+        "renderer": "shim-deterministic"
+      },
+      "cpu_training_self_check": {
+        "stage": "cpu-training-loop-self-check",
+        "backend": "synthetic-cpu-loop",
+        "is_real_model_training": false,
+        "steps": 40,
+        "checks": {
+          "forward_backward_ran": true,
+          "optimizer_stepped": true,
+          "loss_finite": true,
+          "base_frozen": true,
+          "adapter_changed": true,
+          "adapter_only_saved": true,
+          "reload_matches": true
+        },
+        "all_passed": true,
+        "loss_first": 3.4521500786293204,
+        "loss_last": 1.0135118580897045,
+        "loss_decreased_observation_only": true,
+        "grad_norm_min": 0.007705795046671062,
+        "supervised_tokens_seen": 360,
+        "optimizer_step_count": 40,
+        "adapter_sha256": "49fbdb8c857e1e888a86c9f2abe6bb2c2314e09e354ba6969a635d1508155147",
+        "saved_filename": "adapter.synthetic.json",
+        "note": "合成玩具模型上的自检：只证明前向/反向/优化器步进/保存重载这条链路可用，不证明真实模型可训练，也不产生任何可提交产物。loss_decreased 只作观察值，不作为通过条件。",
+        "artifacts_kept": false
+      },
+      "memory_plan": null,
+      "memory_plan_reason": "没有提供实测内存 profile：未实测不得当作通过（设计常量只是上限）",
+      "export_manifest": {
+        "provided": false,
+        "problems": [
+          "没有提供导出 manifest：必须先有一份可校验的 adapter 导出清单"
+        ],
+        "adapter_validation": null
+      }
+    }
   }
 }
 {
   "code": "start_not_allowed",
-  "message": "开训闸门未通过（6 项）：GPU 执行交 Liang 统筹且门槛验收后才启动",
+  "message": "开训闸门未通过（5 项）：GPU 执行交 Liang 统筹且门槛验收后才启动",
   "context": {
     "problems": [
       "验收门槛未通过前不得启动 GPU 执行",
       "训练依赖锁 verified=false",
-      "门槛未通过：t1_engineering_pass",
       "门槛未通过：memory_plan_pass",
       "门槛未通过：export_manifest_pass",
       "未确认与 V2 排期无冲突（单账号单 GPU 必须串行）"
-    ]
+    ],
+    "gates": {
+      "t1_engineering_pass": true,
+      "memory_plan_pass": false,
+      "export_manifest_pass": false
+    },
+    "gate_evidence": {
+      "mask_fixtures": {
+        "count": 20,
+        "passed": 20,
+        "all_passed": true,
+        "renderer": "shim-deterministic"
+      },
+      "cpu_training_self_check": {
+        "stage": "cpu-training-loop-self-check",
+        "backend": "synthetic-cpu-loop",
+        "is_real_model_training": false,
+        "steps": 40,
+        "checks": {
+          "forward_backward_ran": true,
+          "optimizer_stepped": true,
+          "loss_finite": true,
+          "base_frozen": true,
+          "adapter_changed": true,
+          "adapter_only_saved": true,
+          "reload_matches": true
+        },
+        "all_passed": true,
+        "loss_first": 3.4521500786293204,
+        "loss_last": 1.0135118580897045,
+        "loss_decreased_observation_only": true,
+        "grad_norm_min": 0.007705795046671062,
+        "supervised_tokens_seen": 360,
+        "optimizer_step_count": 40,
+        "adapter_sha256": "49fbdb8c857e1e888a86c9f2abe6bb2c2314e09e354ba6969a635d1508155147",
+        "saved_filename": "adapter.synthetic.json",
+        "note": "合成玩具模型上的自检：只证明前向/反向/优化器步进/保存重载这条链路可用，不证明真实模型可训练，也不产生任何可提交产物。loss_decreased 只作观察值，不作为通过条件。",
+        "artifacts_kept": false
+      },
+      "memory_plan": null,
+      "memory_plan_reason": "没有提供实测内存 profile：未实测不得当作通过（设计常量只是上限）",
+      "export_manifest": {
+        "provided": false,
+        "problems": [
+          "没有提供导出 manifest：必须先有一份可校验的 adapter 导出清单"
+        ],
+        "adapter_validation": null
+      }
+    }
   }
 }
 {
@@ -157,10 +364,12 @@
 {
   "serving": {
     "channel": "serving",
-    "lock_sha256": "2b0e28c0f783a2242822c07a30ba6a22e80429e73413583cc8a8471045314f37",
-    "package_count": 4,
+    "lock_sha256": "8e1e2b8a2e77ecc14c99f6d7d1b549520262de15b2cfad78666843ad4d4bf79a",
+    "package_count": 6,
     "packages": {
+      "adk_submission": "0.2.12",
       "compressed-tensors": "0.11.0",
+      "sweegemma": "0.2.7",
       "torch": "2.9.1",
       "transformers": "5.16.0",
       "vllm": "0.19.1"
@@ -192,7 +401,9 @@
         "hit@1": 0.1667,
         "hit@5": 0.1667,
         "n": 6,
-        "region_hit@1": 0.1667,
+        "region_hit@1": null,
+        "region_hit_evaluable_n": 0,
+        "region_hit_na_n": 6,
         "top1_is_test_rate": 0.0,
         "true_recall@5": 0.1667
       },
@@ -200,7 +411,9 @@
         "hit@1": 0.6667,
         "hit@5": 0.6667,
         "n": 6,
-        "region_hit@1": 0.1667,
+        "region_hit@1": 0.3333,
+        "region_hit_evaluable_n": 6,
+        "region_hit_na_n": 0,
         "top1_is_test_rate": 0.1667,
         "true_recall@5": 0.6667
       },
@@ -208,7 +421,9 @@
         "hit@1": 0.6667,
         "hit@5": 1.0,
         "n": 6,
-        "region_hit@1": 0.1667,
+        "region_hit@1": 0.4,
+        "region_hit_evaluable_n": 5,
+        "region_hit_na_n": 1,
         "top1_is_test_rate": 0.0,
         "true_recall@5": 1.0
       },
@@ -216,7 +431,9 @@
         "hit@1": 0.6667,
         "hit@5": 0.6667,
         "n": 6,
-        "region_hit@1": 0.1667,
+        "region_hit@1": 0.4,
+        "region_hit_evaluable_n": 5,
+        "region_hit_na_n": 1,
         "top1_is_test_rate": 0.0,
         "true_recall@5": 0.6667
       }
@@ -226,7 +443,9 @@
         "hit@1": 0.0,
         "hit@5": 0.0,
         "n": 2,
-        "region_hit@1": 0.0,
+        "region_hit@1": null,
+        "region_hit_evaluable_n": 0,
+        "region_hit_na_n": 2,
         "top1_is_test_rate": 0.0,
         "true_recall@5": 0.0
       },
@@ -235,6 +454,8 @@
         "hit@5": 1.0,
         "n": 2,
         "region_hit@1": 0.5,
+        "region_hit_evaluable_n": 2,
+        "region_hit_na_n": 0,
         "top1_is_test_rate": 0.0,
         "true_recall@5": 0.5
       },
@@ -242,7 +463,9 @@
         "hit@1": 0.5,
         "hit@5": 1.0,
         "n": 2,
-        "region_hit@1": 0.5,
+        "region_hit@1": 1.0,
+        "region_hit_evaluable_n": 1,
+        "region_hit_na_n": 1,
         "top1_is_test_rate": 0.0,
         "true_recall@5": 0.75
       },
@@ -251,6 +474,8 @@
         "hit@5": 1.0,
         "n": 2,
         "region_hit@1": 0.5,
+        "region_hit_evaluable_n": 2,
+        "region_hit_na_n": 0,
         "top1_is_test_rate": 0.0,
         "true_recall@5": 0.5
       }
@@ -262,7 +487,9 @@
         "hit@1": 1.0,
         "hit@5": 1.0,
         "n": 4,
-        "region_hit@1": 0.5,
+        "region_hit@1": 0.75,
+        "region_hit_evaluable_n": 4,
+        "region_hit_na_n": 0,
         "top1_is_test_rate": 0.0,
         "true_recall@5": 0.75
       },
@@ -270,7 +497,9 @@
         "hit@1": 1.0,
         "hit@5": 1.0,
         "n": 4,
-        "region_hit@1": 0.5,
+        "region_hit@1": 0.75,
+        "region_hit_evaluable_n": 4,
+        "region_hit_na_n": 0,
         "top1_is_test_rate": 0.0,
         "true_recall@5": 0.75
       }
@@ -281,6 +510,8 @@
         "hit@5": 0.5,
         "n": 4,
         "region_hit@1": 0.0,
+        "region_hit_evaluable_n": 4,
+        "region_hit_na_n": 0,
         "top1_is_test_rate": 0.25,
         "true_recall@5": 0.5
       },
@@ -289,6 +520,8 @@
         "hit@5": 0.5,
         "n": 4,
         "region_hit@1": 0.0,
+        "region_hit_evaluable_n": 3,
+        "region_hit_na_n": 1,
         "top1_is_test_rate": 0.0,
         "true_recall@5": 0.5
       }
@@ -296,7 +529,7 @@
   },
   "corpus": {
     "corpus_id": "synthetic-exp1-corpus",
-    "corpus_sha256": "72f99fda443e7b1f91f1cb38e588130638eff3358e2d2e5bffe910e3c47857fa",
+    "corpus_sha256": "c016849e84aa68627a8f67951bff42739037fa3e699a6421e91c594394e50823",
     "is_real_data": false,
     "license": "synthetic-fixture",
     "question_count": 8,
@@ -306,23 +539,26 @@
     ]
   },
   "cpu": {
-    "per_question": [
-      0.0,
-      0.0,
-      0.0,
-      0.0,
-      0.0,
-      0.0,
-      0.0,
-      0.0
+    "per_question_wall_seconds": [
+      5.7e-05,
+      4.6e-05,
+      3.5e-05,
+      2.4e-05,
+      2.5e-05,
+      2.2e-05,
+      3e-05,
+      2.9e-05
     ],
-    "total_process_seconds": 0.0
+    "timing_clock": "time.perf_counter（墙上时间），不是 time.process_time",
+    "timing_note": "Q0 附带项：旧字段 process_time() 在 Windows 粒度约 15.6ms，整段评测恒为 0.0，等于假指标；现如实记墙上时间并改掉字段名。",
+    "total_wall_seconds": 0.0003
   },
   "experiment": "EXP-1",
   "limitations": [
     "合成题库（若 is_real_data=false）：只能验证流水线",
     "输出字符数是估算而非实测截断日志",
-    "未做行级 RegionHit 之外的细分；未使用任何模型"
+    "RegionHit 只用规则检索候选自带行区间，未经模型定位验证；NA 样本已从分母剔除",
+    "未使用任何模型"
   ],
   "output_budget": {
     "estimate_basis": "命中行数 × 80 字符：这是估算，不是实测官方截断日志",
@@ -338,6 +574,8 @@
     ],
     "hard_limit_chars": 5000,
     "p95_estimated_chars": 480,
+    "p95_estimated_chars_nearest_rank": 480,
+    "p95_method": "最近秩法（nearest-rank）：sorted[round(0.95*n)-1]。n 较小时等价于最大值，不是插值 p95；样本量足够前不得据此声称尾部分布已刻画",
     "target_chars": 1500,
     "truncation_rate_over_hard_limit": 0.0
   },
@@ -346,7 +584,9 @@
       "hit@1": 0.125,
       "hit@5": 0.125,
       "n": 8,
-      "region_hit@1": 0.125,
+      "region_hit@1": null,
+      "region_hit_evaluable_n": 0,
+      "region_hit_na_n": 8,
       "top1_is_test_rate": 0.0,
       "true_recall@5": 0.125
     },
@@ -354,7 +594,9 @@
       "hit@1": 0.75,
       "hit@5": 0.75,
       "n": 8,
-      "region_hit@1": 0.25,
+      "region_hit@1": 0.375,
+      "region_hit_evaluable_n": 8,
+      "region_hit_na_n": 0,
       "top1_is_test_rate": 0.125,
       "true_recall@5": 0.625
     },
@@ -362,7 +604,9 @@
       "hit@1": 0.625,
       "hit@5": 1.0,
       "n": 8,
-      "region_hit@1": 0.25,
+      "region_hit@1": 0.5,
+      "region_hit_evaluable_n": 6,
+      "region_hit_na_n": 2,
       "top1_is_test_rate": 0.0,
       "true_recall@5": 0.9375
     },
@@ -370,7 +614,9 @@
       "hit@1": 0.75,
       "hit@5": 0.75,
       "n": 8,
-      "region_hit@1": 0.25,
+      "region_hit@1": 0.4286,
+      "region_hit_evaluable_n": 7,
+      "region_hit_na_n": 1,
       "top1_is_test_rate": 0.0,
       "true_recall@5": 0.625
     }
@@ -384,7 +630,8 @@
     "truncation_ok": true,
     "truncation_rate": 0.0
   },
-  "report_path": "<workdir>\\canopus-3ho-7fd8c6d77d72\\kaggle-24-14e34cc2985b\\workdir\\deliver\\_tmp\\cli_exp1_12\\exp1-report.json",
+  "region_hit_basis": "只用候选自带的行区间（lexsearch.longest_hit_block 由真实命中行推出）；缺失记 NA 并从分母剔除（region_hit_evaluable_n / region_hit_na_n），禁止用写死的 1..1 之类假区间造指标",
+  "report_path": "<workdir>\\canopus-3ho-7fd8c6d77d72\\kaggle-24-e035f78cb7d7\\workdir\\gamma\\_tmp\\cli_exp1_12\\exp1-report.json",
   "scope": "只评估规则检索；不构成对模型自主工具使用的实验"
 }
 {
@@ -452,11 +699,14 @@
 {
   "code": "v2_denylist_intersection",
   "context": {
+    "leaked_fields": [
+      "t1:problem_family_id"
+    ],
     "tasks": [
       "t1"
     ]
   },
-  "message": "V3 train/dev 与 V2 排除清单相交，必须整族隔离"
+  "message": "V3 与 V2 排除清单相交，必须整族隔离"
 }
 {
   "dedup": {
@@ -511,7 +761,9 @@
     {
       "code": "serving_lock_invalid",
       "problems": [
+        "serving.packages.adk_submission.wheel_sha256 未取得或不是 64 位小写 hex（'PENDING'）",
         "serving.packages.compressed-tensors.wheel_sha256 未取得或不是 64 位小写 hex（'PENDING'）",
+        "serving.packages.sweegemma.wheel_sha256 未取得或不是 64 位小写 hex（'PENDING'）",
         "serving.packages.torch.wheel_sha256 未取得或不是 64 位小写 hex（'PENDING'）",
         "serving.packages.transformers.wheel_sha256 未取得或不是 64 位小写 hex（'PENDING'）",
         "serving.packages.vllm.wheel_sha256 未取得或不是 64 位小写 hex（'PENDING'）"
@@ -538,7 +790,92 @@
     "optimizer_updates_cap": 32,
     "seq_len": 2048
   },
+  "gates": {
+    "export_manifest_pass": false,
+    "memory_plan_pass": false,
+    "t1_engineering_pass": true
+  },
+  "gates_evidence": {
+    "cpu_training_self_check": {
+      "adapter_sha256": "49fbdb8c857e1e888a86c9f2abe6bb2c2314e09e354ba6969a635d1508155147",
+      "all_passed": true,
+      "artifacts_kept": false,
+      "backend": "synthetic-cpu-loop",
+      "checks": {
+        "adapter_changed": true,
+        "adapter_only_saved": true,
+        "base_frozen": true,
+        "forward_backward_ran": true,
+        "loss_finite": true,
+        "optimizer_stepped": true,
+        "reload_matches": true
+      },
+      "grad_norm_min": 0.007705795046671062,
+      "is_real_model_training": false,
+      "loss_decreased_observation_only": true,
+      "loss_first": 3.4521500786293204,
+      "loss_last": 1.0135118580897045,
+      "note": "合成玩具模型上的自检：只证明前向/反向/优化器步进/保存重载这条链路可用，不证明真实模型可训练，也不产生任何可提交产物。loss_decreased 只作观察值，不作为通过条件。",
+      "optimizer_step_count": 40,
+      "saved_filename": "adapter.synthetic.json",
+      "stage": "cpu-training-loop-self-check",
+      "steps": 40,
+      "supervised_tokens_seen": 360
+    },
+    "export_manifest": {
+      "adapter_validation": null,
+      "problems": [
+        "没有提供导出 manifest：必须先有一份可校验的 adapter 导出清单"
+      ],
+      "provided": false
+    },
+    "mask_fixtures": {
+      "all_passed": true,
+      "count": 20,
+      "passed": 20,
+      "renderer": "shim-deterministic"
+    },
+    "memory_plan": null,
+    "memory_plan_reason": "没有提供实测内存 profile：未实测不得当作通过（设计常量只是上限）"
+  },
   "locks": {
+    "channels_isolated": {
+      "checked": true,
+      "distinct": true,
+      "package_count": {
+        "serving": 6,
+        "train": 7
+      },
+      "package_overlap": [
+        "compressed-tensors",
+        "torch",
+        "transformers"
+      ],
+      "package_versions_identical": false,
+      "serving_channel": "serving",
+      "serving_lock_sha256": "8e1e2b8a2e77ecc14c99f6d7d1b549520262de15b2cfad78666843ad4d4bf79a",
+      "serving_path": "<workdir>\\canopus-3ho-7fd8c6d77d72\\kaggle-24-e035f78cb7d7\\workdir\\gamma\\v3\\locks\\serving.lock.json",
+      "serving_source_sha256": "84ae5ddee719d945f832756b88a0342a27a6721ffdf23b00fbb535b9642e700d",
+      "train_channel": "train",
+      "train_lock_sha256": "69d1494004341af179f2c29e08eabf4c39da7187d8b13da0cb715f226ab19b48",
+      "train_path": "<workdir>\\canopus-3ho-7fd8c6d77d72\\kaggle-24-e035f78cb7d7\\workdir\\gamma\\v3\\locks\\train.lock.json",
+      "train_source_sha256": "103144121c5d89fbb5597647702538df17b65912682161cacf8c00b206bec876"
+    },
+    "serving": {
+      "channel": "serving",
+      "lock_sha256": "8e1e2b8a2e77ecc14c99f6d7d1b549520262de15b2cfad78666843ad4d4bf79a",
+      "package_count": 6,
+      "packages": {
+        "adk_submission": "0.2.12",
+        "compressed-tensors": "0.11.0",
+        "sweegemma": "0.2.7",
+        "torch": "2.9.1",
+        "transformers": "5.16.0",
+        "vllm": "0.19.1"
+      },
+      "python": "3.11.9",
+      "verified": false
+    },
     "train": {
       "channel": "train",
       "lock_sha256": "69d1494004341af179f2c29e08eabf4c39da7187d8b13da0cb715f226ab19b48",
@@ -567,7 +904,9 @@
     ]
   },
   "notes": [
-    "未提供真实模块清单：target 模块数按设计值 120 计，实际必须导出后才允许训练"
+    "未提供真实模块清单：target 模块数按设计值 120 计，实际必须导出后才允许训练",
+    "开训闸门 memory_plan_pass 未通过（见 gates.evidence）",
+    "开训闸门 export_manifest_pass 未通过（见 gates.evidence）"
   ],
   "official_interface": {
     "interface_sha256": "53b1e61328dbdedb750686b53431352ff83bfa5179a9d1da93065d9509295164",
@@ -594,14 +933,38 @@
     "first_round_seq_len": 2048,
     "geometry_layers": 60,
     "gpu_peak_limit_gib": 72.0,
+    "memory_plan_unmeasured_baseline": {
+      "gpu_limit_gib": 72.0,
+      "host_rss_limit_gib": 12.0,
+      "measured": false,
+      "measured_host_rss_gib": 0.0,
+      "measured_peak_gpu_gib": 0.0,
+      "measured_source": "declared_estimate",
+      "note": "这是**未实测**时的对照：0 GiB 占用当然过门槛，因此该结果不构成任何内存合格结论；真正的门槛由实测 profile 经 measure_gates() 判定",
+      "pass": true,
+      "seq_len": 2048,
+      "status": "pass"
+    },
+    "memory_plan_upper_bound_only": true,
     "trainable_params": 28672000
+  },
+  "training_entry": {
+    "backends": [
+      "synthetic-cpu-loop（CPU 自检）",
+      "torch-peft-bf16-lora（GPU 执行面，未实测）"
+    ],
+    "implemented": true,
+    "module": "v3/train/runner.py",
+    "note": "训练实现已在仓库内且 CPU 自检可复跑；GPU 实耗交 Liang 统筹链并先过闸门",
+    "real_gpu_executed_on_this_machine": false
   },
   "unverified_claims": [
     "实际训练收益（未跑真实 GPU）",
     "TP4 / 长上下文行为",
     "官方模板渲染逐字节一致",
     "vLLM 实际 mapper 版本与加载回归",
-    "真实模块 shape 与显存峰值"
+    "真实模块 shape 与显存峰值",
+    "torch/peft 后端在真实 GPU 上的端到端行为（本机无 GPU、无锁定软件）"
   ]
 }
 {
@@ -629,4 +992,4 @@
   "message": "env.lock 缺少必需字段"
 }
 
-SUMMARY: run=170 failures=0 errors=0 skipped=1
+SUMMARY: run=278 failures=0 errors=0 skipped=1

@@ -7,6 +7,15 @@
   与合法结束标记；
 - **按 token 偏移映射决定 mask，不用"搜索某段字符串"**；
 - 不依赖 `assistant_only_loss=True`：官方模板当前没有 generation 区间。
+
+通道口径（KAGGLE-26 / Q0 报告 🔴-1、Y3 的显式规定，与 `template.Span.channel` 对齐）：
+
+- `channel="action"` 的 assistant span：`loss_eligible` 为真时参与监督。**短计划/定位**
+  属于这一通道（thinking 关闭时它是 `content`，thinking 打开时它是工具名 + 参数）；
+- `channel="reasoning"` 的 assistant span：thinking 打开时的可见 reasoning，
+  **永远 `supervised=False`**，只作 context；
+- 因此"assistant 的 content 被静默丢弃"这种状态在本实现里不存在：要么它以
+  reasoning 通道进 context，要么它以 action 通道进监督，二者必居其一。
 """
 
 from __future__ import annotations
@@ -32,11 +41,46 @@ class LabelResult:
         return sum(1 for value in self.labels if value != IGNORE_INDEX)
 
     def loss_counts(self) -> dict:
-        counts = {"supervised": 0, "system": 0, "tool": 0, "user": 0, "assistant_context": 0, "padding": 0}
-        for index, value in enumerate(self.labels):
-            if value == IGNORE_INDEX:
-                continue
-            counts["supervised"] += 1
+        """按 span_report 真正分桶统计（KAGGLE-26 / Q0 报告 Y13）。
+
+        旧实现只累加 `supervised`，其余 5 个桶恒为 0，任一样本都返回同一个错的分桶。
+        现在的口径（写清以免再次变成"恒零桩"）：
+
+        - `supervised`：真的参与 loss 的 token 数（`labels != IGNORE_INDEX`）；
+        - `system` / `tool` / `user`：这些 role 的 **context token 数**。
+          它们按设计**永不**参与 loss，所以旧口径下必然恒为 0；
+          这里给出的是"这些 role 贡献了多少 context token"，逐样本不同；
+        - `assistant_context` / `reasoning_context`：未参与 loss 的 assistant span
+          长度，按 `channel` 分流；
+        - `padding`：取自 `padding` 字段。
+
+        各 role 是否真的没进 loss，由 `assert_mask_invariants()` 断言，不靠本函数。
+        """
+        counts = {
+            "supervised": 0,
+            "system": 0,
+            "tool": 0,
+            "user": 0,
+            "assistant_context": 0,
+            "reasoning_context": 0,
+            "padding": 0,
+        }
+        counts["supervised"] = self.supervised_tokens
+        counts["padding"] = int(self.padding)
+        for entry in self.span_report:
+            role = entry.get("role")
+            span_len = max(0, int(entry.get("end", 0)) - int(entry.get("start", 0)))
+            loss_tokens = int(entry.get("loss_tokens") or 0)
+            if role in ("system", "tool", "user"):
+                counts[role] += span_len
+            elif role == "assistant":
+                if loss_tokens:
+                    # 已计入 supervised，不重复累加
+                    continue
+                if entry.get("channel") == "reasoning":
+                    counts["reasoning_context"] += span_len
+                else:
+                    counts["assistant_context"] += span_len
         return counts
 
     def to_dict(self) -> dict:
@@ -49,7 +93,12 @@ class LabelResult:
 
 
 def build_labels(rendered: RenderedSample, pad_to: int | None = None) -> LabelResult:
-    """把 span 映射成 labels。只有 `supervised=True` 的 assistant span 参与 loss。"""
+    """把 span 映射成 labels。只有 `supervised=True` 的 assistant span 参与 loss。
+
+    本函数**不修改入参** `rendered`（KAGGLE-26 / Q0 报告 🔵-1）：旧实现就地 append 到
+    `rendered.input_ids`，同一个 `RenderedSample` 二次调用会因长度变长而抛
+    `pad_shorter_than_sample`。现在返回新的 list。
+    """
     labels = [IGNORE_INDEX] * rendered.length
     report: list[dict] = []
     for span in rendered.spans:
@@ -64,17 +113,18 @@ def build_labels(rendered: RenderedSample, pad_to: int | None = None) -> LabelRe
             entry["loss_tokens"] = 0
         report.append(entry)
 
+    input_ids = list(rendered.input_ids)
     padding = 0
     if pad_to is not None:
-        if pad_to < rendered.length:
+        if pad_to < len(input_ids):
             raise PolicyViolation(
                 "pad_shorter_than_sample", "padding 长度小于样本长度"
             )
-        padding = pad_to - rendered.length
-        rendered.input_ids = rendered.input_ids + [PAD_TOKEN_ID] * padding
+        padding = pad_to - len(input_ids)
+        input_ids = input_ids + [PAD_TOKEN_ID] * padding
         labels = labels + [IGNORE_INDEX] * padding
     return LabelResult(
-        input_ids=list(rendered.input_ids),
+        input_ids=input_ids,
         labels=labels,
         span_report=report,
         padding=padding,
@@ -109,6 +159,18 @@ def assert_mask_invariants(rendered: RenderedSample, labels: LabelResult) -> dic
         if any(labels.labels[i] != IGNORE_INDEX for i in range(span.start, span.end)):
             problems.append("失败/历史 assistant 动作参与了 loss（step=%s）" % span.step)
 
+    # reasoning 通道永远 context-only（🔴-1 / Y3 的显式口径）
+    reasoning_spans = [s for s in rendered.spans if s.channel == "reasoning"]
+    for span in reasoning_spans:
+        if span.supervised:
+            problems.append("reasoning 通道被标记为 supervised（step=%s）" % span.step)
+    reasoning_tokens = sum(span.end - span.start for span in reasoning_spans)
+    assistant_context_tokens = sum(
+        span.end - span.start
+        for span in rendered.spans
+        if span.role == "assistant" and not span.supervised and span.channel != "reasoning"
+    )
+
     target_tokens = sum(
         1
         for span in rendered.spans
@@ -139,6 +201,10 @@ def assert_mask_invariants(rendered: RenderedSample, labels: LabelResult) -> dic
         "bos_count": len(bos_positions),
         "padding": labels.padding,
         "supervised_tokens": labels.supervised_tokens,
+        "reasoning_span_count": len(reasoning_spans),
+        "reasoning_context_tokens": reasoning_tokens,
+        "assistant_context_tokens": assistant_context_tokens,
+        "loss_counts": labels.loss_counts(),
     }
 
 

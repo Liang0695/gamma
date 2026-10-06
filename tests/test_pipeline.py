@@ -141,14 +141,33 @@ class DedupTests(unittest.TestCase):
         self.assertEqual(mapping["PR-1"], mapping["ISSUE-9"])
         self.assertNotEqual(mapping["PR-1"], mapping["PR-7"])
 
-    def test_denylist_intersection_blocks_train_dev(self) -> None:
+    def test_denylist_intersection_blocks_every_split(self) -> None:
+        """V2 排除清单对**所有** split 生效（Q0 Y8：旧实现只查 train/dev，是 fail-open）。
+
+        旧断言 `assert_no_split_leak(records[1:], ...)` 认为 `split="test"` 可以放行。
+        既然 `sealed` 都要求零交集，历史别名 `test` 更不该例外 —— 该豁免已删除，
+        本测试随之更新为断言它也阻断。
+        """
         records = [
             {"task_id": "t1", "split": "train", "problem_family_id": "FAM-DENIED", "repo_family": "x"},
             {"task_id": "t2", "split": "test", "problem_family_id": "FAM-DENIED", "repo_family": "x"},
         ]
         with self.assertRaises(PolicyViolation):
             assert_no_split_leak(records, ["FAM-DENIED"])
-        assert_no_split_leak(records[1:], ["FAM-DENIED"])  # test split 不在 train/dev 范围内
+        with self.assertRaises(PolicyViolation):
+            # test split 也阻断（旧行为是静默通过）
+            assert_no_split_leak(records[1:], ["FAM-DENIED"])
+        for split in ("train", "dev", "sealed", "test", "unknown-split"):
+            with self.assertRaises(PolicyViolation):
+                assert_no_split_leak(
+                    [{"task_id": "t", "split": split, "problem_family_id": "FAM-DENIED", "repo_family": "x"}],
+                    ["FAM-DENIED"],
+                )
+        # 未命中 denylist 的记录仍放行
+        assert_no_split_leak(
+            [{"task_id": "t", "split": "sealed", "problem_family_id": "FAM-OK", "repo_family": "x"}],
+            ["FAM-DENIED"],
+        )
 
     def test_deterministic_selection_respects_quota_and_families(self) -> None:
         records = [

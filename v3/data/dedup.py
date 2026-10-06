@@ -16,7 +16,7 @@ import unicodedata
 from typing import Iterable, Mapping, Sequence
 
 from ..common.canonical import problem_family_id, sha256_text
-from ..common.errors import PolicyViolation
+from ..common.errors import MissingInput, PolicyViolation
 
 SHINGLE_TOKENS = 5
 JACCARD_TRIGGER = 0.80
@@ -176,21 +176,72 @@ def family_components(edges: Sequence[Sequence[str]]) -> dict[str, str]:
     return mapping
 
 
+def _normalize_match_token(value) -> str:
+    """denylist 比对前归一：转字符串、去首尾空白、大小写折叠。"""
+    return str(value).strip().lower()
+
+
+#: 不参与 V2 排除清单比对的 split。**必须是空集**：任何 split（含历史别名 `test`
+#: 与未知取值）都要查，否则就是 Q0 Y8 ② 那类 fail-open。写成显式常量是为了让
+#: "没有豁免"这件事本身可被复核，而不是藏在条件表达式里。
+LEGACY_UNCHECKED_SPLITS: tuple[str, ...] = ()
+
+
 def assert_no_split_leak(records: Sequence[Mapping], denylist: Iterable[str]) -> None:
-    """V2 D/H 家族与官方四仓库不得进入 V3 train/dev。"""
-    denied = {str(item) for item in denylist}
-    problems = []
+    """V2 D/H 家族与官方四仓库不得进入 V3 的**任何** split（含 sealed 与历史别名）。
+
+    与旧版（只看 `split in ("train","dev")`）的差别，即 Q0 Y8 ②③：
+
+    1. 覆盖面：`sealed`（封存集）同样要求与 V2 D/H 家族零交集；历史别名 `test`
+       与**任何未知 split 取值**也一律纳入检查（fail-closed，而不是"不认识就放行"）。
+    2. 比对字段：`problem_family_id`、`repo_family` 两个，全部做大小写与首尾空白
+       归一化后与归一化 denylist 比对。
+    3. 缺 `problem_family_id` / `repo_family` 的记录抛
+       `MissingInput("split_leak_check_missing_family")` —— **不得**用 `str(None)`
+       （"None" / "none"）参与比对，那正是旧版的 fail-open 口子。
+
+    命中 denylist 时保留原错误码 `v2_denylist_intersection`。
+    """
+    denied = {_normalize_match_token(item) for item in denylist if _normalize_match_token(item)}
+    missing: list[str] = []
+    problems: list[str] = []
+    leaks: dict[str, list[str]] = {}
+
     for record in records:
-        if record.get("split") in ("train", "dev"):
-            if str(record.get("problem_family_id")) in denied:
-                problems.append(record["task_id"])
-            if str(record.get("repo_family")) in denied:
-                problems.append(record["task_id"])
+        task_id = str(record.get("task_id"))
+        families = {}
+        record_missing: list[str] = []
+        for field in ("problem_family_id", "repo_family"):
+            value = record.get(field)
+            if value is None or str(value).strip() == "":
+                record_missing.append("%s.%s" % (task_id, field))
+            else:
+                families[field] = _normalize_match_token(value)
+        if record_missing:
+            # 只跳过**本条**记录。不能用累计的 `missing` 当 continue 条件：
+            # 那会让第一条缺字段的记录把后面所有记录都放过（同类 fail-open）。
+            missing.extend(record_missing)
+            continue
+        split = str(record.get("split") or "").strip().lower()
+        if split in LEGACY_UNCHECKED_SPLITS:  # 当前恒为空集，即无豁免
+            continue
+        for field, normalized in families.items():
+            if normalized in denied:
+                problems.append(task_id)
+                leaks.setdefault(task_id, []).append(field)
+
+    if missing:
+        raise MissingInput(
+            "split_leak_check_missing_family",
+            "记录缺少 problem_family_id / repo_family，无法做 V2 排除清单比对（未填字段不得默认放行）",
+            fields=sorted(missing),
+        )
     if problems:
         raise PolicyViolation(
             "v2_denylist_intersection",
-            "V3 train/dev 与 V2 排除清单相交，必须整族隔离",
+            "V3 与 V2 排除清单相交，必须整族隔离",
             tasks=sorted(set(problems)),
+            leaked_fields=sorted("%s:%s" % (task, field) for task, fields in leaks.items() for field in fields),
         )
 
 

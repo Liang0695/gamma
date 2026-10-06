@@ -5,9 +5,22 @@
     "V3 E0 锁定的是比赛推理面的接口常量与候选版本线，不改动评分器实际软件。",
     "KAGGLE-19 §2：vLLM 候选验收线 0.19.1 或含等价 LoRA 映射修复的锁定版本，并做加载回归。",
     "实际官方 resolver / mapper 版本未知，故 verified=false：加载回归通过前不得宣称兼容。",
-    "不可配置项（官方硬上限）写进 interface 常量，供搜索协议与输出裁剪使用。"
+    "不可配置项（官方硬上限）写进 interface 常量，供搜索协议与输出裁剪使用。",
+    "Q0-Y14 修复：官方 compiler / parser 载体（adk_submission / sweegemma）原先不在任何锁里，现补进本锁的 packages。",
+    "版本出处在仓库内已有记录 docs/v3/design/KAGGLE-22-V3-search-localization-design.md:24（F2 软件与权重来源报告：compiler 0.2.12、sweegemma 0.2.7），同文件 :353 另有 adk-submission==0.2.12 的第三方报告记录。",
+    "注：任务书提到的 V0/KAGGLE-27 在本 checkout 内不存在（全仓 grep 无命中），故引用上一条的 KAGGLE-22 记录，不引用不存在的文档。",
+    "两个载体本轮均未安装验证，wheel_sha256 照实写 PENDING、verified=false，runner 因此 fail-closed。"
   ],
   "packages": {
+    "adk_submission": {
+      "source": "pypi",
+      "version": "0.2.12",
+      "wheel_sha256": "PENDING",
+      "dist_name": "adk-submission",
+      "role": "official-compiler",
+      "citation": "docs/v3/design/KAGGLE-22-V3-search-localization-design.md:24（另见 :353 的 0.2.12 记录）",
+      "verified": false
+    },
     "compressed-tensors": {
       "source": "pypi",
       "version": "0.11.0",
@@ -17,6 +30,15 @@
       "source": "pypi",
       "version": "2.9.1",
       "wheel_sha256": "PENDING"
+    },
+    "sweegemma": {
+      "source": "pypi",
+      "version": "0.2.7",
+      "wheel_sha256": "PENDING",
+      "dist_name": "sweegemma",
+      "role": "official-parser",
+      "citation": "docs/v3/design/KAGGLE-22-V3-search-localization-design.md:24（F2 软件与权重来源报告：sweegemma 0.2.7）",
+      "verified": false
     },
     "transformers": {
       "source": "pypi",

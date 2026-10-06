@@ -109,14 +109,74 @@ class StreamingPlan:
             "note": "流式峰值只计单 shard + 缓冲；真实峰值须在作业里实测并按 cgroup 复核。",
         }
 
-    def assert_no_full_state_dict(self) -> None:
-        """显式禁止在 CPU 构造完整 state_dict。"""
-        limit = self.effective_rss_limit_bytes()
-        if self.total_bytes <= limit and self.host_cgroup_bytes:
+    def assert_no_full_state_dict(
+        self,
+        peak_full_state_dict_bytes: int | None = None,
+        allowed_bytes: int = 0,
+        evidence: Mapping | None = None,
+    ) -> dict:
+        """对**行为**的 fail-closed 断言：禁止在 CPU 把完整 state_dict 整体驻留。
+
+        旧实现是"装得下才抛"（方向与规则相反、拦不住真实违规），已彻底删除。
+        现在的判定只看调用方提交的**驻留证据**：
+
+        - `peak_full_state_dict_bytes is None`（未提供证据）→
+          `PolicyViolation("full_state_dict_resident_unevidenced", ...)`：没有证据不得视为通过；
+        - 计数为负 / 非整数 → `PolicyViolation("full_state_dict_counter_invalid", ...)`；
+        - `peak_full_state_dict_bytes > allowed_bytes` →
+          `PolicyViolation("full_state_dict_resident", ...)`：确实整体驻留过。
+
+        参数
+        ----
+        - `peak_full_state_dict_bytes`：**曾经同时驻留**的完整 state_dict 峰值字节数，
+          一次都没整体驻留过就是 `0`；`None` = 调用方没有提供证据。
+        - `allowed_bytes`：允许的整份驻留上限，恒为 `0`（只有 0 才等于"从不允许整体驻留"）。
+        - `evidence`：可选旁证（探针名 / 作业号等），原样回带，便于报告引用。
+
+        返回（未抛异常时）::
+
+            {"checked": True, "full_state_dict_resident": False,
+             "peak_full_state_dict_bytes": int, "allowed_bytes": int,
+             "rss_limit_bytes": int, "total_weight_bytes": int, "evidence": dict}
+        """
+        if peak_full_state_dict_bytes is None:
             raise PolicyViolation(
-                "full_state_dict_looks_feasible_but_forbidden",
-                "即使理论上装得下，也禁止 CPU 构造完整 state_dict（内存账按最严格口径）",
+                "full_state_dict_resident_unevidenced",
+                "没有提供『从未整体驻留完整 state_dict』的证据：不得视为通过（fail-closed）",
             )
+        try:
+            peak = int(peak_full_state_dict_bytes)
+            allowed = int(allowed_bytes)
+        except (TypeError, ValueError):
+            raise PolicyViolation(
+                "full_state_dict_counter_invalid",
+                "驻留计数必须是整数：peak=%r, allowed=%r"
+                % (peak_full_state_dict_bytes, allowed_bytes),
+            )
+        if peak < 0 or allowed < 0:
+            raise PolicyViolation(
+                "full_state_dict_counter_invalid",
+                "驻留计数不得为负：peak=%d, allowed=%d" % (peak, allowed),
+            )
+        if peak > allowed:
+            raise PolicyViolation(
+                "full_state_dict_resident",
+                "检出完整 state_dict 整体驻留 %d 字节 > 允许 %d 字节："
+                "必须逐 tensor / 逐 shard 直接做 device placement" % (peak, allowed),
+                peak_full_state_dict_bytes=peak,
+                allowed_bytes=allowed,
+                rss_limit_bytes=self.effective_rss_limit_bytes(),
+                evidence=dict(evidence or {}),
+            )
+        return {
+            "checked": True,
+            "full_state_dict_resident": False,
+            "peak_full_state_dict_bytes": peak,
+            "allowed_bytes": allowed,
+            "rss_limit_bytes": self.effective_rss_limit_bytes(),
+            "total_weight_bytes": self.total_bytes,
+            "evidence": dict(evidence or {}),
+        }
 
     def iter_shards(self) -> Iterable[WeightShard]:
         """按 manifest 顺序逐个产出 shard（调用方负责释放上一个）。"""

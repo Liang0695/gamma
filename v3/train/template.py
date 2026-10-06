@@ -35,10 +35,27 @@ TURN_MARKERS = {
     "end": "<end_of_turn>",
 }
 
+#: shim 专用的 reasoning 通道标记。**只在 ShimRenderer 里出现**，不是官方 token；
+#: 真机渲染必须由 official template 决定 reasoning 与 action 的分界，不得沿用此标记。
+REASONING_MARKER = "<|reasoning|>"
+
 
 @dataclass
 class Span:
-    """渲染后 token 区间（半开区间 [start, end)）。"""
+    """渲染后 token 区间（半开区间 [start, end)）。
+
+    `channel` 区分同一条 assistant 消息内的两条通道（KAGGLE-26 / Q0 报告 🔴-1 的显式口径）：
+
+    - ``"action"``：被监督的目标通道 —— 工具名、结构化参数、完整编辑片段、
+      以及 thinking 关闭时的短计划/定位（`masks.py` 契约第 6-7 行的监督项清单）；
+    - ``"reasoning"``：thinking 打开时的可见 reasoning，**只作 context，不施加 loss**；
+    - ``"bos"`` / 其它 role 的通道：一律 context-only。
+
+    `text` 是该 span 实际渲染进 input_ids 的可见正文（用于"正文是否真的进了
+    input_ids"这类可断言的检查，而不是靠字符串搜索猜）。`arguments_text` 只在
+    action 通道携带工具调用时给出，是 `_stable_args()` 产出的**逐字节原文**，
+    供 `assert_roundtrip_arguments()` 做真正的渲染-还原比对。
+    """
 
     role: str
     start: int
@@ -47,6 +64,9 @@ class Span:
     supervised: bool = False
     phase: str | None = None
     reason: str = ""
+    channel: str = "action"
+    text: str = ""
+    arguments_text: str | None = None
 
     def to_dict(self) -> dict:
         return {
@@ -57,6 +77,9 @@ class Span:
             "supervised": self.supervised,
             "phase": self.phase,
             "reason": self.reason,
+            "channel": self.channel,
+            "text": self.text,
+            "arguments_text": self.arguments_text,
         }
 
 
@@ -117,28 +140,83 @@ class ShimRenderer(Renderer):
         return ids
 
     def render(self, messages: Sequence[Mapping], thinking: bool = False) -> RenderedSample:
+        """确定性渲染。
+
+        🔴-1（KAGGLE-26 / Q0 报告）修复后的**显式**口径：
+
+        1. assistant 的 `content` **永不丢弃**，且必须能在 `input_ids` 里按 token
+           子序列定位到；
+        2. `thinking=True` 时，assistant 的 `content` 渲染成**独立 reasoning 通道**
+           （`channel="reasoning"`、`supervised=False`），只作 context；
+           `thinking=False` 时不产生 reasoning 通道，`content` 并入动作通道并随
+           `loss_eligible` 参与监督；
+        3. 结构化 `arguments` 走 action 通道，`content` 在前、`tool_name + 参数` 在后，
+           两者都不再出现"带 `arguments` 就把 `content` 吃掉"的分支；
+        4. reasoning 通道与 action 通道的 token 区间**严格不重叠**。
+
+        这不是"两种解读都行"的含糊处理：监督目标清单见 `masks.py` 模块 docstring。
+        """
         ids: list[int] = [BOS_TOKEN_ID]
-        spans: list[Span] = [Span(role="bos", start=0, end=1, reason="bos")]
+        spans: list[Span] = [Span(role="bos", start=0, end=1, reason="bos", channel="bos")]
         for message in messages:
             role = message["role"]
             marker = TURN_MARKERS.get(role, "<|%s|>" % role)
-            start = len(ids)
+            content = str(message.get("content", ""))
+            arguments = message.get("arguments")
+            tool_name = str(message.get("tool_name") or "")
+            supervised = bool(message.get("loss_eligible")) and role == "assistant"
+
+            turn_start = len(ids)
             ids.append(self.encode(marker)[0])
-            body = str(message.get("content", ""))
-            if role == "assistant" and message.get("arguments") is not None:
-                # tool arguments 保持结构化 object，不做字符串手拼。
-                body = "%s %s" % (message.get("tool_name") or "", _stable_args(message["arguments"]))
-            ids.extend(self.encode(body))
+
+            action_start = turn_start
+            if role == "assistant" and thinking and content:
+                reasoning_start = len(ids)
+                ids.append(self.encode(REASONING_MARKER)[0])
+                ids.extend(self.encode(content))
+                spans.append(
+                    Span(
+                        role="assistant",
+                        start=reasoning_start,
+                        end=len(ids),
+                        step=message.get("step"),
+                        supervised=False,
+                        phase=message.get("phase"),
+                        reason="reasoning_context_only",
+                        channel="reasoning",
+                        text=content,
+                    )
+                )
+                action_start = len(ids)
+                content_for_action = ""
+            else:
+                content_for_action = content
+
+            parts: list[str] = []
+            if content_for_action:
+                parts.append(content_for_action)
+            arguments_text: str | None = None
+            if arguments is not None:
+                arguments_text = _stable_args(arguments)
+                if tool_name:
+                    parts.append(tool_name)
+                parts.append(arguments_text)
+            body = " ".join(parts)
+            if body:
+                ids.extend(self.encode(body))
             ids.append(self.encode(TURN_MARKERS["end"])[0])
             spans.append(
                 Span(
                     role=role,
-                    start=start,
+                    start=action_start,
                     end=len(ids),
                     step=message.get("step"),
-                    supervised=bool(message.get("loss_eligible")) and role == "assistant",
+                    supervised=supervised,
                     phase=message.get("phase"),
                     reason=str(message.get("reason", "")),
+                    channel="action",
+                    text=body,
+                    arguments_text=arguments_text,
                 )
             )
         return RenderedSample(
@@ -233,10 +311,79 @@ class OfficialTemplateRenderer(Renderer):
             )
 
 
-def assert_roundtrip_arguments(renderer: Renderer, arguments: Mapping) -> None:
-    """工具参数 roundtrip 无损：结构化 object 渲染后必须能原样还原。"""
+def assert_text_in_input_ids(renderer: Renderer, rendered: RenderedSample, text: str) -> int:
+    """断言 `text` 的 token 序列作为**连续子序列**出现在 `rendered.input_ids` 里。
+
+    这是 🔴-1（KAGGLE-26 / Q0 报告）的机械检查：不搜索字符串、不信 span 声明，
+    只看真实 token 序列。返回首次出现的起始下标；`text` 为空时返回 -1。
+    """
+    needle = renderer.encode(text)
+    if not needle:
+        return -1
+    hay = list(rendered.input_ids)
+    width = len(needle)
+    for start in range(len(hay) - width + 1):
+        if hay[start : start + width] == needle:
+            return start
+    raise IntegrityError(
+        "assistant_content_dropped",
+        "assistant content 没有出现在 input_ids 里（渲染层丢弃）",
+        text=text,
+        needle=needle,
+    )
+
+
+def assert_roundtrip_arguments(
+    renderer: Renderer, arguments: Mapping, tool_name: str = "run_command"
+) -> dict:
+    """工具参数 roundtrip 无损：**必须真的经过渲染器**（KAGGLE-26 / Q0 报告 Y2）。
+
+    旧实现只做 `json.loads(json.dumps(x)) == x`，与渲染器无关，恒真。
+    现在：
+    1. 用 renderer 渲染一条只含该工具调用的 assistant 消息；
+    2. 从渲染结果的 action 通道取回 `arguments_text`（而不是重新序列化一遍）；
+    3. 反序列化后与原对象逐字段比较。
+
+    传入一个不实现渲染的假 renderer 时，本函数必然失败 —— 这正是它该有的行为。
+    """
     import json
 
     payload = _stable_args(arguments)
-    if json.loads(payload) != dict(arguments):
+    expected = dict(arguments)
+    if json.loads(payload) != expected:
         raise IntegrityError("args_roundtrip_loss", "工具参数 roundtrip 丢信息", args=arguments)
+
+    sample = renderer.render(
+        [
+            {
+                "role": "assistant",
+                "content": "",
+                "tool_name": tool_name,
+                "arguments": expected,
+                "step": 1,
+                "loss_eligible": True,
+                "phase": "localize",
+            }
+        ]
+    )
+    carriers = [s for s in sample.spans if s.role == "assistant" and s.arguments_text is not None]
+    if not carriers:
+        raise IntegrityError(
+            "args_roundtrip_not_rendered",
+            "渲染器没有输出 action 通道的参数原文，roundtrip 不成立",
+            args=arguments,
+        )
+    recovered = json.loads(carriers[0].arguments_text)
+    if recovered != expected:
+        raise IntegrityError(
+            "args_roundtrip_loss",
+            "渲染后还原的参数与原对象不一致",
+            expected=expected,
+            actual=recovered,
+        )
+    return {
+        "payload": payload,
+        "recovered": recovered,
+        "channel": carriers[0].channel,
+        "span": [carriers[0].start, carriers[0].end],
+    }

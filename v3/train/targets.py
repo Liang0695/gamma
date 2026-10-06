@@ -51,6 +51,9 @@ PEAK_GPU_LIMIT_GIB = 72.0
 HOST_RSS_LIMIT_GIB = 12.0
 HOST_RESERVE_GIB = 3.0
 
+#: 内存门槛判定的**实测**字段：缺任一项即 fail-closed（自报估计值不算证据）。
+MEASURED_MEMORY_FIELDS = ("peak_gpu_gib", "host_rss_gib")
+
 FIRST_ROUND_SEQ_LEN = 2048
 FALLBACK_SEQ_LEN = 1024
 
@@ -186,36 +189,120 @@ class MemoryPlan:
     downgrade_used: bool = False
 
     def effective_gpu_limit(self) -> float:
-        """未知可用显存时取 min(72GiB, 实测空闲 − 4GiB)。"""
+        """显存**上限常量**：未知可用显存时取 min(72GiB, 实测空闲 − 4GiB)。
+
+        注意：它只是上限常量（KAGGLE-20 §5 的 72GiB 硬门槛），**不能替代实测**。
+        生产判定必须走 `evaluate_or_block(measured)`：没有实测就不算门槛通过。
+        """
         if self.available_gpu_gib is None:
             return PEAK_GPU_LIMIT_GIB
         return min(PEAK_GPU_LIMIT_GIB, max(0.0, self.available_gpu_gib - 4.0))
 
-    def evaluate(self) -> dict:
+    def _measured_values(self, measured: Mapping) -> tuple[float, float]:
+        """抽取实测字段（缺字段/非数值一律 fail-closed，不猜默认值）。"""
+        if not isinstance(measured, Mapping):
+            raise MissingInput(
+                "memory_plan_measured_invalid", "measured 必须是映射：%r" % (measured,)
+            )
+        missing = [field for field in MEASURED_MEMORY_FIELDS if field not in measured]
+        if missing:
+            raise MissingInput(
+                "memory_plan_measured_incomplete", "实测内存账缺字段", missing=missing
+            )
+        values: list[float] = []
+        for field in MEASURED_MEMORY_FIELDS:
+            value = measured[field]
+            try:
+                values.append(float(value))
+            except (TypeError, ValueError):
+                raise MissingInput(
+                    "memory_plan_measured_invalid",
+                    "实测字段 %s 不是数值：%r" % (field, value),
+                )
+        return values[0], values[1]
+
+    def evaluate(self, measured: Mapping | None = None) -> dict:
+        """内存门槛静态判定的**保留入口**（向后兼容：可以不传 measured）。
+
+        `measured` 为实测值映射（必须含 `peak_gpu_gib` 与 `host_rss_gib`）；
+        不传时退回本对象自报的估计值（`peak_gpu_gib` / `host_rss_gib`）。
+
+        返回结构 = 原有键（`status` / `seq_len` / `gpu_limit_gib` / `host_rss_limit_gib`）
+        加上判定所需字段::
+
+            {"status": "pass"|"retry_seq1024"|"stop",
+             "measured": bool,          # 是否用了实测值
+             "pass": bool,              # 是否真的过门槛
+             "measured_source": "measured"|"declared_estimate",
+             "measured_peak_gpu_gib": float, "measured_host_rss_gib": float,
+             "gpu_limit_gib": float, "host_rss_limit_gib": float,
+             "seq_len": int, ...}
+
+        注意：`measured=False`（用估计值）**不构成门槛通过证据** —— 生产入口用
+        `evaluate_or_block(measured)`。
+        """
+        if measured is None:
+            peak_gpu = float(self.peak_gpu_gib)
+            host_rss = float(self.host_rss_gib)
+            source = "declared_estimate"
+        else:
+            peak_gpu, host_rss = self._measured_values(measured)
+            source = "measured"
         limit = self.effective_gpu_limit()
         rss_limit = HOST_RSS_LIMIT_GIB
-        gpu_ok = self.peak_gpu_gib <= limit
-        rss_ok = self.host_rss_gib <= rss_limit
-        if gpu_ok and rss_ok:
-            return {
-                "status": "pass",
-                "seq_len": self.seq_len,
-                "gpu_limit_gib": limit,
-                "host_rss_limit_gib": rss_limit,
-            }
-        if not self.downgrade_used and self.seq_len > FALLBACK_SEQ_LEN:
-            return {
-                "status": "retry_seq1024",
-                "reason": "首次超门槛：按登记路线降到 seq1024 重测一次",
-                "gpu_limit_gib": limit,
-                "host_rss_limit_gib": rss_limit,
-            }
-        return {
-            "status": "stop",
-            "reason": "门槛仍不过：停止 BF16 路线并按登记路线转 QLoRA，不循环重启试错",
+        gpu_ok = peak_gpu <= limit
+        rss_ok = host_rss <= rss_limit
+        base = {
+            "measured": measured is not None,
+            "measured_source": source,
+            "measured_peak_gpu_gib": peak_gpu,
+            "measured_host_rss_gib": host_rss,
             "gpu_limit_gib": limit,
             "host_rss_limit_gib": rss_limit,
         }
+        if gpu_ok and rss_ok:
+            return dict(base, status="pass", seq_len=self.seq_len, **{"pass": True})
+        if not self.downgrade_used and self.seq_len > FALLBACK_SEQ_LEN:
+            return dict(
+                base,
+                status="retry_seq1024",
+                seq_len=self.seq_len,
+                reason="首次超门槛：按登记路线降到 seq1024 重测一次",
+                **{"pass": False},
+            )
+        return dict(
+            base,
+            status="stop",
+            seq_len=self.seq_len,
+            reason="门槛仍不过：停止 BF16 路线并按登记路线转 QLoRA，不循环重启试错",
+            **{"pass": False},
+        )
+
+    def evaluate_or_block(self, measured: Mapping | None) -> dict:
+        """生产判定入口（fail-closed）：**没有实测就不能当作通过**。
+
+        - `measured is None` → `MissingInput("memory_plan_unmeasured", ...)`；
+        - `measured` 缺字段 → `MissingInput("memory_plan_measured_incomplete", ...)`；
+        - `measured` 非映射 / 字段非数值 → `MissingInput("memory_plan_measured_invalid", ...)`；
+        - 实测仍不过门槛（`status == "stop"`）→
+          `PolicyViolation("memory_plan_gate_failed", ...)`，异常上下文 `report`
+          带完整的 `evaluate(measured)` 返回。
+
+        返回 = `evaluate(measured)` 的返回结构（`measured=True`，含布尔 `pass`）。
+        """
+        if measured is None:
+            raise MissingInput(
+                "memory_plan_unmeasured",
+                "没有实测内存账：内存门槛不得用估计值或 effective_gpu_limit() 上限常量顶替",
+            )
+        report = self.evaluate(measured)
+        if report["status"] == "stop":
+            raise PolicyViolation(
+                "memory_plan_gate_failed",
+                "实测内存账仍超门槛：%s" % report.get("reason", ""),
+                report=report,
+            )
+        return report
 
 
 def dense_reference_bytes(params: int = 31_273_088_876) -> int:

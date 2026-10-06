@@ -116,22 +116,34 @@ class OfficialInterface:
         if key not in pins:
             raise MissingInput("unknown_pin", "未登记的 pin：%s" % key)
         entry = pins[key]
-        if isinstance(entry, dict):
-            if not entry.get("verified"):
-                raise UnverifiedLock(
-                    "pin_unverified",
-                    "pin %s 未验证，禁止当作已确认事实使用" % key,
-                    pin=entry,
-                )
-            return str(entry.get("value"))
-        return str(entry)
+        if not isinstance(entry, dict):
+            # Q0 🔵-3：裸字符串 pin 旧实现被当作 `verified=True`，与模块开头"不猜"的规则冲突。
+            # 现在一律 UnverifiedLock —— 没有 verified 标志就不允许当作已确认事实。
+            raise UnverifiedLock(
+                "pin_entry_not_structured",
+                "pin %s 是裸值而非带 verified 标志的结构，无法确认已核实" % key,
+                pin=entry,
+            )
+        if not entry.get("verified"):
+            raise UnverifiedLock(
+                "pin_unverified",
+                "pin %s 未验证，禁止当作已确认事实使用" % key,
+                pin=entry,
+            )
+        return str(entry.get("value"))
 
     def pin_entry(self, key: str) -> dict:
         pins = self.payload.get("pins") or {}
         if key not in pins:
             raise MissingInput("unknown_pin", "未登记的 pin：%s" % key)
         entry = pins[key]
-        return dict(entry) if isinstance(entry, dict) else {"value": entry, "verified": True}
+        if not isinstance(entry, dict):
+            raise UnverifiedLock(
+                "pin_entry_not_structured",
+                "pin %s 是裸值而非带 verified 标志的结构，无法确认已核实" % key,
+                pin=entry,
+            )
+        return dict(entry)
 
     def verified_pins(self) -> dict:
         pins = self.payload.get("pins") or {}

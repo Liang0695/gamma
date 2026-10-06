@@ -1,0 +1,26 @@
+{
+  "adapter_sha256": "49fbdb8c857e1e888a86c9f2abe6bb2c2314e09e354ba6969a635d1508155147",
+  "all_passed": true,
+  "artifacts_kept": false,
+  "backend": "synthetic-cpu-loop",
+  "checks": {
+    "adapter_changed": true,
+    "adapter_only_saved": true,
+    "base_frozen": true,
+    "forward_backward_ran": true,
+    "loss_finite": true,
+    "optimizer_stepped": true,
+    "reload_matches": true
+  },
+  "grad_norm_min": 0.007705795046671062,
+  "is_real_model_training": false,
+  "loss_decreased_observation_only": true,
+  "loss_first": 3.4521500786293204,
+  "loss_last": 1.0135118580897045,
+  "note": "合成玩具模型上的自检：只证明前向/反向/优化器步进/保存重载这条链路可用，不证明真实模型可训练，也不产生任何可提交产物。loss_decreased 只作观察值，不作为通过条件。",
+  "optimizer_step_count": 40,
+  "saved_filename": "adapter.synthetic.json",
+  "stage": "cpu-training-loop-self-check",
+  "steps": 40,
+  "supervised_tokens_seen": 360
+}

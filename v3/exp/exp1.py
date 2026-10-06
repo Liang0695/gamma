@@ -7,8 +7,19 @@ RegionHit、**真实输出字节**与 CPU 耗时；按 gold 非测试文件数�
 晋级提案（KAGGLE-19 §6）：Hit@1 不降、Hit@5 不降、截断率 ≤5%，
 且（Hit@1 提高 ≥10pp 或输出 p95 降低 ≥50%）。
 
-数据来源约束：只用**许可的**外部训练题。本仓库自带 `build_synthetic_corpus()`，
-它是**合成样例**（`license="synthetic-fixture"`），只能验证流水线，不能当作真实结果。
+数据来源约束：只用**许可的**外部训练题（KAGGLE-19 §6 / KAGGLE-21 §8 许可证据）。
+题库的许可闸门是**允许清单**（`APPROVED_LICENSE_EXPRESSIONS`），不是黑名单：
+只有整个 SPDX 表达式都落在清单内才放行；GPL / AGPL / proprietary /
+all-rights-reserved / unknown-license / N/A 等一律拒绝（`license_not_allowlisted`），
+不给"许可"留任何自动放行分支。每道题还必须带 `license_text_sha256`（被许可文本的
+SHA256，64 位小写十六进制），缺失或格式不对即 `MissingInput("license_evidence_missing")`。
+
+本仓库自带 `build_synthetic_corpus()`，它是**合成样例**（`license="synthetic-fixture"`），
+只能验证流水线，不能当作真实结果。合成题的 `license_text_sha256` 是**合成题自证**
+（`sha256_json({"license": "synthetic-fixture", "task_id": qid})`），**不是真实许可证据**。
+
+RegionHit 口径：只用**候选自带的行区间**，缺失即记 NA（`None`）并从分母剔除，
+禁止用写死的 1..1 之类假区间造指标。
 """
 
 from __future__ import annotations
@@ -16,6 +27,7 @@ from __future__ import annotations
 import argparse
 import json
 import os
+import re
 import statistics
 import sys
 import time
@@ -47,6 +59,102 @@ MAX_TRUNCATION_RATE = 0.05
 #: 输出估算口径：命中行数 × 行长（与附录 A 一致：不是实测官方截断日志）。
 ROW_CHAR_SCALE = 80
 
+#: 允许清单（模块级具名常量）：EXP-1 只接受**完全落在清单内**的许可。
+#:
+#: 出处：KAGGLE-19 §6「只用许可的外部训练题」/ KAGGLE-21 §8「许可证据」。
+#: 采用允许清单而不是四值黑名单，是因为黑名单必然 fail-open：任何
+#: 不认识的字符串（GPL-3.0 / AGPL-3.0 / proprietary / all-rights-reserved /
+#: unknown-license / N/A / Copyright …）都会"因为不认识"而被放行。
+#: `synthetic-fixture` 必须在清单内 —— 仓库自带的合成题库就是它，
+#: 否则现有流水线测试全部会被误伤。
+APPROVED_LICENSE_EXPRESSIONS = frozenset(
+    {
+        "MIT",
+        "BSD-2-Clause",
+        "BSD-3-Clause",
+        "Apache-2.0",
+        "ISC",
+        "0BSD",
+        "CC0-1.0",
+        "Unlicense",
+        "synthetic-fixture",
+    }
+)
+
+#: 小写化后的同一清单（比较用；大小写不敏感）。
+_APPROVED_LICENSE_LOWER = frozenset(item.lower() for item in APPROVED_LICENSE_EXPRESSIONS)
+
+#: 许可文本证据：被许可文本的 SHA256，64 位**小写**十六进制。
+LICENSE_SHA256_RE = re.compile(r"^[0-9a-f]{64}$")
+
+#: SPDX 表达式运算符（词边界匹配，避免误切 ``XOR`` 之类未知运算符）。
+_SPDX_OR = re.compile(r"\bOR\b", re.IGNORECASE)
+_SPDX_AND = re.compile(r"\bAND\b", re.IGNORECASE)
+_SPDX_WITH = re.compile(r"\bWITH\b", re.IGNORECASE)
+
+
+def normalize_license_expression(expression: object) -> str:
+    """许可表达式归一化：转成字符串、去首尾空白、统一小写（大小写不敏感）。"""
+    if expression is None:
+        return ""
+    return str(expression).strip().lower()
+
+
+def _atom_is_allowlisted(atom: str) -> bool:
+    """单个 SPDX 许可标识符是否命中允许清单（大小写不敏感、忽略首尾空白）。"""
+    return normalize_license_expression(atom) in _APPROVED_LICENSE_LOWER
+
+
+def evaluate_license_expression(expression: object) -> tuple[bool, str]:
+    """判定许可表达式是否可放行，返回 ``(allowed, reason)``。
+
+    规则（逐条显式，**没有任何"不认识就放行"的分支**）：
+
+    - 空 / None / 纯空白 → 拒绝；
+    - 含括号：未实现完整 SPDX 语法 → 拒绝（无法判定即拒绝，显式而非静默）；
+    - 含 ``WITH``：例外条款会改变许可语义 → 拒绝（无法判定即拒绝）；
+    - ``OR``（析取）：只要**至少一个 disjunct 的全部原子**都在允许清单内 → 通过；
+    - ``AND``（合取）：该 disjunct 的**全部**原子都在允许清单内才通过；
+    - 表达式残缺（如尾随 ``OR`` / ``AND``）→ 整体拒绝；
+    - 其余一律拒绝，理由里带上未命中的原子。
+    """
+    text = "" if expression is None else str(expression).strip()
+    if not text:
+        return (False, "许可为空，无法判定")
+    if "(" in text or ")" in text:
+        return (False, "带括号的 SPDX 表达式未实现解析，无法判定即拒绝")
+    if _SPDX_WITH.search(text):
+        return (False, "含 WITH 例外条款，无法判定即拒绝")
+
+    parsed: list[list[str]] = []
+    for disjunct in _SPDX_OR.split(text):
+        atoms = [atom.strip() for atom in _SPDX_AND.split(disjunct)]
+        if any(not atom for atom in atoms):
+            return (False, "SPDX 表达式残缺（%r），无法判定即拒绝" % text)
+        parsed.append(atoms)
+
+    for atoms in parsed:
+        if all(_atom_is_allowlisted(atom) for atom in atoms):
+            return (True, "命中允许清单：%s" % " AND ".join(atoms))
+    rejected = ["%s" % " AND ".join(atoms) for atoms in parsed]
+    return (False, "未在允许清单内：%s" % " OR ".join(rejected))
+
+
+def license_is_allowlisted(expression: object) -> bool:
+    """便捷判定：许可表达式是否可放行（细节见 :func:`evaluate_license_expression`）。"""
+    return evaluate_license_expression(expression)[0]
+
+
+def synthetic_license_evidence(task_id: str) -> str:
+    """**合成题自证**的许可证据哈希 —— 不是真实许可证据。
+
+    真实来源题的 ``license_text_sha256`` 必须是**被许可文本的 SHA256**（KAGGLE-21 §8，
+    与 audit face 里的同名字段同义）；合成题没有真实许可文本，因此用
+    ``sha256_json({"license": "synthetic-fixture", "task_id": qid})`` 自证，
+    只用于让"证据字段必须存在且格式合法"这条闸门在合成题库上也可被检验。
+    """
+    return sha256_json({"license": "synthetic-fixture", "task_id": task_id})
+
 
 def build_synthetic_corpus() -> dict:
     """合成样例题库：4 个家族 / 2 个仓库 / 8 题，全部明确标注 synthetic。"""
@@ -59,6 +167,8 @@ def build_synthetic_corpus() -> dict:
             "origin_kind": origin_kind,
             "split": "train",
             "license": license_,
+            # 合成题自证（不是真实许可证据）：真实来源题这里必须是被许可文本的 SHA256。
+            "license_text_sha256": synthetic_license_evidence(qid),
             "problem_statement": statement,
             "files": files,
             "gold_files": gold_files,
@@ -210,7 +320,14 @@ def load_corpus(path: str) -> dict:
 
 
 def freeze_corpus(corpus: Mapping) -> dict:
-    """冻结最多 24 题、至少两仓库；来源与许可缺失即阻断。"""
+    """冻结最多 24 题、至少两仓库；许可与来源证据缺失即阻断。
+
+    许可闸门是**允许清单**（KAGGLE-19 §6 / KAGGLE-21 §8）：表达式不在
+    `APPROVED_LICENSE_EXPRESSIONS` 内 → `PolicyViolation("license_not_allowlisted")`；
+    `license_text_sha256` 缺失或不是 64 位小写十六进制 →
+    `MissingInput("license_evidence_missing")`。检查次序：先许可、后证据，
+    这样"许可本身不合规"会先被报出来。
+    """
     questions = list(corpus.get("questions") or [])
     if not questions:
         raise MissingInput("empty_corpus", "题库为空")
@@ -221,10 +338,31 @@ def freeze_corpus(corpus: Mapping) -> dict:
                     "question_missing_field",
                     "题目 %s 缺少 %s" % (question.get("task_id"), field),
                 )
-        if str(question["license"]).strip().lower() in ("", "none", "unknown", "unlicensed"):
+        task_id = question.get("task_id")
+        raw_license = question["license"]
+        allowed, reason = evaluate_license_expression(raw_license)
+        if not allowed:
             raise PolicyViolation(
-                "license_not_cleared",
-                "题目 %s 许可未闭合，不得进入 EXP-1" % question["task_id"],
+                "license_not_allowlisted",
+                "题目 %s 的许可 %r 不在允许清单内（%s）；允许清单=%s"
+                % (
+                    task_id,
+                    raw_license,
+                    reason,
+                    ", ".join(sorted(APPROVED_LICENSE_EXPRESSIONS)),
+                ),
+                task_id=task_id,
+                license=raw_license,
+                reason=reason,
+            )
+        evidence = question.get("license_text_sha256")
+        if not isinstance(evidence, str) or not LICENSE_SHA256_RE.match(evidence):
+            raise MissingInput(
+                "license_evidence_missing",
+                "题目 %s 缺少合法 license_text_sha256（必须是被许可文本的 SHA256，"
+                "64 位小写十六进制）；实际值=%r" % (task_id, evidence),
+                task_id=task_id,
+                license_text_sha256=evidence,
             )
     repos = {question["repo_family"] for question in questions}
     if len(repos) < MIN_REPOS:
@@ -264,14 +402,16 @@ def evaluate_question(question: Mapping) -> dict:
     anchors = extract_anchors(question["problem_statement"])
     tokens = anchors.all_tokens()
 
-    started = time.process_time()
+    started = time.perf_counter()
     v0 = anchor_direct(files, anchors.paths)
     v1 = lexical_rank(files, tokens)
     bridged = [c for c in bridge_from_tests(files, v1) if c.path not in {x.path for x in v1}]
     v2 = sorted(v1 + bridged, key=lambda c: c.rank_key())
     v3 = exclude_tests(v1)
     variants = {"V0": v0, "V1": v1, "V2": v2, "V3": v3}
-    cpu_seconds = time.process_time() - started
+    # 墙上时间（perf_counter），**不是** CPU 时间：time.process_time() 在 Windows 上
+    # 粒度通常是 15.6ms，整段评测会恒为 0.0，等于假指标。
+    wall_seconds = time.perf_counter() - started
 
     estimated_chars = _estimate_output_chars(files, tokens)
     narrow = narrow_output("grep -rc (C2)", candidate_table(variants["V3"], limit=10))
@@ -279,14 +419,26 @@ def evaluate_question(question: Mapping) -> dict:
     per_variant = {}
     for name, candidates in variants.items():
         chosen = None
+        region_hit_source = "no_candidate"
         if candidates:
             top = candidates[0]
-            chosen = {"path": top.path, "start": 1, "end": 1}
+            # Y10：只用候选**自带**的真实行区间；无从确定时记 None（NA），
+            # 绝不回填 1..1 之类的假区间去凑指标。
+            chosen = {
+                "path": top.path,
+                "start": top.start_line,
+                "end": top.end_line,
+                "origin": top.origin,
+            }
+            region_hit_source = (
+                "candidate_hit_lines" if top.start_line is not None else "unknown_no_line_info"
+            )
         per_variant[name] = {
             "hit@1": recall_at_k(candidates, gold, 1),
             "hit@5": recall_at_k(candidates, gold, 5),
             "true_recall@5": round(true_recall_at_k(candidates, gold, 5), 4),
             "region_hit": region_hit(chosen, gold_hunks),
+            "region_hit_source": region_hit_source,
             "top1_is_test": bool(candidates) and is_test_path(candidates[0].path),
             "estimated_output_chars": estimated_chars,
         }
@@ -299,7 +451,8 @@ def evaluate_question(question: Mapping) -> dict:
         "split": question.get("split", "train"),
         "gold_non_test_count": len(gold),
         "gold_bucket": gold_bucket,
-        "cpu_seconds": cpu_seconds,
+        "wall_seconds": wall_seconds,
+        "cpu_seconds": wall_seconds,  # 兼容旧字段名；口径见 report["cpu"]["timing_clock"]
         "estimate_is_measured_truncation_log": False,
         "output_over_hard_limit": estimated_chars > HARD_OUTPUT_CHARS,
         "output_over_target": estimated_chars > TARGET_OUTPUT_CHARS,
@@ -316,14 +469,20 @@ def _aggregate(rows: Sequence[Mapping], variant: str) -> dict:
     hit1 = sum(1 for r in rows if r["variants"][variant]["hit@1"]) / total
     hit5 = sum(1 for r in rows if r["variants"][variant]["hit@5"]) / total
     recall5 = sum(r["variants"][variant]["true_recall@5"] for r in rows) / total
-    region = sum(1 for r in rows if r["variants"][variant]["region_hit"]) / total
+    # Y10：RegionHit 三态。True/False 进分母，NA(None) 从分母剔除；
+    # 可评样本为 0 时记 None，而不是 0 或 1 —— 不能拿"没有数据"当"没命中"。
+    region_values = [r["variants"][variant]["region_hit"] for r in rows]
+    evaluable = [value for value in region_values if value is not None]
+    region = (sum(1 for value in evaluable if value) / len(evaluable)) if evaluable else None
     top1_test = sum(1 for r in rows if r["variants"][variant]["top1_is_test"]) / total
     return {
         "n": total,
         "hit@1": round(hit1, 4),
         "hit@5": round(hit5, 4),
         "true_recall@5": round(recall5, 4),
-        "region_hit@1": round(region, 4),
+        "region_hit@1": (round(region, 4) if region is not None else None),
+        "region_hit_evaluable_n": len(evaluable),
+        "region_hit_na_n": len(region_values) - len(evaluable),
         "top1_is_test_rate": round(top1_test, 4),
     }
 
@@ -346,7 +505,7 @@ def run_exp1(corpus: Mapping, output_dir: str | None = None) -> dict:
     output_chars = [r["variants"]["V1"]["estimated_output_chars"] for r in rows]
     truncation_rate = sum(1 for r in rows if r["output_over_hard_limit"]) / float(len(rows))
     p95 = sorted(output_chars)[max(0, int(round(0.95 * len(output_chars))) - 1)]
-    cpu_total = sum(r["cpu_seconds"] for r in rows)
+    wall_total = sum(r["wall_seconds"] for r in rows)
 
     baseline = overall["V1"]
     candidate = overall["V3"]
@@ -383,18 +542,38 @@ def run_exp1(corpus: Mapping, output_dir: str | None = None) -> dict:
         "by_origin_kind": by_origin,
         "output_budget": {
             "estimated_chars": output_chars,
+            # 口径改名（Q0 附带项）：n=8 时最近秩 p95 等价于 max，不能叫"p95"而不说明。
             "p95_estimated_chars": p95,
+            "p95_estimated_chars_nearest_rank": p95,
+            "p95_method": (
+                "最近秩法（nearest-rank）：sorted[round(0.95*n)-1]。n 较小时等价于最大值，"
+                "不是插值 p95；样本量足够前不得据此声称尾部分布已刻画"
+            ),
             "truncation_rate_over_hard_limit": round(truncation_rate, 4),
             "hard_limit_chars": HARD_OUTPUT_CHARS,
             "target_chars": TARGET_OUTPUT_CHARS,
             "estimate_basis": "命中行数 × 80 字符：这是估算，不是实测官方截断日志",
         },
-        "cpu": {"total_process_seconds": round(cpu_total, 4), "per_question": [round(r["cpu_seconds"], 6) for r in rows]},
+        "cpu": {
+            "timing_clock": "time.perf_counter（墙上时间），不是 time.process_time",
+            "total_wall_seconds": round(wall_total, 4),
+            "per_question_wall_seconds": [round(r["wall_seconds"], 6) for r in rows],
+            "timing_note": (
+                "Q0 附带项：旧字段 process_time() 在 Windows 粒度约 15.6ms，整段评测恒为 0.0，"
+                "等于假指标；现如实记墙上时间并改掉字段名。"
+            ),
+        },
+        "region_hit_basis": (
+            "只用候选自带的行区间（lexsearch.longest_hit_block 由真实命中行推出）；"
+            "缺失记 NA 并从分母剔除（region_hit_evaluable_n / region_hit_na_n），"
+            "禁止用写死的 1..1 之类假区间造指标"
+        ),
         "promotion_verdict": verdict,
         "limitations": [
             "合成题库（若 is_real_data=false）：只能验证流水线",
             "输出字符数是估算而非实测截断日志",
-            "未做行级 RegionHit 之外的细分；未使用任何模型",
+            "RegionHit 只用规则检索候选自带行区间，未经模型定位验证；NA 样本已从分母剔除",
+            "未使用任何模型",
         ],
     }
     if output_dir:

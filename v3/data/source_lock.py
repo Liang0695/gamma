@@ -25,25 +25,50 @@ from ..common.errors import MissingInput, PolicyViolation
 #: D0 manifest 里可以用来声明"许可已批准"的键（任一层出现即可）。
 APPROVAL_KEYS = ("authorization_scope", "license_approved", "approved", "license_status")
 APPROVED_VALUES = ("approved", "train_allowed", "cleared", True)
+#: 明确的**拒绝/未决**信号：任何一个出现即整体判 `unverified`。
+_DENY_WORDS = ("denied", "pending", "unverified", "rejected", "forbidden", "unlicensed", "none")
+
+
+def _approval_signal(value) -> str:
+    """把单个许可信号归一成 `approved` / `rejected` / `unknown`。"""
+    if value is True:
+        return "approved"
+    if value is False or value is None:
+        return "rejected"
+    text = str(value).strip().lower()
+    if text in ("approved", "train_allowed", "cleared"):
+        return "approved"
+    if text == "" or text in _DENY_WORDS:
+        return "rejected"
+    return "unknown"
 
 FORMAT_D0 = "d0-source-lock/1"
 FORMAT_FLAT = "v3-source-lock/1"
 
 
 def _approval_of(entry: Mapping, top_level: Mapping | None = None) -> str:
+    """判定记录的许可结论：**任一拒绝信号即拒绝**（Q0 Y6）。
+
+    旧实现按键序返回首个命中的键，于是 ``{"approved": true, "license_status": "denied"}``
+    被 `approved` 放行，而反向键序才给 `unverified` —— 结果取决于字典顺序，是 fail-open。
+
+    现在：扫**全部**许可键（entry 与 top_level 两层）；
+    - 出现任何 `rejected` 或 `unknown` 信号 → `unverified`；
+    - 只有全部出现的信号都是 `approved` 且至少有一个 → `approved`；
+    - 一个信号都没有 → `unverified`。
+    """
+    signals: list[str] = []
     for source in (entry, top_level or {}):
+        if not isinstance(source, Mapping):
+            continue
         for key in APPROVAL_KEYS:
             if key in source:
-                value = source[key]
-                if value in APPROVED_VALUES or str(value).lower() in (
-                    "approved",
-                    "train_allowed",
-                    "cleared",
-                ):
-                    return "approved"
-                if value is False or str(value).lower() in ("pending", "unverified", "denied"):
-                    return "unverified"
-    return "unverified"
+                signals.append(_approval_signal(source[key]))
+    if not signals:
+        return "unverified"
+    if any(signal != "approved" for signal in signals):
+        return "unverified"
+    return "approved"
 
 
 def _normalize_entry(name: str, entry: Mapping, top_level: Mapping | None = None) -> dict:
@@ -127,12 +152,42 @@ def validate_sources(sources: list[Mapping]) -> list[str]:
     return problems
 
 
+#: split_role 的合法取值（D0 台账 / Mika 2026-10-05 裁决的三值口径）。
+SPLIT_ROLES = ("train", "dev", "sealed")
+
+
 def assert_train_only(sources: list[Mapping], allowed_roles=("train",)) -> None:
-    """D0 的 split_role 若声明为封存/dev，不得进入训练侧 ingest。"""
+    """D0 的 split_role 若声明为封存/dev，不得进入训练侧 ingest。
+
+    Q0 Y7：`split_role` 由"可选字段"改为**必需字段**。旧实现只在字段存在且非 train
+    时才阻断，缺字段的记录静默通过 —— 与全仓"未填字段即 fail-closed"的原则相反。
+    另外对取值做白名单校验：出现 `SPLIT_ROLES` 之外的值（例如历史别名 `test`）
+    也是 fail-closed，而不是当作 train 放行。
+    """
+    missing = [str(source.get("name", "?")) for source in sources if not source.get("split_role")]
+    if missing:
+        raise MissingInput(
+            "source_record_missing_split_role",
+            "来源记录缺少必需字段 split_role，不得默认当作 train 放行",
+            repos=sorted(missing),
+        )
+    unknown = sorted(
+        {
+            "%s=%s" % (source.get("name", "?"), source["split_role"])
+            for source in sources
+            if str(source["split_role"]).strip().lower() not in SPLIT_ROLES
+        }
+    )
+    if unknown:
+        raise PolicyViolation(
+            "source_record_bad_split_role",
+            "split_role 不在冻结 split 口径 %s 内" % (list(SPLIT_ROLES),),
+            records=unknown,
+        )
     offenders = [
-        source["name"]
+        str(source.get("name", "?"))
         for source in sources
-        if source.get("split_role") and source["split_role"] not in allowed_roles
+        if str(source["split_role"]).strip().lower() not in allowed_roles
     ]
     if offenders:
         raise PolicyViolation(

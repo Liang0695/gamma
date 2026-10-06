@@ -234,6 +234,11 @@ class OracleTests(unittest.TestCase):
         table = {}
         for ws, result in (("/ws/broken", broken), ("/ws/reference", reference), ("/ws/clean", clean)):
             table[ScriptedRunner.key(ws, commands)] = result
+        # P2P 段现在真的会被执行：clean / reference 两个工作区各跑 repeats 次，
+        # 这里与 F2P 段共用同一份预设结果（fixture 的 p2p 命令与 verify_commands 指向同一文件）。
+        p2p = list(oracle_face()["p2p_tests"])
+        table[ScriptedRunner.key("/ws/clean", p2p)] = clean
+        table[ScriptedRunner.key("/ws/reference", p2p)] = reference
         runner = ScriptedRunner(table)
         if flaky:
             original = runner.run

@@ -1,10 +1,12 @@
 {
   "serving": {
     "channel": "serving",
-    "lock_sha256": "2b0e28c0f783a2242822c07a30ba6a22e80429e73413583cc8a8471045314f37",
-    "package_count": 4,
+    "lock_sha256": "8e1e2b8a2e77ecc14c99f6d7d1b549520262de15b2cfad78666843ad4d4bf79a",
+    "package_count": 6,
     "packages": {
+      "adk_submission": "0.2.12",
       "compressed-tensors": "0.11.0",
+      "sweegemma": "0.2.7",
       "torch": "2.9.1",
       "transformers": "5.16.0",
       "vllm": "0.19.1"

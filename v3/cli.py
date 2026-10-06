@@ -23,7 +23,14 @@ import sys
 from typing import Mapping, Sequence
 
 from .common.canonical import sha256_json, write_canonical
-from .common.errors import Blocked, FailClosed, MissingInput, PolicyViolation, UnverifiedLock
+from .common.errors import (
+    Blocked,
+    FailClosed,
+    IntegrityError,
+    MissingInput,
+    PolicyViolation,
+    UnverifiedLock,
+)
 from .data.dedup import (
     assert_no_split_leak,
     dedup_report,
@@ -36,6 +43,7 @@ from .data.oracle import SubprocessRunner, validate_question_set
 from .data.source_lock import adapt, assert_train_only, ingest_manifest
 from .exp.exp1 import build_synthetic_corpus, load_corpus, run_exp1
 from .t0.deps import DependencyLock
+from .train.template import CANONICAL_TEMPLATE_SHA256
 
 EXIT_OK = 0
 EXIT_BLOCKED = 5
@@ -191,11 +199,27 @@ def cmd_export(args) -> int:
             "template_lock_missing",
             "缺少模板锁定（template_sha256）：不得用未锁定模板导出训练视图",
         )
+    # Q0 🔵-7：旧实现只要求 template_sha256 **非空**，既不与 canonical SHA 比对、
+    # 也不要求 verified=true —— 等于"填个字符串就能导出"。现在两条都强制。
+    if not template_lock.get("verified"):
+        raise UnverifiedLock(
+            "template_lock_unverified",
+            "模板锁 verified != true：未核实的模板不得用于导出训练视图",
+            template_lock=template_lock,
+        )
+    if template_lock["template_sha256"] != CANONICAL_TEMPLATE_SHA256:
+        raise IntegrityError(
+            "template_sha_mismatch",
+            "模板锁里的 template_sha256 与 canonical 值不一致",
+            expected=CANONICAL_TEMPLATE_SHA256,
+            actual=template_lock["template_sha256"],
+        )
+    mask_config = _read_json(args.mask_config, "--mask-config", required=False)
     export = build_export(
         records,
         _count_tokens,
         window_tokens=int(args.window_tokens),
-        export_config={"template_lock": template_lock},
+        export_config={"template_lock": template_lock, "mask_config": mask_config},
     )
     export["export_manifest"]["stage"] = "export"
     digest = _write(args.out, export["export_manifest"])
@@ -290,6 +314,8 @@ def build_parser() -> argparse.ArgumentParser:
     p = sub.add_parser("export", help="导出训练视图")
     p.add_argument("--records", required=True)
     p.add_argument("--template-lock", required=True)
+    # Q0 🔵-7：设计稿 KAGGLE-21 §7 的 export 契约里有 --mask-config，旧实现漏了。
+    p.add_argument("--mask-config", default=None, help="mask 配置的 JSON 路径（设计稿 §7 要求）")
     p.add_argument("--window-tokens", type=int, default=2048)
     p.add_argument("--out")
     p.set_defaults(func=cmd_export)

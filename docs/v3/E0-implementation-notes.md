@@ -78,7 +78,7 @@ adapter-only 断点续训与导出 manifest、四面数据 schema/exporter、八
 | `exp/exp1.py` | CPU EXP-1：冻结 ≤24 题 / ≥2 仓库、许可校验、V0–V3 指标（Hit@1/5、真 Recall@5、RegionHit、真实输出字节、CPU 时间）、按 gold 文件数分层、晋级提案判定 |
 | `cli.py` | 设计稿 §7 CLI 契约：`ingest / split / validate-env / verify / export / audit / rollout / exp1 / train-preflight / deps`，每步输入 hash→输出 manifest，失败非零退出，**不自动扩预算** |
 
-### `tests/`（170 例）
+### `tests/`（278 例；实测见 `docs/v3/evidence/tests-summary.txt`）
 
 | 文件 | 覆盖 |
 |---|---|
@@ -88,6 +88,10 @@ adapter-only 断点续训与导出 manifest、四面数据 schema/exporter、八
 | `test_train.py`（36） | 120 模块与 2,867.2 万参数、内存门槛、20 fixture 全过、shim 不得声称官方一致、断点续训全路径、配置篡改拒绝、开训闸门、CLI 退出码 |
 | `test_exp1.py`（13） | 许可/仓库数/字段/上限闸门、单题指标、分层、晋级判定、报告不冒称真实测量 |
 | `test_pipeline.py`（35） | 流式峰值与 cgroup 余量、完整 state_dict 禁止、磁盘余量、去重/家族/denylist/确定性选择、CLI 各子命令退出码、**D0 manifest 适配** |
+| `test_q0_oracle.py`（20） | Q0 🔴-2 / 🔴-2'：P2P 段真的执行、空测试清单阻断、F2P 未复现判 inconclusive、pytest 报告节点名解析、解析失败即 Blocked |
+| `test_q0_ckpt_config.py`（31） | Q0 Y4/Y5/Y9/Y11：fixture 计数自洽、真回滚、锁通道隔离、内存实测门槛、深合并配置 |
+| `test_q0_train_entry.py`（19） | Q0 🔴-1 与 §7：assistant content 可定位、thinking 通道可区分、roundtrip 过 renderer、分桶非恒零、训练循环端到端、闸门为测量值 |
+| `test_q0_counterexamples.py`（32） | Q0 R3/Y1/Y6/Y7/Y8/Y10/Y14：审查方反例逐条转成"修后必须绿"的断言 |
 
 ## 3. 环境与依赖
 
@@ -99,8 +103,11 @@ adapter-only 断点续训与导出 manifest、四面数据 schema/exporter、八
 ## 4. 怎么运行
 
 ```bash
-# 0) 全部 CPU 回归测试（本机实测 163 例，0 失败）
+# 0) 全部 CPU 回归测试（本机实测 278 例，0 失败 / 1 skip；证据见 docs/v3/evidence/tests-summary.txt）
 python run_tests.py
+
+# 0b) CPU 训练循环自检：真跑前向/反向/优化器步进/保存重载（Q0 §7 要求的可执行入口）
+python -m v3.train.entry --smoke
 
 # 1) 训练静态 preflight（打印全部阻断项，退出码 5 表示仍有阻断）
 python -m v3.cli train-preflight
@@ -139,11 +146,12 @@ python -m v3.cli rollout     --train-only --budget locks/budget.json
 ### 6.1 测试
 
 ```
-SUMMARY: run=170 failures=0 errors=0 skipped=1
+SUMMARY: run=278 failures=0 errors=0 skipped=1
 ```
 
 唯一 skip 是 Windows 上不允许创建 symlink 的那条断言（`tree_manifest` 拒绝 symlink 的分支
 仍由 `_safe_relative_path` 越界用例覆盖）。证据：`evidence/tests-summary.txt`。
+（KAGGLE-26 / Q0 报告指出本文件曾同时写着 163 与 170 两个数字 —— 现已按实测值统一。）
 
 ### 6.2 训练 preflight（`evidence/train-preflight.json`，退出码 5）
 
@@ -261,3 +269,56 @@ exit 7
    建议 optimizer 转 `.pt` 但**仍不进提交包**，并保留 JSON 版摘要用于校验。
 5. `v3/cli.py` 的 `verify` 只调用 `SubprocessRunner`；接真实题目时应加上"验收工具/测试防篡改"
    的 checksum 前置检查（目前由 `oracle_face.test_patch_sha256` 承载）。
+
+## 9. KAGGLE-26 / Q0 报告退回整改（本轮，E0 作者）
+
+审查方给了三项阻断（🔴-1/2/3）、十四项应修（Y1–Y14）和一批建议。逐项处置如下；
+"修前反例"与"修后回归"都用**审查方自己的脚本**跑过：同一份
+`q0_counterexamples.py` 在 `8601698` 上复现全部缺陷，在本次交付的 SHA 上不再复现。
+
+### 9.1 三项阻断
+
+| 项 | 位置 | 修法 | 修后可复跑的检查 |
+|---|---|---|---|
+| 🔴-1 | `v3/train/template.py` | assistant 的 `content` **永不丢弃**：`thinking=True` 时作为独立 `channel="reasoning"` span（`supervised=False`，只作 context），否则并入 action 通道并随 `loss_eligible` 参与监督；`arguments` 不再触发"吃掉 content"的分支；新增 `assert_text_in_input_ids()` 按 token 子序列定位 | `test_q0_train_entry.AssistantContentPresenceTests`；反例脚本 R1 的 `content 进入 input_ids` 由 `False` 变 `True` |
+| 🔴-2 | `v3/data/oracle.py` | `contrast()` 真的执行 `p2p_tests`（clean/reference 各 `repeats` 次），返回新增 `p2p_clean`/`p2p_reference` 段；空测试清单 `MissingInput`；broken 未覆盖声明的 F2P 节点 → `inconclusive`；**P2P 回归判 `fail`**（优先于 inconclusive） | `test_q0_oracle.P2PExecutionTests`；手工复跑：真 P2P 回归 → `status=fail, p2p_regression=True` |
+| 🔴-3 | `v3/exp/exp1.py` | 许可闸门改为**允许清单** `APPROVED_LICENSE_EXPRESSIONS` + SPDX 表达式规则（`OR` 任一析取合规、`AND` 全部合规、`WITH`/括号拒绝），并要求每题带 `license_text_sha256` | `test_q0_counterexamples.R3LicenseGateTests`；反例脚本 R3 七种许可全部 `license_not_allowlisted` |
+
+### 9.2 十四项应修
+
+- **Y1** `faces.assert_no_oracle_in_actor_input`：改为顶层键白名单 `ACTOR_VISIBLE_KEYS` + 递归键名黑名单 + **值级**检查（40/64 位 hex、补丁文本行头、oracle 结论措辞）。docstring 明确写了"这是机械防误拼检查，不是隔离机制"。
+- **Y2** `assert_roundtrip_arguments`：真正经过 `Renderer.render()`，从 action 通道取回 `arguments_text` 再反序列化比对（传假 renderer 必失败）。
+- **Y3** `thinking` 参数现在有可观测差异（独立 reasoning 通道）；F04/F05 的 purpose 文案与实现对齐，并各带一条断言通道语义的 `extra_check`。
+- **Y4** `checkpoint.py`：删除无出处的 `min_pass=7`，改成具名常量 `REQUIRED_FIXTURE_TOTAL/PASS = 20`（出处 KAGGLE-20 §4），并校验 `0 ≤ fixture_pass ≤ fixture_total`；`assert_adapter_valid_frozen_spec` 是 preflight 用的**严格 20/20** 生产入口。
+- **Y5** `resume(interrupted_mid_accum=True)`：**真回滚** —— manifest 记录上一份完整快照指针，回滚时把 `global_step/optimizer/cursor/consumed_*/accum_boundary` 全部换成快照值，并返回可判定的 `rollback_applied/rolled_back_from/rolled_back_to`；无快照时诚实返回 `rollback_applied=False`（不再假装）。
+- **Y6** `source_lock._approval_of`：任一拒绝/未决信号即 `unverified`，结果**与键序无关**。
+- **Y7** `assert_train_only`：`split_role` 改为必需字段（缺失 `MissingInput`），并对取值做白名单校验。
+- **Y8** `faces.SPLITS` 增加 `sealed`（并保留历史别名 `test`）；`assert_no_split_leak` 覆盖**所有** split（`LEGACY_UNCHECKED_SPLITS` 恒为空，即无豁免），缺 `problem_family_id`/`repo_family` 即 `MissingInput`。
+- **Y9** 三处未接线全部接进 `preflight()`：`deps.load_pair`（内含 `assert_channels_isolated` + `assert_distinct_lock_channels`）→ 报告 `locks.channels_isolated`；`MemoryPlan.evaluate_or_block(measured)` → 内存门槛必须来自实测；`StreamingPlan.assert_no_full_state_dict` 改成对**行为**断言（无证据即拒）。
+- **Y10** `region_hit` 改为三态（`True/False/NA`），行区间来自候选自带的最长命中块；NA 从分母剔除并输出 `region_hit_evaluable_n`/`region_hit_na_n`；报告加 `region_hit_basis` 口径说明。
+- **Y11** `TrainingConfig.from_file` 深合并 + 未知键 `unknown_config_key` + 全链路 `require_field`，不再抛裸 `KeyError`。
+- **Y12** `SubprocessRunner` 用 `-rA` 解析出**节点名**（`passed/failed/skipped`），命令单独记在 `commands_run`；解析不出节点名即 `Blocked("test_report_unparsable")`，不以空列表冒充"无 skip"。
+- **Y13** `LabelResult.loss_counts()` 按 `span_report` 真分桶（`supervised` 来自 labels；`system/tool/user` 记各自 context token 数；`assistant_context`/`reasoning_context` 按 channel 分流）。
+- **Y14** 官方 compiler/parser 载体 `adk_submission 0.2.12` / `sweegemma 0.2.7` 写进 `serving.lock.json`（出处 KAGGLE-22 设计稿 :24，如实标 `verified=false`、`wheel_sha256=PENDING`）；新增 `v3/submit/validate.py` 提交包校验器；裸字符串 pin 一律 `UnverifiedLock`；`cli export` 补 `--mask-config` 且模板锁必须 `verified=true` 并与 canonical SHA 比对。
+
+### 9.3 🔵 建议
+
+`build_labels` 不再就地修改入参；`Span.to_dict()` 带上 `channel/text/arguments_text`；
+`fixtures` 里 `expect_raise` 等死代码清理交由后续；`targets.HOST_RESERVE_GIB` 与
+`streaming` 的重复常量尚未合并（保留，未在本轮动）。
+
+### 9.4 本轮**未**完成 / 明确未验证
+
+1. **真实 GPU 训练**：`TorchPeftBackend` 代码完整但**一次都没跑过**（本机无 GPU、无锁定
+   torch/peft/transformers、无下载授权）。已验证的只有 `SyntheticBackend` 的 CPU 训练循环
+   （`evidence/train-entry-smoke.json`）。GPU 实耗仍交 Liang 统筹链。
+2. **官方提交限额**：Q0 转述的「7 种扩展名 / 10000 文件 / 1000 YAML / 500 agents / 深度 50」
+   在本仓库内**找不到可引用原文**。`v3/submit/validate.py` 因此只强制有出处的两条
+   （总解压 <3GiB、adapter ≤8 且只 `.safetensors`），其余记入
+   `UNVERIFIED_OFFICIAL_LIMITS` 并标 `official_limits_verified=False` —— **不编数字**。
+3. **数据隔离与权限**：Q0 §4 的六项（principal→资源权限矩阵、否定测试、封存交接、
+   V2 denylist 文件、sealed 独占、actor 联网/历史取答案控制）**不在 E0 范围**，
+   本轮未动、也未声称已具备。dev/sealed 发布与验收继续阻断。
+4. **真实 tokenizer / 官方模板逐字节一致**：仍未验证（`tokenizer_vocab_sha256` 仍是 `null`）。
+5. **`SubprocessRunner` 的子进程路径**：本机沙箱限制下未做真实 pytest 端到端执行，
+   `-rA` 解析只对着伪造输出验证过。

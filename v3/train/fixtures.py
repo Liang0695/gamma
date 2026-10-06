@@ -66,8 +66,48 @@ def _check_unknown_tool(stats: dict) -> dict:
 
 
 def _check_args_roundtrip(stats: dict) -> dict:
-    assert_roundtrip_arguments(ShimRenderer(), {"path": "a/b.py", "nested": {"k": [1, 2, "三"]}})
+    """F11：对 fixture 里**真实那条** assistant 消息的 args 做渲染级 roundtrip。
+
+    KAGGLE-26 / Q0 报告 Y2：旧实现传的是硬编码字典，且不接触 renderer，断言恒真。
+    现在改成从 `stats["assistant_arguments"]`（由 `run_fixture` 从 fixture 自己的
+    messages 抽出）取参数，并且**必须经过 ShimRenderer.render()** 才能通过。
+    """
+    items = stats.get("assistant_arguments") or []
+    if not items:
+        raise PolicyViolation(
+            "args_roundtrip_no_arguments", "F11 里没有带结构化参数的 assistant 消息"
+        )
+    spans = []
+    for item in items:
+        outcome = assert_roundtrip_arguments(
+            ShimRenderer(), item["arguments"], tool_name=item.get("tool_name") or "run_command"
+        )
+        spans.append(outcome["span"])
     stats["args_roundtrip_lossless"] = True
+    stats["args_roundtrip_cases"] = len(items)
+    stats["args_roundtrip_spans"] = spans
+    return stats
+
+
+def _check_thinking_reasoning_channel(stats: dict) -> dict:
+    """F04：thinking 打开时必须有独立 reasoning 通道，且该通道不参与 loss。"""
+    if not stats.get("reasoning_span_count"):
+        raise PolicyViolation(
+            "thinking_channel_missing", "thinking=True 却没有渲染出 reasoning 通道"
+        )
+    if stats.get("reasoning_context_tokens", 0) <= 0:
+        raise PolicyViolation("thinking_channel_empty", "reasoning 通道长度为 0")
+    stats["thinking_channel_verified"] = "reasoning_context_only"
+    return stats
+
+
+def _check_thinking_off_no_reasoning(stats: dict) -> dict:
+    """F05：thinking 关闭时不得产生 reasoning 通道（与 F04 必须可区分）。"""
+    if stats.get("reasoning_span_count"):
+        raise PolicyViolation(
+            "thinking_channel_unexpected", "thinking=False 却出现了 reasoning 通道"
+        )
+    stats["thinking_channel_verified"] = "no_reasoning_channel"
     return stats
 
 
@@ -169,7 +209,8 @@ def build_fixtures() -> list[Fixture]:
         ),
         Fixture(
             "F04-thinking-on",
-            "thinking 开关打开：可见 reasoning 只作 context，不施加 loss",
+            "thinking 开关打开：content 走独立 reasoning 通道，只作 context 不施加 loss；"
+            "工具名+参数走 action 通道并参与监督",
             [
                 _user("Find the failing function."),
                 _asst(
@@ -183,10 +224,12 @@ def build_fixtures() -> list[Fixture]:
             ],
             thinking=True,
             tags=["thinking"],
+            extra_check=_check_thinking_reasoning_channel,
         ),
         Fixture(
             "F05-thinking-off",
-            "thinking 开关关闭：行为与开启一致，仅不产生 reasoning 文本",
+            "thinking 开关关闭：不产生 reasoning 通道，content 并入 action 通道并参与监督"
+            "（与 F04 的 input_ids 必须不同）",
             [
                 _user("Find the failing function."),
                 _asst(
@@ -200,6 +243,7 @@ def build_fixtures() -> list[Fixture]:
             ],
             thinking=False,
             tags=["thinking"],
+            extra_check=_check_thinking_off_no_reasoning,
         ),
         Fixture(
             "F06-marker-in-tool-output",
@@ -400,6 +444,12 @@ def run_fixture(fixture: Fixture, renderer=None) -> dict:
             renderer, fixture.messages, thinking=fixture.thinking, pad_to=fixture.pad_to
         )
         stats["tools_used"] = tools_used
+        # fixture 自己携带的结构化参数（供 Y2 的渲染级 roundtrip 使用，而不是硬编码字典）
+        stats["assistant_arguments"] = [
+            {"tool_name": message.get("tool_name"), "arguments": message.get("arguments")}
+            for message in fixture.messages
+            if message.get("role") == "assistant" and message.get("arguments") is not None
+        ]
         if fixture.extra_check is not None:
             stats = fixture.extra_check(stats)
         return {

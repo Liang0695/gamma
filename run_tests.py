@@ -18,6 +18,10 @@ MODULES = (
     "tests.test_train",
     "tests.test_exp1",
     "tests.test_pipeline",
+    "tests.test_q0_oracle",
+    "tests.test_q0_ckpt_config",
+    "tests.test_q0_train_entry",
+    "tests.test_q0_counterexamples",
 )
 
 

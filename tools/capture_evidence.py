@@ -34,8 +34,13 @@ def sanitize(text: str) -> str:
 
 
 def capture(commands: list[list[str]], out_name: str) -> int:
-    proc = subprocess.run(commands, cwd=REPO_ROOT, capture_output=True, text=True)
-    payload = sanitize(proc.stdout)
+    # 显式 UTF-8 解码：本机默认 locale 是 GBK，子解释器输出的是 UTF-8，
+    # 用默认编码解码会抛 UnicodeDecodeError（或让 stdout 变成 None）。
+    proc = subprocess.run(
+        commands, cwd=REPO_ROOT, capture_output=True, text=True,
+        encoding="utf-8", errors="replace",
+    )
+    payload = sanitize(proc.stdout or "")
     os.makedirs(EVIDENCE_DIR, exist_ok=True)
     with open(os.path.join(EVIDENCE_DIR, out_name), "w", encoding="utf-8", newline="\n") as handle:
         handle.write(payload)
@@ -48,6 +53,8 @@ def main() -> int:
     jobs = [
         ([py, "run_tests.py"], "tests-summary.txt"),
         ([py, "-m", "v3.cli", "train-preflight"], "train-preflight.json"),
+        # Q0 §7：可执行训练入口的 CPU 自检证据（前向/反向/优化器步进/保存重载）。
+        ([py, "-m", "v3.train.entry", "--smoke"], "train-entry-smoke.json"),
         ([py, "-m", "v3.cli", "deps"], "deps-status.json"),
         ([py, "-m", "v3.cli", "exp1", "--output-dir", EVIDENCE_DIR], "exp1-synthetic-stdout.json"),
         ([py, "-m", "v3.cli", "audit", "--release", "does-not-exist.json"], "audit-missing.json"),
