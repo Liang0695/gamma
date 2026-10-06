@@ -526,3 +526,73 @@ python tools/capture_evidence.py  -> 全部证据按真实执行重生成；
 4. **数据隔离/权限六项**：仍不在 E0 范围，dev/sealed 发布与验收继续阻断。
 5. **🟡-1 / 🟡-5 / 🟡-6 / 🟡-7**：属 D0（`kaggle-23-d0-source-lock`），本轮未动、不代改。
 6. 依赖锁 wheel SHA 仍是 `PENDING`（`verified=false`），`start()` 会先在这里挡住。
+
+## 11. KAGGLE-26 消费端许可闸门：`approved_spdx` **内容**校验（限定整改）
+
+出处：Mika 2026-10-06 验收裁定第 3 条。原文要求「沿既有 E0 分支/PR 补 `approved_spdx`
+内容与既定允许清单校验；不以非空、自述 approved 或 osi_permissive=true 替代检查。
+未知值、空值、类型错误、未支持的复合表达式均明确拒绝，保留 revision 绑定与冲突优先规则。」
+
+### 11.1 缺陷实证（修前）
+
+`v3/data/source_lock.py` 旧实现只有 `if not result["approved_spdx"]` —— 即**只查非空**。
+对 D0 真实产物冻结副本做单字段最小变异后走**真实 ingest 路径**，21 例中 **13 例判错**
+（证据：`docs/v3/evidence/q0-license-gate-before.txt`，`mismatches=13 / cases=21`）：
+
+| 变异后的 `approved_spdx` | 修前 | 修后 |
+|---|---|---|
+| `GPL-3.0` / `AGPL-3.0-only` | **放行** ❌ | 拒绝 ✅ |
+| `completely-unknown-license` / `MITT` | **放行** ❌ | 拒绝 ✅ |
+| `True` / `123` / `["MIT"]` / `{"spdx":"MIT"}` | **放行** ❌ | 拒绝 ✅ |
+| `MIT WITH classpath-exception-2.0` | **放行** ❌ | 拒绝 ✅ |
+| `(MIT OR Apache-2.0)` | **放行** ❌ | 拒绝 ✅ |
+| `MIT AND GPL-3.0` | **放行** ❌ | 拒绝 ✅ |
+| `MIT OR` / `AND` | **放行** ❌ | 拒绝 ✅ |
+| `""` / `"   "` / `None` | 拒绝（仅靠非空检查） | 拒绝 ✅ |
+| 未变异真实 9 条 / `MIT OR Apache-2.0` / `mit` | 放行 | 放行 ✅（无回归） |
+
+类型错误之所以能溜过去，是因为旧代码先做了 `str(spdx).strip()`：`str(True) == "True"`、
+`str(["MIT"]) == "['MIT']"` 都是**非空字符串**，于是"非空即通过"。
+
+### 11.2 修法（不新造第二张清单）
+
+- 允许清单的事实源仍只有一处：`v3/exp/exp1.py` 的 `APPROVED_LICENSE_EXPRESSIONS`。
+  `evaluate_license_expression()` 新增**可选** `allowed=` 形参（默认值不变，向后兼容），
+  让调用方能传一个**收紧后的**清单；表达式规则（`OR` 任一析取、`AND` 全部、`WITH`/括号拒绝、
+  残缺拒绝）完全复用冻结实现，没有第二份解析器。
+- 新增 `v3/data/source_lock.check_approved_spdx(value)`：先做 `isinstance(value, str)`
+  **类型**检查（不做隐式强转），再查空值，再做清单/表达式判定；五类输入各给一条可并进
+  `problems` 的显式理由。
+- 来源锁表面允许清单 = 冻结清单 **减去** `synthetic-fixture`
+  （`SOURCE_REPO_APPROVED_LICENSES`）。理由：它是仓库自带合成题库的伪标识，
+  **不是 SPDX 许可标识符**，真实仓库不得用它声明许可。这是**收紧**方向，
+  且是子集关系而非另立清单（`tests/test_q0_license_allowlist.AllowlistIsSingleSourcedTests` 断言
+  `APPROVED_LICENSE_EXPRESSIONS - SOURCE_REPO_APPROVED_LICENSES == {"synthetic-fixture"}`）。
+- 接线两条真实 ingest 路径：D0 形状走 `assess_license_review` 的 `approved_spdx`；
+  平铺形状（`v3-source-lock/1`）走 `validate_sources` 的 `license_spdx`。两处都只**追加**
+  problems，因此 revision 绑定与"冲突优先拒绝"的既有语义不变（`result["status"]` 仍是
+  "无 problems 才 approved"）。
+
+### 11.3 修后实测
+
+```
+python tools/q0_license_gate_probe.py docs/v3/evidence/q0-license-gate-after.txt
+    -> mismatches=0 / cases=21   (exit 0)
+python run_tests.py
+    -> SUMMARY: run=369 failures=0 errors=0 skipped=1   (exit 0)
+       修前基线 = run=346 failures=0 errors=0 skipped=1；增量 23 例全部来自新模块
+```
+
+新增回归模块 `tests/test_q0_license_allowlist.py`（23 例）已登记进 `run_tests.py`；
+它同时覆盖：真实 manifest 正向通过、五类反例、`osi_permissive=true` 不能替代内容检查、
+"内容错 + revision 不符"两条问题**同时**报出（不互相吞）、平铺别名不能翻盘、平铺形状的
+`license_spdx` 走同一闸门。
+
+### 11.4 边界
+
+- 本轮**只**动 E0 消费端（`v3/data/source_lock.py` + `v3/exp/exp1.py` 的向后兼容形参位），
+  不改 D0 生成器、不改审核人、不碰 GPU/107/正式提交。
+- `license_review.evidence` 里的**许可正文哈希**仍未被本闸门消费：本闸门只判"表达式是否
+  命中允许清单"，**不**证明该仓库在固定 revision 上的正文就是它。正文级正向证据属 D0
+  生成侧（Mika 裁定第 2 条），E0 侧不声称已闭合。
+- `independent_review.status` 仍原样保留为 `pending` 事实字段；导入 ≠ 独立批准。

@@ -29,8 +29,12 @@ covers one pinned commit; re-pinning a repository invalidates it"。
 1. **revision 绑定**：`decided_against_revision` 必须等于该记录的 `pinned_commit`；
    不等（或取不到 pinned commit）即拒绝 —— 重新 pin 会让旧批准失效。
 2. **任一拒绝/冲突信号优先拒绝**：`decision != approved`、copyleft/restrictive 命中、
-   `osi_permissive` 非真、`approved_spdx` 为空、`independent_review.status == "rejected"`，
+   `osi_permissive` 非真、`approved_spdx` 未命中允许清单（空值 / 未知值 / 类型错误 /
+   未支持的复合表达式）、`independent_review.status == "rejected"`，
    任意一条命中即整条记录 `unverified`，**不看键序、不看是否另有 approved 信号**。
+   `approved_spdx` 走**内容**校验（`check_approved_spdx`，允许清单复用
+   `v3.exp.exp1.APPROVED_LICENSE_EXPRESSIONS`），**不得**用"非空"、"自述 approved"
+   或 `osi_permissive=true` 替代 —— 见 Mika 2026-10-06 裁定第 3 条。
 3. **导入 ≠ 批准**：`independent_review.status="pending"` 原样保留为事实字段；
    许可元数据被 ingest **不等于**独立批准，也不等于任何 split 被 `released`。
    本模块**不写入**任何顶层的无条件 `approved` 别名（那会绕过审核）。
@@ -42,6 +46,14 @@ from typing import Mapping
 
 from ..common.canonical import sha256_json
 from ..common.errors import MissingInput, PolicyViolation
+# Q0 消费端许可闸门（Mika 2026-10-06 裁定第 3 条）：`approved_spdx` 必须做**内容**校验，
+# 不能只看非空。允许清单与 SPDX 表达式规则只有一份事实源，位于 `v3.exp.exp1`；
+# 这里直接复用而不是另抄一张表，避免两处清单各自漂移。
+from ..exp.exp1 import (
+    APPROVED_LICENSE_EXPRESSIONS,
+    evaluate_license_expression,
+    normalize_license_expression,
+)
 
 #: 平铺形状里可以用来声明"许可已批准"的键（任一层出现即可）。
 APPROVAL_KEYS = ("authorization_scope", "license_approved", "approved", "license_status")
@@ -74,6 +86,63 @@ LICENSE_REVIEW_REQUIRED_FIELDS = (
 )
 #: 拒绝批准块的**冲突**信号：出现任一非空命中即"自述批准与证据冲突"→ 拒绝。
 LICENSE_REVIEW_CONFLICT_KEYS = ("copyleft_marker_hits", "restrictive_marker_hits")
+
+# ------------------------------------------------- Q0 消费端许可内容闸门
+#: 合成题库专用伪标识：它**不是** SPDX 许可标识符，只用于仓库自带的合成题库
+#: （见 `v3.exp.exp1.synthetic_license_evidence`），真实仓库不得用它声明许可。
+SYNTHETIC_FIXTURE_LICENSE = "synthetic-fixture"
+
+#: 来源锁（真实仓库）允许清单 = 冻结的 `APPROVED_LICENSE_EXPRESSIONS` **减去**合成伪标识。
+#: 这是**收紧**方向：清单本身仍只有一处事实源，没有另抄一份表。
+SOURCE_REPO_APPROVED_LICENSES = frozenset(
+    item for item in APPROVED_LICENSE_EXPRESSIONS if item != SYNTHETIC_FIXTURE_LICENSE
+)
+
+#: 被来源锁表面**排除**的伪标识（小写，比较用）。当前只有合成题库那一个，
+#: 但仍然写成集合：将来若清单里再进伪标识，这里会跟着自动变严。
+_EXCLUDED_PSEUDO_IDENTIFIERS_LOWER = frozenset(
+    item.lower() for item in (APPROVED_LICENSE_EXPRESSIONS - SOURCE_REPO_APPROVED_LICENSES)
+)
+
+
+def check_approved_spdx(value) -> tuple[bool, str]:
+    """消费端 `approved_spdx` / `license_spdx` 的**内容**校验，返回 ``(ok, message)``。
+
+    Mika 2026-10-06 裁定第 3 条：不得用"非空"、"自述 approved"或
+    `osi_permissive=true` 替代内容检查。因此本函数把五类输入**显式**拒绝：
+
+    1. **类型错误**：不是 `str`（`bool` / `int` / `list` / `dict` / `None` 全部拒绝）——
+       `str(True) == "True"` 这类隐式强转必须在这里被挡掉，不能进清单比较；
+    2. **空值**：空串或纯空白；
+    3. **未知值**：不在允许清单内的标识符（如 `GPL-3.0`、`completely-unknown-license`、
+       拼写错误 `MITT`）；
+    4. **未支持的复合表达式**：含括号或 `WITH` 例外条款（未实现完整 SPDX 语法 → 拒绝）；
+    5. **残缺表达式**：`MIT OR` / 纯运算符 `AND` 之类。
+
+    支持的复合形式沿用 `v3.exp.exp1.evaluate_license_expression` 的冻结规则：
+    `OR` 至少一个析取的全部原子在清单内、`AND` 全部原子在清单内。
+
+    返回值第二项在**成功时**是命中的清单项，失败时是可直接并入 `problems` 的理由。
+    """
+    if not isinstance(value, str):
+        return (
+            False,
+            "不是字符串（实际类型 %s）：许可标识符必须按类型显式校验，"
+            "不得用隐式字符串转换代替" % type(value).__name__,
+        )
+    normalized = normalize_license_expression(value)
+    if not normalized:
+        return (False, "为空：批准必须指明许可表达式")
+    if normalized in _EXCLUDED_PSEUDO_IDENTIFIERS_LOWER:
+        return (
+            False,
+            "%r 是合成题库专用伪标识，不是 SPDX 许可标识符："
+            "真实仓库不得用它声明许可" % value.strip(),
+        )
+    allowed, reason = evaluate_license_expression(value, allowed=SOURCE_REPO_APPROVED_LICENSES)
+    if not allowed:
+        return (False, reason)
+    return (True, reason)
 
 
 def _is_sha40(value) -> bool:
@@ -188,9 +257,13 @@ def assess_license_review(review, pinned_commit: str | None, *, required: bool =
             % (LICENSE_REVIEW_KEY, review.get("osi_permissive"))
         )
     spdx = review.get("approved_spdx")
-    result["approved_spdx"] = None if spdx is None else str(spdx).strip()
-    if not result["approved_spdx"]:
-        result["problems"].append("%s.approved_spdx 为空：批准必须指明许可表达式" % LICENSE_REVIEW_KEY)
+    # Mika 2026-10-06 裁定第 3 条：`approved_spdx` 必须是**内容**校验。
+    # 类型错误不得被 `str()` 隐式吞掉（`str(True) == "True"` 会溜进清单比较），
+    # 因此只有真正的 str 才带出事实字段，其余一律进 problems。
+    result["approved_spdx"] = spdx.strip() if isinstance(spdx, str) else None
+    spdx_ok, spdx_message = check_approved_spdx(spdx)
+    if not spdx_ok:
+        result["problems"].append("%s.approved_spdx %s" % (LICENSE_REVIEW_KEY, spdx_message))
 
     # ---- 独立复核占位（不是签字，也不阻断 ingest）----
     independent = review.get("independent_review")
@@ -372,6 +445,12 @@ def validate_sources(sources: list[Mapping]) -> list[str]:
         commit = str(source.get("commit", ""))
         if len(commit) != 40 or any(c not in "0123456789abcdef" for c in commit):
             problems.append("%s commit 不是 40 位 hex（不得猜 SHA）：%r" % (name, commit[:16]))
+        # 平铺形状的 `license_spdx` 同样是消费端许可闸门：非空不够，必须命中允许清单。
+        # 缺字段/空值已由上面的 required 循环报出，这里不重复报"缺少"。
+        if source.get("license_spdx"):
+            spdx_ok, spdx_message = check_approved_spdx(source.get("license_spdx"))
+            if not spdx_ok:
+                problems.append("%s license_spdx %s" % (name, spdx_message))
         if str(source.get("authorization_scope", "")).lower() not in ("approved", "train_allowed"):
             problems.append(
                 "%s 许可未 approved（authorization_scope=%s，decision_source=%s）"

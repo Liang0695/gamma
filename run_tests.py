@@ -23,6 +23,7 @@ MODULES = (
     "tests.test_q0_train_entry",
     "tests.test_q0_counterexamples",
     "tests.test_q0_d0_contract",
+    "tests.test_q0_license_allowlist",
     "tests.test_q0_submit_limits",
     "tests.test_q0_pins_and_guards",
 )

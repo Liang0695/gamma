@@ -1,0 +1,26 @@
+D0 manifest: docs/v3/design/d0-source-lock-65aaa16.json
+case                                                 expect   actual   first problem
+----------------------------------------------------------------------------------------------------------------------------------
+正例：未变异的真实 9 条 manifest                               ACCEPT   ACCEPT   decision_counts={'approved': 9, 'rejected': 0, 'unverified': 0}
+反例：GPL-3.0                                           reject   ACCEPT   decision_counts={'approved': 9, 'rejected': 0, 'unverified': 0}   <== MISMATCH
+反例：AGPL-3.0-only                                     reject   ACCEPT   decision_counts={'approved': 9, 'rejected': 0, 'unverified': 0}   <== MISMATCH
+反例：完全未知值 completely-unknown-license                  reject   ACCEPT   decision_counts={'approved': 9, 'rejected': 0, 'unverified': 0}   <== MISMATCH
+反例：拼写错误 MITT                                         reject   ACCEPT   decision_counts={'approved': 9, 'rejected': 0, 'unverified': 0}   <== MISMATCH
+反例：空字符串 ''                                           reject   reject   attrs 许可未 approved（authorization_scope=unverified，decision_source=d0-l
+反例：纯空白 '   '                                         reject   reject   attrs 许可未 approved（authorization_scope=unverified，decision_source=d0-l
+反例：None                                              reject   reject   attrs 许可未 approved（authorization_scope=unverified，decision_source=d0-l
+反例：类型错误 bool True                                    reject   ACCEPT   decision_counts={'approved': 9, 'rejected': 0, 'unverified': 0}   <== MISMATCH
+反例：类型错误 int 123                                      reject   ACCEPT   decision_counts={'approved': 9, 'rejected': 0, 'unverified': 0}   <== MISMATCH
+反例：类型错误 list ['MIT']                                 reject   ACCEPT   decision_counts={'approved': 9, 'rejected': 0, 'unverified': 0}   <== MISMATCH
+反例：类型错误 dict {'spdx': 'MIT'}                         reject   ACCEPT   decision_counts={'approved': 9, 'rejected': 0, 'unverified': 0}   <== MISMATCH
+反例：不支持的复合表达式 WITH                                    reject   ACCEPT   decision_counts={'approved': 9, 'rejected': 0, 'unverified': 0}   <== MISMATCH
+反例：不支持的复合表达式 括号                                      reject   ACCEPT   decision_counts={'approved': 9, 'rejected': 0, 'unverified': 0}   <== MISMATCH
+反例：复合表达式 MIT AND GPL-3.0                             reject   ACCEPT   decision_counts={'approved': 9, 'rejected': 0, 'unverified': 0}   <== MISMATCH
+反例：残缺表达式 'MIT OR'                                    reject   ACCEPT   decision_counts={'approved': 9, 'rejected': 0, 'unverified': 0}   <== MISMATCH
+反例：只有运算符 'AND'                                       reject   ACCEPT   decision_counts={'approved': 9, 'rejected': 0, 'unverified': 0}   <== MISMATCH
+反例：osi_permissive=False（自述 approved 不能翻盘）            reject   reject   attrs 许可未 approved（authorization_scope=unverified，decision_source=d0-l
+正例：MIT OR Apache-2.0（限定清单内的合法析取）                     ACCEPT   ACCEPT   decision_counts={'approved': 9, 'rejected': 0, 'unverified': 0}
+正例：MIT AND Apache-2.0（限定清单内的合法合取）                    ACCEPT   ACCEPT   decision_counts={'approved': 9, 'rejected': 0, 'unverified': 0}
+正例：大小写不敏感 mit                                        ACCEPT   ACCEPT   decision_counts={'approved': 9, 'rejected': 0, 'unverified': 0}
+----------------------------------------------------------------------------------------------------------------------------------
+mismatches=13 / cases=21

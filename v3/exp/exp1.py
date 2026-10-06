@@ -100,13 +100,23 @@ def normalize_license_expression(expression: object) -> str:
     return str(expression).strip().lower()
 
 
-def _atom_is_allowlisted(atom: str) -> bool:
-    """单个 SPDX 许可标识符是否命中允许清单（大小写不敏感、忽略首尾空白）。"""
-    return normalize_license_expression(atom) in _APPROVED_LICENSE_LOWER
+def _atom_is_allowlisted(atom: str, allowed_lower: frozenset | None = None) -> bool:
+    """单个 SPDX 许可标识符是否命中允许清单（大小写不敏感、忽略首尾空白）。
+
+    `allowed_lower` 允许调用方传入一个**收紧后的**清单（例如来源锁表面要排除
+    合成题库伪标识），默认仍是模块级冻结清单。
+    """
+    return normalize_license_expression(atom) in (allowed_lower or _APPROVED_LICENSE_LOWER)
 
 
-def evaluate_license_expression(expression: object) -> tuple[bool, str]:
+def evaluate_license_expression(
+    expression: object, allowed: frozenset | None = None
+) -> tuple[bool, str]:
     """判定许可表达式是否可放行，返回 ``(allowed, reason)``。
+
+    `allowed` 为可选**收紧**入口：`v3.data.source_lock` 用它把清单减去合成题库
+    伪标识（`synthetic-fixture` 不是许可，真实仓库不得用它声明许可）。
+    该参数只能收窄不能放宽的部分由调用方自己保证；本函数不做并集。
 
     规则（逐条显式，**没有任何"不认识就放行"的分支**）：
 
@@ -118,6 +128,10 @@ def evaluate_license_expression(expression: object) -> tuple[bool, str]:
     - 表达式残缺（如尾随 ``OR`` / ``AND``）→ 整体拒绝；
     - 其余一律拒绝，理由里带上未命中的原子。
     """
+    allowed_lower = _APPROVED_LICENSE_LOWER
+    if allowed is not None:
+        allowed_lower = frozenset(normalize_license_expression(item) for item in allowed)
+
     text = "" if expression is None else str(expression).strip()
     if not text:
         return (False, "许可为空，无法判定")
@@ -134,7 +148,7 @@ def evaluate_license_expression(expression: object) -> tuple[bool, str]:
         parsed.append(atoms)
 
     for atoms in parsed:
-        if all(_atom_is_allowlisted(atom) for atom in atoms):
+        if all(_atom_is_allowlisted(atom, allowed_lower) for atom in atoms):
             return (True, "命中允许清单：%s" % " AND ".join(atoms))
     rejected = ["%s" % " AND ".join(atoms) for atoms in parsed]
     return (False, "未在允许清单内：%s" % " OR ".join(rejected))
