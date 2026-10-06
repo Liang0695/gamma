@@ -71,7 +71,10 @@ LICENSE_REVIEW_SCHEMA = {
     "conflict_rule": ("a positive disagreement between the preset, the licence text "
                       "and/or the packaging metadata forces decision='pending' and is "
                       "listed verbatim in license_conflicts; it can never read as "
-                      "'approved'. An EMPTY evidence set is not a conflict."),
+                      "'approved'. Packaging metadata is optional when absent, but at "
+                      "least one matching positive family signal from the fixed root "
+                      "licence text is mandatory. An EMPTY evidence set is not a "
+                      "conflict and is never approval."),
     "hash_basis_rule": (
         "every licence file records BOTH the upstream git-blob sha256 and the "
         "checkout sha256 plus the newline transformation relating them; the two are "
@@ -278,6 +281,13 @@ def classify_license(preset, text_families, meta_families):
     approved = preset in APPROVED_SPDX_SET
     if conflicts:
         return "pending", False, conflicts
+    # A hand-written expectation and absent package metadata are not evidence.
+    # Require positive evidence from the fixed repository-owned LICENSE/COPYING
+    # body. Packaging metadata is allowed to be absent; if present, conflicts
+    # above still withhold approval.
+    preset_tokens = preset_families(preset)
+    if not text_families or not (preset_tokens & set(text_families)):
+        return "pending", False, []
     return ("approved" if approved else "pending"), approved, conflicts
 
 

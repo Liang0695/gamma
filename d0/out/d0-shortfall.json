@@ -12,10 +12,21 @@
   },
   "p0": {
     "requirement": "8 training families = 4 real + 4 variant from >= 2 repositories",
-    "real_families_source_prepared": 4,
+    "real_families_source_prepared": 3,
     "real_families_training_released": 0,
     "real_families_total": 4,
-    "real_families_blocked_on_window_evidence": [],
+    "real_families_source_preparation_shortfall": [
+      {
+        "family_id": "v3-train-boltons-001",
+        "status": "needs_review",
+        "blocking_checks": [
+          "landing_patch_correspondence_proven"
+        ]
+      }
+    ],
+    "real_families_needs_review": [
+      "v3-train-boltons-001"
+    ],
     "variant_specs_ready": 4,
     "variant_commits_built": 0,
     "repositories_covered": [
@@ -24,7 +35,7 @@
       "more-itertools",
       "pluggy"
     ],
-    "verdict": "static source preparation: 4/4 real families ready. TRAINING RELEASE: 0/4 -- and that is not a shortfall of this revision, it is the honest state: no family has a runtime oracle result, an independent licence review or demonstrated permission isolation yet, so the training-release gate is closed for every family by design. The variant half has 4/4 specifications and zero constructed commits."
+    "verdict": "static source preparation: 3/4 real families ready. TRAINING RELEASE: 0/4 -- and that is not a shortfall of this revision, it is the honest state: no family has a runtime oracle result, an independent licence review or demonstrated permission isolation yet, so the training-release gate is closed for every family by design. The variant half has 4/4 specifications and zero constructed commits."
   },
   "p1_headroom": {
     "requirement": "train split of 96 families = 24 real + 40 variant",
@@ -52,7 +63,35 @@
     "attrs_observation": "attrs is the only locked dev-role repository that does yield in-window dev families. The count is thin and unverified; it is headroom evidence, not a released dev set.",
     "assessment": "dev family supply is thin and depends on attrs plus an alternative."
   },
-  "blocking_gaps": [],
+  "blocking_gaps": [
+    {
+      "gap": "v3-train-boltons-001 has source_preparation.status=needs_review: a pinned PR landing event exists, but patch correspondence is not proven by its changed lines",
+      "impact": "the P0 real half has 3/4 families whose static source material is complete, so the 8-task set is short by one REAL family until this is ruled on",
+      "evidence": {
+        "family_id": "v3-train-boltons-001",
+        "repo": "boltons",
+        "fix_commit": "ae21ed2a78064ca1090db069e3f755aa1853b885",
+        "merge_evidence_status": "verified",
+        "commit_to_pr_lookup_url": "https://api.github.com/repos/mahmoud/boltons/commits/ae21ed2a78064ca1090db069e3f755aa1853b885/pulls",
+        "author_date_audit_only": "2015-04-19T00:13:33-07:00",
+        "committer_date_audit_only": "2015-04-19T00:21:19-07:00",
+        "extra_observation": "the two pull requests cross-referenced from the upstream issue (pallets/click#258 and #259) were both closed UNMERGED, so no pull-request merge event exists for this fix at all"
+      },
+      "options": [
+        "accept a defined alternative landing-event evidence standard for direct-to-default-branch pushes (a policy decision, not taken here)",
+        "or substitute another train-split family whose merge event IS retrievable, from the screened inventory, after running the same derivation and review",
+        "or drop the 4th real family and record the P0 quota as short"
+      ],
+      "owner": "Mika / custodian decision; D0 does not silently swap a family",
+      "resolution_history": [
+        {
+          "date": "2026-10-06",
+          "action": "Mika ruled to substitute the slot. click 9da1791476fe79ce77aa7a2a2db370c91a455251 was replaced by click ee56925bc4f5451a125317e183f498e8bd1aecb3 (PR #1934, merged 2021-07-03, verified landing event). The replaced commit stays unverified and counted in no quota; its derived variant family was retired and rebuilt on the replacement parent.",
+          "authority": "Mika ruling on this issue, 2026-10-06"
+        }
+      ]
+    }
+  ],
   "non_blocking_gaps": [
     {
       "gap": "dateutil cannot carry dev families at the pinned revision under the time rule",

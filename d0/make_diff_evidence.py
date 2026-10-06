@@ -24,9 +24,9 @@ import sys
 HERE = os.path.dirname(os.path.abspath(__file__))
 REPO = os.path.dirname(HERE)
 OUT = os.path.join(HERE, "out")
-DEFAULT_PREV = "7fe7170"
+DEFAULT_PREV = "d664c08"
 BRANCH = "agent/research/kaggle-23-d0-source-lock"
-OUTPUT_NAME = "v4-diff-evidence.txt"
+OUTPUT_NAME = "v5-diff-evidence.txt"
 
 
 def git(*args):
@@ -111,6 +111,10 @@ def released_counts(ledger):
     return {
         "real_source_prepared": len(prepared),
         "real_training_released": len(trained),
+        "real_needs_review": [f.get("family_id") for f in fams
+                              if f.get("kind") == "real"
+                              and (f.get("source_preparation") or {}).get("status")
+                              == "needs_review"],
         "real_released_alias": sum(1 for f in fams
                                    if f.get("kind") == "real" and f.get("released")),
         "real_released": sum(1 for f in fams
@@ -184,10 +188,10 @@ def main():
 
     L = []
     a = L.append
-    a("V3 D0 v4 -- DIFF EVIDENCE (machine-derived, not transcribed)")
+    a("V3 D0 v5 -- DIFF EVIDENCE (machine-derived, not transcribed)")
     a("=" * 72)
     a("branch                 : %s" % BRANCH)
-    a("previous head (v3)     : %s (%s)" % (prev, prev_full))
+    a("previous head (reviewed base) : %s (%s)" % (prev, prev_full))
     a("HEAD at generation     : %s" % head)
     a("'after' side read from : the WORKING TREE (d0/out/*.json on disk)")
     a("working tree vs HEAD   : %d changed path(s)" % n_dirty)
@@ -286,10 +290,11 @@ def main():
     a("")
     a("  Interpretation: the artifact is NEW (the before side is None). Every")
     a("  record carries merged_at_utc, the pull-request URL, the raw API response")
-    a("  sha256, and the merge-commit geometry. Two records are UNVERIFIED and are")
-    a("  counted in no quota: click 9da1791476fe (no pull request exists for the")
-    a("  commit at all) and python-dotenv f5485a61eefa (its commit message cites")
-    a("  #600, which is an ISSUE, not a pull request).")
+    a("  sha256, and the merge-commit geometry. One current alternative-candidate")
+    a("  record is UNVERIFIED and counted in no quota: python-dotenv f5485a61eefa")
+    a("  (its commit message cites #600, which is an ISSUE, not a pull request).")
+    a("  The replaced click commit 9da1791476fe is retained separately in")
+    a("  replaced_records and is also explicitly counted in no quota.")
     a("")
 
     a("-" * 72)
@@ -302,13 +307,9 @@ def main():
         a("  %-42s before=%s" % (k, (rb or {}).get(k)))
         a("  %-42s after =%s" % ("", (rn or {}).get(k)))
     a("")
-    a("  Interpretation: v3 shipped ONE `released` boolean that mixed a static-artefact")
-    a("  statement with a release decision, and reported 3/8 with no separate notion of")
-    a("  'may this train an agent'. v4 splits the axes: `source_preparation.status`")
-    a("  (static material complete) and `training_release.status` (release gate).")
-    a("  Every family is now source-prepared but training-BLOCKED, with the missing")
-    a("  evidence itemised per family -- no runtime oracle result, no independent")
-    a("  licence review, no demonstrated actor isolation, no constructed variant.")
+    a("  Interpretation: v4 split `released` into source-preparation and training")
+    a("  axes. This pass retains both and corrects the source-preparation result to")
+    a("  three ready, one needs_review; training remains blocked for all four real families.")
     a("  `released` survives as a compatibility alias mirroring ONLY the static axis,")
     a("  scoped by a companion `released_scope` string present in every emitted file.")
     a("")
@@ -316,6 +317,38 @@ def main():
     a("  that could not produce a merge event is replaced by ee56925bc4f5 (PR #1934,")
     a("  merged 2021-07-03), and the replaced commit is retained in")
     a("  merge-evidence.json's replaced_records with counted_in_no_quota=true.")
+    a("")
+
+    a("-" * 72)
+    a("8. MIKA'S THREE COUNTEREXAMPLES: BEFORE / AFTER PRODUCTION PREDICATES")
+    a("-" * 72)
+    a("  BEFORE (Mika's attached reproducer at d664c08):")
+    a("   1. classify_license('MIT', set(), set()) -> approved / True (preset alone passed).")
+    a("   2. Different patches to a.py (return 1 vs return -999) had diff_text_equal=False,")
+    a("      but closed_under_the_landing_event=True because both touched the same path.")
+    a("   3. With no merge commit/candidate but fix_is_ancestor=True, geometry selected the")
+    a("      fix commit as the landing event from ancestry alone.")
+    a("")
+    a("  AFTER (the public gate directly calls the production functions):")
+    gate_path = os.path.join(OUT, "validate_d0.output.txt")
+    gate_lines = [line.rstrip() for line in open(gate_path, encoding="utf-8")]
+    regression_names = [
+        "negative_test_missing_fixed_license_text_cannot_be_approved",
+        "positive_test_fixed_license_text_allows_missing_optional_metadata",
+        "negative_test_fixed_license_text_metadata_conflict_stays_pending",
+        "negative_test_same_file_with_different_patch_is_not_landing_evidence",
+        "negative_test_ancestor_without_merge_proof_has_no_landing_event",
+    ]
+    for name in regression_names:
+        matches = [line for line in gate_lines if name in line]
+        a("  " + (matches[0] if matches else "MISSING: " + name))
+    a("")
+    a("  Aggregate after state: %s" % json.dumps(
+        released_counts(show_json(None, "d0/out/family-ledger.json")),
+        ensure_ascii=False, sort_keys=True))
+    a("  boltons correspondence: same-file path coverage no longer suffices; its fixed")
+    a("  code diff is not contained in the landing diff, so source_preparation=needs_review")
+    a("  and the P0 source-preparation shortfall records it. Training release remains 0.")
     a("")
 
     a("-" * 72)
@@ -346,7 +379,7 @@ def main():
     a("")
     a("  Interpretation: GitHub's merge_commit_sha is not the commit that lives in the")
     a("  pinned clone for most of these families. v4 re-derives the landing event from")
-    a("  the pinned bytes for each counted family and records which of three shapes")
+    a("  the pinned bytes for each real candidate and records which of three shapes")
     a("  applies, rather than treating 'the associated pull request was merged' as")
     a("  proof. boltons is the sharp case: the API's merge commit is ABSENT from the")
     a("  pinned clone, and the pinned history's own merge commit for that pull request")

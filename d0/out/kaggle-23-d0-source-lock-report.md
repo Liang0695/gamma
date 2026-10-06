@@ -1,17 +1,17 @@
-# V3 D0 资料来源锁定与许可证据说明（v3 修订版 · 时间与许可专项整改）
+# V3 D0 资料来源锁定与许可证据说明（v5 · 判据整改）
 
 生成：资料调研与分发 · 2026-10-06 · 访问日期 2026-10-06 · 分支 `agent/research/kaggle-23-d0-source-lock`
 
-> **本文件取代 v3（该分支提交 `7fe7170`；其前身是 v2 `65aaa16`、第一版 `8b8ff5a`）。**v3 被 Mika 裁决退回并责成接续整改四项：① 把「静态来源准备」与「训练放行」分成两个状态轴，`released` 只允许表示前者；② 为 click 槽位补入一个有**原始合并事件证据**的独立真实家族，并同步停用/重建其派生变异家族；③ 补齐 more-itertools / pluggy / boltons 的 PR head 与 merge SHA 差异（含 boltons 合并对象在固定快照中缺失）的可核查落地证据；④ 逐项闭环此前的黄 1/5/6/7 项。其中 ①②③ 已完成，④ 见 §2.8。
+> **本文件接续原 D0 分支 `d664c08`。** 本轮修复许可证据缺失时仍获批准的问题，收紧落地补丁对应判据，并将判据直接接入 `source_preparation` 与 P0 汇总。既有 click 补位、时间窗口、静态准备/训练放行双轴、训练放行 0、公开验证器和显式隔离 SKIP 契约均保留。
 
 ## 0. 一句话结论
 
-①③ 两项整改完成，② 在既有 train 仓库内补位成功，整支流水线在本机**从固定快照重跑并与提交产物逐字节一致**，新 SHA 与逐字段差异齐备。
+空许可证据现为 pending；落地判据要求实际变更行对应并要求可归因的 PR 事件。click、more-itertools、pluggy 的静态材料为 ready，boltons 为 needs_review，P0 静态准备 3/4、训练放行 0/4。
 
 - **状态轴已分开（本轮整改 ①）**：家族记录不再只有一个 `released` 布尔值。`source_preparation.status` 回答「静态来源材料是否齐全」，`training_release.status` 回答「能否拿去训练/评测」。本版**没有任何家族获训练放行** —— 不是缺格，而是训练放行门槛（真机 oracle 结果、独立许可 review、gold/dev/sealed 隔离证据、变异半边落地）四项正向证据一项都不存在，因此全部 `blocked` 并逐项写明缺什么。`released` 保留为**兼容别名**，只镜像静态准备轴，并随每个文件携带 `released_scope` 作用域声明。
 - **click 槽位已补位（本轮整改 ②）**：按 Mika 裁决，把没有合并事件的 click `9da1791476fe…`（2015，直接推送到默认分支，issue #222 由 commit 直接引用关闭，交叉引用的 PR #258/#259 均**未合并**关闭）替换为 click `ee56925bc4f5…`（PR #1934，**merged_at 2021-07-03**，真实双亲 merge 落地）。替换走与其余家族**完全相同**的派生与审核路径：同一套字段、同一套否定测试。被替换的 commit 保留失败账、`unverified`、不计任何配额；其派生变异家族 `…-var-rename` 已**停用**，改为在替换父家族上重建的 `…-var-predicate`。日期规则与「4 真实 + 4 变异」目标**未被放宽**。
-- **落地事件已逐一取证（本轮整改 ③）**：不再假定「关联 PR 已合并」就等于家族合格。每个计入家族都重新推导**固定快照里真实的落地事件**，并给出 PR head / merge SHA / 固定快照三者不一致时的**归因**与**补丁等价性**证据；boltons 的 GitHub 合并对象在固定快照中**确实不存在**，已按可核查方式解释而非静默对齐。
-- **仍未运行 FAIL_TO_PASS**；未用 GPU、未申请 107 作业、未读 gold、未改编码官代码。校验 **122 项、0 失败**（PASS 122）。
+- **落地事件已逐一取证（本轮整改 ③）**：不再假定「关联 PR 已合并」就等于家族合格。每个真实候选都重新推导**固定快照里真实的落地事件**，并给出 PR head / merge SHA / 固定快照三者不一致时的**归因**与**补丁等价性**证据；boltons 的 GitHub 合并对象在固定快照中**确实不存在**，已按可核查方式解释而非静默对齐。
+- **仍未运行 FAIL_TO_PASS**；未用 GPU、未申请 107 作业、未读 gold、未改编码官代码。校验 **123 项、0 失败、4 skipped**（PASS 123）。
 
 ## 1. 需求回顾
 
@@ -45,7 +45,7 @@ v2 的错误在于：`collect_licenses.py` 里的手写预设 `design_license_ex
 
 1. **许可正文**中正向识别许可族（只读仓库**自己的**根级 LICENSE/COPYING；NOTICE 与第三方许可副本被排除，因为 marshmallow 的 NOTICE 内嵌了 Django 的 BSD-3-Clause，纳入会凭空制造冲突）；
 2. **包装元数据**中提取显式 SPDX（`license = { text = … }`、`License :: OSI Approved :: …` 分类器；**歧义分类器不给 token**，以免掩盖真实冲突或凭空制造冲突）；
-3. 与实际**包装声明**做三方比对；任一正向不一致 ⇒ `decision = "pending"`，冲突逐条写入 `license_conflicts`。**空证据集不是冲突**（“未知”不等于“不一致”）。
+3. 与实际**包装声明**做三方比对；任一正向不一致 ⇒ `decision = "pending"`，冲突逐条写入 `license_conflicts`。**空证据集不是冲突**（“未知”不等于“不一致”），但许可正文没有正向证据时一律 `pending`；包装元数据缺失可以接受，前提是固定许可正文与预设相符且现有元数据无冲突。
 
 | 仓库 | decision | approved_spdx | 正文识别 | 元数据声明 | 冲突 | 主许可文件 | copyleft | 限制性 | 独立复核 |
 |---|---|---|---|---|---|---|---|---|---|
@@ -93,7 +93,7 @@ python-dotenv `LICENSE` 复核结果：blob `80619b7049f08c81683ad0e01f08f257a84
 - **作者/提交者日期降级为审计字段**：`fix_time.author_and_committer_dates_role` 明确写着它们只作佐证；`fix_time.primary` 现在是 `merged_at_utc`，缺合并事件时为 `null`（而不是「退回作者日期」）。
 - **合并事件的取证**由 `d0/fetch_merge_evidence.py` 从 GitHub REST API 拉取，每个响应的**原始字节**写入 `d0/pr-evidence/raw/` 并计算 SHA256，同时记录 `merged_at_utc`、`merge_commit_sha`、PR 链接与查询 URL。取证是**缓存优先**的：已下载的响应不会重复消耗配额；全程**未认证、无 token**。
 - **`merge_commit_sha` 不匹配不等于造假，但也不再默认「关联 PR 已合并」就算合格**：rebase/squash 合并会让它与修复 commit 不同。本版不只记录几何关系，而是**从固定快照重新推导落地事件**（§2.9），并给出补丁等价性证据；包括「GitHub 报告的合并 commit 在固定快照中不存在」这种异常，也给出可核查解释而非静默对齐。
-- **缺证据即不计数**：`status=unverified` ⇒ `qualifies_by_merge_event=false` ⇒ `source_preparation.status=not_ready`，并进入 shortfall 的阻塞缺口。commit message 里的 issue 编号**不是**合并证据。
+- **缺证据即不计数**：`status=unverified` ⇒ `qualifies_by_merge_event=false` ⇒ `source_preparation.status=not_ready`，并进入 shortfall。已找到合并事件但补丁变更行对应不足时则为 `needs_review`，同样不计 ready 配额。commit message 里的 issue 编号**不是**合并证据。
 - **backport 追溯原修复**：backport 标记的 commit 仍直接拒收；变异家族的窗口从**父家族的合并事件**继承，且父家族静态准备未 ready 时不得继承。
 
 **已废止（第一版，未经批准）**：`train_end_exclusive = 2025-01-01T00:00:00+00:00`、`dev = [2025-01-01T00:00:00+00:00, 2026-01-01T00:00:00+00:00)`、`sealed >= 2026-01-01T00:00:00+00:00`。本版 JSON 中保留该记录并标记 `withdrawn`，避免下游误用旧划分。
@@ -109,7 +109,7 @@ python-dotenv `LICENSE` 复核结果：blob `80619b7049f08c81683ad0e01f08f257a84
 | v3-train-click-001 | click | `ready` | `blocked` | `ee56925bc4f5451a125317e183f498e8bd1aecb3` | `3e82dd9350a59897` | 2021-07-03T13:56:47Z | [#1934](https://github.com/pallets/click/pull/1934) | `two_parent_merge_commit` | 1 |
 | v3-train-more-itertools-001 | more-itertools | `ready` | `blocked` | `62411c1618493f94b16901746c34e72ad415061e` | `7082e67503d2acb9` | 2020-03-30T00:56:55Z | [#412](https://github.com/more-itertools/more-itertools/pull/412) | `two_parent_merge_commit` | 1 |
 | v3-train-pluggy-001 | pluggy | `ready` | `blocked` | `9cf2eaa50dd1ad3ebf042978629e78c695197095` | `4552535722d46dc3` | 2024-11-12T09:24:31Z | [#545](https://github.com/pytest-dev/pluggy/pull/545) | `two_parent_merge_commit` | 2 |
-| v3-train-boltons-001 | boltons | `ready` | `blocked` | `ae21ed2a78064ca1090db069e3f755aa1853b885` | `1f229d4d3a80e039` | 2015-04-19T08:51:36Z | [#31](https://github.com/mahmoud/boltons/pull/31) | `two_parent_merge_commit` | 2 |
+| v3-train-boltons-001 | boltons | `needs_review` | `blocked` | `ae21ed2a78064ca1090db069e3f755aa1853b885` | `1f229d4d3a80e039` | 2015-04-19T08:51:36Z | [#31](https://github.com/mahmoud/boltons/pull/31) | `two_parent_merge_commit` | 2 |
 
 每个真实家族的完整字段见 `family-ledger.json`：逐文件 base/fix 哈希、test patch 与 code-only gold patch 的分离哈希、FAIL_TO_PASS 节点（要求 base 不存在、fix 存在）、oracle 断言行、环境依赖材料、`source_preparation` / `training_release` 两个状态轴、以及 `merge_evidence` 的来源、响应哈希与落地事件归因。
 
@@ -117,7 +117,7 @@ python-dotenv `LICENSE` 复核结果：blob `80619b7049f08c81683ad0e01f08f257a84
 
 **静态准备未 ready 的真实家族（如实保留失败账）**
 
-（本版无：四个真实家族的静态材料均齐全。被替换的 click 2015 修复见 §2.4.1，它保留失败账但已不在族谱内。）
+- **v3-train-boltons-001**（boltons）：`source_preparation.blocking_checks = landing_patch_correspondence_proven`。merge event retrieved from the pull-request metadata; qualification uses merged_at_utc, not the commit's author/committer dates
 
 **变异家族（`released=false`，静态准备状态 `specification_only`）**：
 
@@ -191,7 +191,7 @@ python-dotenv `LICENSE` 复核结果：blob `80619b7049f08c81683ad0e01f08f257a84
 
 ### 2.7 校验输出与两条否定测试
 
-`d0/validate_d0.py` 独立于生成脚本、只读产物 JSON 重新断言：**122 项检查、0 失败**（PASS 行 122）。完整输出见 `d0/out/validate_d0.output.txt`。
+`d0/validate_d0.py` 独立于生成脚本、只读产物 JSON 重新断言：**123 项检查、0 失败**（PASS 行 123）。完整输出见 `d0/out/validate_d0.output.txt`。
 
 本轮新增的**两条否定测试**（都是把真实缺陷重新植入、驱动**同一个**判定函数，因此规则一旦被放宽，门禁立刻失败）：
 
@@ -217,38 +217,38 @@ python-dotenv `LICENSE` 复核结果：blob `80619b7049f08c81683ad0e01f08f257a84
 
 ### 2.9 本轮整改 ③：落地事件归因与补丁等价性
 
-评审要求「不能只凭关联 PR 已合并宣告家族通过」。本版对**每个计入家族**从固定快照**重新推导落地事件**，并给出：PR head、GitHub `merge_commit_sha`、固定快照中真实落地的 commit 三者关系，以及**补丁等价性**结果。
+评审要求「不能只凭关联 PR 已合并宣告家族通过」。本版对**每个真实候选**从固定快照**重新推导落地事件**，并给出：PR head、GitHub `merge_commit_sha`、固定快照中真实落地的 commit 三者关系，以及**补丁等价性**结果。
 
 | family_id | GitHub `merge_commit_sha` | 固定快照中的落地事件 | 落地形态 | 修复是落地 commit 的第二父 | 补丁等价 |
 |---|---|---|---|---|---|
 | v3-train-click-001 | `3d0d8b5af1ab` | `3d0d8b5af1ab` | `two_parent_merge_commit` | True | 逐文件覆盖（完全相同） |
 | v3-train-more-itertools-001 | `a5a14f61d833` | `a5a14f61d833` | `two_parent_merge_commit` | True | 逐文件覆盖（完全相同） |
 | v3-train-pluggy-001 | `9d19d4b8e07d` | `9d19d4b8e07d` | `two_parent_merge_commit` | True | 逐文件覆盖（完全相同） |
-| v3-train-boltons-001 | `1efa511206d0` | `1d7d8c4e1767` | `two_parent_merge_commit` | False | 逐文件覆盖（被后续 commit 精修） |
+| v3-train-boltons-001 | `1efa511206d0` | `1d7d8c4e1767` | `two_parent_merge_commit` | False | **未通过** |
 
 三种形态各自说明白，**不合并成一句「都合并了」**：
 
 1. **API 与固定快照一致**（click #1934、more-itertools #412、pluggy #545）：GitHub 给的 `merge_commit_sha` 就是固定快照里的双亲 merge commit，修复 commit 是其第二父，补丁逐文件完全相同。
-2. **API 的合并对象在固定快照中不存在**（boltons #31）：GitHub 报 `1efa511206d0f27474efcb6d00bab5404f290bda`，`git cat-file -t` 在该固定克隆中**取不到该对象**。固定历史的真实落地事件是 `1d7d8c4e1767f5ec4e180cccd00b773150d086f5`（`Merge pull request #31 from asottile/parsed_exception_no_source_30`，双亲）。但它合入的是 **`078a215bfd37da5045ec6302bcba9505a11582dc`**，**不是**修复 commit `ae21ed2a7806…`。可核查的解释是：`078a215b` 的父提交**正是** `ae21ed2a`（`git log -1 --format=%P 078a215b` 可直接验证），即修复先落到分支、随后被一个同 PR 的后续 commit 精修（该 commit 主题为 `Oops, broke last-line-eval-like tracebacks`）。因此本版记录的是**祖先关系 + 逐文件变更集覆盖**，而不是文本完全相同：`boltons/tbutils.py` 被标为 `refined_by_a_later_commit`，`tests/tbutils_test.py` 为 `contained_superset`，其余文件 `identical`。
+2. **API 的合并对象在固定快照中不存在**（boltons #31）：GitHub 报 `1efa511206d0f27474efcb6d00bab5404f290bda`，`git cat-file -t` 在该固定克隆中**取不到该对象**。固定历史的真实落地事件是 `1d7d8c4e1767f5ec4e180cccd00b773150d086f5`（`Merge pull request #31 from asottile/parsed_exception_no_source_30`，双亲）。但它合入的是 **`078a215bfd37da5045ec6302bcba9505a11582dc`**，**不是**修复 commit `ae21ed2a7806…`。可核查的解释是：`078a215b` 的父提交**正是** `ae21ed2a`（`git log -1 --format=%P 078a215b` 可直接验证），修复先成为该分支祖先、随后同 PR 的后续 commit 改动了 traceback 代码。祖先关系只能说明历史顺序，不能证明落地差异仍包含修复的变更；对 `boltons/tbutils.py`，落地新增/删除行未包含固定修复的新增/删除行。因此该家族 `patch_correspondence=needs_review`、`source_preparation.status=needs_review`，不计入 ready 配额；click、more-itertools、pluggy 三家仍由严格变更行覆盖证据判定 ready。
 3. **squash/rebase 落地**（python-dotenv 的 5 个候选）：`merge_commit_sha` 就等于修复 commit，固定历史中不存在独立 merge commit，落地事件即修复 commit 本身。
 
 **方法论上最要紧的一条**：补丁等价性不能用「PR 的 `base.sha`」做基准 —— PR 开着的时候基分支通常已经前进，那样比出来的差异会混入无关提交。pluggy #545 就是这种情况（`base.sha=4ba6441e`，合并的第一父却是 `2b6dfd7c`）。正确做法是**各自与自己的父提交比**：merge 与其第一父比、修复 commit 与其自己的父比，再逐文件比对变更集。
 
-门禁对上述三点各有断言，并带一条否定测试：`negative_test_a_family_without_landing_evidence_cannot_be_adjudicated`。
+门禁直接调用生产判据验证三个审核反例：空许可证据不能批准；同文件但不同变更行不能证明 patch 对应；只有祖先关系、没有 PR 合并证据不能归因。另验证固定 MIT 正文可在包装元数据缺失时批准（元数据可选但不得冲突），冲突仍为 pending。
 
 ## 3. 推断与建议（标注为推断 / 建议）
 
-- **事实**：P0 真实半边**静态准备 4/4**（四个真实家族的静态材料齐全）；**训练放行 0/4** —— 四项放行证据（真机 oracle、独立许可 review、gold/dev/sealed 隔离、变异半边构造）一项都不存在，故全部 `blocked`。变异半边 4/4 规格、0 个构造 commit。被替换的 click 2015 修复保留失败账、不计任何配额。
+- **事实**：P0 真实半边**静态准备 3/4**；boltons 因落地补丁对应不足为 `needs_review`；**训练放行 0/4** —— 四项放行证据（真机 oracle、独立许可 review、gold/dev/sealed 隔离、变异半边构造）一项都不存在，故全部 `blocked`。变异半边 4/4 规格、0 个构造 commit。被替换的 click 2015 修复保留失败账、不计任何配额。
 - **事实（本轮整改 ②，已按 Mika 裁决执行）**：click 槽位已替换为 `ee56925bc4f5451a125317e183f498e8bd1aecb3`（PR #1934，merged 2021-07-03，双亲 merge 落地，补丁逐文件完全相同）。替换在同一仓库内完成以减少 E0 环境改动，四个 train 仓库仍全部在场；被替换 commit 的失败账与派生变异家族的处置见 §2.4.1。**日期规则未放宽，「4 真实 + 4 变异」目标未降低。**
 - **推断**：train 侧 commit 日期筛选 110 个候选对 24 个真实家族需求，名义 headroom 约 4.6 倍，但其中合并事件已验证的只有 4 个，且没有任何一个经过验证器跑通、actor 可达性与有界测试补丁检查，不能把 110 读成 24。
 - **推断**：dev 供给偏薄，只有 attrs 一个锁定 dev 角色仓库产出窗口内家族（3 个，且未验证）；dateutil 在固定 revision 下为 0。
 - **建议**：dev 方案二选一由 Mika / 保管侧裁决 —— ① 以 attrs + 已核验的替代候选承担 dev，或 ② 对 dateutil 重新 pin （但会使本版绑定在该 revision 上的许可批准失效，必须重做逐文件许可台账与新 revision 的批准）。
-- **建议**：请 Q0 对 `license_review` 逐条反证（`independent_review.status` 仍为 pending），重点复核本版新增的许可正文识别与三方一致性判定，以及落地事件归因块（`merge_evidence.landing_event_evidence`）——特别是 boltons 那条：GitHub 合并对象在固定快照中不存在，固定历史里同 PR 的 merge commit 合入的是另一个 commit，须复核「祖先关系 + 逐文件变更集覆盖」是否足以支撑合格结论，**不足以支撑时应判为待核验而不是通过**。
-- **建议**：E0 在环境就绪后对**静态准备已 ready 的 4 个**真实家族跑 broken/reference 双次干净对照；`training_release.status` 未获放行前不得进入训练发布清单，也不得把本版静态来源验收当成数据 released。
+- **建议**：请 Q0 对 `license_review` 逐条反证（`independent_review.status` 仍为 pending），重点复核本版新增的许可正文识别与三方一致性判定，以及落地事件归因块（`merge_evidence.landing_event_evidence`）——特别是 boltons 那条：GitHub 合并对象在固定快照中不存在，固定历史里同 PR 的 merge commit 合入的是另一个 commit，该家族已明确为 `needs_review`，补齐独立对应证据前不计入 ready。
+- **建议**：E0 在环境就绪后对**静态准备已 ready 的 3 个**真实家族跑 broken/reference 双次干净对照；`training_release.status` 未获放行前不得进入训练发布清单，也不得把本版静态来源验收当成数据 released。
 
 ## 4. 冲突与不确定项
 
-- **P0 真实半边**：静态准备已 4/4 齐全（click 槽位已按 Mika 裁决替换）；但**训练放行 0/4**，四项证据全缺。该状态已写入 `d0-shortfall.json` 的 `p0` 与 `training_release` 块，**不是**用 `released` 一个布尔值带过。
+- **P0 真实半边**：静态准备 3/4（click 槽位已按 Mika 裁决替换）；boltons 因 patch 对应不充分为 `needs_review`；训练放行仍为 0/4，四项证据全缺。该状态已写入 `d0-shortfall.json` 的 `p0` 与 `training_release` 块，**不是**用 `released` 一个布尔值带过。
 - **actor 侧隔离未建立（本轮显式声明，不再隐含）**：上游仓库公开、本版固定克隆带完整历史，且没有任何否定权限测试。见 §2.8 黄 7 与 `family-ledger.json → actor_isolation` 的三条 `unproven` 缺口。**这是训练放行为 blocked 的直接原因之一。**
 - **权限隔离未建立，因此 dev/sealed 的发布与验收保持阻断**（沿用 Mika 裁决，本轮不改变）。`restricted-oracle.json` 已显式写入 `split_declaration_pending`：本交付**不声称**该文件已安全切分或未被污染，切分须由持有 gold 的保管侧判定。
 - **没有跑过 FAIL_TO_PASS**：运行环境取不到包索引，装不上 pytest，所有 oracle 结论均为静态证据。
@@ -273,7 +273,7 @@ python-dotenv `LICENSE` 复核结果：blob `80619b7049f08c81683ad0e01f08f257a84
 | `public-manifest.json` | **可公开**部分：状态契约、训练放行门槛、落地事件归因（不含封存内容与 gold） | 编码官 → 纳入 gamma |
 | `restricted-oracle.json` | 受限 oracle 提示，**不提交 GitHub**；公开验证器在其缺失时显式 SKIP | 独立保管侧 |
 | `kaggle-23-d0-family-table.csv` | 家族一览：两个状态轴、落地形态、补丁等价、合并事件列 | 编码官 |
-| `validate_d0.output.txt` | 校验输出（122 项 / 0 失败 / 1 skipped） | Q0 |
+| `validate_d0.output.txt` | 校验输出（123 项 / 0 失败 / 4 skipped） | Q0 |
 | `kaggle-23-d0-source-lock-report.md` | 本说明 | Mika / Liang |
 
 **可复现入口**：`python d0/run_all.py` 按序跑许可 → 家族挖掘 → 台账 → extras → 合并事件取证 → 门禁 → 报告；门禁非零则不生成报告。合并事件取证是缓存优先的，重跑不会重复消耗 API 配额。
@@ -287,15 +287,15 @@ python-dotenv `LICENSE` 复核结果：blob `80619b7049f08c81683ad0e01f08f257a84
 - 家族挖掘只在**各自固定 revision 可达的历史**中进行，因此候选天然位于所固定快照之内；时间分类改用**原始合并事件**。
 - **盲区**：无包索引（无法装 pytest，未跑 F2P）；封存内容按规则未读取；上游 issue/PR 正文未取用（著作权未清理）；backport 规则只能靠 commit message 标记与快照祖先关系识别，无法识别**没有任何标记**的静默重落地；GitHub 未关联 PR 的 commit（如 click 那次直接推送）无法从 PR 元数据取得合并事件 —— 这是**证据不可得**，不是「未合并」。
 
-## 7. 本轮（v4）相对 v3 `7fe7170` 的变更
+## 7. 本轮（v5）相对 `d664c08` 的变更
 
 1. **状态轴拆开（Mika 裁决 ①）**：家族不再只有一个 `released` 布尔值，改为 `source_preparation.status`（静态材料齐否）+ `training_release.status`（可否训练/评测）。`released` 保留为**兼容别名**，只镜像静态准备轴，并随每个产物携带 `released_scope`。契约由门禁跨 ledger / shortfall / 公开 manifest / CSV 四份产物一致性断言钉住，并带否定测试：植入一个「无证据却声明训练放行」的家族必须被拒。
 2. **click 槽位替换（Mika 裁决 ②）**：`9da1791476fe…`（无合并事件，保留失败账、`counted_in_no_quota`）→ `ee56925bc4f5…`（PR #1934，merged 2021-07-03，双亲 merge 落地）。变异家族 `…-var-rename` 停用，改为在同一父家族上重建的 `…-var-predicate`。日期规则与 4+4 目标未放宽。
-3. **落地事件归因与补丁等价性（Mika 裁决 ③）**：每族新增 `landing_event_evidence`（归因、落地形态、祖先关系、检索命令）与 `patch_equivalence`（merge 与其第一父、fix 与其自身父，逐文件变更集比对）。boltons 的「GitHub 合并对象在固定快照中不存在」给出可核查解释与祖先证据。
+3. **落地事件归因与补丁对应**：每族新增 `landing_event_evidence`（归因、落地形态、祖先关系、检索命令）与 `patch_equivalence`（merge 与其第一父、fix 与其自身父，逐文件变更行严格覆盖）。同路径和祖先关系不再单独通过；boltons 的对应证据不足，状态为 `needs_review` 并计入 shortfall。
 4. **黄 1/5/6/7 闭环（Mika 裁决 ④）**：公开验证器可不依赖 `restricted-oracle.json` 运行（缺失即显式 `SKIP`，**不算隔离通过**）；新增 `gold_derivability` 与 `actor_isolation` 两个块，把「gold 已扣留但隔离未建立」写成明确结论而非隐含。
 5. **CSV 上移**：`kaggle-23-d0-family-table.csv` 改由 `build_extras.py` 生成（门禁要读它，必须早于门禁存在），并换掉裸 `released` 列，改为 `source_preparation_status` / `training_release_status` / `released_source_preparation_alias` 三列，另加落地形态与补丁等价列。
 6. **计数口径**：train 侧合并事件已验证候选由 3 升至 **4**（补位家族计入）；筛选总数 110 不变。
-7. **校验从 v3 的 92 项扩到 122 项（0 失败、1 skipped）**，新增落地事件、状态轴、gold 可推导性、actor 隔离与替换账五组断言，以及第三条否定测试（无落地证据不得归因）。
+7. **校验共 123 项（0 失败、4 skipped）**，新增落地事件、状态轴、gold 可推导性、actor 隔离与替换账五组断言，三个直接调用生产判据的否定反例、一个许可正例和包装元数据可选规则。
 
-差异的机器可读留证见 `d0/out/v4-diff-evidence.txt`（v3 那一轮保留在 `d0/out/v3-diff-evidence.txt`，v2 在 `v2-diff-evidence.txt`）。
+差异的机器可读留证见 `d0/out/v5-diff-evidence.txt`（v3 那一轮保留在 `d0/out/v3-diff-evidence.txt`，v2 在 `v2-diff-evidence.txt`）。
 

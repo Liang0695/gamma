@@ -1476,7 +1476,7 @@
           "pr_head_sha": "ee56925bc4f5451a125317e183f498e8bd1aecb3",
           "patch_equivalence": {
             "computed": true,
-            "method": "the diff the merge introduces (merge vs its FIRST parent) compared, file by file, with the diff the fix introduces (fix vs its own parent). Both are diffed against their own parent because the base branch usually advanced while the pull request was open",
+            "method": "the diff the merge introduces (merge vs its FIRST parent) compared, file by file, with the diff the fix introduces (fix vs its own parent). Each landing file must contain the fix's added and removed lines; path overlap or ancestry alone is not evidence. Both diffs use their own parent because the base branch may have advanced",
             "landing_event_is_the_fix_commit": false,
             "fix_diff_base": "da2b658e6185b5ae69abcefe755077336024a5e6",
             "landing_first_parent": "da2b658e6185b5ae69abcefe755077336024a5e6",
@@ -1485,13 +1485,14 @@
             "landing_diff_sha256": "1bbd08ae38e46b12e5835d434df90a7715671e5e5d6c4b52f019cc8d571f71d9",
             "diff_text_equal": true,
             "closed_under_the_landing_event": true,
+            "patch_correspondence": "proven",
             "every_fix_file_present_in_the_landing_event": true,
             "files_identical_or_contained": [
               "CHANGES.rst",
               "src/click/core.py",
               "tests/test_options.py"
             ],
-            "files_refined_by_a_later_commit_on_the_pull_request": [],
+            "files_with_unproven_patch_correspondence": [],
             "fix_files_not_covered": [],
             "file_level": [
               {
@@ -1534,7 +1535,7 @@
           "search_command": "git rev-list 8b19813f2bfc --grep='Merge pull request #1934'",
           "patch_equivalence": {
             "computed": true,
-            "method": "the diff the merge introduces (merge vs its FIRST parent) compared, file by file, with the diff the fix introduces (fix vs its own parent). Both are diffed against their own parent because the base branch usually advanced while the pull request was open",
+            "method": "the diff the merge introduces (merge vs its FIRST parent) compared, file by file, with the diff the fix introduces (fix vs its own parent). Each landing file must contain the fix's added and removed lines; path overlap or ancestry alone is not evidence. Both diffs use their own parent because the base branch may have advanced",
             "landing_event_is_the_fix_commit": false,
             "fix_diff_base": "da2b658e6185b5ae69abcefe755077336024a5e6",
             "landing_first_parent": "da2b658e6185b5ae69abcefe755077336024a5e6",
@@ -1543,13 +1544,14 @@
             "landing_diff_sha256": "1bbd08ae38e46b12e5835d434df90a7715671e5e5d6c4b52f019cc8d571f71d9",
             "diff_text_equal": true,
             "closed_under_the_landing_event": true,
+            "patch_correspondence": "proven",
             "every_fix_file_present_in_the_landing_event": true,
             "files_identical_or_contained": [
               "CHANGES.rst",
               "src/click/core.py",
               "tests/test_options.py"
             ],
-            "files_refined_by_a_later_commit_on_the_pull_request": [],
+            "files_with_unproven_patch_correspondence": [],
             "fix_files_not_covered": [],
             "file_level": [
               {
@@ -1579,7 +1581,7 @@
         },
         "patch_equivalence": {
           "computed": true,
-          "method": "the diff the merge introduces (merge vs its FIRST parent) compared, file by file, with the diff the fix introduces (fix vs its own parent). Both are diffed against their own parent because the base branch usually advanced while the pull request was open",
+          "method": "the diff the merge introduces (merge vs its FIRST parent) compared, file by file, with the diff the fix introduces (fix vs its own parent). Each landing file must contain the fix's added and removed lines; path overlap or ancestry alone is not evidence. Both diffs use their own parent because the base branch may have advanced",
           "landing_event_is_the_fix_commit": false,
           "fix_diff_base": "da2b658e6185b5ae69abcefe755077336024a5e6",
           "landing_first_parent": "da2b658e6185b5ae69abcefe755077336024a5e6",
@@ -1588,13 +1590,14 @@
           "landing_diff_sha256": "1bbd08ae38e46b12e5835d434df90a7715671e5e5d6c4b52f019cc8d571f71d9",
           "diff_text_equal": true,
           "closed_under_the_landing_event": true,
+          "patch_correspondence": "proven",
           "every_fix_file_present_in_the_landing_event": true,
           "files_identical_or_contained": [
             "CHANGES.rst",
             "src/click/core.py",
             "tests/test_options.py"
           ],
-          "files_refined_by_a_later_commit_on_the_pull_request": [],
+          "files_with_unproven_patch_correspondence": [],
           "fix_files_not_covered": [],
           "file_level": [
             {
@@ -1755,6 +1758,8 @@
         "code_only_oracle_patch_non_empty": true,
         "merge_event_evidence_present": true,
         "merge_event_qualifies_window": true,
+        "landing_event_present_in_pinned_history": true,
+        "landing_patch_correspondence_proven": true,
         "in_train_window_author_date_audit_only": true,
         "in_train_window_committer_date_audit_only": true,
         "fix_commit_is_ancestor_of_pinned_revision": true,
@@ -1887,7 +1892,7 @@
           "pr_head_sha": "62411c1618493f94b16901746c34e72ad415061e",
           "patch_equivalence": {
             "computed": true,
-            "method": "the diff the merge introduces (merge vs its FIRST parent) compared, file by file, with the diff the fix introduces (fix vs its own parent). Both are diffed against their own parent because the base branch usually advanced while the pull request was open",
+            "method": "the diff the merge introduces (merge vs its FIRST parent) compared, file by file, with the diff the fix introduces (fix vs its own parent). Each landing file must contain the fix's added and removed lines; path overlap or ancestry alone is not evidence. Both diffs use their own parent because the base branch may have advanced",
             "landing_event_is_the_fix_commit": false,
             "fix_diff_base": "c0465331cbc0d882cd7dce5c0bd19aaf46dfb968",
             "landing_first_parent": "c0465331cbc0d882cd7dce5c0bd19aaf46dfb968",
@@ -1896,12 +1901,13 @@
             "landing_diff_sha256": "c02146af1e6f4b9b7d9ae8f37769633f83ba64b36deda4feba7c8f6a54dafa2c",
             "diff_text_equal": true,
             "closed_under_the_landing_event": true,
+            "patch_correspondence": "proven",
             "every_fix_file_present_in_the_landing_event": true,
             "files_identical_or_contained": [
               "more_itertools/more.py",
               "tests/test_more.py"
             ],
-            "files_refined_by_a_later_commit_on_the_pull_request": [],
+            "files_with_unproven_patch_correspondence": [],
             "fix_files_not_covered": [],
             "file_level": [
               {
@@ -1939,7 +1945,7 @@
           "search_command": "git rev-list 64be96ceb2a6 --grep='Merge pull request #412'",
           "patch_equivalence": {
             "computed": true,
-            "method": "the diff the merge introduces (merge vs its FIRST parent) compared, file by file, with the diff the fix introduces (fix vs its own parent). Both are diffed against their own parent because the base branch usually advanced while the pull request was open",
+            "method": "the diff the merge introduces (merge vs its FIRST parent) compared, file by file, with the diff the fix introduces (fix vs its own parent). Each landing file must contain the fix's added and removed lines; path overlap or ancestry alone is not evidence. Both diffs use their own parent because the base branch may have advanced",
             "landing_event_is_the_fix_commit": false,
             "fix_diff_base": "c0465331cbc0d882cd7dce5c0bd19aaf46dfb968",
             "landing_first_parent": "c0465331cbc0d882cd7dce5c0bd19aaf46dfb968",
@@ -1948,12 +1954,13 @@
             "landing_diff_sha256": "c02146af1e6f4b9b7d9ae8f37769633f83ba64b36deda4feba7c8f6a54dafa2c",
             "diff_text_equal": true,
             "closed_under_the_landing_event": true,
+            "patch_correspondence": "proven",
             "every_fix_file_present_in_the_landing_event": true,
             "files_identical_or_contained": [
               "more_itertools/more.py",
               "tests/test_more.py"
             ],
-            "files_refined_by_a_later_commit_on_the_pull_request": [],
+            "files_with_unproven_patch_correspondence": [],
             "fix_files_not_covered": [],
             "file_level": [
               {
@@ -1978,7 +1985,7 @@
         },
         "patch_equivalence": {
           "computed": true,
-          "method": "the diff the merge introduces (merge vs its FIRST parent) compared, file by file, with the diff the fix introduces (fix vs its own parent). Both are diffed against their own parent because the base branch usually advanced while the pull request was open",
+          "method": "the diff the merge introduces (merge vs its FIRST parent) compared, file by file, with the diff the fix introduces (fix vs its own parent). Each landing file must contain the fix's added and removed lines; path overlap or ancestry alone is not evidence. Both diffs use their own parent because the base branch may have advanced",
           "landing_event_is_the_fix_commit": false,
           "fix_diff_base": "c0465331cbc0d882cd7dce5c0bd19aaf46dfb968",
           "landing_first_parent": "c0465331cbc0d882cd7dce5c0bd19aaf46dfb968",
@@ -1987,12 +1994,13 @@
           "landing_diff_sha256": "c02146af1e6f4b9b7d9ae8f37769633f83ba64b36deda4feba7c8f6a54dafa2c",
           "diff_text_equal": true,
           "closed_under_the_landing_event": true,
+          "patch_correspondence": "proven",
           "every_fix_file_present_in_the_landing_event": true,
           "files_identical_or_contained": [
             "more_itertools/more.py",
             "tests/test_more.py"
           ],
-          "files_refined_by_a_later_commit_on_the_pull_request": [],
+          "files_with_unproven_patch_correspondence": [],
           "fix_files_not_covered": [],
           "file_level": [
             {
@@ -2138,6 +2146,8 @@
         "code_only_oracle_patch_non_empty": true,
         "merge_event_evidence_present": true,
         "merge_event_qualifies_window": true,
+        "landing_event_present_in_pinned_history": true,
+        "landing_patch_correspondence_proven": true,
         "in_train_window_author_date_audit_only": true,
         "in_train_window_committer_date_audit_only": true,
         "fix_commit_is_ancestor_of_pinned_revision": true,
@@ -2270,7 +2280,7 @@
           "pr_head_sha": "9cf2eaa50dd1ad3ebf042978629e78c695197095",
           "patch_equivalence": {
             "computed": true,
-            "method": "the diff the merge introduces (merge vs its FIRST parent) compared, file by file, with the diff the fix introduces (fix vs its own parent). Both are diffed against their own parent because the base branch usually advanced while the pull request was open",
+            "method": "the diff the merge introduces (merge vs its FIRST parent) compared, file by file, with the diff the fix introduces (fix vs its own parent). Each landing file must contain the fix's added and removed lines; path overlap or ancestry alone is not evidence. Both diffs use their own parent because the base branch may have advanced",
             "landing_event_is_the_fix_commit": false,
             "fix_diff_base": "4ba6441e046ff9d0d2dbea5087c5bfd81cc37f5c",
             "landing_first_parent": "2b6dfd7cfe3e8ac36a473d465979c78bb3912d6f",
@@ -2279,13 +2289,14 @@
             "landing_diff_sha256": "928a37d70e20626014f6d5e46188b2b7984e9ae927e20f8e1ac17e0b2ec4c022",
             "diff_text_equal": true,
             "closed_under_the_landing_event": true,
+            "patch_correspondence": "proven",
             "every_fix_file_present_in_the_landing_event": true,
             "files_identical_or_contained": [
               "changelog/544.bugfix.rst",
               "src/pluggy/_callers.py",
               "testing/test_multicall.py"
             ],
-            "files_refined_by_a_later_commit_on_the_pull_request": [],
+            "files_with_unproven_patch_correspondence": [],
             "fix_files_not_covered": [],
             "file_level": [
               {
@@ -2328,7 +2339,7 @@
           "search_command": "git rev-list fd08ab5f811a --grep='Merge pull request #545'",
           "patch_equivalence": {
             "computed": true,
-            "method": "the diff the merge introduces (merge vs its FIRST parent) compared, file by file, with the diff the fix introduces (fix vs its own parent). Both are diffed against their own parent because the base branch usually advanced while the pull request was open",
+            "method": "the diff the merge introduces (merge vs its FIRST parent) compared, file by file, with the diff the fix introduces (fix vs its own parent). Each landing file must contain the fix's added and removed lines; path overlap or ancestry alone is not evidence. Both diffs use their own parent because the base branch may have advanced",
             "landing_event_is_the_fix_commit": false,
             "fix_diff_base": "4ba6441e046ff9d0d2dbea5087c5bfd81cc37f5c",
             "landing_first_parent": "2b6dfd7cfe3e8ac36a473d465979c78bb3912d6f",
@@ -2337,13 +2348,14 @@
             "landing_diff_sha256": "928a37d70e20626014f6d5e46188b2b7984e9ae927e20f8e1ac17e0b2ec4c022",
             "diff_text_equal": true,
             "closed_under_the_landing_event": true,
+            "patch_correspondence": "proven",
             "every_fix_file_present_in_the_landing_event": true,
             "files_identical_or_contained": [
               "changelog/544.bugfix.rst",
               "src/pluggy/_callers.py",
               "testing/test_multicall.py"
             ],
-            "files_refined_by_a_later_commit_on_the_pull_request": [],
+            "files_with_unproven_patch_correspondence": [],
             "fix_files_not_covered": [],
             "file_level": [
               {
@@ -2373,7 +2385,7 @@
         },
         "patch_equivalence": {
           "computed": true,
-          "method": "the diff the merge introduces (merge vs its FIRST parent) compared, file by file, with the diff the fix introduces (fix vs its own parent). Both are diffed against their own parent because the base branch usually advanced while the pull request was open",
+          "method": "the diff the merge introduces (merge vs its FIRST parent) compared, file by file, with the diff the fix introduces (fix vs its own parent). Each landing file must contain the fix's added and removed lines; path overlap or ancestry alone is not evidence. Both diffs use their own parent because the base branch may have advanced",
           "landing_event_is_the_fix_commit": false,
           "fix_diff_base": "4ba6441e046ff9d0d2dbea5087c5bfd81cc37f5c",
           "landing_first_parent": "2b6dfd7cfe3e8ac36a473d465979c78bb3912d6f",
@@ -2382,13 +2394,14 @@
           "landing_diff_sha256": "928a37d70e20626014f6d5e46188b2b7984e9ae927e20f8e1ac17e0b2ec4c022",
           "diff_text_equal": true,
           "closed_under_the_landing_event": true,
+          "patch_correspondence": "proven",
           "every_fix_file_present_in_the_landing_event": true,
           "files_identical_or_contained": [
             "changelog/544.bugfix.rst",
             "src/pluggy/_callers.py",
             "testing/test_multicall.py"
           ],
-          "files_refined_by_a_later_commit_on_the_pull_request": [],
+          "files_with_unproven_patch_correspondence": [],
           "fix_files_not_covered": [],
           "file_level": [
             {
@@ -2557,6 +2570,8 @@
         "code_only_oracle_patch_non_empty": true,
         "merge_event_evidence_present": true,
         "merge_event_qualifies_window": true,
+        "landing_event_present_in_pinned_history": true,
+        "landing_patch_correspondence_proven": true,
         "in_train_window_author_date_audit_only": true,
         "in_train_window_committer_date_audit_only": true,
         "fix_commit_is_ancestor_of_pinned_revision": true,
@@ -2616,7 +2631,9 @@
       "split": "train",
       "release_decision": {
         "window_decided_by": "merge_event",
-        "blocking_checks": [],
+        "blocking_checks": [
+          "landing_patch_correspondence_proven"
+        ],
         "note": "not ready: at least one structural check failed. Such a family is counted in no window and is never promoted by a commit date."
       },
       "repo": "boltons",
@@ -2679,7 +2696,7 @@
           "pr_head_sha": "078a215bfd37da5045ec6302bcba9505a11582dc",
           "patch_equivalence": {
             "computed": true,
-            "method": "the diff the merge introduces (merge vs its FIRST parent) compared, file by file, with the diff the fix introduces (fix vs its own parent). Both are diffed against their own parent because the base branch usually advanced while the pull request was open",
+            "method": "the diff the merge introduces (merge vs its FIRST parent) compared, file by file, with the diff the fix introduces (fix vs its own parent). Each landing file must contain the fix's added and removed lines; path overlap or ancestry alone is not evidence. Both diffs use their own parent because the base branch may have advanced",
             "landing_event_is_the_fix_commit": false,
             "fix_diff_base": "c9b3d2452e4ffe43920874f4f6f2e8fe425ebf00",
             "landing_first_parent": "c9b3d2452e4ffe43920874f4f6f2e8fe425ebf00",
@@ -2687,14 +2704,15 @@
             "fix_diff_sha256": "e431b6bd2143abf62f4b94e345737381832a0f312aa1cdb6b508561d9c70e578",
             "landing_diff_sha256": "0ed2e80d27814aa2c20ff7b751474cf37dc7d2e01f662787ec9a7666b41429fc",
             "diff_text_equal": false,
-            "closed_under_the_landing_event": true,
+            "closed_under_the_landing_event": false,
+            "patch_correspondence": "needs_review",
             "every_fix_file_present_in_the_landing_event": true,
             "files_identical_or_contained": [
               ".travis.yml",
               "tests/tbutils_test.py",
               "tox.ini"
             ],
-            "files_refined_by_a_later_commit_on_the_pull_request": [
+            "files_with_unproven_patch_correspondence": [
               "boltons/tbutils.py"
             ],
             "fix_files_not_covered": [],
@@ -2706,7 +2724,7 @@
               },
               {
                 "path": "boltons/tbutils.py",
-                "state": "refined_by_a_later_commit",
+                "state": "not_proven",
                 "detail": {
                   "landing_added_lines": 27,
                   "fix_added_lines": 19,
@@ -2783,7 +2801,7 @@
           "search_command": "git rev-list 4332b35a278d --grep='Merge pull request #31'",
           "patch_equivalence": {
             "computed": true,
-            "method": "the diff the merge introduces (merge vs its FIRST parent) compared, file by file, with the diff the fix introduces (fix vs its own parent). Both are diffed against their own parent because the base branch usually advanced while the pull request was open",
+            "method": "the diff the merge introduces (merge vs its FIRST parent) compared, file by file, with the diff the fix introduces (fix vs its own parent). Each landing file must contain the fix's added and removed lines; path overlap or ancestry alone is not evidence. Both diffs use their own parent because the base branch may have advanced",
             "landing_event_is_the_fix_commit": false,
             "fix_diff_base": "c9b3d2452e4ffe43920874f4f6f2e8fe425ebf00",
             "landing_first_parent": "c9b3d2452e4ffe43920874f4f6f2e8fe425ebf00",
@@ -2791,14 +2809,15 @@
             "fix_diff_sha256": "e431b6bd2143abf62f4b94e345737381832a0f312aa1cdb6b508561d9c70e578",
             "landing_diff_sha256": "0ed2e80d27814aa2c20ff7b751474cf37dc7d2e01f662787ec9a7666b41429fc",
             "diff_text_equal": false,
-            "closed_under_the_landing_event": true,
+            "closed_under_the_landing_event": false,
+            "patch_correspondence": "needs_review",
             "every_fix_file_present_in_the_landing_event": true,
             "files_identical_or_contained": [
               ".travis.yml",
               "tests/tbutils_test.py",
               "tox.ini"
             ],
-            "files_refined_by_a_later_commit_on_the_pull_request": [
+            "files_with_unproven_patch_correspondence": [
               "boltons/tbutils.py"
             ],
             "fix_files_not_covered": [],
@@ -2810,7 +2829,7 @@
               },
               {
                 "path": "boltons/tbutils.py",
-                "state": "refined_by_a_later_commit",
+                "state": "not_proven",
                 "detail": {
                   "landing_added_lines": 27,
                   "fix_added_lines": 19,
@@ -2874,7 +2893,7 @@
         },
         "patch_equivalence": {
           "computed": true,
-          "method": "the diff the merge introduces (merge vs its FIRST parent) compared, file by file, with the diff the fix introduces (fix vs its own parent). Both are diffed against their own parent because the base branch usually advanced while the pull request was open",
+          "method": "the diff the merge introduces (merge vs its FIRST parent) compared, file by file, with the diff the fix introduces (fix vs its own parent). Each landing file must contain the fix's added and removed lines; path overlap or ancestry alone is not evidence. Both diffs use their own parent because the base branch may have advanced",
           "landing_event_is_the_fix_commit": false,
           "fix_diff_base": "c9b3d2452e4ffe43920874f4f6f2e8fe425ebf00",
           "landing_first_parent": "c9b3d2452e4ffe43920874f4f6f2e8fe425ebf00",
@@ -2882,14 +2901,15 @@
           "fix_diff_sha256": "e431b6bd2143abf62f4b94e345737381832a0f312aa1cdb6b508561d9c70e578",
           "landing_diff_sha256": "0ed2e80d27814aa2c20ff7b751474cf37dc7d2e01f662787ec9a7666b41429fc",
           "diff_text_equal": false,
-          "closed_under_the_landing_event": true,
+          "closed_under_the_landing_event": false,
+          "patch_correspondence": "needs_review",
           "every_fix_file_present_in_the_landing_event": true,
           "files_identical_or_contained": [
             ".travis.yml",
             "tests/tbutils_test.py",
             "tox.ini"
           ],
-          "files_refined_by_a_later_commit_on_the_pull_request": [
+          "files_with_unproven_patch_correspondence": [
             "boltons/tbutils.py"
           ],
           "fix_files_not_covered": [],
@@ -2901,7 +2921,7 @@
             },
             {
               "path": "boltons/tbutils.py",
-              "state": "refined_by_a_later_commit",
+              "state": "not_proven",
               "detail": {
                 "landing_added_lines": 27,
                 "fix_added_lines": 19,
@@ -3123,21 +3143,26 @@
         "code_only_oracle_patch_non_empty": true,
         "merge_event_evidence_present": true,
         "merge_event_qualifies_window": true,
+        "landing_event_present_in_pinned_history": true,
+        "landing_patch_correspondence_proven": false,
         "in_train_window_author_date_audit_only": true,
         "in_train_window_committer_date_audit_only": true,
         "fix_commit_is_ancestor_of_pinned_revision": true,
         "fix_commit_is_not_a_backport_or_cherry_pick": true,
         "license_approved": true,
         "license_approved_for_this_exact_revision": true,
-        "license_metadata_has_no_conflict": true
+        "license_metadata_has_no_conflict": true,
+        "landing_patch_correspondence_needs_review": true
       },
       "provenance_note": null,
       "source_preparation": {
-        "status": "ready",
-        "basis": "every structural check in `checks` passed; this covers static source artefacts only",
-        "blocking_checks": []
+        "status": "needs_review",
+        "basis": "landing event exists, but the patch correspondence is not proven; independent review is required",
+        "blocking_checks": [
+          "landing_patch_correspondence_proven"
+        ]
       },
-      "released": true,
+      "released": false,
       "released_scope": "source preparation ONLY: the static artefacts for this family (pinned base and fix commits, hashed patches, oracle split, the licence decision for the exact pinned revision, and a window set by a verified ORIGINAL merge event) are complete. This is NOT a training release and NOT a data release: it carries no runtime, no independent licence countersignature and no permission-isolation evidence.",
       "training_release": {
         "status": "blocked",
@@ -3165,7 +3190,7 @@
             "owner": "E0 (coding officer)"
           }
         },
-        "precondition_source_preparation": "ready",
+        "precondition_source_preparation": "not_ready",
         "precondition_owner": "a family whose source preparation is not ready can never be training-released",
         "owner": "Mika / custodian decision; D0 records the state and does not self-approve"
       },
@@ -3433,8 +3458,8 @@
       "source_base_commit": "c9b3d2452e4ffe43920874f4f6f2e8fe425ebf00",
       "source_base_date": "2015-04-16T03:02:15-07:00",
       "source_base_date_role": "SNAPSHOT-axis date of the upstream source base, recorded for reproducibility. It is NOT this variant's fix time and does not classify the variant into a window. A constructed variant inherits its parent family's train window.",
-      "source_base_released": true,
-      "source_base_release_note": "a variant can only inherit a window from a parent family whose source preparation is ready; here the parent is v3-train-boltons-001 (source_preparation=ready)",
+      "source_base_released": false,
+      "source_base_release_note": "a variant can only inherit a window from a parent family whose source preparation is ready; here the parent is v3-train-boltons-001 (source_preparation=needs_review)",
       "inherits_window_from": "v3-train-boltons-001",
       "variant_commit": null,
       "oracle_fix_commit": null,
@@ -3482,7 +3507,7 @@
             "owner": "E0 (coding officer)"
           }
         },
-        "precondition_source_preparation": "ready",
+        "precondition_source_preparation": "not_ready",
         "owner": "Mika / custodian decision; D0 records the state only"
       },
       "status_axes": {
@@ -3550,7 +3575,7 @@
       "shape": "two_parent_merge_commit",
       "github_merge_commit": "1efa511206d0f27474efcb6d00bab5404f290bda",
       "adjudicated_landing_commit": "1d7d8c4e1767f5ec4e180cccd00b773150d086f5",
-      "patch_equivalence_closed": true
+      "patch_equivalence_closed": false
     }
   },
   "time_isolation": {
@@ -4505,7 +4530,7 @@
     "approval_is_revision_bound": "an approval covers one pinned commit; re-pinning a repository invalidates it and it must be re-derived",
     "independent_review_note": "decision is the D0 owner's licence-fact assessment and is self-declared; independent countersignature is tracked separately in independent_review and is NOT claimed here",
     "approved_spdx_is_derived_not_asserted": "approved_spdx must agree with the families detected in the pinned licence TEXT and with the SPDX declared in the pinned packaging METADATA. The preset in the generator is an expectation, never evidence.",
-    "conflict_rule": "a positive disagreement between the preset, the licence text and/or the packaging metadata forces decision='pending' and is listed verbatim in license_conflicts; it can never read as 'approved'. An EMPTY evidence set is not a conflict.",
+    "conflict_rule": "a positive disagreement between the preset, the licence text and/or the packaging metadata forces decision='pending' and is listed verbatim in license_conflicts; it can never read as 'approved'. Packaging metadata is optional when absent, but at least one matching positive family signal from the fixed root licence text is mandatory. An EMPTY evidence set is not a conflict and is never approval.",
     "hash_basis_rule": "every licence file records BOTH the upstream git-blob sha256 and the checkout sha256 plus the newline transformation relating them; the two are different byte strings under core.autocrlf=true and must never be mixed",
     "missing_merge_evidence_note": "this field set settles LICENCE facts only; it does not establish the family window, which needs the merge-event evidence in merge-evidence.json"
   }

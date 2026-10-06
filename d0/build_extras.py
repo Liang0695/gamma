@@ -408,9 +408,14 @@ def main():
             "real_families_training_released": sum(
                 1 for f in real if f["training_release"]["approved_for_training"]),
             "real_families_total": len(real),
-            "real_families_blocked_on_window_evidence": [
+            "real_families_source_preparation_shortfall": [
+                {"family_id": f["family_id"],
+                 "status": f["source_preparation"]["status"],
+                 "blocking_checks": f["source_preparation"]["blocking_checks"]}
+                for f in real if f["source_preparation"]["status"] != "ready"],
+            "real_families_needs_review": [
                 f["family_id"] for f in real
-                if f["source_preparation"]["status"] != "ready"],
+                if f["source_preparation"]["status"] == "needs_review"],
             "variant_specs_ready": sum(1 for f in variant if f["mutation_recipe"]),
             "variant_commits_built": 0,
             "repositories_covered": repos_covered,
@@ -472,10 +477,15 @@ def main():
             continue
         me = f["merge_evidence"]
         shortfall["blocking_gaps"].append({
-            "gap": ("%s has source_preparation.status=%s: the original fix's MERGE event "
-                    "could not be retrieved, and the time rule requires the merge event, "
-                    "not a commit date"
-                    % (f["family_id"], f["source_preparation"]["status"])),
+            "gap": (
+                ("%s has source_preparation.status=needs_review: a pinned PR landing event "
+                 "exists, but patch correspondence is not proven by its changed lines"
+                 % f["family_id"])
+                if f["source_preparation"]["status"] == "needs_review" else
+                ("%s has source_preparation.status=%s: the original fix's MERGE event "
+                 "could not be retrieved, and the time rule requires the merge event, "
+                 "not a commit date"
+                 % (f["family_id"], f["source_preparation"]["status"]))),
             "impact": ("the P0 real half has %d/%d families whose static source material "
                        "is complete, so the 8-task set is short by one REAL family until "
                        "this is ruled on"

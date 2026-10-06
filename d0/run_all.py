@@ -52,6 +52,10 @@ def main():
     if rc != 0:
         print("gate failed with exit=%d; report not regenerated" % rc)
         return rc
+    rc = run("make_diff_evidence.py")
+    if rc != 0:
+        print("diff evidence generation failed with exit=%d" % rc)
+        return rc
     return run("make_report.py")
 
 

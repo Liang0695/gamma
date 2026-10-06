@@ -27,18 +27,22 @@ import json
 import os
 import re
 import sys
+import tempfile
+from unittest.mock import patch
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 OUT = os.path.join(HERE, "out")
 sys.path.insert(0, HERE)
 # the SAME predicate the generator used -- the gate must not re-implement the
 # rule it is checking, or the two can drift apart silently
-from collect_licenses import classify_license, detect_conflicts  # noqa: E402
+from collect_licenses import (classify_license, detect_conflicts,
+                              detect_text_families)  # noqa: E402
 # the status-contract constants, imported from the generator so the gate cannot
 # drift from the values the emitted files were built with
 from build_ledger import (STATUS_CONTRACT_ID,  # noqa: E402
                           SOURCE_PREPARATION_SCOPE, source_preparation_status,
                           training_release_decision)
+import fetch_merge_evidence as merge_evidence  # noqa: E402
 
 SHA1 = re.compile(r"^[0-9a-f]{40}$")
 SHA256 = re.compile(r"^[0-9a-f]{64}$")
@@ -118,6 +122,61 @@ def licence_conflict_probe():
     return preset, decision, approved, conflicts
 
 
+def licence_evidence_probe():
+    """Exercise the production licence predicate with positive, missing and conflict inputs."""
+    missing = classify_license("MIT", set(), set())
+    with tempfile.TemporaryDirectory() as temp_dir:
+        license_path = os.path.join(temp_dir, "LICENSE")
+        with open(license_path, "w", encoding="utf-8") as f:
+            f.write("MIT License\nPermission is hereby granted, free of charge, "
+                    "to any person obtaining a copy of this software.\n")
+        positive_text_families, _ = detect_text_families(
+            temp_dir, [{"path": "LICENSE"}])
+    positive_without_metadata = classify_license(
+        "MIT", positive_text_families, set())
+    conflicting = classify_license("MIT", {"BSD-3-Clause"}, {"BSD-3-Clause"})
+    return missing, positive_without_metadata, conflicting
+
+
+def same_file_different_patch_probe():
+    """Call the production patch predicate with the reviewer's planted same-file defect."""
+    fix_diff = ("diff --git a/a.py b/a.py\n--- a/a.py\n+++ b/a.py\n"
+                "@@ -1 +1 @@\n-return 0\n+return 1\n")
+    landing_diff = ("diff --git a/a.py b/a.py\n--- a/a.py\n+++ b/a.py\n"
+                    "@@ -1 +1 @@\n-return 0\n+return -999\n")
+
+    def fake_git(repo, *args):
+        if args == ("log", "-1", "--format=%P", "fix"):
+            return 0, "base"
+        if args == ("log", "-1", "--format=%P", "landing"):
+            return 0, "base refined"
+        if args == ("diff", "--no-renames", "base", "fix"):
+            return 0, fix_diff
+        if args == ("diff", "--no-renames", "base", "landing"):
+            return 0, landing_diff
+        if args[0] == "rev-list":
+            return 0, ""
+        if args[0] == "merge-base":
+            return 1, ""
+        raise AssertionError(args)
+
+    with patch.object(merge_evidence, "git", fake_git):
+        return merge_evidence.patch_equivalence(
+            "fixture", "base", "fix", "landing", "two_parent_merge_commit")
+
+
+def ancestor_without_landing_probe():
+    """Ancestry without an attributable PR landing event must not create a landing commit."""
+    reconciled = {"found": False, "candidates_examined": [],
+                  "fix_commit_is_ancestor_of_pinned_revision": True}
+    with patch.object(merge_evidence, "git", return_value=(1, "")), \
+            patch.object(merge_evidence, "real_merge_candidate",
+                         return_value=reconciled), \
+            patch.object(merge_evidence, "_is_ancestor", return_value=True):
+        return merge_evidence.merge_commit_geometry(
+            "fixture", "pin", "missing_merge", "fix", 1)
+
+
 def merge_qualification_probe(records):
     """Plant the f5485a61 defect: an in-window commit with no merge event.
 
@@ -141,7 +200,10 @@ def main():
     lock = load("source-lock.json")
     ledger = load("family-ledger.json")
     pub = load("public-manifest.json")
-    ror = load_optional("restricted-oracle.json")
+    # Never open restricted-oracle.json in the public validation path. Its
+    # presence, filename, or directory is not isolation evidence; the check is
+    # therefore always SKIP here and remains the custodian/Q0 responsibility.
+    ror = None
     iso = load("d0-time-isolation.json")
     short = load("d0-shortfall.json")
     merge = load("merge-evidence.json")
@@ -233,6 +295,38 @@ def main():
           "planted preset=%s -> decision=%s conflicts=%s"
           % (probe_preset, probe_decision,
              [c["kind"] for c in probe_conflicts]))
+    no_text, valid_text_no_metadata, positive_conflict = licence_evidence_probe()
+    check("negative_test_missing_fixed_license_text_cannot_be_approved",
+          no_text[0] == "pending" and no_text[1] is False,
+          "MIT preset with no fixed text/metadata -> %s/%s" % (no_text[0], no_text[1]))
+    check("positive_test_fixed_license_text_allows_missing_optional_metadata",
+          valid_text_no_metadata[0] == "approved"
+          and valid_text_no_metadata[1] is True
+          and not valid_text_no_metadata[2],
+          "MIT text with absent optional metadata -> %s/%s"
+          % (valid_text_no_metadata[0], valid_text_no_metadata[1]))
+    check("negative_test_fixed_license_text_metadata_conflict_stays_pending",
+          positive_conflict[0] == "pending" and positive_conflict[1] is False
+          and bool(positive_conflict[2]),
+          "MIT preset against BSD text+metadata -> %s/%s"
+          % (positive_conflict[0], positive_conflict[1]))
+
+    same_file_patch = same_file_different_patch_probe()
+    check("negative_test_same_file_with_different_patch_is_not_landing_evidence",
+          same_file_patch.get("diff_text_equal") is False
+          and same_file_patch.get("closed_under_the_landing_event") is False
+          and same_file_patch.get("patch_correspondence") == "needs_review"
+          and same_file_patch.get("file_level", [{}])[0].get("state") == "not_proven",
+          "same path/different lines -> closed=%s state=%s"
+          % (same_file_patch.get("closed_under_the_landing_event"),
+             same_file_patch.get("file_level", [{}])[0].get("state")))
+    no_landing = ancestor_without_landing_probe()
+    check("negative_test_ancestor_without_merge_proof_has_no_landing_event",
+          no_landing.get("adjudicated_landing_commit") is None
+          and no_landing.get("landing_event_shape") == "unreconciled",
+          "ancestor=True without merge proof -> landing=%s shape=%s"
+          % (no_landing.get("adjudicated_landing_commit"),
+             no_landing.get("landing_event_shape")))
     check("licence_decision_matches_a_fresh_re_run_of_the_same_predicate",
           all(repos[n]["license_review"]["decision"]
               == classify_license(
@@ -346,8 +440,12 @@ def main():
     check("source_preparation_count_is_truthfully_carried_into_the_shortfall_report",
           short["p0"]["real_families_source_prepared"] == len(prepared_real)
           and short["p0"]["real_families_total"] == len(real)
-          and short["p0"]["real_families_blocked_on_window_evidence"]
-          == [f["family_id"] for f in unqualified],
+          and [x["family_id"] for x in
+               short["p0"]["real_families_source_preparation_shortfall"]]
+          == [f["family_id"] for f in unqualified]
+          and [x["status"] for x in
+               short["p0"]["real_families_source_preparation_shortfall"]]
+          == [f["source_preparation"]["status"] for f in unqualified],
           "shortfall says %d/%d prepared" % (
               short["p0"]["real_families_source_prepared"],
               short["p0"]["real_families_total"]))
@@ -360,6 +458,20 @@ def main():
     check("p0_covers_at_least_two_repositories",
           len({f["repo"] for f in prepared_real}) >= 2,
           "repos=%s" % sorted({f["repo"] for f in prepared_real}))
+    boltons = [f for f in real if f["repo"] == "boltons"]
+    check("boltons_unproven_patch_correspondence_is_needs_review_and_shortfall",
+          len(boltons) == 1
+          and boltons[0]["source_preparation"]["status"] == "needs_review"
+          and boltons[0]["checks"].get("landing_patch_correspondence_needs_review") is True
+          and boltons[0]["family_id"]
+          in short["p0"]["real_families_needs_review"]
+          and any(x["family_id"] == boltons[0]["family_id"]
+                  for x in short["p0"]["real_families_source_preparation_shortfall"]),
+          "boltons=%s shortfall=%s" % (
+              [(f["source_preparation"]["status"],
+                f["checks"].get("landing_patch_correspondence_needs_review"))
+               for f in boltons],
+              short["p0"]["real_families_source_preparation_shortfall"]))
 
     # ---------------- 5b. the two status axes (Mika ruling 2026-10-06) -----------
     # The previous revision shipped one `released` boolean that mixed a static
@@ -570,7 +682,8 @@ def main():
           all(not r["window_qualified_by_merge_event"]
               for r in merge["records"] if r["status"] != "verified")
           and all(f["fix_time"]["qualifies_by_merge_event"] is False
-                  for f in real if not f["released"]),
+                  for f in real if f["merge_evidence"].get("status") != "verified"
+                  or f["merge_evidence"].get("window_qualified_by_merge_event") is not True),
           "unverified=%s" % merge["summary"]["unverified_commits"])
     check("issue_reference_is_not_treated_as_merge_evidence",
           all(r.get("issue_reference_is_not_merge_evidence") is True
@@ -624,6 +737,7 @@ def main():
         (f["family_id"],
          (f["merge_evidence"]["patch_equivalence"] or {}).get("fix_files_not_covered"))
         for f in real
+        if f["source_preparation"]["status"] == "ready"
         if (f["merge_evidence"].get("patch_equivalence") or {}).get(
             "closed_under_the_landing_event") is not True]
     check("every_fix_file_is_carried_by_the_landing_event",
@@ -767,12 +881,15 @@ def main():
     if ror is None:
         for nm, why in [
             ("restricted_file_covers_every_family",
-             "restricted-oracle.json is absent: it is not committed and must not be "
-             "committed, so a reviewer with only the repository cannot evaluate it"),
-            ("restricted_file_is_marked_not_for_training_authors", "same absent input"),
-            ("restricted_file_does_not_claim_an_unverified_split", "same absent input"),
+             "restricted-oracle.json is deliberately not opened by the public validator; "
+             "a reviewer with only the repository cannot evaluate its contents"),
+            ("restricted_file_is_marked_not_for_training_authors",
+             "input deliberately not opened by the public validator"),
+            ("restricted_file_does_not_claim_an_unverified_split",
+             "input deliberately not opened by the public validator"),
             ("restricted_oracle_split_is_really_isolated_from_the_actor",
-             "no negative permission test exists, and the file is unreadable here"),
+             "no negative permission test exists; file presence/name/access path would "
+             "not establish isolation"),
         ]:
             skip(nm, why)
     else:

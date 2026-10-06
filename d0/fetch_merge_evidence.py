@@ -155,10 +155,10 @@ def patch_equivalence(name, base_sha, fix_sha, landing_sha, shape):
         return {"computed": False, "reason": "could not diff the landing commit"}
     fix_by_file = diff_change_index(fix_diff)
     land_by_file = diff_change_index(land_diff)
-    # A file the fix changed must be changed by the landing event with a change set that
-    # contains the fix's. Equality is the clean case; containment is accepted when a
-    # later commit on the pull request branch refined the same file, which is exactly the
-    # boltons PR#31 shape -- and the refining commits are listed so the reviewer sees it.
+    # A matching path is not patch evidence. For each file, require the landing diff to
+    # contain every added and removed line from the fix diff. Same-file changes with
+    # different content, and changes that merely descend from the fix commit, stay open
+    # for review. Exact and multiset-superset matches are the only positive states.
     merged_in = land_parents[1] if len(land_parents) > 1 else None
     later_refinements = []
     if merged_in and merged_in != fix_sha:
@@ -183,7 +183,7 @@ def patch_equivalence(name, base_sha, fix_sha, landing_sha, shape):
             contained = (_multiset_contains(land_add, fix_add)
                          and _multiset_contains(land_del, fix_del))
             state = ("identical" if identical else
-                     ("contained_superset" if contained else "refined_by_a_later_commit"))
+                     ("contained_superset" if contained else "not_proven"))
             extra = None if identical else {
                 "landing_added_lines": len(land_add), "fix_added_lines": len(fix_add),
                 "landing_removed_lines": len(land_del), "fix_removed_lines": len(fix_del),
@@ -193,13 +193,14 @@ def patch_equivalence(name, base_sha, fix_sha, landing_sha, shape):
         file_results.append({"path": path, "state": state, "detail": extra})
     not_covered = [f["path"] for f in file_results
                    if f["state"] == "missing_from_the_landing_event"]
-    refined = [f["path"] for f in file_results if f["state"] == "refined_by_a_later_commit"]
+    not_proven = [f["path"] for f in file_results if f["state"] == "not_proven"]
     return {
         "computed": True,
         "method": ("the diff the merge introduces (merge vs its FIRST parent) compared, "
                    "file by file, with the diff the fix introduces (fix vs its own "
-                   "parent). Both are diffed against their own parent because the base "
-                   "branch usually advanced while the pull request was open"),
+                   "parent). Each landing file must contain the fix's added and removed "
+                   "lines; path overlap or ancestry alone is not evidence. Both diffs "
+                   "use their own parent because the base branch may have advanced"),
         "landing_event_is_the_fix_commit": False,
         "fix_diff_base": fix_base,
         "landing_first_parent": land_parents[0],
@@ -207,11 +208,13 @@ def patch_equivalence(name, base_sha, fix_sha, landing_sha, shape):
         "fix_diff_sha256": fix_sha256,
         "landing_diff_sha256": sha256_bytes(land_diff.encode("utf-8", "replace")),
         "diff_text_equal": fix_diff == land_diff,
-        "closed_under_the_landing_event": not not_covered,
+        "closed_under_the_landing_event": (not not_covered and not not_proven),
+        "patch_correspondence": ("proven" if not not_covered and not not_proven
+                                 else "needs_review"),
         "every_fix_file_present_in_the_landing_event": not not_covered,
         "files_identical_or_contained": [f["path"] for f in file_results
                                          if f["state"] in ("identical", "contained_superset")],
-        "files_refined_by_a_later_commit_on_the_pull_request": refined,
+        "files_with_unproven_patch_correspondence": not_proven,
         "fix_files_not_covered": not_covered,
         "file_level": file_results,
         "commits_on_the_pull_request_after_the_fix": later_refinements,
@@ -413,18 +416,23 @@ def merge_commit_geometry(name, pinned, merge_sha, fix_sha, pr_number):
     # all three differ, and boltons is exactly that case: the pinned merge commit
     # 1d7d8c4e names PR#31 but brings in 078a215b, whose parent is the fix ae21ed2a.
     # A landing event is therefore accepted on evidence, not on identity:
-    #   1. the pinned two-parent merge commit that names this pull request, preferring
-    #      the one that lists the fix as a parent, and confirming content equivalence;
-    #   2. otherwise the fix commit itself, when it lands on the pinned branch.
+    #   1. one unambiguous pinned two-parent merge commit that names this pull request;
+    #      patch correspondence is assessed separately and can remain needs_review;
+    #   2. otherwise only an exact API merge SHA == fix SHA that exists in the pinned
+    #      history. Ancestry alone never invents a landing event.
     landing = None
     landing_shape = "unreconciled"
     adjudication = ("unreconciled: no landing event could be established from the pinned "
                     "history")
     cands = reconciled.get("candidates_examined") or []
     fix_is_parent = [c for c in cands if c["second_parent_is_the_fix_commit"]]
-    ordered = fix_is_parent + [c for c in cands if c not in fix_is_parent]
-    if ordered:
-        chosen = ordered[0]
+    # Prefer the uniquely evidenced PR merge with the exact fix as second parent.
+    # If that is unavailable, only accept a single PR-subject candidate; ambiguous
+    # history is left unreconciled for an independent review.
+    candidates = fix_is_parent if len(fix_is_parent) == 1 else (
+        cands if not fix_is_parent and len(cands) == 1 else [])
+    if candidates:
+        chosen = candidates[0]
         landing = chosen["sha"]
         landing_shape = "two_parent_merge_commit"
         if chosen["second_parent_is_the_fix_commit"]:
@@ -451,18 +459,13 @@ def merge_commit_geometry(name, pinned, merge_sha, fix_sha, pr_number):
             else ("api_merge_commit_absent_or_different_from_pinned_history; the pinned "
                   "history's own two-parent merge commit that names this pull request is "
                   "recorded as the landing event" + (". " + detail if detail else "")))
-    elif present and reconciled.get("fix_commit_is_ancestor_of_pinned_revision"):
+    elif present and merge_sha == fix_sha \
+            and reconciled.get("fix_commit_is_ancestor_of_pinned_revision"):
         landing = fix_sha
         landing_shape = "fix_commit_is_the_landing_commit"
         adjudication = ("api_merge_commit_present_and_the_fix_commit_itself_lands_on_the_"
                         "pinned_branch: squash or rebase merge, so the fix commit IS the "
                         "landing event and no separate merge commit exists")
-    elif reconciled.get("fix_commit_is_ancestor_of_pinned_revision"):
-        landing = fix_sha
-        landing_shape = "fix_commit_is_the_landing_commit"
-        adjudication = ("api_merge_commit_absent_from_the_pinned_clone and no two-parent "
-                        "merge commit names this pull request, but the fix commit itself "
-                        "lands on the pinned branch: squash/rebase landing")
     return {
         "merge_commit_present_in_pinned_clone": present,
         "merge_commit_is_ancestor_of_pinned_revision": (present and rc2 == 0),

@@ -29,7 +29,7 @@
     "approval_is_revision_bound": "an approval covers one pinned commit; re-pinning a repository invalidates it and it must be re-derived",
     "independent_review_note": "decision is the D0 owner's licence-fact assessment and is self-declared; independent countersignature is tracked separately in independent_review and is NOT claimed here",
     "approved_spdx_is_derived_not_asserted": "approved_spdx must agree with the families detected in the pinned licence TEXT and with the SPDX declared in the pinned packaging METADATA. The preset in the generator is an expectation, never evidence.",
-    "conflict_rule": "a positive disagreement between the preset, the licence text and/or the packaging metadata forces decision='pending' and is listed verbatim in license_conflicts; it can never read as 'approved'. An EMPTY evidence set is not a conflict.",
+    "conflict_rule": "a positive disagreement between the preset, the licence text and/or the packaging metadata forces decision='pending' and is listed verbatim in license_conflicts; it can never read as 'approved'. Packaging metadata is optional when absent, but at least one matching positive family signal from the fixed root licence text is mandatory. An EMPTY evidence set is not a conflict and is never approval.",
     "hash_basis_rule": "every licence file records BOTH the upstream git-blob sha256 and the checkout sha256 plus the newline transformation relating them; the two are different byte strings under core.autocrlf=true and must never be mixed",
     "missing_merge_evidence_note": "this field set settles LICENCE facts only; it does not establish the family window, which needs the merge-event evidence in merge-evidence.json"
   },

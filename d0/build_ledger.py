@@ -210,12 +210,19 @@ def source_preparation_status(structural, base_full, fix_full, patch_sha):
     revision, and a window set by a verified ORIGINAL merge event -- internally
     complete? It does *not* say the family may train an agent.
     """
-    ok = bool(all(structural.values())) and not any(
+    review_required = structural.get("landing_patch_correspondence_needs_review") is True
+    required_checks = {k: v for k, v in structural.items()
+                       if k != "landing_patch_correspondence_needs_review"}
+    ok = bool(all(required_checks.values())) and not any(
         v is None or v == "" for v in (base_full, fix_full, patch_sha))
     return {
-        "status": "ready" if ok else "not_ready",
+        "status": ("needs_review" if review_required else
+                   ("ready" if ok else "not_ready")),
         "basis": ("every structural check in `checks` passed; this covers static source "
-                  "artefacts only"),
+                  "artefacts only" if ok else
+                  ("landing event exists, but the patch correspondence is not proven; "
+                   "independent review is required" if review_required else
+                   "at least one required static source check is incomplete")),
         "blocking_checks": sorted(k for k, v in structural.items() if not v),
     }
 
@@ -822,6 +829,23 @@ def main():
 
         merc = merge_record_for(merge_index, fix_full)
         merge_ok = merge_qualifies(merc)
+        merge_geometry = (merc or {}).get("merge_commit_geometry") or {}
+        patch_equivalence = merge_geometry.get("patch_equivalence") or {}
+        landing_present = bool(
+            merge_ok
+            and merge_geometry.get("adjudicated_landing_commit")
+            and merge_geometry.get("adjudicated_landing_is_ancestor_of_pinned_revision")
+        )
+        patch_proven = bool(
+            landing_present
+            and patch_equivalence.get("computed") is True
+            and patch_equivalence.get("closed_under_the_landing_event") is True
+        )
+        patch_needs_review = bool(
+            landing_present
+            and patch_equivalence.get("computed") is True
+            and patch_equivalence.get("closed_under_the_landing_event") is not True
+        )
 
         structural = {
             "fix_commit_resolved": bool(re.fullmatch(r"[0-9a-f]{40}", fix_full)),
@@ -844,6 +868,8 @@ def main():
             "merge_event_evidence_present": bool(merc)
             and merc.get("status") == "verified",
             "merge_event_qualifies_window": merge_ok,
+            "landing_event_present_in_pinned_history": landing_present,
+            "landing_patch_correspondence_proven": patch_proven,
             # audit-only, kept so a reviewer can see the two dates corroborate
             "in_train_window_author_date_audit_only": adate < TRAIN_WINDOW_END,
             "in_train_window_committer_date_audit_only": cdate < TRAIN_WINDOW_END,
@@ -856,6 +882,8 @@ def main():
             "license_metadata_has_no_conflict":
                 not lock["repos"][name]["license_review"]["license_conflicts"],
         }
+        if patch_needs_review:
+            structural["landing_patch_correspondence_needs_review"] = True
         fam = {
             "family_id": spec["family_id"],
             "kind": "real",
