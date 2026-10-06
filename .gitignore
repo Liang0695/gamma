@@ -1,0 +1,5 @@
+d0/src/
+d0/raw/
+d0/out/restricted-oracle.json
+__pycache__/
+*.pyc

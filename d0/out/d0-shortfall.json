@@ -1,4 +1,5 @@
 {
+  "policy_id": "v3-time-policy-2026-10-05-mika",
   "p0": {
     "requirement": "8 training families = 4 real + 4 variant from >= 2 repositories",
     "real_families_released": 4,
@@ -14,35 +15,48 @@
   },
   "p1_headroom": {
     "requirement": "train split of 96 families = 24 real + 40 variant",
-    "raw_candidates_in_train_window": 102,
+    "raw_candidates_in_train_window": 110,
     "per_repo": {
-      "click": 48,
+      "click": 56,
       "more-itertools": 6,
       "pluggy": 16,
       "boltons": 32
     },
-    "assessment": "102 raw candidates against a need for 24 real families is nominal headroom of about 4x, but qualification is unproven for any of them: each still needs a verifier run, an actor-reachability check and a bounded test patch. Do not read 102 as 24 usable.",
+    "assessment": "110 raw candidates against a need for 24 real families is nominal headroom of about 4.6x, but qualification is unproven for any of them: each still needs a verifier run, an actor-reachability check and a bounded test patch. Do not read 110 as 24 usable.",
     "weakest_repo": "more-itertools (6 raw candidates) -- thin if it must carry a share"
+  },
+  "dev_supply": {
+    "requirement": "a dev split needs families whose original fix time is in 2026-01-01 .. 2026-10-04, from the dev-role repositories",
+    "qualified_dev_families_found": 3,
+    "per_repo": {
+      "attrs": 3,
+      "dateutil": 0,
+      "packaging": 66,
+      "marshmallow": 10
+    },
+    "dateutil_verdict": "0 qualified dev families. dateutil's pinned revision is dated 2024-02-29, entirely before the window, so no family in that pinned revision can be a dev family. This confirms Mika's provisional count of 0.",
+    "attrs_observation": "attrs is the only locked dev-role repository that does yield in-window dev families. The count is thin and unverified; it is headroom evidence, not a released dev set.",
+    "assessment": "dev family supply is thin and depends on attrs plus an alternative."
   },
   "blocking_gaps": [],
   "non_blocking_gaps": [
     {
       "gap": "dateutil cannot carry dev families at the pinned revision under the time rule",
-      "evidence": "2024-02-29T22:38:37-05:00 < 2025-01-01T00:00:00+00:00",
+      "evidence": "pinned snapshot 2024-02-29T22:38:37-05:00 < required window start 2026-01-01T00:00:00+00:00",
       "options": [
-        "drop it from the dev role and let attrs/packaging/marshmallow carry that split",
-        "or re-pin it to a later revision and redo the per-file licence ledger",
-        "or (only if the split rule is relaxed) keep it and record that this split is repository-separated but not time-separated"
+        "drop it from the dev role and let the remaining dev/ sealed-role repositories carry that split",
+        "or re-pin it to a revision inside the window and redo the per-file licence ledger AND the licence approval for the new revision",
+        "or approve the already-named alternative candidate if the custodian rules that way"
       ],
       "owner": "needs a decision from Mika / the custodian, not taken here"
     },
     {
-      "gap": "dev and sealed family inventories were not enumerated in D0",
-      "evidence": "D0's mandate is the P0 training set; the dev/sealed repositories were fetched at depth 1 only, so no defect-family history was mined for them",
+      "gap": "dev/sealed family inventories exist but are unverified headroom, and only one locked dev-role repository (attrs) yields in-window dev families",
+      "evidence": "counts in dev_supply above; every candidate still needs a verifier run and an actor-reachability check",
       "options": [
-        "a follow-up deepening pass before P1 data production"
+        "treat attrs plus an approved alternative as the dev supply, or re-pin"
       ],
-      "owner": "D0 follow-up"
+      "owner": "D0 follow-up / custodian decision"
     },
     {
       "gap": "no FAIL_TO_PASS run was executed",
@@ -53,8 +67,16 @@
       "owner": "E0 (coding officer)"
     },
     {
+      "gap": "licence approval is self-declared and not independently countersigned",
+      "evidence": "repos.<name>.license_review.independent_review.status == 'pending' for every repository; the decision field is machine-readable but its author is the D0 owner",
+      "options": [
+        "Q0 countersigns or refutes the license_review records"
+      ],
+      "owner": "Q0"
+    },
+    {
       "gap": "licence of the upstream issue/PR *prose* was not cleared",
-      "evidence": "the eight repositories are code-licensed; a report body or comment thread is a separate work. The design already requires rewritten task text, and this ledger copies no prose, so nothing is blocked -- but the rewritten text must be reviewed as original writing",
+      "evidence": "the candidate repositories are code-licensed; a report body or comment thread is a separate work. The design already requires rewritten task text, and this ledger copies no prose, so nothing is blocked -- but the rewritten text must be reviewed as original writing",
       "options": [
         "keep the rewrite policy; have Q0 spot-check the task texts for paraphrase"
       ],

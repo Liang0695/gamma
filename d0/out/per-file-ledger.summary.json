@@ -98,5 +98,17 @@
     "files_with_copyright_line": 2,
     "files_without_any_header_signal": 89,
     "spdx_headers_found": []
+  },
+  "python-dotenv": {
+    "tracked_files": 47,
+    "license_files": [
+      "LICENSE",
+      "docs/license.md"
+    ],
+    "text_files_scanned": 42,
+    "files_with_spdx_header": 0,
+    "files_with_copyright_line": 0,
+    "files_without_any_header_signal": 42,
+    "spdx_headers_found": []
   }
 }

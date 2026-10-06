@@ -21,9 +21,23 @@ HERE = os.path.dirname(os.path.abspath(__file__))
 SRC = os.path.join(HERE, "src")
 OUT = os.path.join(HERE, "out")
 
-TRAIN_WINDOW_END = "2025-01-01T00:00:00+00:00"
-DEV_WINDOW = ("2025-01-01T00:00:00+00:00", "2026-01-01T00:00:00+00:00")
-SEALED_WINDOW_START = "2026-01-01T00:00:00+00:00"
+POLICY_ID = "v3-time-policy-2026-10-05-mika"
+TRAIN_WINDOW_END = "2026-01-01T00:00:00+00:00"      # == fix time <= 2025-12-31
+DEVSEALED_START = "2026-01-01T00:00:00+00:00"
+DEVSEALED_END_EXCLUSIVE = "2026-10-05T00:00:00+00:00"   # == through 2026-10-04
+WITHDRAWN_WINDOWS = {
+    "train_end_exclusive": "2025-01-01T00:00:00+00:00",
+    "dev_start": "2025-01-01T00:00:00+00:00",
+    "dev_end_exclusive": "2026-01-01T00:00:00+00:00",
+    "sealed_start": "2026-01-01T00:00:00+00:00",
+    "status": ("withdrawn 2026-10-05: never approved; superseded by the windows above. "
+               "dev and sealed share ONE window and no ordering between them is claimed."),
+}
+BACKPORT_RE = re.compile(
+    r"cherry[- ]?picked?\s+from|cherry[- ]?pick\s+of|back[- ]?port|"
+    r"backport|cherry-pick|re-?land",
+    re.I,
+)
 
 REPOS = {
     "click":          {"slug": "pallets/click", "spdx": "BSD-3-Clause",
@@ -225,10 +239,23 @@ def main():
     lock = json.load(open(os.path.join(OUT, "source-lock.json"), encoding="utf-8"))
     lic = json.load(open(os.path.join(OUT, "license-files.json"), encoding="utf-8"))
     ledger = {
+        "policy_id": POLICY_ID,
         "spec": {
-            "train_window_end_exclusive": TRAIN_WINDOW_END,
-            "dev_window": list(DEV_WINDOW),
-            "sealed_window_start": SEALED_WINDOW_START,
+            "train_window": {"end_exclusive": TRAIN_WINDOW_END,
+                             "means": "family original fix time <= 2025-12-31"},
+            "dev_sealed_window": {"start": DEVSEALED_START,
+                                  "end_exclusive": DEVSEALED_END_EXCLUSIVE,
+                                  "means": "family original fix time in 2026-01-01 .. 2026-10-04",
+                                  "dev_vs_sealed_ordering_claimed": False},
+            "withdrawn_windows": WITHDRAWN_WINDOWS,
+            "time_axis_authority": (
+                "a family's time is the ORIGINAL upstream fix commit's own time, recorded as "
+                "BOTH author date and committer date with both required inside the window. "
+                "Release/tag dates, snapshot or pin dates, backport dates and cherry-pick "
+                "dates are rejected substitutes and must never classify a family."),
+            "snapshot_axis_is_separate": (
+                "the pinned revision decides which CONTENT exists (the fix commit must be an "
+                "ancestor of it); it never decides which WINDOW a family belongs to."),
             "p0_requirement": "8 training families = 4 real + 4 variant, from >= 2 repos",
             "issue_text_policy": (
                 "No upstream issue/PR prose is copied into the deliverable. Only the "
@@ -254,9 +281,15 @@ def main():
         repo = os.path.join(SRC, name)
         rc, fix_full, _ = git(repo, "rev-parse", spec["fix_commit"] + "^{commit}")
         fix_full = fix_full.strip()
-        rc, meta, _ = git(repo, "log", "-1", "--format=%P%x1f%cI%x1f%s", fix_full)
-        parents, cdate, subject = meta.strip().split("\x1f")
+        rc, meta, _ = git(repo, "log", "-1", "--format=%P%x1f%aI%x1f%cI%x1f%s%x1f%b",
+                          fix_full)
+        parts = (meta.strip().split("\x1f") + ["", "", "", "", ""])[:5]
+        parents, adate, cdate, subject, body = parts
         base_full = parents.split()[0]
+        pinned = lock["repos"][name]["pinned_commit"]
+        rc_anc, _, _ = git(repo, "merge-base", "--is-ancestor", fix_full, pinned)
+        fix_is_ancestor = rc_anc == 0
+        backport_marker = BACKPORT_RE.search(subject + "\n" + body)
         rc, patch, _ = git(repo, "show", "--format=", "--no-renames", fix_full)
         patch_sha = hashlib.sha256(patch.encode("utf-8", "replace")).hexdigest()
         _, numstat, _ = git(repo, "show", "--numstat", "--format=", "--no-renames", fix_full)
@@ -428,10 +461,14 @@ def main():
             "f2p_absent_at_base": all(not x["present_at_base"] for x in f2p) if f2p else False,
             "oracle_split_both_halves_non_empty": bool(test_patch) and bool(gold_patch),
             "code_only_oracle_patch_non_empty": bool(code_patch),
-            "in_train_window": cdate < TRAIN_WINDOW_END,
-            "license_approved": REPOS[name]["spdx"] in (
-                "MIT", "BSD-3-Clause", "BSD-2-Clause", "Apache-2.0",
-                "Apache-2.0 OR BSD-3-Clause", "Apache-2.0 OR BSD-2-Clause"),
+            "in_train_window_author_date": adate < TRAIN_WINDOW_END,
+            "in_train_window_committer_date": cdate < TRAIN_WINDOW_END,
+            "fix_commit_is_ancestor_of_pinned_revision": fix_is_ancestor,
+            "fix_commit_is_not_a_backport_or_cherry_pick": backport_marker is None,
+            "license_approved": lock["repos"][name]["license_review"]["decision"] == "approved",
+            "license_approved_for_this_exact_revision":
+                lock["repos"][name]["license_review"]["decided_against_revision"]
+                == lock["repos"][name]["pinned_commit"],
         }
         released = all(structural.values()) and not any(
             v is None or v == "" for v in (base_full, fix_full, patch_sha))
@@ -445,11 +482,31 @@ def main():
             "pinned_revision": lock["repos"][name]["pinned_commit"],
             "license": {"spdx": REPOS[name]["spdx"],
                         "license_file": lic_entry["path"],
-                        "license_file_sha256": lic_entry["sha256"]},
+                        "license_file_sha256": lic_entry["sha256"],
+                        "license_review_decision":
+                            lock["repos"][name]["license_review"]["decision"],
+                        "license_review_path": "repos.%s.license_review in source-lock.json" % name},
             "base_commit": base_full,
             "oracle_fix_commit": fix_full,
             "oracle_patch_sha256": patch_sha,
-            "fix_date": cdate,
+            "fix_time": {
+                "author_date": adate,
+                "committer_date": cdate,
+                "primary": adate,
+                "basis": "author date of the original upstream fix commit",
+                "both_dates_in_train_window": (adate < TRAIN_WINDOW_END
+                                               and cdate < TRAIN_WINDOW_END),
+                "not_derived_from": ["release/tag date", "snapshot or pin date",
+                                     "backport date", "cherry-pick date"],
+            },
+            "fix_date": adate,
+            "fix_date_committer": cdate,
+            "fix_commit_is_ancestor_of_pinned_revision": fix_is_ancestor,
+            "backport_or_cherry_pick_marker": (backport_marker.group(0)
+                                               if backport_marker else None),
+            "snapshot_axis_note": (
+                "the pinned revision decides which content exists; the family's own fix time "
+                "decides the window. The two axes are checked separately."),
             "upstream_subject": subject,
             "upstream_issue_refs": spec["issue_refs"],
             "symptom_restatement": spec["symptom_restatement"],
@@ -480,7 +537,6 @@ def main():
                         else parent_fam["base_commit"])
         rc, vb_full, _ = git(repo, "rev-parse", variant_base + "^{commit}")
         vb_full = vb_full.strip()
-        rc, vdate, _ = git(repo, "rev-parse", "--verify", "quiet-placeholder") if False else (0, "", "")
         _, when, _ = git(repo, "log", "-1", "--format=%cI", vb_full)
         released = False
         ledger["families"].append({
@@ -500,6 +556,10 @@ def main():
             "expected_patch_shape": spec["expected_patch_shape"],
             "source_base_commit": vb_full,
             "source_base_date": when.strip(),
+            "source_base_date_role": (
+                "SNAPSHOT-axis date of the upstream source base, recorded for reproducibility. "
+                "It is NOT this variant's fix time and does not classify the variant into a "
+                "window. A constructed variant inherits its parent family's train window."),
             "source_base_released": True,
             "variant_commit": None,
             "oracle_fix_commit": None,

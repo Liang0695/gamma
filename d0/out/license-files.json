@@ -106,6 +106,18 @@
         "sha256": "91654619aa076c353aac303791252fd0eae6018faec63c3900e1885042a4bf96",
         "bytes": 52
       }
+    ],
+    "python-dotenv": [
+      {
+        "path": "LICENSE",
+        "sha256": "dd1c70c9434fdeb24d08f37fcc43a4eef9cf80db4cee3eb7755e0d888af67a19",
+        "bytes": 1583
+      },
+      {
+        "path": "docs/license.md",
+        "sha256": "1e881ecf2862d01e6e5bc2b861e46886d2a6fb01499c0c508a209a7271b13cf2",
+        "bytes": 10
+      }
     ]
   }
 }

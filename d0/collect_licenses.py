@@ -17,6 +17,7 @@ import sys
 HERE = os.path.dirname(os.path.abspath(__file__))
 SRC = os.path.join(HERE, "src")
 OUT = os.path.join(HERE, "out")
+ACCESS_DATE = "2026-10-05"
 
 REPOS = {
     "click": ("pallets/click", "8.5.0", "8b19813f2bfca99f1018a587a8cf54fc959f2e5d", "BSD-3-Clause", "train"),
@@ -27,6 +28,34 @@ REPOS = {
     "dateutil": ("dateutil/dateutil", "2.9.0", "db9d018944c41ddc740015cf5f64717c2ba64a5c", "Apache-2.0 OR BSD-3-Clause", "dev"),
     "packaging": ("pypa/packaging", "26.3", "929fd4b1410ac7ef61ef3f45b2f5d7e87711a9b5", "Apache-2.0 OR BSD-2-Clause", "sealed"),
     "marshmallow": ("marshmallow-code/marshmallow", "4.3.1", "c7b559a1fa3aba57ca6dba0ab336841c5038a782", "MIT", "sealed"),
+}
+
+# Approved ALTERNATIVE candidate for the dev slot. Verified here for license,
+# family inventory and environment material, but NOT a member of the locked
+# eight and NOT approved for release: it only replaces dateutil if the
+# custodian says so.
+ALTERNATIVE_REPOS = {
+    "python-dotenv": ("theskumar/python-dotenv", "v1.2.4",
+                      "a565c2cc41599c48eabc6b7b7f5b826d43c5a6d7", "MIT", "dev"),
+}
+
+LICENSE_REVIEW_SCHEMA = {
+    "schema_version": "1.0",
+    "applies_to": "every repository in this file, keyed by repository name",
+    "required_fields": [
+        "decision", "approved_spdx", "osi_permissive", "copyleft_marker_hits",
+        "restrictive_marker_hits", "evidence", "decision_basis", "decided_by",
+        "decided_at", "decided_against_revision", "independent_review",
+    ],
+    "decision_domain": ["approved", "rejected", "pending"],
+    "gate": ("no repository may be used as a family source unless "
+             "license_review.decision == 'approved' for the exact revision in "
+             "decided_against_revision"),
+    "approval_is_revision_bound": ("an approval covers one pinned commit; re-pinning "
+                                   "a repository invalidates it and it must be re-derived"),
+    "independent_review_note": ("decision is the D0 owner's licence-fact assessment and "
+                                "is self-declared; independent countersignature is tracked "
+                                "separately in independent_review and is NOT claimed here"),
 }
 
 LICENSE_FILE_RE = re.compile(
@@ -52,6 +81,117 @@ LICENSE_MENTION_RE = re.compile(
     r"BSD License|BSD 3-Clause|BSD 2-Clause|Apache License|GNU (?:Lesser )?General Public License|"
     r"PSF License|Mozilla Public License)\b", re.I,
 )
+
+# ---------------------------------------------------------------------------
+# machine-readable licence approval contract (see LICENSE_REVIEW_SCHEMA)
+# ---------------------------------------------------------------------------
+# The marker scan is deliberately limited to the primary licence-family files
+# (LICENSE / COPYING / NOTICE / PATENTS).  AUTHORS, CONTRIBUTING and changelog
+# files routinely mention other licences in passing, and letting them raise a
+# copyleft hit would make the signal unusable.
+PRIMARY_LICENCE_RE = re.compile(r"^(licen[cs]e|copying|notice|patents)([-_.].*)?$", re.I)
+
+COPYLEFT_MARKERS = [
+    "GNU General Public License", "GNU Lesser General Public License",
+    "GNU Affero General Public License", "AGPL", "LGPL",
+    "Mozilla Public License", "Eclipse Public License",
+    "Reciprocal Public License", "Sleepycat License", "CDDL",
+    "Creative Commons Attribution-ShareAlike", "CC BY-SA",
+]
+RESTRICTIVE_MARKERS = [
+    "non-commercial", "noncommercial", "non commercial",
+    "research only", "research purposes only", "for research use only",
+    "no derivative works", "not for commercial use", "evaluation only",
+    "CC BY-NC",
+]
+APPROVED_SPDX_SET = {"MIT", "BSD-2-Clause", "BSD-3-Clause", "Apache-2.0",
+                     "Apache-2.0 OR BSD-3-Clause", "Apache-2.0 OR BSD-2-Clause"}
+
+
+def marker_scan(repo_dir, lic_files):
+    """Scan primary licence files for copyleft / restrictive-use markers.
+
+    Returns (copyleft_hits, restrictive_hits); each hit records the file, the
+    matched marker and the matching line so a reviewer can judge it directly
+    instead of trusting a boolean.
+    """
+    copyleft, restrictive = [], []
+    for lf in lic_files:
+        if not PRIMARY_LICENCE_RE.match(os.path.basename(lf["path"])):
+            continue
+        full = os.path.join(repo_dir, lf["path"].replace("/", os.sep))
+        try:
+            text = open(full, encoding="utf-8", errors="replace").read()
+        except OSError:
+            continue
+        lines = text.splitlines()
+        for marker in COPYLEFT_MARKERS:
+            for i, line in enumerate(lines):
+                if marker.lower() in line.lower():
+                    copyleft.append({"file": lf["path"], "marker": marker,
+                                     "line_no": i + 1, "line": line.strip()[:200]})
+                    break
+        for marker in RESTRICTIVE_MARKERS:
+            for i, line in enumerate(lines):
+                if marker.lower() in line.lower():
+                    restrictive.append({"file": lf["path"], "marker": marker,
+                                        "line_no": i + 1, "line": line.strip()[:200]})
+                    break
+    return copyleft, restrictive
+
+
+def build_license_review(name, slug, tag, pinned, design_license, repo_dir,
+                         lic_files, meta, per_file_stats, decided_at):
+    """Assemble the machine-readable approval record for one pinned revision."""
+    primary = None
+    for want in ("LICENSE", "LICENSE.txt", "LICENSE.md", "COPYING", "LICENSE.rst"):
+        for lf in lic_files:
+            if lf["path"] == want:
+                primary = lf
+                break
+        if primary:
+            break
+    if primary is None and lic_files:
+        primary = lic_files[0]
+    copyleft, restrictive = marker_scan(repo_dir, lic_files)
+    approved = design_license in APPROVED_SPDX_SET
+    decision = "approved" if (approved and not restrictive) else "pending"
+    basis = (
+        "declared licence family is OSI-permissive (%s); the primary licence file at the "
+        "pinned revision carries no copyleft marker and no non-commercial / research-only / "
+        "no-derivative clause. Hit lists below are recorded verbatim so this decision can be "
+        "re-derived from the hashed files alone." % design_license)
+    if not approved:
+        basis = "declared licence family %s is outside the approved permissive set" % design_license
+    if restrictive:
+        basis += " ; RESTRICTIVE MARKER FOUND -> decision withheld"
+    return {
+        "decision": decision,
+        "approved_spdx": design_license,
+        "osi_permissive": bool(approved),
+        "copyleft_marker_hits": copyleft,
+        "restrictive_marker_hits": restrictive,
+        "evidence": {
+            "primary_license_file": primary,
+            "all_license_file_hashes": lic_files,
+            "packaging_metadata_sha256": {k: v.get("sha256") for k, v in meta.items()},
+            "per_file_scan": per_file_stats,
+            "per_file_ledger": "per-file-ledger.csv",
+        },
+        "decision_basis": basis,
+        "decided_by": "D0 owner (资料调研与分发)",
+        "decided_at": decided_at,
+        "decided_against_revision": pinned,
+        "decided_against_tag": tag,
+        "upstream_slug": slug,
+        "independent_review": {
+            "required": True,
+            "status": "pending",
+            "reviewer_role": "Q0",
+            "note": ("self-declared licence-fact assessment; NOT an independent "
+                     "countersignature and must not be read as one"),
+        },
+    }
 
 
 def sha256_of(path):
@@ -131,12 +271,22 @@ def read_meta(repo_dir, files):
 
 def main():
     os.makedirs(OUT, exist_ok=True)
-    lock = {"generated_by": "d0/collect_licenses.py", "repos": {}}
+    lock = {
+        "generated_by": "d0/collect_licenses.py",
+        "policy_id": "v3-source-lock-2026-10-05-mika",
+        "license_review_schema": LICENSE_REVIEW_SCHEMA,
+        "locked_candidate_repositories": sorted(REPOS),
+        "alternative_candidate_repositories": sorted(ALTERNATIVE_REPOS),
+        "repos": {},
+    }
     lic_files_all = {}
     ledger_rows = []
     summaries = {}
 
-    for name, (slug, tag, exp_sha, design_license, split) in REPOS.items():
+    ordered = [(n, v, "locked_candidate") for n, v in REPOS.items()]
+    ordered += [(n, v, "alternative_candidate") for n, v in ALTERNATIVE_REPOS.items()]
+
+    for name, (slug, tag, exp_sha, design_license, split), role_class in ordered:
         repo_dir = os.path.join(SRC, name)
         rc, head, err = git(repo_dir, "rev-parse", "HEAD")
         rc2, tree, _ = git(repo_dir, "rev-parse", "HEAD^{tree}")
@@ -189,7 +339,17 @@ def main():
 
         spdx_set = sorted({r["spdx_header"] for r in per_file if r["spdx_header"]})
         meta = read_meta(repo_dir, files)
+        per_file_stats = {
+            "text_files_scanned": scanned,
+            "files_with_spdx_header": n_with_spdx,
+            "files_with_copyright_line": n_with_cp,
+            "method": "d0/collect_licenses.py; every file row is in per-file-ledger.csv",
+        }
+        review = build_license_review(
+            name, slug, tag, head, design_license, repo_dir, lic_files, meta,
+            per_file_stats, decided_at=ACCESS_DATE)
         lock["repos"][name] = {
+            "role_class": role_class,
             "upstream_slug": slug,
             "mirror_url": "https://ghfast.top/https://github.com/%s.git" % slug,
             "pinned_tag": tag,
@@ -198,6 +358,9 @@ def main():
             "commit_matches_plan": head == exp_sha,
             "tree_sha": tree,
             "commit_date": cdate,
+            "commit_date_role": (
+                "the pinned SNAPSHOT's own commit date. It is NOT a family fix time and "
+                "must never be used to assign a defect family to a split window."),
             "committer": cname,
             "tracked_files": len(files),
             "text_files_scanned": scanned,
@@ -205,6 +368,7 @@ def main():
             "design_license_expectation": design_license,
             "spdx_headers_found": spdx_set,
             "packaging_metadata": meta,
+            "license_review": review,
         }
         lic_files_all[name] = lic_files
         summaries[name] = {
@@ -218,6 +382,20 @@ def main():
         }
         print("%-15s head=%s tree=%s files=%d lics=%d spdx_hdrs=%d" % (
             name, head[:12], tree[:12], len(files), len(lic_files), n_with_spdx))
+
+    lock["summary"] = {
+        "repositories": len(lock["repos"]),
+        "decision_counts": {
+            d: sum(1 for r in lock["repos"].values()
+                   if r["license_review"]["decision"] == d)
+            for d in LICENSE_REVIEW_SCHEMA["decision_domain"]},
+        "decision_by_repo": {n: r["license_review"]["decision"]
+                            for n, r in lock["repos"].items()},
+        "api_field": "repos.<name>.license_review.decision",
+        "gate_satisfied": all(r["license_review"]["decision"] == "approved"
+                              for r in lock["repos"].values()),
+        "independent_countersignature_claimed": False,
+    }
 
     with open(os.path.join(OUT, "source-lock.json"), "w", encoding="utf-8") as f:
         json.dump(lock, f, indent=2, ensure_ascii=False)

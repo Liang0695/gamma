@@ -1,11 +1,25 @@
 {
+  "policy_id": "v3-time-policy-2026-10-05-mika",
   "spec": {
-    "train_window_end_exclusive": "2025-01-01T00:00:00+00:00",
-    "dev_window": [
-      "2025-01-01T00:00:00+00:00",
-      "2026-01-01T00:00:00+00:00"
-    ],
-    "sealed_window_start": "2026-01-01T00:00:00+00:00",
+    "train_window": {
+      "end_exclusive": "2026-01-01T00:00:00+00:00",
+      "means": "family original fix time <= 2025-12-31"
+    },
+    "dev_sealed_window": {
+      "start": "2026-01-01T00:00:00+00:00",
+      "end_exclusive": "2026-10-05T00:00:00+00:00",
+      "means": "family original fix time in 2026-01-01 .. 2026-10-04",
+      "dev_vs_sealed_ordering_claimed": false
+    },
+    "withdrawn_windows": {
+      "train_end_exclusive": "2025-01-01T00:00:00+00:00",
+      "dev_start": "2025-01-01T00:00:00+00:00",
+      "dev_end_exclusive": "2026-01-01T00:00:00+00:00",
+      "sealed_start": "2026-01-01T00:00:00+00:00",
+      "status": "withdrawn 2026-10-05: never approved; superseded by the windows above. dev and sealed share ONE window and no ordering between them is claimed."
+    },
+    "time_axis_authority": "a family's time is the ORIGINAL upstream fix commit's own time, recorded as BOTH author date and committer date with both required inside the window. Release/tag dates, snapshot or pin dates, backport dates and cherry-pick dates are rejected substitutes and must never classify a family.",
+    "snapshot_axis_is_separate": "the pinned revision decides which CONTENT exists (the fix commit must be an ancestor of it); it never decides which WINDOW a family belongs to.",
     "p0_requirement": "8 training families = 4 real + 4 variant, from >= 2 repos",
     "issue_text_policy": "No upstream issue/PR prose is copied into the deliverable. Only the numeric issue reference is recorded for traceability; every task statement is rewritten from the observed defect, per the integrated review's rule that code being open source does not license its comments.",
     "runtime_verification_status": "not_run_in_d0: the D0 research runtime has no reachable package index, so pytest could not be installed and no FAIL_TO_PASS run was executed. Every field below is derived statically from the pinned git objects. Building the environment and actually running the oracle is E0's deliverable, and the 8-task cross-check is later engineering acceptance.",
@@ -23,12 +37,31 @@
       "license": {
         "spdx": "BSD-3-Clause",
         "license_file": "LICENSE.txt",
-        "license_file_sha256": "757302fe7c41e7026fa46d3315ea8604ed5295fc95c2256d9b38adac43f6fbe5"
+        "license_file_sha256": "757302fe7c41e7026fa46d3315ea8604ed5295fc95c2256d9b38adac43f6fbe5",
+        "license_review_decision": "approved",
+        "license_review_path": "repos.click.license_review in source-lock.json"
       },
       "base_commit": "c2c2bacddc1d625e9a0f606f227f356df9d2b172",
       "oracle_fix_commit": "9da1791476fe79ce77aa7a2a2db370c91a455251",
       "oracle_patch_sha256": "d1b919b239256026fb5e5e54f6195a055992599bb201b10aaf5fb330f1e0aa5c",
-      "fix_date": "2015-03-31T12:00:12+02:00",
+      "fix_time": {
+        "author_date": "2015-03-31T11:58:13+02:00",
+        "committer_date": "2015-03-31T12:00:12+02:00",
+        "primary": "2015-03-31T11:58:13+02:00",
+        "basis": "author date of the original upstream fix commit",
+        "both_dates_in_train_window": true,
+        "not_derived_from": [
+          "release/tag date",
+          "snapshot or pin date",
+          "backport date",
+          "cherry-pick date"
+        ]
+      },
+      "fix_date": "2015-03-31T11:58:13+02:00",
+      "fix_date_committer": "2015-03-31T12:00:12+02:00",
+      "fix_commit_is_ancestor_of_pinned_revision": true,
+      "backport_or_cherry_pick_marker": null,
+      "snapshot_axis_note": "the pinned revision decides which content exists; the family's own fix time decides the window. The two axes are checked separately.",
       "upstream_subject": "Error on nargs=-1 for options.  This fixes #222",
       "upstream_issue_refs": [
         "222"
@@ -139,8 +172,12 @@
         "f2p_absent_at_base": true,
         "oracle_split_both_halves_non_empty": true,
         "code_only_oracle_patch_non_empty": true,
-        "in_train_window": true,
-        "license_approved": true
+        "in_train_window_author_date": true,
+        "in_train_window_committer_date": true,
+        "fix_commit_is_ancestor_of_pinned_revision": true,
+        "fix_commit_is_not_a_backport_or_cherry_pick": true,
+        "license_approved": true,
+        "license_approved_for_this_exact_revision": true
       }
     },
     {
@@ -154,12 +191,31 @@
       "license": {
         "spdx": "MIT",
         "license_file": "LICENSE",
-        "license_file_sha256": "2162b6b24a563bf763e00d507e650b2b07b0cd4646efa1e2f62fb99a19f7f85e"
+        "license_file_sha256": "2162b6b24a563bf763e00d507e650b2b07b0cd4646efa1e2f62fb99a19f7f85e",
+        "license_review_decision": "approved",
+        "license_review_path": "repos.more-itertools.license_review in source-lock.json"
       },
       "base_commit": "c0465331cbc0d882cd7dce5c0bd19aaf46dfb968",
       "oracle_fix_commit": "62411c1618493f94b16901746c34e72ad415061e",
       "oracle_patch_sha256": "7082e67503d2acb9bc2fae58181566b6e6820afcfd4385f7de38a16075db3b72",
-      "fix_date": "2020-03-30T00:05:42+03:00",
+      "fix_time": {
+        "author_date": "2020-03-29T23:48:00+03:00",
+        "committer_date": "2020-03-30T00:05:42+03:00",
+        "primary": "2020-03-29T23:48:00+03:00",
+        "basis": "author date of the original upstream fix commit",
+        "both_dates_in_train_window": true,
+        "not_derived_from": [
+          "release/tag date",
+          "snapshot or pin date",
+          "backport date",
+          "cherry-pick date"
+        ]
+      },
+      "fix_date": "2020-03-29T23:48:00+03:00",
+      "fix_date_committer": "2020-03-30T00:05:42+03:00",
+      "fix_commit_is_ancestor_of_pinned_revision": true,
+      "backport_or_cherry_pick_marker": null,
+      "snapshot_axis_note": "the pinned revision decides which content exists; the family's own fix time decides the window. The two axes are checked separately.",
       "upstream_subject": "Fix spy to make returned iterable immutable",
       "upstream_issue_refs": [
         "409"
@@ -245,8 +301,12 @@
         "f2p_absent_at_base": true,
         "oracle_split_both_halves_non_empty": true,
         "code_only_oracle_patch_non_empty": true,
-        "in_train_window": true,
-        "license_approved": true
+        "in_train_window_author_date": true,
+        "in_train_window_committer_date": true,
+        "fix_commit_is_ancestor_of_pinned_revision": true,
+        "fix_commit_is_not_a_backport_or_cherry_pick": true,
+        "license_approved": true,
+        "license_approved_for_this_exact_revision": true
       }
     },
     {
@@ -260,12 +320,31 @@
       "license": {
         "spdx": "MIT",
         "license_file": "LICENSE",
-        "license_file_sha256": "de91589cbcc498cb36d3f979e39d4fb1ea1164d5331f6e0ea90a986525310d51"
+        "license_file_sha256": "de91589cbcc498cb36d3f979e39d4fb1ea1164d5331f6e0ea90a986525310d51",
+        "license_review_decision": "approved",
+        "license_review_path": "repos.pluggy.license_review in source-lock.json"
       },
       "base_commit": "4ba6441e046ff9d0d2dbea5087c5bfd81cc37f5c",
       "oracle_fix_commit": "9cf2eaa50dd1ad3ebf042978629e78c695197095",
       "oracle_patch_sha256": "4552535722d46dc3efcae097e4f109b1b5cbe26a27f027ef836729ef743965d4",
-      "fix_date": "2024-11-03T15:39:53+01:00",
+      "fix_time": {
+        "author_date": "2024-10-31T14:17:18+01:00",
+        "committer_date": "2024-11-03T15:39:53+01:00",
+        "primary": "2024-10-31T14:17:18+01:00",
+        "basis": "author date of the original upstream fix commit",
+        "both_dates_in_train_window": true,
+        "not_derived_from": [
+          "release/tag date",
+          "snapshot or pin date",
+          "backport date",
+          "cherry-pick date"
+        ]
+      },
+      "fix_date": "2024-10-31T14:17:18+01:00",
+      "fix_date_committer": "2024-11-03T15:39:53+01:00",
+      "fix_commit_is_ancestor_of_pinned_revision": true,
+      "backport_or_cherry_pick_marker": null,
+      "snapshot_axis_note": "the pinned revision decides which content exists; the family's own fix time decides the window. The two axes are checked separately.",
       "upstream_subject": "fix #544: Correctly pass StopIteration trough wrappers",
       "upstream_issue_refs": [
         "544"
@@ -371,8 +450,12 @@
         "f2p_absent_at_base": true,
         "oracle_split_both_halves_non_empty": true,
         "code_only_oracle_patch_non_empty": true,
-        "in_train_window": true,
-        "license_approved": true
+        "in_train_window_author_date": true,
+        "in_train_window_committer_date": true,
+        "fix_commit_is_ancestor_of_pinned_revision": true,
+        "fix_commit_is_not_a_backport_or_cherry_pick": true,
+        "license_approved": true,
+        "license_approved_for_this_exact_revision": true
       }
     },
     {
@@ -386,12 +469,31 @@
       "license": {
         "spdx": "BSD-3-Clause",
         "license_file": "LICENSE",
-        "license_file_sha256": "c301912653a8d8c99eab6212aa3aea8d164ea249d8ad53c941e0558a0a5ac1e3"
+        "license_file_sha256": "c301912653a8d8c99eab6212aa3aea8d164ea249d8ad53c941e0558a0a5ac1e3",
+        "license_review_decision": "approved",
+        "license_review_path": "repos.boltons.license_review in source-lock.json"
       },
       "base_commit": "c9b3d2452e4ffe43920874f4f6f2e8fe425ebf00",
       "oracle_fix_commit": "ae21ed2a78064ca1090db069e3f755aa1853b885",
       "oracle_patch_sha256": "1f229d4d3a80e039ffca09d572afb27eac9dab90d859f35d68b0cd379ae9eec4",
-      "fix_date": "2015-04-19T00:21:19-07:00",
+      "fix_time": {
+        "author_date": "2015-04-19T00:13:33-07:00",
+        "committer_date": "2015-04-19T00:21:19-07:00",
+        "primary": "2015-04-19T00:13:33-07:00",
+        "basis": "author date of the original upstream fix commit",
+        "both_dates_in_train_window": true,
+        "not_derived_from": [
+          "release/tag date",
+          "snapshot or pin date",
+          "backport date",
+          "cherry-pick date"
+        ]
+      },
+      "fix_date": "2015-04-19T00:13:33-07:00",
+      "fix_date_committer": "2015-04-19T00:21:19-07:00",
+      "fix_commit_is_ancestor_of_pinned_revision": true,
+      "backport_or_cherry_pick_marker": null,
+      "snapshot_axis_note": "the pinned revision decides which content exists; the family's own fix time decides the window. The two axes are checked separately.",
       "upstream_subject": "Properly parse tracebacks with missing source.  Resolves #30",
       "upstream_issue_refs": [
         "30"
@@ -519,8 +621,12 @@
         "f2p_absent_at_base": true,
         "oracle_split_both_halves_non_empty": true,
         "code_only_oracle_patch_non_empty": true,
-        "in_train_window": true,
-        "license_approved": true
+        "in_train_window_author_date": true,
+        "in_train_window_committer_date": true,
+        "fix_commit_is_ancestor_of_pinned_revision": true,
+        "fix_commit_is_not_a_backport_or_cherry_pick": true,
+        "license_approved": true,
+        "license_approved_for_this_exact_revision": true
       }
     },
     {
@@ -541,13 +647,16 @@
       },
       "source_base_commit": "c2c2bacddc1d625e9a0f606f227f356df9d2b172",
       "source_base_date": "2015-03-31T12:00:07+02:00",
+      "source_base_date_role": "SNAPSHOT-axis date of the upstream source base, recorded for reproducibility. It is NOT this variant's fix time and does not classify the variant into a window. A constructed variant inherits its parent family's train window.",
       "source_base_released": true,
       "variant_commit": null,
       "oracle_fix_commit": null,
       "license": {
         "spdx": "BSD-3-Clause",
         "license_file": "LICENSE.txt",
-        "license_file_sha256": "757302fe7c41e7026fa46d3315ea8604ed5295fc95c2256d9b38adac43f6fbe5"
+        "license_file_sha256": "757302fe7c41e7026fa46d3315ea8604ed5295fc95c2256d9b38adac43f6fbe5",
+        "license_review_decision": "approved",
+        "license_review_path": "repos.click.license_review in source-lock.json"
       }
     },
     {
@@ -568,13 +677,16 @@
       },
       "source_base_commit": "c0465331cbc0d882cd7dce5c0bd19aaf46dfb968",
       "source_base_date": "2020-03-29T14:28:44-05:00",
+      "source_base_date_role": "SNAPSHOT-axis date of the upstream source base, recorded for reproducibility. It is NOT this variant's fix time and does not classify the variant into a window. A constructed variant inherits its parent family's train window.",
       "source_base_released": true,
       "variant_commit": null,
       "oracle_fix_commit": null,
       "license": {
         "spdx": "MIT",
         "license_file": "LICENSE",
-        "license_file_sha256": "2162b6b24a563bf763e00d507e650b2b07b0cd4646efa1e2f62fb99a19f7f85e"
+        "license_file_sha256": "2162b6b24a563bf763e00d507e650b2b07b0cd4646efa1e2f62fb99a19f7f85e",
+        "license_review_decision": "approved",
+        "license_review_path": "repos.more-itertools.license_review in source-lock.json"
       }
     },
     {
@@ -595,13 +707,16 @@
       },
       "source_base_commit": "fd08ab5f811a9b2fa9124ae8cbbd393221151e2c",
       "source_base_date": "2025-05-15T10:14:23+02:00",
+      "source_base_date_role": "SNAPSHOT-axis date of the upstream source base, recorded for reproducibility. It is NOT this variant's fix time and does not classify the variant into a window. A constructed variant inherits its parent family's train window.",
       "source_base_released": true,
       "variant_commit": null,
       "oracle_fix_commit": null,
       "license": {
         "spdx": "MIT",
         "license_file": "LICENSE",
-        "license_file_sha256": "de91589cbcc498cb36d3f979e39d4fb1ea1164d5331f6e0ea90a986525310d51"
+        "license_file_sha256": "de91589cbcc498cb36d3f979e39d4fb1ea1164d5331f6e0ea90a986525310d51",
+        "license_review_decision": "approved",
+        "license_review_path": "repos.pluggy.license_review in source-lock.json"
       }
     },
     {
@@ -622,13 +737,16 @@
       },
       "source_base_commit": "c9b3d2452e4ffe43920874f4f6f2e8fe425ebf00",
       "source_base_date": "2015-04-16T03:02:15-07:00",
+      "source_base_date_role": "SNAPSHOT-axis date of the upstream source base, recorded for reproducibility. It is NOT this variant's fix time and does not classify the variant into a window. A constructed variant inherits its parent family's train window.",
       "source_base_released": true,
       "variant_commit": null,
       "oracle_fix_commit": null,
       "license": {
         "spdx": "BSD-3-Clause",
         "license_file": "LICENSE",
-        "license_file_sha256": "c301912653a8d8c99eab6212aa3aea8d164ea249d8ad53c941e0558a0a5ac1e3"
+        "license_file_sha256": "c301912653a8d8c99eab6212aa3aea8d164ea249d8ad53c941e0558a0a5ac1e3",
+        "license_review_decision": "approved",
+        "license_review_path": "repos.boltons.license_review in source-lock.json"
       }
     }
   ]
