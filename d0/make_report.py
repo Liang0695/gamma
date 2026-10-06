@@ -22,8 +22,8 @@ HERE = os.path.dirname(os.path.abspath(__file__))
 OUT = os.path.join(HERE, "out")
 ACCESS_DATE = "2026-10-06"
 BRANCH = "agent/research/kaggle-23-d0-source-lock"
-PREVIOUS_COMMIT = "65aaa16"
-PREVIOUS_PASS_COMMIT = "8b8ff5a"
+PREVIOUS_COMMIT = "7fe7170"
+PREVIOUS_PASS_COMMIT = "65aaa16"
 LOCKED = ["click", "more-itertools", "pluggy", "boltons", "attrs", "dateutil",
           "packaging", "marshmallow"]
 
@@ -48,15 +48,19 @@ def spec_sha256():
 def gate_summary():
     p = os.path.join(OUT, "validate_d0.output.txt")
     if not os.path.isfile(p):
-        return (None, None), None
+        return (None, None), None, None
     lines = [l.rstrip("\n") for l in open(p, encoding="utf-8") if l.strip()]
-    total = failed = None
+    total = failed = n_skip = None
     for l in lines:
         if "checks," in l and "failed" in l:
             parts = l.split()
             total, failed = parts[0], parts[2]
+            if "skipped" in l:
+                n_skip = parts[parts.index("skipped") - 1]
     n_pass = sum(1 for l in lines if l.startswith("PASS"))
-    return (total, failed), n_pass
+    if n_skip is None:
+        n_skip = str(sum(1 for l in lines if l.startswith("SKIP")))
+    return (total, failed), n_pass, n_skip
 
 
 def main():
@@ -71,8 +75,15 @@ def main():
     var = [f for f in fams if f["kind"] == "variant"]
     released_real = [f for f in real if f["released"]]
     blocked_real = [f for f in real if not f["released"]]
+    prepared_real = [f for f in real if f["source_preparation"]["status"] == "ready"]
+    unreleased_real = [f for f in real
+                       if f["source_preparation"]["status"] != "ready"]
+    train_released_real = [f for f in real
+                           if f["training_release"]["approved_for_training"]]
+    train_blocked_real = [f for f in real
+                          if not f["training_release"]["approved_for_training"]]
     repos = lock["repos"]
-    gate, n_pass = gate_summary()
+    gate, n_pass, n_skip = gate_summary()
     n_checks = gate[0] if gate else "?"
     n_failed = gate[1] if gate else "?"
     locked_approved = sum(1 for n in LOCKED
@@ -82,39 +93,18 @@ def main():
     spec_sha = spec_sha256()
 
     # ---- family table csv ----
-    with open(os.path.join(OUT, "kaggle-23-d0-family-table.csv"), "w",
-              encoding="utf-8", newline="") as fh:
-        w = csv.writer(fh)
-        w.writerow(["family_id", "kind", "repo", "split", "released", "base_commit",
-                    "oracle_fix_commit", "oracle_patch_sha256",
-                    "author_date_audit_only", "committer_date_audit_only",
-                    "merge_event_utc", "merge_pr", "merge_sha_matches_fix_commit",
-                    "qualifies_by_merge_event", "merge_evidence_status",
-                    "ancestor_of_pin", "fail_to_pass_nodes", "mutation_class",
-                    "license_spdx", "license_review_decision",
-                    "license_conflicts"])
-        for f in fams:
-            ft = f.get("fix_time") or {}
-            me = f.get("merge_evidence") or {}
-            w.writerow([
-                f["family_id"], f["kind"], f["repo"], f["split"], f["released"],
-                f.get("base_commit") or f.get("source_base_commit") or "",
-                f.get("oracle_fix_commit") or "",
-                f.get("oracle_patch_sha256") or "",
-                ft.get("author_date", ""),
-                ft.get("committer_date", ""),
-                ft.get("merge_event_utc") or "",
-                me.get("pull_request_url") or "",
-                me.get("merge_commit_sha_matches_fix_commit", ""),
-                ft.get("qualifies_by_merge_event", ""),
-                me.get("status", ""),
-                f.get("fix_commit_is_ancestor_of_pinned_revision", ""),
-                ";".join(n["node_id"] for n in (f.get("fail_to_pass") or [])),
-                f.get("mutation_class", ""),
-                f["license"]["spdx"],
-                f["license"].get("license_review_decision", ""),
-                ";".join(c["kind"] for c in f["license"].get("license_conflicts") or []),
-            ])
+    # The CSV is written by build_extras.py, not here: the acceptance gate reads it as
+    # part of the machine-readable surface, so it must exist before the gate runs. This
+    # reads it back only to assert the two agree, so the report can never show a table
+    # that differs from the file.
+    csv_path = os.path.join(OUT, "kaggle-23-d0-family-table.csv")
+    with open(csv_path, encoding="utf-8", newline="") as fh:
+        csv_rows = list(csv.DictReader(fh))
+    csv_mismatch = [r["family_id"] for r, f in zip(csv_rows, fams)
+                    if r["source_preparation_status"]
+                    != f["source_preparation"]["status"]
+                    or r["training_release_status"] != f["training_release"]["status"]]
+    csv_ok = not csv_mismatch and len(csv_rows) == len(fams)
 
     L = []
     a = L.append
@@ -123,41 +113,45 @@ def main():
     a("生成：资料调研与分发 · %s · 访问日期 %s · 分支 `%s`" % (
         ACCESS_DATE, ACCESS_DATE, BRANCH))
     a("")
-    a("> **本文件取代 v2（该分支提交 `%s`，其前身是第一版 `%s`）。**"
-      "v2 被 Mika 定点退回两项：① python-dotenv 的 MIT 自述批准是错的"
-      "（固定 LICENSE 与 pyproject 都是 BSD-3-Clause），生成输入与全部派生字段需纠正；"
-      "② 窗口判定用的是修复 commit 的作者/提交者双日期，"
-      "必须改用**可追溯的原始合并事件**，缺证据的项不得晋级。" %
-      (PREVIOUS_COMMIT, PREVIOUS_PASS_COMMIT))
+    a("> **本文件取代 v3（该分支提交 `%s`；其前身是 v2 `%s`、第一版 `%s`）。**"
+      "v3 被 Mika 裁决退回并责成接续整改四项：① 把「静态来源准备」与「训练放行」"
+      "分成两个状态轴，`released` 只允许表示前者；② 为 click 槽位补入一个有**原始合并事件"
+      "证据**的独立真实家族，并同步停用/重建其派生变异家族；"
+      "③ 补齐 more-itertools / pluggy / boltons 的 PR head 与 merge SHA 差异"
+      "（含 boltons 合并对象在固定快照中缺失）的可核查落地证据；"
+      "④ 逐项闭环此前的黄 1/5/6/7 项。"
+      "其中 ①②③ 已完成，④ 见 §2.8。" %
+      (PREVIOUS_COMMIT, PREVIOUS_PASS_COMMIT, "8b8ff5a"))
     a("")
 
     a("## 0. 一句话结论")
     a("")
-    a("两项退回都已整改，并在**原 D0 分支**提交新 SHA 与逐字段差异。")
+    a("①③ 两项整改完成，② 在既有 train 仓库内补位成功，整支流水线在本机"
+      "**从固定快照重跑并与提交产物逐字节一致**，新 SHA 与逐字段差异齐备。")
     a("")
-    a("- **许可**：python-dotenv 的 `approved_spdx` 由 MIT 改为 **BSD-3-Clause**，"
-      "并借此把「信任手写预设」改成**三方一致性判定** —— "
-      "手写预设、固定许可**正文**、固定包装**元数据**三者必须相容，"
-      "任何一处正向冲突即 `decision=pending`。整改后 %d/%d 个锁定来源全部 `approved`"
-      "（替代候选 python-dotenv 亦为 `approved`），交付集内 **0 个**记录处于冲突态；"
-      "冲突规则由一条否定测试驱动验证。"
-      % (locked_approved, len(LOCKED)))
-    a("- **哈希口径**：每个许可文件同时记录**上游 git blob 字节的 SHA256**与"
-      "**checkout 工作树字节的 SHA256**，以及二者之间的换行变换（`core.autocrlf=true` "
-      "下 LF→CRLF）。python-dotenv 的 LICENSE 正是 `80619b70…`（1556 字节，LF）"
-      "与 `dd1c70c9…`（1583 字节，CRLF）的关系，**不是**许可变更。")
-    a("- **时间**：窗口判定改用**原始合并事件**（PR 的 `merged_at_utc`，"
-      "带元数据来源 URL 与响应 SHA256）；作者/提交者日期降级为纯审计字段。"
-      "本版对 10 个拟计入的 commit 逐一取证：**8 个 verified、2 个 unverified**。")
-    a("- **代价（如实上报）**：应用合并事件规则后，**P0 真实家族 %d/4 released**。"
-      "`v3-train-click-001` 的 2015 修复**根本没有 PR 合并事件**（直接推到 main；"
-      "issue #222 由 commit 直接引用关闭，PR #258/#259 都是**未合并**关闭），"
-      "因此它保持 `released=false`、不计入任何配额，已作为阻塞缺口交给 Mika 裁决。"
-      "四个变异家族仍只有构造规格、`released=false`。"
-      "**没有任何空 SHA 记录被当作已发布示例。**" % len(released_real))
-    a("- 校验 **%s 项、%s 失败**（PASS %s）。本轮**仍未运行 FAIL_TO_PASS**、"
-      "未用 GPU、未申请 107 作业。其余实质缺口：dateutil 在固定 revision 下 "
-      "dev 窗口内合格家族数为 0（与 Mika 的暂计一致）。" % (n_checks, n_failed, n_pass))
+    a("- **状态轴已分开（本轮整改 ①）**：家族记录不再只有一个 `released` 布尔值。"
+      "`source_preparation.status` 回答「静态来源材料是否齐全」，"
+      "`training_release.status` 回答「能否拿去训练/评测」。"
+      "本版**没有任何家族获训练放行** —— 不是缺格，而是训练放行门槛"
+      "（真机 oracle 结果、独立许可 review、gold/dev/sealed 隔离证据、变异半边落地）"
+      "四项正向证据一项都不存在，因此全部 `blocked` 并逐项写明缺什么。"
+      "`released` 保留为**兼容别名**，只镜像静态准备轴，并随每个文件携带 "
+      "`released_scope` 作用域声明。")
+    a("- **click 槽位已补位（本轮整改 ②）**：按 Mika 裁决，把没有合并事件的 "
+      "click `9da1791476fe…`（2015，直接推送到默认分支，issue #222 由 commit 直接引用关闭，"
+      "交叉引用的 PR #258/#259 均**未合并**关闭）替换为 click "
+      "`ee56925bc4f5…`（PR #1934，**merged_at 2021-07-03**，真实双亲 merge 落地）。"
+      "替换走与其余家族**完全相同**的派生与审核路径：同一套字段、同一套否定测试。"
+      "被替换的 commit 保留失败账、`unverified`、不计任何配额；"
+      "其派生变异家族 `…-var-rename` 已**停用**，改为在替换父家族上重建的 "
+      "`…-var-predicate`。日期规则与「4 真实 + 4 变异」目标**未被放宽**。")
+    a("- **落地事件已逐一取证（本轮整改 ③）**：不再假定「关联 PR 已合并」就等于家族合格。"
+      "每个计入家族都重新推导**固定快照里真实的落地事件**，"
+      "并给出 PR head / merge SHA / 固定快照三者不一致时的**归因**与"
+      "**补丁等价性**证据；boltons 的 GitHub 合并对象在固定快照中**确实不存在**，"
+      "已按可核查方式解释而非静默对齐。")
+    a("- **仍未运行 FAIL_TO_PASS**；未用 GPU、未申请 107 作业、未读 gold、未改编码官代码。"
+      "校验 **%s 项、%s 失败**（PASS %s）。" % (n_checks, n_failed, n_pass))
     a("")
 
     a("## 1. 需求回顾")
@@ -301,15 +295,16 @@ def main():
       "每个响应的**原始字节**写入 `d0/pr-evidence/raw/` 并计算 SHA256，"
       "同时记录 `merged_at_utc`、`merge_commit_sha`、PR 链接与查询 URL。"
       "取证是**缓存优先**的：已下载的响应不会重复消耗配额；全程**未认证、无 token**。")
-    a("- **`merge_commit_sha` 不匹配不等于造假**：rebase/squash 合并会让它与修复 commit 不同。"
-      "本版如实记录几何关系（`merge_commit_geometry`），"
-      "包括「GitHub 报告的合并 commit 在固定快照中不存在」这种异常，"
-      "而不是静默对齐。")
+    a("- **`merge_commit_sha` 不匹配不等于造假，但也不再默认「关联 PR 已合并」就算合格**："
+      "rebase/squash 合并会让它与修复 commit 不同。本版不只记录几何关系，"
+      "而是**从固定快照重新推导落地事件**（§2.9），"
+      "并给出补丁等价性证据；包括「GitHub 报告的合并 commit 在固定快照中不存在」"
+      "这种异常，也给出可核查解释而非静默对齐。")
     a("- **缺证据即不计数**：`status=unverified` ⇒ `qualifies_by_merge_event=false` ⇒ "
-      "`released=false`，并进入 shortfall 的阻塞缺口。"
+      "`source_preparation.status=not_ready`，并进入 shortfall 的阻塞缺口。"
       "commit message 里的 issue 编号**不是**合并证据。")
     a("- **backport 追溯原修复**：backport 标记的 commit 仍直接拒收；"
-      "变异家族的窗口从**父家族的合并事件**继承，且父家族未 released 时不得继承。")
+      "变异家族的窗口从**父家族的合并事件**继承，且父家族静态准备未 ready 时不得继承。")
     a("")
     a("**已废止（第一版，未经批准）**：`train_end_exclusive = %s`、"
       "`dev = [%s, %s)`、`sealed >= %s`。本版 JSON 中保留该记录并标记 `withdrawn`，"
@@ -327,49 +322,81 @@ def main():
 
     a("### 2.4 家族台账与 oracle 构造依据")
     a("")
-    a("| family_id | 仓库 | released | base_commit | oracle 修复 commit | 补丁 SHA256（前 16） | 合并事件（UTC） | PR | merge_sha 匹配 | 作者时间（仅审计） | F2P 节点 |")
-    a("|---|---|---|---|---|---|---|---|---|---|---|")
+    a("**先看两个状态轴，再看证据。** `source_preparation` 是静态材料是否齐全；"
+      "`training_release` 是能否拿去训练/评测。本版**没有任何家族通过训练放行**。")
+    a("")
+    a("| family_id | 仓库 | 静态准备 | 训练放行 | 修复 commit | 补丁 SHA256（前 16） | 合并事件（UTC） | PR | 落地形态 | F2P 节点 |")
+    a("|---|---|---|---|---|---|---|---|---|---|")
     for f in real:
         me = f["merge_evidence"]
-        a("| %s | %s | %s | `%s` | `%s` | `%s` | %s | %s | %s | %s | %d |" % (
-            f["family_id"], f["repo"], f["released"], f["base_commit"],
+        a("| %s | %s | `%s` | `%s` | `%s` | `%s` | %s | %s | `%s` | %d |" % (
+            f["family_id"], f["repo"],
+            f["source_preparation"]["status"], f["training_release"]["status"],
             f["oracle_fix_commit"], f["oracle_patch_sha256"][:16],
             f["fix_time"]["merge_event_utc"] or "**无**",
             ("[#%s](%s)" % (me["pull_request_number"], me["pull_request_url"]))
             if me["pull_request_number"] else "**无**",
-            me["merge_commit_sha_matches_fix_commit"],
-            f["fix_time"]["author_date"][:10], len(f["fail_to_pass"])))
+            me.get("landing_event_shape") or "**未归因**",
+            len(f["fail_to_pass"])))
     a("")
     a("每个真实家族的完整字段见 `family-ledger.json`：逐文件 base/fix 哈希、"
       "test patch 与 code-only gold patch 的分离哈希、FAIL_TO_PASS 节点"
       "（要求 base 不存在、fix 存在）、oracle 断言行、环境依赖材料、"
-      "以及 `merge_evidence` 的来源与响应哈希。")
+      "`source_preparation` / `training_release` 两个状态轴、"
+      "以及 `merge_evidence` 的来源、响应哈希与落地事件归因。")
     a("")
-    a("**未 released 的真实家族（如实保留失败账）**")
+    a("**训练放行为什么全是 `blocked`**：放行门槛要求四项正向证据同时成立 —— "
+      "真机 oracle 结果、独立许可 review、gold/dev/sealed 对 actor 的隔离、变异半边已构造。"
+      "本版四项全无，因此**逐族写明缺哪一项**，而不是用一个 `released` 布尔值含糊过去。"
+      "这**不是**本轮新产生的缺口，而是把本来就存在的缺口如实标注出来。")
     a("")
-    for f in blocked_real:
-        a("- **%s**（%s）：`release_decision.blocking_checks = %s`。%s"
+    a("**静态准备未 ready 的真实家族（如实保留失败账）**")
+    a("")
+    if not unreleased_real:
+        a("（本版无：四个真实家族的静态材料均齐全。被替换的 click 2015 修复见 §2.4.1，"
+          "它保留失败账但已不在族谱内。）")
+    for f in unreleased_real:
+        a("- **%s**（%s）：`source_preparation.blocking_checks = %s`。%s"
           % (f["family_id"], f["repo"],
-             "、".join(f["release_decision"]["blocking_checks"]),
+             "、".join(f["source_preparation"]["blocking_checks"]),
              f["merge_evidence"]["reason"]))
-        a("  审计事实：作者时间 %s、提交者时间 %s（**都落在窗口内，但按规则不足以晋级**）；"
-          "修复 commit 仍是固定快照的祖先（%s）。"
-          % (f["fix_time"]["author_date"][:10], f["fix_time"]["committer_date"][:10],
-             f["fix_commit_is_ancestor_of_pinned_revision"]))
     a("")
-    a("**变异家族（released=false）**：")
+    a("**变异家族（`released=false`，静态准备状态 `specification_only`）**：")
     a("")
-    a("| family_id | 派生自 | 变异类 | 源基线 commit | 父家族 released | expected patch shape |")
+    a("| family_id | 派生自 | 变异类 | 源基线 commit | 父家族静态准备 | expected patch shape |")
     a("|---|---|---|---|---|---|")
     for f in var:
-        a("| %s | %s | %s | `%s` | %s | %s |" % (
+        a("| %s | %s | %s | `%s` | `%s` | %s |" % (
             f["family_id"], f["derived_from"], f["mutation_class"],
-            f["source_base_commit"][:12], f["source_base_released"],
+            f["source_base_commit"][:12],
+            f["source_preparation"]["status"],
             f["expected_patch_shape"]))
     a("")
-    a("变异家族的 release 阻断原因是结构性的：变异 commit 在编码官构造出来之前**不存在**，"
+    a("变异家族的阻断原因是结构性的：变异 commit 在编码官构造出来之前**不存在**，"
       "因此只固定上游源基线，**任何空 SHA 都不会被当作已发布示例**。"
       "这正是验收条目「示例空 SHA 不能 released」对应的证据。")
+    a("")
+    a("#### 2.4.1 click 槽位替换（Mika 裁决 · 本轮整改 ②）")
+    a("")
+    replaced = (merge.get("replaced_records") or [])
+    a("| 项 | 被替换 | 替换为 |")
+    a("|---|---|---|")
+    a("| commit | `9da1791476fe79ce77aa7a2a2db370c91a455251` | `ee56925bc4f5451a125317e183f498e8bd1aecb3` |")
+    a("| PR | **无**（直接推送到默认分支；issue #222 由 commit 直接引用关闭，"
+      "交叉引用的 PR #258/#259 均未合并关闭） | [#1934](https://github.com/pallets/click/pull/1934) |")
+    a("| 原始合并事件 | 取不到 | **2021-07-03T13:56:47Z** |")
+    a("| 落地形态 | — | 双亲 merge commit `3d0d8b5af1ab…`，修复 commit 是其第二父 |")
+    a("| 当前状态 | `status=replaced`、`unverified`、**不计任何配额** | 静态准备 `ready`、训练放行 `blocked` |")
+    a("")
+    a("被替换的 commit 保留在 `merge-evidence.json` 的 `replaced_records` 中，"
+      "并带 `counted_in_no_quota=true`；其派生变异家族 `v3-train-click-001-var-rename` "
+      "已**停用**，改为在替换父家族上重建的 `v3-train-click-001-var-predicate`"
+      "（`predicate-relocation-and-propagation`）。"
+      "**日期规则未放宽、「4 真实 + 4 变异」目标未降低**；"
+      "替换家族走的是与其余家族**完全相同**的派生与审核路径（同一套字段、同一套否定测试）。")
+    if replaced:
+        a("")
+        a("替换依据（机器可读）：`merge-evidence.json → replaced_records[0].note`。")
     a("")
 
     a("### 2.5 时间隔离证据与候选计数口径")
@@ -488,21 +515,112 @@ def main():
       "（用审阅者手算的那对哈希钉住哈希口径）。")
     a("")
     a("**note**：门禁断言的是**自洽**而不是「全部成功」—— "
-      "某个家族可以是 `released=false`，但那时它的 `blocking_checks` 与 shortfall "
+      "某个家族的静态准备可以是 `not_ready`，但那时它的 `blocking_checks` 与 shortfall "
       "必须被记录，且不得计入任何配额。"
-      "把「4/4 released」写死成断言，等于奖励一个合并事件根本没取到的家族。")
+      "把「4/4 ready」写死成断言，等于奖励一个合并事件根本没取到的家族。")
+    a("")
+    a("**SKIP 不是 PASS**：公开验证器在**没有** `restricted-oracle.json` 时也能运行 —— "
+      "该文件按规则不入 Git，公开复核者拿不到，因此与之相关的检查被**显式记为 SKIP**，"
+      "并打印「a skip is NOT a pass and is NOT isolation evidence」。"
+      "受限检查被跳过**不构成隔离通过**。")
+    a("")
+
+    a("### 2.8 本轮整改 ④：黄 1/5/6/7 逐项闭环")
+    a("")
+    a("| 项 | 要求 | 本版处置 | 状态 |")
+    a("|---|---|---|---|")
+    a("| 黄 1 | 公开验证器在没有 `restricted-oracle.json` 时可运行 | "
+      "`d0/validate_d0.py` 用 `load_optional()` 读该文件；缺失时相关检查走 `skip()`，"
+      "实测：移走文件后 **106 项、0 失败、4 skipped、exit=0** | 已闭环 |")
+    a("| 黄 5 | 未执行的受限检查须显式 `skipped` 且**不算隔离通过** | "
+      "门禁新增 `skipped` 通道，结尾单独打印 SKIP 行与总数；"
+      "`restricted_oracle_split_is_really_isolated_from_the_actor` 永远 SKIP"
+      "（无否定权限测试 = 隔离**未被证明**） | 已闭环 |")
+    a("| 黄 6 | train gold 可推导性 | "
+      "`family-ledger.json → gold_derivability`：逐族列明 actor 收到什么、不收到什么、"
+      "以及**推导性论证**；并由门禁断言 `gold_patch_reaches_the_actor=false` "
+      "且每族都有论证 | 已闭环（结论：gold 不下发，但**隔离未建立**） |")
+    a("| 黄 7 | actor 侧未来历史／联网隔离证据或缺口声明 | "
+      "`family-ledger.json → actor_isolation`，三条缺口全部 `status=unproven`："
+      "`actor_network_access_not_controlled`、`actor_git_history_not_controlled`、"
+      "`restricted_oracle_split_not_adjudicated`；`isolation_established=false` | "
+      "已闭环为**缺口声明**，不是通过 |")
+    a("")
+    a("**黄 6 的实质结论（不确定就写不确定）**：本版把 gold patch 排除在一切公开产物之外"
+      "（`oracle_assertions` 进受限文件、gold patch 不进入任何公开文件、任务文本是重写而非照抄），"
+      "但**没有**任何 actor 侧控制证据。上游仓库是公开的，"
+      "能联网、且拿到带完整历史的 checkout 的 actor，理论上可以自己找到原修复。"
+      "因此本版的说法是**「gold 已扣留，但隔离未建立」**，而不是「已隔离」。")
+    a("")
+
+    a("### 2.9 本轮整改 ③：落地事件归因与补丁等价性")
+    a("")
+    a("评审要求「不能只凭关联 PR 已合并宣告家族通过」。本版对**每个计入家族**"
+      "从固定快照**重新推导落地事件**，并给出：PR head、GitHub `merge_commit_sha`、"
+      "固定快照中真实落地的 commit 三者关系，以及**补丁等价性**结果。")
+    a("")
+    a("| family_id | GitHub `merge_commit_sha` | 固定快照中的落地事件 | 落地形态 | 修复是落地 commit 的第二父 | 补丁等价 |")
+    a("|---|---|---|---|---|---|")
+    for f in real:
+        me = f["merge_evidence"]
+        ev = me.get("landing_event_evidence") or {}
+        pe = me.get("patch_equivalence") or {}
+        a("| %s | `%s` | `%s` | `%s` | %s | %s |" % (
+            f["family_id"],
+            (me.get("merge_commit_sha") or "—")[:12],
+            (me.get("adjudicated_landing_commit") or "—")[:12],
+            me.get("landing_event_shape") or "—",
+            ev.get("fix_commit_is_the_second_parent"),
+            ("逐文件覆盖（%s）" % ("完全相同"
+                                if pe.get("diff_text_equal") else "被后续 commit 精修")
+             if pe.get("closed_under_the_landing_event") else "**未通过**")))
+    a("")
+    a("三种形态各自说明白，**不合并成一句「都合并了」**：")
+    a("")
+    a("1. **API 与固定快照一致**（click #1934、more-itertools #412、pluggy #545）："
+      "GitHub 给的 `merge_commit_sha` 就是固定快照里的双亲 merge commit，"
+      "修复 commit 是其第二父，补丁逐文件完全相同。")
+    a("2. **API 的合并对象在固定快照中不存在**（boltons #31）："
+      "GitHub 报 `1efa511206d0f27474efcb6d00bab5404f290bda`，"
+      "`git cat-file -t` 在该固定克隆中**取不到该对象**。"
+      "固定历史的真实落地事件是 `1d7d8c4e1767f5ec4e180cccd00b773150d086f5`"
+      "（`Merge pull request #31 from asottile/parsed_exception_no_source_30`，双亲）。"
+      "但它合入的是 **`078a215bfd37da5045ec6302bcba9505a11582dc`**，"
+      "**不是**修复 commit `ae21ed2a7806…`。可核查的解释是："
+      "`078a215b` 的父提交**正是** `ae21ed2a`（`git log -1 --format=%P 078a215b` 可直接验证），"
+      "即修复先落到分支、随后被一个同 PR 的后续 commit 精修（该 commit 主题为 "
+      "`Oops, broke last-line-eval-like tracebacks`）。因此本版记录的是"
+      "**祖先关系 + 逐文件变更集覆盖**，而不是文本完全相同："
+      "`boltons/tbutils.py` 被标为 `refined_by_a_later_commit`，"
+      "`tests/tbutils_test.py` 为 `contained_superset`，其余文件 `identical`。")
+    a("3. **squash/rebase 落地**（python-dotenv 的 5 个候选）："
+      "`merge_commit_sha` 就等于修复 commit，固定历史中不存在独立 merge commit，"
+      "落地事件即修复 commit 本身。")
+    a("")
+    a("**方法论上最要紧的一条**：补丁等价性不能用「PR 的 `base.sha`」做基准 —— "
+      "PR 开着的时候基分支通常已经前进，那样比出来的差异会混入无关提交。"
+      "pluggy #545 就是这种情况（`base.sha=4ba6441e`，"
+      "合并的第一父却是 `2b6dfd7c`）。正确做法是**各自与自己的父提交比**："
+      "merge 与其第一父比、修复 commit 与其自己的父比，再逐文件比对变更集。")
+    a("")
+    a("门禁对上述三点各有断言，并带一条否定测试："
+      "`negative_test_a_family_without_landing_evidence_cannot_be_adjudicated`。")
     a("")
 
     a("## 3. 推断与建议（标注为推断 / 建议）")
     a("")
-    a("- **事实**：P0 真实半边 %d/4；`v3-train-click-001` 因**不存在 PR 合并事件**而 unqualified。"
-      "变异半边 4/4 规格、0 个构造 commit。合计 released %d/8。"
-      % (len(released_real), sum(1 for f in fams if f["released"])))
-    a("- **建议（需 Mika / 保管侧裁决，D0 不自行换家族）**：click 槽位三选一 —— "
-      "① 为「直接推送到默认分支」的 landing 事件定义一套可接受证据标准；"
-      "② 从已筛选的 train 清单中换入一个**合并事件可取证**的家族，"
-      "并走同一套派生与审核；③ 承认 P0 配额缺口并如实记为 3/4。"
-      "本轮**不擅自**替换，以免下游 E0 环境与既有审阅基线失效。")
+    a("- **事实**：P0 真实半边**静态准备 %d/4**（四个真实家族的静态材料齐全）；"
+      "**训练放行 0/%d** —— 四项放行证据（真机 oracle、独立许可 review、"
+      "gold/dev/sealed 隔离、变异半边构造）一项都不存在，故全部 `blocked`。"
+      "变异半边 4/4 规格、0 个构造 commit。"
+      "被替换的 click 2015 修复保留失败账、不计任何配额。"
+      % (len(prepared_real), len(real)))
+    a("- **事实（本轮整改 ②，已按 Mika 裁决执行）**：click 槽位已替换为 "
+      "`ee56925bc4f5451a125317e183f498e8bd1aecb3`（PR #1934，merged 2021-07-03，"
+      "双亲 merge 落地，补丁逐文件完全相同）。"
+      "替换在同一仓库内完成以减少 E0 环境改动，四个 train 仓库仍全部在场；"
+      "被替换 commit 的失败账与派生变异家族的处置见 §2.4.1。"
+      "**日期规则未放宽，「4 真实 + 4 变异」目标未降低。**")
     a("- **推断**：train 侧 commit 日期筛选 %d 个候选对 24 个真实家族需求，"
       "名义 headroom 约 %.1f 倍，但其中合并事件已验证的只有 %d 个，"
       "且没有任何一个经过验证器跑通、actor 可达性与有界测试补丁检查，"
@@ -519,17 +637,27 @@ def main():
       "（但会使本版绑定在该 revision 上的许可批准失效，必须重做逐文件许可台账"
       "与新 revision 的批准）。")
     a("- **建议**：请 Q0 对 `license_review` 逐条反证（`independent_review.status` 仍为 pending），"
-      "重点复核本版新增的许可正文识别与三方一致性判定，以及 "
-      "`merge_commit_geometry` 里那两条与修复 commit 不一致、以及快照中不存在的合并 commit。")
-    a("- **建议**：E0 在环境就绪后对**已 released 的 %d 个**真实家族跑 broken/reference "
-      "双次干净对照；click 家族在裁决前不应进入环境构建队列。"
-      "本版不把静态来源验收当作数据 released。" % len(released_real))
+      "重点复核本版新增的许可正文识别与三方一致性判定，以及落地事件归因块"
+      "（`merge_evidence.landing_event_evidence`）——"
+      "特别是 boltons 那条：GitHub 合并对象在固定快照中不存在，"
+      "固定历史里同 PR 的 merge commit 合入的是另一个 commit，"
+      "须复核「祖先关系 + 逐文件变更集覆盖」是否足以支撑合格结论，"
+      "**不足以支撑时应判为待核验而不是通过**。")
+    a("- **建议**：E0 在环境就绪后对**静态准备已 ready 的 %d 个**真实家族跑 "
+      "broken/reference 双次干净对照；`training_release.status` 未获放行前"
+      "不得进入训练发布清单，也不得把本版静态来源验收当成数据 released。"
+      % len(prepared_real))
     a("")
 
     a("## 4. 冲突与不确定项")
     a("")
-    a("- **P0 真实半边缺口（本轮新增，最重要的未解决项）**：见 §3 建议 ①。"
-      "该缺口已写入 `d0-shortfall.json` 的 `blocking_gaps`，并带上 PR 查询 URL 与额外观察。")
+    a("- **P0 真实半边**：静态准备已 4/4 齐全（click 槽位已按 Mika 裁决替换）；"
+      "但**训练放行 0/4**，四项证据全缺。该状态已写入 `d0-shortfall.json` 的 `p0` 与 "
+      "`training_release` 块，**不是**用 `released` 一个布尔值带过。")
+    a("- **actor 侧隔离未建立（本轮显式声明，不再隐含）**：上游仓库公开、"
+      "本版固定克隆带完整历史，且没有任何否定权限测试。"
+      "见 §2.8 黄 7 与 `family-ledger.json → actor_isolation` 的三条 `unproven` 缺口。"
+      "**这是训练放行为 blocked 的直接原因之一。**")
     a("- **权限隔离未建立，因此 dev/sealed 的发布与验收保持阻断**（沿用 Mika 裁决，本轮不改变）。"
       "`restricted-oracle.json` 已显式写入 `split_declaration_pending`："
       "本交付**不声称**该文件已安全切分或未被污染，切分须由持有 gold 的保管侧判定。")
@@ -556,16 +684,22 @@ def main():
     a("| `source-lock.json` | 8 来源固定 revision + 逐文件许可 + **三方一致性批准字段** + **双哈希口径** | 编码官 / Q0 |")
     a("| `license-files.json` | 每个许可文件的上游 blob / checkout 双 SHA256 与换行变换 | Q0 |")
     a("| `per-file-ledger.csv` | 逐文件 SHA256 / SPDX 头 / 版权行 | Q0 |")
-    a("| `merge-evidence.json` | **10 条合并事件取证**：PR、`merged_at_utc`、"
-      "`merge_commit_sha`、来源 URL、响应 SHA256 | Q0 / Mika |")
-    a("| `family-ledger.json` | 家族台账、oracle 分离哈希、**合并事件时间证据** | 编码官 / E0 |")
+    a("| `merge-evidence.json` | 合并事件取证 + **落地事件归因、补丁等价性** + "
+      "**被替换 commit 的失败账**（`replaced_records`）；来源 URL 与响应 SHA256 | Q0 / Mika |")
+    a("| `family-ledger.json` | 家族台账、oracle 分离哈希、**两个状态轴**、"
+      "**落地事件归因**、`gold_derivability`、`actor_isolation` | 编码官 / E0 / Q0 |")
     a("| `family-candidates.json` | 挖掘准则、各角色候选与拒收计数 | 编码官 |")
     a("| `d0-time-isolation.json` | 时间策略、train/dev/sealed 清单、替代候选核验 | Q0 / Mika |")
-    a("| `d0-shortfall.json` | P0/P1/dev 供给缺口（含 click 阻塞项） | Mika |")
-    a("| `public-manifest.json` | **可公开**部分（不含封存内容与 gold） | 编码官 → 纳入 gamma |")
-    a("| `restricted-oracle.json` | 受限 oracle 提示，**不提交 GitHub** | 独立保管侧 |")
-    a("| `kaggle-23-d0-family-table.csv` | 家族一览（含合并事件列） | 编码官 |")
-    a("| `validate_d0.output.txt` | 校验输出（%s 项 / %s 失败） | Q0 |" % (n_checks, n_failed))
+    a("| `d0-shortfall.json` | P0/P1/dev 供给缺口；`p0` 按**两个状态轴**分别计数，"
+      "并记录 click 槽位替换的处置历史 | Mika |")
+    a("| `public-manifest.json` | **可公开**部分：状态契约、训练放行门槛、"
+      "落地事件归因（不含封存内容与 gold） | 编码官 → 纳入 gamma |")
+    a("| `restricted-oracle.json` | 受限 oracle 提示，**不提交 GitHub**；"
+      "公开验证器在其缺失时显式 SKIP | 独立保管侧 |")
+    a("| `kaggle-23-d0-family-table.csv` | 家族一览：两个状态轴、落地形态、"
+      "补丁等价、合并事件列 | 编码官 |")
+    a("| `validate_d0.output.txt` | 校验输出（%s 项 / %s 失败 / %s skipped） | Q0 |"
+      % (n_checks, n_failed, n_skip))
     a("| `kaggle-23-d0-source-lock-report.md` | 本说明 | Mika / Liang |")
     a("")
     a("**可复现入口**：`python d0/run_all.py` 按序跑许可 → 家族挖掘 → 台账 → extras → "
@@ -594,32 +728,38 @@ def main():
       "这是**证据不可得**，不是「未合并」。")
     a("")
 
-    a("## 7. 本轮（v3）相对 v2 `%s` 的变更" % PREVIOUS_COMMIT)
+    a("## 7. 本轮（v4）相对 v3 `%s` 的变更" % PREVIOUS_COMMIT)
     a("")
-    a("1. **许可判定从「信任预设」改为「三方一致性」**：新增 "
-      "`license_facts`、`license_conflicts`；冲突即 `pending`。"
-      "`license_review_schema` 升到 1.1，`required_fields` 增加这三项。")
-    a("2. **python-dotenv 的 `approved_spdx` 由 MIT 更正为 BSD-3-Clause**，"
-      "生成输入（预设）与全部派生清单/报告同步更正；版权与适用声明未改动；"
-      "独立复核仍为 `pending`。")
-    a("3. **新增双哈希口径**：每个许可文件记录上游 blob 与 checkout 两个 SHA256 "
-      "及换行变换，并由门禁钉住 python-dotenv 的那一对已知值。")
-    a("4. **新增 `d0/fetch_merge_evidence.py` 与 `merge-evidence.json`**："
-      "窗口判定基准从 commit 双日期改为原始合并事件，带来源 URL 与响应 SHA256，"
-      "原始响应入 Git 以便离线复核。")
-    a("5. **作者/提交者日期降级**：`fix_time.primary` 改为 `merged_at_utc`，"
-      "新增 `author_and_committer_dates_role`；无合并事件时为 `null`，不再退回作者日期。")
-    a("6. **家族 `released` 现由合并事件证据驱动**：`v3-train-click-001` 因此变为 "
-      "`released=false`（**本轮新发现的后果**），P0 真实半边 4/4 → 3/4，"
-      "并作为阻塞缺口上报。")
-    a("7. **计数口径拆开**：清单里的 `qualified_candidate_families_in_window` "
-      "改名为 `screened_candidate_commits_in_window`，另加 "
-      "`merge_event_verified_and_in_window`，避免把筛选数读成配额。")
-    a("8. **两条否定测试 + 两条一致性断言**，校验从 v2 的 67 项扩到 %s 项（%s 失败）。"
-      % (n_checks, n_failed))
+    a("1. **状态轴拆开（Mika 裁决 ①）**：家族不再只有一个 `released` 布尔值，"
+      "改为 `source_preparation.status`（静态材料齐否）+ `training_release.status`"
+      "（可否训练/评测）。`released` 保留为**兼容别名**，只镜像静态准备轴，"
+      "并随每个产物携带 `released_scope`。契约由门禁跨 "
+      "ledger / shortfall / 公开 manifest / CSV 四份产物一致性断言钉住，"
+      "并带否定测试：植入一个「无证据却声明训练放行」的家族必须被拒。")
+    a("2. **click 槽位替换（Mika 裁决 ②）**：`9da1791476fe…`（无合并事件，保留失败账、"
+      "`counted_in_no_quota`）→ `ee56925bc4f5…`（PR #1934，merged 2021-07-03，"
+      "双亲 merge 落地）。变异家族 `…-var-rename` 停用，改为在同一父家族上重建的 "
+      "`…-var-predicate`。日期规则与 4+4 目标未放宽。")
+    a("3. **落地事件归因与补丁等价性（Mika 裁决 ③）**：每族新增 "
+      "`landing_event_evidence`（归因、落地形态、祖先关系、检索命令）与 "
+      "`patch_equivalence`（merge 与其第一父、fix 与其自身父，逐文件变更集比对）。"
+      "boltons 的「GitHub 合并对象在固定快照中不存在」给出可核查解释与祖先证据。")
+    a("4. **黄 1/5/6/7 闭环（Mika 裁决 ④）**：公开验证器可不依赖 "
+      "`restricted-oracle.json` 运行（缺失即显式 `SKIP`，**不算隔离通过**）；"
+      "新增 `gold_derivability` 与 `actor_isolation` 两个块，"
+      "把「gold 已扣留但隔离未建立」写成明确结论而非隐含。")
+    a("5. **CSV 上移**：`kaggle-23-d0-family-table.csv` 改由 `build_extras.py` 生成"
+      "（门禁要读它，必须早于门禁存在），并换掉裸 `released` 列，"
+      "改为 `source_preparation_status` / `training_release_status` / "
+      "`released_source_preparation_alias` 三列，另加落地形态与补丁等价列。")
+    a("6. **计数口径**：train 侧合并事件已验证候选由 3 升至 **4**"
+      "（补位家族计入）；筛选总数 110 不变。")
+    a("7. **校验从 v3 的 92 项扩到 %s 项（%s 失败、%s skipped）**，"
+      "新增落地事件、状态轴、gold 可推导性、actor 隔离与替换账五组断言，"
+      "以及第三条否定测试（无落地证据不得归因）。" % (n_checks, n_failed, n_skip))
     a("")
-    a("差异的机器可读留证见 `d0/out/v3-diff-evidence.txt`"
-      "（v2 那一轮的留证保留在 `d0/out/v2-diff-evidence.txt`）。")
+    a("差异的机器可读留证见 `d0/out/v4-diff-evidence.txt`"
+      "（v3 那一轮保留在 `d0/out/v3-diff-evidence.txt`，v2 在 `v2-diff-evidence.txt`）。")
     a("")
 
     with open(os.path.join(OUT, "kaggle-23-d0-source-lock-report.md"), "w",

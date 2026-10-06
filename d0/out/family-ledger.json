@@ -1,5 +1,16 @@
 {
   "policy_id": "v3-time-policy-2026-10-05-mika",
+  "status_contract": {
+    "contract_id": "v3-status-axes-2026-10-06-mika",
+    "axes": [
+      "source_preparation.status",
+      "training_release.status"
+    ],
+    "compatibility_field": "released",
+    "compatibility_field_scope": "source preparation ONLY: the static artefacts for this family (pinned base and fix commits, hashed patches, oracle split, the licence decision for the exact pinned revision, and a window set by a verified ORIGINAL merge event) are complete. This is NOT a training release and NOT a data release: it carries no runtime, no independent licence countersignature and no permission-isolation evidence.",
+    "contract": "Two independent axes. Axis 1, source_preparation.status, is a static-artefact statement and is the ONLY thing the compatibility field `released` mirrors. Axis 2, training_release.status, is the release gate and additionally requires verified runtime oracle results on the actor environment, an independent licence review, demonstrated isolation of gold/dev/sealed material from the actor, and a constructed variant half. A consumer MUST read `training_release.status`; reading `released` and inferring a training approval from it is a contract violation. `released` is retained only so an existing consumer keyed on it keeps working, and it is scoped by the companion `released_scope` string that travels with it in every emitted file.",
+    "why_two_axes": "the previous revision published a single `released` boolean that mixed a static-artefact statement with a release decision, so a reader could mistake 'the hashes and the merge event are complete' for 'this task may train an agent'. Splitting the axes makes the release gate explicit and keeps the old key working for consumers that already read it."
+  },
   "spec": {
     "train_window": {
       "end_exclusive": "2026-01-01T00:00:00+00:00",
@@ -36,17 +47,13 @@
       "family_id": "v3-train-click-001",
       "kind": "real",
       "split": "train",
-      "released": false,
       "release_decision": {
-        "released": false,
-        "window_decided_by": "none",
-        "blocking_checks": [
-          "merge_event_evidence_present",
-          "merge_event_qualifies_window"
-        ],
-        "note": "not released: at least one structural check failed. An unreleased family is counted in no window and is never promoted by a commit date."
+        "window_decided_by": "merge_event",
+        "blocking_checks": [],
+        "note": "not ready: at least one structural check failed. Such a family is counted in no window and is never promoted by a commit date."
       },
       "repo": "click",
+      "replaces_fix_commit": "click-9da1791476fe79ce77aa7a2a2db370c91a455251",
       "upstream_slug": "pallets/click",
       "pinned_revision": "8b19813f2bfca99f1018a587a8cf54fc959f2e5d",
       "license": {
@@ -60,42 +67,230 @@
         "license_conflicts": [],
         "license_review_path": "repos.click.license_review in source-lock.json"
       },
-      "base_commit": "c2c2bacddc1d625e9a0f606f227f356df9d2b172",
-      "oracle_fix_commit": "9da1791476fe79ce77aa7a2a2db370c91a455251",
-      "oracle_patch_sha256": "d1b919b239256026fb5e5e54f6195a055992599bb201b10aaf5fb330f1e0aa5c",
+      "base_commit": "da2b658e6185b5ae69abcefe755077336024a5e6",
+      "oracle_fix_commit": "ee56925bc4f5451a125317e183f498e8bd1aecb3",
+      "oracle_patch_sha256": "3e82dd9350a598973427219d2ae576be0b4387834454dae428732f0774e44150",
       "merge_evidence": {
-        "status": "unverified",
-        "pull_request_number": null,
-        "pull_request_url": null,
-        "merged_at_utc": null,
-        "merge_commit_sha": null,
+        "status": "verified",
+        "pull_request_number": 1934,
+        "pull_request_url": "https://github.com/pallets/click/pull/1934",
+        "merged_at_utc": "2021-07-03T13:56:47Z",
+        "merge_commit_sha": "3d0d8b5af1abc30a59fc0f1bec3a0e95d61a4101",
         "merge_commit_sha_matches_fix_commit": false,
-        "merge_commit_geometry": null,
-        "window_qualified_by_merge_event": false,
-        "reason": "GitHub reports no pull request associated with this commit. Absence of merge evidence is NOT evidence that no original fix exists; the record simply cannot be counted.",
+        "merge_commit_geometry": {
+          "merge_commit_present_in_pinned_clone": true,
+          "merge_commit_is_ancestor_of_pinned_revision": true,
+          "fix_commit_is_the_pull_request_head": true,
+          "reconciliation": {
+            "found": true,
+            "search": "git rev-list 8b19813f2bfc --grep='Merge pull request #1934'",
+            "candidates_examined": [
+              {
+                "sha": "3d0d8b5af1abc30a59fc0f1bec3a0e95d61a4101",
+                "committer_date": "2021-07-03T06:56:47-07:00",
+                "subject": "Merge pull request #1934 from janluke/fix/is_bool_flag",
+                "parents": [
+                  "da2b658e6185b5ae69abcefe755077336024a5e6",
+                  "ee56925bc4f5451a125317e183f498e8bd1aecb3"
+                ],
+                "parent_count": 2,
+                "second_parent_is_the_fix_commit": true
+              }
+            ],
+            "matching_merge_commit": "3d0d8b5af1abc30a59fc0f1bec3a0e95d61a4101",
+            "matching_merge_commit_detail": {
+              "sha": "3d0d8b5af1abc30a59fc0f1bec3a0e95d61a4101",
+              "committer_date": "2021-07-03T06:56:47-07:00",
+              "subject": "Merge pull request #1934 from janluke/fix/is_bool_flag",
+              "parents": [
+                "da2b658e6185b5ae69abcefe755077336024a5e6",
+                "ee56925bc4f5451a125317e183f498e8bd1aecb3"
+              ],
+              "parent_count": 2,
+              "second_parent_is_the_fix_commit": true
+            },
+            "reason": "exactly one pinned-history merge commit has this pull request in its subject and the fix commit as its second parent",
+            "fix_commit_parent_count_in_pinned_history": 1,
+            "fix_commit_is_itself_a_two_parent_merge": false,
+            "fix_commit_is_ancestor_of_pinned_revision": true
+          },
+          "landing_event_adjudication": "api_merge_commit_is_the_pinned_history_merge_event",
+          "adjudicated_landing_commit": "3d0d8b5af1abc30a59fc0f1bec3a0e95d61a4101",
+          "landing_event_shape": "two_parent_merge_commit",
+          "adjudicated_landing_is_ancestor_of_pinned_revision": true,
+          "pr_base_sha": "da2b658e6185b5ae69abcefe755077336024a5e6",
+          "pr_head_sha": "ee56925bc4f5451a125317e183f498e8bd1aecb3",
+          "patch_equivalence": {
+            "computed": true,
+            "method": "the diff the merge introduces (merge vs its FIRST parent) compared, file by file, with the diff the fix introduces (fix vs its own parent). Both are diffed against their own parent because the base branch usually advanced while the pull request was open",
+            "landing_event_is_the_fix_commit": false,
+            "fix_diff_base": "da2b658e6185b5ae69abcefe755077336024a5e6",
+            "landing_first_parent": "da2b658e6185b5ae69abcefe755077336024a5e6",
+            "landing_merged_in_commit": "ee56925bc4f5451a125317e183f498e8bd1aecb3",
+            "fix_diff_sha256": "1bbd08ae38e46b12e5835d434df90a7715671e5e5d6c4b52f019cc8d571f71d9",
+            "landing_diff_sha256": "1bbd08ae38e46b12e5835d434df90a7715671e5e5d6c4b52f019cc8d571f71d9",
+            "diff_text_equal": true,
+            "closed_under_the_landing_event": true,
+            "every_fix_file_present_in_the_landing_event": true,
+            "files_identical_or_contained": [
+              "CHANGES.rst",
+              "src/click/core.py",
+              "tests/test_options.py"
+            ],
+            "files_refined_by_a_later_commit_on_the_pull_request": [],
+            "fix_files_not_covered": [],
+            "file_level": [
+              {
+                "path": "CHANGES.rst",
+                "state": "identical",
+                "detail": null
+              },
+              {
+                "path": "src/click/core.py",
+                "state": "identical",
+                "detail": null
+              },
+              {
+                "path": "tests/test_options.py",
+                "state": "identical",
+                "detail": null
+              }
+            ],
+            "commits_on_the_pull_request_after_the_fix": [],
+            "fix_commit_is_ancestor_of_the_landing_merged_in_commit": true,
+            "landing_touches_extra_files": [],
+            "fix_diff_bytes": 2120,
+            "landing_diff_bytes": 2120,
+            "not_claimed": "a change-set comparison over the files involved. It is NOT a proof that no other commit re-landed the same fix elsewhere in history"
+          },
+          "mismatch_pattern": "rebase_or_squash_merge: the fix commit is the pull request head and GitHub's merge_commit_sha is the commit the base branch moved to"
+        },
+        "landing_event_adjudication": "api_merge_commit_is_the_pinned_history_merge_event",
+        "landing_event_shape": "two_parent_merge_commit",
+        "adjudicated_landing_commit": "3d0d8b5af1abc30a59fc0f1bec3a0e95d61a4101",
+        "adjudicated_landing_is_ancestor_of_pinned_revision": true,
+        "landing_event_evidence": {
+          "adjudication": "api_merge_commit_is_the_pinned_history_merge_event",
+          "github_merge_commit_present_in_pinned_clone": true,
+          "landing_commit_in_pinned_history": "3d0d8b5af1abc30a59fc0f1bec3a0e95d61a4101",
+          "landing_commit_is_ancestor_of_pinned_revision": true,
+          "landing_commit_is_a_two_parent_merge": true,
+          "fix_commit_is_the_second_parent": true,
+          "landing_commit_parent_count": 2,
+          "search_command": "git rev-list 8b19813f2bfc --grep='Merge pull request #1934'",
+          "patch_equivalence": {
+            "computed": true,
+            "method": "the diff the merge introduces (merge vs its FIRST parent) compared, file by file, with the diff the fix introduces (fix vs its own parent). Both are diffed against their own parent because the base branch usually advanced while the pull request was open",
+            "landing_event_is_the_fix_commit": false,
+            "fix_diff_base": "da2b658e6185b5ae69abcefe755077336024a5e6",
+            "landing_first_parent": "da2b658e6185b5ae69abcefe755077336024a5e6",
+            "landing_merged_in_commit": "ee56925bc4f5451a125317e183f498e8bd1aecb3",
+            "fix_diff_sha256": "1bbd08ae38e46b12e5835d434df90a7715671e5e5d6c4b52f019cc8d571f71d9",
+            "landing_diff_sha256": "1bbd08ae38e46b12e5835d434df90a7715671e5e5d6c4b52f019cc8d571f71d9",
+            "diff_text_equal": true,
+            "closed_under_the_landing_event": true,
+            "every_fix_file_present_in_the_landing_event": true,
+            "files_identical_or_contained": [
+              "CHANGES.rst",
+              "src/click/core.py",
+              "tests/test_options.py"
+            ],
+            "files_refined_by_a_later_commit_on_the_pull_request": [],
+            "fix_files_not_covered": [],
+            "file_level": [
+              {
+                "path": "CHANGES.rst",
+                "state": "identical",
+                "detail": null
+              },
+              {
+                "path": "src/click/core.py",
+                "state": "identical",
+                "detail": null
+              },
+              {
+                "path": "tests/test_options.py",
+                "state": "identical",
+                "detail": null
+              }
+            ],
+            "commits_on_the_pull_request_after_the_fix": [],
+            "fix_commit_is_ancestor_of_the_landing_merged_in_commit": true,
+            "landing_touches_extra_files": [],
+            "fix_diff_bytes": 2120,
+            "landing_diff_bytes": 2120,
+            "not_claimed": "a change-set comparison over the files involved. It is NOT a proof that no other commit re-landed the same fix elsewhere in history"
+          },
+          "reviewer_note": "the landing event is re-derived from the pinned repository, not taken from the API, because the API's merge_commit_sha disagrees with the pinned history for several of these families"
+        },
+        "patch_equivalence": {
+          "computed": true,
+          "method": "the diff the merge introduces (merge vs its FIRST parent) compared, file by file, with the diff the fix introduces (fix vs its own parent). Both are diffed against their own parent because the base branch usually advanced while the pull request was open",
+          "landing_event_is_the_fix_commit": false,
+          "fix_diff_base": "da2b658e6185b5ae69abcefe755077336024a5e6",
+          "landing_first_parent": "da2b658e6185b5ae69abcefe755077336024a5e6",
+          "landing_merged_in_commit": "ee56925bc4f5451a125317e183f498e8bd1aecb3",
+          "fix_diff_sha256": "1bbd08ae38e46b12e5835d434df90a7715671e5e5d6c4b52f019cc8d571f71d9",
+          "landing_diff_sha256": "1bbd08ae38e46b12e5835d434df90a7715671e5e5d6c4b52f019cc8d571f71d9",
+          "diff_text_equal": true,
+          "closed_under_the_landing_event": true,
+          "every_fix_file_present_in_the_landing_event": true,
+          "files_identical_or_contained": [
+            "CHANGES.rst",
+            "src/click/core.py",
+            "tests/test_options.py"
+          ],
+          "files_refined_by_a_later_commit_on_the_pull_request": [],
+          "fix_files_not_covered": [],
+          "file_level": [
+            {
+              "path": "CHANGES.rst",
+              "state": "identical",
+              "detail": null
+            },
+            {
+              "path": "src/click/core.py",
+              "state": "identical",
+              "detail": null
+            },
+            {
+              "path": "tests/test_options.py",
+              "state": "identical",
+              "detail": null
+            }
+          ],
+          "commits_on_the_pull_request_after_the_fix": [],
+          "fix_commit_is_ancestor_of_the_landing_merged_in_commit": true,
+          "landing_touches_extra_files": [],
+          "fix_diff_bytes": 2120,
+          "landing_diff_bytes": 2120,
+          "not_claimed": "a change-set comparison over the files involved. It is NOT a proof that no other commit re-landed the same fix elsewhere in history"
+        },
+        "window_qualified_by_merge_event": true,
+        "reason": "merge event retrieved from the pull-request metadata; qualification uses merged_at_utc, not the commit's author/committer dates",
         "provenance": {
           "producer": "d0/fetch_merge_evidence.py",
           "artifact": "out/merge-evidence.json",
-          "commit_to_pr_lookup_url": "https://api.github.com/repos/pallets/click/commits/9da1791476fe79ce77aa7a2a2db370c91a455251/pulls",
-          "pull_request_metadata_url": null,
+          "commit_to_pr_lookup_url": "https://api.github.com/repos/pallets/click/commits/ee56925bc4f5451a125317e183f498e8bd1aecb3/pulls",
+          "pull_request_metadata_url": "https://api.github.com/repos/pallets/click/pulls/1934",
           "raw_response_paths": [
-            "pr-evidence/raw/click-commit-9da1791476fe-pulls.json",
-            null
+            "pr-evidence/raw/click-commit-ee56925bc4f5-pulls.json",
+            "pr-evidence/raw/click-pr1934.json"
           ],
           "raw_response_sha256": {
-            "commit_to_pr_lookup": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
-            "pull_request": null
+            "commit_to_pr_lookup": "6fcd2aa07aa9c70946fd46c10953e0a6a9770c42167762720cf489545e034302",
+            "pull_request": "15f526c85d28b2dfc90ed8effc82702cef28c373e1e26b019aaa40d00a1d24c1"
           },
           "authentication": "unauthenticated; no token used"
         }
       },
       "fix_time": {
-        "author_date": "2015-03-31T11:58:13+02:00",
-        "committer_date": "2015-03-31T12:00:12+02:00",
+        "author_date": "2021-05-24T16:49:32+02:00",
+        "committer_date": "2021-07-03T06:53:45-07:00",
         "author_and_committer_dates_role": "audit corroboration ONLY. They are recorded so a reviewer can see whether the commit dates agree with the merge event, and they never qualify a family into a window.",
-        "merge_event_utc": null,
-        "qualifies_by_merge_event": false,
-        "primary": null,
+        "merge_event_utc": "2021-07-03T13:56:47Z",
+        "qualifies_by_merge_event": true,
+        "primary": "2021-07-03T13:56:47Z",
         "basis": "merged_at_utc of the original upstream pull request the fix commit belongs to; falls back to nothing when the merge event could not be retrieved",
         "both_dates_in_train_window": true,
         "not_derived_from": [
@@ -105,97 +300,84 @@
           "cherry-pick date"
         ]
       },
-      "fix_date": "2015-03-31T11:58:13+02:00",
-      "fix_date_committer": "2015-03-31T12:00:12+02:00",
+      "fix_date": "2021-05-24T16:49:32+02:00",
+      "fix_date_committer": "2021-07-03T06:53:45-07:00",
       "fix_commit_is_ancestor_of_pinned_revision": true,
       "backport_or_cherry_pick_marker": null,
       "snapshot_axis_note": "the pinned revision decides which content exists; the family's own original merge event decides the window. The two axes are checked separately.",
-      "upstream_subject": "Error on nargs=-1 for options.  This fixes #222",
+      "upstream_subject": "Fix is_bool_flag being set to True even if is_flag is False",
       "upstream_issue_refs": [
-        "222"
+        "1925"
       ],
-      "symptom_restatement": "An option declared with nargs=-1 accepts a value list whose length is not validated, so a CLI definition that is internally inconsistent is accepted at construction time and only misbehaves later. The task is to make the option constructor reject the unsupported nargs value eagerly with a clear error instead of silently building a broken parameter.",
-      "failure_mechanism": "missing eager validation in the option/parameter constructor path",
+      "symptom_restatement": "An option object reports itself as a boolean flag whenever its value type happens to be boolean, even when it was never declared as a flag. Downstream code that branches on that report therefore takes the flag code path for ordinary options, so a plain option with a boolean value type is treated as something the user can toggle. The task is to make the reported flag-ness depend on the declaration and on the value type together, so a non-flag option reports False while a genuine flag still reports True.",
+      "failure_mechanism": "flag-ness predicate tests only the value type and ignores the declaration",
       "touched_files": [
         {
-          "path": "CHANGES",
+          "path": "CHANGES.rst",
           "kind": "source",
           "role": "other",
           "status_at_fix": "modified",
-          "added": 1,
+          "added": 3,
           "deleted": 0,
-          "sha256_at_base": "928f77fc334ed816d02c760a4eb0e4b9c97b6c6109e075f523260e19d4b0fbfe",
-          "sha256_at_fix": "f677fcb5a40ee94dbf57ec70cb0567304bb92eb5702c7fa32752ec49f1fc448e"
+          "sha256_at_base": "45b04bf210268e572d33a4708a9b3e183f8dbe62d70c99ed957b8acb88b6f25e",
+          "sha256_at_fix": "75de1814ff0c4b7ea432fcfba2fe57163e63928da679b3387ae3330682d35ff8"
         },
         {
-          "path": "click/core.py",
+          "path": "src/click/core.py",
           "kind": "source",
           "role": "code",
           "status_at_fix": "modified",
-          "added": 2,
-          "deleted": 0,
-          "sha256_at_base": "b6913fd2e5cbcf70431f24067e6189bcec51cdb266bc7c163926261e159509c7",
-          "sha256_at_fix": "45b1054706d3d60731d41cb4e420e9efc5640cd8fd58c3bb13c6331f8de58906"
-        },
-        {
-          "path": "tests/test_arguments.py",
-          "kind": "test",
-          "role": "test",
-          "status_at_fix": "modified",
-          "added": 2,
-          "deleted": 2,
-          "sha256_at_base": "43cc5877eefa53c35c0509a92b30bbc573a3ffbc155d16a40676e0f91dfba8f9",
-          "sha256_at_fix": "763ed7ec8cf37ac3a6a050c82a4f68880a0fe409c0ae426d5ef532a3a1e60afe"
+          "added": 1,
+          "deleted": 1,
+          "sha256_at_base": "7eaa7898d76829b164df7af97eca421847a3a01f03154d698eee263e19da4caa",
+          "sha256_at_fix": "e6a585483d0474ad60c5f1b7640529d5b367635752843df2755aa91f1fa0ee5e"
         },
         {
           "path": "tests/test_options.py",
           "kind": "test",
           "role": "test",
           "status_at_fix": "modified",
-          "added": 12,
+          "added": 20,
           "deleted": 0,
-          "sha256_at_base": "39f7d31438a91bd0121e7d2237cb766f351edc8de9c21de1918814d9baec6e69",
-          "sha256_at_fix": "f938f32871edd1ca492c5d516147cf1462180139b18fe0d2582b83ec9f58df6b"
+          "sha256_at_base": "6b7fe8e1b4a94b22351d1a04312b2cc76031b3bb5c8913cbb3b6d1a767d6847c",
+          "sha256_at_fix": "f6e18ac894cdb50c5452b27877ee5d01b81e126699c39289f493df33fa93ffd2"
         }
       ],
       "fail_to_pass": [
         {
-          "node_id": "tests/test_options.py::test_invalid_nargs",
+          "node_id": "tests/test_options.py::test_is_bool_flag_is_correctly_set",
           "present_at_base": false,
           "present_at_fix": true,
           "test_added_by_fix": true
         }
       ],
       "regression_watch": [
-        "tests/test_arguments.py",
         "tests/test_options.py"
       ],
       "oracle_split": {
-        "test_patch_sha256": "8d00cb78f84b1b4ae66de1697f965a5e48b4873bd9a004f704cbce7e1bd4609f",
+        "test_patch_sha256": "5881407ddc14e8d165082f76276de7eca46c6d9c57a9e6ff2ca6054bedbd5f53",
         "test_patch_files": [
-          "tests/test_arguments.py",
           "tests/test_options.py"
         ],
-        "test_patch_bytes": 1377,
-        "upstream_reference_patch_sha256": "775f8bb96a1647d56c23bfb61865384ce515b533c353da1ce5cbeb4f1f4c20b4",
+        "test_patch_bytes": 1342,
+        "upstream_reference_patch_sha256": "30ecc4a45a7ba808b9d97e39a8adcc6ec2beda0d185d318f7d9706613e44c41c",
         "upstream_reference_patch_files": [
-          "CHANGES",
-          "click/core.py"
+          "CHANGES.rst",
+          "src/click/core.py"
         ],
-        "upstream_reference_patch_bytes": 964,
-        "code_only_patch_sha256": "b966419dcaa0680b01b2ba1f16639708d40f66262618d05bbd6267f9b33823bf",
+        "upstream_reference_patch_bytes": 779,
+        "code_only_patch_sha256": "f1ded33dd64a6b7ee7937d9caa6df212d2da6e5daacc5d7f717c4754eacfa107",
         "code_only_patch_files": [
-          "click/core.py"
+          "src/click/core.py"
         ],
-        "code_only_patch_bytes": 549,
+        "code_only_patch_bytes": 501,
         "which_patch_is_the_minimal_oracle": "code_only: the upstream commit also edits CI and changelog material, which is not needed to make the fail_to_pass nodes pass and must not be counted as part of the required fix",
         "apply_test_patch_to_base": "git apply the test patch onto base_commit, run the fail_to_pass nodes, expect failure",
         "apply_both_then_run": "apply the test patch and the code-only patch onto base_commit, run the fail_to_pass nodes, expect pass",
         "gold_patch_must_not_reach_actor": true
       },
       "oracle_assertions": [
-        "assert 'Options cannot have nargs < 0' in str(e)",
-        "assert False, 'Expected a type error because of an invalid option.'"
+        "assert option.is_bool_flag is expected"
       ],
       "runtime_verified": false,
       "env": {
@@ -220,8 +402,8 @@
         "f2p_absent_at_base": true,
         "oracle_split_both_halves_non_empty": true,
         "code_only_oracle_patch_non_empty": true,
-        "merge_event_evidence_present": false,
-        "merge_event_qualifies_window": false,
+        "merge_event_evidence_present": true,
+        "merge_event_qualifies_window": true,
         "in_train_window_author_date_audit_only": true,
         "in_train_window_committer_date_audit_only": true,
         "fix_commit_is_ancestor_of_pinned_revision": true,
@@ -229,20 +411,63 @@
         "license_approved": true,
         "license_approved_for_this_exact_revision": true,
         "license_metadata_has_no_conflict": true
+      },
+      "provenance_note": "replaces_fix_commit records the family this slot previously held. It is kept as a failure record only: the replaced commit stays unverified, is counted in no quota, and must not be read as a released example.",
+      "source_preparation": {
+        "status": "ready",
+        "basis": "every structural check in `checks` passed; this covers static source artefacts only",
+        "blocking_checks": []
+      },
+      "released": true,
+      "released_scope": "source preparation ONLY: the static artefacts for this family (pinned base and fix commits, hashed patches, oracle split, the licence decision for the exact pinned revision, and a window set by a verified ORIGINAL merge event) are complete. This is NOT a training release and NOT a data release: it carries no runtime, no independent licence countersignature and no permission-isolation evidence.",
+      "training_release": {
+        "status": "blocked",
+        "approved_for_training": false,
+        "reason": "blocked: static source preparation is not a training release. Missing positive evidence: gold_and_sealed_material_isolated_from_the_actor, licence_independently_reviewed, runtime_oracle_verified_on_the_actor_environment, variant_half_constructed",
+        "requires": {
+          "runtime_oracle_verified_on_the_actor_environment": {
+            "verified": false,
+            "reason": "no FAIL_TO_PASS / reference run has been executed anywhere yet; every oracle field in this ledger is static evidence",
+            "owner": "E0 (builds the environment and runs the oracles)"
+          },
+          "licence_independently_reviewed": {
+            "verified": false,
+            "reason": "independent_review.status is 'None' for this repository; the decision field is author-declared and must not be read as a countersignature",
+            "owner": "Q0 (independent review)"
+          },
+          "gold_and_sealed_material_isolated_from_the_actor": {
+            "verified": false,
+            "reason": "no negative permission test has been produced; the restricted material's split is still declared pending and there is no evidence that a training/search actor cannot read or re-derive it",
+            "owner": "custodian + Q0 (permission and exclusion evidence)"
+          },
+          "variant_half_constructed": {
+            "verified": false,
+            "reason": "variant families are construction recipes; their mutation commits do not exist yet",
+            "owner": "E0 (coding officer)"
+          }
+        },
+        "precondition_source_preparation": "ready",
+        "precondition_owner": "a family whose source preparation is not ready can never be training-released",
+        "owner": "Mika / custodian decision; D0 records the state and does not self-approve"
+      },
+      "status_axes": {
+        "contract_id": "v3-status-axes-2026-10-06-mika",
+        "contract": "Two independent axes. Axis 1, source_preparation.status, is a static-artefact statement and is the ONLY thing the compatibility field `released` mirrors. Axis 2, training_release.status, is the release gate and additionally requires verified runtime oracle results on the actor environment, an independent licence review, demonstrated isolation of gold/dev/sealed material from the actor, and a constructed variant half. A consumer MUST read `training_release.status`; reading `released` and inferring a training approval from it is a contract violation. `released` is retained only so an existing consumer keyed on it keeps working, and it is scoped by the companion `released_scope` string that travels with it in every emitted file.",
+        "training_release_admissible": false,
+        "consumer_rule": "consume `training_release.status`, never `released`; `released` is a source-preparation alias kept for backward compatibility"
       }
     },
     {
       "family_id": "v3-train-more-itertools-001",
       "kind": "real",
       "split": "train",
-      "released": true,
       "release_decision": {
-        "released": true,
         "window_decided_by": "merge_event",
         "blocking_checks": [],
-        "note": null
+        "note": "not ready: at least one structural check failed. Such a family is counted in no window and is never promoted by a commit date."
       },
       "repo": "more-itertools",
+      "replaces_fix_commit": null,
       "upstream_slug": "more-itertools/more-itertools",
       "pinned_revision": "64be96ceb2a6e836f76f069f4a96d2394d59fd0c",
       "license": {
@@ -270,7 +495,172 @@
           "merge_commit_present_in_pinned_clone": true,
           "merge_commit_is_ancestor_of_pinned_revision": true,
           "fix_commit_is_the_pull_request_head": true,
+          "reconciliation": {
+            "found": true,
+            "search": "git rev-list 64be96ceb2a6 --grep='Merge pull request #412'",
+            "candidates_examined": [
+              {
+                "sha": "a5a14f61d8331fb6d67c00eace8e22d5c6226ddf",
+                "committer_date": "2020-03-29T19:56:55-05:00",
+                "subject": "Merge pull request #412 from has2k1/fix-spy",
+                "parents": [
+                  "c0465331cbc0d882cd7dce5c0bd19aaf46dfb968",
+                  "62411c1618493f94b16901746c34e72ad415061e"
+                ],
+                "parent_count": 2,
+                "second_parent_is_the_fix_commit": true
+              }
+            ],
+            "matching_merge_commit": "a5a14f61d8331fb6d67c00eace8e22d5c6226ddf",
+            "matching_merge_commit_detail": {
+              "sha": "a5a14f61d8331fb6d67c00eace8e22d5c6226ddf",
+              "committer_date": "2020-03-29T19:56:55-05:00",
+              "subject": "Merge pull request #412 from has2k1/fix-spy",
+              "parents": [
+                "c0465331cbc0d882cd7dce5c0bd19aaf46dfb968",
+                "62411c1618493f94b16901746c34e72ad415061e"
+              ],
+              "parent_count": 2,
+              "second_parent_is_the_fix_commit": true
+            },
+            "reason": "exactly one pinned-history merge commit has this pull request in its subject and the fix commit as its second parent",
+            "fix_commit_parent_count_in_pinned_history": 1,
+            "fix_commit_is_itself_a_two_parent_merge": false,
+            "fix_commit_is_ancestor_of_pinned_revision": true
+          },
+          "landing_event_adjudication": "api_merge_commit_is_the_pinned_history_merge_event",
+          "adjudicated_landing_commit": "a5a14f61d8331fb6d67c00eace8e22d5c6226ddf",
+          "landing_event_shape": "two_parent_merge_commit",
+          "adjudicated_landing_is_ancestor_of_pinned_revision": true,
+          "pr_base_sha": "c0465331cbc0d882cd7dce5c0bd19aaf46dfb968",
+          "pr_head_sha": "62411c1618493f94b16901746c34e72ad415061e",
+          "patch_equivalence": {
+            "computed": true,
+            "method": "the diff the merge introduces (merge vs its FIRST parent) compared, file by file, with the diff the fix introduces (fix vs its own parent). Both are diffed against their own parent because the base branch usually advanced while the pull request was open",
+            "landing_event_is_the_fix_commit": false,
+            "fix_diff_base": "c0465331cbc0d882cd7dce5c0bd19aaf46dfb968",
+            "landing_first_parent": "c0465331cbc0d882cd7dce5c0bd19aaf46dfb968",
+            "landing_merged_in_commit": "62411c1618493f94b16901746c34e72ad415061e",
+            "fix_diff_sha256": "c02146af1e6f4b9b7d9ae8f37769633f83ba64b36deda4feba7c8f6a54dafa2c",
+            "landing_diff_sha256": "c02146af1e6f4b9b7d9ae8f37769633f83ba64b36deda4feba7c8f6a54dafa2c",
+            "diff_text_equal": true,
+            "closed_under_the_landing_event": true,
+            "every_fix_file_present_in_the_landing_event": true,
+            "files_identical_or_contained": [
+              "more_itertools/more.py",
+              "tests/test_more.py"
+            ],
+            "files_refined_by_a_later_commit_on_the_pull_request": [],
+            "fix_files_not_covered": [],
+            "file_level": [
+              {
+                "path": "more_itertools/more.py",
+                "state": "identical",
+                "detail": null
+              },
+              {
+                "path": "tests/test_more.py",
+                "state": "identical",
+                "detail": null
+              }
+            ],
+            "commits_on_the_pull_request_after_the_fix": [],
+            "fix_commit_is_ancestor_of_the_landing_merged_in_commit": true,
+            "landing_touches_extra_files": [],
+            "fix_diff_bytes": 1010,
+            "landing_diff_bytes": 1010,
+            "not_claimed": "a change-set comparison over the files involved. It is NOT a proof that no other commit re-landed the same fix elsewhere in history"
+          },
           "mismatch_pattern": "rebase_or_squash_merge: the fix commit is the pull request head and GitHub's merge_commit_sha is the commit the base branch moved to"
+        },
+        "landing_event_adjudication": "api_merge_commit_is_the_pinned_history_merge_event",
+        "landing_event_shape": "two_parent_merge_commit",
+        "adjudicated_landing_commit": "a5a14f61d8331fb6d67c00eace8e22d5c6226ddf",
+        "adjudicated_landing_is_ancestor_of_pinned_revision": true,
+        "landing_event_evidence": {
+          "adjudication": "api_merge_commit_is_the_pinned_history_merge_event",
+          "github_merge_commit_present_in_pinned_clone": true,
+          "landing_commit_in_pinned_history": "a5a14f61d8331fb6d67c00eace8e22d5c6226ddf",
+          "landing_commit_is_ancestor_of_pinned_revision": true,
+          "landing_commit_is_a_two_parent_merge": true,
+          "fix_commit_is_the_second_parent": true,
+          "landing_commit_parent_count": 2,
+          "search_command": "git rev-list 64be96ceb2a6 --grep='Merge pull request #412'",
+          "patch_equivalence": {
+            "computed": true,
+            "method": "the diff the merge introduces (merge vs its FIRST parent) compared, file by file, with the diff the fix introduces (fix vs its own parent). Both are diffed against their own parent because the base branch usually advanced while the pull request was open",
+            "landing_event_is_the_fix_commit": false,
+            "fix_diff_base": "c0465331cbc0d882cd7dce5c0bd19aaf46dfb968",
+            "landing_first_parent": "c0465331cbc0d882cd7dce5c0bd19aaf46dfb968",
+            "landing_merged_in_commit": "62411c1618493f94b16901746c34e72ad415061e",
+            "fix_diff_sha256": "c02146af1e6f4b9b7d9ae8f37769633f83ba64b36deda4feba7c8f6a54dafa2c",
+            "landing_diff_sha256": "c02146af1e6f4b9b7d9ae8f37769633f83ba64b36deda4feba7c8f6a54dafa2c",
+            "diff_text_equal": true,
+            "closed_under_the_landing_event": true,
+            "every_fix_file_present_in_the_landing_event": true,
+            "files_identical_or_contained": [
+              "more_itertools/more.py",
+              "tests/test_more.py"
+            ],
+            "files_refined_by_a_later_commit_on_the_pull_request": [],
+            "fix_files_not_covered": [],
+            "file_level": [
+              {
+                "path": "more_itertools/more.py",
+                "state": "identical",
+                "detail": null
+              },
+              {
+                "path": "tests/test_more.py",
+                "state": "identical",
+                "detail": null
+              }
+            ],
+            "commits_on_the_pull_request_after_the_fix": [],
+            "fix_commit_is_ancestor_of_the_landing_merged_in_commit": true,
+            "landing_touches_extra_files": [],
+            "fix_diff_bytes": 1010,
+            "landing_diff_bytes": 1010,
+            "not_claimed": "a change-set comparison over the files involved. It is NOT a proof that no other commit re-landed the same fix elsewhere in history"
+          },
+          "reviewer_note": "the landing event is re-derived from the pinned repository, not taken from the API, because the API's merge_commit_sha disagrees with the pinned history for several of these families"
+        },
+        "patch_equivalence": {
+          "computed": true,
+          "method": "the diff the merge introduces (merge vs its FIRST parent) compared, file by file, with the diff the fix introduces (fix vs its own parent). Both are diffed against their own parent because the base branch usually advanced while the pull request was open",
+          "landing_event_is_the_fix_commit": false,
+          "fix_diff_base": "c0465331cbc0d882cd7dce5c0bd19aaf46dfb968",
+          "landing_first_parent": "c0465331cbc0d882cd7dce5c0bd19aaf46dfb968",
+          "landing_merged_in_commit": "62411c1618493f94b16901746c34e72ad415061e",
+          "fix_diff_sha256": "c02146af1e6f4b9b7d9ae8f37769633f83ba64b36deda4feba7c8f6a54dafa2c",
+          "landing_diff_sha256": "c02146af1e6f4b9b7d9ae8f37769633f83ba64b36deda4feba7c8f6a54dafa2c",
+          "diff_text_equal": true,
+          "closed_under_the_landing_event": true,
+          "every_fix_file_present_in_the_landing_event": true,
+          "files_identical_or_contained": [
+            "more_itertools/more.py",
+            "tests/test_more.py"
+          ],
+          "files_refined_by_a_later_commit_on_the_pull_request": [],
+          "fix_files_not_covered": [],
+          "file_level": [
+            {
+              "path": "more_itertools/more.py",
+              "state": "identical",
+              "detail": null
+            },
+            {
+              "path": "tests/test_more.py",
+              "state": "identical",
+              "detail": null
+            }
+          ],
+          "commits_on_the_pull_request_after_the_fix": [],
+          "fix_commit_is_ancestor_of_the_landing_merged_in_commit": true,
+          "landing_touches_extra_files": [],
+          "fix_diff_bytes": 1010,
+          "landing_diff_bytes": 1010,
+          "not_claimed": "a change-set comparison over the files involved. It is NOT a proof that no other commit re-landed the same fix elsewhere in history"
         },
         "window_qualified_by_merge_event": true,
         "reason": "merge event retrieved from the pull-request metadata; qualification uses merged_at_utc, not the commit's author/committer dates",
@@ -405,20 +795,63 @@
         "license_approved": true,
         "license_approved_for_this_exact_revision": true,
         "license_metadata_has_no_conflict": true
+      },
+      "provenance_note": null,
+      "source_preparation": {
+        "status": "ready",
+        "basis": "every structural check in `checks` passed; this covers static source artefacts only",
+        "blocking_checks": []
+      },
+      "released": true,
+      "released_scope": "source preparation ONLY: the static artefacts for this family (pinned base and fix commits, hashed patches, oracle split, the licence decision for the exact pinned revision, and a window set by a verified ORIGINAL merge event) are complete. This is NOT a training release and NOT a data release: it carries no runtime, no independent licence countersignature and no permission-isolation evidence.",
+      "training_release": {
+        "status": "blocked",
+        "approved_for_training": false,
+        "reason": "blocked: static source preparation is not a training release. Missing positive evidence: gold_and_sealed_material_isolated_from_the_actor, licence_independently_reviewed, runtime_oracle_verified_on_the_actor_environment, variant_half_constructed",
+        "requires": {
+          "runtime_oracle_verified_on_the_actor_environment": {
+            "verified": false,
+            "reason": "no FAIL_TO_PASS / reference run has been executed anywhere yet; every oracle field in this ledger is static evidence",
+            "owner": "E0 (builds the environment and runs the oracles)"
+          },
+          "licence_independently_reviewed": {
+            "verified": false,
+            "reason": "independent_review.status is 'None' for this repository; the decision field is author-declared and must not be read as a countersignature",
+            "owner": "Q0 (independent review)"
+          },
+          "gold_and_sealed_material_isolated_from_the_actor": {
+            "verified": false,
+            "reason": "no negative permission test has been produced; the restricted material's split is still declared pending and there is no evidence that a training/search actor cannot read or re-derive it",
+            "owner": "custodian + Q0 (permission and exclusion evidence)"
+          },
+          "variant_half_constructed": {
+            "verified": false,
+            "reason": "variant families are construction recipes; their mutation commits do not exist yet",
+            "owner": "E0 (coding officer)"
+          }
+        },
+        "precondition_source_preparation": "ready",
+        "precondition_owner": "a family whose source preparation is not ready can never be training-released",
+        "owner": "Mika / custodian decision; D0 records the state and does not self-approve"
+      },
+      "status_axes": {
+        "contract_id": "v3-status-axes-2026-10-06-mika",
+        "contract": "Two independent axes. Axis 1, source_preparation.status, is a static-artefact statement and is the ONLY thing the compatibility field `released` mirrors. Axis 2, training_release.status, is the release gate and additionally requires verified runtime oracle results on the actor environment, an independent licence review, demonstrated isolation of gold/dev/sealed material from the actor, and a constructed variant half. A consumer MUST read `training_release.status`; reading `released` and inferring a training approval from it is a contract violation. `released` is retained only so an existing consumer keyed on it keeps working, and it is scoped by the companion `released_scope` string that travels with it in every emitted file.",
+        "training_release_admissible": false,
+        "consumer_rule": "consume `training_release.status`, never `released`; `released` is a source-preparation alias kept for backward compatibility"
       }
     },
     {
       "family_id": "v3-train-pluggy-001",
       "kind": "real",
       "split": "train",
-      "released": true,
       "release_decision": {
-        "released": true,
         "window_decided_by": "merge_event",
         "blocking_checks": [],
-        "note": null
+        "note": "not ready: at least one structural check failed. Such a family is counted in no window and is never promoted by a commit date."
       },
       "repo": "pluggy",
+      "replaces_fix_commit": null,
       "upstream_slug": "pytest-dev/pluggy",
       "pinned_revision": "fd08ab5f811a9b2fa9124ae8cbbd393221151e2c",
       "license": {
@@ -446,7 +879,190 @@
           "merge_commit_present_in_pinned_clone": true,
           "merge_commit_is_ancestor_of_pinned_revision": true,
           "fix_commit_is_the_pull_request_head": true,
+          "reconciliation": {
+            "found": true,
+            "search": "git rev-list fd08ab5f811a --grep='Merge pull request #545'",
+            "candidates_examined": [
+              {
+                "sha": "9d19d4b8e07dc3d66a512124ccbb8dfdd9e4bfb1",
+                "committer_date": "2024-11-12T10:24:31+01:00",
+                "subject": "Merge pull request #545 from RonnyPfannschmidt/ronny/fix-544-wrapper-stop-iteration-passtrough",
+                "parents": [
+                  "2b6dfd7cfe3e8ac36a473d465979c78bb3912d6f",
+                  "9cf2eaa50dd1ad3ebf042978629e78c695197095"
+                ],
+                "parent_count": 2,
+                "second_parent_is_the_fix_commit": true
+              }
+            ],
+            "matching_merge_commit": "9d19d4b8e07dc3d66a512124ccbb8dfdd9e4bfb1",
+            "matching_merge_commit_detail": {
+              "sha": "9d19d4b8e07dc3d66a512124ccbb8dfdd9e4bfb1",
+              "committer_date": "2024-11-12T10:24:31+01:00",
+              "subject": "Merge pull request #545 from RonnyPfannschmidt/ronny/fix-544-wrapper-stop-iteration-passtrough",
+              "parents": [
+                "2b6dfd7cfe3e8ac36a473d465979c78bb3912d6f",
+                "9cf2eaa50dd1ad3ebf042978629e78c695197095"
+              ],
+              "parent_count": 2,
+              "second_parent_is_the_fix_commit": true
+            },
+            "reason": "exactly one pinned-history merge commit has this pull request in its subject and the fix commit as its second parent",
+            "fix_commit_parent_count_in_pinned_history": 1,
+            "fix_commit_is_itself_a_two_parent_merge": false,
+            "fix_commit_is_ancestor_of_pinned_revision": true
+          },
+          "landing_event_adjudication": "api_merge_commit_is_the_pinned_history_merge_event",
+          "adjudicated_landing_commit": "9d19d4b8e07dc3d66a512124ccbb8dfdd9e4bfb1",
+          "landing_event_shape": "two_parent_merge_commit",
+          "adjudicated_landing_is_ancestor_of_pinned_revision": true,
+          "pr_base_sha": "4ba6441e046ff9d0d2dbea5087c5bfd81cc37f5c",
+          "pr_head_sha": "9cf2eaa50dd1ad3ebf042978629e78c695197095",
+          "patch_equivalence": {
+            "computed": true,
+            "method": "the diff the merge introduces (merge vs its FIRST parent) compared, file by file, with the diff the fix introduces (fix vs its own parent). Both are diffed against their own parent because the base branch usually advanced while the pull request was open",
+            "landing_event_is_the_fix_commit": false,
+            "fix_diff_base": "4ba6441e046ff9d0d2dbea5087c5bfd81cc37f5c",
+            "landing_first_parent": "2b6dfd7cfe3e8ac36a473d465979c78bb3912d6f",
+            "landing_merged_in_commit": "9cf2eaa50dd1ad3ebf042978629e78c695197095",
+            "fix_diff_sha256": "928a37d70e20626014f6d5e46188b2b7984e9ae927e20f8e1ac17e0b2ec4c022",
+            "landing_diff_sha256": "928a37d70e20626014f6d5e46188b2b7984e9ae927e20f8e1ac17e0b2ec4c022",
+            "diff_text_equal": true,
+            "closed_under_the_landing_event": true,
+            "every_fix_file_present_in_the_landing_event": true,
+            "files_identical_or_contained": [
+              "changelog/544.bugfix.rst",
+              "src/pluggy/_callers.py",
+              "testing/test_multicall.py"
+            ],
+            "files_refined_by_a_later_commit_on_the_pull_request": [],
+            "fix_files_not_covered": [],
+            "file_level": [
+              {
+                "path": "changelog/544.bugfix.rst",
+                "state": "identical",
+                "detail": null
+              },
+              {
+                "path": "src/pluggy/_callers.py",
+                "state": "identical",
+                "detail": null
+              },
+              {
+                "path": "testing/test_multicall.py",
+                "state": "identical",
+                "detail": null
+              }
+            ],
+            "commits_on_the_pull_request_after_the_fix": [],
+            "fix_commit_is_ancestor_of_the_landing_merged_in_commit": true,
+            "landing_touches_extra_files": [],
+            "fix_diff_bytes": 3966,
+            "landing_diff_bytes": 3966,
+            "not_claimed": "a change-set comparison over the files involved. It is NOT a proof that no other commit re-landed the same fix elsewhere in history"
+          },
           "mismatch_pattern": "rebase_or_squash_merge: the fix commit is the pull request head and GitHub's merge_commit_sha is the commit the base branch moved to"
+        },
+        "landing_event_adjudication": "api_merge_commit_is_the_pinned_history_merge_event",
+        "landing_event_shape": "two_parent_merge_commit",
+        "adjudicated_landing_commit": "9d19d4b8e07dc3d66a512124ccbb8dfdd9e4bfb1",
+        "adjudicated_landing_is_ancestor_of_pinned_revision": true,
+        "landing_event_evidence": {
+          "adjudication": "api_merge_commit_is_the_pinned_history_merge_event",
+          "github_merge_commit_present_in_pinned_clone": true,
+          "landing_commit_in_pinned_history": "9d19d4b8e07dc3d66a512124ccbb8dfdd9e4bfb1",
+          "landing_commit_is_ancestor_of_pinned_revision": true,
+          "landing_commit_is_a_two_parent_merge": true,
+          "fix_commit_is_the_second_parent": true,
+          "landing_commit_parent_count": 2,
+          "search_command": "git rev-list fd08ab5f811a --grep='Merge pull request #545'",
+          "patch_equivalence": {
+            "computed": true,
+            "method": "the diff the merge introduces (merge vs its FIRST parent) compared, file by file, with the diff the fix introduces (fix vs its own parent). Both are diffed against their own parent because the base branch usually advanced while the pull request was open",
+            "landing_event_is_the_fix_commit": false,
+            "fix_diff_base": "4ba6441e046ff9d0d2dbea5087c5bfd81cc37f5c",
+            "landing_first_parent": "2b6dfd7cfe3e8ac36a473d465979c78bb3912d6f",
+            "landing_merged_in_commit": "9cf2eaa50dd1ad3ebf042978629e78c695197095",
+            "fix_diff_sha256": "928a37d70e20626014f6d5e46188b2b7984e9ae927e20f8e1ac17e0b2ec4c022",
+            "landing_diff_sha256": "928a37d70e20626014f6d5e46188b2b7984e9ae927e20f8e1ac17e0b2ec4c022",
+            "diff_text_equal": true,
+            "closed_under_the_landing_event": true,
+            "every_fix_file_present_in_the_landing_event": true,
+            "files_identical_or_contained": [
+              "changelog/544.bugfix.rst",
+              "src/pluggy/_callers.py",
+              "testing/test_multicall.py"
+            ],
+            "files_refined_by_a_later_commit_on_the_pull_request": [],
+            "fix_files_not_covered": [],
+            "file_level": [
+              {
+                "path": "changelog/544.bugfix.rst",
+                "state": "identical",
+                "detail": null
+              },
+              {
+                "path": "src/pluggy/_callers.py",
+                "state": "identical",
+                "detail": null
+              },
+              {
+                "path": "testing/test_multicall.py",
+                "state": "identical",
+                "detail": null
+              }
+            ],
+            "commits_on_the_pull_request_after_the_fix": [],
+            "fix_commit_is_ancestor_of_the_landing_merged_in_commit": true,
+            "landing_touches_extra_files": [],
+            "fix_diff_bytes": 3966,
+            "landing_diff_bytes": 3966,
+            "not_claimed": "a change-set comparison over the files involved. It is NOT a proof that no other commit re-landed the same fix elsewhere in history"
+          },
+          "reviewer_note": "the landing event is re-derived from the pinned repository, not taken from the API, because the API's merge_commit_sha disagrees with the pinned history for several of these families"
+        },
+        "patch_equivalence": {
+          "computed": true,
+          "method": "the diff the merge introduces (merge vs its FIRST parent) compared, file by file, with the diff the fix introduces (fix vs its own parent). Both are diffed against their own parent because the base branch usually advanced while the pull request was open",
+          "landing_event_is_the_fix_commit": false,
+          "fix_diff_base": "4ba6441e046ff9d0d2dbea5087c5bfd81cc37f5c",
+          "landing_first_parent": "2b6dfd7cfe3e8ac36a473d465979c78bb3912d6f",
+          "landing_merged_in_commit": "9cf2eaa50dd1ad3ebf042978629e78c695197095",
+          "fix_diff_sha256": "928a37d70e20626014f6d5e46188b2b7984e9ae927e20f8e1ac17e0b2ec4c022",
+          "landing_diff_sha256": "928a37d70e20626014f6d5e46188b2b7984e9ae927e20f8e1ac17e0b2ec4c022",
+          "diff_text_equal": true,
+          "closed_under_the_landing_event": true,
+          "every_fix_file_present_in_the_landing_event": true,
+          "files_identical_or_contained": [
+            "changelog/544.bugfix.rst",
+            "src/pluggy/_callers.py",
+            "testing/test_multicall.py"
+          ],
+          "files_refined_by_a_later_commit_on_the_pull_request": [],
+          "fix_files_not_covered": [],
+          "file_level": [
+            {
+              "path": "changelog/544.bugfix.rst",
+              "state": "identical",
+              "detail": null
+            },
+            {
+              "path": "src/pluggy/_callers.py",
+              "state": "identical",
+              "detail": null
+            },
+            {
+              "path": "testing/test_multicall.py",
+              "state": "identical",
+              "detail": null
+            }
+          ],
+          "commits_on_the_pull_request_after_the_fix": [],
+          "fix_commit_is_ancestor_of_the_landing_merged_in_commit": true,
+          "landing_touches_extra_files": [],
+          "fix_diff_bytes": 3966,
+          "landing_diff_bytes": 3966,
+          "not_claimed": "a change-set comparison over the files involved. It is NOT a proof that no other commit re-landed the same fix elsewhere in history"
         },
         "window_qualified_by_merge_event": true,
         "reason": "merge event retrieved from the pull-request metadata; qualification uses merged_at_utc, not the commit's author/committer dates",
@@ -601,20 +1217,63 @@
         "license_approved": true,
         "license_approved_for_this_exact_revision": true,
         "license_metadata_has_no_conflict": true
+      },
+      "provenance_note": null,
+      "source_preparation": {
+        "status": "ready",
+        "basis": "every structural check in `checks` passed; this covers static source artefacts only",
+        "blocking_checks": []
+      },
+      "released": true,
+      "released_scope": "source preparation ONLY: the static artefacts for this family (pinned base and fix commits, hashed patches, oracle split, the licence decision for the exact pinned revision, and a window set by a verified ORIGINAL merge event) are complete. This is NOT a training release and NOT a data release: it carries no runtime, no independent licence countersignature and no permission-isolation evidence.",
+      "training_release": {
+        "status": "blocked",
+        "approved_for_training": false,
+        "reason": "blocked: static source preparation is not a training release. Missing positive evidence: gold_and_sealed_material_isolated_from_the_actor, licence_independently_reviewed, runtime_oracle_verified_on_the_actor_environment, variant_half_constructed",
+        "requires": {
+          "runtime_oracle_verified_on_the_actor_environment": {
+            "verified": false,
+            "reason": "no FAIL_TO_PASS / reference run has been executed anywhere yet; every oracle field in this ledger is static evidence",
+            "owner": "E0 (builds the environment and runs the oracles)"
+          },
+          "licence_independently_reviewed": {
+            "verified": false,
+            "reason": "independent_review.status is 'None' for this repository; the decision field is author-declared and must not be read as a countersignature",
+            "owner": "Q0 (independent review)"
+          },
+          "gold_and_sealed_material_isolated_from_the_actor": {
+            "verified": false,
+            "reason": "no negative permission test has been produced; the restricted material's split is still declared pending and there is no evidence that a training/search actor cannot read or re-derive it",
+            "owner": "custodian + Q0 (permission and exclusion evidence)"
+          },
+          "variant_half_constructed": {
+            "verified": false,
+            "reason": "variant families are construction recipes; their mutation commits do not exist yet",
+            "owner": "E0 (coding officer)"
+          }
+        },
+        "precondition_source_preparation": "ready",
+        "precondition_owner": "a family whose source preparation is not ready can never be training-released",
+        "owner": "Mika / custodian decision; D0 records the state and does not self-approve"
+      },
+      "status_axes": {
+        "contract_id": "v3-status-axes-2026-10-06-mika",
+        "contract": "Two independent axes. Axis 1, source_preparation.status, is a static-artefact statement and is the ONLY thing the compatibility field `released` mirrors. Axis 2, training_release.status, is the release gate and additionally requires verified runtime oracle results on the actor environment, an independent licence review, demonstrated isolation of gold/dev/sealed material from the actor, and a constructed variant half. A consumer MUST read `training_release.status`; reading `released` and inferring a training approval from it is a contract violation. `released` is retained only so an existing consumer keyed on it keeps working, and it is scoped by the companion `released_scope` string that travels with it in every emitted file.",
+        "training_release_admissible": false,
+        "consumer_rule": "consume `training_release.status`, never `released`; `released` is a source-preparation alias kept for backward compatibility"
       }
     },
     {
       "family_id": "v3-train-boltons-001",
       "kind": "real",
       "split": "train",
-      "released": true,
       "release_decision": {
-        "released": true,
         "window_decided_by": "merge_event",
         "blocking_checks": [],
-        "note": null
+        "note": "not ready: at least one structural check failed. Such a family is counted in no window and is never promoted by a commit date."
       },
       "repo": "boltons",
+      "replaces_fix_commit": null,
       "upstream_slug": "mahmoud/boltons",
       "pinned_revision": "4332b35a278d694f30c99881faa61cde695c7a96",
       "license": {
@@ -642,7 +1301,318 @@
           "merge_commit_present_in_pinned_clone": false,
           "merge_commit_is_ancestor_of_pinned_revision": false,
           "fix_commit_is_the_pull_request_head": false,
-          "mismatch_pattern": "merge_commit_sha is neither the fix commit nor the pull request head; disclosed for review, not reconciled here"
+          "reconciliation": {
+            "found": false,
+            "search": "git rev-list 4332b35a278d --grep='Merge pull request #31'",
+            "candidates_examined": [
+              {
+                "sha": "1d7d8c4e1767f5ec4e180cccd00b773150d086f5",
+                "committer_date": "2015-04-19T01:51:36-07:00",
+                "subject": "Merge pull request #31 from asottile/parsed_exception_no_source_30",
+                "parents": [
+                  "c9b3d2452e4ffe43920874f4f6f2e8fe425ebf00",
+                  "078a215bfd37da5045ec6302bcba9505a11582dc"
+                ],
+                "parent_count": 2,
+                "second_parent_is_the_fix_commit": false
+              }
+            ],
+            "matching_merge_commit": null,
+            "matching_merge_commit_detail": null,
+            "reason": "no merge commit in the pinned history matches both the pull-request subject and the fix commit parent",
+            "fix_commit_parent_count_in_pinned_history": 1,
+            "fix_commit_is_itself_a_two_parent_merge": false,
+            "fix_commit_is_ancestor_of_pinned_revision": true
+          },
+          "landing_event_adjudication": "api_merge_commit_absent_or_different_from_pinned_history; the pinned history's own two-parent merge commit that names this pull request is recorded as the landing event. the pinned merge commit names this pull request but its merged-in commit is 078a215bfd37, not the fix commit ae21ed2a7806; the fix reaches the branch beneath it (fix_is_ancestor_of_merged_in_commit=True) and the content introduced by the merge equals the fix's own content (content_equal=False)",
+          "adjudicated_landing_commit": "1d7d8c4e1767f5ec4e180cccd00b773150d086f5",
+          "landing_event_shape": "two_parent_merge_commit",
+          "adjudicated_landing_is_ancestor_of_pinned_revision": true,
+          "pr_base_sha": "c9b3d2452e4ffe43920874f4f6f2e8fe425ebf00",
+          "pr_head_sha": "078a215bfd37da5045ec6302bcba9505a11582dc",
+          "patch_equivalence": {
+            "computed": true,
+            "method": "the diff the merge introduces (merge vs its FIRST parent) compared, file by file, with the diff the fix introduces (fix vs its own parent). Both are diffed against their own parent because the base branch usually advanced while the pull request was open",
+            "landing_event_is_the_fix_commit": false,
+            "fix_diff_base": "c9b3d2452e4ffe43920874f4f6f2e8fe425ebf00",
+            "landing_first_parent": "c9b3d2452e4ffe43920874f4f6f2e8fe425ebf00",
+            "landing_merged_in_commit": "078a215bfd37da5045ec6302bcba9505a11582dc",
+            "fix_diff_sha256": "e431b6bd2143abf62f4b94e345737381832a0f312aa1cdb6b508561d9c70e578",
+            "landing_diff_sha256": "0ed2e80d27814aa2c20ff7b751474cf37dc7d2e01f662787ec9a7666b41429fc",
+            "diff_text_equal": false,
+            "closed_under_the_landing_event": true,
+            "every_fix_file_present_in_the_landing_event": true,
+            "files_identical_or_contained": [
+              ".travis.yml",
+              "tests/tbutils_test.py",
+              "tox.ini"
+            ],
+            "files_refined_by_a_later_commit_on_the_pull_request": [
+              "boltons/tbutils.py"
+            ],
+            "fix_files_not_covered": [],
+            "file_level": [
+              {
+                "path": ".travis.yml",
+                "state": "identical",
+                "detail": null
+              },
+              {
+                "path": "boltons/tbutils.py",
+                "state": "refined_by_a_later_commit",
+                "detail": {
+                  "landing_added_lines": 27,
+                  "fix_added_lines": 19,
+                  "landing_removed_lines": 7,
+                  "fix_removed_lines": 7,
+                  "lines_the_landing_event_adds_beyond_the_fix": [
+                    "                        # The exception message will not be indented",
+                    "                        # This check is to avoid overrunning on eval-like",
+                    "                        # code in the traceback",
+                    "                        # tracebacks where the last frame doesn't have source",
+                    "                        frame_re.match(next_line_stripped) or",
+                    "                        not next_line.startswith(' ')",
+                    "                    frame_dict['source_line'] = next_line_stripped",
+                    "                ):",
+                    "                if (",
+                    "                next_line = tb_lines[line_no + 1]"
+                  ]
+                }
+              },
+              {
+                "path": "tests/tbutils_test.py",
+                "state": "contained_superset",
+                "detail": {
+                  "landing_added_lines": 54,
+                  "fix_added_lines": 44,
+                  "landing_removed_lines": 0,
+                  "fix_removed_lines": 0,
+                  "lines_the_landing_event_adds_beyond_the_fix": [
+                    "",
+                    "",
+                    "    assert parsed.exc_type == 'MyException'",
+                    "    parsed = ParsedException.from_string(tb)",
+                    "    tb = '''\\",
+                    "  File \"<string>\", line 2, in _some_function",
+                    "'''",
+                    "MyException: ExceptionValue",
+                    "Traceback (most recent call last):",
+                    "def test_last_line_is_eval_like():"
+                  ]
+                }
+              },
+              {
+                "path": "tox.ini",
+                "state": "identical",
+                "detail": null
+              }
+            ],
+            "commits_on_the_pull_request_after_the_fix": [
+              {
+                "sha": "078a215bfd37da5045ec6302bcba9505a11582dc",
+                "subject": "Oops, broke last-line-eval-like tracebacks"
+              }
+            ],
+            "fix_commit_is_ancestor_of_the_landing_merged_in_commit": true,
+            "landing_touches_extra_files": [],
+            "fix_diff_bytes": 4133,
+            "landing_diff_bytes": 4838,
+            "not_claimed": "a change-set comparison over the files involved. It is NOT a proof that no other commit re-landed the same fix elsewhere in history"
+          },
+          "mismatch_pattern": "merge_commit_sha is neither the fix commit nor the pull request head; the pinned history's own merge event is recorded in geometry.reconciliation.matching_merge_commit and adjudicated there"
+        },
+        "landing_event_adjudication": "api_merge_commit_absent_or_different_from_pinned_history; the pinned history's own two-parent merge commit that names this pull request is recorded as the landing event. the pinned merge commit names this pull request but its merged-in commit is 078a215bfd37, not the fix commit ae21ed2a7806; the fix reaches the branch beneath it (fix_is_ancestor_of_merged_in_commit=True) and the content introduced by the merge equals the fix's own content (content_equal=False)",
+        "landing_event_shape": "two_parent_merge_commit",
+        "adjudicated_landing_commit": "1d7d8c4e1767f5ec4e180cccd00b773150d086f5",
+        "adjudicated_landing_is_ancestor_of_pinned_revision": true,
+        "landing_event_evidence": {
+          "adjudication": "api_merge_commit_absent_or_different_from_pinned_history; the pinned history's own two-parent merge commit that names this pull request is recorded as the landing event. the pinned merge commit names this pull request but its merged-in commit is 078a215bfd37, not the fix commit ae21ed2a7806; the fix reaches the branch beneath it (fix_is_ancestor_of_merged_in_commit=True) and the content introduced by the merge equals the fix's own content (content_equal=False)",
+          "github_merge_commit_present_in_pinned_clone": false,
+          "landing_commit_in_pinned_history": "1d7d8c4e1767f5ec4e180cccd00b773150d086f5",
+          "landing_commit_is_ancestor_of_pinned_revision": true,
+          "landing_commit_is_a_two_parent_merge": true,
+          "fix_commit_is_the_second_parent": false,
+          "landing_commit_parent_count": 2,
+          "search_command": "git rev-list 4332b35a278d --grep='Merge pull request #31'",
+          "patch_equivalence": {
+            "computed": true,
+            "method": "the diff the merge introduces (merge vs its FIRST parent) compared, file by file, with the diff the fix introduces (fix vs its own parent). Both are diffed against their own parent because the base branch usually advanced while the pull request was open",
+            "landing_event_is_the_fix_commit": false,
+            "fix_diff_base": "c9b3d2452e4ffe43920874f4f6f2e8fe425ebf00",
+            "landing_first_parent": "c9b3d2452e4ffe43920874f4f6f2e8fe425ebf00",
+            "landing_merged_in_commit": "078a215bfd37da5045ec6302bcba9505a11582dc",
+            "fix_diff_sha256": "e431b6bd2143abf62f4b94e345737381832a0f312aa1cdb6b508561d9c70e578",
+            "landing_diff_sha256": "0ed2e80d27814aa2c20ff7b751474cf37dc7d2e01f662787ec9a7666b41429fc",
+            "diff_text_equal": false,
+            "closed_under_the_landing_event": true,
+            "every_fix_file_present_in_the_landing_event": true,
+            "files_identical_or_contained": [
+              ".travis.yml",
+              "tests/tbutils_test.py",
+              "tox.ini"
+            ],
+            "files_refined_by_a_later_commit_on_the_pull_request": [
+              "boltons/tbutils.py"
+            ],
+            "fix_files_not_covered": [],
+            "file_level": [
+              {
+                "path": ".travis.yml",
+                "state": "identical",
+                "detail": null
+              },
+              {
+                "path": "boltons/tbutils.py",
+                "state": "refined_by_a_later_commit",
+                "detail": {
+                  "landing_added_lines": 27,
+                  "fix_added_lines": 19,
+                  "landing_removed_lines": 7,
+                  "fix_removed_lines": 7,
+                  "lines_the_landing_event_adds_beyond_the_fix": [
+                    "                        # The exception message will not be indented",
+                    "                        # This check is to avoid overrunning on eval-like",
+                    "                        # code in the traceback",
+                    "                        # tracebacks where the last frame doesn't have source",
+                    "                        frame_re.match(next_line_stripped) or",
+                    "                        not next_line.startswith(' ')",
+                    "                    frame_dict['source_line'] = next_line_stripped",
+                    "                ):",
+                    "                if (",
+                    "                next_line = tb_lines[line_no + 1]"
+                  ]
+                }
+              },
+              {
+                "path": "tests/tbutils_test.py",
+                "state": "contained_superset",
+                "detail": {
+                  "landing_added_lines": 54,
+                  "fix_added_lines": 44,
+                  "landing_removed_lines": 0,
+                  "fix_removed_lines": 0,
+                  "lines_the_landing_event_adds_beyond_the_fix": [
+                    "",
+                    "",
+                    "    assert parsed.exc_type == 'MyException'",
+                    "    parsed = ParsedException.from_string(tb)",
+                    "    tb = '''\\",
+                    "  File \"<string>\", line 2, in _some_function",
+                    "'''",
+                    "MyException: ExceptionValue",
+                    "Traceback (most recent call last):",
+                    "def test_last_line_is_eval_like():"
+                  ]
+                }
+              },
+              {
+                "path": "tox.ini",
+                "state": "identical",
+                "detail": null
+              }
+            ],
+            "commits_on_the_pull_request_after_the_fix": [
+              {
+                "sha": "078a215bfd37da5045ec6302bcba9505a11582dc",
+                "subject": "Oops, broke last-line-eval-like tracebacks"
+              }
+            ],
+            "fix_commit_is_ancestor_of_the_landing_merged_in_commit": true,
+            "landing_touches_extra_files": [],
+            "fix_diff_bytes": 4133,
+            "landing_diff_bytes": 4838,
+            "not_claimed": "a change-set comparison over the files involved. It is NOT a proof that no other commit re-landed the same fix elsewhere in history"
+          },
+          "reviewer_note": "the landing event is re-derived from the pinned repository, not taken from the API, because the API's merge_commit_sha disagrees with the pinned history for several of these families"
+        },
+        "patch_equivalence": {
+          "computed": true,
+          "method": "the diff the merge introduces (merge vs its FIRST parent) compared, file by file, with the diff the fix introduces (fix vs its own parent). Both are diffed against their own parent because the base branch usually advanced while the pull request was open",
+          "landing_event_is_the_fix_commit": false,
+          "fix_diff_base": "c9b3d2452e4ffe43920874f4f6f2e8fe425ebf00",
+          "landing_first_parent": "c9b3d2452e4ffe43920874f4f6f2e8fe425ebf00",
+          "landing_merged_in_commit": "078a215bfd37da5045ec6302bcba9505a11582dc",
+          "fix_diff_sha256": "e431b6bd2143abf62f4b94e345737381832a0f312aa1cdb6b508561d9c70e578",
+          "landing_diff_sha256": "0ed2e80d27814aa2c20ff7b751474cf37dc7d2e01f662787ec9a7666b41429fc",
+          "diff_text_equal": false,
+          "closed_under_the_landing_event": true,
+          "every_fix_file_present_in_the_landing_event": true,
+          "files_identical_or_contained": [
+            ".travis.yml",
+            "tests/tbutils_test.py",
+            "tox.ini"
+          ],
+          "files_refined_by_a_later_commit_on_the_pull_request": [
+            "boltons/tbutils.py"
+          ],
+          "fix_files_not_covered": [],
+          "file_level": [
+            {
+              "path": ".travis.yml",
+              "state": "identical",
+              "detail": null
+            },
+            {
+              "path": "boltons/tbutils.py",
+              "state": "refined_by_a_later_commit",
+              "detail": {
+                "landing_added_lines": 27,
+                "fix_added_lines": 19,
+                "landing_removed_lines": 7,
+                "fix_removed_lines": 7,
+                "lines_the_landing_event_adds_beyond_the_fix": [
+                  "                        # The exception message will not be indented",
+                  "                        # This check is to avoid overrunning on eval-like",
+                  "                        # code in the traceback",
+                  "                        # tracebacks where the last frame doesn't have source",
+                  "                        frame_re.match(next_line_stripped) or",
+                  "                        not next_line.startswith(' ')",
+                  "                    frame_dict['source_line'] = next_line_stripped",
+                  "                ):",
+                  "                if (",
+                  "                next_line = tb_lines[line_no + 1]"
+                ]
+              }
+            },
+            {
+              "path": "tests/tbutils_test.py",
+              "state": "contained_superset",
+              "detail": {
+                "landing_added_lines": 54,
+                "fix_added_lines": 44,
+                "landing_removed_lines": 0,
+                "fix_removed_lines": 0,
+                "lines_the_landing_event_adds_beyond_the_fix": [
+                  "",
+                  "",
+                  "    assert parsed.exc_type == 'MyException'",
+                  "    parsed = ParsedException.from_string(tb)",
+                  "    tb = '''\\",
+                  "  File \"<string>\", line 2, in _some_function",
+                  "'''",
+                  "MyException: ExceptionValue",
+                  "Traceback (most recent call last):",
+                  "def test_last_line_is_eval_like():"
+                ]
+              }
+            },
+            {
+              "path": "tox.ini",
+              "state": "identical",
+              "detail": null
+            }
+          ],
+          "commits_on_the_pull_request_after_the_fix": [
+            {
+              "sha": "078a215bfd37da5045ec6302bcba9505a11582dc",
+              "subject": "Oops, broke last-line-eval-like tracebacks"
+            }
+          ],
+          "fix_commit_is_ancestor_of_the_landing_merged_in_commit": true,
+          "landing_touches_extra_files": [],
+          "fix_diff_bytes": 4133,
+          "landing_diff_bytes": 4838,
+          "not_claimed": "a change-set comparison over the files involved. It is NOT a proof that no other commit re-landed the same fix elsewhere in history"
         },
         "window_qualified_by_merge_event": true,
         "reason": "merge event retrieved from the pull-request metadata; qualification uses merged_at_utc, not the commit's author/committer dates",
@@ -819,29 +1789,74 @@
         "license_approved": true,
         "license_approved_for_this_exact_revision": true,
         "license_metadata_has_no_conflict": true
+      },
+      "provenance_note": null,
+      "source_preparation": {
+        "status": "ready",
+        "basis": "every structural check in `checks` passed; this covers static source artefacts only",
+        "blocking_checks": []
+      },
+      "released": true,
+      "released_scope": "source preparation ONLY: the static artefacts for this family (pinned base and fix commits, hashed patches, oracle split, the licence decision for the exact pinned revision, and a window set by a verified ORIGINAL merge event) are complete. This is NOT a training release and NOT a data release: it carries no runtime, no independent licence countersignature and no permission-isolation evidence.",
+      "training_release": {
+        "status": "blocked",
+        "approved_for_training": false,
+        "reason": "blocked: static source preparation is not a training release. Missing positive evidence: gold_and_sealed_material_isolated_from_the_actor, licence_independently_reviewed, runtime_oracle_verified_on_the_actor_environment, variant_half_constructed",
+        "requires": {
+          "runtime_oracle_verified_on_the_actor_environment": {
+            "verified": false,
+            "reason": "no FAIL_TO_PASS / reference run has been executed anywhere yet; every oracle field in this ledger is static evidence",
+            "owner": "E0 (builds the environment and runs the oracles)"
+          },
+          "licence_independently_reviewed": {
+            "verified": false,
+            "reason": "independent_review.status is 'None' for this repository; the decision field is author-declared and must not be read as a countersignature",
+            "owner": "Q0 (independent review)"
+          },
+          "gold_and_sealed_material_isolated_from_the_actor": {
+            "verified": false,
+            "reason": "no negative permission test has been produced; the restricted material's split is still declared pending and there is no evidence that a training/search actor cannot read or re-derive it",
+            "owner": "custodian + Q0 (permission and exclusion evidence)"
+          },
+          "variant_half_constructed": {
+            "verified": false,
+            "reason": "variant families are construction recipes; their mutation commits do not exist yet",
+            "owner": "E0 (coding officer)"
+          }
+        },
+        "precondition_source_preparation": "ready",
+        "precondition_owner": "a family whose source preparation is not ready can never be training-released",
+        "owner": "Mika / custodian decision; D0 records the state and does not self-approve"
+      },
+      "status_axes": {
+        "contract_id": "v3-status-axes-2026-10-06-mika",
+        "contract": "Two independent axes. Axis 1, source_preparation.status, is a static-artefact statement and is the ONLY thing the compatibility field `released` mirrors. Axis 2, training_release.status, is the release gate and additionally requires verified runtime oracle results on the actor environment, an independent licence review, demonstrated isolation of gold/dev/sealed material from the actor, and a constructed variant half. A consumer MUST read `training_release.status`; reading `released` and inferring a training approval from it is a contract violation. `released` is retained only so an existing consumer keyed on it keeps working, and it is scoped by the companion `released_scope` string that travels with it in every emitted file.",
+        "training_release_admissible": false,
+        "consumer_rule": "consume `training_release.status`, never `released`; `released` is a source-preparation alias kept for backward compatibility"
       }
     },
     {
-      "family_id": "v3-train-click-001-var-rename",
+      "family_id": "v3-train-click-001-var-predicate",
       "kind": "variant",
       "split": "train",
       "released": false,
+      "released_scope": "source preparation ONLY: the static artefacts for this family (pinned base and fix commits, hashed patches, oracle split, the licence decision for the exact pinned revision, and a window set by a verified ORIGINAL merge event) are complete. This is NOT a training release and NOT a data release: it carries no runtime, no independent licence countersignature and no permission-isolation evidence.",
       "release_blocker": "variant commit does not exist yet: it must be constructed by the coding officer; only the upstream source base is pinned, so no empty SHA is ever published as an example",
       "repo": "click",
       "upstream_slug": "pallets/click",
       "derived_from": "v3-train-click-001",
-      "mutation_class": "symbol-rename",
-      "mutation_recipe": "On top of the real family's base_commit, commit a pure identifier rename of the validation helper and of the public parameter class attribute used by the fix (no behaviour change). Re-express the task text against the renamed API.",
-      "rationale": "Blocks solutions that hard-code the upstream symbol name or replay the upstream patch textually; the agent must re-locate the code.",
+      "mutation_class": "predicate-relocation-and-propagation",
+      "mutation_recipe": "On top of the real family's base_commit, move the flag-ness predicate out of the option constructor into a module-level helper that the constructor calls, and have a second consumer read flag-ness through that helper on a different code path (the help/usage rendering path) instead of the stored attribute. Leave the helper's body with the same defect the real family fixes. Re-express the task text against the helper's new name and location.",
+      "rationale": "Blocks a solution that reproduces the upstream one-line diff by pattern or by remembered file/line: the predicate no longer lives where upstream put it, and a fix applied only to the constructor leaves the rendering path still reporting the wrong answer, so the agent must re-locate the behaviour and fix it where it is actually computed.",
       "expected_patch_shape": {
         "files": 2,
-        "hunks": 2
+        "hunks": 3
       },
-      "source_base_commit": "c2c2bacddc1d625e9a0f606f227f356df9d2b172",
-      "source_base_date": "2015-03-31T12:00:07+02:00",
+      "source_base_commit": "da2b658e6185b5ae69abcefe755077336024a5e6",
+      "source_base_date": "2021-06-25T10:24:39-07:00",
       "source_base_date_role": "SNAPSHOT-axis date of the upstream source base, recorded for reproducibility. It is NOT this variant's fix time and does not classify the variant into a window. A constructed variant inherits its parent family's train window.",
-      "source_base_released": false,
-      "source_base_release_note": "a variant can only inherit a window from a parent family that is itself released; here the parent is v3-train-click-001 (released=False)",
+      "source_base_released": true,
+      "source_base_release_note": "a variant can only inherit a window from a parent family whose source preparation is ready; here the parent is v3-train-click-001 (source_preparation=ready)",
       "inherits_window_from": "v3-train-click-001",
       "variant_commit": null,
       "oracle_fix_commit": null,
@@ -855,6 +1870,48 @@
         "license_review_decision": "approved",
         "license_conflicts": [],
         "license_review_path": "repos.click.license_review in source-lock.json"
+      },
+      "source_preparation": {
+        "status": "specification_only",
+        "basis": "the mutation recipe and its upstream source base are pinned; the mutation commit itself does not exist, so there is nothing to prepare yet",
+        "blocking_checks": [
+          "mutation_commit_not_constructed"
+        ]
+      },
+      "training_release": {
+        "status": "blocked",
+        "approved_for_training": false,
+        "reason": "blocked: a variant family is a construction recipe. It has no commit, no oracle and no runtime evidence, so it can never be training-released in this state.",
+        "requires": {
+          "runtime_oracle_verified_on_the_actor_environment": {
+            "verified": false,
+            "reason": "no FAIL_TO_PASS / reference run has been executed anywhere yet; every oracle field in this ledger is static evidence",
+            "owner": "E0 (builds the environment and runs the oracles)"
+          },
+          "licence_independently_reviewed": {
+            "verified": false,
+            "reason": "independent_review.status is 'None' for this repository; the decision field is author-declared and must not be read as a countersignature",
+            "owner": "Q0 (independent review)"
+          },
+          "gold_and_sealed_material_isolated_from_the_actor": {
+            "verified": false,
+            "reason": "no negative permission test has been produced; the restricted material's split is still declared pending and there is no evidence that a training/search actor cannot read or re-derive it",
+            "owner": "custodian + Q0 (permission and exclusion evidence)"
+          },
+          "variant_half_constructed": {
+            "verified": false,
+            "reason": "variant families are construction recipes; their mutation commits do not exist yet",
+            "owner": "E0 (coding officer)"
+          }
+        },
+        "precondition_source_preparation": "ready",
+        "owner": "Mika / custodian decision; D0 records the state only"
+      },
+      "status_axes": {
+        "contract_id": "v3-status-axes-2026-10-06-mika",
+        "contract": "Two independent axes. Axis 1, source_preparation.status, is a static-artefact statement and is the ONLY thing the compatibility field `released` mirrors. Axis 2, training_release.status, is the release gate and additionally requires verified runtime oracle results on the actor environment, an independent licence review, demonstrated isolation of gold/dev/sealed material from the actor, and a constructed variant half. A consumer MUST read `training_release.status`; reading `released` and inferring a training approval from it is a contract violation. `released` is retained only so an existing consumer keyed on it keeps working, and it is scoped by the companion `released_scope` string that travels with it in every emitted file.",
+        "training_release_admissible": false,
+        "consumer_rule": "consume `training_release.status`, never `released`; `released` is a source-preparation alias"
       }
     },
     {
@@ -862,6 +1919,7 @@
       "kind": "variant",
       "split": "train",
       "released": false,
+      "released_scope": "source preparation ONLY: the static artefacts for this family (pinned base and fix commits, hashed patches, oracle split, the licence decision for the exact pinned revision, and a window set by a verified ORIGINAL merge event) are complete. This is NOT a training release and NOT a data release: it carries no runtime, no independent licence countersignature and no permission-isolation evidence.",
       "release_blocker": "variant commit does not exist yet: it must be constructed by the coding officer; only the upstream source base is pinned, so no empty SHA is ever published as an example",
       "repo": "more-itertools",
       "upstream_slug": "more-itertools/more-itertools",
@@ -877,7 +1935,7 @@
       "source_base_date": "2020-03-29T14:28:44-05:00",
       "source_base_date_role": "SNAPSHOT-axis date of the upstream source base, recorded for reproducibility. It is NOT this variant's fix time and does not classify the variant into a window. A constructed variant inherits its parent family's train window.",
       "source_base_released": true,
-      "source_base_release_note": "a variant can only inherit a window from a parent family that is itself released; here the parent is v3-train-more-itertools-001 (released=True)",
+      "source_base_release_note": "a variant can only inherit a window from a parent family whose source preparation is ready; here the parent is v3-train-more-itertools-001 (source_preparation=ready)",
       "inherits_window_from": "v3-train-more-itertools-001",
       "variant_commit": null,
       "oracle_fix_commit": null,
@@ -891,6 +1949,48 @@
         "license_review_decision": "approved",
         "license_conflicts": [],
         "license_review_path": "repos.more-itertools.license_review in source-lock.json"
+      },
+      "source_preparation": {
+        "status": "specification_only",
+        "basis": "the mutation recipe and its upstream source base are pinned; the mutation commit itself does not exist, so there is nothing to prepare yet",
+        "blocking_checks": [
+          "mutation_commit_not_constructed"
+        ]
+      },
+      "training_release": {
+        "status": "blocked",
+        "approved_for_training": false,
+        "reason": "blocked: a variant family is a construction recipe. It has no commit, no oracle and no runtime evidence, so it can never be training-released in this state.",
+        "requires": {
+          "runtime_oracle_verified_on_the_actor_environment": {
+            "verified": false,
+            "reason": "no FAIL_TO_PASS / reference run has been executed anywhere yet; every oracle field in this ledger is static evidence",
+            "owner": "E0 (builds the environment and runs the oracles)"
+          },
+          "licence_independently_reviewed": {
+            "verified": false,
+            "reason": "independent_review.status is 'None' for this repository; the decision field is author-declared and must not be read as a countersignature",
+            "owner": "Q0 (independent review)"
+          },
+          "gold_and_sealed_material_isolated_from_the_actor": {
+            "verified": false,
+            "reason": "no negative permission test has been produced; the restricted material's split is still declared pending and there is no evidence that a training/search actor cannot read or re-derive it",
+            "owner": "custodian + Q0 (permission and exclusion evidence)"
+          },
+          "variant_half_constructed": {
+            "verified": false,
+            "reason": "variant families are construction recipes; their mutation commits do not exist yet",
+            "owner": "E0 (coding officer)"
+          }
+        },
+        "precondition_source_preparation": "ready",
+        "owner": "Mika / custodian decision; D0 records the state only"
+      },
+      "status_axes": {
+        "contract_id": "v3-status-axes-2026-10-06-mika",
+        "contract": "Two independent axes. Axis 1, source_preparation.status, is a static-artefact statement and is the ONLY thing the compatibility field `released` mirrors. Axis 2, training_release.status, is the release gate and additionally requires verified runtime oracle results on the actor environment, an independent licence review, demonstrated isolation of gold/dev/sealed material from the actor, and a constructed variant half. A consumer MUST read `training_release.status`; reading `released` and inferring a training approval from it is a contract violation. `released` is retained only so an existing consumer keyed on it keeps working, and it is scoped by the companion `released_scope` string that travels with it in every emitted file.",
+        "training_release_admissible": false,
+        "consumer_rule": "consume `training_release.status`, never `released`; `released` is a source-preparation alias"
       }
     },
     {
@@ -898,6 +1998,7 @@
       "kind": "variant",
       "split": "train",
       "released": false,
+      "released_scope": "source preparation ONLY: the static artefacts for this family (pinned base and fix commits, hashed patches, oracle split, the licence decision for the exact pinned revision, and a window set by a verified ORIGINAL merge event) are complete. This is NOT a training release and NOT a data release: it carries no runtime, no independent licence countersignature and no permission-isolation evidence.",
       "release_blocker": "variant commit does not exist yet: it must be constructed by the coding officer; only the upstream source base is pinned, so no empty SHA is ever published as an example",
       "repo": "pluggy",
       "upstream_slug": "pytest-dev/pluggy",
@@ -913,7 +2014,7 @@
       "source_base_date": "2025-05-15T10:14:23+02:00",
       "source_base_date_role": "SNAPSHOT-axis date of the upstream source base, recorded for reproducibility. It is NOT this variant's fix time and does not classify the variant into a window. A constructed variant inherits its parent family's train window.",
       "source_base_released": true,
-      "source_base_release_note": "a variant can only inherit a window from a parent family that is itself released; here the parent is v3-train-pluggy-001 (released=True)",
+      "source_base_release_note": "a variant can only inherit a window from a parent family whose source preparation is ready; here the parent is v3-train-pluggy-001 (source_preparation=ready)",
       "inherits_window_from": "v3-train-pluggy-001",
       "variant_commit": null,
       "oracle_fix_commit": null,
@@ -927,6 +2028,48 @@
         "license_review_decision": "approved",
         "license_conflicts": [],
         "license_review_path": "repos.pluggy.license_review in source-lock.json"
+      },
+      "source_preparation": {
+        "status": "specification_only",
+        "basis": "the mutation recipe and its upstream source base are pinned; the mutation commit itself does not exist, so there is nothing to prepare yet",
+        "blocking_checks": [
+          "mutation_commit_not_constructed"
+        ]
+      },
+      "training_release": {
+        "status": "blocked",
+        "approved_for_training": false,
+        "reason": "blocked: a variant family is a construction recipe. It has no commit, no oracle and no runtime evidence, so it can never be training-released in this state.",
+        "requires": {
+          "runtime_oracle_verified_on_the_actor_environment": {
+            "verified": false,
+            "reason": "no FAIL_TO_PASS / reference run has been executed anywhere yet; every oracle field in this ledger is static evidence",
+            "owner": "E0 (builds the environment and runs the oracles)"
+          },
+          "licence_independently_reviewed": {
+            "verified": false,
+            "reason": "independent_review.status is 'None' for this repository; the decision field is author-declared and must not be read as a countersignature",
+            "owner": "Q0 (independent review)"
+          },
+          "gold_and_sealed_material_isolated_from_the_actor": {
+            "verified": false,
+            "reason": "no negative permission test has been produced; the restricted material's split is still declared pending and there is no evidence that a training/search actor cannot read or re-derive it",
+            "owner": "custodian + Q0 (permission and exclusion evidence)"
+          },
+          "variant_half_constructed": {
+            "verified": false,
+            "reason": "variant families are construction recipes; their mutation commits do not exist yet",
+            "owner": "E0 (coding officer)"
+          }
+        },
+        "precondition_source_preparation": "ready",
+        "owner": "Mika / custodian decision; D0 records the state only"
+      },
+      "status_axes": {
+        "contract_id": "v3-status-axes-2026-10-06-mika",
+        "contract": "Two independent axes. Axis 1, source_preparation.status, is a static-artefact statement and is the ONLY thing the compatibility field `released` mirrors. Axis 2, training_release.status, is the release gate and additionally requires verified runtime oracle results on the actor environment, an independent licence review, demonstrated isolation of gold/dev/sealed material from the actor, and a constructed variant half. A consumer MUST read `training_release.status`; reading `released` and inferring a training approval from it is a contract violation. `released` is retained only so an existing consumer keyed on it keeps working, and it is scoped by the companion `released_scope` string that travels with it in every emitted file.",
+        "training_release_admissible": false,
+        "consumer_rule": "consume `training_release.status`, never `released`; `released` is a source-preparation alias"
       }
     },
     {
@@ -934,6 +2077,7 @@
       "kind": "variant",
       "split": "train",
       "released": false,
+      "released_scope": "source preparation ONLY: the static artefacts for this family (pinned base and fix commits, hashed patches, oracle split, the licence decision for the exact pinned revision, and a window set by a verified ORIGINAL merge event) are complete. This is NOT a training release and NOT a data release: it carries no runtime, no independent licence countersignature and no permission-isolation evidence.",
       "release_blocker": "variant commit does not exist yet: it must be constructed by the coding officer; only the upstream source base is pinned, so no empty SHA is ever published as an example",
       "repo": "boltons",
       "upstream_slug": "mahmoud/boltons",
@@ -949,7 +2093,7 @@
       "source_base_date": "2015-04-16T03:02:15-07:00",
       "source_base_date_role": "SNAPSHOT-axis date of the upstream source base, recorded for reproducibility. It is NOT this variant's fix time and does not classify the variant into a window. A constructed variant inherits its parent family's train window.",
       "source_base_released": true,
-      "source_base_release_note": "a variant can only inherit a window from a parent family that is itself released; here the parent is v3-train-boltons-001 (released=True)",
+      "source_base_release_note": "a variant can only inherit a window from a parent family whose source preparation is ready; here the parent is v3-train-boltons-001 (source_preparation=ready)",
       "inherits_window_from": "v3-train-boltons-001",
       "variant_commit": null,
       "oracle_fix_commit": null,
@@ -963,7 +2107,242 @@
         "license_review_decision": "approved",
         "license_conflicts": [],
         "license_review_path": "repos.boltons.license_review in source-lock.json"
+      },
+      "source_preparation": {
+        "status": "specification_only",
+        "basis": "the mutation recipe and its upstream source base are pinned; the mutation commit itself does not exist, so there is nothing to prepare yet",
+        "blocking_checks": [
+          "mutation_commit_not_constructed"
+        ]
+      },
+      "training_release": {
+        "status": "blocked",
+        "approved_for_training": false,
+        "reason": "blocked: a variant family is a construction recipe. It has no commit, no oracle and no runtime evidence, so it can never be training-released in this state.",
+        "requires": {
+          "runtime_oracle_verified_on_the_actor_environment": {
+            "verified": false,
+            "reason": "no FAIL_TO_PASS / reference run has been executed anywhere yet; every oracle field in this ledger is static evidence",
+            "owner": "E0 (builds the environment and runs the oracles)"
+          },
+          "licence_independently_reviewed": {
+            "verified": false,
+            "reason": "independent_review.status is 'None' for this repository; the decision field is author-declared and must not be read as a countersignature",
+            "owner": "Q0 (independent review)"
+          },
+          "gold_and_sealed_material_isolated_from_the_actor": {
+            "verified": false,
+            "reason": "no negative permission test has been produced; the restricted material's split is still declared pending and there is no evidence that a training/search actor cannot read or re-derive it",
+            "owner": "custodian + Q0 (permission and exclusion evidence)"
+          },
+          "variant_half_constructed": {
+            "verified": false,
+            "reason": "variant families are construction recipes; their mutation commits do not exist yet",
+            "owner": "E0 (coding officer)"
+          }
+        },
+        "precondition_source_preparation": "ready",
+        "owner": "Mika / custodian decision; D0 records the state only"
+      },
+      "status_axes": {
+        "contract_id": "v3-status-axes-2026-10-06-mika",
+        "contract": "Two independent axes. Axis 1, source_preparation.status, is a static-artefact statement and is the ONLY thing the compatibility field `released` mirrors. Axis 2, training_release.status, is the release gate and additionally requires verified runtime oracle results on the actor environment, an independent licence review, demonstrated isolation of gold/dev/sealed material from the actor, and a constructed variant half. A consumer MUST read `training_release.status`; reading `released` and inferring a training approval from it is a contract violation. `released` is retained only so an existing consumer keyed on it keeps working, and it is scoped by the companion `released_scope` string that travels with it in every emitted file.",
+        "training_release_admissible": false,
+        "consumer_rule": "consume `training_release.status`, never `released`; `released` is a source-preparation alias"
       }
     }
-  ]
+  ],
+  "gold_derivability": {
+    "generated_by": "d0/build_ledger.py",
+    "question": "can an actor reconstruct the gold patch from what it is handed?",
+    "per_family": {
+      "v3-train-click-001": {
+        "kind": "real",
+        "gold_patch_reaches_the_actor": false,
+        "actor_receives": [
+          "the rewritten task statement (D0 writes it; no upstream prose is copied)",
+          "the failing test node ids and the test patch",
+          "the pinned base revision",
+          "environment material (dependency metadata, requires-python, test runner)"
+        ],
+        "not_given_to_the_actor": [
+          "oracle_assertions (withheld into the restricted file)",
+          "the upstream commit message, PR body, issue thread and review comments",
+          "the upstream repository history at the pinned revision beyond the base",
+          "the code-only gold patch"
+        ],
+        "derivability_argument": "the actor is given the failing behaviour and the test that exposes it, which is the intended difficulty. What it is NOT given is the fix: the oracle split keeps the code-only patch out, the restricted file holds the assertions, and the task text is a rewrite rather than the upstream message. The remaining derivability of a *correct fix* is inherent to a SWE-style task and is not treated here as a leak.",
+        "leak_channels_closed": [
+          "oracle_assertions excluded from public-manifest.json",
+          "gold patch not emitted into any public artifact",
+          "task text rewritten, not copied"
+        ],
+        "leak_channels_open": [
+          "the upstream repository is PUBLIC: an actor with network access and the pinned commit could locate the real fix upstream. No actor-side network control is demonstrated in this delivery.",
+          "no actor-side history control is demonstrated: if the actor is given a git checkout whose history reaches past the base commit, the gold is in that history."
+        ]
+      },
+      "v3-train-more-itertools-001": {
+        "kind": "real",
+        "gold_patch_reaches_the_actor": false,
+        "actor_receives": [
+          "the rewritten task statement (D0 writes it; no upstream prose is copied)",
+          "the failing test node ids and the test patch",
+          "the pinned base revision",
+          "environment material (dependency metadata, requires-python, test runner)"
+        ],
+        "not_given_to_the_actor": [
+          "oracle_assertions (withheld into the restricted file)",
+          "the upstream commit message, PR body, issue thread and review comments",
+          "the upstream repository history at the pinned revision beyond the base",
+          "the code-only gold patch"
+        ],
+        "derivability_argument": "the actor is given the failing behaviour and the test that exposes it, which is the intended difficulty. What it is NOT given is the fix: the oracle split keeps the code-only patch out, the restricted file holds the assertions, and the task text is a rewrite rather than the upstream message. The remaining derivability of a *correct fix* is inherent to a SWE-style task and is not treated here as a leak.",
+        "leak_channels_closed": [
+          "oracle_assertions excluded from public-manifest.json",
+          "gold patch not emitted into any public artifact",
+          "task text rewritten, not copied"
+        ],
+        "leak_channels_open": [
+          "the upstream repository is PUBLIC: an actor with network access and the pinned commit could locate the real fix upstream. No actor-side network control is demonstrated in this delivery.",
+          "no actor-side history control is demonstrated: if the actor is given a git checkout whose history reaches past the base commit, the gold is in that history."
+        ]
+      },
+      "v3-train-pluggy-001": {
+        "kind": "real",
+        "gold_patch_reaches_the_actor": false,
+        "actor_receives": [
+          "the rewritten task statement (D0 writes it; no upstream prose is copied)",
+          "the failing test node ids and the test patch",
+          "the pinned base revision",
+          "environment material (dependency metadata, requires-python, test runner)"
+        ],
+        "not_given_to_the_actor": [
+          "oracle_assertions (withheld into the restricted file)",
+          "the upstream commit message, PR body, issue thread and review comments",
+          "the upstream repository history at the pinned revision beyond the base",
+          "the code-only gold patch"
+        ],
+        "derivability_argument": "the actor is given the failing behaviour and the test that exposes it, which is the intended difficulty. What it is NOT given is the fix: the oracle split keeps the code-only patch out, the restricted file holds the assertions, and the task text is a rewrite rather than the upstream message. The remaining derivability of a *correct fix* is inherent to a SWE-style task and is not treated here as a leak.",
+        "leak_channels_closed": [
+          "oracle_assertions excluded from public-manifest.json",
+          "gold patch not emitted into any public artifact",
+          "task text rewritten, not copied"
+        ],
+        "leak_channels_open": [
+          "the upstream repository is PUBLIC: an actor with network access and the pinned commit could locate the real fix upstream. No actor-side network control is demonstrated in this delivery.",
+          "no actor-side history control is demonstrated: if the actor is given a git checkout whose history reaches past the base commit, the gold is in that history."
+        ]
+      },
+      "v3-train-boltons-001": {
+        "kind": "real",
+        "gold_patch_reaches_the_actor": false,
+        "actor_receives": [
+          "the rewritten task statement (D0 writes it; no upstream prose is copied)",
+          "the failing test node ids and the test patch",
+          "the pinned base revision",
+          "environment material (dependency metadata, requires-python, test runner)"
+        ],
+        "not_given_to_the_actor": [
+          "oracle_assertions (withheld into the restricted file)",
+          "the upstream commit message, PR body, issue thread and review comments",
+          "the upstream repository history at the pinned revision beyond the base",
+          "the code-only gold patch"
+        ],
+        "derivability_argument": "the actor is given the failing behaviour and the test that exposes it, which is the intended difficulty. What it is NOT given is the fix: the oracle split keeps the code-only patch out, the restricted file holds the assertions, and the task text is a rewrite rather than the upstream message. The remaining derivability of a *correct fix* is inherent to a SWE-style task and is not treated here as a leak.",
+        "leak_channels_closed": [
+          "oracle_assertions excluded from public-manifest.json",
+          "gold patch not emitted into any public artifact",
+          "task text rewritten, not copied"
+        ],
+        "leak_channels_open": [
+          "the upstream repository is PUBLIC: an actor with network access and the pinned commit could locate the real fix upstream. No actor-side network control is demonstrated in this delivery.",
+          "no actor-side history control is demonstrated: if the actor is given a git checkout whose history reaches past the base commit, the gold is in that history."
+        ]
+      },
+      "v3-train-click-001-var-predicate": {
+        "kind": "variant",
+        "gold_patch_reaches_the_actor": false,
+        "actor_receives": [
+          "nothing yet: the mutation commit does not exist"
+        ],
+        "derivability_argument": "there is no gold patch to derive because the defective revision has not been constructed. This is a statement about the current state, not a solved problem: once the variant is built, its gold becomes derivable in exactly the way the real family's is -- from the task text and the failing test -- and must be withheld the same way.",
+        "leak_channels_closed": [],
+        "leak_channels_open": [
+          "the variant's oracle does not exist, so nothing has been closed for it yet"
+        ]
+      },
+      "v3-train-more-itertools-001-var-api": {
+        "kind": "variant",
+        "gold_patch_reaches_the_actor": false,
+        "actor_receives": [
+          "nothing yet: the mutation commit does not exist"
+        ],
+        "derivability_argument": "there is no gold patch to derive because the defective revision has not been constructed. This is a statement about the current state, not a solved problem: once the variant is built, its gold becomes derivable in exactly the way the real family's is -- from the task text and the failing test -- and must be withheld the same way.",
+        "leak_channels_closed": [],
+        "leak_channels_open": [
+          "the variant's oracle does not exist, so nothing has been closed for it yet"
+        ]
+      },
+      "v3-train-pluggy-001-var-backport": {
+        "kind": "variant",
+        "gold_patch_reaches_the_actor": false,
+        "actor_receives": [
+          "nothing yet: the mutation commit does not exist"
+        ],
+        "derivability_argument": "there is no gold patch to derive because the defective revision has not been constructed. This is a statement about the current state, not a solved problem: once the variant is built, its gold becomes derivable in exactly the way the real family's is -- from the task text and the failing test -- and must be withheld the same way.",
+        "leak_channels_closed": [],
+        "leak_channels_open": [
+          "the variant's oracle does not exist, so nothing has been closed for it yet"
+        ]
+      },
+      "v3-train-boltons-001-var-multidefect": {
+        "kind": "variant",
+        "gold_patch_reaches_the_actor": false,
+        "actor_receives": [
+          "nothing yet: the mutation commit does not exist"
+        ],
+        "derivability_argument": "there is no gold patch to derive because the defective revision has not been constructed. This is a statement about the current state, not a solved problem: once the variant is built, its gold becomes derivable in exactly the way the real family's is -- from the task text and the failing test -- and must be withheld the same way.",
+        "leak_channels_closed": [],
+        "leak_channels_open": [
+          "the variant's oracle does not exist, so nothing has been closed for it yet"
+        ]
+      }
+    },
+    "summary": {
+      "gold_patch_reaches_the_actor_in_any_family": false,
+      "isolation_established": false,
+      "honest_position": "the oracle material is withheld from the public artifacts, but ISOLATION IS NOT ESTABLISHED: the upstream repositories are public and this delivery demonstrates no actor-side network or history control. Any consumer must treat these families as gold-withheld-but-publicly-discoverable until the custodian produces negative permission tests.",
+      "owner_of_the_remaining_work": "custodian + Q0"
+    }
+  },
+  "actor_isolation": {
+    "generated_by": "d0/build_ledger.py",
+    "scope": "the training/search actor, not the D0 author",
+    "gaps": [
+      {
+        "id": "actor_network_access_not_controlled",
+        "status": "unproven",
+        "statement": "every counted family comes from a public upstream repository whose history contains the original fix. An actor with network access can find it. No sandbox, proxy rule or deny-list is demonstrated here, and D0 is not the party that can demonstrate it.",
+        "what_would_close_it": "a negative test showing the actor environment cannot reach the upstream remote, plus a run recorded without network",
+        "owner": "custodian / E0 environment owner"
+      },
+      {
+        "id": "actor_git_history_not_controlled",
+        "status": "unproven",
+        "statement": "the pinned clones here carry FULL history (they had to, to mine the families). If the actor receives such a checkout, the fix commit is reachable by `git log`. The actor's checkout has no demonstrated history truncation and no demonstrated future-history control.",
+        "what_would_close_it": "hand the actor a base-commit-only checkout (no descendants, no future commits) and record a negative test that the fix is not reachable from it, including via reflog, packed refs or remotes",
+        "owner": "custodian / E0 environment owner"
+      },
+      {
+        "id": "restricted_oracle_split_not_adjudicated",
+        "status": "unproven",
+        "statement": "restricted-oracle.json still carries split_declaration_pending: a custodian holding the gold material has not ruled which split its contents belong to. Naming a file 'restricted' establishes nothing.",
+        "what_would_close_it": "the custodian adjudicates the split and records who may read it",
+        "owner": "custodian"
+      }
+    ],
+    "isolation_established": false,
+    "note": "none of these gaps blocks the static source-preparation work; all three block the training-release gate, which is why training_release.status is 'blocked' for every family"
+  }
 }

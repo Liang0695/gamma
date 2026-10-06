@@ -34,6 +34,11 @@ sys.path.insert(0, HERE)
 # the SAME predicate the generator used -- the gate must not re-implement the
 # rule it is checking, or the two can drift apart silently
 from collect_licenses import classify_license, detect_conflicts  # noqa: E402
+# the status-contract constants, imported from the generator so the gate cannot
+# drift from the values the emitted files were built with
+from build_ledger import (STATUS_CONTRACT_ID,  # noqa: E402
+                          SOURCE_PREPARATION_SCOPE, source_preparation_status,
+                          training_release_decision)
 
 SHA1 = re.compile(r"^[0-9a-f]{40}$")
 SHA256 = re.compile(r"^[0-9a-f]{64}$")
@@ -62,6 +67,7 @@ REJECTED_TIME_SUBSTITUTES = {"release/tag date", "snapshot or pin date",
                              "backport date", "cherry-pick date"}
 
 results = []
+skipped = []
 
 
 def load(p):
@@ -69,8 +75,26 @@ def load(p):
         return json.load(f)
 
 
+def load_optional(p):
+    """Return the parsed file, or None when it is absent.
+
+    Used for the inputs a public reviewer legitimately does not receive. An absent
+    optional input yields a recorded SKIP, never a pass.
+    """
+    path = os.path.join(OUT, p)
+    if not os.path.isfile(path):
+        return None
+    with open(path, encoding="utf-8") as f:
+        return json.load(f)
+
+
 def check(name, ok, detail=""):
     results.append((name, bool(ok), detail))
+
+
+def skip(name, why):
+    """Record a check that CANNOT be evaluated here. Explicitly not a pass."""
+    skipped.append((name, why))
 
 
 def parse(s):
@@ -117,7 +141,7 @@ def main():
     lock = load("source-lock.json")
     ledger = load("family-ledger.json")
     pub = load("public-manifest.json")
-    ror = load("restricted-oracle.json")
+    ror = load_optional("restricted-oracle.json")
     iso = load("d0-time-isolation.json")
     short = load("d0-shortfall.json")
     merge = load("merge-evidence.json")
@@ -295,11 +319,13 @@ def main():
 
     # ---------------- 5. real half of P0 ----------------
     # The gate no longer asserts "4/4 released" as a fact to be produced -- it
-    # asserts that every real family's released flag is CONSISTENT with its
-    # evidence and that any shortfall is recorded. Forcing the count would reward
-    # claiming a family whose merge event could not be retrieved.
+    # asserts that every real family's status axes are CONSISTENT with its evidence
+    # and that any shortfall is recorded. Forcing the count would reward claiming a
+    # family whose merge event could not be retrieved.
     released_real = [f for f in real if f["released"]]
-    unqualified = [f for f in real if not f["released"]]
+    prepared_real = [f for f in real if f["source_preparation"]["status"] == "ready"]
+    unqualified = [f for f in real
+                   if f["source_preparation"]["status"] != "ready"]
     check("p0_has_four_real_and_four_variant_records",
           len(real) == 4 and len(var) == 4, "real=%d variant=%d" % (len(real), len(var)))
     check("released_real_families_all_carry_verified_merge_evidence",
@@ -307,38 +333,145 @@ def main():
               and f["merge_evidence"]["status"] == "verified"
               for f in released_real),
           "released=%d" % len(released_real))
-    check("every_unreleased_real_family_records_a_reason_and_a_shortfall",
+    check("every_unprepared_real_family_records_a_reason_and_a_shortfall",
           all(f.get("release_decision", {}).get("blocking_checks")
-              and f.get("release_decision", {}).get("note")
-              for f in unqualified)
-          and any("released=false" in (g if isinstance(g, str) else g.get("gap", ""))
-                  for g in short["blocking_gaps"]),
-          "unqualified=%s" % [f["family_id"] for f in unqualified])
-    check("released_count_is_truthfully_carried_into_the_shortfall_report",
-          short["p0"]["real_families_released"] == len(released_real)
+              or f["source_preparation"]["status"] == "ready"
+              for f in real)
+          and all(f["source_preparation"]["status"] == "ready"
+                  or any("source_preparation.status" in
+                         (g if isinstance(g, str) else g.get("gap", ""))
+                         for g in short["blocking_gaps"])
+                  for f in unqualified),
+          "unprepared=%s" % [f["family_id"] for f in unqualified])
+    check("source_preparation_count_is_truthfully_carried_into_the_shortfall_report",
+          short["p0"]["real_families_source_prepared"] == len(prepared_real)
           and short["p0"]["real_families_total"] == len(real)
           and short["p0"]["real_families_blocked_on_window_evidence"]
           == [f["family_id"] for f in unqualified],
-          "shortfall says %d/%d" % (short["p0"]["real_families_released"],
-                                    short["p0"]["real_families_total"]))
+          "shortfall says %d/%d prepared" % (
+              short["p0"]["real_families_source_prepared"],
+              short["p0"]["real_families_total"]))
+    check("training_release_count_is_truthfully_carried_into_the_shortfall_report",
+          short["p0"]["real_families_training_released"]
+          == sum(1 for f in real
+                 if f["training_release"]["approved_for_training"]),
+          "shortfall says %d training-released"
+          % short["p0"]["real_families_training_released"])
     check("p0_covers_at_least_two_repositories",
-          len({f["repo"] for f in released_real}) >= 2,
-          "repos=%s" % sorted({f["repo"] for f in released_real}))
+          len({f["repo"] for f in prepared_real}) >= 2,
+          "repos=%s" % sorted({f["repo"] for f in prepared_real}))
+
+    # ---------------- 5b. the two status axes (Mika ruling 2026-10-06) -----------
+    # The previous revision shipped one `released` boolean that mixed a static
+    # artefact statement with a release decision. These checks exist so that cannot
+    # come back: `released` may only ever mirror the source-preparation axis, and no
+    # family may claim a training release without positive evidence on all four
+    # required fronts.
+    axis_missing = [f["family_id"] for f in fams
+                    if not isinstance(f.get("source_preparation"), dict)
+                    or not isinstance(f.get("training_release"), dict)
+                    or not isinstance(f.get("status_axes"), dict)]
+    check("every_family_carries_both_status_axes", not axis_missing,
+          "offenders=%s" % axis_missing)
+
+    scope_drift = [f["family_id"] for f in fams
+                   if f.get("released_scope") != SOURCE_PREPARATION_SCOPE]
+    check("every_family_scopes_its_released_alias_to_source_preparation",
+          not scope_drift, "offenders=%s" % scope_drift)
+
+    alias_mismatch = [f["family_id"] for f in fams
+                      if f.get("released") !=
+                      (f["source_preparation"]["status"] == "ready")]
+    check("released_alias_mirrors_only_the_source_preparation_axis",
+          not alias_mismatch, "offenders=%s" % alias_mismatch)
+
+    unverified_release_claims = []
+    for f in fams:
+        tr = f["training_release"]
+        if tr["status"] != "approved" and tr.get("approved_for_training"):
+            unverified_release_claims.append("%s:approved_without_status" % f["family_id"])
+        missing = sorted(k for k, v in tr["requires"].items() if not v["verified"])
+        if tr.get("approved_for_training") and missing:
+            unverified_release_claims.append("%s:missing=%s" % (f["family_id"], missing))
+        if not tr.get("approved_for_training") and not tr.get("reason"):
+            unverified_release_claims.append("%s:blocked_without_reason" % f["family_id"])
+    check("no_family_is_training_released_without_every_evidence_item",
+          not unverified_release_claims,
+          "offenders=%s" % unverified_release_claims)
+
+    gate_contract_drift = (
+        ledger["status_contract"]["contract_id"] != STATUS_CONTRACT_ID
+        or short["status_contract"]["contract_id"] != STATUS_CONTRACT_ID
+        or pub["status_contract"]["contract_id"] != STATUS_CONTRACT_ID
+        or ledger["status_contract"]["compatibility_field_scope"]
+        != SOURCE_PREPARATION_SCOPE
+        or short["status_contract"]["compatibility_field_scope"]
+        != SOURCE_PREPARATION_SCOPE
+        or pub["status_contract"]["compatibility_field_scope"]
+        != SOURCE_PREPARATION_SCOPE)
+    check("status_contract_id_and_scope_agree_across_ledger_shortfall_and_manifest",
+          not gate_contract_drift,
+          "ids=%s" % {ledger["status_contract"]["contract_id"],
+                      short["status_contract"]["contract_id"],
+                      pub["status_contract"]["contract_id"]})
+
+    # NEGATIVE TEST: plant a family that claims a training release while one evidence
+    # item is unverified. The predicate that decides admission must refuse it, so the
+    # rule is exercised rather than merely asserted about the current data.
+    planted = json.loads(json.dumps(fams[0]))
+    planted["training_release"]["approved_for_training"] = True
+    planted["training_release"]["status"] = "approved"
+    planted_missing = sorted(k for k, v in planted["training_release"]["requires"].items()
+                             if not v["verified"])
+    check("negative_test_a_training_release_claim_without_evidence_cannot_be_admitted",
+          bool(planted_missing)
+          and not (planted["training_release"]["approved_for_training"]
+                   and not planted_missing),
+          "planted missing evidence=%s -> admitted=%s" % (
+              planted_missing,
+              planted["training_release"]["approved_for_training"]
+              and not planted_missing))
+
+    check("public_manifest_carries_the_same_two_axis_contract_as_the_ledger",
+          pub["status_contract"]["axes"] == ledger["status_contract"]["axes"]
+          and pub["training_release_gate"]["blocked_families"]
+          == [f["family_id"] for f in fams
+              if not f["training_release"]["approved_for_training"]]
+          and pub["training_release_gate"]["approved_families"] == [],
+          "approved=%s blocked=%d" % (
+              pub["training_release_gate"]["approved_families"],
+              len(pub["training_release_gate"]["blocked_families"])))
+
+    csv_rows = list(csv.DictReader(open(os.path.join(OUT, "kaggle-23-d0-family-table.csv"),
+                                        encoding="utf-8")))
+    csv_offenders = [r["family_id"] for r in csv_rows
+                     if "released" in r and r.get("released") != ""
+                     or "source_preparation_status" not in r
+                     or "training_release_status" not in r]
+    check("csv_exposes_both_axes_and_never_a_bare_released_column",
+          not csv_offenders and len(csv_rows) == len(fams),
+          "rows=%d offenders=%s" % (len(csv_rows), csv_offenders))
+    csv_alias_drift = [r["family_id"] for r, f in zip(csv_rows, fams)
+                       if r["source_preparation_status"]
+                       != f["source_preparation"]["status"]
+                       or r["training_release_status"] != f["training_release"]["status"]]
+    check("csv_axis_columns_agree_with_the_ledger", not csv_alias_drift,
+          "offenders=%s" % csv_alias_drift)
 
     # ---------------- 6. structural checks per family ----------------
-    # The gate asserts that each released flag is CONSISTENT with the family's own
-    # checks and that an unreleased family records why. It must not assert that
-    # every family released: that would reward publishing a family whose merge
-    # event was never retrieved, which is exactly what this revision forbids.
+    # The gate asserts that each status is CONSISTENT with the family's own checks
+    # and that an unprepared family records why. It must not assert that every family
+    # is ready: that would reward publishing a family whose merge event was never
+    # retrieved, which is exactly what this revision forbids.
     for f in real:
         failed = sorted(k for k, v in f["checks"].items() if not v)
-        check("released_flag_matches_the_structural_checks_%s" % f["family_id"],
+        check("source_preparation_status_matches_the_structural_checks_%s" % f["family_id"],
               f["released"] == (not failed),
-              "released=%s failed=%s" % (f["released"], failed))
-        check("unreleased_family_records_its_blocking_checks_%s" % f["family_id"],
+              "prep=%s failed=%s" % (f["source_preparation"]["status"], failed))
+        check("unprepared_family_records_its_blocking_checks_%s" % f["family_id"],
               f["released"]
-              or f["release_decision"]["blocking_checks"] == failed,
-              "blocking=%s" % f["release_decision"]["blocking_checks"])
+              or f["source_preparation"]["blocking_checks"] == failed,
+              "blocking=%s" % f["source_preparation"]["blocking_checks"])
 
     # ---------------- 7. revised time rule ----------------
     check("policy_id_is_recorded_on_ledger_and_isolation_and_shortfall",
@@ -442,6 +575,117 @@ def main():
     check("issue_reference_is_not_treated_as_merge_evidence",
           all(r.get("issue_reference_is_not_merge_evidence") is True
               for r in merge["records"]))
+
+    # ---------------- 7b. landing-event reconciliation (Mika ruling 2026-10-06) ----
+    # The review refused to accept "the associated pull request was merged" as proof
+    # that a family is sound, because for several counted families GitHub's
+    # merge_commit_sha is NOT the commit in the pinned snapshot -- and for boltons it is
+    # absent from the snapshot entirely. These checks require every counted family to
+    # carry a landing event re-derived from the pinned bytes, an adjudication of how the
+    # PR head, the merge SHA and the snapshot relate, and a patch-equivalence result.
+    landing_missing = [
+        f["family_id"] for f in real
+        if not (f["merge_evidence"].get("adjudicated_landing_commit")
+                and f["merge_evidence"].get("landing_event_adjudication")
+                and f["merge_evidence"].get("landing_event_shape"))]
+    check("every_counted_family_records_an_adjudicated_landing_event",
+          not landing_missing, "offenders=%s" % landing_missing)
+
+    landing_not_ancestor = [
+        f["family_id"] for f in real
+        if f["merge_evidence"].get(
+            "adjudicated_landing_is_ancestor_of_pinned_revision") is not True]
+    check("every_adjudicated_landing_event_is_an_ancestor_of_the_pinned_revision",
+          not landing_not_ancestor, "offenders=%s" % landing_not_ancestor)
+
+    # The three shapes must be NAMED rather than collapsed into one vague statement.
+    shapes = {f["family_id"]: f["merge_evidence"].get("landing_event_shape") for f in real}
+    check("landing_event_shape_is_one_of_the_defined_values",
+          all(s in ("two_parent_merge_commit", "fix_commit_is_the_landing_commit")
+              for s in shapes.values()),
+          "shapes=%s" % shapes)
+    check("a_two_parent_landing_event_is_actually_a_two_parent_merge",
+          all(f["merge_evidence"]["landing_event_evidence"]["landing_commit_is_a_two_parent_merge"]
+              is True
+              for f in real
+              if f["merge_evidence"].get("landing_event_shape") == "two_parent_merge_commit"),
+          "checked=%d" % sum(
+              1 for f in real
+              if f["merge_evidence"].get("landing_event_shape")
+              == "two_parent_merge_commit"))
+
+    eq_missing = [f["family_id"] for f in real
+                  if (f["merge_evidence"].get("patch_equivalence") or {}).get(
+                      "computed") is not True]
+    check("patch_equivalence_was_computed_for_every_counted_family",
+          not eq_missing, "offenders=%s" % eq_missing)
+
+    not_covered = [
+        (f["family_id"],
+         (f["merge_evidence"]["patch_equivalence"] or {}).get("fix_files_not_covered"))
+        for f in real
+        if (f["merge_evidence"].get("patch_equivalence") or {}).get(
+            "closed_under_the_landing_event") is not True]
+    check("every_fix_file_is_carried_by_the_landing_event",
+          not not_covered, "offenders=%s" % not_covered)
+
+    # boltons-specific: the discrepancy must be EXPLAINED, not silently aligned. The
+    # requirement is a recorded landing event plus a reason the API SHA differs.
+    boltons = [f for f in real if f["repo"] == "boltons"]
+    boltons_ok = bool(boltons) and all(
+        (f["merge_evidence"].get("merge_commit_geometry") or {})
+        .get("merge_commit_present_in_pinned_clone") is False
+        and "absent" in (f["merge_evidence"].get("landing_event_adjudication") or "")
+        and (f["merge_evidence"].get("patch_equivalence") or {}).get(
+            "fix_commit_is_ancestor_of_the_landing_merged_in_commit") is True
+        for f in boltons)
+    check("boltons_missing_merge_object_is_explained_with_ancestry_evidence",
+          boltons_ok,
+          "geometry=%s" % [
+              ((f["merge_evidence"].get("merge_commit_geometry") or {})
+               .get("merge_commit_present_in_pinned_clone"),
+               (f["merge_evidence"].get("patch_equivalence") or {})
+               .get("fix_commit_is_ancestor_of_the_landing_merged_in_commit"))
+              for f in boltons])
+    check("boltons_reconciliation_names_the_commit_the_pinned_merge_actually_brought_in",
+          all((f["merge_evidence"].get("patch_equivalence") or {}).get(
+              "landing_merged_in_commit") for f in boltons),
+          "landing_merged_in=%s" % [
+              (f["merge_evidence"].get("patch_equivalence") or {}).get(
+                  "landing_merged_in_commit") for f in boltons])
+
+    # NEGATIVE TEST: strip the landing evidence from a counted family and require the
+    # adjudication predicate to stop calling it reconciled.
+    planted_geo = json.loads(json.dumps(
+        real[0]["merge_evidence"]["merge_commit_geometry"]))
+    planted_geo["reconciliation"] = {"found": False, "matching_merge_commit": None}
+    planted_present = planted_geo.get("merge_commit_present_in_pinned_clone")
+    planted_fix_lands = planted_geo["reconciliation"].get(
+        "fix_commit_is_ancestor_of_pinned_revision")
+    planted_admitted = bool(planted_geo["reconciliation"].get("matching_merge_commit")) or (
+        planted_present and planted_fix_lands)
+    check("negative_test_a_family_without_landing_evidence_cannot_be_adjudicated",
+          not planted_admitted,
+          "planted found=False present=%s -> admitted=%s" % (planted_present, planted_admitted))
+
+    check("replaced_family_left_a_retrievable_failure_record",
+          any(r.get("status") == "replaced"
+              and r.get("counted_in_no_quota") is True
+              for r in merge.get("replaced_records", []))
+          and any(f.get("replaces_fix_commit")
+                  for f in real),
+          "replaced_records=%d" % len(merge.get("replaced_records", [])))
+    check("the_replaced_commit_is_counted_in_no_quota_and_is_not_a_family",
+          all(r["status"] == "replaced" for r in merge.get("replaced_records", []))
+          and not any(f.get("oracle_fix_commit") == r["fix_commit"]
+                      for f in fams for r in merge.get("replaced_records", [])))
+    check("no_variant_still_inherits_from_a_retired_parent",
+          all(f["derived_from"] in {x["family_id"] for x in real} for f in var),
+          "derived_from=%s" % {f["derived_from"] for f in var})
+    check("retired_variant_family_is_gone_and_its_replacement_is_present",
+          not any(f["family_id"] == "v3-train-click-001-var-rename" for f in fams)
+          and any(f["family_id"] == "v3-train-click-001-var-predicate" for f in fams),
+          "variants=%s" % [f["family_id"] for f in var])
     check("time_isolation_open_items_are_recorded", isinstance(iso["open_items"], list))
     check("dateutil_dev_family_shortfall_is_recorded_and_counted_zero",
           any(r["repo"] == "dateutil" and r["observed_family_candidates_in_window"] == 0
@@ -511,16 +755,63 @@ def main():
               + list(iso["dev_sealed_inventory"].values())))
 
     # ---------------- 10. public / restricted separation ----------------
+    # The public validator MUST be runnable by a reviewer who holds only the committed
+    # files. restricted-oracle.json carries gold-adjacent material and is deliberately
+    # NOT committed, so its checks are skipped here -- and a skip is recorded as a skip,
+    # never as a pass and never as evidence of isolation.
     leaked = [f["family_id"] for f in pub["families"] if "oracle_assertions" in f]
     check("public_manifest_contains_no_oracle_assertions", not leaked, "offenders=%s" % leaked)
     check("public_manifest_keeps_sealed_repo_content_out",
           all(v.get("content_committed") is False
               for v in pub["sealed_repos_metadata_only"].values()))
-    check("restricted_file_covers_every_family", len(ror["families"]) == len(fams))
-    check("restricted_file_is_marked_not_for_training_authors",
-          "training author" in ror["handling"])
-    check("restricted_file_does_not_claim_an_unverified_split",
-          ror.get("split_declaration_pending") is not None)
+    if ror is None:
+        for nm, why in [
+            ("restricted_file_covers_every_family",
+             "restricted-oracle.json is absent: it is not committed and must not be "
+             "committed, so a reviewer with only the repository cannot evaluate it"),
+            ("restricted_file_is_marked_not_for_training_authors", "same absent input"),
+            ("restricted_file_does_not_claim_an_unverified_split", "same absent input"),
+            ("restricted_oracle_split_is_really_isolated_from_the_actor",
+             "no negative permission test exists, and the file is unreadable here"),
+        ]:
+            skip(nm, why)
+    else:
+        check("restricted_file_covers_every_family", len(ror["families"]) == len(fams))
+        check("restricted_file_is_marked_not_for_training_authors",
+              "training author" in ror["handling"])
+        check("restricted_file_does_not_claim_an_unverified_split",
+              ror.get("split_declaration_pending") is not None)
+        # A file merely being named "restricted" or living in another directory is not
+        # isolation. Without a negative permission test this stays UNPROVEN.
+        skip("restricted_oracle_split_is_really_isolated_from_the_actor",
+             "the file is present but no negative permission test (author cannot read it "
+             "or self-authorise gold) has been produced, so isolation is unproven")
+
+    # ---------------- 10b. gold derivability and actor-side isolation -----------
+    # Mika's yellow items 6 and 7: state explicitly whether the train gold can be
+    # derived from what the actor receives, and declare the actor-side isolation gaps
+    # instead of leaving them implied.
+    deriv = ledger["gold_derivability"]
+    check("train_gold_derivability_is_stated_for_every_family",
+          set(deriv["per_family"]) == {f["family_id"] for f in fams},
+          "covered=%d of %d" % (len(deriv["per_family"]), len(fams)))
+    check("gold_is_withheld_from_the_actor_in_every_family",
+          all(v["gold_patch_reaches_the_actor"] is False
+              for v in deriv["per_family"].values()))
+    check("every_family_states_what_the_actor_receives_so_gold_is_not_reconstructible",
+          all(v.get("actor_receives") and v.get("derivability_argument")
+              for v in deriv["per_family"].values()))
+    check("actor_side_isolation_gaps_are_declared_rather_than_implied",
+          all(g.get("status") in ("unproven", "gap_declared")
+              for g in ledger["actor_isolation"]["gaps"])
+          and len(ledger["actor_isolation"]["gaps"]) >= 2,
+          "gaps=%s" % [g["id"] for g in ledger["actor_isolation"]["gaps"]])
+    check("actor_isolation_is_not_claimed_anywhere_in_the_deliverable",
+          all(g["status"] == "unproven" for g in ledger["actor_isolation"]["gaps"])
+          and deriv["summary"]["isolation_established"] is False
+          and all(v["gold_patch_reaches_the_actor"] is False
+                  for v in deriv["per_family"].values()),
+          "isolation_established=%s" % deriv["summary"]["isolation_established"])
 
     # ---------------- 11. per-file ledger completeness ----------------
     with open(os.path.join(OUT, "per-file-ledger.csv"), encoding="utf-8", newline="") as f:
@@ -539,7 +830,14 @@ def main():
         if not ok:
             failed += 1
         print("%s  %-*s  %s" % (status, width, name, detail))
-    print("\n%d checks, %d failed" % (len(results), failed))
+    for name, why in skipped:
+        # SKIP is deliberately not PASS: a check that could not be evaluated is not
+        # evidence, and the transcript has to make that unmistakable.
+        print("SKIP  %-*s  %s" % (width, name, why))
+    print("\n%d checks, %d failed, %d skipped (a skip is NOT a pass and is NOT "
+          "isolation evidence)" % (len(results), failed, len(skipped)))
+    if skipped:
+        print("skipped checks: %s" % ", ".join(n for n, _ in skipped))
     return 1 if failed else 0
 
 

@@ -1,12 +1,21 @@
 {
   "policy_id": "v3-time-policy-2026-10-05-mika",
+  "status_contract": {
+    "contract_id": "v3-status-axes-2026-10-06-mika",
+    "axes": [
+      "source_preparation.status",
+      "training_release.status"
+    ],
+    "compatibility_field": "released",
+    "compatibility_field_scope": "source preparation ONLY: the static artefacts for this family (pinned base and fix commits, hashed patches, oracle split, the licence decision for the exact pinned revision, and a window set by a verified ORIGINAL merge event) are complete. This is NOT a training release and NOT a data release: it carries no runtime, no independent licence countersignature and no permission-isolation evidence.",
+    "read_this_field": "consume training_release.status. `released` mirrors the static source-preparation axis only and must never be read as a training or data release."
+  },
   "p0": {
     "requirement": "8 training families = 4 real + 4 variant from >= 2 repositories",
-    "real_families_released": 3,
+    "real_families_source_prepared": 4,
+    "real_families_training_released": 0,
     "real_families_total": 4,
-    "real_families_blocked_on_window_evidence": [
-      "v3-train-click-001"
-    ],
+    "real_families_blocked_on_window_evidence": [],
     "variant_specs_ready": 4,
     "variant_commits_built": 0,
     "repositories_covered": [
@@ -15,19 +24,19 @@
       "more-itertools",
       "pluggy"
     ],
-    "verdict": "real half SHORT: 3/4 released under the merge-event rule. v3-train-click-001 has no retrievable merge event (the 2015 fix was pushed straight to main; its issue #222 was closed by a direct commit reference and pull requests #258/#259 were closed UNMERGED), so it is released=false and counted in no quota. Variant half has 4/4 specifications but zero constructed commits."
+    "verdict": "static source preparation: 4/4 real families ready. TRAINING RELEASE: 0/4 -- and that is not a shortfall of this revision, it is the honest state: no family has a runtime oracle result, an independent licence review or demonstrated permission isolation yet, so the training-release gate is closed for every family by design. The variant half has 4/4 specifications and zero constructed commits."
   },
   "p1_headroom": {
     "requirement": "train split of 96 families = 24 real + 40 variant",
     "screened_candidate_commits_in_train_window": 110,
-    "merge_event_verified_train_candidates": 3,
+    "merge_event_verified_train_candidates": 4,
     "per_repo": {
       "click": 56,
       "more-itertools": 6,
       "pluggy": 16,
       "boltons": 32
     },
-    "assessment": "110 commit-date SCREENED candidates against a need for 24 real families is nominal headroom of about 4.6x, but the count is a screening, not a qualified quota: each candidate still needs its merge event retrieved (3 have one today), a verifier run, an actor-reachability check and a bounded test patch. Do not read 110 as 24 usable.",
+    "assessment": "110 commit-date SCREENED candidates against a need for 24 real families is nominal headroom of about 4.6x, but the count is a screening, not a qualified quota: each candidate still needs its merge event retrieved (4 have one today), a verifier run, an actor-reachability check and a bounded test patch. Do not read 110 as 24 usable.",
     "weakest_repo": "more-itertools (6 screened candidates) -- thin if it must carry a share"
   },
   "dev_supply": {
@@ -43,28 +52,7 @@
     "attrs_observation": "attrs is the only locked dev-role repository that does yield in-window dev families. The count is thin and unverified; it is headroom evidence, not a released dev set.",
     "assessment": "dev family supply is thin and depends on attrs plus an alternative."
   },
-  "blocking_gaps": [
-    {
-      "gap": "v3-train-click-001 is released=false: the original fix's MERGE event could not be retrieved, and the time rule requires the merge event, not a commit date",
-      "impact": "the P0 real half is 3/4 instead of 4/4, so the 8-task set is short by one REAL family until this is ruled on",
-      "evidence": {
-        "family_id": "v3-train-click-001",
-        "repo": "click",
-        "fix_commit": "9da1791476fe79ce77aa7a2a2db370c91a455251",
-        "merge_evidence_status": "unverified",
-        "commit_to_pr_lookup_url": "https://api.github.com/repos/pallets/click/commits/9da1791476fe79ce77aa7a2a2db370c91a455251/pulls",
-        "author_date_audit_only": "2015-03-31T11:58:13+02:00",
-        "committer_date_audit_only": "2015-03-31T12:00:12+02:00",
-        "extra_observation": "the two pull requests cross-referenced from the upstream issue (pallets/click#258 and #259) were both closed UNMERGED, so no pull-request merge event exists for this fix at all"
-      },
-      "options": [
-        "accept a defined alternative landing-event evidence standard for direct-to-default-branch pushes (a policy decision, not taken here)",
-        "or substitute another train-split family whose merge event IS retrievable, from the screened inventory, after running the same derivation and review",
-        "or drop the 4th real family and record the P0 quota as short"
-      ],
-      "owner": "Mika / custodian decision; D0 does not silently swap a family"
-    }
-  ],
+  "blocking_gaps": [],
   "non_blocking_gaps": [
     {
       "gap": "dateutil cannot carry dev families at the pinned revision under the time rule",
@@ -86,7 +74,7 @@
     },
     {
       "gap": "the bulk per-repository inventory counts are commit-date SCREENINGS, not window-qualified families",
-      "evidence": "out/d0-time-isolation.json records screened_candidate_commits_in_window and merge_event_verified_and_in_window separately; merge events were retrieved only for the families this delivery intends to count and for the alternative candidate's in-window commits (3 train candidates verified so far)",
+      "evidence": "out/d0-time-isolation.json records screened_candidate_commits_in_window and merge_event_verified_and_in_window separately; merge events were retrieved only for the families this delivery intends to count and for the alternative candidate's in-window commits (4 train candidates verified so far)",
       "options": [
         "fetch the merge event for a candidate before promoting it, or keep it labelled as headroom"
       ],

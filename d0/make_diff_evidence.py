@@ -24,9 +24,9 @@ import sys
 HERE = os.path.dirname(os.path.abspath(__file__))
 REPO = os.path.dirname(HERE)
 OUT = os.path.join(HERE, "out")
-DEFAULT_PREV = "65aaa16"
+DEFAULT_PREV = "7fe7170"
 BRANCH = "agent/research/kaggle-23-d0-source-lock"
-OUTPUT_NAME = "v3-diff-evidence.txt"
+OUTPUT_NAME = "v4-diff-evidence.txt"
 
 
 def git(*args):
@@ -104,7 +104,15 @@ def released_counts(ledger):
     if not ledger:
         return None
     fams = ledger.get("families", [])
+    prepared = [f for f in fams if f.get("kind") == "real"
+                and (f.get("source_preparation") or {}).get("status") == "ready"]
+    trained = [f for f in fams if f.get("kind") == "real"
+               and (f.get("training_release") or {}).get("approved_for_training")]
     return {
+        "real_source_prepared": len(prepared),
+        "real_training_released": len(trained),
+        "real_released_alias": sum(1 for f in fams
+                                   if f.get("kind") == "real" and f.get("released")),
         "real_released": sum(1 for f in fams
                              if f.get("kind") == "real" and f.get("released")),
         "real_total": sum(1 for f in fams if f.get("kind") == "real"),
@@ -176,10 +184,10 @@ def main():
 
     L = []
     a = L.append
-    a("V3 D0 v3 -- DIFF EVIDENCE (machine-derived, not transcribed)")
+    a("V3 D0 v4 -- DIFF EVIDENCE (machine-derived, not transcribed)")
     a("=" * 72)
     a("branch                 : %s" % BRANCH)
-    a("previous head (v2)     : %s (%s)" % (prev, prev_full))
+    a("previous head (v3)     : %s (%s)" % (prev, prev_full))
     a("HEAD at generation     : %s" % head)
     a("'after' side read from : the WORKING TREE (d0/out/*.json on disk)")
     a("working tree vs HEAD   : %d changed path(s)" % n_dirty)
@@ -285,21 +293,29 @@ def main():
     a("")
 
     a("-" * 72)
-    a("6. RELEASE STATE BEFORE/AFTER   (d0/out/family-ledger.json)")
+    a("6. STATUS AXES BEFORE/AFTER   (d0/out/family-ledger.json)")
     a("-" * 72)
     rb = released_counts(show_json(prev_full, "d0/out/family-ledger.json"))
     rn = released_counts(show_json(None, "d0/out/family-ledger.json"))
-    for k in ["real_released", "real_total", "variant_released", "variant_total"]:
-        a("  %-40s before=%s" % (k, (rb or {}).get(k)))
-        a("  %-40s after =%s" % ("", (rn or {}).get(k)))
+    for k in ["real_source_prepared", "real_training_released", "real_released_alias",
+              "real_total", "variant_total"]:
+        a("  %-42s before=%s" % (k, (rb or {}).get(k)))
+        a("  %-42s after =%s" % ("", (rn or {}).get(k)))
     a("")
-    a("  Interpretation: THIS IS THE ONE PLACE THE REVISION IS NOT NEUTRAL. The")
-    a("  real half drops from 4/4 to 3/4 because v3-train-click-001 has no")
-    a("  retrievable merge event and therefore cannot be window-qualified under the")
-    a("  rule the reviewer required. It is released=false, counted in no quota, and")
-    a("  recorded as a blocking gap; it is NOT silently replaced. Everything else")
-    a("  is unchanged: the four variant families stay released=false, because their")
-    a("  variant commit does not exist until an author builds it.")
+    a("  Interpretation: v3 shipped ONE `released` boolean that mixed a static-artefact")
+    a("  statement with a release decision, and reported 3/8 with no separate notion of")
+    a("  'may this train an agent'. v4 splits the axes: `source_preparation.status`")
+    a("  (static material complete) and `training_release.status` (release gate).")
+    a("  Every family is now source-prepared but training-BLOCKED, with the missing")
+    a("  evidence itemised per family -- no runtime oracle result, no independent")
+    a("  licence review, no demonstrated actor isolation, no constructed variant.")
+    a("  `released` survives as a compatibility alias mirroring ONLY the static axis,")
+    a("  scoped by a companion `released_scope` string present in every emitted file.")
+    a("")
+    a("  The click slot was substituted in this revision (Mika's ruling): the family")
+    a("  that could not produce a merge event is replaced by ee56925bc4f5 (PR #1934,")
+    a("  merged 2021-07-03), and the replaced commit is retained in")
+    a("  merge-evidence.json's replaced_records with counted_in_no_quota=true.")
     a("")
 
     a("-" * 72)
@@ -310,23 +326,48 @@ def main():
     a("  checks / failures   before=%s" % json.dumps(gb))
     a("  checks / failures   after =%s" % json.dumps(gn))
     a("")
-    a("  Interpretation: the gate gained the licence-conflict regression test, the")
-    a("  missing-merge-evidence negative test, two consistency assertions that")
-    a("  re-derive the licence decision and pin the dotenv hash pair, and the")
-    a("  merge-event window checks. It now asserts CONSISTENCY rather than")
-    a("  'everything released': a family may be released=false, but then its")
-    a("  blocking checks and its shortfall must be recorded and it may not be")
-    a("  counted anywhere. Hard-coding '4/4 released' would reward a family whose")
-    a("  merge event was never retrieved.")
+    a("  Interpretation: the gate gained five new assertion groups -- the two status")
+    a("  axes and their cross-file contract, the landing-event adjudication and patch")
+    a("  equivalence, gold derivability, actor-side isolation gaps, and the replaced-")
+    a("  family bookkeeping -- plus a third negative test (a family with no landing")
+    a("  evidence must not be adjudicated as reconciled). It also gained an explicit")
+    a("  SKIP channel: restricted-oracle.json is not committed, so the public")
+    a("  validator now runs without it and records those checks as SKIP. A skip is")
+    a("  printed as SKIP, never as PASS, and is explicitly not isolation evidence.")
+    a("")
+
+    a("-" * 72)
+    a("7b. LANDING-EVENT ADJUDICATION   (d0/out/merge-evidence.json)")
+    a("-" * 72)
+    me_n = show_json(None, "d0/out/merge-evidence.json") or {}
+    for fam, g in sorted((me_n.get("summary", {})
+                          .get("landing_event_adjudications") or {}).items()):
+        a("  %-16s %s" % (fam, g))
+    a("")
+    a("  Interpretation: GitHub's merge_commit_sha is not the commit that lives in the")
+    a("  pinned clone for most of these families. v4 re-derives the landing event from")
+    a("  the pinned bytes for each counted family and records which of three shapes")
+    a("  applies, rather than treating 'the associated pull request was merged' as")
+    a("  proof. boltons is the sharp case: the API's merge commit is ABSENT from the")
+    a("  pinned clone, and the pinned history's own merge commit for that pull request")
+    a("  brought in a different commit which has the fix as its parent. That is")
+    a("  disclosed with ancestry and per-file change-set evidence instead of being")
+    a("  silently aligned.")
     a("")
 
     a("-" * 72)
     a("8. WHAT DID NOT CHANGE (explicitly)")
     a("-" * 72)
     a("  * the 8 locked repositories and their pinned commits / tree SHAs are")
-    a("    unchanged; no repository was re-pinned and no other repository's")
-    a("    per-file licence ledger was re-reviewed in this round.")
-    a("  * no FAIL_TO_PASS run: this runtime still has no reachable package index.")
+    a("    unchanged; no repository was re-pinned and no repository's per-file")
+    a("    licence ledger was re-reviewed in this round. The click substitution")
+    a("    reuses the SAME pinned click revision and its existing licence approval.")
+    a("  * the time windows are unchanged, and the date rule was not relaxed to")
+    a("    admit the replacement: it qualifies on its own 2021-07-03 merge event.")
+    a("  * the '4 real + 4 variant from >= 2 repositories' target was not lowered;")
+    a("    the four training repositories are all still represented.")
+    a("  * no FAIL_TO_PASS run: this runtime still has no reachable package index,")
+    a("    so every oracle field remains static evidence.")
     a("  * d0/out/restricted-oracle.json is still NOT committed, and still carries")
     a("    split_declaration_pending so it cannot be read as already split.")
     a("  * dev/sealed release and acceptance remain blocked on the isolation")

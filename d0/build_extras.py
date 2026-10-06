@@ -23,6 +23,7 @@ import hashlib
 import json
 import os
 import re
+import csv
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 OUT = os.path.join(HERE, "out")
@@ -32,6 +33,16 @@ POLICY_ID = "v3-time-policy-2026-10-05-mika"
 TRAIN_END_EXCLUSIVE = "2026-01-01T00:00:00+00:00"
 DEVSEALED_START = "2026-01-01T00:00:00+00:00"
 DEVSEALED_END_EXCLUSIVE = "2026-10-05T00:00:00+00:00"
+
+# The two-axis status contract. The gate re-reads these from build_ledger so the two
+# modules cannot drift apart while still being independently readable here.
+STATUS_CONTRACT_ID = "v3-status-axes-2026-10-06-mika"
+SOURCE_PREPARATION_SCOPE = (
+    "source preparation ONLY: the static artefacts for this family (pinned base and fix "
+    "commits, hashed patches, oracle split, the licence decision for the exact pinned "
+    "revision, and a window set by a verified ORIGINAL merge event) are complete. This is "
+    "NOT a training release and NOT a data release: it carries no runtime, no independent "
+    "licence countersignature and no permission-isolation evidence.")
 
 TRAIN_REPOS = ["click", "more-itertools", "pluggy", "boltons"]
 DEV_REPOS = ["attrs", "dateutil"]
@@ -248,7 +259,10 @@ def main():
          "merge_event_utc": f["fix_time"]["merge_event_utc"],
          "qualifies_by_merge_event": f["fix_time"]["qualifies_by_merge_event"],
          "merge_evidence_status": f["merge_evidence"]["status"],
+         "source_preparation_status": f["source_preparation"]["status"],
+         "training_release_status": f["training_release"]["status"],
          "released": f["released"],
+         "released_scope": f["released_scope"],
          "both_dates_in_train_window": f["fix_time"]["both_dates_in_train_window"],
          "is_ancestor_of_pinned_revision": f["fix_commit_is_ancestor_of_pinned_revision"],
          "backport_or_cherry_pick_marker": f["backport_or_cherry_pick_marker"],
@@ -378,22 +392,39 @@ def main():
     repos_covered = sorted({f["repo"] for f in ledger["families"]})
     shortfall = {
         "policy_id": POLICY_ID,
+        "status_contract": {
+            "contract_id": STATUS_CONTRACT_ID,
+            "axes": ["source_preparation.status", "training_release.status"],
+            "compatibility_field": "released",
+            "compatibility_field_scope": SOURCE_PREPARATION_SCOPE,
+            "read_this_field": ("consume training_release.status. `released` mirrors the "
+                                "static source-preparation axis only and must never be read "
+                                "as a training or data release."),
+        },
         "p0": {
             "requirement": "8 training families = 4 real + 4 variant from >= 2 repositories",
-            "real_families_released": sum(1 for f in real if f["released"]),
+            "real_families_source_prepared": sum(
+                1 for f in real if f["source_preparation"]["status"] == "ready"),
+            "real_families_training_released": sum(
+                1 for f in real if f["training_release"]["approved_for_training"]),
             "real_families_total": len(real),
             "real_families_blocked_on_window_evidence": [
-                f["family_id"] for f in real if not f["released"]],
+                f["family_id"] for f in real
+                if f["source_preparation"]["status"] != "ready"],
             "variant_specs_ready": sum(1 for f in variant if f["mutation_recipe"]),
             "variant_commits_built": 0,
             "repositories_covered": repos_covered,
-            "verdict": ("real half SHORT: %d/%d released under the merge-event rule. "
-                        "v3-train-click-001 has no retrievable merge event (the 2015 fix "
-                        "was pushed straight to main; its issue #222 was closed by a "
-                        "direct commit reference and pull requests #258/#259 were closed "
-                        "UNMERGED), so it is released=false and counted in no quota. "
-                        "Variant half has 4/4 specifications but zero constructed "
-                        "commits." % (sum(1 for f in real if f["released"]), len(real))),
+            "verdict": (
+                "static source preparation: %d/%d real families ready. TRAINING RELEASE: "
+                "%d/%d -- and that is not a shortfall of this revision, it is the honest "
+                "state: no family has a runtime oracle result, an independent licence "
+                "review or demonstrated permission isolation yet, so the training-release "
+                "gate is closed for every family by design. The variant half has 4/4 "
+                "specifications and zero constructed commits."
+                % (sum(1 for f in real if f["source_preparation"]["status"] == "ready"),
+                   len(real),
+                   sum(1 for f in real if f["training_release"]["approved_for_training"]),
+                   len(real))),
         },
         "p1_headroom": {
             "requirement": "train split of 96 families = 24 real + 40 variant",
@@ -437,16 +468,19 @@ def main():
     if any(f["repo"] == "dateutil" for f in real):
         shortfall["blocking_gaps"].append("dateutil used as a train source (unexpected)")
     for f in real:
-        if f["released"]:
+        if f["source_preparation"]["status"] == "ready":
             continue
         me = f["merge_evidence"]
         shortfall["blocking_gaps"].append({
-            "gap": ("%s is released=false: the original fix's MERGE event could not be "
-                    "retrieved, and the time rule requires the merge event, not a "
-                    "commit date" % f["family_id"]),
-            "impact": ("the P0 real half is %d/4 instead of 4/4, so the 8-task set is "
-                       "short by one REAL family until this is ruled on"
-                       % sum(1 for x in real if x["released"])),
+            "gap": ("%s has source_preparation.status=%s: the original fix's MERGE event "
+                    "could not be retrieved, and the time rule requires the merge event, "
+                    "not a commit date"
+                    % (f["family_id"], f["source_preparation"]["status"])),
+            "impact": ("the P0 real half has %d/%d families whose static source material "
+                       "is complete, so the 8-task set is short by one REAL family until "
+                       "this is ruled on"
+                       % (sum(1 for x in real
+                              if x["source_preparation"]["status"] == "ready"), len(real))),
             "evidence": {
                 "family_id": f["family_id"],
                 "repo": f["repo"],
@@ -470,6 +504,16 @@ def main():
                 "or drop the 4th real family and record the P0 quota as short",
             ],
             "owner": "Mika / custodian decision; D0 does not silently swap a family",
+            "resolution_history": [{
+                "date": "2026-10-06",
+                "action": ("Mika ruled to substitute the slot. click "
+                           "9da1791476fe79ce77aa7a2a2db370c91a455251 was replaced by click "
+                           "ee56925bc4f5451a125317e183f498e8bd1aecb3 (PR #1934, merged "
+                           "2021-07-03, verified landing event). The replaced commit stays "
+                           "unverified and counted in no quota; its derived variant family "
+                           "was retired and rebuilt on the replacement parent."),
+                "authority": "Mika ruling on this issue, 2026-10-06",
+            }],
         })
     for r in risks:
         shortfall["non_blocking_gaps"].append({
@@ -535,7 +579,57 @@ def main():
     with open(os.path.join(OUT, "d0-shortfall.json"), "w", encoding="utf-8") as f:
         json.dump(shortfall, f, indent=2, ensure_ascii=False)
 
-    # ---------- 3. public vs restricted split ----------
+    # ---------- 3. the family table CSV ----------
+    # Emitted HERE rather than in make_report.py because the gate reads it: the CSV is
+    # part of the machine-readable surface (it is one of the places a bare `released`
+    # column used to be read as a release claim), so it has to exist before the gate
+    # runs, not after it.
+    with open(os.path.join(OUT, "kaggle-23-d0-family-table.csv"), "w",
+              encoding="utf-8", newline="") as fh:
+        w = csv.writer(fh)
+        w.writerow([
+            "family_id", "kind", "repo", "split",
+            "source_preparation_status", "training_release_status",
+            "released_source_preparation_alias", "base_commit",
+            "oracle_fix_commit", "oracle_patch_sha256",
+            "author_date_audit_only", "committer_date_audit_only",
+            "merge_event_utc", "merge_pr", "merge_sha_matches_fix_commit",
+            "qualifies_by_merge_event", "merge_evidence_status",
+            "landing_event_shape", "adjudicated_landing_commit",
+            "patch_equivalence_closed",
+            "ancestor_of_pin", "fail_to_pass_nodes", "mutation_class",
+            "license_spdx", "license_review_decision", "license_conflicts"])
+        for f in ledger["families"]:
+            ft = f.get("fix_time") or {}
+            me = f.get("merge_evidence") or {}
+            w.writerow([
+                f["family_id"], f["kind"], f["repo"], f["split"],
+                f["source_preparation"]["status"],
+                f["training_release"]["status"],
+                f["released"],
+                f.get("base_commit") or f.get("source_base_commit") or "",
+                f.get("oracle_fix_commit") or "",
+                f.get("oracle_patch_sha256") or "",
+                ft.get("author_date", ""),
+                ft.get("committer_date", ""),
+                ft.get("merge_event_utc") or "",
+                me.get("pull_request_url") or "",
+                me.get("merge_commit_sha_matches_fix_commit", ""),
+                ft.get("qualifies_by_merge_event", ""),
+                me.get("status", ""),
+                me.get("landing_event_shape") or "",
+                me.get("adjudicated_landing_commit") or "",
+                (me.get("patch_equivalence") or {}).get(
+                    "closed_under_the_landing_event", ""),
+                f.get("fix_commit_is_ancestor_of_pinned_revision", ""),
+                ";".join(n["node_id"] for n in (f.get("fail_to_pass") or [])),
+                f.get("mutation_class", ""),
+                f["license"]["spdx"],
+                f["license"].get("license_review_decision", ""),
+                ";".join(c["kind"] for c in f["license"].get("license_conflicts") or []),
+            ])
+
+    # ---------- 4. public vs restricted split ----------
     GOLD_KEYS = {"oracle_assertions"}
     public_families = []
     restricted_families = []
@@ -581,6 +675,42 @@ def main():
                 "content_committed": False,
             }},
         "families": public_families,
+        "status_contract": {
+            "contract_id": STATUS_CONTRACT_ID,
+            "axes": ["source_preparation.status", "training_release.status"],
+            "compatibility_field": "released",
+            "compatibility_field_scope": SOURCE_PREPARATION_SCOPE,
+            "consumer_rule": (
+                "Read training_release.status to decide whether a family may train or "
+                "evaluate an agent. `released` is a backward-compatibility alias for the "
+                "STATIC source-preparation axis only. A consumer that treats "
+                "`released == true` as training approval is violating this contract, and "
+                "the gate fails the build if any emitted family could be read that way."),
+            "current_state": ("training_release.status is 'blocked' for every family: no "
+                              "runtime oracle result, no independent licence review and no "
+                              "permission-isolation evidence exists yet"),
+        },
+        "training_release_gate": {
+            "approved_families": [f["family_id"] for f in ledger["families"]
+                                  if f["training_release"]["approved_for_training"]],
+            "blocked_families": [f["family_id"] for f in ledger["families"]
+                                 if not f["training_release"]["approved_for_training"]],
+            "required_evidence": sorted(
+                ledger["families"][0]["training_release"]["requires"].keys()),
+        },
+        "landing_event_reconciliation": {
+            f["family_id"]: {
+                "adjudication": (f.get("merge_evidence") or {}).get(
+                    "landing_event_adjudication"),
+                "shape": (f.get("merge_evidence") or {}).get("landing_event_shape"),
+                "github_merge_commit": (f.get("merge_evidence") or {}).get(
+                    "merge_commit_sha"),
+                "adjudicated_landing_commit": (f.get("merge_evidence") or {}).get(
+                    "adjudicated_landing_commit"),
+                "patch_equivalence_closed": ((f.get("merge_evidence") or {}).get(
+                    "patch_equivalence") or {}).get("closed_under_the_landing_event"),
+            }
+            for f in ledger["families"] if f["kind"] == "real"},
         "time_isolation": iso["rule"],
         "license_approvals": {},
         "license_review_schema": lock["license_review_schema"],
