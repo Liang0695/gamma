@@ -1,0 +1,147 @@
+{
+  "policy_id": "v3-time-policy-2026-10-05-mika",
+  "status_contract": {
+    "contract_id": "v3-status-axes-2026-10-06-mika",
+    "axes": [
+      "source_preparation.status",
+      "training_release.status"
+    ],
+    "compatibility_field": "released",
+    "compatibility_field_scope": "source preparation ONLY: the static artefacts for this family (pinned base and fix commits, hashed patches, oracle split, the licence decision for the exact pinned revision, and a window set by a verified ORIGINAL merge event) are complete. This is NOT a training release and NOT a data release: it carries no runtime, no independent licence countersignature and no permission-isolation evidence.",
+    "read_this_field": "consume training_release.status. `released` mirrors the static source-preparation axis only and must never be read as a training or data release."
+  },
+  "p0": {
+    "requirement": "8 training families = 4 real + 4 variant from >= 2 repositories",
+    "real_families_source_prepared": 3,
+    "real_families_training_released": 0,
+    "real_families_total": 4,
+    "real_families_source_preparation_shortfall": [
+      {
+        "family_id": "v3-train-boltons-001",
+        "status": "needs_review",
+        "blocking_checks": [
+          "landing_patch_correspondence_proven"
+        ]
+      }
+    ],
+    "real_families_needs_review": [
+      "v3-train-boltons-001"
+    ],
+    "variant_specs_ready": 4,
+    "variant_commits_built": 0,
+    "repositories_covered": [
+      "boltons",
+      "click",
+      "more-itertools",
+      "pluggy"
+    ],
+    "verdict": "static source preparation: 3/4 real families ready. TRAINING RELEASE: 0/4 -- and that is not a shortfall of this revision, it is the honest state: no family has a runtime oracle result, an independent licence review or demonstrated permission isolation yet, so the training-release gate is closed for every family by design. The variant half has 4/4 specifications and zero constructed commits."
+  },
+  "p1_headroom": {
+    "requirement": "train split of 96 families = 24 real + 40 variant",
+    "screened_candidate_commits_in_train_window": 110,
+    "merge_event_verified_train_candidates": 4,
+    "per_repo": {
+      "click": 56,
+      "more-itertools": 6,
+      "pluggy": 16,
+      "boltons": 32
+    },
+    "assessment": "110 commit-date SCREENED candidates against a need for 24 real families is nominal headroom of about 4.6x, but the count is a screening, not a qualified quota: each candidate still needs its merge event retrieved (4 have one today), a verifier run, an actor-reachability check and a bounded test patch. Do not read 110 as 24 usable.",
+    "weakest_repo": "more-itertools (6 screened candidates) -- thin if it must carry a share"
+  },
+  "dev_supply": {
+    "requirement": "a dev split needs families whose original fix time is in 2026-01-01 .. 2026-10-04, from the dev-role repositories",
+    "screened_dev_candidates_found": 3,
+    "per_repo": {
+      "attrs": 3,
+      "dateutil": 0,
+      "packaging": 66,
+      "marshmallow": 10
+    },
+    "dateutil_verdict": "0 qualified dev families. dateutil's pinned revision is dated 2024-02-29, entirely before the window, so no family in that pinned revision can be a dev family. This confirms Mika's provisional count of 0.",
+    "attrs_observation": "attrs is the only locked dev-role repository that does yield in-window dev families. The count is thin and unverified; it is headroom evidence, not a released dev set.",
+    "assessment": "dev family supply is thin and depends on attrs plus an alternative."
+  },
+  "blocking_gaps": [
+    {
+      "gap": "v3-train-boltons-001 has source_preparation.status=needs_review: a pinned PR landing event exists, but patch correspondence is not proven by its changed lines",
+      "impact": "the P0 real half has 3/4 families whose static source material is complete, so the 8-task set is short by one REAL family until this is ruled on",
+      "evidence": {
+        "family_id": "v3-train-boltons-001",
+        "repo": "boltons",
+        "fix_commit": "ae21ed2a78064ca1090db069e3f755aa1853b885",
+        "merge_evidence_status": "verified",
+        "commit_to_pr_lookup_url": "https://api.github.com/repos/mahmoud/boltons/commits/ae21ed2a78064ca1090db069e3f755aa1853b885/pulls",
+        "author_date_audit_only": "2015-04-19T00:13:33-07:00",
+        "committer_date_audit_only": "2015-04-19T00:21:19-07:00",
+        "extra_observation": "the two pull requests cross-referenced from the upstream issue (pallets/click#258 and #259) were both closed UNMERGED, so no pull-request merge event exists for this fix at all"
+      },
+      "options": [
+        "accept a defined alternative landing-event evidence standard for direct-to-default-branch pushes (a policy decision, not taken here)",
+        "or substitute another train-split family whose merge event IS retrievable, from the screened inventory, after running the same derivation and review",
+        "or drop the 4th real family and record the P0 quota as short"
+      ],
+      "owner": "Mika / custodian decision; D0 does not silently swap a family",
+      "resolution_history": [
+        {
+          "date": "2026-10-06",
+          "action": "Mika ruled to substitute the slot. click 9da1791476fe79ce77aa7a2a2db370c91a455251 was replaced by click ee56925bc4f5451a125317e183f498e8bd1aecb3 (PR #1934, merged 2021-07-03, verified landing event). The replaced commit stays unverified and counted in no quota; its derived variant family was retired and rebuilt on the replacement parent.",
+          "authority": "Mika ruling on this issue, 2026-10-06"
+        }
+      ]
+    }
+  ],
+  "non_blocking_gaps": [
+    {
+      "gap": "dateutil cannot carry dev families at the pinned revision under the time rule",
+      "evidence": "pinned snapshot 2024-02-29T22:38:37-05:00 < required window start 2026-01-01T00:00:00+00:00",
+      "options": [
+        "drop it from the dev role and let the remaining dev/ sealed-role repositories carry that split",
+        "or re-pin it to a revision inside the window and redo the per-file licence ledger AND the licence approval for the new revision",
+        "or approve the already-named alternative candidate if the custodian rules that way"
+      ],
+      "owner": "needs a decision from Mika / the custodian, not taken here"
+    },
+    {
+      "gap": "dev/sealed family inventories exist but are unverified headroom, and only one locked dev-role repository (attrs) yields in-window dev families",
+      "evidence": "counts in dev_supply above; every candidate still needs its merge event retrieved, a verifier run and an actor-reachability check",
+      "options": [
+        "treat attrs plus an approved alternative as the dev supply, or re-pin"
+      ],
+      "owner": "D0 follow-up / custodian decision"
+    },
+    {
+      "gap": "the bulk per-repository inventory counts are commit-date SCREENINGS, not window-qualified families",
+      "evidence": "out/d0-time-isolation.json records screened_candidate_commits_in_window and merge_event_verified_and_in_window separately; merge events were retrieved only for the families this delivery intends to count and for the alternative candidate's in-window commits (4 train candidates verified so far)",
+      "options": [
+        "fetch the merge event for a candidate before promoting it, or keep it labelled as headroom"
+      ],
+      "owner": "D0 follow-up; no quota claim is made from a screening count"
+    },
+    {
+      "gap": "no FAIL_TO_PASS run was executed",
+      "evidence": "the research runtime has no reachable package index, so pytest could not be installed; every oracle field here is static evidence",
+      "options": [
+        "E0 builds the environment and runs the four oracles as its T0 deliverable"
+      ],
+      "owner": "E0 (coding officer)"
+    },
+    {
+      "gap": "licence approval is self-declared and not independently countersigned",
+      "evidence": "repos.<name>.license_review.independent_review.status == 'pending' for every repository; the decision field is machine-readable but its author is the D0 owner",
+      "options": [
+        "Q0 countersigns or refutes the license_review records"
+      ],
+      "owner": "Q0"
+    },
+    {
+      "gap": "licence of the upstream issue/PR *prose* was not cleared",
+      "evidence": "the candidate repositories are code-licensed; a report body or comment thread is a separate work. The design already requires rewritten task text, and this ledger copies no prose, so nothing is blocked -- but the rewritten text must be reviewed as original writing",
+      "options": [
+        "keep the rewrite policy; have Q0 spot-check the task texts for paraphrase"
+      ],
+      "owner": "Q0"
+    }
+  ]
+}

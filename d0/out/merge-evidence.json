@@ -1,0 +1,1519 @@
+{
+  "generated_by": "d0/fetch_merge_evidence.py",
+  "retrieved_at_utc": "2026-10-06T06:21:16Z",
+  "retrieval_mode": "cache-only re-run; no network request was made",
+  "metadata_source": "https://api.github.com (GitHub REST API v3)",
+  "authentication": "unauthenticated; no token is read, written or logged. Cache-first: an already-downloaded response is re-used, so re-runs do not spend API quota.",
+  "policy": {
+    "window_qualification_basis": "the ORIGINAL family fix's upstream MERGE event: the merged_at_utc of the pull request whose merge_commit_sha equals the fix commit",
+    "author_and_committer_dates_role": "audit corroboration ONLY. A rebase, squash or re-land can rewrite them, so they never qualify a family into a window.",
+    "backport_handling": "a backport commit inherits the ORIGINAL fix's merge event; its own commit time is never used to classify it",
+    "missing_merge_evidence": "status=unverified, window_qualified_by_merge_event=false, counted in no window. An issue reference in the commit message is not merge evidence and can never promote such a record.",
+    "negative_test_required": "a record without merge evidence must fail the gate's qualification predicate -- see validate_d0.py"
+  },
+  "windows": {
+    "train": {
+      "end_exclusive": "2026-01-01T00:00:00+00:00"
+    },
+    "dev_sealed": {
+      "start": "2026-01-01T00:00:00+00:00",
+      "end_exclusive": "2026-10-05T00:00:00+00:00"
+    }
+  },
+  "records": [
+    {
+      "repo": "click",
+      "upstream_slug": "pallets/click",
+      "fix_commit": "ee56925bc4f5451a125317e183f498e8bd1aecb3",
+      "split_role": "train",
+      "window": "train",
+      "commit_message_issue_refs": [],
+      "issue_reference_is_not_merge_evidence": true,
+      "commit_to_pr_lookup": {
+        "url": "https://api.github.com/repos/pallets/click/commits/ee56925bc4f5451a125317e183f498e8bd1aecb3/pulls",
+        "raw_path": "pr-evidence/raw/click-commit-ee56925bc4f5-pulls.json",
+        "raw_response_sha256": "6fcd2aa07aa9c70946fd46c10953e0a6a9770c42167762720cf489545e034302",
+        "from_cache": true,
+        "pull_requests": [
+          {
+            "number": 1934,
+            "merge_commit_sha": "3d0d8b5af1abc30a59fc0f1bec3a0e95d61a4101",
+            "merged_at": "2021-07-03T13:56:47Z",
+            "state": "closed"
+          }
+        ]
+      },
+      "pull_request": {
+        "url": "https://api.github.com/repos/pallets/click/pulls/1934",
+        "raw_path": "pr-evidence/raw/click-pr1934.json",
+        "raw_response_sha256": "15f526c85d28b2dfc90ed8effc82702cef28c373e1e26b019aaa40d00a1d24c1",
+        "from_cache": true,
+        "number": 1934,
+        "html_url": "https://github.com/pallets/click/pull/1934",
+        "title": "Fix `is_bool_flag` being set to True even when `is_flag` is False",
+        "state": "closed",
+        "merged": true,
+        "merged_at": "2021-07-03T13:56:47Z",
+        "merged_at_utc": "2021-07-03T13:56:47Z",
+        "merge_commit_sha": "3d0d8b5af1abc30a59fc0f1bec3a0e95d61a4101",
+        "base_sha": "da2b658e6185b5ae69abcefe755077336024a5e6",
+        "head_sha": "ee56925bc4f5451a125317e183f498e8bd1aecb3"
+      },
+      "pull_request_url": "https://github.com/pallets/click/pull/1934",
+      "merged_at_utc": "2021-07-03T13:56:47Z",
+      "merge_commit_sha": "3d0d8b5af1abc30a59fc0f1bec3a0e95d61a4101",
+      "merge_commit_sha_matches_fix_commit": false,
+      "pull_request_head_sha_matches_fix_commit": true,
+      "merge_commit_geometry": {
+        "merge_commit_present_in_pinned_clone": true,
+        "merge_commit_is_ancestor_of_pinned_revision": true,
+        "fix_commit_is_the_pull_request_head": true,
+        "reconciliation": {
+          "found": true,
+          "search": "git rev-list 8b19813f2bfc --grep='Merge pull request #1934'",
+          "candidates_examined": [
+            {
+              "sha": "3d0d8b5af1abc30a59fc0f1bec3a0e95d61a4101",
+              "committer_date": "2021-07-03T06:56:47-07:00",
+              "subject": "Merge pull request #1934 from janluke/fix/is_bool_flag",
+              "parents": [
+                "da2b658e6185b5ae69abcefe755077336024a5e6",
+                "ee56925bc4f5451a125317e183f498e8bd1aecb3"
+              ],
+              "parent_count": 2,
+              "second_parent_is_the_fix_commit": true
+            }
+          ],
+          "matching_merge_commit": "3d0d8b5af1abc30a59fc0f1bec3a0e95d61a4101",
+          "matching_merge_commit_detail": {
+            "sha": "3d0d8b5af1abc30a59fc0f1bec3a0e95d61a4101",
+            "committer_date": "2021-07-03T06:56:47-07:00",
+            "subject": "Merge pull request #1934 from janluke/fix/is_bool_flag",
+            "parents": [
+              "da2b658e6185b5ae69abcefe755077336024a5e6",
+              "ee56925bc4f5451a125317e183f498e8bd1aecb3"
+            ],
+            "parent_count": 2,
+            "second_parent_is_the_fix_commit": true
+          },
+          "reason": "exactly one pinned-history merge commit has this pull request in its subject and the fix commit as its second parent",
+          "fix_commit_parent_count_in_pinned_history": 1,
+          "fix_commit_is_itself_a_two_parent_merge": false,
+          "fix_commit_is_ancestor_of_pinned_revision": true
+        },
+        "landing_event_adjudication": "api_merge_commit_is_the_pinned_history_merge_event",
+        "adjudicated_landing_commit": "3d0d8b5af1abc30a59fc0f1bec3a0e95d61a4101",
+        "landing_event_shape": "two_parent_merge_commit",
+        "adjudicated_landing_is_ancestor_of_pinned_revision": true,
+        "pr_base_sha": "da2b658e6185b5ae69abcefe755077336024a5e6",
+        "pr_head_sha": "ee56925bc4f5451a125317e183f498e8bd1aecb3",
+        "patch_equivalence": {
+          "computed": true,
+          "method": "the diff the merge introduces (merge vs its FIRST parent) compared, file by file, with the diff the fix introduces (fix vs its own parent). Each landing file must contain the fix's added and removed lines; path overlap or ancestry alone is not evidence. Both diffs use their own parent because the base branch may have advanced",
+          "landing_event_is_the_fix_commit": false,
+          "fix_diff_base": "da2b658e6185b5ae69abcefe755077336024a5e6",
+          "landing_first_parent": "da2b658e6185b5ae69abcefe755077336024a5e6",
+          "landing_merged_in_commit": "ee56925bc4f5451a125317e183f498e8bd1aecb3",
+          "fix_diff_sha256": "1bbd08ae38e46b12e5835d434df90a7715671e5e5d6c4b52f019cc8d571f71d9",
+          "landing_diff_sha256": "1bbd08ae38e46b12e5835d434df90a7715671e5e5d6c4b52f019cc8d571f71d9",
+          "diff_text_equal": true,
+          "closed_under_the_landing_event": true,
+          "patch_correspondence": "proven",
+          "every_fix_file_present_in_the_landing_event": true,
+          "files_identical_or_contained": [
+            "CHANGES.rst",
+            "src/click/core.py",
+            "tests/test_options.py"
+          ],
+          "files_with_unproven_patch_correspondence": [],
+          "fix_files_not_covered": [],
+          "file_level": [
+            {
+              "path": "CHANGES.rst",
+              "state": "identical",
+              "detail": null
+            },
+            {
+              "path": "src/click/core.py",
+              "state": "identical",
+              "detail": null
+            },
+            {
+              "path": "tests/test_options.py",
+              "state": "identical",
+              "detail": null
+            }
+          ],
+          "commits_on_the_pull_request_after_the_fix": [],
+          "fix_commit_is_ancestor_of_the_landing_merged_in_commit": true,
+          "landing_touches_extra_files": [],
+          "fix_diff_bytes": 2120,
+          "landing_diff_bytes": 2120,
+          "not_claimed": "a change-set comparison over the files involved. It is NOT a proof that no other commit re-landed the same fix elsewhere in history"
+        },
+        "mismatch_pattern": "rebase_or_squash_merge: the fix commit is the pull request head and GitHub's merge_commit_sha is the commit the base branch moved to"
+      },
+      "landing_event_evidence": {
+        "adjudication": "api_merge_commit_is_the_pinned_history_merge_event",
+        "github_merge_commit_present_in_pinned_clone": true,
+        "landing_commit_in_pinned_history": "3d0d8b5af1abc30a59fc0f1bec3a0e95d61a4101",
+        "landing_commit_is_ancestor_of_pinned_revision": true,
+        "landing_commit_is_a_two_parent_merge": true,
+        "fix_commit_is_the_second_parent": true,
+        "landing_commit_parent_count": 2,
+        "search_command": "git rev-list 8b19813f2bfc --grep='Merge pull request #1934'",
+        "patch_equivalence": {
+          "computed": true,
+          "method": "the diff the merge introduces (merge vs its FIRST parent) compared, file by file, with the diff the fix introduces (fix vs its own parent). Each landing file must contain the fix's added and removed lines; path overlap or ancestry alone is not evidence. Both diffs use their own parent because the base branch may have advanced",
+          "landing_event_is_the_fix_commit": false,
+          "fix_diff_base": "da2b658e6185b5ae69abcefe755077336024a5e6",
+          "landing_first_parent": "da2b658e6185b5ae69abcefe755077336024a5e6",
+          "landing_merged_in_commit": "ee56925bc4f5451a125317e183f498e8bd1aecb3",
+          "fix_diff_sha256": "1bbd08ae38e46b12e5835d434df90a7715671e5e5d6c4b52f019cc8d571f71d9",
+          "landing_diff_sha256": "1bbd08ae38e46b12e5835d434df90a7715671e5e5d6c4b52f019cc8d571f71d9",
+          "diff_text_equal": true,
+          "closed_under_the_landing_event": true,
+          "patch_correspondence": "proven",
+          "every_fix_file_present_in_the_landing_event": true,
+          "files_identical_or_contained": [
+            "CHANGES.rst",
+            "src/click/core.py",
+            "tests/test_options.py"
+          ],
+          "files_with_unproven_patch_correspondence": [],
+          "fix_files_not_covered": [],
+          "file_level": [
+            {
+              "path": "CHANGES.rst",
+              "state": "identical",
+              "detail": null
+            },
+            {
+              "path": "src/click/core.py",
+              "state": "identical",
+              "detail": null
+            },
+            {
+              "path": "tests/test_options.py",
+              "state": "identical",
+              "detail": null
+            }
+          ],
+          "commits_on_the_pull_request_after_the_fix": [],
+          "fix_commit_is_ancestor_of_the_landing_merged_in_commit": true,
+          "landing_touches_extra_files": [],
+          "fix_diff_bytes": 2120,
+          "landing_diff_bytes": 2120,
+          "not_claimed": "a change-set comparison over the files involved. It is NOT a proof that no other commit re-landed the same fix elsewhere in history"
+        },
+        "reviewer_note": "the landing event is re-derived from the pinned repository, not taken from the API, because the API's merge_commit_sha disagrees with the pinned history for several of these families"
+      },
+      "status": "verified",
+      "window_qualified_by_merge_event": true,
+      "reason": "merge event retrieved from the pull-request metadata; qualification uses merged_at_utc, not the commit's author/committer dates"
+    },
+    {
+      "repo": "more-itertools",
+      "upstream_slug": "more-itertools/more-itertools",
+      "fix_commit": "62411c1618493f94b16901746c34e72ad415061e",
+      "split_role": "train",
+      "window": "train",
+      "commit_message_issue_refs": [],
+      "issue_reference_is_not_merge_evidence": true,
+      "commit_to_pr_lookup": {
+        "url": "https://api.github.com/repos/more-itertools/more-itertools/commits/62411c1618493f94b16901746c34e72ad415061e/pulls",
+        "raw_path": "pr-evidence/raw/more-itertools-commit-62411c161849-pulls.json",
+        "raw_response_sha256": "cbaf6877f3fe19211ff088888e5838975057ce2a6085c999c5fb9916eebeaa77",
+        "from_cache": true,
+        "pull_requests": [
+          {
+            "number": 412,
+            "merge_commit_sha": "a5a14f61d8331fb6d67c00eace8e22d5c6226ddf",
+            "merged_at": "2020-03-30T00:56:55Z",
+            "state": "closed"
+          }
+        ]
+      },
+      "pull_request": {
+        "url": "https://api.github.com/repos/more-itertools/more-itertools/pulls/412",
+        "raw_path": "pr-evidence/raw/more-itertools-pr412.json",
+        "raw_response_sha256": "00c6b6b83232c8003ae72827d8f1686ef0f7c54157eb2e96deeb8b5376cd5388",
+        "from_cache": true,
+        "number": 412,
+        "html_url": "https://github.com/more-itertools/more-itertools/pull/412",
+        "title": "Fix spy to make returned iterable immutable",
+        "state": "closed",
+        "merged": true,
+        "merged_at": "2020-03-30T00:56:55Z",
+        "merged_at_utc": "2020-03-30T00:56:55Z",
+        "merge_commit_sha": "a5a14f61d8331fb6d67c00eace8e22d5c6226ddf",
+        "base_sha": "c0465331cbc0d882cd7dce5c0bd19aaf46dfb968",
+        "head_sha": "62411c1618493f94b16901746c34e72ad415061e"
+      },
+      "pull_request_url": "https://github.com/more-itertools/more-itertools/pull/412",
+      "merged_at_utc": "2020-03-30T00:56:55Z",
+      "merge_commit_sha": "a5a14f61d8331fb6d67c00eace8e22d5c6226ddf",
+      "merge_commit_sha_matches_fix_commit": false,
+      "pull_request_head_sha_matches_fix_commit": true,
+      "merge_commit_geometry": {
+        "merge_commit_present_in_pinned_clone": true,
+        "merge_commit_is_ancestor_of_pinned_revision": true,
+        "fix_commit_is_the_pull_request_head": true,
+        "reconciliation": {
+          "found": true,
+          "search": "git rev-list 64be96ceb2a6 --grep='Merge pull request #412'",
+          "candidates_examined": [
+            {
+              "sha": "a5a14f61d8331fb6d67c00eace8e22d5c6226ddf",
+              "committer_date": "2020-03-29T19:56:55-05:00",
+              "subject": "Merge pull request #412 from has2k1/fix-spy",
+              "parents": [
+                "c0465331cbc0d882cd7dce5c0bd19aaf46dfb968",
+                "62411c1618493f94b16901746c34e72ad415061e"
+              ],
+              "parent_count": 2,
+              "second_parent_is_the_fix_commit": true
+            }
+          ],
+          "matching_merge_commit": "a5a14f61d8331fb6d67c00eace8e22d5c6226ddf",
+          "matching_merge_commit_detail": {
+            "sha": "a5a14f61d8331fb6d67c00eace8e22d5c6226ddf",
+            "committer_date": "2020-03-29T19:56:55-05:00",
+            "subject": "Merge pull request #412 from has2k1/fix-spy",
+            "parents": [
+              "c0465331cbc0d882cd7dce5c0bd19aaf46dfb968",
+              "62411c1618493f94b16901746c34e72ad415061e"
+            ],
+            "parent_count": 2,
+            "second_parent_is_the_fix_commit": true
+          },
+          "reason": "exactly one pinned-history merge commit has this pull request in its subject and the fix commit as its second parent",
+          "fix_commit_parent_count_in_pinned_history": 1,
+          "fix_commit_is_itself_a_two_parent_merge": false,
+          "fix_commit_is_ancestor_of_pinned_revision": true
+        },
+        "landing_event_adjudication": "api_merge_commit_is_the_pinned_history_merge_event",
+        "adjudicated_landing_commit": "a5a14f61d8331fb6d67c00eace8e22d5c6226ddf",
+        "landing_event_shape": "two_parent_merge_commit",
+        "adjudicated_landing_is_ancestor_of_pinned_revision": true,
+        "pr_base_sha": "c0465331cbc0d882cd7dce5c0bd19aaf46dfb968",
+        "pr_head_sha": "62411c1618493f94b16901746c34e72ad415061e",
+        "patch_equivalence": {
+          "computed": true,
+          "method": "the diff the merge introduces (merge vs its FIRST parent) compared, file by file, with the diff the fix introduces (fix vs its own parent). Each landing file must contain the fix's added and removed lines; path overlap or ancestry alone is not evidence. Both diffs use their own parent because the base branch may have advanced",
+          "landing_event_is_the_fix_commit": false,
+          "fix_diff_base": "c0465331cbc0d882cd7dce5c0bd19aaf46dfb968",
+          "landing_first_parent": "c0465331cbc0d882cd7dce5c0bd19aaf46dfb968",
+          "landing_merged_in_commit": "62411c1618493f94b16901746c34e72ad415061e",
+          "fix_diff_sha256": "c02146af1e6f4b9b7d9ae8f37769633f83ba64b36deda4feba7c8f6a54dafa2c",
+          "landing_diff_sha256": "c02146af1e6f4b9b7d9ae8f37769633f83ba64b36deda4feba7c8f6a54dafa2c",
+          "diff_text_equal": true,
+          "closed_under_the_landing_event": true,
+          "patch_correspondence": "proven",
+          "every_fix_file_present_in_the_landing_event": true,
+          "files_identical_or_contained": [
+            "more_itertools/more.py",
+            "tests/test_more.py"
+          ],
+          "files_with_unproven_patch_correspondence": [],
+          "fix_files_not_covered": [],
+          "file_level": [
+            {
+              "path": "more_itertools/more.py",
+              "state": "identical",
+              "detail": null
+            },
+            {
+              "path": "tests/test_more.py",
+              "state": "identical",
+              "detail": null
+            }
+          ],
+          "commits_on_the_pull_request_after_the_fix": [],
+          "fix_commit_is_ancestor_of_the_landing_merged_in_commit": true,
+          "landing_touches_extra_files": [],
+          "fix_diff_bytes": 1010,
+          "landing_diff_bytes": 1010,
+          "not_claimed": "a change-set comparison over the files involved. It is NOT a proof that no other commit re-landed the same fix elsewhere in history"
+        },
+        "mismatch_pattern": "rebase_or_squash_merge: the fix commit is the pull request head and GitHub's merge_commit_sha is the commit the base branch moved to"
+      },
+      "landing_event_evidence": {
+        "adjudication": "api_merge_commit_is_the_pinned_history_merge_event",
+        "github_merge_commit_present_in_pinned_clone": true,
+        "landing_commit_in_pinned_history": "a5a14f61d8331fb6d67c00eace8e22d5c6226ddf",
+        "landing_commit_is_ancestor_of_pinned_revision": true,
+        "landing_commit_is_a_two_parent_merge": true,
+        "fix_commit_is_the_second_parent": true,
+        "landing_commit_parent_count": 2,
+        "search_command": "git rev-list 64be96ceb2a6 --grep='Merge pull request #412'",
+        "patch_equivalence": {
+          "computed": true,
+          "method": "the diff the merge introduces (merge vs its FIRST parent) compared, file by file, with the diff the fix introduces (fix vs its own parent). Each landing file must contain the fix's added and removed lines; path overlap or ancestry alone is not evidence. Both diffs use their own parent because the base branch may have advanced",
+          "landing_event_is_the_fix_commit": false,
+          "fix_diff_base": "c0465331cbc0d882cd7dce5c0bd19aaf46dfb968",
+          "landing_first_parent": "c0465331cbc0d882cd7dce5c0bd19aaf46dfb968",
+          "landing_merged_in_commit": "62411c1618493f94b16901746c34e72ad415061e",
+          "fix_diff_sha256": "c02146af1e6f4b9b7d9ae8f37769633f83ba64b36deda4feba7c8f6a54dafa2c",
+          "landing_diff_sha256": "c02146af1e6f4b9b7d9ae8f37769633f83ba64b36deda4feba7c8f6a54dafa2c",
+          "diff_text_equal": true,
+          "closed_under_the_landing_event": true,
+          "patch_correspondence": "proven",
+          "every_fix_file_present_in_the_landing_event": true,
+          "files_identical_or_contained": [
+            "more_itertools/more.py",
+            "tests/test_more.py"
+          ],
+          "files_with_unproven_patch_correspondence": [],
+          "fix_files_not_covered": [],
+          "file_level": [
+            {
+              "path": "more_itertools/more.py",
+              "state": "identical",
+              "detail": null
+            },
+            {
+              "path": "tests/test_more.py",
+              "state": "identical",
+              "detail": null
+            }
+          ],
+          "commits_on_the_pull_request_after_the_fix": [],
+          "fix_commit_is_ancestor_of_the_landing_merged_in_commit": true,
+          "landing_touches_extra_files": [],
+          "fix_diff_bytes": 1010,
+          "landing_diff_bytes": 1010,
+          "not_claimed": "a change-set comparison over the files involved. It is NOT a proof that no other commit re-landed the same fix elsewhere in history"
+        },
+        "reviewer_note": "the landing event is re-derived from the pinned repository, not taken from the API, because the API's merge_commit_sha disagrees with the pinned history for several of these families"
+      },
+      "status": "verified",
+      "window_qualified_by_merge_event": true,
+      "reason": "merge event retrieved from the pull-request metadata; qualification uses merged_at_utc, not the commit's author/committer dates"
+    },
+    {
+      "repo": "pluggy",
+      "upstream_slug": "pytest-dev/pluggy",
+      "fix_commit": "9cf2eaa50dd1ad3ebf042978629e78c695197095",
+      "split_role": "train",
+      "window": "train",
+      "commit_message_issue_refs": [],
+      "issue_reference_is_not_merge_evidence": true,
+      "commit_to_pr_lookup": {
+        "url": "https://api.github.com/repos/pytest-dev/pluggy/commits/9cf2eaa50dd1ad3ebf042978629e78c695197095/pulls",
+        "raw_path": "pr-evidence/raw/pluggy-commit-9cf2eaa50dd1-pulls.json",
+        "raw_response_sha256": "3ec12ec38770646ccf1fc9a4302652552589097616c8cb6fb3d4b0b2891acb83",
+        "from_cache": true,
+        "pull_requests": [
+          {
+            "number": 545,
+            "merge_commit_sha": "9d19d4b8e07dc3d66a512124ccbb8dfdd9e4bfb1",
+            "merged_at": "2024-11-12T09:24:31Z",
+            "state": "closed"
+          }
+        ]
+      },
+      "pull_request": {
+        "url": "https://api.github.com/repos/pytest-dev/pluggy/pulls/545",
+        "raw_path": "pr-evidence/raw/pluggy-pr545.json",
+        "raw_response_sha256": "464c2db81182bbe6ddd438b288452be6fe3e805e8b7aa7e9fd03d436e110c1e7",
+        "from_cache": true,
+        "number": 545,
+        "html_url": "https://github.com/pytest-dev/pluggy/pull/545",
+        "title": "fix #544: Correctly pass StopIteration trough wrappers",
+        "state": "closed",
+        "merged": true,
+        "merged_at": "2024-11-12T09:24:31Z",
+        "merged_at_utc": "2024-11-12T09:24:31Z",
+        "merge_commit_sha": "9d19d4b8e07dc3d66a512124ccbb8dfdd9e4bfb1",
+        "base_sha": "4ba6441e046ff9d0d2dbea5087c5bfd81cc37f5c",
+        "head_sha": "9cf2eaa50dd1ad3ebf042978629e78c695197095"
+      },
+      "pull_request_url": "https://github.com/pytest-dev/pluggy/pull/545",
+      "merged_at_utc": "2024-11-12T09:24:31Z",
+      "merge_commit_sha": "9d19d4b8e07dc3d66a512124ccbb8dfdd9e4bfb1",
+      "merge_commit_sha_matches_fix_commit": false,
+      "pull_request_head_sha_matches_fix_commit": true,
+      "merge_commit_geometry": {
+        "merge_commit_present_in_pinned_clone": true,
+        "merge_commit_is_ancestor_of_pinned_revision": true,
+        "fix_commit_is_the_pull_request_head": true,
+        "reconciliation": {
+          "found": true,
+          "search": "git rev-list fd08ab5f811a --grep='Merge pull request #545'",
+          "candidates_examined": [
+            {
+              "sha": "9d19d4b8e07dc3d66a512124ccbb8dfdd9e4bfb1",
+              "committer_date": "2024-11-12T10:24:31+01:00",
+              "subject": "Merge pull request #545 from RonnyPfannschmidt/ronny/fix-544-wrapper-stop-iteration-passtrough",
+              "parents": [
+                "2b6dfd7cfe3e8ac36a473d465979c78bb3912d6f",
+                "9cf2eaa50dd1ad3ebf042978629e78c695197095"
+              ],
+              "parent_count": 2,
+              "second_parent_is_the_fix_commit": true
+            }
+          ],
+          "matching_merge_commit": "9d19d4b8e07dc3d66a512124ccbb8dfdd9e4bfb1",
+          "matching_merge_commit_detail": {
+            "sha": "9d19d4b8e07dc3d66a512124ccbb8dfdd9e4bfb1",
+            "committer_date": "2024-11-12T10:24:31+01:00",
+            "subject": "Merge pull request #545 from RonnyPfannschmidt/ronny/fix-544-wrapper-stop-iteration-passtrough",
+            "parents": [
+              "2b6dfd7cfe3e8ac36a473d465979c78bb3912d6f",
+              "9cf2eaa50dd1ad3ebf042978629e78c695197095"
+            ],
+            "parent_count": 2,
+            "second_parent_is_the_fix_commit": true
+          },
+          "reason": "exactly one pinned-history merge commit has this pull request in its subject and the fix commit as its second parent",
+          "fix_commit_parent_count_in_pinned_history": 1,
+          "fix_commit_is_itself_a_two_parent_merge": false,
+          "fix_commit_is_ancestor_of_pinned_revision": true
+        },
+        "landing_event_adjudication": "api_merge_commit_is_the_pinned_history_merge_event",
+        "adjudicated_landing_commit": "9d19d4b8e07dc3d66a512124ccbb8dfdd9e4bfb1",
+        "landing_event_shape": "two_parent_merge_commit",
+        "adjudicated_landing_is_ancestor_of_pinned_revision": true,
+        "pr_base_sha": "4ba6441e046ff9d0d2dbea5087c5bfd81cc37f5c",
+        "pr_head_sha": "9cf2eaa50dd1ad3ebf042978629e78c695197095",
+        "patch_equivalence": {
+          "computed": true,
+          "method": "the diff the merge introduces (merge vs its FIRST parent) compared, file by file, with the diff the fix introduces (fix vs its own parent). Each landing file must contain the fix's added and removed lines; path overlap or ancestry alone is not evidence. Both diffs use their own parent because the base branch may have advanced",
+          "landing_event_is_the_fix_commit": false,
+          "fix_diff_base": "4ba6441e046ff9d0d2dbea5087c5bfd81cc37f5c",
+          "landing_first_parent": "2b6dfd7cfe3e8ac36a473d465979c78bb3912d6f",
+          "landing_merged_in_commit": "9cf2eaa50dd1ad3ebf042978629e78c695197095",
+          "fix_diff_sha256": "928a37d70e20626014f6d5e46188b2b7984e9ae927e20f8e1ac17e0b2ec4c022",
+          "landing_diff_sha256": "928a37d70e20626014f6d5e46188b2b7984e9ae927e20f8e1ac17e0b2ec4c022",
+          "diff_text_equal": true,
+          "closed_under_the_landing_event": true,
+          "patch_correspondence": "proven",
+          "every_fix_file_present_in_the_landing_event": true,
+          "files_identical_or_contained": [
+            "changelog/544.bugfix.rst",
+            "src/pluggy/_callers.py",
+            "testing/test_multicall.py"
+          ],
+          "files_with_unproven_patch_correspondence": [],
+          "fix_files_not_covered": [],
+          "file_level": [
+            {
+              "path": "changelog/544.bugfix.rst",
+              "state": "identical",
+              "detail": null
+            },
+            {
+              "path": "src/pluggy/_callers.py",
+              "state": "identical",
+              "detail": null
+            },
+            {
+              "path": "testing/test_multicall.py",
+              "state": "identical",
+              "detail": null
+            }
+          ],
+          "commits_on_the_pull_request_after_the_fix": [],
+          "fix_commit_is_ancestor_of_the_landing_merged_in_commit": true,
+          "landing_touches_extra_files": [],
+          "fix_diff_bytes": 3966,
+          "landing_diff_bytes": 3966,
+          "not_claimed": "a change-set comparison over the files involved. It is NOT a proof that no other commit re-landed the same fix elsewhere in history"
+        },
+        "mismatch_pattern": "rebase_or_squash_merge: the fix commit is the pull request head and GitHub's merge_commit_sha is the commit the base branch moved to"
+      },
+      "landing_event_evidence": {
+        "adjudication": "api_merge_commit_is_the_pinned_history_merge_event",
+        "github_merge_commit_present_in_pinned_clone": true,
+        "landing_commit_in_pinned_history": "9d19d4b8e07dc3d66a512124ccbb8dfdd9e4bfb1",
+        "landing_commit_is_ancestor_of_pinned_revision": true,
+        "landing_commit_is_a_two_parent_merge": true,
+        "fix_commit_is_the_second_parent": true,
+        "landing_commit_parent_count": 2,
+        "search_command": "git rev-list fd08ab5f811a --grep='Merge pull request #545'",
+        "patch_equivalence": {
+          "computed": true,
+          "method": "the diff the merge introduces (merge vs its FIRST parent) compared, file by file, with the diff the fix introduces (fix vs its own parent). Each landing file must contain the fix's added and removed lines; path overlap or ancestry alone is not evidence. Both diffs use their own parent because the base branch may have advanced",
+          "landing_event_is_the_fix_commit": false,
+          "fix_diff_base": "4ba6441e046ff9d0d2dbea5087c5bfd81cc37f5c",
+          "landing_first_parent": "2b6dfd7cfe3e8ac36a473d465979c78bb3912d6f",
+          "landing_merged_in_commit": "9cf2eaa50dd1ad3ebf042978629e78c695197095",
+          "fix_diff_sha256": "928a37d70e20626014f6d5e46188b2b7984e9ae927e20f8e1ac17e0b2ec4c022",
+          "landing_diff_sha256": "928a37d70e20626014f6d5e46188b2b7984e9ae927e20f8e1ac17e0b2ec4c022",
+          "diff_text_equal": true,
+          "closed_under_the_landing_event": true,
+          "patch_correspondence": "proven",
+          "every_fix_file_present_in_the_landing_event": true,
+          "files_identical_or_contained": [
+            "changelog/544.bugfix.rst",
+            "src/pluggy/_callers.py",
+            "testing/test_multicall.py"
+          ],
+          "files_with_unproven_patch_correspondence": [],
+          "fix_files_not_covered": [],
+          "file_level": [
+            {
+              "path": "changelog/544.bugfix.rst",
+              "state": "identical",
+              "detail": null
+            },
+            {
+              "path": "src/pluggy/_callers.py",
+              "state": "identical",
+              "detail": null
+            },
+            {
+              "path": "testing/test_multicall.py",
+              "state": "identical",
+              "detail": null
+            }
+          ],
+          "commits_on_the_pull_request_after_the_fix": [],
+          "fix_commit_is_ancestor_of_the_landing_merged_in_commit": true,
+          "landing_touches_extra_files": [],
+          "fix_diff_bytes": 3966,
+          "landing_diff_bytes": 3966,
+          "not_claimed": "a change-set comparison over the files involved. It is NOT a proof that no other commit re-landed the same fix elsewhere in history"
+        },
+        "reviewer_note": "the landing event is re-derived from the pinned repository, not taken from the API, because the API's merge_commit_sha disagrees with the pinned history for several of these families"
+      },
+      "status": "verified",
+      "window_qualified_by_merge_event": true,
+      "reason": "merge event retrieved from the pull-request metadata; qualification uses merged_at_utc, not the commit's author/committer dates"
+    },
+    {
+      "repo": "boltons",
+      "upstream_slug": "mahmoud/boltons",
+      "fix_commit": "ae21ed2a78064ca1090db069e3f755aa1853b885",
+      "split_role": "train",
+      "window": "train",
+      "commit_message_issue_refs": [],
+      "issue_reference_is_not_merge_evidence": true,
+      "commit_to_pr_lookup": {
+        "url": "https://api.github.com/repos/mahmoud/boltons/commits/ae21ed2a78064ca1090db069e3f755aa1853b885/pulls",
+        "raw_path": "pr-evidence/raw/boltons-commit-ae21ed2a7806-pulls.json",
+        "raw_response_sha256": "ba21eeebcbe088cf1c52da6ca16ca11b318e7e4acd819c07d21af0a8ae5744b6",
+        "from_cache": true,
+        "pull_requests": [
+          {
+            "number": 31,
+            "merge_commit_sha": "1efa511206d0f27474efcb6d00bab5404f290bda",
+            "merged_at": "2015-04-19T08:51:36Z",
+            "state": "closed"
+          }
+        ]
+      },
+      "pull_request": {
+        "url": "https://api.github.com/repos/mahmoud/boltons/pulls/31",
+        "raw_path": "pr-evidence/raw/boltons-pr31.json",
+        "raw_response_sha256": "37a41fac4d0e893b79dff324ecab1f3d9c2b52cccef43c68ee31a9e50e13ce83",
+        "from_cache": true,
+        "number": 31,
+        "html_url": "https://github.com/mahmoud/boltons/pull/31",
+        "title": "Properly parse tracebacks with missing source.  Resolves #30",
+        "state": "closed",
+        "merged": true,
+        "merged_at": "2015-04-19T08:51:36Z",
+        "merged_at_utc": "2015-04-19T08:51:36Z",
+        "merge_commit_sha": "1efa511206d0f27474efcb6d00bab5404f290bda",
+        "base_sha": "c9b3d2452e4ffe43920874f4f6f2e8fe425ebf00",
+        "head_sha": "078a215bfd37da5045ec6302bcba9505a11582dc"
+      },
+      "pull_request_url": "https://github.com/mahmoud/boltons/pull/31",
+      "merged_at_utc": "2015-04-19T08:51:36Z",
+      "merge_commit_sha": "1efa511206d0f27474efcb6d00bab5404f290bda",
+      "merge_commit_sha_matches_fix_commit": false,
+      "pull_request_head_sha_matches_fix_commit": false,
+      "merge_commit_geometry": {
+        "merge_commit_present_in_pinned_clone": false,
+        "merge_commit_is_ancestor_of_pinned_revision": false,
+        "fix_commit_is_the_pull_request_head": false,
+        "reconciliation": {
+          "found": false,
+          "search": "git rev-list 4332b35a278d --grep='Merge pull request #31'",
+          "candidates_examined": [
+            {
+              "sha": "1d7d8c4e1767f5ec4e180cccd00b773150d086f5",
+              "committer_date": "2015-04-19T01:51:36-07:00",
+              "subject": "Merge pull request #31 from asottile/parsed_exception_no_source_30",
+              "parents": [
+                "c9b3d2452e4ffe43920874f4f6f2e8fe425ebf00",
+                "078a215bfd37da5045ec6302bcba9505a11582dc"
+              ],
+              "parent_count": 2,
+              "second_parent_is_the_fix_commit": false
+            }
+          ],
+          "matching_merge_commit": null,
+          "matching_merge_commit_detail": null,
+          "reason": "no merge commit in the pinned history matches both the pull-request subject and the fix commit parent",
+          "fix_commit_parent_count_in_pinned_history": 1,
+          "fix_commit_is_itself_a_two_parent_merge": false,
+          "fix_commit_is_ancestor_of_pinned_revision": true
+        },
+        "landing_event_adjudication": "api_merge_commit_absent_or_different_from_pinned_history; the pinned history's own two-parent merge commit that names this pull request is recorded as the landing event. the pinned merge commit names this pull request but its merged-in commit is 078a215bfd37, not the fix commit ae21ed2a7806; the fix reaches the branch beneath it (fix_is_ancestor_of_merged_in_commit=True) and the content introduced by the merge equals the fix's own content (content_equal=False)",
+        "adjudicated_landing_commit": "1d7d8c4e1767f5ec4e180cccd00b773150d086f5",
+        "landing_event_shape": "two_parent_merge_commit",
+        "adjudicated_landing_is_ancestor_of_pinned_revision": true,
+        "pr_base_sha": "c9b3d2452e4ffe43920874f4f6f2e8fe425ebf00",
+        "pr_head_sha": "078a215bfd37da5045ec6302bcba9505a11582dc",
+        "patch_equivalence": {
+          "computed": true,
+          "method": "the diff the merge introduces (merge vs its FIRST parent) compared, file by file, with the diff the fix introduces (fix vs its own parent). Each landing file must contain the fix's added and removed lines; path overlap or ancestry alone is not evidence. Both diffs use their own parent because the base branch may have advanced",
+          "landing_event_is_the_fix_commit": false,
+          "fix_diff_base": "c9b3d2452e4ffe43920874f4f6f2e8fe425ebf00",
+          "landing_first_parent": "c9b3d2452e4ffe43920874f4f6f2e8fe425ebf00",
+          "landing_merged_in_commit": "078a215bfd37da5045ec6302bcba9505a11582dc",
+          "fix_diff_sha256": "e431b6bd2143abf62f4b94e345737381832a0f312aa1cdb6b508561d9c70e578",
+          "landing_diff_sha256": "0ed2e80d27814aa2c20ff7b751474cf37dc7d2e01f662787ec9a7666b41429fc",
+          "diff_text_equal": false,
+          "closed_under_the_landing_event": false,
+          "patch_correspondence": "needs_review",
+          "every_fix_file_present_in_the_landing_event": true,
+          "files_identical_or_contained": [
+            ".travis.yml",
+            "tests/tbutils_test.py",
+            "tox.ini"
+          ],
+          "files_with_unproven_patch_correspondence": [
+            "boltons/tbutils.py"
+          ],
+          "fix_files_not_covered": [],
+          "file_level": [
+            {
+              "path": ".travis.yml",
+              "state": "identical",
+              "detail": null
+            },
+            {
+              "path": "boltons/tbutils.py",
+              "state": "not_proven",
+              "detail": {
+                "landing_added_lines": 27,
+                "fix_added_lines": 19,
+                "landing_removed_lines": 7,
+                "fix_removed_lines": 7,
+                "lines_the_landing_event_adds_beyond_the_fix": [
+                  "                        # The exception message will not be indented",
+                  "                        # This check is to avoid overrunning on eval-like",
+                  "                        # code in the traceback",
+                  "                        # tracebacks where the last frame doesn't have source",
+                  "                        frame_re.match(next_line_stripped) or",
+                  "                        not next_line.startswith(' ')",
+                  "                    frame_dict['source_line'] = next_line_stripped",
+                  "                ):",
+                  "                if (",
+                  "                next_line = tb_lines[line_no + 1]"
+                ]
+              }
+            },
+            {
+              "path": "tests/tbutils_test.py",
+              "state": "contained_superset",
+              "detail": {
+                "landing_added_lines": 54,
+                "fix_added_lines": 44,
+                "landing_removed_lines": 0,
+                "fix_removed_lines": 0,
+                "lines_the_landing_event_adds_beyond_the_fix": [
+                  "",
+                  "",
+                  "    assert parsed.exc_type == 'MyException'",
+                  "    parsed = ParsedException.from_string(tb)",
+                  "    tb = '''\\",
+                  "  File \"<string>\", line 2, in _some_function",
+                  "'''",
+                  "MyException: ExceptionValue",
+                  "Traceback (most recent call last):",
+                  "def test_last_line_is_eval_like():"
+                ]
+              }
+            },
+            {
+              "path": "tox.ini",
+              "state": "identical",
+              "detail": null
+            }
+          ],
+          "commits_on_the_pull_request_after_the_fix": [
+            {
+              "sha": "078a215bfd37da5045ec6302bcba9505a11582dc",
+              "subject": "Oops, broke last-line-eval-like tracebacks"
+            }
+          ],
+          "fix_commit_is_ancestor_of_the_landing_merged_in_commit": true,
+          "landing_touches_extra_files": [],
+          "fix_diff_bytes": 4133,
+          "landing_diff_bytes": 4838,
+          "not_claimed": "a change-set comparison over the files involved. It is NOT a proof that no other commit re-landed the same fix elsewhere in history"
+        },
+        "mismatch_pattern": "merge_commit_sha is neither the fix commit nor the pull request head; the pinned history's own merge event is recorded in geometry.reconciliation.matching_merge_commit and adjudicated there"
+      },
+      "landing_event_evidence": {
+        "adjudication": "api_merge_commit_absent_or_different_from_pinned_history; the pinned history's own two-parent merge commit that names this pull request is recorded as the landing event. the pinned merge commit names this pull request but its merged-in commit is 078a215bfd37, not the fix commit ae21ed2a7806; the fix reaches the branch beneath it (fix_is_ancestor_of_merged_in_commit=True) and the content introduced by the merge equals the fix's own content (content_equal=False)",
+        "github_merge_commit_present_in_pinned_clone": false,
+        "landing_commit_in_pinned_history": "1d7d8c4e1767f5ec4e180cccd00b773150d086f5",
+        "landing_commit_is_ancestor_of_pinned_revision": true,
+        "landing_commit_is_a_two_parent_merge": true,
+        "fix_commit_is_the_second_parent": false,
+        "landing_commit_parent_count": 2,
+        "search_command": "git rev-list 4332b35a278d --grep='Merge pull request #31'",
+        "patch_equivalence": {
+          "computed": true,
+          "method": "the diff the merge introduces (merge vs its FIRST parent) compared, file by file, with the diff the fix introduces (fix vs its own parent). Each landing file must contain the fix's added and removed lines; path overlap or ancestry alone is not evidence. Both diffs use their own parent because the base branch may have advanced",
+          "landing_event_is_the_fix_commit": false,
+          "fix_diff_base": "c9b3d2452e4ffe43920874f4f6f2e8fe425ebf00",
+          "landing_first_parent": "c9b3d2452e4ffe43920874f4f6f2e8fe425ebf00",
+          "landing_merged_in_commit": "078a215bfd37da5045ec6302bcba9505a11582dc",
+          "fix_diff_sha256": "e431b6bd2143abf62f4b94e345737381832a0f312aa1cdb6b508561d9c70e578",
+          "landing_diff_sha256": "0ed2e80d27814aa2c20ff7b751474cf37dc7d2e01f662787ec9a7666b41429fc",
+          "diff_text_equal": false,
+          "closed_under_the_landing_event": false,
+          "patch_correspondence": "needs_review",
+          "every_fix_file_present_in_the_landing_event": true,
+          "files_identical_or_contained": [
+            ".travis.yml",
+            "tests/tbutils_test.py",
+            "tox.ini"
+          ],
+          "files_with_unproven_patch_correspondence": [
+            "boltons/tbutils.py"
+          ],
+          "fix_files_not_covered": [],
+          "file_level": [
+            {
+              "path": ".travis.yml",
+              "state": "identical",
+              "detail": null
+            },
+            {
+              "path": "boltons/tbutils.py",
+              "state": "not_proven",
+              "detail": {
+                "landing_added_lines": 27,
+                "fix_added_lines": 19,
+                "landing_removed_lines": 7,
+                "fix_removed_lines": 7,
+                "lines_the_landing_event_adds_beyond_the_fix": [
+                  "                        # The exception message will not be indented",
+                  "                        # This check is to avoid overrunning on eval-like",
+                  "                        # code in the traceback",
+                  "                        # tracebacks where the last frame doesn't have source",
+                  "                        frame_re.match(next_line_stripped) or",
+                  "                        not next_line.startswith(' ')",
+                  "                    frame_dict['source_line'] = next_line_stripped",
+                  "                ):",
+                  "                if (",
+                  "                next_line = tb_lines[line_no + 1]"
+                ]
+              }
+            },
+            {
+              "path": "tests/tbutils_test.py",
+              "state": "contained_superset",
+              "detail": {
+                "landing_added_lines": 54,
+                "fix_added_lines": 44,
+                "landing_removed_lines": 0,
+                "fix_removed_lines": 0,
+                "lines_the_landing_event_adds_beyond_the_fix": [
+                  "",
+                  "",
+                  "    assert parsed.exc_type == 'MyException'",
+                  "    parsed = ParsedException.from_string(tb)",
+                  "    tb = '''\\",
+                  "  File \"<string>\", line 2, in _some_function",
+                  "'''",
+                  "MyException: ExceptionValue",
+                  "Traceback (most recent call last):",
+                  "def test_last_line_is_eval_like():"
+                ]
+              }
+            },
+            {
+              "path": "tox.ini",
+              "state": "identical",
+              "detail": null
+            }
+          ],
+          "commits_on_the_pull_request_after_the_fix": [
+            {
+              "sha": "078a215bfd37da5045ec6302bcba9505a11582dc",
+              "subject": "Oops, broke last-line-eval-like tracebacks"
+            }
+          ],
+          "fix_commit_is_ancestor_of_the_landing_merged_in_commit": true,
+          "landing_touches_extra_files": [],
+          "fix_diff_bytes": 4133,
+          "landing_diff_bytes": 4838,
+          "not_claimed": "a change-set comparison over the files involved. It is NOT a proof that no other commit re-landed the same fix elsewhere in history"
+        },
+        "reviewer_note": "the landing event is re-derived from the pinned repository, not taken from the API, because the API's merge_commit_sha disagrees with the pinned history for several of these families"
+      },
+      "status": "verified",
+      "window_qualified_by_merge_event": true,
+      "reason": "merge event retrieved from the pull-request metadata; qualification uses merged_at_utc, not the commit's author/committer dates"
+    },
+    {
+      "repo": "python-dotenv",
+      "upstream_slug": "theskumar/python-dotenv",
+      "fix_commit": "da0c82054f1ec1e03d57356d49b0b9ad09eb4209",
+      "split_role": "dev",
+      "window": "dev_sealed",
+      "commit_message_issue_refs": [],
+      "issue_reference_is_not_merge_evidence": true,
+      "commit_to_pr_lookup": {
+        "url": "https://api.github.com/repos/theskumar/python-dotenv/commits/da0c82054f1ec1e03d57356d49b0b9ad09eb4209/pulls",
+        "raw_path": "pr-evidence/raw/python-dotenv-commit-da0c82054f1e-pulls.json",
+        "raw_response_sha256": "66effc99dac6d7909d09d28064830974223e416bbbc5a666dcb5fd9c338d8a32",
+        "from_cache": true,
+        "pull_requests": [
+          {
+            "number": 606,
+            "merge_commit_sha": "da0c82054f1ec1e03d57356d49b0b9ad09eb4209",
+            "merged_at": "2026-03-02T05:21:15Z",
+            "state": "closed"
+          }
+        ]
+      },
+      "pull_request": {
+        "url": "https://api.github.com/repos/theskumar/python-dotenv/pulls/606",
+        "raw_path": "pr-evidence/raw/python-dotenv-pr606.json",
+        "raw_response_sha256": "69a15ba996d8a3228759c7c62cb8d71be865533e6ed7951802788e0b297e309f",
+        "from_cache": true,
+        "number": 606,
+        "html_url": "https://github.com/theskumar/python-dotenv/pull/606",
+        "title": "Fix handling of missing command by `dotenv run`",
+        "state": "closed",
+        "merged": true,
+        "merged_at": "2026-03-02T05:21:15Z",
+        "merged_at_utc": "2026-03-02T05:21:15Z",
+        "merge_commit_sha": "da0c82054f1ec1e03d57356d49b0b9ad09eb4209",
+        "base_sha": "eb202520e5933c9daf42501e1e42fdb0144002c8",
+        "head_sha": "6deb8349dd789e46011ba9415d4aac243ca70fc9"
+      },
+      "pull_request_url": "https://github.com/theskumar/python-dotenv/pull/606",
+      "merged_at_utc": "2026-03-02T05:21:15Z",
+      "merge_commit_sha": "da0c82054f1ec1e03d57356d49b0b9ad09eb4209",
+      "merge_commit_sha_matches_fix_commit": true,
+      "pull_request_head_sha_matches_fix_commit": false,
+      "merge_commit_geometry": {
+        "merge_commit_present_in_pinned_clone": true,
+        "merge_commit_is_ancestor_of_pinned_revision": true,
+        "fix_commit_is_the_pull_request_head": false,
+        "reconciliation": {
+          "found": false,
+          "search": "git rev-list a565c2cc4159 --grep='Merge pull request #606'",
+          "candidates_examined": [],
+          "matching_merge_commit": null,
+          "matching_merge_commit_detail": null,
+          "reason": "no merge commit in the pinned history matches both the pull-request subject and the fix commit parent",
+          "fix_commit_parent_count_in_pinned_history": 1,
+          "fix_commit_is_itself_a_two_parent_merge": false,
+          "fix_commit_is_ancestor_of_pinned_revision": true
+        },
+        "landing_event_adjudication": "api_merge_commit_present_and_the_fix_commit_itself_lands_on_the_pinned_branch: squash or rebase merge, so the fix commit IS the landing event and no separate merge commit exists",
+        "adjudicated_landing_commit": "da0c82054f1ec1e03d57356d49b0b9ad09eb4209",
+        "landing_event_shape": "fix_commit_is_the_landing_commit",
+        "adjudicated_landing_is_ancestor_of_pinned_revision": true,
+        "pr_base_sha": "eb202520e5933c9daf42501e1e42fdb0144002c8",
+        "pr_head_sha": "6deb8349dd789e46011ba9415d4aac243ca70fc9",
+        "patch_equivalence": {
+          "computed": true,
+          "method": "the fix commit is itself the landing event (squash or rebase landing on the pinned branch), so the landed content is the fix commit's own diff against its parent by construction",
+          "landing_event_is_the_fix_commit": true,
+          "fix_diff_base": "dc71adbd8105188602907f6653d3c58d113de554",
+          "fix_diff_sha256": "f646336cbca7ac0a254bf4722db4ad1453fe0100bc425160f09526b4fbd832f6",
+          "landing_diff_sha256": "f646336cbca7ac0a254bf4722db4ad1453fe0100bc425160f09526b4fbd832f6",
+          "diff_text_equal": true,
+          "fix_diff_bytes": 1913,
+          "landing_diff_bytes": 1913,
+          "not_claimed": "this says nothing about whether some OTHER pull request re-landed the same fix elsewhere in history"
+        },
+        "mismatch_pattern": "exact_merge"
+      },
+      "landing_event_evidence": {
+        "adjudication": "api_merge_commit_present_and_the_fix_commit_itself_lands_on_the_pinned_branch: squash or rebase merge, so the fix commit IS the landing event and no separate merge commit exists",
+        "github_merge_commit_present_in_pinned_clone": true,
+        "landing_commit_in_pinned_history": "da0c82054f1ec1e03d57356d49b0b9ad09eb4209",
+        "landing_commit_is_ancestor_of_pinned_revision": true,
+        "landing_commit_is_a_two_parent_merge": false,
+        "fix_commit_is_the_second_parent": false,
+        "landing_commit_parent_count": null,
+        "search_command": "git rev-list a565c2cc4159 --grep='Merge pull request #606'",
+        "patch_equivalence": {
+          "computed": true,
+          "method": "the fix commit is itself the landing event (squash or rebase landing on the pinned branch), so the landed content is the fix commit's own diff against its parent by construction",
+          "landing_event_is_the_fix_commit": true,
+          "fix_diff_base": "dc71adbd8105188602907f6653d3c58d113de554",
+          "fix_diff_sha256": "f646336cbca7ac0a254bf4722db4ad1453fe0100bc425160f09526b4fbd832f6",
+          "landing_diff_sha256": "f646336cbca7ac0a254bf4722db4ad1453fe0100bc425160f09526b4fbd832f6",
+          "diff_text_equal": true,
+          "fix_diff_bytes": 1913,
+          "landing_diff_bytes": 1913,
+          "not_claimed": "this says nothing about whether some OTHER pull request re-landed the same fix elsewhere in history"
+        },
+        "reviewer_note": "the landing event is re-derived from the pinned repository, not taken from the API, because the API's merge_commit_sha disagrees with the pinned history for several of these families"
+      },
+      "status": "verified",
+      "window_qualified_by_merge_event": true,
+      "reason": "merge event retrieved from the pull-request metadata; qualification uses merged_at_utc, not the commit's author/committer dates"
+    },
+    {
+      "repo": "python-dotenv",
+      "upstream_slug": "theskumar/python-dotenv",
+      "fix_commit": "bca6644d9aedbe287b792b756b3ae3d650cd0d3a",
+      "split_role": "dev",
+      "window": "dev_sealed",
+      "commit_message_issue_refs": [],
+      "issue_reference_is_not_merge_evidence": true,
+      "commit_to_pr_lookup": {
+        "url": "https://api.github.com/repos/theskumar/python-dotenv/commits/bca6644d9aedbe287b792b756b3ae3d650cd0d3a/pulls",
+        "raw_path": "pr-evidence/raw/python-dotenv-commit-bca6644d9aed-pulls.json",
+        "raw_response_sha256": "c4952103935768462d0c79ced0e6dcb58cbb52c2c7c5ecbe6ace50dcb66c9399",
+        "from_cache": true,
+        "pull_requests": [
+          {
+            "number": 640,
+            "merge_commit_sha": "bca6644d9aedbe287b792b756b3ae3d650cd0d3a",
+            "merged_at": "2026-04-19T19:39:11Z",
+            "state": "closed"
+          }
+        ]
+      },
+      "pull_request": {
+        "url": "https://api.github.com/repos/theskumar/python-dotenv/pulls/640",
+        "raw_path": "pr-evidence/raw/python-dotenv-pr640.json",
+        "raw_response_sha256": "4a319b62c004fac6b1b8ab81f8825dd3bf569c7a1e1acc9b97a10bca17d62da3",
+        "from_cache": true,
+        "number": 640,
+        "html_url": "https://github.com/theskumar/python-dotenv/pull/640",
+        "title": "fix: strip UTF-8 BOM from .env files",
+        "state": "closed",
+        "merged": true,
+        "merged_at": "2026-04-19T19:39:11Z",
+        "merged_at_utc": "2026-04-19T19:39:11Z",
+        "merge_commit_sha": "bca6644d9aedbe287b792b756b3ae3d650cd0d3a",
+        "base_sha": "fa4e6a90b45428212452afc6ee0d5c8103b9301d",
+        "head_sha": "640311b11271e487b8fc27707267ad28369a0a51"
+      },
+      "pull_request_url": "https://github.com/theskumar/python-dotenv/pull/640",
+      "merged_at_utc": "2026-04-19T19:39:11Z",
+      "merge_commit_sha": "bca6644d9aedbe287b792b756b3ae3d650cd0d3a",
+      "merge_commit_sha_matches_fix_commit": true,
+      "pull_request_head_sha_matches_fix_commit": false,
+      "merge_commit_geometry": {
+        "merge_commit_present_in_pinned_clone": true,
+        "merge_commit_is_ancestor_of_pinned_revision": true,
+        "fix_commit_is_the_pull_request_head": false,
+        "reconciliation": {
+          "found": false,
+          "search": "git rev-list a565c2cc4159 --grep='Merge pull request #640'",
+          "candidates_examined": [],
+          "matching_merge_commit": null,
+          "matching_merge_commit_detail": null,
+          "reason": "no merge commit in the pinned history matches both the pull-request subject and the fix commit parent",
+          "fix_commit_parent_count_in_pinned_history": 1,
+          "fix_commit_is_itself_a_two_parent_merge": false,
+          "fix_commit_is_ancestor_of_pinned_revision": true
+        },
+        "landing_event_adjudication": "api_merge_commit_present_and_the_fix_commit_itself_lands_on_the_pinned_branch: squash or rebase merge, so the fix commit IS the landing event and no separate merge commit exists",
+        "adjudicated_landing_commit": "bca6644d9aedbe287b792b756b3ae3d650cd0d3a",
+        "landing_event_shape": "fix_commit_is_the_landing_commit",
+        "adjudicated_landing_is_ancestor_of_pinned_revision": true,
+        "pr_base_sha": "fa4e6a90b45428212452afc6ee0d5c8103b9301d",
+        "pr_head_sha": "640311b11271e487b8fc27707267ad28369a0a51",
+        "patch_equivalence": {
+          "computed": true,
+          "method": "the fix commit is itself the landing event (squash or rebase landing on the pinned branch), so the landed content is the fix commit's own diff against its parent by construction",
+          "landing_event_is_the_fix_commit": true,
+          "fix_diff_base": "68ea2d10dd8e97e6dea67c32742085f27729e3fe",
+          "fix_diff_sha256": "cd5ef647d54f678360464e6822a5549fdf66e853f05d8c5c3cbc243fc3b7be5b",
+          "landing_diff_sha256": "cd5ef647d54f678360464e6822a5549fdf66e853f05d8c5c3cbc243fc3b7be5b",
+          "diff_text_equal": true,
+          "fix_diff_bytes": 2918,
+          "landing_diff_bytes": 2918,
+          "not_claimed": "this says nothing about whether some OTHER pull request re-landed the same fix elsewhere in history"
+        },
+        "mismatch_pattern": "exact_merge"
+      },
+      "landing_event_evidence": {
+        "adjudication": "api_merge_commit_present_and_the_fix_commit_itself_lands_on_the_pinned_branch: squash or rebase merge, so the fix commit IS the landing event and no separate merge commit exists",
+        "github_merge_commit_present_in_pinned_clone": true,
+        "landing_commit_in_pinned_history": "bca6644d9aedbe287b792b756b3ae3d650cd0d3a",
+        "landing_commit_is_ancestor_of_pinned_revision": true,
+        "landing_commit_is_a_two_parent_merge": false,
+        "fix_commit_is_the_second_parent": false,
+        "landing_commit_parent_count": null,
+        "search_command": "git rev-list a565c2cc4159 --grep='Merge pull request #640'",
+        "patch_equivalence": {
+          "computed": true,
+          "method": "the fix commit is itself the landing event (squash or rebase landing on the pinned branch), so the landed content is the fix commit's own diff against its parent by construction",
+          "landing_event_is_the_fix_commit": true,
+          "fix_diff_base": "68ea2d10dd8e97e6dea67c32742085f27729e3fe",
+          "fix_diff_sha256": "cd5ef647d54f678360464e6822a5549fdf66e853f05d8c5c3cbc243fc3b7be5b",
+          "landing_diff_sha256": "cd5ef647d54f678360464e6822a5549fdf66e853f05d8c5c3cbc243fc3b7be5b",
+          "diff_text_equal": true,
+          "fix_diff_bytes": 2918,
+          "landing_diff_bytes": 2918,
+          "not_claimed": "this says nothing about whether some OTHER pull request re-landed the same fix elsewhere in history"
+        },
+        "reviewer_note": "the landing event is re-derived from the pinned repository, not taken from the API, because the API's merge_commit_sha disagrees with the pinned history for several of these families"
+      },
+      "status": "verified",
+      "window_qualified_by_merge_event": true,
+      "reason": "merge event retrieved from the pull-request metadata; qualification uses merged_at_utc, not the commit's author/committer dates"
+    },
+    {
+      "repo": "python-dotenv",
+      "upstream_slug": "theskumar/python-dotenv",
+      "fix_commit": "f5485a61eefa5e686d6d5bdc7aa9ad6b104b1e92",
+      "split_role": "dev",
+      "window": "dev_sealed",
+      "commit_message_issue_refs": [],
+      "issue_reference_is_not_merge_evidence": true,
+      "commit_to_pr_lookup": {
+        "url": "https://api.github.com/repos/theskumar/python-dotenv/commits/f5485a61eefa5e686d6d5bdc7aa9ad6b104b1e92/pulls",
+        "raw_path": "pr-evidence/raw/python-dotenv-commit-f5485a61eefa-pulls.json",
+        "raw_response_sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+        "from_cache": true,
+        "pull_requests": []
+      },
+      "status": "unverified",
+      "pull_request": null,
+      "merged_at_utc": null,
+      "merge_commit_sha": null,
+      "merge_commit_sha_matches_fix_commit": false,
+      "window_qualified_by_merge_event": false,
+      "reason": "GitHub reports no pull request associated with this commit. Absence of merge evidence is NOT evidence that no original fix exists; the record simply cannot be counted."
+    },
+    {
+      "repo": "python-dotenv",
+      "upstream_slug": "theskumar/python-dotenv",
+      "fix_commit": "f7b18d9c72d1abcc2ad4023424b84f5bee30d266",
+      "split_role": "dev",
+      "window": "dev_sealed",
+      "commit_message_issue_refs": [],
+      "issue_reference_is_not_merge_evidence": true,
+      "commit_to_pr_lookup": {
+        "url": "https://api.github.com/repos/theskumar/python-dotenv/commits/f7b18d9c72d1abcc2ad4023424b84f5bee30d266/pulls",
+        "raw_path": "pr-evidence/raw/python-dotenv-commit-f7b18d9c72d1-pulls.json",
+        "raw_response_sha256": "6344b5ada1698424f4f8adcbc35f9f8e6cddd68e52f805342549d8a190ae920e",
+        "from_cache": true,
+        "pull_requests": [
+          {
+            "number": 680,
+            "merge_commit_sha": "f7b18d9c72d1abcc2ad4023424b84f5bee30d266",
+            "merged_at": "2026-08-16T15:23:35Z",
+            "state": "closed"
+          }
+        ]
+      },
+      "pull_request": {
+        "url": "https://api.github.com/repos/theskumar/python-dotenv/pulls/680",
+        "raw_path": "pr-evidence/raw/python-dotenv-pr680.json",
+        "raw_response_sha256": "412bfe64adf5adaab329db960e79b981bc161d1fd6df4cea5d7af1e259258f0c",
+        "from_cache": true,
+        "number": 680,
+        "html_url": "https://github.com/theskumar/python-dotenv/pull/680",
+        "title": "fix: make values containing backslashes round-trip through set_key",
+        "state": "closed",
+        "merged": true,
+        "merged_at": "2026-08-16T15:23:35Z",
+        "merged_at_utc": "2026-08-16T15:23:35Z",
+        "merge_commit_sha": "f7b18d9c72d1abcc2ad4023424b84f5bee30d266",
+        "base_sha": "751f8c148222e58aa173c83c4e5e6cfccb2cc124",
+        "head_sha": "439f4fe44d632a7a207ed6813053317c44a3a263"
+      },
+      "pull_request_url": "https://github.com/theskumar/python-dotenv/pull/680",
+      "merged_at_utc": "2026-08-16T15:23:35Z",
+      "merge_commit_sha": "f7b18d9c72d1abcc2ad4023424b84f5bee30d266",
+      "merge_commit_sha_matches_fix_commit": true,
+      "pull_request_head_sha_matches_fix_commit": false,
+      "merge_commit_geometry": {
+        "merge_commit_present_in_pinned_clone": true,
+        "merge_commit_is_ancestor_of_pinned_revision": true,
+        "fix_commit_is_the_pull_request_head": false,
+        "reconciliation": {
+          "found": false,
+          "search": "git rev-list a565c2cc4159 --grep='Merge pull request #680'",
+          "candidates_examined": [],
+          "matching_merge_commit": null,
+          "matching_merge_commit_detail": null,
+          "reason": "no merge commit in the pinned history matches both the pull-request subject and the fix commit parent",
+          "fix_commit_parent_count_in_pinned_history": 1,
+          "fix_commit_is_itself_a_two_parent_merge": false,
+          "fix_commit_is_ancestor_of_pinned_revision": true
+        },
+        "landing_event_adjudication": "api_merge_commit_present_and_the_fix_commit_itself_lands_on_the_pinned_branch: squash or rebase merge, so the fix commit IS the landing event and no separate merge commit exists",
+        "adjudicated_landing_commit": "f7b18d9c72d1abcc2ad4023424b84f5bee30d266",
+        "landing_event_shape": "fix_commit_is_the_landing_commit",
+        "adjudicated_landing_is_ancestor_of_pinned_revision": true,
+        "pr_base_sha": "751f8c148222e58aa173c83c4e5e6cfccb2cc124",
+        "pr_head_sha": "439f4fe44d632a7a207ed6813053317c44a3a263",
+        "patch_equivalence": {
+          "computed": true,
+          "method": "the fix commit is itself the landing event (squash or rebase landing on the pinned branch), so the landed content is the fix commit's own diff against its parent by construction",
+          "landing_event_is_the_fix_commit": true,
+          "fix_diff_base": "751f8c148222e58aa173c83c4e5e6cfccb2cc124",
+          "fix_diff_sha256": "39cac9151d403bf290ba06eb318a7d1c538135c0d483bc1916198bc171999aa0",
+          "landing_diff_sha256": "39cac9151d403bf290ba06eb318a7d1c538135c0d483bc1916198bc171999aa0",
+          "diff_text_equal": true,
+          "fix_diff_bytes": 7062,
+          "landing_diff_bytes": 7062,
+          "not_claimed": "this says nothing about whether some OTHER pull request re-landed the same fix elsewhere in history"
+        },
+        "mismatch_pattern": "exact_merge"
+      },
+      "landing_event_evidence": {
+        "adjudication": "api_merge_commit_present_and_the_fix_commit_itself_lands_on_the_pinned_branch: squash or rebase merge, so the fix commit IS the landing event and no separate merge commit exists",
+        "github_merge_commit_present_in_pinned_clone": true,
+        "landing_commit_in_pinned_history": "f7b18d9c72d1abcc2ad4023424b84f5bee30d266",
+        "landing_commit_is_ancestor_of_pinned_revision": true,
+        "landing_commit_is_a_two_parent_merge": false,
+        "fix_commit_is_the_second_parent": false,
+        "landing_commit_parent_count": null,
+        "search_command": "git rev-list a565c2cc4159 --grep='Merge pull request #680'",
+        "patch_equivalence": {
+          "computed": true,
+          "method": "the fix commit is itself the landing event (squash or rebase landing on the pinned branch), so the landed content is the fix commit's own diff against its parent by construction",
+          "landing_event_is_the_fix_commit": true,
+          "fix_diff_base": "751f8c148222e58aa173c83c4e5e6cfccb2cc124",
+          "fix_diff_sha256": "39cac9151d403bf290ba06eb318a7d1c538135c0d483bc1916198bc171999aa0",
+          "landing_diff_sha256": "39cac9151d403bf290ba06eb318a7d1c538135c0d483bc1916198bc171999aa0",
+          "diff_text_equal": true,
+          "fix_diff_bytes": 7062,
+          "landing_diff_bytes": 7062,
+          "not_claimed": "this says nothing about whether some OTHER pull request re-landed the same fix elsewhere in history"
+        },
+        "reviewer_note": "the landing event is re-derived from the pinned repository, not taken from the API, because the API's merge_commit_sha disagrees with the pinned history for several of these families"
+      },
+      "status": "verified",
+      "window_qualified_by_merge_event": true,
+      "reason": "merge event retrieved from the pull-request metadata; qualification uses merged_at_utc, not the commit's author/committer dates"
+    },
+    {
+      "repo": "python-dotenv",
+      "upstream_slug": "theskumar/python-dotenv",
+      "fix_commit": "e0310e5bb3f2b701b11bbc007ca0c82c1bd56f38",
+      "split_role": "dev",
+      "window": "dev_sealed",
+      "commit_message_issue_refs": [],
+      "issue_reference_is_not_merge_evidence": true,
+      "commit_to_pr_lookup": {
+        "url": "https://api.github.com/repos/theskumar/python-dotenv/commits/e0310e5bb3f2b701b11bbc007ca0c82c1bd56f38/pulls",
+        "raw_path": "pr-evidence/raw/python-dotenv-commit-e0310e5bb3f2-pulls.json",
+        "raw_response_sha256": "70d764beeada2e757f5dd2a3eee853762926c56855f8ee0c0475074241918d4e",
+        "from_cache": true,
+        "pull_requests": [
+          {
+            "number": 698,
+            "merge_commit_sha": "e0310e5bb3f2b701b11bbc007ca0c82c1bd56f38",
+            "merged_at": "2026-09-30T03:05:57Z",
+            "state": "closed"
+          }
+        ]
+      },
+      "pull_request": {
+        "url": "https://api.github.com/repos/theskumar/python-dotenv/pulls/698",
+        "raw_path": "pr-evidence/raw/python-dotenv-pr698.json",
+        "raw_response_sha256": "638fd2f2422e4a19b4fc96afc54eb9c73891d75a39a149e0d99115ea0f5c9955",
+        "from_cache": true,
+        "number": 698,
+        "html_url": "https://github.com/theskumar/python-dotenv/pull/698",
+        "title": "Fix variable expansion in dotenv run --no-override",
+        "state": "closed",
+        "merged": true,
+        "merged_at": "2026-09-30T03:05:57Z",
+        "merged_at_utc": "2026-09-30T03:05:57Z",
+        "merge_commit_sha": "e0310e5bb3f2b701b11bbc007ca0c82c1bd56f38",
+        "base_sha": "a00cb2eed0704cd6d2071b2004c37e95ccc86ee5",
+        "head_sha": "524f1455c2925c650607968fa3dab649b6a7a9e1"
+      },
+      "pull_request_url": "https://github.com/theskumar/python-dotenv/pull/698",
+      "merged_at_utc": "2026-09-30T03:05:57Z",
+      "merge_commit_sha": "e0310e5bb3f2b701b11bbc007ca0c82c1bd56f38",
+      "merge_commit_sha_matches_fix_commit": true,
+      "pull_request_head_sha_matches_fix_commit": false,
+      "merge_commit_geometry": {
+        "merge_commit_present_in_pinned_clone": true,
+        "merge_commit_is_ancestor_of_pinned_revision": true,
+        "fix_commit_is_the_pull_request_head": false,
+        "reconciliation": {
+          "found": false,
+          "search": "git rev-list a565c2cc4159 --grep='Merge pull request #698'",
+          "candidates_examined": [],
+          "matching_merge_commit": null,
+          "matching_merge_commit_detail": null,
+          "reason": "no merge commit in the pinned history matches both the pull-request subject and the fix commit parent",
+          "fix_commit_parent_count_in_pinned_history": 1,
+          "fix_commit_is_itself_a_two_parent_merge": false,
+          "fix_commit_is_ancestor_of_pinned_revision": true
+        },
+        "landing_event_adjudication": "api_merge_commit_present_and_the_fix_commit_itself_lands_on_the_pinned_branch: squash or rebase merge, so the fix commit IS the landing event and no separate merge commit exists",
+        "adjudicated_landing_commit": "e0310e5bb3f2b701b11bbc007ca0c82c1bd56f38",
+        "landing_event_shape": "fix_commit_is_the_landing_commit",
+        "adjudicated_landing_is_ancestor_of_pinned_revision": true,
+        "pr_base_sha": "a00cb2eed0704cd6d2071b2004c37e95ccc86ee5",
+        "pr_head_sha": "524f1455c2925c650607968fa3dab649b6a7a9e1",
+        "patch_equivalence": {
+          "computed": true,
+          "method": "the fix commit is itself the landing event (squash or rebase landing on the pinned branch), so the landed content is the fix commit's own diff against its parent by construction",
+          "landing_event_is_the_fix_commit": true,
+          "fix_diff_base": "a00cb2eed0704cd6d2071b2004c37e95ccc86ee5",
+          "fix_diff_sha256": "9a0e5020582ddc653b6427b9819e39dada9c6578c8f7475833e551b1755c66f0",
+          "landing_diff_sha256": "9a0e5020582ddc653b6427b9819e39dada9c6578c8f7475833e551b1755c66f0",
+          "diff_text_equal": true,
+          "fix_diff_bytes": 3679,
+          "landing_diff_bytes": 3679,
+          "not_claimed": "this says nothing about whether some OTHER pull request re-landed the same fix elsewhere in history"
+        },
+        "mismatch_pattern": "exact_merge"
+      },
+      "landing_event_evidence": {
+        "adjudication": "api_merge_commit_present_and_the_fix_commit_itself_lands_on_the_pinned_branch: squash or rebase merge, so the fix commit IS the landing event and no separate merge commit exists",
+        "github_merge_commit_present_in_pinned_clone": true,
+        "landing_commit_in_pinned_history": "e0310e5bb3f2b701b11bbc007ca0c82c1bd56f38",
+        "landing_commit_is_ancestor_of_pinned_revision": true,
+        "landing_commit_is_a_two_parent_merge": false,
+        "fix_commit_is_the_second_parent": false,
+        "landing_commit_parent_count": null,
+        "search_command": "git rev-list a565c2cc4159 --grep='Merge pull request #698'",
+        "patch_equivalence": {
+          "computed": true,
+          "method": "the fix commit is itself the landing event (squash or rebase landing on the pinned branch), so the landed content is the fix commit's own diff against its parent by construction",
+          "landing_event_is_the_fix_commit": true,
+          "fix_diff_base": "a00cb2eed0704cd6d2071b2004c37e95ccc86ee5",
+          "fix_diff_sha256": "9a0e5020582ddc653b6427b9819e39dada9c6578c8f7475833e551b1755c66f0",
+          "landing_diff_sha256": "9a0e5020582ddc653b6427b9819e39dada9c6578c8f7475833e551b1755c66f0",
+          "diff_text_equal": true,
+          "fix_diff_bytes": 3679,
+          "landing_diff_bytes": 3679,
+          "not_claimed": "this says nothing about whether some OTHER pull request re-landed the same fix elsewhere in history"
+        },
+        "reviewer_note": "the landing event is re-derived from the pinned repository, not taken from the API, because the API's merge_commit_sha disagrees with the pinned history for several of these families"
+      },
+      "status": "verified",
+      "window_qualified_by_merge_event": true,
+      "reason": "merge event retrieved from the pull-request metadata; qualification uses merged_at_utc, not the commit's author/committer dates"
+    },
+    {
+      "repo": "python-dotenv",
+      "upstream_slug": "theskumar/python-dotenv",
+      "fix_commit": "f215c0274dc4c310e5ca5feb4c6bddade25ece21",
+      "split_role": "dev",
+      "window": "dev_sealed",
+      "commit_message_issue_refs": [],
+      "issue_reference_is_not_merge_evidence": true,
+      "commit_to_pr_lookup": {
+        "url": "https://api.github.com/repos/theskumar/python-dotenv/commits/f215c0274dc4c310e5ca5feb4c6bddade25ece21/pulls",
+        "raw_path": "pr-evidence/raw/python-dotenv-commit-f215c0274dc4-pulls.json",
+        "raw_response_sha256": "9c75f3877b8b99ebf955cf19e193ee8f08976484de8e559f18f7f900919fe30a",
+        "from_cache": true,
+        "pull_requests": [
+          {
+            "number": 700,
+            "merge_commit_sha": "f215c0274dc4c310e5ca5feb4c6bddade25ece21",
+            "merged_at": "2026-10-01T05:34:45Z",
+            "state": "closed"
+          }
+        ]
+      },
+      "pull_request": {
+        "url": "https://api.github.com/repos/theskumar/python-dotenv/pulls/700",
+        "raw_path": "pr-evidence/raw/python-dotenv-pr700.json",
+        "raw_response_sha256": "ada302b2daaa3a0184ddebe1bcfc8e288a5ebb0ef73aeb60a1f59d751a9b5fcb",
+        "from_cache": true,
+        "number": 700,
+        "html_url": "https://github.com/theskumar/python-dotenv/pull/700",
+        "title": "Fix dotenv get exiting with code 1 for empty string values",
+        "state": "closed",
+        "merged": true,
+        "merged_at": "2026-10-01T05:34:45Z",
+        "merged_at_utc": "2026-10-01T05:34:45Z",
+        "merge_commit_sha": "f215c0274dc4c310e5ca5feb4c6bddade25ece21",
+        "base_sha": "58f2d7c112235b347040bb5cb579d4ebc0a0ad91",
+        "head_sha": "004b454e37f415ed7828ed4c9426816d8c1b608f"
+      },
+      "pull_request_url": "https://github.com/theskumar/python-dotenv/pull/700",
+      "merged_at_utc": "2026-10-01T05:34:45Z",
+      "merge_commit_sha": "f215c0274dc4c310e5ca5feb4c6bddade25ece21",
+      "merge_commit_sha_matches_fix_commit": true,
+      "pull_request_head_sha_matches_fix_commit": false,
+      "merge_commit_geometry": {
+        "merge_commit_present_in_pinned_clone": true,
+        "merge_commit_is_ancestor_of_pinned_revision": true,
+        "fix_commit_is_the_pull_request_head": false,
+        "reconciliation": {
+          "found": false,
+          "search": "git rev-list a565c2cc4159 --grep='Merge pull request #700'",
+          "candidates_examined": [],
+          "matching_merge_commit": null,
+          "matching_merge_commit_detail": null,
+          "reason": "no merge commit in the pinned history matches both the pull-request subject and the fix commit parent",
+          "fix_commit_parent_count_in_pinned_history": 1,
+          "fix_commit_is_itself_a_two_parent_merge": false,
+          "fix_commit_is_ancestor_of_pinned_revision": true
+        },
+        "landing_event_adjudication": "api_merge_commit_present_and_the_fix_commit_itself_lands_on_the_pinned_branch: squash or rebase merge, so the fix commit IS the landing event and no separate merge commit exists",
+        "adjudicated_landing_commit": "f215c0274dc4c310e5ca5feb4c6bddade25ece21",
+        "landing_event_shape": "fix_commit_is_the_landing_commit",
+        "adjudicated_landing_is_ancestor_of_pinned_revision": true,
+        "pr_base_sha": "58f2d7c112235b347040bb5cb579d4ebc0a0ad91",
+        "pr_head_sha": "004b454e37f415ed7828ed4c9426816d8c1b608f",
+        "patch_equivalence": {
+          "computed": true,
+          "method": "the fix commit is itself the landing event (squash or rebase landing on the pinned branch), so the landed content is the fix commit's own diff against its parent by construction",
+          "landing_event_is_the_fix_commit": true,
+          "fix_diff_base": "58f2d7c112235b347040bb5cb579d4ebc0a0ad91",
+          "fix_diff_sha256": "54415709bbec7957b241c099868049a81176430787caa0fb3d2babbce49c8d31",
+          "landing_diff_sha256": "54415709bbec7957b241c099868049a81176430787caa0fb3d2babbce49c8d31",
+          "diff_text_equal": true,
+          "fix_diff_bytes": 3134,
+          "landing_diff_bytes": 3134,
+          "not_claimed": "this says nothing about whether some OTHER pull request re-landed the same fix elsewhere in history"
+        },
+        "mismatch_pattern": "exact_merge"
+      },
+      "landing_event_evidence": {
+        "adjudication": "api_merge_commit_present_and_the_fix_commit_itself_lands_on_the_pinned_branch: squash or rebase merge, so the fix commit IS the landing event and no separate merge commit exists",
+        "github_merge_commit_present_in_pinned_clone": true,
+        "landing_commit_in_pinned_history": "f215c0274dc4c310e5ca5feb4c6bddade25ece21",
+        "landing_commit_is_ancestor_of_pinned_revision": true,
+        "landing_commit_is_a_two_parent_merge": false,
+        "fix_commit_is_the_second_parent": false,
+        "landing_commit_parent_count": null,
+        "search_command": "git rev-list a565c2cc4159 --grep='Merge pull request #700'",
+        "patch_equivalence": {
+          "computed": true,
+          "method": "the fix commit is itself the landing event (squash or rebase landing on the pinned branch), so the landed content is the fix commit's own diff against its parent by construction",
+          "landing_event_is_the_fix_commit": true,
+          "fix_diff_base": "58f2d7c112235b347040bb5cb579d4ebc0a0ad91",
+          "fix_diff_sha256": "54415709bbec7957b241c099868049a81176430787caa0fb3d2babbce49c8d31",
+          "landing_diff_sha256": "54415709bbec7957b241c099868049a81176430787caa0fb3d2babbce49c8d31",
+          "diff_text_equal": true,
+          "fix_diff_bytes": 3134,
+          "landing_diff_bytes": 3134,
+          "not_claimed": "this says nothing about whether some OTHER pull request re-landed the same fix elsewhere in history"
+        },
+        "reviewer_note": "the landing event is re-derived from the pinned repository, not taken from the API, because the API's merge_commit_sha disagrees with the pinned history for several of these families"
+      },
+      "status": "verified",
+      "window_qualified_by_merge_event": true,
+      "reason": "merge event retrieved from the pull-request metadata; qualification uses merged_at_utc, not the commit's author/committer dates"
+    }
+  ],
+  "replaced_records": [
+    {
+      "repo": "click",
+      "upstream_slug": "pallets/click",
+      "fix_commit": "9da1791476fe79ce77aa7a2a2db370c91a455251",
+      "replaced_by": "ee56925bc4f5451a125317e183f498e8bd1aecb3",
+      "note": "2025-03-31 fix pushed straight to the default branch: GitHub reports no associated pull request and the two cross-referenced pull requests #258/#259 were both closed unmerged. It therefore has no original merge event, is counted in no quota, and was substituted by Mika's ruling.",
+      "status": "replaced",
+      "window_qualified_by_merge_event": false,
+      "counted_in_no_quota": true,
+      "issue_reference_is_not_merge_evidence": true
+    }
+  ],
+  "summary": {
+    "records": 10,
+    "verified": 9,
+    "unverified": 1,
+    "verified_and_in_window": 9,
+    "unverified_commits": [
+      "f5485a61eefa5e686d6d5bdc7aa9ad6b104b1e92"
+    ],
+    "merge_commit_sha_matches_fix_commit": 5,
+    "merge_commit_sha_differs_from_fix_commit": 4,
+    "merge_commit_absent_from_pinned_clone": [
+      {
+        "repo": "boltons",
+        "fix_commit": "ae21ed2a78064ca1090db069e3f755aa1853b885",
+        "pull_request": "https://github.com/mahmoud/boltons/pull/31",
+        "merge_commit_sha": "1efa511206d0f27474efcb6d00bab5404f290bda"
+      }
+    ],
+    "api_lookups": 0,
+    "landing_event_adjudications": {
+      "click": "api_merge_commit_is_the_pinned_history_merge_event",
+      "more-itertools": "api_merge_commit_is_the_pinned_history_merge_event",
+      "pluggy": "api_merge_commit_is_the_pinned_history_merge_event",
+      "boltons": "api_merge_commit_absent_or_different_from_pinned_history; the pinned history's own two-parent merge commit that names this pull request is recorded as the landing event. the pinned merge commit names this pull request but its merged-in commit is 078a215bfd37, not the fix commit ae21ed2a7806; the fix reaches the branch beneath it (fix_is_ancestor_of_merged_in_commit=True) and the content introduced by the merge equals the fix's own content (content_equal=False)",
+      "python-dotenv": "api_merge_commit_present_and_the_fix_commit_itself_lands_on_the_pinned_branch: squash or rebase merge, so the fix commit IS the landing event and no separate merge commit exists"
+    },
+    "reconciled_landing_commits": [
+      {
+        "repo": "click",
+        "fix_commit": "ee56925bc4f5451a125317e183f498e8bd1aecb3",
+        "github_merge_commit_sha": "3d0d8b5af1abc30a59fc0f1bec3a0e95d61a4101",
+        "adjudicated_landing_commit": "3d0d8b5af1abc30a59fc0f1bec3a0e95d61a4101",
+        "adjudication": "api_merge_commit_is_the_pinned_history_merge_event"
+      },
+      {
+        "repo": "more-itertools",
+        "fix_commit": "62411c1618493f94b16901746c34e72ad415061e",
+        "github_merge_commit_sha": "a5a14f61d8331fb6d67c00eace8e22d5c6226ddf",
+        "adjudicated_landing_commit": "a5a14f61d8331fb6d67c00eace8e22d5c6226ddf",
+        "adjudication": "api_merge_commit_is_the_pinned_history_merge_event"
+      },
+      {
+        "repo": "pluggy",
+        "fix_commit": "9cf2eaa50dd1ad3ebf042978629e78c695197095",
+        "github_merge_commit_sha": "9d19d4b8e07dc3d66a512124ccbb8dfdd9e4bfb1",
+        "adjudicated_landing_commit": "9d19d4b8e07dc3d66a512124ccbb8dfdd9e4bfb1",
+        "adjudication": "api_merge_commit_is_the_pinned_history_merge_event"
+      },
+      {
+        "repo": "boltons",
+        "fix_commit": "ae21ed2a78064ca1090db069e3f755aa1853b885",
+        "github_merge_commit_sha": "1efa511206d0f27474efcb6d00bab5404f290bda",
+        "adjudicated_landing_commit": "1d7d8c4e1767f5ec4e180cccd00b773150d086f5",
+        "adjudication": "api_merge_commit_absent_or_different_from_pinned_history; the pinned history's own two-parent merge commit that names this pull request is recorded as the landing event. the pinned merge commit names this pull request but its merged-in commit is 078a215bfd37, not the fix commit ae21ed2a7806; the fix reaches the branch beneath it (fix_is_ancestor_of_merged_in_commit=True) and the content introduced by the merge equals the fix's own content (content_equal=False)"
+      },
+      {
+        "repo": "python-dotenv",
+        "fix_commit": "da0c82054f1ec1e03d57356d49b0b9ad09eb4209",
+        "github_merge_commit_sha": "da0c82054f1ec1e03d57356d49b0b9ad09eb4209",
+        "adjudicated_landing_commit": "da0c82054f1ec1e03d57356d49b0b9ad09eb4209",
+        "adjudication": "api_merge_commit_present_and_the_fix_commit_itself_lands_on_the_pinned_branch: squash or rebase merge, so the fix commit IS the landing event and no separate merge commit exists"
+      },
+      {
+        "repo": "python-dotenv",
+        "fix_commit": "bca6644d9aedbe287b792b756b3ae3d650cd0d3a",
+        "github_merge_commit_sha": "bca6644d9aedbe287b792b756b3ae3d650cd0d3a",
+        "adjudicated_landing_commit": "bca6644d9aedbe287b792b756b3ae3d650cd0d3a",
+        "adjudication": "api_merge_commit_present_and_the_fix_commit_itself_lands_on_the_pinned_branch: squash or rebase merge, so the fix commit IS the landing event and no separate merge commit exists"
+      },
+      {
+        "repo": "python-dotenv",
+        "fix_commit": "f7b18d9c72d1abcc2ad4023424b84f5bee30d266",
+        "github_merge_commit_sha": "f7b18d9c72d1abcc2ad4023424b84f5bee30d266",
+        "adjudicated_landing_commit": "f7b18d9c72d1abcc2ad4023424b84f5bee30d266",
+        "adjudication": "api_merge_commit_present_and_the_fix_commit_itself_lands_on_the_pinned_branch: squash or rebase merge, so the fix commit IS the landing event and no separate merge commit exists"
+      },
+      {
+        "repo": "python-dotenv",
+        "fix_commit": "e0310e5bb3f2b701b11bbc007ca0c82c1bd56f38",
+        "github_merge_commit_sha": "e0310e5bb3f2b701b11bbc007ca0c82c1bd56f38",
+        "adjudicated_landing_commit": "e0310e5bb3f2b701b11bbc007ca0c82c1bd56f38",
+        "adjudication": "api_merge_commit_present_and_the_fix_commit_itself_lands_on_the_pinned_branch: squash or rebase merge, so the fix commit IS the landing event and no separate merge commit exists"
+      },
+      {
+        "repo": "python-dotenv",
+        "fix_commit": "f215c0274dc4c310e5ca5feb4c6bddade25ece21",
+        "github_merge_commit_sha": "f215c0274dc4c310e5ca5feb4c6bddade25ece21",
+        "adjudicated_landing_commit": "f215c0274dc4c310e5ca5feb4c6bddade25ece21",
+        "adjudication": "api_merge_commit_present_and_the_fix_commit_itself_lands_on_the_pinned_branch: squash or rebase merge, so the fix commit IS the landing event and no separate merge commit exists"
+      }
+    ],
+    "patch_equivalence_all_true": false
+  },
+  "disclosures": [
+    "an unverified record is NOT evidence that no original fix exists; it means the merge event could not be retrieved and the record is counted in no window",
+    "for a rebase- or squash-merge the merge_commit_sha legitimately differs from the fix commit; the geometry block records which pattern applies and whether the merge commit is an ancestor of the pinned revision",
+    "a merge commit that is absent from the pinned clone is listed in summary.merge_commit_absent_from_pinned_clone rather than reconciled silently",
+    "this artifact only settles the WINDOW question. It does not establish family independence, licence closure, environment or FAIL_TO_PASS behaviour, or permission isolation"
+  ]
+}
