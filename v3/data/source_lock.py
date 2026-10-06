@@ -30,11 +30,15 @@ covers one pinned commit; re-pinning a repository invalidates it"。
    不等（或取不到 pinned commit）即拒绝 —— 重新 pin 会让旧批准失效。
 2. **任一拒绝/冲突信号优先拒绝**：`decision != approved`、copyleft/restrictive 命中、
    `osi_permissive` 非真、`approved_spdx` 未命中允许清单（空值 / 未知值 / 类型错误 /
-   未支持的复合表达式）、`independent_review.status == "rejected"`，
+   未支持的复合表达式 / 非法原子 / 尾随文本 / 任意位置出现被排除的伪标识）、
+   `independent_review.status == "rejected"`，
    任意一条命中即整条记录 `unverified`，**不看键序、不看是否另有 approved 信号**。
    `approved_spdx` 走**内容**校验（`check_approved_spdx`，允许清单复用
    `v3.exp.exp1.APPROVED_LICENSE_EXPRESSIONS`），**不得**用"非空"、"自述 approved"
    或 `osi_permissive=true` 替代 —— 见 Mika 2026-10-06 裁定第 3 条。
+   校验内部先做**整条语法检查**（消费全部原子）再做许可选择，因此合法分支不能掩盖
+   另一侧的任意文本（`MIT OR ''; DROP TABLE` 整体拒绝）；且排除集按**原子**比对，
+   `synthetic-fixture OR MIT` 也整体拒绝 —— 见同一裁定第 1、2 条。
 3. **导入 ≠ 批准**：`independent_review.status="pending"` 原样保留为事实字段；
    许可元数据被 ingest **不等于**独立批准，也不等于任何 split 被 `released`。
    本模块**不写入**任何顶层的无条件 `approved` 别名（那会绕过审核）。
@@ -100,7 +104,12 @@ SOURCE_REPO_APPROVED_LICENSES = frozenset(
 
 #: 被来源锁表面**排除**的伪标识（小写，比较用）。当前只有合成题库那一个，
 #: 但仍然写成集合：将来若清单里再进伪标识，这里会跟着自动变严。
-_EXCLUDED_PSEUDO_IDENTIFIERS_LOWER = frozenset(
+#:
+#: KAGGLE-26 Mika 2026-10-06 裁定第 1 条：真实来源表达式要**逐原子**检查本集合，
+#: 任意位置出现即整条拒绝，**不能由 OR 的另一侧挽救**。
+#: 因此它以 `excluded=` 传给 `evaluate_license_expression`，而不是只做整串比较 ——
+#: 整串比较会漏掉 `synthetic-fixture OR MIT` 这种形态（2026-10-06 独立复核实测到）。
+SOURCE_REPO_EXCLUDED_IDENTIFIERS = frozenset(
     item.lower() for item in (APPROVED_LICENSE_EXPRESSIONS - SOURCE_REPO_APPROVED_LICENSES)
 )
 
@@ -109,7 +118,7 @@ def check_approved_spdx(value) -> tuple[bool, str]:
     """消费端 `approved_spdx` / `license_spdx` 的**内容**校验，返回 ``(ok, message)``。
 
     Mika 2026-10-06 裁定第 3 条：不得用"非空"、"自述 approved"或
-    `osi_permissive=true` 替代内容检查。因此本函数把五类输入**显式**拒绝：
+    `osi_permissive=true` 替代内容检查。因此本函数把以下输入**显式**拒绝：
 
     1. **类型错误**：不是 `str`（`bool` / `int` / `list` / `dict` / `None` 全部拒绝）——
        `str(True) == "True"` 这类隐式强转必须在这里被挡掉，不能进清单比较；
@@ -117,10 +126,17 @@ def check_approved_spdx(value) -> tuple[bool, str]:
     3. **未知值**：不在允许清单内的标识符（如 `GPL-3.0`、`completely-unknown-license`、
        拼写错误 `MITT`）；
     4. **未支持的复合表达式**：含括号或 `WITH` 例外条款（未实现完整 SPDX 语法 → 拒绝）；
-    5. **残缺表达式**：`MIT OR` / 纯运算符 `AND` 之类。
+    5. **残缺表达式**：`MIT OR` / 纯运算符 `AND` 之类；
+    6. **非法分量**（Mika 2026-10-06 裁定第 2 条）：引号、分号、非法字符、尾随文本 ——
+       整条输入先过语法校验，合法分支不得掩盖另一侧的任意文本
+       （`MIT OR ''; DROP TABLE` 必须整体拒绝）；
+    7. **任意位置出现排除集里的伪标识**（同裁定第 1 条）：
+       `synthetic-fixture OR MIT` 也整体拒绝，不能由 OR 另一侧挽救。
 
-    支持的复合形式沿用 `v3.exp.exp1.evaluate_license_expression` 的冻结规则：
-    `OR` 至少一个析取的全部原子在清单内、`AND` 全部原子在清单内。
+    语法校验与允许策略在 `v3.exp.exp1.evaluate_license_expression` 内部**分阶段**执行：
+    先消费整条输入做语法/排除检查，再做许可选择。因此
+    `MIT OR GPL-3.0` 仍按既定策略选 `MIT` 通过，`MIT AND GPL-3.0` 仍拒绝 ——
+    本轮没有扩大允许清单，也没有新增表达式功能。
 
     返回值第二项在**成功时**是命中的清单项，失败时是可直接并入 `problems` 的理由。
     """
@@ -133,13 +149,11 @@ def check_approved_spdx(value) -> tuple[bool, str]:
     normalized = normalize_license_expression(value)
     if not normalized:
         return (False, "为空：批准必须指明许可表达式")
-    if normalized in _EXCLUDED_PSEUDO_IDENTIFIERS_LOWER:
-        return (
-            False,
-            "%r 是合成题库专用伪标识，不是 SPDX 许可标识符："
-            "真实仓库不得用它声明许可" % value.strip(),
-        )
-    allowed, reason = evaluate_license_expression(value, allowed=SOURCE_REPO_APPROVED_LICENSES)
+    allowed, reason = evaluate_license_expression(
+        value,
+        allowed=SOURCE_REPO_APPROVED_LICENSES,
+        excluded=SOURCE_REPO_EXCLUDED_IDENTIFIERS,
+    )
     if not allowed:
         return (False, reason)
     return (True, reason)

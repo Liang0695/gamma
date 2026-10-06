@@ -25,10 +25,15 @@ import unittest
 from v3.common.errors import PolicyViolation
 from v3.data.source_lock import (
     SOURCE_REPO_APPROVED_LICENSES,
+    SOURCE_REPO_EXCLUDED_IDENTIFIERS,
     check_approved_spdx,
     ingest_manifest,
 )
-from v3.exp.exp1 import APPROVED_LICENSE_EXPRESSIONS, license_is_allowlisted
+from v3.exp.exp1 import (
+    APPROVED_LICENSE_EXPRESSIONS,
+    evaluate_license_expression,
+    license_is_allowlisted,
+)
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 REPO_ROOT = os.path.abspath(os.path.join(HERE, ".."))
@@ -122,9 +127,12 @@ class NegativeSpdxContentTests(unittest.TestCase):
         self._expect_spdx_problem("AGPL-3.0-only", "未在允许清单内")
 
     def test_unknown_value_is_rejected(self) -> None:
+        # 合法 SPDX 原子但不在清单内 → 由**允许策略**拒绝
         self._expect_spdx_problem("completely-unknown-license", "未在允许清单内")
         self._expect_spdx_problem("MITT", "未在允许清单内")
-        self._expect_spdx_problem("N/A", "未在允许清单内")
+        self._expect_spdx_problem("proprietary", "未在允许清单内")
+        # `N/A` 含 `/`，连合法 SPDX 原子都不是 → 由**语法阶段**拒绝（更靠前）
+        self._expect_spdx_problem("N/A", "不是合法的 SPDX 许可标识符")
 
     def test_empty_values_are_rejected(self) -> None:
         self._expect_spdx_problem("", "为空")
@@ -157,7 +165,6 @@ class NegativeSpdxContentTests(unittest.TestCase):
     def test_synthetic_fixture_pseudo_license_is_rejected_for_real_repos(self) -> None:
         """`synthetic-fixture` 不是 SPDX 许可标识符，真实来源不得用它声明许可。"""
         self._expect_spdx_problem("synthetic-fixture", "伪标识")
-        self._expect_spdx_problem("synthetic-fixture OR GPL-3.0", "未在允许清单内")
 
     def test_osi_permissive_true_cannot_substitute_for_content(self) -> None:
         """`osi_permissive=true` 不能替代内容检查（否则等于自述批准）。"""
@@ -266,6 +273,194 @@ class CheckApprovedSpdxUnitTests(unittest.TestCase):
     def test_bool_is_not_treated_as_str(self) -> None:
         self.assertFalse(check_approved_spdx(True)[0])
         self.assertFalse(check_approved_spdx(False)[0])
+
+
+class PseudoIdentifierCannotBeRescuedByORTests(unittest.TestCase):
+    """KAGGLE-26 Mika 2026-10-06 裁定第 1 条：逐**原子**检查排除集。
+
+    出现在任意位置即整条表达式拒绝，**不能由 `OR` 的另一侧挽救**。
+    修前（`5b26306`）实测：`synthetic-fixture OR MIT` / `MIT OR synthetic-fixture` /
+    `Apache-2.0 OR synthetic-fixture` / `MIT OR SYNTHETIC-FIXTURE` 全部被放行。
+    """
+
+    def _problems(self, value) -> list[str]:
+        with self.assertRaises(PolicyViolation) as ctx:
+            ingest_manifest(_mutate(lambda p: _set_spdx(p, value)), train_only=True)
+        return list(ctx.exception.context["problems"])
+
+    def test_pseudo_identifier_alone_and_case_variants(self) -> None:
+        for value in ("synthetic-fixture", "SYNTHETIC-FIXTURE", "Synthetic-Fixture"):
+            with self.subTest(value=value):
+                joined = " ".join(self._problems(value))
+                self.assertIn("approved_spdx", joined)
+                self.assertIn("伪标识", joined)
+
+    def test_pseudo_identifier_before_and_after_OR(self) -> None:
+        for value in (
+            "synthetic-fixture OR MIT",
+            "MIT OR synthetic-fixture",
+            "MIT OR SYNTHETIC-FIXTURE",
+            "Apache-2.0 OR synthetic-fixture",
+            "0BSD OR Synthetic-Fixture",
+        ):
+            with self.subTest(value=value):
+                joined = " ".join(self._problems(value))
+                self.assertIn("伪标识", joined)
+                # 拒绝理由必须是排除集，而不是"另一侧命中"或"清单未命中"
+                self.assertNotIn("命中允许清单", joined)
+
+    def test_pseudo_identifier_in_AND_combinations(self) -> None:
+        for value in ("synthetic-fixture AND MIT", "MIT AND synthetic-fixture", "MIT AND ISC AND synthetic-fixture"):
+            with self.subTest(value=value):
+                self.assertIn("伪标识", " ".join(self._problems(value)))
+
+    def test_flat_path_also_rejects_mixed_pseudo_identifier(self) -> None:
+        for value in ("synthetic-fixture OR MIT", "MIT OR synthetic-fixture"):
+            with self.subTest(value=value):
+                with self.assertRaises(PolicyViolation) as ctx:
+                    ingest_manifest(_flat_manifest(value), train_only=True)
+                joined = " ".join(ctx.exception.context["problems"])
+                self.assertIn("license_spdx", joined)
+                self.assertIn("伪标识", joined)
+
+
+class ExpressionSyntaxIsCheckedBeforeLicenseSelectionTests(unittest.TestCase):
+    """KAGGLE-26 Mika 2026-10-06 裁定第 2 条：许可选择**晚于**整条输入的语法校验。
+
+    「不能让有效分支掩盖另一侧的任意文本」。修前（`5b26306`）实测
+    `MIT OR ''; DROP TABLE` / `''; DROP TABLE OR MIT` / `MIT OR GPL-3.0 OR 'x'`
+    被放行（依据记录为 MIT）。这是格式校验缺陷，不声称 SQL 被执行。
+    """
+
+    def _problems(self, value) -> list[str]:
+        with self.assertRaises(PolicyViolation) as ctx:
+            ingest_manifest(_mutate(lambda p: _set_spdx(p, value)), train_only=True)
+        return list(ctx.exception.context["problems"])
+
+    def test_illegal_text_before_and_after_OR(self) -> None:
+        for value in (
+            "MIT OR ''; DROP TABLE",
+            "''; DROP TABLE OR MIT",
+            "MIT OR GPL-3.0 OR 'x'",
+            "MIT OR Apache-2.0 OR ; DROP TABLE",
+        ):
+            with self.subTest(value=value):
+                joined = " ".join(self._problems(value))
+                self.assertIn("不是合法的 SPDX 许可标识符", joined)
+                self.assertNotIn("命中允许清单", joined)
+
+    def test_illegal_branch_embedded_in_AND_or_OR(self) -> None:
+        for value in (
+            "MIT AND ''; DROP TABLE",
+            "''; DROP TABLE AND MIT",
+            "Apache-2.0 OR 'x' AND MIT",
+            "MIT AND Apache-2.0 AND x'; DROP",
+        ):
+            with self.subTest(value=value):
+                self.assertIn("不是合法的 SPDX 许可标识符", " ".join(self._problems(value)))
+
+    def test_quotes_semicolons_and_trailing_text_are_rejected(self) -> None:
+        for value in ("'MIT'", '"MIT"', "MIT; GPL-3.0", "MIT GPL-3.0", "MIT MIT", "MIT XOR Apache-2.0"):
+            with self.subTest(value=value):
+                self.assertIn("不是合法的 SPDX 许可标识符", " ".join(self._problems(value)))
+
+    def test_missing_operands_are_rejected(self) -> None:
+        for value in ("MIT OR", "OR MIT", "MIT AND", "AND MIT", "MIT OR OR MIT", "AND"):
+            with self.subTest(value=value):
+                self.assertIn("残缺", " ".join(self._problems(value)))
+
+    def test_pseudo_identifier_is_rejected_on_syntax_grounds_after_grammar_passes(self) -> None:
+        """`synthetic-fixture` 本身是**合法原子**，它被拒是因为命中排除集 —— 理由要能区分。"""
+        joined = " ".join(self._problems("synthetic-fixture AND MIT"))
+        self.assertIn("伪标识", joined)
+        self.assertNotIn("不是合法的 SPDX 许可标识符", joined)
+
+    def test_flat_path_also_checks_syntax_before_selection(self) -> None:
+        for value in ("MIT OR ''; DROP TABLE", "''; DROP TABLE OR MIT", "MIT; GPL-3.0"):
+            with self.subTest(value=value):
+                with self.assertRaises(PolicyViolation) as ctx:
+                    ingest_manifest(_flat_manifest(value), train_only=True)
+                self.assertIn("license_spdx", " ".join(ctx.exception.context["problems"]))
+
+
+class PolicySemanticsAreUnchangedTests(unittest.TestCase):
+    """语法校验只淘汰"根本不是一个表达式"的输入；**没有**扩大允许清单或新增表达式功能。"""
+
+    def _ingest_ok(self, value) -> dict:
+        return ingest_manifest(_mutate(lambda p: _set_spdx(p, value)), train_only=True)
+
+    def test_valid_or_still_selects_the_allowlisted_branch(self) -> None:
+        """Mika 点名：`MIT OR GPL-3.0` 语义合法 → 仍按既定策略选 MIT 通过。"""
+        for value in ("MIT OR GPL-3.0", "GPL-3.0 OR MIT", "MIT OR AGPL-3.0-only"):
+            with self.subTest(value=value):
+                manifest = self._ingest_ok(value)
+                self.assertEqual(
+                    manifest["license_assessment"]["decision_counts"],
+                    {"approved": 9, "rejected": 0, "unverified": 0},
+                )
+
+    def test_valid_and_with_a_non_allowlisted_atom_is_still_rejected(self) -> None:
+        with self.assertRaises(PolicyViolation) as ctx:
+            self._ingest_ok("MIT AND GPL-3.0")
+        self.assertIn("未在允许清单内", " ".join(ctx.exception.context["problems"]))
+
+    def test_real_dual_licenses_are_unaffected(self) -> None:
+        for value in ("Apache-2.0 OR BSD-2-Clause", "Apache-2.0 OR BSD-3-Clause"):
+            with self.subTest(value=value):
+                self.assertEqual(
+                    self._ingest_ok(value)["license_assessment"]["decision_counts"],
+                    {"approved": 9, "rejected": 0, "unverified": 0},
+                )
+
+    def test_operator_case_insensitivity_and_whitespace_still_accepted(self) -> None:
+        for value in ("MIT or Apache-2.0", "  MIT  ", "isc OR 0bSD", "CC0-1.0 OR Unlicense", "MIT AND MIT"):
+            with self.subTest(value=value):
+                self.assertEqual(
+                    self._ingest_ok(value)["license_assessment"]["decision_counts"],
+                    {"approved": 9, "rejected": 0, "unverified": 0},
+                )
+
+    def test_allowlist_was_not_widened(self) -> None:
+        """不得为了通过本轮而扩大允许清单：逐条断言清单项没有变化。"""
+        self.assertEqual(
+            SOURCE_REPO_APPROVED_LICENSES,
+            frozenset(
+                {"MIT", "BSD-2-Clause", "BSD-3-Clause", "Apache-2.0", "ISC", "0BSD", "CC0-1.0", "Unlicense"}
+            ),
+        )
+        self.assertTrue(SOURCE_REPO_APPROVED_LICENSES <= APPROVED_LICENSE_EXPRESSIONS)
+
+    def test_expression_evaluator_rejects_whole_input_on_bad_atom(self) -> None:
+        """直接调生产函数：语法阶段在整个表达式范围内先行，OR 不短路。"""
+        ok, reason = evaluate_license_expression("MIT OR ''; DROP TABLE")
+        self.assertFalse(ok)
+        self.assertIn("不是合法的 SPDX 许可标识符", reason)
+
+    def test_expression_evaluator_exclusion_is_atom_level(self) -> None:
+        ok, reason = evaluate_license_expression(
+            "synthetic-fixture OR MIT",
+            allowed=SOURCE_REPO_APPROVED_LICENSES,
+            excluded=SOURCE_REPO_EXCLUDED_IDENTIFIERS,
+        )
+        self.assertFalse(ok)
+        self.assertIn("伪标识", reason)
+
+
+def _flat_manifest(license_spdx) -> dict:
+    """平铺形状（`v3-source-lock/1`）的最小 manifest，供两条路径对称反例复用。"""
+    return {
+        "format": "v3-source-lock/1",
+        "sources": [
+            {
+                "name": "flat-a",
+                "repo_url": "https://example.invalid/a",
+                "commit": "a" * 40,
+                "license_spdx": license_spdx,
+                "authorization_scope": "approved",
+                "split_role": "train",
+            }
+        ],
+    }
 
 
 if __name__ == "__main__":

@@ -1,4 +1,4 @@
-# 被检版本：E0 round-2 fix, parent=5b26306 (commit SHA reported in the KAGGLE-26 comment)
+# 被检版本：5b26306862470fecbec9d3d7f9b28362fcd28e66
 # 生成命令：python tools/q0_license_gate_probe.py <out> "<label>"
 D0 manifest: docs/v3/design/d0-source-lock-65aaa16.json
 case                                                 expect   actual   first problem
@@ -23,17 +23,17 @@ case                                                 expect   actual   first pro
 反例：类型错误 dict {'spdx': 'MIT'}                         reject   reject   attrs 许可未 approved（authorization_scope=unverified，decision_source=d0-l
 反例：伪标识单独 synthetic-fixture                           reject   reject   attrs 许可未 approved（authorization_scope=unverified，decision_source=d0-l
 反例：伪标识单独大写 SYNTHETIC-FIXTURE                         reject   reject   attrs 许可未 approved（authorization_scope=unverified，decision_source=d0-l
-反例：伪标识在 OR **前**侧 synthetic-fixture OR MIT           reject   reject   attrs 许可未 approved（authorization_scope=unverified，decision_source=d0-l
-反例：伪标识在 OR **后**侧 MIT OR synthetic-fixture           reject   reject   attrs 许可未 approved（authorization_scope=unverified，decision_source=d0-l
-反例：伪标识 OR 后侧大写 MIT OR SYNTHETIC-FIXTURE              reject   reject   attrs 许可未 approved（authorization_scope=unverified，decision_source=d0-l
+反例：伪标识在 OR **前**侧 synthetic-fixture OR MIT           reject   ACCEPT   decision_counts={'approved': 9, 'rejected': 0, 'unverified': 0}   <== MISMATCH
+反例：伪标识在 OR **后**侧 MIT OR synthetic-fixture           reject   ACCEPT   decision_counts={'approved': 9, 'rejected': 0, 'unverified': 0}   <== MISMATCH
+反例：伪标识 OR 后侧大写 MIT OR SYNTHETIC-FIXTURE              reject   ACCEPT   decision_counts={'approved': 9, 'rejected': 0, 'unverified': 0}   <== MISMATCH
 反例：伪标识在 AND 前侧 synthetic-fixture AND MIT             reject   reject   attrs 许可未 approved（authorization_scope=unverified，decision_source=d0-l
 反例：伪标识在 AND 后侧 MIT AND synthetic-fixture             reject   reject   attrs 许可未 approved（authorization_scope=unverified，decision_source=d0-l
-反例：伪标识混真实双许可 Apache-2.0 OR synthetic-fixture         reject   reject   attrs 许可未 approved（authorization_scope=unverified，decision_source=d0-l
-反例：非法文本在 OR 前侧 ''; DROP TABLE OR MIT                 reject   reject   attrs 许可未 approved（authorization_scope=unverified，decision_source=d0-l
-反例：非法文本在 OR 后侧 MIT OR ''; DROP TABLE                 reject   reject   attrs 许可未 approved（authorization_scope=unverified，decision_source=d0-l
+反例：伪标识混真实双许可 Apache-2.0 OR synthetic-fixture         reject   ACCEPT   decision_counts={'approved': 9, 'rejected': 0, 'unverified': 0}   <== MISMATCH
+反例：非法文本在 OR 前侧 ''; DROP TABLE OR MIT                 reject   ACCEPT   decision_counts={'approved': 9, 'rejected': 0, 'unverified': 0}   <== MISMATCH
+反例：非法文本在 OR 后侧 MIT OR ''; DROP TABLE                 reject   ACCEPT   decision_counts={'approved': 9, 'rejected': 0, 'unverified': 0}   <== MISMATCH
 反例：非法文本嵌入 AND 后侧 MIT AND ''; DROP TABLE              reject   reject   attrs 许可未 approved（authorization_scope=unverified，decision_source=d0-l
 反例：非法文本嵌入 AND 前侧 ''; DROP TABLE AND MIT              reject   reject   attrs 许可未 approved（authorization_scope=unverified，decision_source=d0-l
-反例：非法分支混在 OR 链中间 MIT OR GPL-3.0 OR 'x'               reject   reject   attrs 许可未 approved（authorization_scope=unverified，decision_source=d0-l
+反例：非法分支混在 OR 链中间 MIT OR GPL-3.0 OR 'x'               reject   ACCEPT   decision_counts={'approved': 9, 'rejected': 0, 'unverified': 0}   <== MISMATCH
 反例：尾随文本 MIT GPL-3.0                                  reject   reject   attrs 许可未 approved（authorization_scope=unverified，decision_source=d0-l
 反例：分号分隔 MIT; GPL-3.0                                 reject   reject   attrs 许可未 approved（authorization_scope=unverified，decision_source=d0-l
 反例：带引号 'MIT'                                         reject   reject   attrs 许可未 approved（authorization_scope=unverified，decision_source=d0-l
@@ -46,4 +46,4 @@ case                                                 expect   actual   first pro
 反例：复合表达式 MIT AND GPL-3.0                             reject   reject   attrs 许可未 approved（authorization_scope=unverified，decision_source=d0-l
 反例：osi_permissive=False（自述 approved 不能翻盘）            reject   reject   attrs 许可未 approved（authorization_scope=unverified，decision_source=d0-l
 ----------------------------------------------------------------------------------------------------------------------------------
-mismatches=0 / cases=42
+mismatches=7 / cases=42

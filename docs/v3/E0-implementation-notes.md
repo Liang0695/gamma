@@ -536,8 +536,10 @@ python tools/capture_evidence.py  -> 全部证据按真实执行重生成；
 ### 11.1 缺陷实证（修前）
 
 `v3/data/source_lock.py` 旧实现只有 `if not result["approved_spdx"]` —— 即**只查非空**。
-对 D0 真实产物冻结副本做单字段最小变异后走**真实 ingest 路径**，21 例中 **13 例判错**
-（证据：`docs/v3/evidence/q0-license-gate-before.txt`，`mismatches=13 / cases=21`）：
+对 D0 真实产物冻结副本做单字段最小变异后走**真实 ingest 路径**，21 例中 **13 例判错**。
+（本节表格是当时的记录。§12 把探针扩到 42 例并重跑了同一命令，原始证据文件现在名为
+`docs/v3/evidence/q0-license-gate-c817897.txt`，`mismatches=31 / cases=42` —— 多出来的
+18 例是第二轮新增的反例，见 §12。）
 
 | 变异后的 `approved_spdx` | 修前 | 修后 |
 |---|---|---|
@@ -573,20 +575,23 @@ python tools/capture_evidence.py  -> 全部证据按真实执行重生成；
   problems，因此 revision 绑定与"冲突优先拒绝"的既有语义不变（`result["status"]` 仍是
   "无 problems 才 approved"）。
 
-### 11.3 修后实测
+### 11.3 修后实测（第一轮，SHA `5b26306`）
 
 ```
-python tools/q0_license_gate_probe.py docs/v3/evidence/q0-license-gate-after.txt
+python tools/q0_license_gate_probe.py <out>          # 第一轮探针 21 例
     -> mismatches=0 / cases=21   (exit 0)
 python run_tests.py
     -> SUMMARY: run=369 failures=0 errors=0 skipped=1   (exit 0)
        修前基线 = run=346 failures=0 errors=0 skipped=1；增量 23 例全部来自新模块
 ```
 
-新增回归模块 `tests/test_q0_license_allowlist.py`（23 例）已登记进 `run_tests.py`；
+新增回归模块 `tests/test_q0_license_allowlist.py`（第一轮 23 例）已登记进 `run_tests.py`；
 它同时覆盖：真实 manifest 正向通过、五类反例、`osi_permissive=true` 不能替代内容检查、
 "内容错 + revision 不符"两条问题**同时**报出（不互相吞）、平铺别名不能翻盘、平铺形状的
 `license_spdx` 走同一闸门。
+
+**第一轮并未关闭消费端缺陷** —— 独立复核发现两个漏网形态（伪标识 `OR` 混入、非法文本
+`OR` 混入），见 §12。
 
 ### 11.4 边界
 
@@ -596,3 +601,101 @@ python run_tests.py
   命中允许清单"，**不**证明该仓库在固定 revision 上的正文就是它。正文级正向证据属 D0
   生成侧（Mika 裁定第 2 条），E0 侧不声称已闭合。
 - `independent_review.status` 仍原样保留为 `pending` 事实字段；导入 ≠ 独立批准。
+
+## 12. KAGGLE-26 第二轮限定整改：逐原子排除集 + 许可选择前整条语法校验
+
+出处：Mika 2026-10-06 裁定（在独立复核报告之后）。原文两项：
+
+> 1. 真实来源表达式逐原子检查排除集，任何位置出现 `synthetic-fixture`（大小写归一后）
+>    即整体拒绝，不能由 OR 另一侧挽救。
+> 2. 在许可选择前完整校验支持的表达式语法，消费全部输入；引号、分号、非法原子、尾随文本、
+>    缺操作数、未支持语法必须整体拒绝，不得 OR 短路跳过检查。语法检查与许可允许策略分开：
+>    有效的 `MIT OR GPL-3.0` 仍可按既定策略选择 MIT，`MIT AND GPL-3.0` 仍拒绝；
+>    不得为此扩大允许清单或支持新的表达式功能。
+
+裁定同时纠正了一处表述：`MIT OR ''; DROP TABLE` 被接受**不是**合理的 OR 语义，是**格式校验**
+问题；本仓库**没有**证明 SQL 被执行，不称其为 SQL 注入。
+
+### 12.1 漏网形态（修前 = `5b26306`）
+
+第一轮把伪标识只做了**整串**比较，且许可选择先于整条语法校验，于是两个形态漏网。
+同一探针（42 例）在三个版本上的结果：
+
+```
+docs/v3/evidence/q0-license-gate-c817897.txt   mismatches=31 / cases=42   (原始缺陷)
+docs/v3/evidence/q0-license-gate-5b26306.txt   mismatches=7  / cases=42   (第一轮修复后仍漏)
+docs/v3/evidence/q0-license-gate-after.txt     mismatches=0  / cases=42   (本轮修复后)
+```
+
+`5b26306` 上仍判错的 7 例（即本轮修的两项）：
+
+| 形态 | 修前（`5b26306`） | 修后 |
+|---|---|---|
+| `synthetic-fixture OR MIT`（伪标识在 OR 前侧） | 放行 ❌（依据记为 MIT） | 拒绝 ✅ |
+| `MIT OR synthetic-fixture`（OR 后侧） | 放行 ❌ | 拒绝 ✅ |
+| `MIT OR SYNTHETIC-FIXTURE`（大写） | 放行 ❌ | 拒绝 ✅ |
+| `Apache-2.0 OR synthetic-fixture`（混真实双许可） | 放行 ❌ | 拒绝 ✅ |
+| `''; DROP TABLE OR MIT`（非法文本在 OR 前侧） | 放行 ❌ | 拒绝 ✅ |
+| `MIT OR ''; DROP TABLE`（OR 后侧） | 放行 ❌ | 拒绝 ✅ |
+| `MIT OR GPL-3.0 OR 'x'`（非法分支混在 OR 链中间） | 放行 ❌ | 拒绝 ✅ |
+
+### 12.2 修法（语法阶段与策略阶段分离）
+
+`v3/exp/exp1.evaluate_license_expression()` 现在按**固定顺序**跑两个阶段，并且都用**整条**
+输入：
+
+1. **阶段一 · 语法**（先于任何许可选择）：括号 / `WITH` / 残缺（缺操作数）逐条拒绝；
+   然后对**整条表达式切出的每一个原子**校验 SPDX 原子语法
+   `_SPDX_ATOM_RE = ^[A-Za-z0-9][A-Za-z0-9.+-]*$` —— 引号、分号、空格、尾随文本、
+   `XOR`、`N/A` 之类一律不是合法原子，**整体拒绝**；
+   再对每一个原子查**排除集** `excluded=`（大小写归一），任意位置命中即整体拒绝。
+   两个循环都在"选择分支"之前跑完，因此 `OR` **不能短路跳过检查**。
+2. **阶段二 · 允许策略**：仍是冻结规则（`OR` 任一析取全部原子在清单内、`AND` 全部原子
+   在清单内），未命中即拒绝。
+
+新增的 `excluded=` 形参与 `allowed=` 一样是**可选收紧入口**（默认 `None`，向后兼容）。
+`v3/data/source_lock.py` 传入 `SOURCE_REPO_EXCLUDED_IDENTIFIERS`（从"冻结清单 −
+来源锁清单"推导，当前 = `{synthetic-fixture}`），不再做整串比较。
+
+**没有扩大允许清单，也没有新增表达式功能**：`SOURCE_REPO_APPROVED_LICENSES` 与第一轮
+逐项相同（回归里有一条断言把它钉死）；`MIT OR GPL-3.0` 仍按既定策略选 `MIT` 通过，
+`MIT AND GPL-3.0` 仍拒绝。
+
+### 12.3 修后实测
+
+```
+python tools/q0_license_gate_probe.py docs/v3/evidence/q0-license-gate-after.txt "<label>"
+    -> mismatches=0 / cases=42   (exit 0)
+python run_tests.py tests.test_q0_license_allowlist
+    -> SUMMARY: run=40 failures=0 errors=0 skipped=0
+python tools/q0_license_gate_regression.py
+    -> SUMMARY: run=386 failures=0 errors=0 skipped=1   (exit 0)
+       本轮修前基线 = run=369 failures=0 errors=0 skipped=1；增量 17 例来自扩展后的新模块
+```
+
+本轮的固定 SHA 见 KAGGLE-26 的交付评论（parent = `5b26306`，再上一级 = `c817897`）。
+证据文件的表头写的是"被检版本"标签而不是 SHA，因为把 SHA 写进文件会让 SHA 自指。
+复核方式：在该 SHA 上重跑上面两条命令即可逐行对照。
+
+第二轮新增回归（`tests/test_q0_license_allowlist.py` 由 23 例扩到 40 例）：
+
+- `PseudoIdentifierCannotBeRescuedByORTests`：伪标识单独 / 大写 / OR 前侧 / OR 后侧 /
+  AND 组合 / 混真实双许可，**两条 ingest 路径（D0 嵌套 + 平铺）都跑**；并断言拒绝理由
+  是"伪标识"而**不是**"命中允许清单"（即不是被 OR 另一侧放行的）。
+- `ExpressionSyntaxIsCheckedBeforeLicenseSelectionTests`：非法文本在 OR / AND 的前后侧、
+  混在 OR 链中间、引号、分号、尾随文本、缺操作数、未支持运算符；同样覆盖平铺路径。
+  另有一条断言把"语法拒绝"与"排除集拒绝"的理由**区分开**
+  （`synthetic-fixture` 是合法原子，它被拒是因为排除集）。
+- `PolicySemanticsAreUnchangedTests`：`MIT OR GPL-3.0` 仍放行、`MIT AND GPL-3.0` 仍拒绝、
+  真实双许可不受影响、运算符大小写与两侧空白仍接受、允许清单**未被扩大**、以及直接调用
+  生产函数验证"OR 不短路"和"排除集是原子级"。
+
+### 12.4 边界（不冒充）
+
+- 本轮**只**动 `v3/exp/exp1.py`（语法/排除两阶段的参数位）与 `v3/data/source_lock.py`
+  （传参），不改 D0 生成器、不改审核人、不碰 GPU/107/正式提交。
+- 本闸门仍**不**消费 `license_review.evidence` 的许可正文哈希，**不**证明固定 revision 上的
+  正文就是所声明的许可 —— 端到端许可门槛继续标为**未闭合**。
+- 语法校验只覆盖本仓库**已支持**的表达式子集（`AND` / `OR` / 单个标识符）；
+  括号与 `WITH` 仍是"未实现即拒绝"，本轮没有新增表达式功能。
+

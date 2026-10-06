@@ -92,6 +92,14 @@ _SPDX_OR = re.compile(r"\bOR\b", re.IGNORECASE)
 _SPDX_AND = re.compile(r"\bAND\b", re.IGNORECASE)
 _SPDX_WITH = re.compile(r"\bWITH\b", re.IGNORECASE)
 
+#: SPDX 许可标识符（`idstring`）的**原子语法**：以字母/数字开头，其余只允许
+#: 字母、数字、``.``、``-``、``+``。
+#:
+#: KAGGLE-26 Mika 2026-10-06 裁定：许可选择必须发生在**整条输入通过语法校验之后**，
+#: 不能让一个合法分支掩盖另一侧的任意文本（`MIT OR ''; DROP TABLE` 必须整体拒绝，
+#: 而不是"OR 命中了 MIT 所以通过"）。引号、分号、空格、括号、`$` 等都不是合法原子。
+_SPDX_ATOM_RE = re.compile(r"^[A-Za-z0-9][A-Za-z0-9.+-]*$")
+
 
 def normalize_license_expression(expression: object) -> str:
     """许可表达式归一化：转成字符串、去首尾空白、统一小写（大小写不敏感）。"""
@@ -110,27 +118,50 @@ def _atom_is_allowlisted(atom: str, allowed_lower: frozenset | None = None) -> b
 
 
 def evaluate_license_expression(
-    expression: object, allowed: frozenset | None = None
+    expression: object,
+    allowed: frozenset | None = None,
+    excluded: frozenset | None = None,
 ) -> tuple[bool, str]:
     """判定许可表达式是否可放行，返回 ``(allowed, reason)``。
+
+    本函数把**语法**与**允许策略**分成两个阶段，顺序固定：先对整条输入做语法校验
+    （消费全部原子，不看任何一个分支是否命中），再按允许策略选择分支。因此
+    `MIT OR ''; DROP TABLE` 会整体拒绝，而不是"OR 命中了 MIT 所以通过"。
 
     `allowed` 为可选**收紧**入口：`v3.data.source_lock` 用它把清单减去合成题库
     伪标识（`synthetic-fixture` 不是许可，真实仓库不得用它声明许可）。
     该参数只能收窄不能放宽的部分由调用方自己保证；本函数不做并集。
 
+    `excluded` 为可选**排除集**（大小写不敏感）：表达式**任意位置**出现其中一个标识，
+    整条表达式立即拒绝，**不能由 ``OR`` 的另一侧挽救**
+    （KAGGLE-26 Mika 2026-10-06 裁定第 1 条：真实来源表达式逐原子检查排除集）。
+
     规则（逐条显式，**没有任何"不认识就放行"的分支**）：
+
+    阶段一 · 语法（对整条输入，先于任何许可选择）：
 
     - 空 / None / 纯空白 → 拒绝；
     - 含括号：未实现完整 SPDX 语法 → 拒绝（无法判定即拒绝，显式而非静默）；
     - 含 ``WITH``：例外条款会改变许可语义 → 拒绝（无法判定即拒绝）；
+    - 表达式残缺（如尾随 ``OR`` / ``AND``、缺操作数）→ 整体拒绝；
+    - 任一分量不是合法 SPDX 原子（含引号 / 分号 / 空格 / 尾随文本）→ 整体拒绝；
+    - 任一原子命中 `excluded` → 整体拒绝（即使另一侧分支完全合规）。
+
+    阶段二 · 允许策略（只在前者全通过后才执行）：
+
     - ``OR``（析取）：只要**至少一个 disjunct 的全部原子**都在允许清单内 → 通过；
     - ``AND``（合取）：该 disjunct 的**全部**原子都在允许清单内才通过；
-    - 表达式残缺（如尾随 ``OR`` / ``AND``）→ 整体拒绝；
     - 其余一律拒绝，理由里带上未命中的原子。
+
+    注意 ``OR`` 语义本身未变：`MIT OR GPL-3.0` 仍按既定策略选 `MIT` 通过，
+    `MIT AND GPL-3.0` 仍拒绝 —— 语法校验只淘汰"根本不是一个表达式"的输入。
     """
     allowed_lower = _APPROVED_LICENSE_LOWER
     if allowed is not None:
         allowed_lower = frozenset(normalize_license_expression(item) for item in allowed)
+    excluded_lower = frozenset()
+    if excluded is not None:
+        excluded_lower = frozenset(normalize_license_expression(item) for item in excluded)
 
     text = "" if expression is None else str(expression).strip()
     if not text:
@@ -147,6 +178,25 @@ def evaluate_license_expression(
             return (False, "SPDX 表达式残缺（%r），无法判定即拒绝" % text)
         parsed.append(atoms)
 
+    # ---- 阶段一 · 语法：对**整条**输入做校验，先于任何许可选择 ----
+    for atoms in parsed:
+        for atom in atoms:
+            if not _SPDX_ATOM_RE.match(atom):
+                return (
+                    False,
+                    "分量 %r 不是合法的 SPDX 许可标识符（含非法字符或尾随文本），"
+                    "整条表达式拒绝：合法分支不得掩盖非法文本" % atom,
+                )
+    for atoms in parsed:
+        for atom in atoms:
+            if normalize_license_expression(atom) in excluded_lower:
+                return (
+                    False,
+                    "表达式含被排除的伪标识 %r（不是 SPDX 许可标识符）："
+                    "出现在任意位置即整体拒绝，OR 的另一侧不能挽救" % atom,
+                )
+
+    # ---- 阶段二 · 允许策略 ----
     for atoms in parsed:
         if all(_atom_is_allowlisted(atom, allowed_lower) for atom in atoms):
             return (True, "命中允许清单：%s" % " AND ".join(atoms))

@@ -16,12 +16,12 @@ tests.test_q0_ckpt_config                   31   31        0     0      0
 tests.test_q0_train_entry                   25   25        0     0      0
 tests.test_q0_counterexamples               32   32        0     0      0
 tests.test_q0_d0_contract                   23   23        0     0      0
-tests.test_q0_license_allowlist             23   23        0     0      0
+tests.test_q0_license_allowlist             40   40        0     0      0
 tests.test_q0_submit_limits                 15   15        0     0      0
 tests.test_q0_pins_and_guards               29   29        0     0      0
 --------------------------------------------------------------------------
-TOTAL                                      369  368        1     0      0
+TOTAL                                      386  385        1     0      0
 
-SUMMARY: run=369 failures=0 errors=0 skipped=1
+SUMMARY: run=386 failures=0 errors=0 skipped=1
 
 failure/error details: (none)
