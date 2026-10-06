@@ -1,8 +1,9 @@
 # Shared source and execution fact contracts
 
 This isolated, standard-library package implements the first KAGGLE-30 foundation block.
-It does not import `d0` or `v3`, change their files, execute tasks, or provide a trainer.
-All shipped tests use hand-authored **synthetic** observations. A passing test is not
+It does not import `d0` or `v3`, change their files, execute external tasks, or provide a trainer.
+The original pure suite uses hand-authored **synthetic** observations; the opt-in local
+suite executes self-authored trusted programs and reads their actual byte logs. A passing test is not
 evidence that a real environment, oracle, collector, Gemma batch or reward is connected.
 
 ## Implemented boundary
@@ -31,8 +32,9 @@ evidence that a real environment, oracle, collector, Gemma batch or reward is co
   `prototype=true, publishable=false`.
 - `Record` stores canonical JSON in frozen strings. `data()` gives a fresh copy; derivation
   cannot overwrite the original fact. Every consumer checks content and request binding.
-- `ControlledRunner` is a Protocol only. There is no implementation, subprocess launch,
-  model call, filesystem ref resolver, network path or fake-success runner.
+- The original `ControlledRunner` Protocol is unchanged. `LocalSyntheticRunner` is a
+  separate opt-in connector for the exact trusted fixture described below. It provides
+  no external task, model or untrusted-code runner and no fake-success fallback.
 
 ## Versions and provenance
 
@@ -96,11 +98,80 @@ appear in fixtures/evidence. Identity/hash/direction counterexamples call produc
 
 ## Still unconnected
 
-Real source ingestion/row selection, image digest verification, clean workspace execution,
-physical identity/ACL proof, raw-log storage, parser execution, episode NA attribution,
+Real source ingestion/row selection, image digest verification, external task workspace execution,
+physical identity/ACL proof, external raw-log storage/parser execution, episode NA attribution,
 independent anti-tamper verification and approved release remain external responsibilities.
 No native Gemma messages/spans/token counts/labels/batches/plans are generated here. No old
 policy log probabilities, RL group eligibility, preference pairs or training are implemented.
 No `d0` or legacy `v3` interface is modified; later integration requires explicit versions
 and independently verified real observations. First-stage 16 IDs -> 4 qualifications ->
 8 released families remains a later gated goal, not a result of these tests.
+
+## Opt-in trusted local execution
+
+```text
+python -B shared_foundation/run_local_checks.py
+```
+
+This separately runs the original 36 tests plus local execution checks. The old
+`run_checks.py` command and `tests/` remain pure-function-only. New process checks live
+in `local_tests/`; importing the package does not start a process.
+
+`local_fixtures.install_fixture(snapshot_root)` creates fresh clean/broken/reference
+directories with exact self-authored standard-library bytes. `fixture_task()` returns
+synthetic-only references; these are not approved real datasets or OCI images. The
+content tree hash is canonical relative-file -> SHA256 mapping, not a Git tree SHA.
+
+`LocalSyntheticRunner(allowed_root=..., snapshot_root=..., work_root=..., log_root=...)`
+requires distinct explicit roots and refuses links/path escapes, unknown fixture bytes,
+real/unapproved inputs, arbitrary argv and arbitrary patches. Its tiny patch format is
+versioned JSON replacing an integer constant in `tiny.py`, **not** a general diff or code
+execution facility. Case argv is an explicit array of this host's Python, `-I -S -B`,
+`checks.py` and one registered test ID (spaces preserved). No caller pass/fail argument
+exists on `execute(task, request)`.
+
+Every execution creates a new registered UUID workspace, verifies base content, applies
+the restricted edit, executes trusted checks, captures raw stdout/stderr as bytes and
+parses the `SFTEST` / mandatory `SFEND` log protocol. A missing end marker, empty test set,
+missing P2P, skip/error, oversized log or timeout remains NA with causes. Oversized logs
+are retained in full; they are not silently truncated into a successful result. A real
+assertion failure in the trusted calculator test is semantic failure 0. This does not
+solve causal attribution for errors from external programs.
+
+The local result wraps the unchanged fact schema in `trusted-local-execution/0.1`, with
+`trusted-byte-log-parser/0.1`, actual argv/exit/time, raw file hashes, registered PIDs,
+materialized trees and cleanup results. `derive_reward` / `derive_sft_eligibility` methods
+on the local runner verify emitted-capture identity and log bytes before invoking the
+legacy pure prototypes. The original `record_fact` API still packages caller observations
+and cannot by itself claim authentic execution. `LocalExecution` is an explicit new
+wrapper, not a silent change to the legacy Protocol return type or record fields.
+
+On Windows, the trusted driver waits for a startup gate until assigned to a newly created
+Job Object with kill-on-close. Timeout cleanup terminates only that owned job; child
+registration checks actual job membership and retained process handles, and confirms the
+job has no active processes. No executable-name kill, daemon termination or global process
+enumeration is used. The POSIX owned-session branch is implemented but **not tested here**.
+References: [Microsoft Job Objects](https://learn.microsoft.com/en-us/windows/win32/procthread/job-objects)
+and [job assignment](https://learn.microsoft.com/en-us/windows/win32/api/jobapi2/nf-jobapi2-assignprocesstojobobject).
+
+This is **not a sandbox for untrusted code** and does not change ACLs, install dependencies,
+read private oracles, download anything, use a GPU, or release training data. All outputs
+remain publishable=false. The executor only removes its own UUID workspace after checking
+the resolved boundary; snapshot roots and raw logs are retained until their owning test
+directory is cleaned. Derivation performs no writes to those logs.
+
+Evidence: `evidence/local-test-results.json`, `local-validation-budget.json` and per-run
+stdout/stderr/fact/capture ZIP archives in `evidence/local-runs/`. Extract each archive
+into a short local path to avoid Windows checkout path-length limits. Its internal
+`suite-summary.json` binds the run and source hashes; the archive preserves original bytes.
+Summaries preserve source
+hashes per attempt. Directory-local Git attributes preserve evidence byte-for-byte without
+line-ending conversion. Earlier working-tree runs are intermediate evidence; the latest suite
+is the one matched to the delivered code. The deliberate log-tamper counterexample has
+an intentionally altered aggregate log and must fail verification; original per-command
+bytes remain available. Do not treat that adversarial artifact as accepted evidence.
+
+All local tests are serial. At most one driver and one self-authored sleeping child run
+at a time; combined checking, synthetic failures, archive copying and report saving are
+recorded against the cumulative 1,200-second device budget. A report is not independent
+review or real-source qualification. Native Gemma spans/labels/batches/plans remain absent.

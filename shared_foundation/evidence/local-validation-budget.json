@@ -1,0 +1,43 @@
+{
+  "device_seconds": 51.265000000130385,
+  "attempts": [
+    {
+      "tests": 53,
+      "failures": 0,
+      "errors": 0,
+      "wall_seconds_including_test_and_report_save": 12.875
+    },
+    {
+      "tests": 53,
+      "failures": 0,
+      "errors": 0,
+      "wall_seconds_including_test_and_report_save": 12.202999999979511,
+      "raw_logs_root": "evidence\\local-runs\\8ae56bbe3d2b4ad1860235fd7ccb68e8"
+    },
+    {
+      "tests": 54,
+      "failures": 0,
+      "errors": 0,
+      "wall_seconds_including_test_and_report_save": 13.0,
+      "raw_logs_root": "evidence\\local-runs\\d4fc3c1ef6334b018be97091b2485905"
+    },
+    {
+      "tests": 54,
+      "failures": 0,
+      "errors": 0,
+      "wall_seconds_including_test_and_report_save": 13.187000000150874,
+      "raw_logs_root": "evidence\\local-runs\\22bc746a8f0a4f79af3cf503a11f8243"
+    }
+  ],
+  "delivery_accounting": {
+    "conservative_charged_device_seconds": 300,
+    "method": "Charge this block 5 device minutes, including measured suite/archive saving and generous static/packaging/failure/save allowance. This is an accounting allowance, not measured CPU time.",
+    "measured_suite_device_seconds": 51.265000000130385,
+    "static_delivery_check_seconds": 0.5319999998901039,
+    "failed_packaging_attempts": 1,
+    "failed_static_audit_attempts": 1,
+    "failure": "Initial Git staging encountered Windows path-length limits and preserved-CRLF whitespace checks; fixed by byte-preserving ZIP artifacts and directory-local attributes. A first byte audit included the unchanged old CRLF working-copy report; narrowed byte comparison to changed staged artifacts and separately verified old files remain unchanged.",
+    "concurrency": "Serial tests; at most one trusted driver and one sleeping child; no GPU/107.",
+    "current_block_limit_device_seconds": 1200
+  }
+}
