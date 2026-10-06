@@ -1,6 +1,7 @@
 # Shared source and execution fact contracts
 
-This isolated, standard-library package implements the first KAGGLE-30 foundation block.
+This isolated package implements the KAGGLE-30 foundation blocks. Source/fact contracts
+use the standard library; the opt-in native bridge requires pinned lightweight tokenizers/Jinja2.
 It does not import `d0` or `v3`, change their files, execute external tasks, or provide a trainer.
 The original pure suite uses hand-authored **synthetic** observations; the opt-in local
 suite executes self-authored trusted programs and reads their actual byte logs. A passing test is not
@@ -101,7 +102,8 @@ appear in fixtures/evidence. Identity/hash/direction counterexamples call produc
 Real source ingestion/row selection, image digest verification, external task workspace execution,
 physical identity/ACL proof, external raw-log storage/parser execution, episode NA attribution,
 independent anti-tamper verification and approved release remain external responsibilities.
-No native Gemma messages/spans/token counts/labels/batches/plans are generated here. No old
+The opt-in native bridge below generates synthetic-message data artifacts. It does not
+establish real source/fact/release authenticity or connect a real approved training chain. No old
 policy log probabilities, RL group eligibility, preference pairs or training are implemented.
 No `d0` or legacy `v3` interface is modified; later integration requires explicit versions
 and independently verified real observations. First-stage 16 IDs -> 4 qualifications ->
@@ -174,4 +176,107 @@ bytes remain available. Do not treat that adversarial artifact as accepted evide
 All local tests are serial. At most one driver and one self-authored sleeping child run
 at a time; combined checking, synthetic failures, archive copying and report saving are
 recorded against the cumulative 1,200-second device budget. A report is not independent
-review or real-source qualification. Native Gemma spans/labels/batches/plans remain absent.
+review or real-source qualification. Native data artifacts use the separate bridge below.
+
+## Opt-in native supervision bridge
+
+This block performs data construction only. It never calls a training backend,
+`run_training`, optimizer, `start()` or model loader. Existing E0/D0/v3 files and the
+original schema/default commands remain unchanged. The primary modules do not import
+`v3` or infer an E0 worktree; E0 types are explicitly supplied by the optional caller.
+
+`native-material.lock.json` pins these public Google files at
+`google/gemma-4-31B-it-qat-w4a16-ct@52f3f65bc7a02d555763bc923bd1d9094898219d`:
+
+| Material | SHA256 | Bytes |
+|---|---|---:|
+| `chat_template.jinja` | `ae53464bf3be25802b3a5b37def7fd89667067d7577049b3b2d74c4d8de4c6d4` | 18,683 |
+| `tokenizer_config.json` | `b8045a4576903e86903291d5cbdd4adfc8859e9ce3c98621bdbd957f73ed394b` | 3,728 |
+| `tokenizer.json` | `cc8d3a0ce36466ccc1278bf987df5f71db1719b9ca6b4118264f45cb627bfe0f` | 32,169,626 |
+
+Source URLs and checked file receipts are in `evidence/native-material-receipt.json`.
+No model weights or vocabulary files from another model are bundled. For an explicit
+public fetch of precisely those three files, from the repository root:
+
+```text
+python -B shared_foundation/fetch_native_materials.py --dest shared_foundation/_native_materials
+```
+
+This helper refuses a destination outside the current workspace, verifies sizes/hashes,
+does not overwrite invalid existing files and never uses credentials or a model API.
+It is not called automatically. Gate/access failures must be handled as unavailable
+material, not by acquiring new permissions. Existing bytes can be supplied directly.
+
+Use an existing Python environment with `tokenizers==0.23.2` and `jinja2==3.1.6`:
+
+```text
+python -B shared_foundation/run_native_checks.py --material-root shared_foundation/_native_materials
+python -B shared_foundation/run_native_checks.py --material-root shared_foundation/_native_materials --e0-root PATH_TO_EXPLICIT_PINNED_E0_CHECKOUT
+```
+
+Missing materials/dependencies produce `official_validation=not_run` and a nonzero exit,
+with no shim fallback. The checker is serial, limits its own process to at most four
+allowed CPU cores and sets tokenizers/Rayon to one thread. No local execution fixture
+programs or E0 training self-checks are run by this command. Dependency wheel identity,
+the full E0 training environment, HF `GemmaTokenizer` wrapper parity and serving parity
+are **not verified** by these data checks.
+
+| Entry / version | Contract |
+|---|---|
+| `native_messages.map_native`, `native-message-map/0.1` | Strict steps, unique `step_id`, explicit assistant `target_step_id`, structured tool calls/results, source/fact/version refs -> sealed mapping |
+| `native_render.OfficialNativeRenderer`, `official-backend-ast-trace/0.1` | Explicit material root; actual official Rust `tokenizer.json` backend + exact Jinja template, explicit `enable_thinking`/`preserve_thinking` kwargs |
+| `target-action-only/0.1` | Target's action output and native termination markers supervised; headers, reasoning, prior assistants, user and tool observations context-only |
+| `native_artifact.build_artifact`, `native-sft-batch-plan/0.1` | Full canonical text/ids/labels/offsets/spans plus complete batch and plan fields, versions, model/material/source/fact hashes; publishable=false |
+| `save_artifact` / `load_artifact` | Canonical UTF-8 envelope, external expected hash, strict version/material checks; re-render and rebuild before acceptance |
+| `native_e0.adapt_e0` | Optional explicitly supplied actual E0 `TrainBatch`/`TrainRunPlan` types; checks fixed source and exact calculated count; constructs/validates data only |
+
+The target must be the last input step. Post-target feedback is rejected rather than
+silently inserted or truncated. Tool results bind to known pending call IDs/names;
+arguments remain objects, not serialized legacy shim fields. Reserved native control
+strings are rejected in raw data so a payload cannot introduce fake model boundaries.
+Only synthetic or explicitly unapproved provenance is supported by this block; neither
+is released. Example provenance contains clearly synthetic hash references, not verified
+real execution facts or approved training samples.
+
+Span proof is structural: the exact template AST has one `message in loop_messages`
+loop. Trace only the selected message's final Output expressions; exclude its header
+and reasoning sites, and do not instrument intermediate captured-content buffers.
+Output sites are classified against the **fixed template SHA**, not a generic heuristic
+for future revisions. After removal of uniquely paired trace markers, rendered UTF-8
+bytes **and real token IDs must equal** the unmodified canonical render. A changed
+template, ambiguous/missing markers or empty spans fails closed. No body substring
+search or whitespace word count is used to build spans.
+
+The real backend returns Unicode character offsets, declared explicitly in the artifact.
+Tokens crossing action/context boundaries are rejected, not guessed. Exact non--100
+label counts, target intervals, complete ids/labels and native stop tokens are stored.
+Backend padding/truncation/config mutation and over-limit samples are rejected; no
+windowing/truncation fallback is implemented. Artifact validation re-renders the same
+mapping/kwargs and compares the complete artifact hash, so resealing altered counts,
+labels, versions or plan fields cannot replace validation.
+
+Thinking behavior follows this actual template: `enable_thinking=True` adds `<|think|>`;
+`preserve_thinking=True` can retain a prior tool-call reasoning block. Explicit target
+reasoning can still render with thinking disabled. Rendered reasoning remains context
+in either mode. Tests assert real text/token/mask behavior, not the old shim rule.
+Plain actions supervise `<turn|>`; tool actions supervise `<tool_call|>` and the native
+`<|tool_response>` transition. These IDs come from the locked vocabulary, not guessed
+constants. This is a new export/mask version and does not patch the old E0 mask policy.
+
+Optional E0 compatibility is locked to `ffc37b4f3ecde6579117b0012ab4f69b4cff16ab`,
+`v3/train/runner.py` LF-source SHA256
+`f9d34a7fdab7d6252d1782a49e6049ac7ec059b827d93780dff819cc651b60dd`.
+The explicit test checkout must match that SHA with no tracked v3 differences. The
+primary adapter verifies caller-loaded class source and calls only constructors and
+`assert_runnable()`. It supplies arrays and lets `TrainBatch` calculate the count;
+it does not hand-fill `supervised_tokens` to bypass validation. Source compatibility
+does not attest ACLs, live code authenticity, all dependencies or training authorization.
+`start()` gates remain required and untouched. One synthetic plan does not prove any
+corpus mix, real data qualification or training benefit (`mix_eligibility=not_assessed`).
+
+Evidence: `native-test-results.json`, `native-budget.json` and byte-preserving ZIPs in
+`evidence/native-artifacts/`. ZIP members include full batch/plan envelopes and per-run
+summaries. Earlier runs are intermediate versions; the latest summary source hashes bind
+the delivered implementation. Extract ZIPs into a short path on Windows. Real train
+qualification, source/fact authentication, trajectory collection, permission/release
+attestations, HF/serving integration and optimizer/model execution remain unconnected.

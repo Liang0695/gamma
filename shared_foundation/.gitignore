@@ -1,3 +1,5 @@
 __pycache__/
 _local_work/
+_native_materials/
 evidence/local-runs/*/
+evidence/native-artifacts/*/

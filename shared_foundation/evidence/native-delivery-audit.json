@@ -1,0 +1,81 @@
+{
+  "scope": "Static byte/array checks, not independent review, ACL, wrapper/serving or training validation.",
+  "tested_source_hashes_match": true,
+  "changed_staged_byte_mismatches": [],
+  "protected_preexisting_code_unchanged": true,
+  "latest_artifacts": [
+    {
+      "sha256": "042d247b1431c5a4e57eb81e020c92b81f6518769aabbd9c50b70e1f2fb81ccd",
+      "length": 176,
+      "supervised_tokens": 5,
+      "kwargs": {
+        "add_generation_prompt": false,
+        "enable_thinking": false,
+        "preserve_thinking": false
+      },
+      "target_spans": [
+        [
+          171,
+          176
+        ]
+      ]
+    },
+    {
+      "sha256": "1842e1810d28fcc4aeff75836bad1a6e7b9233034645f31f0454c1ceca862211",
+      "length": 226,
+      "supervised_tokens": 48,
+      "kwargs": {
+        "add_generation_prompt": false,
+        "enable_thinking": false,
+        "preserve_thinking": false
+      },
+      "target_spans": [
+        [
+          178,
+          226
+        ]
+      ]
+    },
+    {
+      "sha256": "5c3908c574da9b61bc53c35fc34d696b38ed1e8e829259a8f958db1ee377ecb7",
+      "length": 237,
+      "supervised_tokens": 48,
+      "kwargs": {
+        "add_generation_prompt": false,
+        "enable_thinking": true,
+        "preserve_thinking": true
+      },
+      "target_spans": [
+        [
+          189,
+          237
+        ]
+      ]
+    }
+  ],
+  "archives": [
+    {
+      "path": "evidence/native-artifacts/60e82aea8e294a4699375ae628824e06.zip",
+      "bytes": 7231,
+      "sha256": "ce5183af179afc63285e6867ee0505530d98624dfc0d5ce51d29a3c84f882465"
+    },
+    {
+      "path": "evidence/native-artifacts/8cc70a982f7b4ffeb72f3309e650f6af.zip",
+      "bytes": 11730,
+      "sha256": "7d6a1c0ebb6624792dc17a02a77162b91d1b731b4baff3247a23e797217268bf"
+    },
+    {
+      "path": "evidence/native-artifacts/beb39b71e25d4e30a01031076c8ec19d.zip",
+      "bytes": 11652,
+      "sha256": "63a9994b8a0642042c715bc4c41070bf1ef53ad85edbf8177c19518da0112688"
+    },
+    {
+      "path": "evidence/native-artifacts/dc75396e41084574b97364e2300786d1.zip",
+      "bytes": 15560,
+      "sha256": "63da68089b5f3731ff05b1e0b1615238afc83b1e21dcb726cf99ba3485f8e588"
+    }
+  ],
+  "static_seconds": 0.34399999980814755,
+  "observed_windows_cp312_tokenizers_pyd_sha256": "05848a2a85e1466d19242499ed6b8c016a886db79aca020792aa5598ded77ef9",
+  "dependency_wheel_identity_verified": false
+}

@@ -1,0 +1,67 @@
+{
+  "scope": "Synthetic messages through fixed official tokenizer.json/Jinja template; data only.",
+  "official_validation": "passed",
+  "blocker": null,
+  "e0": "types_loaded_validation_only",
+  "material_lock": {
+    "schema": "native-material-lock/0.1",
+    "repo_id": "google/gemma-4-31B-it-qat-w4a16-ct",
+    "revision": "52f3f65bc7a02d555763bc923bd1d9094898219d",
+    "files": {
+      "chat_template.jinja": {
+        "bytes": 18683,
+        "sha256": "ae53464bf3be25802b3a5b37def7fd89667067d7577049b3b2d74c4d8de4c6d4"
+      },
+      "tokenizer.json": {
+        "bytes": 32169626,
+        "sha256": "cc8d3a0ce36466ccc1278bf987df5f71db1719b9ca6b4118264f45cb627bfe0f"
+      },
+      "tokenizer_config.json": {
+        "bytes": 3728,
+        "sha256": "b8045a4576903e86903291d5cbdd4adfc8859e9ce3c98621bdbd957f73ed394b"
+      }
+    },
+    "dependencies": {
+      "tokenizers": "0.23.2",
+      "jinja2": "3.1.6"
+    },
+    "e0": {
+      "repo": "https://github.com/Liang0695/gamma",
+      "revision": "ffc37b4f3ecde6579117b0012ab4f69b4cff16ab",
+      "runner_path": "v3/train/runner.py",
+      "runner_lf_sha256": "f9d34a7fdab7d6252d1782a49e6049ac7ec059b827d93780dff819cc651b60dd",
+      "template_lf_sha256": "fdd2fc2d7e00e094bd76e60e59dcd5f3ca1045671b6543aa4a61d8f5a2ecde80"
+    },
+    "weights_downloaded": false,
+    "training_environment_verified": false
+  },
+  "dependencies": {
+    "jinja2": "3.1.6",
+    "tokenizers": "0.23.2"
+  },
+  "python": "3.12.3",
+  "platform": "Windows",
+  "concurrency": 1,
+  "own_process_affinity_cores": 4,
+  "tokenizer_threads": 1,
+  "tests": 58,
+  "failures": 0,
+  "errors": 0,
+  "skipped": 0,
+  "cpu_seconds_before_save": 23.9375,
+  "output": "test_boolean_date_is_not_an_integer_timestamp (shared_foundation.tests.test_contracts.AdapterTests.test_boolean_date_is_not_an_integer_timestamp) ... ok\ntest_both_patch_directions_and_three_trees (shared_foundation.tests.test_contracts.AdapterTests.test_both_patch_directions_and_three_trees) ... ok\ntest_empty_duplicate_and_overlapping_test_lists (shared_foundation.tests.test_contracts.AdapterTests.test_empty_duplicate_and_overlapping_test_lists) ... ok\ntest_inverted_direction_is_rejected_on_production_path (shared_foundation.tests.test_contracts.AdapterTests.test_inverted_direction_is_rejected_on_production_path) ... ok\ntest_node_ids_are_not_argv (shared_foundation.tests.test_contracts.AdapterTests.test_node_ids_are_not_argv) ... ok\ntest_public_projection_contains_no_patch_or_oracle (shared_foundation.tests.test_contracts.AdapterTests.test_public_projection_contains_no_patch_or_oracle) ... ok\ntest_snapshots_require_hashes_and_distinct_broken_reference (shared_foundation.tests.test_contracts.AdapterTests.test_snapshots_require_hashes_and_distinct_broken_reference) ... ok\ntest_source_base_and_image_must_match (shared_foundation.tests.test_contracts.AdapterTests.test_source_base_and_image_must_match) ... ok\ntest_source_test_ids_must_match_plan (shared_foundation.tests.test_contracts.AdapterTests.test_source_test_ids_must_match_plan) ... ok\ntest_unapproved_and_synthetic_inputs_never_publish (shared_foundation.tests.test_contracts.AdapterTests.test_unapproved_and_synthetic_inputs_never_publish) ... ok\ntest_unknown_nested_task_fields_are_rejected (shared_foundation.tests.test_contracts.AdapterTests.test_unknown_nested_task_fields_are_rejected) ... ok\ntest_unknown_source_fields_are_not_silently_dropped (shared_foundation.tests.test_contracts.AdapterTests.test_unknown_source_fields_are_not_silently_dropped) ... ok\ntest_completed_run_with_uncertain_cause_does_not_get_reward (shared_foundation.tests.test_contracts.DerivationTests.test_completed_run_with_uncertain_cause_does_not_get_reward) ... ok\ntest_derived_views_never_mutate_fact_or_publish_batches (shared_foundation.tests.test_contracts.DerivationTests.test_derived_views_never_mutate_fact_or_publish_batches) ... ok\ntest_extra_passed_node_does_not_make_exact_list_false_negative (shared_foundation.tests.test_contracts.DerivationTests.test_extra_passed_node_does_not_make_exact_list_false_negative) ... ok\ntest_na_reasons_survive_derivation (shared_foundation.tests.test_contracts.DerivationTests.test_na_reasons_survive_derivation) ... ok\ntest_p2p_not_covered_is_na_not_zero (shared_foundation.tests.test_contracts.DerivationTests.test_p2p_not_covered_is_na_not_zero) ... ok\ntest_regression_is_semantic_zero (shared_foundation.tests.test_contracts.DerivationTests.test_regression_is_semantic_zero) ... ok\ntest_skip_error_and_unknown_node_evidence_is_na (shared_foundation.tests.test_contracts.DerivationTests.test_skip_error_and_unknown_node_evidence_is_na) ... ok\ntest_success_and_semantic_failure_positive_paths (shared_foundation.tests.test_contracts.DerivationTests.test_success_and_semantic_failure_positive_paths) ... ok\ntest_unknown_policy_rejected (shared_foundation.tests.test_contracts.DerivationTests.test_unknown_policy_rejected) ... ok\ntest_unselected_failure_cannot_be_promoted_to_success (shared_foundation.tests.test_contracts.DerivationTests.test_unselected_failure_cannot_be_promoted_to_success) ... ok\ntest_candidate_fact_cannot_be_qualification (shared_foundation.tests.test_contracts.QualificationTests.test_candidate_fact_cannot_be_qualification) ... ok\ntest_duplicate_run_cannot_count_as_independent_repeat (shared_foundation.tests.test_contracts.QualificationTests.test_duplicate_run_cannot_count_as_independent_repeat) ... ok\ntest_missing_second_observation_is_not_qualified (shared_foundation.tests.test_contracts.QualificationTests.test_missing_second_observation_is_not_qualified) ... ok\ntest_ten_observations_establish_fixture_contrast_only (shared_foundation.tests.test_contracts.QualificationTests.test_ten_observations_establish_fixture_contrast_only) ... ok\ntest_unstable_reference_and_na_do_not_pass (shared_foundation.tests.test_contracts.QualificationTests.test_unstable_reference_and_na_do_not_pass) ... ok\ntest_bad_hash_and_base_are_rejected (shared_foundation.tests.test_contracts.RequestFactTests.test_bad_hash_and_base_are_rejected) ... ok\ntest_duplicate_nodes_and_invalid_duration (shared_foundation.tests.test_contracts.RequestFactTests.test_duplicate_nodes_and_invalid_duration) ... ok\ntest_empty_candidate_is_rejected (shared_foundation.tests.test_contracts.RequestFactTests.test_empty_candidate_is_rejected) ... ok\ntest_explicit_candidate_equal_to_reference_is_not_auto_rejected (shared_foundation.tests.test_contracts.RequestFactTests.test_explicit_candidate_equal_to_reference_is_not_auto_rejected) ... ok\ntest_fact_identity_hash_and_request_binding (shared_foundation.tests.test_contracts.RequestFactTests.test_fact_identity_hash_and_request_binding) ... ok\ntest_fact_unknown_fields_and_statuses (shared_foundation.tests.test_contracts.RequestFactTests.test_fact_unknown_fields_and_statuses) ... ok\ntest_no_candidate_cannot_fall_back_to_reference (shared_foundation.tests.test_contracts.RequestFactTests.test_no_candidate_cannot_fall_back_to_reference) ... ok\ntest_qualification_and_candidate_modes_are_distinct (shared_foundation.tests.test_contracts.RequestFactTests.test_qualification_and_candidate_modes_are_distinct) ... ok\ntest_wrong_actor_task_and_role (shared_foundation.tests.test_contracts.RequestFactTests.test_wrong_actor_task_and_role) ... ok\ntest_duplicate_target_and_missing_target_rejected (shared_foundation.native_tests.test_native.MappingChecks.test_duplicate_target_and_missing_target_rejected) ... ok\ntest_empty_overlap_crossing_and_missing_offsets_rejected (shared_foundation.native_tests.test_native.MappingChecks.test_empty_overlap_crossing_and_missing_offsets_rejected) ... ok\ntest_empty_target_and_nonassistant_target_rejected (shared_foundation.native_tests.test_native.MappingChecks.test_empty_target_and_nonassistant_target_rejected) ... ok\ntest_material_hash_tamper_and_shim_renderer_rejected (shared_foundation.native_tests.test_native.MappingChecks.test_material_hash_tamper_and_shim_renderer_rejected) ... ok\ntest_missing_official_materials_fail_closed (shared_foundation.native_tests.test_native.MappingChecks.test_missing_official_materials_fail_closed) ... ok\ntest_post_target_feedback_cannot_become_input (shared_foundation.native_tests.test_native.MappingChecks.test_post_target_feedback_cannot_become_input) ... ok\ntest_resealed_mapping_version_or_projection_cannot_bypass_rebuild (shared_foundation.native_tests.test_native.MappingChecks.test_resealed_mapping_version_or_projection_cannot_bypass_rebuild) ... ok\ntest_reserved_control_tokens_and_unknown_fields_rejected (shared_foundation.native_tests.test_native.MappingChecks.test_reserved_control_tokens_and_unknown_fields_rejected) ... ok\ntest_structured_mapping_keeps_unicode_quotes_and_explicit_target (shared_foundation.native_tests.test_native.MappingChecks.test_structured_mapping_keeps_unicode_quotes_and_explicit_target) ... ok\ntest_wrong_result_binding_and_string_arguments_rejected (shared_foundation.native_tests.test_native.MappingChecks.test_wrong_result_binding_and_string_arguments_rejected) ... ok\ntest_canonical_trace_bytes_ids_tool_result_and_unicode (shared_foundation.native_tests.test_native.OfficialChecks.test_canonical_trace_bytes_ids_tool_result_and_unicode) ... ok\ntest_e0_types_optional_actual_count_and_wrong_pin_rejected (shared_foundation.native_tests.test_native.OfficialChecks.test_e0_types_optional_actual_count_and_wrong_pin_rejected) ... ok\ntest_file_hash_tamper_and_resealed_label_tamper_rejected (shared_foundation.native_tests.test_native.OfficialChecks.test_file_hash_tamper_and_resealed_label_tamper_rejected) ... ok\ntest_history_and_target_with_identical_body_do_not_share_labels (shared_foundation.native_tests.test_native.OfficialChecks.test_history_and_target_with_identical_body_do_not_share_labels) ... ok\ntest_no_silent_truncation (shared_foundation.native_tests.test_native.OfficialChecks.test_no_silent_truncation) ... ok\ntest_real_offsets_reject_empty_or_partial_token_action_spans (shared_foundation.native_tests.test_native.OfficialChecks.test_real_offsets_reject_empty_or_partial_token_action_spans) ... ok\ntest_real_terminal_tokens_are_supervised (shared_foundation.native_tests.test_native.OfficialChecks.test_real_terminal_tokens_are_supervised) ... ok\ntest_reasoning_is_context_and_thinking_kwargs_have_real_behavior (shared_foundation.native_tests.test_native.OfficialChecks.test_reasoning_is_context_and_thinking_kwargs_have_real_behavior) ... ok\ntest_roundtrip_stores_actual_arrays_and_complete_plan (shared_foundation.native_tests.test_native.OfficialChecks.test_roundtrip_stores_actual_arrays_and_complete_plan) ... ok\ntest_same_model_turn_after_tool_result_still_isolates_target (shared_foundation.native_tests.test_native.OfficialChecks.test_same_model_turn_after_tool_result_still_isolates_target) ... ok\ntest_unapproved_input_stays_unpublishable_and_refs_preserved (shared_foundation.native_tests.test_native.OfficialChecks.test_unapproved_input_stays_unpublishable_and_refs_preserved) ... ok\ntest_version_template_mask_and_count_tampering_rejected (shared_foundation.native_tests.test_native.OfficialChecks.test_version_template_mask_and_count_tampering_rejected) ... ok\n\n----------------------------------------------------------------------\nRan 58 tests in 23.609s\n\nOK\n",
+  "source_sha256": {
+    "native_artifact.py": "6e7502b67c27e0678e1d60b143d029a7588abef08bc0325baad4389c78ec1ddc",
+    "native_e0.py": "c9844eaaaf478b6ed3e9eba7d07a984d6a3b4c8d00dcac8156d03a210f8794d7",
+    "native_messages.py": "8a60913d0a779480deb82a9da9c8cddff427aae80213d5cfe3e439e91d3e5194",
+    "native_render.py": "f3f3be3e531f7230e1e05a54979814febce853e8337a8d8b019d31956f6b8347",
+    "run_native_checks.py": "fae22b45e3254c6f043e7361864a279529bed914372bc70d5b30423a4a60f0e5",
+    "native_tests/test_native.py": "661db634d5304ca83f94a11cffc52ff775f753d365759c2082b508ed7a78b691"
+  },
+  "artifacts_root": "evidence/native-artifacts/dc75396e41084574b97364e2300786d1",
+  "artifacts_archive": "evidence/native-artifacts/dc75396e41084574b97364e2300786d1.zip",
+  "training_called": false,
+  "optimizer_called": false,
+  "serving_hf_wrapper_parity": "not_run",
+  "publishable": false
+}

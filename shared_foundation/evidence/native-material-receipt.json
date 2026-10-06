@@ -1,0 +1,29 @@
+{
+  "schema": "native-material-receipt/0.1",
+  "material_files": [
+    {
+      "name": "chat_template.jinja",
+      "url": "https://huggingface.co/google/gemma-4-31B-it-qat-w4a16-ct/resolve/52f3f65bc7a02d555763bc923bd1d9094898219d/chat_template.jinja",
+      "bytes": 18683,
+      "sha256": "ae53464bf3be25802b3a5b37def7fd89667067d7577049b3b2d74c4d8de4c6d4",
+      "origin": "existing_verified_bytes"
+    },
+    {
+      "name": "tokenizer.json",
+      "url": "https://huggingface.co/google/gemma-4-31B-it-qat-w4a16-ct/resolve/52f3f65bc7a02d555763bc923bd1d9094898219d/tokenizer.json",
+      "bytes": 32169626,
+      "sha256": "cc8d3a0ce36466ccc1278bf987df5f71db1719b9ca6b4118264f45cb627bfe0f",
+      "origin": "existing_verified_bytes"
+    },
+    {
+      "name": "tokenizer_config.json",
+      "url": "https://huggingface.co/google/gemma-4-31B-it-qat-w4a16-ct/resolve/52f3f65bc7a02d555763bc923bd1d9094898219d/tokenizer_config.json",
+      "bytes": 3728,
+      "sha256": "b8045a4576903e86903291d5cbdd4adfc8859e9ce3c98621bdbd957f73ed394b",
+      "origin": "existing_verified_bytes"
+    }
+  ],
+  "elapsed_seconds_including_download_and_save": 0.06200000015087426,
+  "weights_downloaded": false,
+  "credentials_used": false
+}
