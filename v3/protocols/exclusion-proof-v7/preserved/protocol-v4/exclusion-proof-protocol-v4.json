@@ -1,0 +1,415 @@
+{
+  "schema_version": "v3-v2-exclusion-proof-protocol-4",
+  "supersedes": "v3-v2-exclusion-proof-protocol-3",
+  "preserved_immutable": [
+    "v3-v2-exclusion-proof-protocol-1",
+    "v3-v2-exclusion-proof-protocol-2",
+    "v3-v2-exclusion-proof-protocol-3",
+    "v3-v2-exclusion-proof-execution-manifest-1",
+    "v3-v2-exclusion-proof-execution-manifest-2"
+  ],
+  "revision_reason": "Mika 2026-10-07（KAGGLE-26 顶部范围 + Q0 报告 01a1121d）：证据解析、读取前授权、生产/测试退出码语义、独立分母基线、非空候选、计数守恒与多值来源、snapshot 实证、单次字节读取与真实 CLI 输入绑定、完整运行文件集。修前缺陷逐条见 defect_register。",
+  "generated_by": "Kaggle 竞赛管理员 (KAGGLE-27)",
+  "frozen_at": "2026-10-07T00:00:00Z",
+
+  "defect_register": {
+    "note": "上一版（protocol-3 / checker ba4081af）被 Q0 在真实冻结 E0 ffc37b4f 上复现的缺陷，逐条对应本版的整改条款。",
+    "items": [
+      {"id": "D1", "was": "gate_ok 只判 kind 与非空 sha256，不解析证据路径与摘要", "now": "evidence_contract + reason_code=EVIDENCE_NOT_RESOLVABLE/EVIDENCE_HASH_INVALID"},
+      {"id": "D2", "was": "snapshot 只看 content_status 与非空摘要，且 checke 无 --snapshot", "now": "snapshot 必须实测重算（--snapshot）+ reason_code=SNAPSHOT_UNVERIFIED"},
+      {"id": "D3", "was": "isolation_ready 读了但结论分支从未使用；隔离未就绪仍 ACCEPTED", "now": "authorization_precedes_access + reason_code=AUTH_BEFORE_ACCESS"},
+      {"id": "D4", "was": "候选 0 条仍 ACCEPTED", "now": "非空候选门槛 + reason_code=CANDIDATE_EMPTY"},
+      {"id": "D5", "was": "counts_declared 可选、可部分声明", "now": "三数组全部必需 + reason_code=DENYLIST_COUNTS_DECLARED_MISSING/DENYLIST_COUNTS_PARTIAL"},
+      {"id": "D6", "was": "跨数组重复不计数；raw == eff + dup 不变式被破坏且无人检查", "now": "计数守恒不变式 + reason_code=COUNT_INVARIANT_BROKEN"},
+      {"id": "D7", "was": "source_array_of_token 单值，把跨数组来源说成一个", "now": "多值来源映射（list）+ reason_code 同 D6"},
+      {"id": "D8", "was": "_CHILD 直调函数，不验真实 CLI schema 入口", "now": "真实 CLI 入口绑定 + reason_code=DENYLIST_SCHEMA_NOT_CONSUMED"},
+      {"id": "D9", "was": "只哈希 dedup.py，改 common/errors.py 结论会变而摘要不变", "now": "导入闭包绑定 + reason_code=BINDING_INCOMPLETE"},
+      {"id": "D10", "was": "counts 与同一份输入自比，无独立分母基线", "now": "协议冻结期望分母 + reason_code=DENOMINATOR_MISSING/DENOMINATOR_SHORTFALL"},
+      {"id": "D11", "was": "synthetic_mode 用 bool() 强转，字符串 \"false\" 被当成 true 并切进更弱的合成分支", "now": "严格布尔 + reason_code=MODE_TYPE_INVALID"},
+      {"id": "D12", "was": "custody_principal_os_identity 只判非空，agent UUID 仍 ACCEPTED", "now": "OS 身份格式校验 + reason_code=OS_IDENTITY_INVALID"},
+      {"id": "D13", "was": "哈希与解析各读一次，两份字节从不比较", "now": "单次读取契约 + reason_code=BYTES_REBOUND"},
+      {"id": "D14", "was": "无机器可读失败标签", "now": "reason_code_registry（全部 violation 带稳定码）"},
+      {"id": "D15", "was": "--expect 默认取自被检清单的 records.overall ⇒ 自述 ACCEPTED 使进程 exit 0", "now": "exit_semantics：生产模式 exit 0 只代表真实 ACCEPTED；测试模式期望只能由调用方给出"},
+      {"id": "D16", "was": "PERMITTED_MECHANISMS 把同机独立账户+断继承列为充分", "now": "G4 机制不足清单 + reason_code=G4_MECHANISM_INSUFFICIENT"}
+    ]
+  },
+
+  "reason_code_registry": {
+    "rule": "每条 violation 必须带稳定 reason_code，便于机器 diff 与逐例断言。runner 按 reason_code 断言反例命中目标。",
+    "codes": {
+      "PROTOCOL_SHA_MISMATCH": "manifest 引用的协议摘要与实际协议字节不符",
+      "MODE_TYPE_INVALID": "synthetic_mode / isolation_ready 不是 JSON 布尔",
+      "AUTH_MISSING": "非合成模式下缺少可信授权记录",
+      "AUTH_UNTRUSTED": "授权记录摘要与调用方提供的信任锚不符",
+      "AUTH_SCOPE_INSUFFICIENT": "授权范围未覆盖本次要读的输入",
+      "AUTH_BEFORE_ACCESS": "在授权判定通过之前就读取（或准备读取）了受保护输入",
+      "EVIDENCE_SELF_DECLARED": "门槛只有 self_declared 证据",
+      "EVIDENCE_NOT_RESOLVABLE": "证据不可解析：路径不存在或不在声明的 evidence root 下",
+      "EVIDENCE_HASH_INVALID": "证据 sha256 不是 64 位小写十六进制",
+      "EVIDENCE_HASH_MISMATCH": "证据文件实算摘要与声明不符",
+      "EVIDENCE_PRODUCER_MISSING": "证据缺 produced_by / produced_at",
+      "GATE_MEANING_UNSUPPORTED": "门槛含义未被证据覆盖（主体/版本/来源/可信批准记录）",
+      "CANDIDATE_EMPTY": "候选记录 0 条",
+      "RECORD_MISSING_FIELD": "候选记录缺必需族字段或为空",
+      "DENYLIST_SCHEMA_UNSUPPORTED": "denylist_schema_version 不在受支持列表",
+      "DENYLIST_UNKNOWN_KEY": "denylist 顶层出现未知键",
+      "DENYLIST_ITEM_INVALID": "denylist 项类型/空白非法（整批失败）",
+      "DENYLIST_EMPTY": "三数组去重并集为空",
+      "DENYLIST_COUNTS_DECLARED_MISSING": "counts_declared 整块缺失",
+      "DENYLIST_COUNTS_PARTIAL": "counts_declared 未声明全部三个数组",
+      "DENYLIST_COUNT_MISMATCH": "counts_declared 与实测 effective_count 不符",
+      "COUNT_INVARIANT_BROKEN": "raw_total != effective_total + duplicate_total，或来源映射非多值",
+      "DENOMINATOR_MISSING": "协议未提供期望分母，或 manifest 未逐项交叉核对",
+      "DENOMINATOR_SHORTFALL": "实测计数低于冻结期望分母（短额），不得静默变小",
+      "BINDING_INCOMPLETE": "执行文件集/导入闭包未完整绑定",
+      "BINDING_MISMATCH": "绑定摘要与实际字节不符",
+      "BYTES_REBOUND": "同一文件被读两次，哈希与解析用的不是同一份字节",
+      "DENYLIST_SCHEMA_NOT_CONSUMED": "真实 CLI 入口未消费协议 schema 的排除清单（fail-open）",
+      "VALIDATOR_EXIT_MISMATCH": "真实 CLI 入口退出码与 manifest 声明不符",
+      "EXIT_CODE_NOT_OS_PROCESS": "exit_code_source 不是 os_process",
+      "INTERSECTION_NONZERO": "交集不为 0",
+      "SNAPSHOT_UNVERIFIED": "snapshot 未取得内容或摘要未实测重算",
+      "OS_IDENTITY_INVALID": "OS 身份字段为空或形如 agent UUID",
+      "G4_MECHANISM_INSUFFICIENT": "隔离机制不属于可接受集合，或缺少必要证据项",
+      "OVERALL_SELF_DECLARED": "被检清单自述 overall，不得作为验收或期望来源"
+    }
+  },
+
+  "authorization_precedes_access": {
+    "principle": "读取前授权是保护输入的前置条件，不是『一切文件都不能读』。",
+    "read_order_contract": [
+      "阶段 0（允许，无需授权）：协议/模板等预先获准的非敏感配置，以及可信授权记录本身。",
+      "阶段 1（授权判定）：用调用方提供的信任锚校验授权记录；判定本次要读的输入是否在授权范围内。",
+      "阶段 2（仅当阶段 1 通过）：才读 candidate / denylist / validator 文件集 / snapshot。"
+    ],
+    "hard_rules": [
+      "非合成模式下，授权判定必须发生在任何受保护输入读取之前。",
+      "未通过授权判定时，必须**零读取**受保护输入，并给 reason_code=AUTH_BEFORE_ACCESS。",
+      "授权必须来自**清单之外**的可信授权记录，并与调用方提供的信任锚匹配；清单自填 true 不构成授权，reason_code=AUTH_MISSING。",
+      "授权记录自身不被信任，除非其字节摘要命中调用方提供的信任锚，否则 AUTH_UNTRUSTED。",
+      "授权范围必须显式列出被读输入；未列出的输入不得读，AUTH_SCOPE_INSUFFICIENT。",
+      "验收器必须输出有序 read_log，使『授权前零读取』可被机器验证。"
+    ],
+    "authorization_record_schema": {
+      "schema_version": "v3-exclusion-proof-read-authorization-1",
+      "required_fields": [
+        "authorization_schema_version",
+        "authorization_id",
+        "issued_by",
+        "approved_at",
+        "scope",
+        "isolation"
+      ],
+      "issued_by": {
+        "principal": "主体名/标识",
+        "role": "custodian | platform_owner | designated_evaluator",
+        "os_identity": "SID 或 POSIX UID 形态"
+      },
+      "scope": {
+        "read_permitted": "JSON 布尔（严格类型）",
+        "inputs": "受保护输入的显式子集：candidate | denylist | validator | snapshot",
+        "purpose": "字符串"
+      },
+      "isolation": {
+        "verified": "JSON 布尔（严格类型）",
+        "mechanism": "见 G4",
+        "negative_test_exit_code": "真实 OS 退出码",
+        "exit_code_source": "os_process",
+        "training_context_cannot_self_authorize": "布尔，且须附证据",
+        "admin_owner_daemon_paths_excluded": "布尔，且须附证据"
+      },
+      "trust_model_note": "本件不声称存在真实批准的授权记录。合成用例中它是显式测试替身，且测试模式产出的结论一律不是验收结论。"
+    }
+  },
+
+  "evidence_contract": {
+    "principle": "证据存在且哈希相等还不够：还须核对门槛含义、主体/版本/来源及可信批准记录。不能用自造文件替代独立验收。SID 形状也不证明主体真实。",
+    "evidence_object": {
+      "required": ["kind", "path", "sha256", "produced_by", "produced_at"],
+      "kind_enum": ["artifact", "command_log", "custody_record", "trusted_approval"],
+      "sha256": "必须匹配 ^[0-9a-f]{64}$",
+      "path": "必须位于 --evidence-root 之下，并且文件存在",
+      "produced_by": "产出主体（principal / 角色 / 工具标识）",
+      "produced_at": "RFC3339 时间戳"
+    },
+    "resolution_rule": [
+      "sha256 格式非法 ⇒ EVIDENCE_HASH_INVALID",
+      "路径不存在或不落在 evidence root 下 ⇒ EVIDENCE_NOT_RESOLVABLE",
+      "实算摘要与声明不符 ⇒ EVIDENCE_HASH_MISMATCH",
+      "缺 produced_by / produced_at ⇒ EVIDENCE_PRODUCER_MISSING"
+    ],
+    "self_declared_rule": "kind=self_declared 永不足够 ⇒ EVIDENCE_SELF_DECLARED。作者自称、清单自填、验收器自己刚写的文件都不构成独立证据。",
+    "meaning_rule": {
+      "requirement": "证据必须覆盖门槛的**含义**，不只是存在：主体（谁做的/谁批的）、版本（对哪个 revision）、来源（哪个受控件）、可信批准记录。",
+      "gate_meaning_map": {
+        "G1_namespace_compatibility": "须给出双方命名空间派生规则 + 同一抽取器在合成样例上的一致性对照（produced_by 须为独立于 candidate 作者的主体）",
+        "G2_effective_input_binding": "须给出被读输入的受控来源记录 + 谁批准读取",
+        "G3_snapshot_content_bound": "须给出 snapshot 内容件本体（非索引）及其来源主体",
+        "G4_isolation_verified": "须给出隔离机制的部署记录 + 真实否定测试日志（OS 退出码）+ 排除管理员/owner/daemon 路径的批准记录"
+      },
+      "failure_code": "GATE_MEANING_UNSUPPORTED"
+    },
+    "synthetic_boundary": "合成用例中的证据是显式测试替身；测试模式的结论一律不是验收结论，不得与真实结论混列。"
+  },
+
+  "denylist_input_contract": {
+    "contract_status": "FROZEN_PENDING_E0_ALIGNMENT",
+    "producer_consumer_alignment": "协议公告三数组，E0 真实入口读 families/repos —— 二选一冻结，禁止两套并存。本版冻结为**协议三数组**；E0 未对齐前，真实模式必须报 DENYLIST_SCHEMA_NOT_CONSUMED（fail-closed），不得把 exit 0 当作零交集。",
+    "file_schema_version_field": "denylist_schema_version",
+    "supported_schema_versions": ["v2-dh-exclusion-denylist-1"],
+    "required_top_level_keys": [
+      "denylist_schema_version",
+      "d_family_ids",
+      "h_family_ids",
+      "exposed_family_ids",
+      "counts_declared"
+    ],
+    "optional_top_level_keys": ["source_sha256", "produced_by", "produced_at"],
+    "unknown_top_level_key_rule": "拒绝 ⇒ DENYLIST_UNKNOWN_KEY",
+    "item_rules": {
+      "item_type": "str only；bool/int/float/null/list/dict/bytes 一律拒绝",
+      "item_non_empty_after_strip": true,
+      "literal_none_vs_null": "字符串 'none' 合法；JSON null 非法。二者在 code 层区分。",
+      "reject_rule": "任一项非法 ⇒ 整批失败 ⇒ DENYLIST_ITEM_INVALID。不 str() 兜底、不静默丢弃、不部分接受。",
+      "no_drop_rule": "任何一项被丢弃即失败。denylist_rejected_count 必须实测，且 ACCEPTED 要求其恒为 0。"
+    },
+    "counts_declared_rule": {
+      "all_three_arrays_required": true,
+      "missing_block": "DENYLIST_COUNTS_DECLARED_MISSING",
+      "partial": "DENYLIST_COUNTS_PARTIAL",
+      "mismatch": "DENYLIST_COUNT_MISMATCH"
+    },
+    "empty_set_rule": "三数组去重并集为空 ⇒ DENYLIST_EMPTY。空集不得当作『零交集 ⇒ PASS』。",
+    "union_derivation": {
+      "order": ["d_family_ids", "h_family_ids", "exposed_family_ids"],
+      "algorithm": "按数组顺序拼接 -> 逐项 strip -> 归一 token（strip + lower）-> 按 token 去重，保留首次出现顺序",
+      "consumed_by": "真实 CLI 入口的第二参数",
+      "note": "这是唯一被批准的『三数组 -> 消费者参数』映射。"
+    },
+    "counting_invariants": {
+      "raw_equals_effective_plus_duplicate": "raw_total == effective_total + duplicate_total 必须成立，否则 COUNT_INVARIANT_BROKEN",
+      "cross_array_duplicate_visible": "同时出现在多个数组的 token 必须计入 duplicate_count（跨数组重复不得消失）",
+      "source_mapping_multi_valued": "source_array_of_token 必须是**列表**，记录该 token 来自的**全部**数组；单值映射把跨数组来源说成一个 ⇒ COUNT_INVARIANT_BROKEN"
+    },
+    "prohibited_in_denylist_file": [
+      "statement", "hints_text", "patch", "test_patch", "gold",
+      "任何判题正文、题面或补丁内容",
+      "任何真实受限件正文或其字节摘要"
+    ]
+  },
+
+  "denominator_baseline": {
+    "principle": "输入少了一整个族时，双方会一起变小并『一致通过』。必须由冻结协议提供**独立期望分母**并交叉核对。",
+    "independence_rule": "分母基线不得由被检输入自身推导；真实来源基线可用协议引用的**受控冻结件**，公开协议只放计数，**不放 H 身份**。",
+    "baseline_ref": {
+      "kind": "controlled_frozen_artifact",
+      "artifact_id": "v2-dh-custody-frozen-baseline-1",
+      "file_bytes_sha256": null,
+      "status": "PENDING_CUSTODIAN",
+      "public_projection": "counts only"
+    },
+    "expected_public_counts": {
+      "v2_task_count": {"value": 129, "unit": "tasks", "scope": "v2-registry"},
+      "v2_family_count": {"value": 126, "unit": "families", "scope": "v2-registry"},
+      "v2_d8_count": {"value": 8, "unit": "families", "scope": "v2-dev-D8"},
+      "v2_h24_count": {"value": 24, "unit": "families", "scope": "v2-held-out-H24"},
+      "v2_exposed_ids_in_union": {"value": 17, "unit": "families", "scope": "v2-union-exposed"},
+      "v3_d8_pool": {"value": 8, "unit": "families", "scope": "v3-dev D8"},
+      "v3_h16_sealed": {"value": 16, "unit": "families", "scope": "v3-sealed H16"}
+    },
+    "cross_check_rule": [
+      "manifest 必须逐项声明它对照了哪些分母口径",
+      "实测计数低于期望 ⇒ DENOMINATOR_SHORTFALL（短额不得静默变小）",
+      "协议未提供期望分母，或 manifest 未逐项交叉核对 ⇒ DENOMINATOR_MISSING"
+    ],
+    "these_are_NOT_interchangeable": true,
+    "hardcode_prohibition": "不得把常数硬编码成同一个分母，也不得用常数替代运行时实测计数。"
+  },
+
+  "validator_binding": {
+    "principle": "『同一份字节』必须覆盖**完整运行文件集**，不只被哈希的那一个文件。",
+    "decisive_defect": "只哈希 v3/data/dedup.py 时，把 v3/common/errors.py 的 PolicyViolation.exit_code 由 7 改成 9，交集子进程退出码随之变化，而绑定摘要不变。",
+    "import_closure_required": [
+      "v3/data/dedup.py",
+      "v3/common/errors.py",
+      "v3/common/canonical.py"
+    ],
+    "entrypoint_binding": "或改为绑定真实 CLI 入口的完整文件集（v3/cli.py + 其导入闭包），逐文件记录 file_bytes_sha256、byte_length、newline_mode 与 git_blob_sha1。",
+    "incomplete_rule": "任何被要求的文件缺失绑定 ⇒ BINDING_INCOMPLETE。",
+    "single_read_rule": {
+      "requirement": "每个文件在一次判定中**只读一次**；哈希与解析必须使用**同一份 buffer**，并记录 bytes_hashed == bytes_parsed。",
+      "failure_code": "BYTES_REBOUND"
+    },
+    "real_cli_binding": {
+      "requirement": "判定必须经**真实 CLI 入口**（python -m v3.cli split）执行，而不是直接调用内部函数。",
+      "consumption_check": "喂入协议 schema 的排除清单且其中含与候选真实相交的家族；若入口仍 exit 0 ⇒ DENYLIST_SCHEMA_NOT_CONSUMED（fail-open）。",
+      "exit_code_check": "真实入口的 OS 退出码必须与 manifest 声明一致，否则 VALIDATOR_EXIT_MISMATCH。"
+    },
+    "normalization_real_behaviour": {
+      "implementation": "str(value).strip().lower()",
+      "does_NFC": false,
+      "collapses_internal_whitespace": false,
+      "nbsp_equals_space": false
+    },
+    "normalization_scope_warning": "V2 文档的 NFC / CRLF→LF / \\s+→单空格 是 statement 侧派生规则；验证器比对家族标签只做 strip+lower。两者不同层，必须分开记录。",
+    "denylist_none_hazard": {
+      "description": "非对称：记录侧对 None/空白拒绝，但 denylist 侧 _normalize_match_token(None) == 'none' 静默进入比对集合。",
+      "v2_mitigation_rejected": "『过滤 None / 空串 / 纯空白』不获批准。",
+      "v4_rule": "无效必需身份 ⇒ 整批失败并记录缺口（DENYLIST_ITEM_INVALID）。"
+    }
+  },
+
+  "identity_contract": {
+    "principle": "SID 形状不证明主体真实；但不能连形状都不校验。",
+    "fields": [
+      "records.isolation_acceptance.custody_principal_os_identity",
+      "records.isolation_acceptance.negative_test.subject_os_identity",
+      "records.isolation_acceptance.positive_test.subject_os_identity",
+      "authorization.issued_by.os_identity"
+    ],
+    "accepted_shapes": [
+      "^S-1-[0-9-]+$（Windows SID）",
+      "^uid=[0-9]+(\\.[0-9]+)?(\\(.*\\))?$ 或 ^[0-9]+$（POSIX UID）",
+      "^[A-Za-z0-9._\\\\-]+\\\\[A-Za-z0-9._$-]+$（域\\账户）"
+    ],
+    "rejected_shapes": [
+      "agent UUID（8-4-4-4-12 十六进制）",
+      "空串 / null",
+      "平台 author_id / assignee_id 直接搬用"
+    ],
+    "failure_code": "OS_IDENTITY_INVALID",
+    "honesty_note": "通过格式校验**不等于**主体真实或隔离成立；本字段只挡『把 agent UUID 填进 OS 身份位』这一类。"
+  },
+
+  "exit_semantics": {
+    "principle": "生产验收与测试断言分离。",
+    "modes": {
+      "production": {
+        "flag": "--mode production（默认）",
+        "rule": "进程 exit 0 当且仅当机器判定为真实 ACCEPTED；否则非零。",
+        "expect_source": "不得从被检清单的 records.overall 取期望。被检清单的自述 overall 一律不参与退出码决定；若存在且与机器判定不符，记 OVERALL_SELF_DECLARED。",
+        "corollary": "exit 0 的含义是『已验收』，不是『与自述一致』。"
+      },
+      "test": {
+        "flag": "--mode test --expect <VERDICT>",
+        "rule": "exit 0 当且仅当机器判定等于调用方显式给出的 --expect。",
+        "expect_source": "只能来自调用方（fixture 规格或命令行）；缺失 --expect 即报错退出。",
+        "corollary": "从被检 overall 取期望是被禁止的：那会把自述变成验收信号。"
+      }
+    },
+    "write_overall_rule": "禁止在生产模式的验收运行里把机器结论写回被检清单（自引用）。只允许写入独立输出件。",
+    "verdicts": [
+      "ACCEPTED",
+      "COMPUTATION_ONLY",
+      "SYNTHETIC_ACCEPTED",
+      "BLOCKED"
+    ]
+  },
+
+  "acceptance_gates": {
+    "rule": "任一门槛未满足 ⇒ 不得产出可验收 ACCEPTED。证据必须按 evidence_contract 解析并覆盖门槛含义。",
+    "G1_namespace_compatibility": {
+      "question": "V3 的 problem_family_id / repo_family 与 V2 family id 是否同源同构",
+      "decides": "计算结果是否可信",
+      "status_now": "D_unverified"
+    },
+    "G2_effective_input_binding": {
+      "question": "candidate / denylist / validator 文件集的实际执行字节是否已绑定，且读取已获授权",
+      "decides": "计算结果是否可信",
+      "status_now": "D_unverified"
+    },
+    "G3_snapshot_content_bound": {
+      "question": "snapshot 内容是否已取得、绑定并**实测重算**",
+      "decides": "计算结果是否可信",
+      "status_now": "D_unverified（snapshot_content_status = not_obtained）"
+    },
+    "G4_isolation_verified": {
+      "question": "是否存在真实隔离（独立主体 + 权限矩阵 + 否定测试实测 + 管理员/owner/daemon 路径已排除）",
+      "decides": "隔离是否可验收",
+      "insufficient_now": [
+        "同机独立账户 + 断继承（**单独不再充分**）",
+        "不同目录 / 不同卷 / 不同 agent 名 / agent UUID",
+        "目录名含 restricted",
+        "仅 stat 可见或不可见"
+      ],
+      "must_include": [
+        "训练实际上下文及其子进程对受限 canary 的 stat 与 open 均被拒（分开记录）",
+        "训练主体不能自行授权（不得经管理员、文件 owner 或 daemon 路径获得评测权限）",
+        "上述两项须附**可信批准记录**与真实 OS 退出码"
+      ],
+      "status_now": "D_unverified",
+      "failure_code": "G4_MECHANISM_INSUFFICIENT"
+    },
+    "gate_interaction": "G1/G2/G3 决定计算结果是否可信；G4 决定隔离是否可验收。四者全真且授权链成立才允许合并成一条 ACCEPTED。"
+  },
+
+  "accepted_rule": {
+    "machine_decidable_conjunction": [
+      "mode 为严格布尔且类型合法（非合成模式）",
+      "授权记录存在、受信任锚校验通过、范围覆盖被读输入",
+      "授权判定发生在任何受保护输入读取之前（read_log 可证）",
+      "G1..G4 各自 claimed==true 且证据可解析、非 self_declared、覆盖门槛含义",
+      "binding：candidate/denylist/snapshot 摘要实符；validator 的**导入闭包**逐文件绑定齐全",
+      "每个文件单次读取，bytes_hashed == bytes_parsed",
+      "denylist 契约整批通过；counts_declared 三数组齐全且与实测一致",
+      "计数守恒 raw == eff + dup 成立；来源映射为多值",
+      "实测计数不低于协议冻结期望分母",
+      "candidate.records_raw_count > 0 且 records_rejected_count == 0",
+      "denylist_rejected_count == 0",
+      "真实 CLI 入口退出码 == 0 且 exit_code_source == os_process",
+      "真实 CLI 入口确实消费了协议 schema 的排除清单",
+      "intersection_count == 0",
+      "snapshot 内容实测重算通过",
+      "全部 OS 身份字段通过格式校验"
+    ],
+    "explicit_negative_rule": "自述布尔、空证据或不可解析证据、空候选、自述 counts、缺分母基线、字符串模式开关、agent UUID 身份、单文件绑定、退出码取自述 —— 任一情形均不得输出 ACCEPTED。",
+    "close_channel_rule": "ACCEPTED 必须由机器验收器对上述合取逐项求值后给出，并且生产模式退出码只反映该结论。"
+  },
+
+  "record_separation": {
+    "computation_result": {
+      "label_when_gates_unmet": "COMPUTATION_ONLY — 非验收结论",
+      "hard_constraints": [
+        "COMPUTATION_ONLY 不是访问授权；隔离就绪前不得读取受限件、不得导出真实 denylist。",
+        "未通过授权判定时零读取受保护输入。",
+        "『输出不含 SHA』不构成访问控制。",
+        "未运行或异常退出时不得输出成功计算标签。",
+        "合成模式必须显式标记 synthetic_mode == true（严格布尔），且不得与真实结论混列。"
+      ]
+    },
+    "isolation_acceptance": {
+      "note": "G4 未过时该块恒为 NOT_ACCEPTED，不得被计算侧结果覆盖"
+    }
+  },
+
+  "snapshot_contract": {
+    "must_be_recomputable": "验收器必须提供 --snapshot 并对内容件**实测重算**摘要；只看 content_status 与非空摘要不足。",
+    "failure_code": "SNAPSHOT_UNVERIFIED",
+    "index_hash_substitution_forbidden": true
+  },
+
+  "attachment_and_access_surface": {
+    "pointer": "attachment-control-surface.md",
+    "cli_capability_verified": "CLI 暴露 issue comment delete 与 attachment download/upload；无独立附件删除或撤回子命令。附件 blob 是否随评论删除而清除未经验证。",
+    "prohibited": [
+      "断言平台附件不可删除",
+      "绕过 CLI 自行处置附件",
+      "当前阶段执行受限件哈希复核或 denylist 导出"
+    ]
+  },
+
+  "current_status": {
+    "G1": "D_unverified",
+    "G2": "D_unverified",
+    "G3": "D_unverified",
+    "G4": "D_unverified",
+    "overall": "BLOCKED — 四门槛未满足；本件不构成端到端通过、不构成 GPU 放行、不构成正式提交通行证。",
+    "pending_bindings": [
+      "E0 新 SHA（协议 schema 与消费端对齐后）",
+      "candidate / denylist 实际文件字节摘要",
+      "snapshot 内容",
+      "隔离载体、可信授权记录与否定测试证据",
+      "受控冻结分母基线件"
+    ]
+  }
+}

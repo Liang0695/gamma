@@ -1,0 +1,543 @@
+{
+  "schema_version": "v3-v2-exclusion-proof-protocol-7",
+  "supersedes": "v3-v2-exclusion-proof-protocol-6",
+  "preserved_immutable": [
+    "v3-v2-exclusion-proof-execution-manifest-1",
+    "v3-v2-exclusion-proof-execution-manifest-2",
+    "v3-v2-exclusion-proof-execution-manifest-3",
+    "v3-v2-exclusion-proof-execution-manifest-4",
+    "v3-v2-exclusion-proof-protocol-1",
+    "v3-v2-exclusion-proof-protocol-2",
+    "v3-v2-exclusion-proof-protocol-3",
+    "v3-v2-exclusion-proof-protocol-4",
+    "v3-v2-exclusion-proof-protocol-5"
+  ],
+  "revision_reason": "KAGGLE-27 v7 定点修订：信任 scope/生产 fail-closed、授权 SHA 与同一输入 buffer、先授权后递归闭包打开、回执对照运行前快照、固定 commit:path 与完整包初始化、审计 overflow 显式失败、E0 版本敏感正反例。",
+  "generated_by": "Kaggle 竞赛管理员 (KAGGLE-27)",
+  "frozen_at": "2026-10-07T04:00:00Z",
+  "defect_register_v5": {
+    "note": "v4 被 Q0 在真实冻结 E0 上复现的缺陷，逐条对应本版整改条款。",
+    "B1_evidence_meaning_and_no_doubles": {
+      "was": "证据只看存在/格式/哈希，不解析正文与门槛含义；kind=trusted_approval 不校验；produced_by 可写成候选作者；produced_at 非法时间被接受；生产模式允许 test_double 替身；negative_test.exit_code=0 不使 G4 失败。",
+      "now": "evidence_meaning_contract + mode_contract（生产禁替身）+ negative_test 必须是非零实测拒绝码。",
+      "codes": [
+        "EVIDENCE_MEANING_UNSUPPORTED",
+        "EVIDENCE_PRODUCER_MISSING",
+        "EVIDENCE_TIME_INVALID",
+        "EVIDENCE_SELF_PRODUCED",
+        "PRODUCTION_FORBIDS_TEST_DOUBLE",
+        "G4_MECHANISM_INSUFFICIENT"
+      ]
+    },
+    "B2_object_level_authorization": {
+      "was": "scope 只列类型（candidate/denylist/validator），随后仍打开 snapshot 与 evidence；被检 manifest 可自填 synthetic_mode=true 绕过授权；file_set 可用 ../ 或绝对路径越界；绑定失败后仍执行两轮 CLI。",
+      "now": "authorization_contract v2（对象级 kind+规范路径+字节摘要+用途）+ 合成模式只能由调用方开启 + 全路径 root containment + 绑定失败在计算前终止。",
+      "codes": [
+        "AUTH_OBJECTS_MISSING",
+        "AUTH_SCOPE_INSUFFICIENT",
+        "AUTH_ISOLATION_UNVERIFIED",
+        "AUTH_IDENTITY_INVALID",
+        "SYNTHETIC_NOT_PERMITTED_IN_PRODUCTION",
+        "FIXTURE_ROOT_MISSING",
+        "ROOT_NOT_DECLARED",
+        "PATH_OUTSIDE_ROOT",
+        "COMPUTE_NOT_STARTED"
+      ]
+    },
+    "B3_independent_baseline_and_strict_counting": {
+      "was": "分母取自清单自述 measured；字符串/浮点/容器值跳过短额；比较项可自选；输入与 counts 同步缩小仍通过；基线摘要未核验；dict 族身份被计作有效；denylist_rejected_count 被忽略。",
+      "now": "独立冻结基线（--baseline，摘要须命中协议记录）+ 必比项由基线冻结 + 分母从运行输入实算 + 计数严格非负整数 + 记录身份必须非空字符串 + rejected_count 逐字段对照实测。",
+      "codes": [
+        "BASELINE_UNVERIFIED",
+        "DENOMINATOR_SET_MISMATCH",
+        "DENOMINATOR_TYPE_INVALID",
+        "DENOMINATOR_COUNT_MISMATCH",
+        "DENOMINATOR_SHORTFALL",
+        "COUNT_TYPE_INVALID",
+        "RECORD_IDENTITY_TYPE_INVALID",
+        "COUNT_INVARIANT_BROKEN"
+      ]
+    },
+    "B4_full_cli_binding_and_successful_acceptance": {
+      "was": "只绑 dedup/errors/canonical 三文件，遗漏 v3/cli.py 及其实际导入文件；CLI 语义变化无 BINDING 告警；run_real_cli 重写候选并把三数组折叠，实际消费字节与绑定字节不同；代码一处要求 prod_code==7、另一处要求 exit_code==0，合法无交集正例被永久挡住。",
+      "now": "绑定完整 CLI 导入闭包 + 从不可变执行快照运行 + 验收轮使用原始字节（不重写）+ 诊断轮与验收轮分开记录 + 三类轮次（0/7/4）分别断言。",
+      "codes": [
+        "BINDING_INCOMPLETE",
+        "BINDING_MISMATCH",
+        "INPUT_BYTES_MISMATCH",
+        "DENYLIST_SCHEMA_NOT_CONSUMED",
+        "BAD_INPUT_NOT_REJECTED",
+        "VALIDATOR_EXIT_MISMATCH"
+      ]
+    },
+    "Y1_stable_failure_report": {
+      "was": "records 顶层为 list 时 .get() 抛 AttributeError，exit 1 且无报告。",
+      "now": "所有 JSON 块先校验容器与严格类型；预期输入与 I/O 错误映射为稳定 reason_code；异常也始终写出报告与 read_log。",
+      "codes": [
+        "RECORD_CONTAINER_INVALID",
+        "INPUT_CONTAINER_INVALID",
+        "INPUT_PARSE_ERROR",
+        "CHECKER_EXCEPTION",
+        "DENYLIST_CONTAINER_INVALID"
+      ]
+    },
+    "Y2_canary_stat_wording": {
+      "was": "协议要求训练侧 stat 与 open 都必须拒绝，与 Mika 的 stat 单列口径冲突。",
+      "now": "stat 单列（visible 或 denied 均可），**open / 枚举 / 自行改权必须拒绝**；评测主体对获准 canary 读取成功；管理员/owner/daemon 通路另有实证。"
+    }
+  },
+  "reason_code_registry": {
+    "rule": "每条 violation 必须带稳定 reason_code；runner 逐例断言目标码命中。",
+    "codes": {
+      "PROTOCOL_SHA_MISMATCH": "manifest 引用的协议摘要不符",
+      "MODE_TYPE_INVALID": "模式开关不是 JSON 布尔",
+      "SYNTHETIC_NOT_PERMITTED_IN_PRODUCTION": "被检清单自填 synthetic_mode=true；合成模式只能由调用方开启",
+      "FIXTURE_ROOT_MISSING": "合成模式未由调用方给出 --fixture-root",
+      "ROOT_NOT_DECLARED": "未由调用方声明 --fixture-root / --authorized-root",
+      "PATH_OUTSIDE_ROOT": "路径越界（root containment 失败）",
+      "PRODUCTION_FORBIDS_TEST_DOUBLE": "生产模式使用了测试替身",
+      "AUTH_MISSING": "缺少可信授权记录",
+      "AUTH_UNTRUSTED": "授权记录摘要与调用方信任锚不符",
+      "AUTH_SCHEMA_UNSUPPORTED": "授权记录 schema 版本不受支持",
+      "AUTH_IDENTITY_INVALID": "授权主体/角色/批准时间非法",
+      "AUTH_ISOLATION_UNVERIFIED": "授权记录中的隔离状态未验证",
+      "AUTH_OBJECTS_MISSING": "授权未以对象级清单给出",
+      "AUTH_SCOPE_INSUFFICIENT": "授权未覆盖本次实际要打开的对象",
+      "AUTH_BEFORE_ACCESS": "授权判定未通过前不得打开受保护对象或启动计算",
+      "EVIDENCE_SELF_DECLARED": "只有自述证据",
+      "EVIDENCE_NOT_RESOLVABLE": "证据路径不存在或越界",
+      "EVIDENCE_HASH_INVALID": "证据 sha256 格式非法",
+      "EVIDENCE_HASH_MISMATCH": "证据实算摘要与声明不符",
+      "EVIDENCE_PRODUCER_MISSING": "证据缺 produced_by 或为 agent UUID",
+      "EVIDENCE_TIME_INVALID": "produced_at 不是合法 RFC3339",
+      "EVIDENCE_SELF_PRODUCED": "证据由候选作者本人产出，不构成独立证据",
+      "EVIDENCE_MEANING_UNSUPPORTED": "证据正文缺门槛含义字段，或 kind=trusted_approval 但不是批准记录",
+      "GATE_MEANING_UNSUPPORTED": "门槛含义未被证据覆盖",
+      "CANDIDATE_EMPTY": "候选 0 条",
+      "RECORD_MISSING_FIELD": "候选记录缺族字段或为空",
+      "RECORD_IDENTITY_TYPE_INVALID": "候选身份不是字符串（dict/list/bool/int 一律拒绝）",
+      "RECORD_CONTAINER_INVALID": "records 顶层或项容器形态非法",
+      "INPUT_CONTAINER_INVALID": "输入顶层容器形态非法",
+      "INPUT_PARSE_ERROR": "输入无法解析为 JSON",
+      "CHECKER_EXCEPTION": "验收器内部异常（仍输出报告）",
+      "DENYLIST_CONTAINER_INVALID": "denylist 顶层不是 object",
+      "DENYLIST_SCHEMA_UNSUPPORTED": "denylist schema 版本不受支持",
+      "DENYLIST_UNKNOWN_KEY": "denylist 顶层未知键",
+      "DENYLIST_ITEM_INVALID": "denylist 项类型/空白非法（整批失败）",
+      "DENYLIST_EMPTY": "三数组去重并集为空",
+      "DENYLIST_COUNTS_DECLARED_MISSING": "counts_declared 缺失",
+      "DENYLIST_COUNTS_PARTIAL": "counts_declared 未声明全部三数组",
+      "DENYLIST_COUNT_MISMATCH": "counts_declared 与实测不符",
+      "COUNT_INVARIANT_BROKEN": "计数守恒被破坏或与实测不符",
+      "COUNT_TYPE_INVALID": "计数字段不是严格非负整数",
+      "BASELINE_UNVERIFIED": "独立冻结基线缺失或摘要不符",
+      "DENOMINATOR_MISSING": "无法从运行输入实算分母",
+      "DENOMINATOR_SET_MISMATCH": "必比项集合与冻结基线不一致",
+      "DENOMINATOR_TYPE_INVALID": "分母声明值不是严格非负整数",
+      "DENOMINATOR_COUNT_MISMATCH": "分母自述 != 实算",
+      "DENOMINATOR_SHORTFALL": "实算分母低于冻结基线",
+      "BINDING_INCOMPLETE": "执行文件集/导入闭包未完整绑定",
+      "BINDING_MISMATCH": "绑定摘要/长度/换行不符",
+      "BYTES_REBOUND": "同一文件被读两次，哈希与解析非同一份字节",
+      "COMPUTE_NOT_STARTED": "绑定未通过，已在启动计算前终止",
+      "DENYLIST_SCHEMA_NOT_CONSUMED": "诊断轮（必有交集、预期 7）未得到 7 ⇒ 消费者未按协议 schema 排除",
+      "BAD_INPUT_NOT_REJECTED": "坏输入轮（预期 4）未得到 4",
+      "INPUT_BYTES_MISMATCH": "消费者回执的输入摘要与原始绑定字节不符",
+      "VALIDATOR_EXIT_MISMATCH": "验收轮退出码与 manifest 声明不符",
+      "EXIT_CODE_NOT_OS_PROCESS": "exit_code_source 不是 os_process",
+      "INTERSECTION_NONZERO": "交集不为 0",
+      "SNAPSHOT_UNVERIFIED": "snapshot 未取得内容或摘要未实测重算，或 G3 证据未记录实测摘要",
+      "OS_IDENTITY_INVALID": "OS 身份字段为空或形如 agent UUID",
+      "G4_MECHANISM_INSUFFICIENT": "隔离机制不足或缺少必要证据项",
+      "OVERALL_SELF_DECLARED": "被检清单自述 overall，不参与验收",
+      "GIT_BLOB_INVALID": "git_blob_sha1 不是真实 Git 对象身份（全零/截断）",
+      "EXEC_SNAPSHOT_MISMATCH": "执行快照字节与已核验 buffer 或已绑定摘要不符",
+      "CONSUMPTION_RECEIPT_MISSING": "验收轮缺少消费回执（缺失/null）",
+      "EVIDENCE_TRUST_ROOT_MISSING": "未提供受控主体/批准注册表，或注册表落在被检输入范围内",
+      "EVIDENCE_UNTRUSTED_PRODUCER": "produced_by 不在调用方受控主体注册表内",
+      "EVIDENCE_APPROVAL_UNTRUSTED": "approval_id 不在受控批准注册表内，或 approved_by 不一致"
+    }
+  },
+  "mode_contract": {
+    "principle": "合成与生产必须由**调用方**分离，不能由被检清单自行选择。",
+    "production": {
+      "flag": "--mode production",
+      "forbids": [
+        "--validator-mode test_double",
+        "--validator-mode synthetic_consumer",
+        "--expect"
+      ],
+      "rule": "exit 0 当且仅当机器判定为真实 ACCEPTED。"
+    },
+    "test": {
+      "flag": "--mode test --expect <VERDICT> [--allow-synthetic] [--fixture-root DIR]",
+      "rule": "合成模式三重条件缺一不可：调用方 --mode test + --allow-synthetic + 清单 synthetic_mode 严格布尔 true。",
+      "ceiling": "合成模式最多给 SYNTHETIC_ACCEPTED，永不给真实 ACCEPTED。"
+    },
+    "label_rule": "测试模式的 fixture、替身与输出必须带不可提升为真实验收的标签；生产模式拒绝一切替身。"
+  },
+  "authorization_contract": {
+    "schema_version": "v3-exclusion-proof-read-authorization-2",
+    "principle": "类别级 scope 不证明任意新路径或字节获准；授权必须绑定**本次将要打开的每一个受保护对象**。",
+    "object_entry": {
+      "required": [
+        "kind",
+        "path",
+        "sha256",
+        "purpose"
+      ],
+      "kind_enum": [
+        "candidate",
+        "denylist",
+        "validator_closure",
+        "snapshot",
+        "evidence"
+      ],
+      "sha256": "必须匹配 ^[0-9a-f]{64}$ 且等于该对象实算摘要",
+      "path": "规范路径，必须与验收器将要打开的对象逐一对上"
+    },
+    "record_requirements": {
+      "authorization_schema_version": "必须为 v3-exclusion-proof-read-authorization-2",
+      "issued_by": "{principal, role, os_identity}，os_identity 必须通过 OS 身份格式校验（拒绝 agent UUID）",
+      "approved_at": "合法 RFC3339",
+      "isolation": "{verified:true, mechanism:受支持机制, exit_code_source:'os_process'}",
+      "scope.read_permitted": "严格 JSON 布尔 true",
+      "scope.objects": "对象级清单，覆盖全部实际读取对象"
+    },
+    "trust_anchor": "由**受控调用方**以 --trust-anchor-file 提供；验收器不接受被检件连同其自选锚作为信任来源。锚文件本身不在受保护对象内。",
+    "read_order": [
+      "阶段 0（免授权）：协议、清单、授权记录、信任锚、冻结基线等预先获准的非敏感件。",
+      "阶段 1：对象级授权判定（含 root containment）。",
+      "阶段 2：仅当阶段 1 通过，才打开 candidate / denylist / validator closure / snapshot / evidence。"
+    ],
+    "zero_access_rule": "未通过阶段 1 ⇒ 受保护对象 **零打开、零计算**，并由真实 open 哨兵与计算哨兵机器可证。",
+    "pre_authorization_read_ban": {
+      "rule": "授权判定通过之前，受保护对象**不得被打开或散列**；辅助对象枚举与导入闭包扫描同样受此约束。",
+      "consequence": "授权前唯一允许的是：读取协议、清单、授权记录、信任锚、受控主体/批准注册表与冻结基线（均为调用方预先获准的非敏感件）。",
+      "closure_rule": "导入闭包清单必须由调用方在授权记录中全量声明；授权通过后再扫描并核对，出现未授权文件即拒绝。"
+    }
+  },
+  "evidence_meaning_contract": {
+    "principle": "证据存在且哈希相等**还不够**：必须解析正文、核对门槛含义、主体、版本、来源与可信批准记录。",
+    "evidence_object": {
+      "required": [
+        "kind",
+        "path",
+        "sha256",
+        "produced_by",
+        "produced_at"
+      ],
+      "kind_enum": [
+        "artifact",
+        "command_log",
+        "custody_record",
+        "trusted_approval"
+      ],
+      "produced_by": "合法主体标识；**不得等于候选作者 principal**（否则 EVIDENCE_SELF_PRODUCED）",
+      "produced_at": "合法 RFC3339；非法时间拒绝",
+      "trusted_approval": "正文必须含 approved_by 与 approval_id，否则拒绝"
+    },
+    "gate_payload_required": {
+      "G1_namespace_compatibility": [
+        "namespace_v3",
+        "namespace_v2",
+        "derivation_rule",
+        "extractor_id",
+        "sample_count"
+      ],
+      "G2_effective_input_binding": [
+        "bound_objects",
+        "approved_by"
+      ],
+      "G3_snapshot_content_bound": [
+        "snapshot_sha256（必须等于实测 snapshot 摘要）"
+      ],
+      "G4_isolation_verified": [
+        "mechanism",
+        "evaluator_subject_os_identity",
+        "training_context_cannot_self_authorize",
+        "admin_owner_daemon_paths_excluded",
+        "negative_test",
+        "positive_test"
+      ]
+    },
+    "self_declared_rule": "kind=self_declared 永不足够；作者自称、清单自填、验收器自产文件都不构成独立证据。",
+    "honesty_note": "通过含义校验**不等于**主体真实。合成用例中的证据是显式测试替身，一律不产出验收结论。",
+    "trust_root_requirement": {
+      "principle": "完整 JSON 元数据不等于可信门槛证据。",
+      "trusted_principals": "--trusted-principals 受控主体注册表：{principal: {role, os_identity, approved_scope}}。produced_by 必须命中；未命中 ⇒ EVIDENCE_UNTRUSTED_PRODUCER。",
+      "approvals": "--approvals 受控批准注册表：{approval_id: {approved_by, scope}}。kind=trusted_approval 的证据必须引用其中的 approval_id，且 approved_by 一致；否则 ⇒ EVIDENCE_APPROVAL_UNTRUSTED。",
+      "placement_rule": "两个注册表必须位于 fixture/authorized root 与 evidence root **之外**；落在被检输入范围内 ⇒ EVIDENCE_TRUST_ROOT_MISSING。",
+      "no_root_rule": "未提供受控注册表时，生产模式保持 BLOCKED（EVIDENCE_TRUST_ROOT_MISSING）；合成替身只验证工具逻辑，不构成真实验收。"
+    }
+  },
+  "denylist_input_contract": {
+    "contract_status": "FROZEN_PENDING_E0_ALIGNMENT",
+    "producer_consumer_alignment": "协议公告三数组，E0 真实入口读 families/repos —— 冻结为**协议三数组**；E0 未对齐前，诊断轮必须报 DENYLIST_SCHEMA_NOT_CONSUMED（fail-closed）。",
+    "file_schema_version_field": "denylist_schema_version",
+    "supported_schema_versions": [
+      "v2-dh-exclusion-denylist-1"
+    ],
+    "required_top_level_keys": [
+      "denylist_schema_version",
+      "d_family_ids",
+      "h_family_ids",
+      "exposed_family_ids",
+      "counts_declared"
+    ],
+    "unknown_top_level_key_rule": "拒绝 ⇒ DENYLIST_UNKNOWN_KEY",
+    "item_rules": {
+      "item_type": "str only；bool/int/float/null/list/dict/bytes 一律拒绝",
+      "item_non_empty_after_strip": true,
+      "reject_rule": "任一项非法 ⇒ 整批失败 ⇒ DENYLIST_ITEM_INVALID；不 str() 兜底、不静默丢弃、不部分接受。",
+      "no_drop_rule": "任何一项被丢弃即失败；denylist_rejected_count 必须实测且 ACCEPTED 要求恒为 0。"
+    },
+    "counts_declared_rule": {
+      "all_three_arrays_required": true,
+      "type": "严格非负整数"
+    },
+    "union_derivation": {
+      "order": [
+        "d_family_ids",
+        "h_family_ids",
+        "exposed_family_ids"
+      ],
+      "algorithm": "按数组顺序拼接 -> strip -> strip+lower 归一 -> 按 token 去重保留首次出现",
+      "consumed_by": "消费者入口的第二参数"
+    },
+    "counting_invariants": {
+      "raw_equals_effective_plus_duplicate": "raw_total == effective_total + duplicate_total",
+      "cross_array_duplicate_visible": "跨数组重复必须计入 duplicate_count",
+      "source_mapping_multi_valued": "source_array_of_token 必须是列表"
+    }
+  },
+  "denominator_baseline": {
+    "principle": "分母不得取自述；必须由独立冻结基线提供**必比项**，并从运行输入**实算**。",
+    "baseline_ref": {
+      "kind": "controlled_frozen_artifact_public_count_projection",
+      "artifact_id": "v2-dh-custody-frozen-baseline-1",
+      "file": "frozen-denominator-baseline.json",
+      "file_bytes_sha256": "40d2415f697ec0f7edc268f14a012e89b38650371a5206a54de0afc9805c4b80",
+      "byte_length": 1441,
+      "newline_mode": "lf",
+      "public_projection": "counts only；不含任何 H 家族身份"
+    },
+    "rule": [
+      "验收器必须以 --baseline 提供该件，并核验摘要命中本记录；不符 ⇒ BASELINE_UNVERIFIED。",
+      "必比项集合由基线冻结，调用方不得自选；不一致 ⇒ DENOMINATOR_SET_MISMATCH。",
+      "分母一律从运行输入实算；自述值必须是严格非负整数并与实算相等。",
+      "实算值低于冻结值 ⇒ DENOMINATOR_SHORTFALL，不得静默变小。"
+    ],
+    "these_are_NOT_interchangeable": true,
+    "hardcode_prohibition": "不得把常数硬编码成同一个分母，也不得用常数替代运行时实测计数。"
+  },
+  "validator_binding": {
+    "principle": "『同一份字节』必须覆盖**完整执行文件集**，且执行必须发生在已哈希的不可变副本上。",
+    "full_cli_closure": "必须绑定 v3/cli.py 的**静态导入闭包**（递归扫描 v3 包内 import），不限于 dedup/errors/canonical。",
+    "per_file_fields": [
+      "path",
+      "file_bytes_sha256",
+      "byte_length",
+      "newline_mode",
+      "git_blob_sha1(40 位十六进制)"
+    ],
+    "immutable_exec_snapshot": "验收器把闭包复制到 exec_snapshot 并逐文件哈希，**从快照运行**（PYTHONPATH 指向快照），防止哈希后重新读取其他字节。",
+    "original_bytes_rule": "验收轮必须使用**原始输入字节**，不得重写候选或折叠三数组；消费者回执的输入摘要必须等于原始绑定摘要，否则 INPUT_BYTES_MISMATCH。",
+    "rounds": {
+      "acceptance": "真实输入、无交集、预期 0；这是唯一可产出 ACCEPTED / SYNTHETIC_ACCEPTED 的轮次。",
+      "diagnostic": "复制候选并注入一个必与 denylist 相交的家族，预期 7；用于证明消费者确实消费了协议 schema。与验收轮**分开记录**，其结论不得覆盖验收轮。",
+      "bad_input": "记录身份非法，预期 4；证明坏输入被拒绝。"
+    },
+    "decoupling_rule": "诊断轮与验收轮不得互相替代：不得因诊断轮失败就否定合法无交集正例的 ACCEPTED 路径，也不得因验收轮为 0 就跳过诊断轮。",
+    "single_read_rule": "每个文件在一次判定中只读一次；哈希与解析使用同一份 buffer。",
+    "normalization_real_behaviour": {
+      "implementation": "str(value).strip().lower()",
+      "does_NFC": false,
+      "collapses_internal_whitespace": false,
+      "nbsp_equals_space": false
+    },
+    "normalization_scope_warning": "V2 文档的 NFC / CRLF→LF / \\s+→单空格 是 statement 侧派生规则；验证器比对家族标签只做 strip+lower。",
+    "denylist_none_hazard": {
+      "description": "非对称：记录侧对 None/空白拒绝，但 denylist 侧 _normalize_match_token(None) == 'none' 静默进入比对集合。",
+      "v2_mitigation_rejected": "『过滤 None / 空串 / 纯空白』不获批准。",
+      "v5_rule": "无效必需身份 ⇒ 整批失败（DENYLIST_ITEM_INVALID）。"
+    },
+    "exec_snapshot_rule": {
+      "build_from": "已核验 buffer（单次读取得到、已与绑定摘要比对过的字节）原子写出（临时件 + os.replace）。",
+      "assertions": [
+        "快照字节 == 已核验 buffer",
+        "快照 SHA256 == manifest 已绑定摘要",
+        "快照 SHA256 == 授权记录声明摘要"
+      ],
+      "failure": "任一断言不成立 ⇒ EXEC_SNAPSHOT_MISMATCH，并在启动计算前终止。",
+      "prohibition": "禁止从可变源路径直接复制执行文件。"
+    },
+    "receipt_rule": {
+      "requirement": "**所有**消费者模式都必须回传消费回执：消费者实际读取的输入摘要。",
+      "assertion": "回执摘要必须等于预运行的已核验输入摘要。",
+      "failure": "回执缺失或为 null ⇒ CONSUMPTION_RECEIPT_MISSING；摘要不符 ⇒ INPUT_BYTES_MISMATCH。两者均为阻断。",
+      "note": "旧 E0 不产生回执，故其验收轮在补齐回执前无法通过——这是 fail-closed，不是判据缺陷。"
+    },
+    "git_blob_rule": "git_blob_sha1 必须是真实 Git 对象身份：sha1(b\"blob <len>\\0\" + blob_bytes)。全零与 SHA256 头部截断一律拒绝 ⇒ GIT_BLOB_INVALID。",
+    "root_package_rule": "python -m v3.cli 隐式导入的根包初始化文件（v3/__init__.py）必须显式绑定，不得退化为 namespace package。"
+  },
+  "sentinels": {
+    "principle": "内部 read_log 的**请求数**不等于**实际文件打开数**，两者必须分开记录与断言。",
+    "open_sentinel": "以 sys.addaudithook('open') 统计受保护对象的真实打开次数与路径；与 read_log_protected_requests 分列。",
+    "compute_sentinel": "统计消费者子进程实际启动次数 compute_invocations；未授权的运行必须为 0。",
+    "assertion_rule": "未授权与计算前终止的用例必须同时满足 protected_actual_open_count == 0 且 compute_invocations == 0。",
+    "external_audit": {
+      "requirement": "验收器导出**全量 open 事件流**（all_open_events），供外部按 fixture 规格独立核算受保护对象的真实打开次数。",
+      "independence_rule": "外部核算不得依赖验收器内部的『受保护集合』定义；哨兵集合必须在任何扫描/读取**之前**登记。",
+      "assertion": "未授权用例必须同时满足：内部计数 0、外部独立核算 0、compute_invocations 0。"
+    },
+    "registration_order": "哨兵集合必须在导入扫描与任何受保护读取之前填好，否则内部计数会低于外部实测。"
+  },
+  "identity_contract": {
+    "principle": "SID 形状不证明主体真实；但不能连形状都不校验。",
+    "accepted_shapes": [
+      "^S-1-[0-9-]+$（Windows SID）",
+      "域\\账户",
+      "POSIX UID"
+    ],
+    "rejected_shapes": [
+      "agent UUID",
+      "空串/null",
+      "平台 author_id/assignee_id 直接搬用"
+    ],
+    "fields": [
+      "custody_principal_os_identity",
+      "negative_test.subject_os_identity",
+      "positive_test.subject_os_identity",
+      "authorization.issued_by.os_identity"
+    ]
+  },
+  "canary_acceptance": {
+    "principle": "按 Mika 2026-10-06 修正口径，stat 与 open 分开记录。",
+    "evaluator_side": "评测执行账户对**同一评测专属 canary** 的正文读取必须**成功**。",
+    "training_side": {
+      "stat": "单列记录，可见或拒绝均可（stat_result ∈ {visible, denied}，且 stat_recorded_separately 必须为 true）",
+      "open": "必须拒绝（open_result == 'denied'）",
+      "enumerate": "必须拒绝（enumerate_result == 'denied'）",
+      "self_authorize": "必须拒绝（self_authorize_result == 'denied'）"
+    },
+    "admin_paths": "管理员 / 文件 owner / daemon 通路必须另有实证排除（training_context_cannot_self_authorize 与 admin_owner_daemon_paths_excluded 均须为 true 并附证据）。",
+    "negative_test_exit": "必须是实测的**非零** OS 退出码（exit_code_source == 'os_process'）；exit_code == 0 视为未发生拒绝 ⇒ G4 失败。",
+    "role_separation": "保管管理主体与只读评测执行主体职责分离。",
+    "explicitly_insufficient": [
+      "不同目录",
+      "不同卷",
+      "不同 agent 名 / agent UUID",
+      "目录名含 restricted",
+      "仅 stat 可见或不可见"
+    ]
+  },
+  "exit_semantics": {
+    "production": "exit 0 当且仅当机器判定为真实 ACCEPTED；禁止 --expect；自述 overall 不参与。",
+    "test": "exit 0 当且仅当机器判定等于调用方显式给出的 --expect；期望不得取自被检 overall。",
+    "write_overall_rule": "机器结论只写入独立输出件，不得写回被检清单。"
+  },
+  "acceptance_gates": {
+    "G1_namespace_compatibility": {
+      "decides": "计算结果可信否",
+      "status_now": "D_unverified"
+    },
+    "G2_effective_input_binding": {
+      "decides": "计算结果可信否",
+      "status_now": "D_unverified"
+    },
+    "G3_snapshot_content_bound": {
+      "decides": "计算结果可信否",
+      "status_now": "D_unverified"
+    },
+    "G4_isolation_verified": {
+      "decides": "隔离可否验收",
+      "status_now": "D_unverified"
+    },
+    "gate_interaction": "四者全真且授权链成立、四类证据均通过含义校验，才允许合并成一条 ACCEPTED。"
+  },
+  "current_status": {
+    "G1": "D_unverified",
+    "G2": "D_unverified",
+    "G3": "D_unverified",
+    "G4": "D_unverified",
+    "overall": "BLOCKED — 本件不构成端到端通过、不构成 GPU 放行、不构成正式提交通行证。",
+    "pending_bindings": [
+      "E0 G2 新固定 SHA（协议 schema 与消费端对齐后）",
+      "真实可信授权记录与信任锚归属",
+      "受控冻结基线原件（本件只放公开计数投影）",
+      "snapshot 内容与真实隔离证据"
+    ],
+    "honesty_note": "本版只证明**合成判据**已按 Q0 复核整改；不证明真实授权、独立分母来源或隔离成立。合成消费者是显式替身，其成功轮不代表 E0 G2 集成验收。"
+  },
+  "defect_register_v7": {
+    "note": "v5 被 Q0 在真实冻结 E0 上复现的残留缺陷；B3 合成判据、Y1 错误报告、Y2 stat 口径已关闭，不再重做。",
+    "B2_no_read_before_authorization": {
+      "was": "授权判定之前 compute_import_closure() 读取 CLI 源码，随后用 Path.read_bytes() 打开候选/denylist/snapshot/证据/闭包以构造待批对象摘要；外层 audit 观测到 47 次受保护打开、27 个路径，而验收器内部计数器报 0。",
+      "now": "阶段 1 只用调用方受信的**预期路径**核对授权（不打开任何受保护对象、不做导入扫描）；授权通过后才打开一次、以同一 buffer 校验与解析。闭包清单必须由调用方在授权记录中全量声明；实际闭包含未授权文件即拒绝。",
+      "codes": [
+        "AUTH_SCOPE_INSUFFICIENT",
+        "AUTH_BEFORE_ACCESS"
+      ]
+    },
+    "B1_forged_evidence_and_trust_root": {
+      "was": "格式完整、摘要正确、时间合法、producer 只是另一个字符串的证据即可通过四门槛；produced_by != candidate_author 只比较两个由输入提供的字符串。",
+      "now": "可信生产者与批准者必须由**调用方受控配置**核验：--trusted-principals 主体注册表（含 os_identity 与批准范围）与 --approvals 批准注册表；两者必须位于被检输入范围之外。未提供注册表时生产保持 BLOCKED；合成替身仅验证工具逻辑。",
+      "codes": [
+        "EVIDENCE_TRUST_ROOT_MISSING",
+        "EVIDENCE_UNTRUSTED_PRODUCER",
+        "EVIDENCE_APPROVAL_UNTRUSTED"
+      ]
+    },
+    "B4_snapshot_bytes_and_receipt": {
+      "was": "执行快照用 shutil.copy2 从可变源复制，未与已绑定摘要作相等断言（散列后改源文件仍会进快照）；只有合成消费者回执，real_cli 的 input_bytes_match 为 None 不阻断。",
+      "now": "执行快照与输入快照都从**已核验 buffer 原子写出**（写临时件 + os.replace），并逐文件断言快照字节 == 已核验 buffer == manifest 已绑定摘要 == 授权声明摘要；不符即在启动计算前终止。所有消费者模式都必须回传与预运行摘要一致的消费回执，缺失/null/不符一律阻断。",
+      "codes": [
+        "EXEC_SNAPSHOT_MISMATCH",
+        "CONSUMPTION_RECEIPT_MISSING",
+        "INPUT_BYTES_MISMATCH"
+      ]
+    },
+    "Y3_git_blob_identity": {
+      "was": "git_blob_sha1 只验 40 位形状；fixture 生成器把 SHA256 截成 40 位冒充 blob SHA-1，40 个零占位也能通过。",
+      "now": "按 Git blob 规范核对 sha1(b\"blob <len>\\0\" + bytes)；全零与头部截断一律拒绝。生成器同样按规范计算。",
+      "codes": [
+        "GIT_BLOB_INVALID"
+      ]
+    },
+    "Y4_root_package_binding": {
+      "was": "静态闭包 20 项不含 v3/__init__.py；python -m v3.cli 会把 v3 加载为 origin=null 的 namespace package，与源码树的常规包语义不一致。",
+      "now": "根包初始化文件显式纳入闭包并强制绑定；缺失即 BINDING_INCOMPLETE。",
+      "codes": [
+        "BINDING_INCOMPLETE"
+      ]
+    }
+  },
+  "production_trust_provider": {
+    "status": "not_deployed",
+    "rule": "生产路径拒绝文件参数自供 trust anchor；provider 未配置时 reason_code REAL_TRUST_PROVIDER_UNAVAILABLE，零受保护对象读取、零消费者启动。"
+  },
+  "authorization_sha_rule": "每个对象 grant 必须与 kind/规范路径/purpose 精确匹配；授权后的同一读取 buffer SHA 同时比对 grant 与 manifest，任一差异在消费者启动前终止。",
+  "closure_rule": "递归读取每个导入文件前先查该对象的 grant；未授权的子依赖不打开，scope/binding failure 阻止所有 consumer；固定执行闭包包含 REQUIRED_EXECUTION_PATHS 内的包初始化文件。",
+  "receipt_rule": "receipt 对照 subprocess 启动前从已核验快照保存的 SHA；禁止运行后重读路径定义期望摘要。",
+  "git_identity_rule": "真实 Git 源需从固定 commit 128d9b98b05ddf128c2e77b599e078de65675b8a 的 commit:path 读取 blob 并核 blob id；工作树字节 SHA 与换行单列。无 Git 元数据的合成源必须 git_source=not_git 且 git_blob_sha1/git_commit=null。",
+  "audit_overflow_rule": "open 审计超过保留上限时标记 AUDIT_LOG_OVERFLOW 并拒绝用不完整日志作零打开或 ACCEPTED 证据。",
+  "trust_scope_contract": {
+    "required_gates": [
+      "G1_namespace_compatibility",
+      "G2_effective_input_binding",
+      "G3_snapshot_content_bound",
+      "G4_isolation_verified"
+    ],
+    "approved_scope_and_approval_scope_must_bind": [
+      "exact gate set",
+      "exact object kind/path/SHA256/purpose list",
+      "operation=exclusion_validation",
+      "E0 commit 128d9b98b05ddf128c2e77b599e078de65675b8a",
+      "subject OS identity",
+      "nonexpired RFC3339 expiry"
+    ],
+    "file registries_are_not_trust_roots": true,
+    "provider_status": "not_deployed; production is blocked"
+  }
+}

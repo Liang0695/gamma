@@ -1,0 +1,89 @@
+{
+  "purpose": "修前对照：同一注入缺陷在旧验收器（包内 verify_manifest.py）上的行为",
+  "old_package_zip_sha256": "bc1a747b2ab5eac81be9027ddffe3123fcbf6aaaf296c1587c917ad150cb0b8c",
+  "old_checker_sha256": "ba4081af6c1afeef08bf39167c923ca0e4f5864ac9180a8e0fb47a7ea42567fc",
+  "cases": [
+    {
+      "case": "B1_evidence_unresolvable",
+      "old_checker_exit_code": 0,
+      "old_checker_verdict": "SYNTHETIC_ACCEPTED",
+      "old_checker_declared_overall": "SYNTHETIC_ACCEPTED",
+      "old_checker_reasons": [],
+      "defect_detected_by_old_checker": false,
+      "old_checker_has_reason_codes": false
+    },
+    {
+      "case": "B2_candidate_empty",
+      "old_checker_exit_code": 1,
+      "old_checker_verdict": "COMPUTATION_ONLY",
+      "old_checker_declared_overall": "SYNTHETIC_ACCEPTED",
+      "old_checker_reasons": [
+        "synthetic_mode 下不得绑定真实 denylist 摘要",
+        "binding.candidate 摘要不符: manifest=44cd438cda76ed4d209077b4a2f922b647c1aa5ef78e9cc54cf91377d5888abd 实际=a06ce4bbdbb18cf66d5763ea3056d9461c0ab65e07495fda8dcfa1d982bb56aa"
+      ],
+      "defect_detected_by_old_checker": true,
+      "old_checker_has_reason_codes": false
+    },
+    {
+      "case": "B3_cross_array_duplicate",
+      "old_checker_exit_code": 2,
+      "old_checker_verdict": "BLOCKED",
+      "old_checker_declared_overall": "SYNTHETIC_ACCEPTED",
+      "old_checker_reasons": [
+        "synthetic_mode 下不得绑定真实 denylist 摘要",
+        "binding.denylist 摘要不符: manifest=e41a597a06aa87e5eb0c01839303328152813641607c32e5f7ed633603fe7f27 实际=5c24875e2f5d2e97bcfc6ed52c005d2bfeb7cccb96308acad91c380d118ca4eb"
+      ],
+      "defect_detected_by_old_checker": true,
+      "old_checker_has_reason_codes": false
+    },
+    {
+      "case": "B4_counts_declared_missing",
+      "old_checker_exit_code": 1,
+      "old_checker_verdict": "COMPUTATION_ONLY",
+      "old_checker_declared_overall": "SYNTHETIC_ACCEPTED",
+      "old_checker_reasons": [
+        "synthetic_mode 下不得绑定真实 denylist 摘要",
+        "binding.denylist 摘要不符: manifest=e41a597a06aa87e5eb0c01839303328152813641607c32e5f7ed633603fe7f27 实际=6efe9793e474da6190385174e7f7fc66c46f945441b56171451075c659213f90"
+      ],
+      "defect_detected_by_old_checker": true,
+      "old_checker_has_reason_codes": false
+    },
+    {
+      "case": "B5_mode_string_false",
+      "old_checker_exit_code": 0,
+      "old_checker_verdict": "SYNTHETIC_ACCEPTED",
+      "old_checker_declared_overall": "SYNTHETIC_ACCEPTED",
+      "old_checker_reasons": [],
+      "defect_detected_by_old_checker": false,
+      "old_checker_has_reason_codes": false
+    },
+    {
+      "case": "B6_os_identity_uuid",
+      "old_checker_exit_code": 0,
+      "old_checker_verdict": "SYNTHETIC_ACCEPTED",
+      "old_checker_declared_overall": "SYNTHETIC_ACCEPTED",
+      "old_checker_reasons": [],
+      "defect_detected_by_old_checker": false,
+      "old_checker_has_reason_codes": false
+    },
+    {
+      "case": "B7_closure_mutated",
+      "old_checker_exit_code": 0,
+      "old_checker_verdict": "SYNTHETIC_ACCEPTED",
+      "old_checker_declared_overall": "SYNTHETIC_ACCEPTED",
+      "old_checker_reasons": [],
+      "defect_detected_by_old_checker": false,
+      "old_checker_has_reason_codes": false
+    },
+    {
+      "case": "B8_selfdeclared_accepted",
+      "old_checker_exit_code": 0,
+      "old_checker_verdict": "ACCEPTED",
+      "old_checker_declared_overall": "ACCEPTED",
+      "old_checker_reasons": [],
+      "defect_detected_by_old_checker": false,
+      "old_checker_has_reason_codes": false
+    }
+  ],
+  "boundary": "旧包只读使用；缺陷注入写在 _before/ scratch。"
+}

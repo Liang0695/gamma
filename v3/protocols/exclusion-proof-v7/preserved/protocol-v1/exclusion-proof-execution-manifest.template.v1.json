@@ -1,0 +1,54 @@
+{
+  "schema_version": "v3-v2-exclusion-proof-execution-manifest-1",
+  "purpose": "**独立执行 manifest**：承载一次实际执行的绑定值，通过 protocol_sha256 引用冻结协议，从而**无需事后改写冻结文件**。",
+  "protocol_ref": {
+    "schema_version": "v3-v2-exclusion-proof-protocol-2",
+    "protocol_sha256": "ba10af3e432116050a378ac0a7c2db42793f1f9c382abe25d976251ad8075006"
+  },
+  "binding": {
+    "candidate_sha256": null,
+    "denylist_sha256": null,
+    "validator_sha256": "b75c5980d9f44a9245ff09c732a982ad257e513959522acbc8b29f7e172fa234",
+    "validator_repo_sha": "ffc37b4f3ecde6579117b0012ab4f69b4cff16ab",
+    "snapshot_sha256": null
+  },
+  "counts": {
+    "records_count": null,
+    "denylist_count": null,
+    "intersection_count": null,
+    "v2_total_tasks": 129,
+    "v2_family_count": 126,
+    "v2_d8_count": 8,
+    "v2_h24_count": 24,
+    "v2_exposed_ids_in_union": 17,
+    "v3_candidate_count": null
+  },
+  "records": {
+    "computation_result": {
+      "label": "COMPUTATION_ONLY — 非验收结论",
+      "exit_code": null,
+      "raised_error_code": null,
+      "log_sha256": null,
+      "emitted_at": null
+    },
+    "isolation_acceptance": {
+      "status": "NOT_ACCEPTED",
+      "G1_namespace_compatibility": false,
+      "G2_effective_input_binding": false,
+      "G3_snapshot_content_bound": false,
+      "G4_isolation_verified": false,
+      "isolation_mechanism": null,
+      "permission_matrix_sha256": null,
+      "negative_test_exit_code": null,
+      "custody_principal_os_identity": null
+    },
+    "overall": "BLOCKED — 四门槛未满足，不得产出可验收 PASS"
+  },
+  "fill_rules": [
+    "binding.candidate_sha256 / denylist_sha256 必须来自实际喂入验证器的文件字节",
+    "snapshot_sha256 不得以索引哈希替代",
+    "records.isolation_acceptance 各布尔位须有独立证据；不得由计算侧结果推出",
+    "overall 仅在 G1..G4 全真时可为 ACCEPTED",
+    "本 manifest 不改写任何已冻结协议文件"
+  ]
+}

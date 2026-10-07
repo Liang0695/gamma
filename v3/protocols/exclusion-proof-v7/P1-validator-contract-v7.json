@@ -1,0 +1,419 @@
+{
+  "probe": "KAGGLE-27 P1-v3: frozen validator contract + real subprocess exit codes",
+  "validator_pin": {
+    "path": "v3/data/dedup.py",
+    "bytes": 12144,
+    "file_bytes_sha256": "b75c5980d9f44a9245ff09c732a982ad257e513959522acbc8b29f7e172fa234",
+    "file_bytes_sha256_lf_normalized": "291dbdab27cd1d753b0c1fb07cb98d73ab941bc96f0f685d687aa79e73926223",
+    "newline_mode": "crlf",
+    "git_commit_sha": "ffc37b4f3ecde6579117b0012ab4f69b4cff16ab",
+    "entrypoint": "assert_no_split_leak",
+    "python": "3.12.3 | packaged by conda-forge | (main, Apr 15 2024, 18:20:11) [MSC v.1938 64 bit (AMD64)]"
+  },
+  "normalization": {
+    "function_source": "E0-pinned _normalize_match_token; exceptions are captured as structured probe output",
+    "samples": {
+      "'FAM-ALPHA'": {
+        "value": "fam-alpha"
+      },
+      "'  fam-alpha  '": {
+        "value": "fam-alpha"
+      },
+      "'fam\\xa0alpha'": {
+        "value": "fam alpha"
+      },
+      "'fam alpha'": {
+        "value": "fam alpha"
+      },
+      "'fam  alpha'": {
+        "value": "fam  alpha"
+      },
+      "'café'": {
+        "value": "café"
+      },
+      "'café'": {
+        "value": "café"
+      },
+      "''": {
+        "value": ""
+      },
+      "'   '": {
+        "value": ""
+      },
+      "None": {
+        "value": "none"
+      },
+      "123": {
+        "value": "123"
+      }
+    },
+    "nfc_nfd_collapsed": false,
+    "nbsp_equals_space": false
+  },
+  "direct_cases": [
+    {
+      "tag": "clean_no_intersection",
+      "note": "无交集基线",
+      "denylist": [
+        "'fam-syn-d1'",
+        "'fam-syn-d2'",
+        "'fam-syn-h1'"
+      ],
+      "expected_os_exit_code": 0,
+      "os_process_exit_code": 0,
+      "exit_code_source": "os_process",
+      "stderr_tail": "",
+      "match": true
+    },
+    {
+      "tag": "intersection_problem_family",
+      "note": "命中 problem_family_id",
+      "denylist": [
+        "'fam-syn-d1'",
+        "'fam-syn-d2'",
+        "'fam-syn-h1'"
+      ],
+      "expected_os_exit_code": 7,
+      "os_process_exit_code": 7,
+      "exit_code_source": "os_process",
+      "stderr_tail": "[v2_denylist_intersection] V3 �� V2 �ų��嵥�ཻ�������������",
+      "match": true
+    },
+    {
+      "tag": "intersection_repo_family",
+      "note": "命中 repo_family",
+      "denylist": [
+        "'fam-syn-d1'",
+        "'fam-syn-d2'",
+        "'fam-syn-h1'"
+      ],
+      "expected_os_exit_code": 7,
+      "os_process_exit_code": 7,
+      "exit_code_source": "os_process",
+      "stderr_tail": "[v2_denylist_intersection] V3 �� V2 �ų��嵥�ཻ�������������",
+      "match": true
+    },
+    {
+      "tag": "intersection_case_and_space",
+      "note": "归一后仍命中（strip+lower）",
+      "denylist": [
+        "'fam-syn-d1'",
+        "'fam-syn-d2'",
+        "'fam-syn-h1'"
+      ],
+      "expected_os_exit_code": 7,
+      "os_process_exit_code": 7,
+      "exit_code_source": "os_process",
+      "stderr_tail": "[v2_denylist_intersection] V3 �� V2 �ų��嵥�ཻ�������������",
+      "match": true
+    },
+    {
+      "tag": "missing_key_problem_family",
+      "note": "缺键",
+      "denylist": [
+        "'fam-syn-d1'",
+        "'fam-syn-d2'",
+        "'fam-syn-h1'"
+      ],
+      "expected_os_exit_code": 4,
+      "os_process_exit_code": 4,
+      "exit_code_source": "os_process",
+      "stderr_tail": "[split_leak_check_missing_family] ��¼ȱ�� problem_family_id / repo_family���޷��� V2 �ų��嵥�ȶԣ�δ���ֶβ���Ĭ�Ϸ��У�",
+      "match": true
+    },
+    {
+      "tag": "missing_key_repo_family",
+      "note": "缺 repo_family",
+      "denylist": [
+        "'fam-syn-d1'",
+        "'fam-syn-d2'",
+        "'fam-syn-h1'"
+      ],
+      "expected_os_exit_code": 4,
+      "os_process_exit_code": 4,
+      "exit_code_source": "os_process",
+      "stderr_tail": "[split_leak_check_missing_family] ��¼ȱ�� problem_family_id / repo_family���޷��� V2 �ų��嵥�ȶԣ�δ���ֶβ���Ĭ�Ϸ��У�",
+      "match": true
+    },
+    {
+      "tag": "null_problem_family",
+      "note": "null",
+      "denylist": [
+        "'fam-syn-d1'",
+        "'fam-syn-d2'",
+        "'fam-syn-h1'"
+      ],
+      "expected_os_exit_code": 4,
+      "os_process_exit_code": 4,
+      "exit_code_source": "os_process",
+      "stderr_tail": "[split_leak_check_missing_family] ��¼ȱ�� problem_family_id / repo_family���޷��� V2 �ų��嵥�ȶԣ�δ���ֶβ���Ĭ�Ϸ��У�",
+      "match": true
+    },
+    {
+      "tag": "empty_problem_family",
+      "note": "空串",
+      "denylist": [
+        "'fam-syn-d1'",
+        "'fam-syn-d2'",
+        "'fam-syn-h1'"
+      ],
+      "expected_os_exit_code": 4,
+      "os_process_exit_code": 4,
+      "exit_code_source": "os_process",
+      "stderr_tail": "[split_leak_check_missing_family] ��¼ȱ�� problem_family_id / repo_family���޷��� V2 �ų��嵥�ȶԣ�δ���ֶβ���Ĭ�Ϸ��У�",
+      "match": true
+    },
+    {
+      "tag": "blank_problem_family",
+      "note": "纯空白",
+      "denylist": [
+        "'fam-syn-d1'",
+        "'fam-syn-d2'",
+        "'fam-syn-h1'"
+      ],
+      "expected_os_exit_code": 4,
+      "os_process_exit_code": 4,
+      "exit_code_source": "os_process",
+      "stderr_tail": "[split_leak_check_missing_family] ��¼ȱ�� problem_family_id / repo_family���޷��� V2 �ų��嵥�ȶԣ�δ���ֶβ���Ĭ�Ϸ��У�",
+      "match": true
+    },
+    {
+      "tag": "sealed_still_checked",
+      "note": "sealed 也纳入检查",
+      "denylist": [
+        "'fam-syn-d1'",
+        "'fam-syn-d2'",
+        "'fam-syn-h1'"
+      ],
+      "expected_os_exit_code": 7,
+      "os_process_exit_code": 7,
+      "exit_code_source": "os_process",
+      "stderr_tail": "[v2_denylist_intersection] V3 �� V2 �ų��嵥�ཻ�������������",
+      "match": true
+    },
+    {
+      "tag": "unknown_split_still_checked",
+      "note": "未知 split 也纳入检查",
+      "denylist": [
+        "'fam-syn-d1'",
+        "'fam-syn-d2'",
+        "'fam-syn-h1'"
+      ],
+      "expected_os_exit_code": 7,
+      "os_process_exit_code": 7,
+      "exit_code_source": "os_process",
+      "stderr_tail": "[v2_denylist_intersection] V3 �� V2 �ų��嵥�ཻ�������������",
+      "match": true
+    },
+    {
+      "tag": "legacy_test_split_still_checked",
+      "note": "历史别名 test 也纳入检查",
+      "denylist": [
+        "'fam-syn-d1'",
+        "'fam-syn-d2'",
+        "'fam-syn-h1'"
+      ],
+      "expected_os_exit_code": 7,
+      "os_process_exit_code": 7,
+      "exit_code_source": "os_process",
+      "stderr_tail": "[v2_denylist_intersection] V3 �� V2 �ų��嵥�ཻ�������������",
+      "match": true
+    },
+    {
+      "tag": "empty_denylist_no_intersection",
+      "note": "空 denylist 时什么都不命中（正是需要协议层整批拒绝的情形）",
+      "denylist": [],
+      "expected_os_exit_code": 0,
+      "os_process_exit_code": 0,
+      "exit_code_source": "os_process",
+      "stderr_tail": "",
+      "match": true
+    },
+    {
+      "tag": "empty_records_passes",
+      "note": "空记录通过",
+      "denylist": [
+        "'fam-syn-d1'",
+        "'fam-syn-d2'",
+        "'fam-syn-h1'"
+      ],
+      "expected_os_exit_code": 0,
+      "os_process_exit_code": 0,
+      "exit_code_source": "os_process",
+      "stderr_tail": "",
+      "match": true
+    },
+    {
+      "tag": "literal_none_vs_null",
+      "note": "合法字面量 'none' 正确命中",
+      "denylist": [
+        "'none'"
+      ],
+      "expected_os_exit_code": 7,
+      "os_process_exit_code": 7,
+      "exit_code_source": "os_process",
+      "stderr_tail": "[v2_denylist_intersection] V3 �� V2 �ų��嵥�ཻ�������������",
+      "match": true
+    },
+    {
+      "tag": "denylist_none_becomes_literal_none",
+      "note": "【缺陷】null 项退化为字面 'none' 造成假阳性",
+      "denylist": [
+        "None"
+      ],
+      "expected_os_exit_code": 7,
+      "os_process_exit_code": 7,
+      "exit_code_source": "os_process",
+      "stderr_tail": "[v2_denylist_intersection] V3 �� V2 �ų��嵥�ཻ�������������",
+      "match": true
+    },
+    {
+      "tag": "denylist_none_silently_no_hit",
+      "note": "【缺陷】null 项静默进入比对集合但不命中，调用方无任何丢项信号",
+      "denylist": [
+        "None"
+      ],
+      "expected_os_exit_code": 0,
+      "os_process_exit_code": 0,
+      "exit_code_source": "os_process",
+      "stderr_tail": "",
+      "match": true
+    },
+    {
+      "tag": "denylist_blank_silently_dropped",
+      "note": "【缺陷】空白项被静默丢弃，无错误无计数",
+      "denylist": [
+        "'fam-syn-d1'",
+        "''",
+        "'   '",
+        "'\\t'"
+      ],
+      "expected_os_exit_code": 0,
+      "os_process_exit_code": 0,
+      "exit_code_source": "os_process",
+      "stderr_tail": "",
+      "match": true
+    },
+    {
+      "tag": "denylist_int_str_coerced",
+      "note": "【缺陷】int 被 str() 兜底成 '42' 并参与比对",
+      "denylist": [
+        "42"
+      ],
+      "expected_os_exit_code": 7,
+      "os_process_exit_code": 7,
+      "exit_code_source": "os_process",
+      "stderr_tail": "[v2_denylist_intersection] V3 �� V2 �ų��嵥�ཻ�������������",
+      "match": true
+    },
+    {
+      "tag": "one_bad_among_good",
+      "note": "批量中存在一条缺字段即整批失败",
+      "denylist": [
+        "'fam-syn-d1'",
+        "'fam-syn-d2'",
+        "'fam-syn-h1'"
+      ],
+      "expected_os_exit_code": 4,
+      "os_process_exit_code": 4,
+      "exit_code_source": "os_process",
+      "stderr_tail": "[split_leak_check_missing_family] ��¼ȱ�� problem_family_id / repo_family���޷��� V2 �ų��嵥�ȶԣ�δ���ֶβ���Ĭ�Ϸ��У�",
+      "match": true
+    },
+    {
+      "tag": "duplicates_do_not_break",
+      "note": "重复项不破坏判定",
+      "denylist": [
+        "'fam-syn-d1'",
+        "'fam-syn-d1'",
+        "'FAM-SYN-D1'"
+      ],
+      "expected_os_exit_code": 0,
+      "os_process_exit_code": 0,
+      "exit_code_source": "os_process",
+      "stderr_tail": "",
+      "match": true
+    }
+  ],
+  "production_entry_cases": [
+    {
+      "tag": "no_denylist_arg",
+      "note": "【fail-open】--denylist 缺省（cli.py:298 未设 required=True）⇒ 不做排除也 PASS",
+      "expected_os_exit_code": 0,
+      "os_process_exit_code": 0,
+      "exit_code_source": "os_process",
+      "stderr_tail": "  \"family_count\": 2,\r\n    \"note\": \"ʵ������ʱ���� shortfall������ split ���롣\",\r\n    \"salt\": \"KAGGLE-21-V3-data-v1\",\r\n    \"selected\": [\r\n      \"syn-2\",\r\n      \"syn-1\"\r\n    ]\r\n  },\r\n  \"stage\": \"split\"\r\n}",
+      "match": true
+    },
+    {
+      "tag": "protocol_three_array_schema",
+      "note": "【fail-open】喂协议三数组 schema、且记录真的相交 ⇒ 仍 exit 0，零交集是伪结论",
+      "expected_os_exit_code": 0,
+      "os_process_exit_code": 0,
+      "exit_code_source": "os_process",
+      "stderr_tail": "\": 1\r\n    },\r\n    \"family_count\": 1,\r\n    \"note\": \"ʵ������ʱ���� shortfall������ split ���롣\",\r\n    \"salt\": \"KAGGLE-21-V3-data-v1\",\r\n    \"selected\": [\r\n      \"syn-1\"\r\n    ]\r\n  },\r\n  \"stage\": \"split\"\r\n}",
+      "match": true
+    },
+    {
+      "tag": "production_schema_intersection",
+      "note": "生产 schema 下真交集可命中",
+      "expected_os_exit_code": 7,
+      "os_process_exit_code": 7,
+      "exit_code_source": "os_process",
+      "stderr_tail": "v2_denylist_intersection\",\r\n  \"context\": {\r\n    \"leaked_fields\": [\r\n      \"syn-1:problem_family_id\"\r\n    ],\r\n    \"tasks\": [\r\n      \"syn-1\"\r\n    ]\r\n  },\r\n  \"message\": \"V3 �� V2 �ų��嵥�ཻ�������������\"\r\n}",
+      "match": true
+    },
+    {
+      "tag": "production_clean",
+      "note": "生产 schema 下无交集 PASS",
+      "expected_os_exit_code": 0,
+      "os_process_exit_code": 0,
+      "exit_code_source": "os_process",
+      "stderr_tail": "  \"family_count\": 2,\r\n    \"note\": \"ʵ������ʱ���� shortfall������ split ���롣\",\r\n    \"salt\": \"KAGGLE-21-V3-data-v1\",\r\n    \"selected\": [\r\n      \"syn-2\",\r\n      \"syn-1\"\r\n    ]\r\n  },\r\n  \"stage\": \"split\"\r\n}",
+      "match": true
+    },
+    {
+      "tag": "missing_field_registry",
+      "note": "记录缺 repo_family ⇒ MissingInput",
+      "expected_os_exit_code": 4,
+      "os_process_exit_code": 4,
+      "exit_code_source": "os_process",
+      "stderr_tail": "\": \"split_leak_check_missing_family\",\r\n  \"context\": {\r\n    \"fields\": [\r\n      \"s.repo_family\"\r\n    ]\r\n  },\r\n  \"message\": \"��¼ȱ�� problem_family_id / repo_family���޷��� V2 �ų��嵥�ȶԣ�δ���ֶβ���Ĭ�Ϸ��У�\"\r\n}",
+      "match": true
+    },
+    {
+      "tag": "denylist_file_absent",
+      "note": "denylist 路径不存在",
+      "expected_os_exit_code": 4,
+      "os_process_exit_code": 4,
+      "exit_code_source": "os_process",
+      "stderr_tail": "",
+      "match": true
+    },
+    {
+      "tag": "denylist_file_is_null",
+      "note": "【未定义失败模式】denylist 内容为 null ⇒ AttributeError，退出码 1（非 FailClosed）",
+      "expected_os_exit_code": 1,
+      "os_process_exit_code": 1,
+      "exit_code_source": "os_process",
+      "stderr_tail": " denylist = list(denylist_payload.get(\"families\") or []) + list(denylist_payload.get(\"repos\") or [])\r\n                    ^^^^^^^^^^^^^^^^^^^^\r\nAttributeError: 'NoneType' object has no attribute 'get'",
+      "match": true
+    }
+  ],
+  "exit_code_provenance": {
+    "exception_attribute": {
+      "MissingInput.exit_code": 4,
+      "PolicyViolation.exit_code": 7,
+      "note": "类属性映射，**不是**操作系统进程退出码；不得写成『进程退出 4/7』"
+    },
+    "os_process": {
+      "clean": 0,
+      "missing_field": 4,
+      "intersection": 7,
+      "measured_by": "subprocess.run(...).returncode"
+    },
+    "rule": "报告与 manifest 中必须分开标注 exception_attribute / os_process；ACCEPTED 只接受 os_process。"
+  },
+  "errors": [],
+  "boundary": "全部合成 fam-syn-* 标签；未接触真实 H 身份、未读受限正文、未导出 denylist。"
+}

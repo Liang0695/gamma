@@ -1,0 +1,177 @@
+{
+  "schema_version": "v3-v2-exclusion-proof-protocol-2",
+  "supersedes": "v3-v2-exclusion-proof-protocol-1",
+  "revision_reason": "Mika 2026-10-06：按证据等级纠正身份/可读性结论；增设显式门槛；拆分计算与隔离记录",
+  "generated_by": "Kaggle 竞赛管理员 (KAGGLE-27)",
+  "scope_limits": {
+    "is_protocol_version": true,
+    "is_frozen_execution_input": false,
+    "statement": "本件冻结的是**协议版本**，不是**执行输入**。candidate/denylist/snapshot 均未绑定，因此当前**不能**声称任何『计算上成立』的零交集结论，V3×V2 零交集**尚未验证**。"
+  },
+  "evidence_levels": {
+    "A_local_reproducible": "本地可重跑复现的字节/输出（本轮实测）",
+    "B_custody_declared": "保管侧自述，未经独立字节验证",
+    "C_platform_attribution": "平台元数据（author_id / assignee_id）—— 仅证明**任务责任归属**，不证明文件所有者、OS 安全主体或独占保管",
+    "D_unverified": "未验证"
+  },
+  "identity_and_readability_corrections": {
+    "what_platform_metadata_proves": "KAGGLE-14 全部 7 条评论 author_id 与 assignee_id 为 42f57fba（Kaggle 竞赛管理员）。这证明**平台侧任务责任归属与交付署名**。",
+    "what_platform_metadata_does_NOT_prove": [
+      "文件的**所有者**（OWNER）",
+      "**操作系统安全主体 / 执行令牌**（进程以哪个账户运行）",
+      "**独占保管**（是否他人同样可读）",
+      "后续运行是否仍以同一 OS 身份执行"
+    ],
+    "directory_listing_correction": "上一轮我据『目录项可见 + 字节数相符』推断『任何 workspace-write agent 按路径即可读』——**该推断超出证据**。目录项与大小可见足以证明**副本存在**，**不足以**证明**训练身份的有效读权限**。",
+    "currently_confirmable": [
+      "保管侧报告存在共享副本（B）",
+      "副本字节数与声明值逐项相符（A：本轮列目录实测）",
+      "**隔离证据不足**（A+B）"
+    ],
+    "currently_NOT_confirmable": [
+      "训练身份对受限件的**有效读权限**（D）",
+      "是否发生**历史读取**（D）"
+    ],
+    "dual_prohibition": "**既不得宣布安全，也不得宣布已发生训练污染。** 两者都缺证据。",
+    "retroactivity_limit": "后续隔离改造只能修复**未来**访问边界，**不能倒推**证明历史未暴露。"
+  },
+  "acceptance_gates": {
+    "rule": "**任一门槛未满足 ⇒ 不得产出可验收的 PASS**（必须置 blocked，并分别记录「计算」与「隔离」两侧状态）",
+    "G1_namespace_compatibility": {
+      "requirement": "V3 的 problem_family_id / repo_family 与 V2 的 family id 已确认**同源同构**",
+      "status": "D_unverified",
+      "why": "若命名空间不同源，零交集是**伪结论**（比的是不同东西）",
+      "evidence_needed": "双方家族派生规则 + 同一抽取器在合成样例上的一致性对照"
+    },
+    "G2_effective_input_binding": {
+      "requirement": "候选集 SHA、denylist SHA、验证器 SHA 三者均已绑定且与实际执行输入一致",
+      "status": "D_unverified",
+      "current": "verifier SHA 已绑定(A)；candidate SHA / denylist SHA 仍 PENDING",
+      "evidence_needed": "独立执行 manifest 中三 SHA 齐备，且与实际喂入验证器的文件逐字节一致"
+    },
+    "G3_snapshot_content_bound": {
+      "requirement": "snapshot 内容已取得并绑定（不得以索引哈希替代）",
+      "status": "D_unverified",
+      "current": "snapshot_content_status = not_obtained（单列保留，不并入其他清单）"
+    },
+    "G4_isolation_verified": {
+      "requirement": "存在**真实**隔离（独立账户/主机 + 权限矩阵 + 否定测试证据）",
+      "status": "D_unverified",
+      "why": "不同目录、不同卷、不同 agent 名**均不单独构成隔离**",
+      "current": "保管侧报告存在共享副本；隔离证据不足"
+    },
+    "gate_interaction": "G1/G2/G3 决定『计算结果是否可信』；G4 决定『隔离是否可验收』。四者**全部**为真才允许合并成一条可验收 PASS。"
+  },
+  "record_separation": {
+    "computation_result": {
+      "meaning": "冻结验证器**实际返回了什么**（含退出码）",
+      "fields": [
+        "validator_sha256",
+        "candidate_sha256",
+        "denylist_sha256",
+        "records_count",
+        "denylist_count",
+        "intersection_count",
+        "exit_code",
+        "raised_error_code",
+        "log_sha256"
+      ],
+      "may_be_emitted_when_gates_unmet": true,
+      "label_when_gates_unmet": "COMPUTATION_ONLY — 非验收结论"
+    },
+    "isolation_acceptance": {
+      "meaning": "隔离侧是否达到可验收标准",
+      "fields": [
+        "G4_isolation_verified",
+        "isolation_mechanism",
+        "permission_matrix_sha256",
+        "negative_test_exit_code",
+        "custody_principal_os_identity"
+      ],
+      "may_be_emitted_when_gates_unmet": false,
+      "note": "G4 未过时该块**恒为 NOT_ACCEPTED**，不得被计算侧结果覆盖"
+    },
+    "combination_rule": "只有 (computation_result 有效) AND (G1..G4 全真) 才可输出单一 ACCEPTED；否则必须**分开**输出两行，禁止合并"
+  },
+  "namespaces": {
+    "v3_candidate_records": {
+      "required_fields": [
+        "problem_family_id",
+        "repo_family"
+      ],
+      "missing_field_behaviour": "MissingInput(split_leak_check_missing_family), exit_code=4"
+    },
+    "v2_denylist": {
+      "fields": [
+        "d_family_ids",
+        "h_family_ids",
+        "exposed_family_ids"
+      ],
+      "must_not_contain": [
+        "statement",
+        "hints_text",
+        "patch",
+        "test_patch",
+        "gold"
+      ],
+      "hygiene_requirement": "**不得含 None / 空串 / 纯空白项** —— 见 validator_contract.denylist_none_hazard"
+    }
+  },
+  "validator_contract": {
+    "path": "v3/data/dedup.py",
+    "repo_sha": "ffc37b4f3ecde6579117b0012ab4f69b4cff16ab",
+    "file_sha256": "b75c5980d9f44a9245ff09c732a982ad257e513959522acbc8b29f7e172fa234",
+    "file_bytes": 12144,
+    "entrypoint": "assert_no_split_leak(records, denylist)",
+    "legacy_unchecked_splits": [],
+    "normalization_real_behaviour": {
+      "implementation": "str(value).strip().lower()",
+      "does_NFC": false,
+      "collapses_internal_whitespace": false,
+      "nbsp_equals_space": false,
+      "measured": "合成数据实测（P1-validator-contract.json）"
+    },
+    "normalization_scope_warning": "V2 文档里的 `NFC / CRLF→LF / \\s+→单空格` 是**statement 侧**规则（用于**派生**家族标签）；验证器比对家族标签时**只做 strip+lower**。两者是**不同层**的规则，必须分开记录，不得混用。",
+    "field_shapes_verified": {
+      "required": [
+        "problem_family_id",
+        "repo_family"
+      ],
+      "split_participates_in_matching": false,
+      "split_coverage": "LEGACY_UNCHECKED_SPLITS 为空 ⇒ sealed / 历史别名 test / 任何未知取值均纳入检查（实测三类均检出）"
+    },
+    "missing_field_rejection_verified": {
+      "cases": [
+        "键不存在",
+        "None",
+        "空串",
+        "纯空白"
+      ],
+      "result": "四类全部抛 MissingInput, exit_code=4（实测）"
+    },
+    "denylist_none_hazard": {
+      "description": "**非对称**：记录侧对 None/空白**拒绝**，但 denylist 侧 `_normalize_match_token(None)` == 'none' 会**静默进入**比对集合。实测 denylist=[None] 与字面家族名 'none' **误命中**并抛 PolicyViolation(v2_denylist_intersection)。",
+      "consequence": "denylist 若不洁会产生**假阳性**交集",
+      "mitigation": "denylist 发射前必须过滤 None / 空串 / 纯空白项；此项列入 G2 检查"
+    },
+    "duplicates": "重复记录与重复 denylist 项均不破坏判定（实测）"
+  },
+  "exit_codes": {
+    "0": "PASS —— 仅当 G1..G4 全真且交集为 0 时可作为**验收** PASS",
+    "4": "MissingInput(split_leak_check_missing_family) —— 族字段缺失/空",
+    "7": "PolicyViolation(v2_denylist_intersection) —— 命中排除清单（或 denylist 不洁导致的假阳性）",
+    "other_non_zero": "任一 SHA 不匹配 / 输入无法读取",
+    "recording_rule": "必须记录**实际**退出码；不接受口头『已通过』"
+  },
+  "snapshot_content_status": "not_obtained",
+  "snapshot_note": "单列保留，不并入四项清单，不以索引哈希替代（与 v1 一致）",
+  "v2_verification_recipe_inherited": [
+    "sha256(evidence/public-d8-v{0,1,2,3}.jsonl) == registry file_sha256",
+    "并集 instance_ids == 17",
+    "family-map H_family_ids 与 exposed_family_ids 不相交",
+    "无 exposed id 出现在 H_members（同族污染 = 0）",
+    "H_family_ids 与 D_family_ids 不相交"
+  ],
+  "inherited_recipe_evidence_level": "B_custody_declared（保管侧自述，未独立字节验证）",
+  "frozen_at": "2026-10-06T13:02:31Z"
+}

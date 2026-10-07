@@ -1,0 +1,21 @@
+{
+  "baseline_schema_version": "v3-exclusion-proof-frozen-denominator-baseline-1",
+  "artifact_id": "v2-dh-custody-frozen-baseline-1",
+  "status": "PUBLIC_COUNT_PROJECTION_OF_CONTROLLED_FROZEN_ARTIFACT",
+  "note": "本件是受控冻结基线件的**公开计数投影**：只放计数与口径映射，不放任何 H 家族身份。受控原件的字节摘要由保管侧在批准环境内核对；本投影的字节摘要记录在协议里，供验收器独立复核。",
+  "required_comparisons": {
+    "v2_d8_count": 8,
+    "v2_h24_count": 24,
+    "v2_exposed_ids_in_union": 17,
+    "v3_candidate_count": 1
+  },
+  "input_mapping": {
+    "v2_d8_count": "denylist.d_family_ids -> 实测 effective_count",
+    "v2_h24_count": "denylist.h_family_ids -> 实测 effective_count",
+    "v2_exposed_ids_in_union": "denylist.exposed_family_ids -> 实测 effective_count",
+    "v3_candidate_count": "candidate registry.tasks -> 实测 records_effective_count（非零下界）"
+  },
+  "shortfall_rule": "任一必比项实测值低于本件冻结值 ⇒ DENOMINATOR_SHORTFALL，不得静默变小。",
+  "independence_rule": "必比项集合由本件冻结，调用方不得自选；分母一律从运行输入实算，不取被检清单自述。",
+  "honesty_note": "本件不声称真实 V2 保管数据已被本次读取或复核；v2_d8_count/v2_h24_count/v2_exposed_ids_in_union 的数值沿用保管侧已公告计数，属 B 级证据。"
+}

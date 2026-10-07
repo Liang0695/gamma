@@ -1,0 +1,123 @@
+{
+  "schema_version": "v3-v2-exclusion-proof-execution-manifest-4",
+  "supersedes": "v3-v2-exclusion-proof-execution-manifest-3",
+  "purpose": "独立执行 manifest：承载一次实际执行的绑定值与声明，通过 protocol_sha256 引用冻结协议。被检清单的自述字段一律不参与验收结论。",
+  "protocol_ref": {
+    "schema_version": "v3-v2-exclusion-proof-protocol-5",
+    "protocol_sha256": "8ceb7a282691d73d1fc96d19b790b9cd810e7fdf88e79c38e85e5547adad3f23",
+    "protocol_newline_mode": "lf"
+  },
+
+  "execution_mode": {
+    "synthetic_mode": false,
+    "synthetic_mode_rule": "必须是 JSON 布尔（严格类型）。合成模式除本字段为 true 外，还必须由调用方以 --mode test --allow-synthetic --fixture-root 开启；生产模式自填 true ⇒ SYNTHETIC_NOT_PERMITTED_IN_PRODUCTION。",
+    "authorization_ref": {
+      "present": false,
+      "authorization_id": null,
+      "file_bytes_sha256": null,
+      "trust_anchor_source": "caller_supplied_file",
+      "note": "授权与信任锚均由清单之外提供；清单自填 true 不构成授权。"
+    }
+  },
+
+  "binding": {
+    "candidate": {"file_bytes_sha256": null, "byte_length": null, "newline_mode": null},
+    "denylist": {"file_bytes_sha256": null, "byte_length": null, "newline_mode": null,
+                 "denylist_schema_version": null},
+    "validator": {
+      "cli_entrypoint": "python -m v3.cli split",
+      "file_set_rule": "必须覆盖 v3/cli.py 的**完整静态导入闭包**（递归扫描 v3 包内 import），逐文件含 path / file_bytes_sha256 / byte_length / newline_mode / git_blob_sha1(40 位十六进制)。缺项 ⇒ BINDING_INCOMPLETE。",
+      "file_set": []
+    },
+    "snapshot": {"content_status": "not_obtained", "file_bytes_sha256": null, "byte_length": null}
+  },
+
+  "counts": {
+    "candidate": {"records_raw_count": null, "records_effective_count": null, "records_rejected_count": null},
+    "denylist": {
+      "denylist_raw_count": null, "denylist_effective_count": null,
+      "denylist_rejected_count": null, "denylist_duplicate_count": null,
+      "denylist_cross_array_duplicate_count": null,
+      "denylist_per_array": {
+        "d_family_ids": {"raw_count": null, "effective_count": null, "duplicate_count": null},
+        "h_family_ids": {"raw_count": null, "effective_count": null, "duplicate_count": null},
+        "exposed_family_ids": {"raw_count": null, "effective_count": null, "duplicate_count": null}
+      },
+      "source_array_map_is_multi_valued": null,
+      "rule": "全部计数字段必须是严格非负整数（拒绝 bool/float/字符串），且逐字段与实测一致。"
+    },
+    "result": {"intersection_count": null},
+    "invariant": {"raw_equals_effective_plus_duplicate": null}
+  },
+
+  "denominator_check": {
+    "baseline_artifact_id": "v2-dh-custody-frozen-baseline-1",
+    "baseline_file_bytes_sha256": "40d2415f697ec0f7edc268f14a012e89b38650371a5206a54de0afc9805c4b80",
+    "compared_denominators": [],
+    "measured": {},
+    "rule": "compared_denominators 必须与冻结基线的 required_comparisons 完全一致（不得自选）；measured 必须是从运行输入实算的分母的严格非负整数副本。"
+  },
+
+  "records": {
+    "computation_result": {
+      "label": null, "synthetic_mode": false,
+      "exit_code": null, "exit_code_source": null,
+      "entrypoint": "python -m v3.cli split",
+      "rounds": {
+        "acceptance": {"expected_exit_code": 0, "uses_original_bytes": true},
+        "diagnostic": {"expected_exit_code": 7, "note": "必有交集，用于证明协议 schema 被消费；与验收轮分开记录"},
+        "bad_input": {"expected_exit_code": 4}
+      },
+      "raised_error_code": null, "emitted_at": null
+    },
+    "isolation_acceptance": {
+      "status": "NOT_ACCEPTED",
+      "candidate_author_principal": null,
+      "candidate_author_principal_rule": "用于拒绝『证据由候选作者本人产出』；证据的 produced_by 与之相同即 EVIDENCE_SELF_PRODUCED。",
+      "G1_namespace_compatibility": {"claimed": false, "evidence": []},
+      "G2_effective_input_binding": {"claimed": false, "evidence": []},
+      "G3_snapshot_content_bound": {"claimed": false, "evidence": []},
+      "G4_isolation_verified": {"claimed": false, "evidence": []},
+      "isolation_mechanism": null,
+      "permission_matrix_sha256": null,
+      "training_context_cannot_self_authorize": false,
+      "admin_owner_daemon_paths_excluded": false,
+      "negative_test": {
+        "exit_code": null,
+        "exit_code_source": null,
+        "exit_code_rule": "必须是实测的**非零** OS 退出码；0 视为未发生拒绝 ⇒ G4 失败。",
+        "stat_result": null,
+        "stat_recorded_separately": null,
+        "open_result": null,
+        "enumerate_result": null,
+        "self_authorize_result": null,
+        "subject_os_identity": null,
+        "subprocess_checked": null
+      },
+      "positive_test": {"exit_code": null, "subject_os_identity": null},
+      "custody_principal_os_identity": null
+    },
+    "overall": null,
+    "overall_rule": "自述字段，不参与生产验收判定，也不得作为测试模式期望来源。"
+  },
+
+  "evidence_object_contract": {
+    "required": ["kind", "path", "sha256", "produced_by", "produced_at"],
+    "kind_enum": ["artifact", "command_log", "custody_record", "trusted_approval"],
+    "sha256": "^[0-9a-f]{64}$，且等于证据文件实算摘要",
+    "path": "必须位于 --evidence-root 之下且真实存在",
+    "produced_by": "合法主体；不得等于 candidate_author_principal",
+    "produced_at": "合法 RFC3339",
+    "payload_rule": "证据**正文**必须含该门槛的含义字段（见协议 evidence_meaning_contract.gate_payload_required）；只有存在与哈希相等不构成证据。",
+    "self_declared_rule": "kind=self_declared 永不足够。"
+  },
+
+  "fill_rules": [
+    "overall 不由人手填写决定验收结论；生产模式 exit 0 只代表机器判定为真实 ACCEPTED。",
+    "对象级授权必须先于任何受保护对象打开；未通过则零打开、零计算。",
+    "每个文件单次读取，哈希与解析使用同一份字节；执行必须发生在已哈希的不可变快照上。",
+    "验收轮使用原始字节；诊断轮与坏输入轮分开记录，不得互相替代。",
+    "分母来自运行输入实算并对照冻结基线；计数字段严格非负整数。",
+    "本 manifest 不改写任何已冻结协议文件。"
+  ]
+}
