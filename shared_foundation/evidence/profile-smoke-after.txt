@@ -1,0 +1,6 @@
+PASS legacy/current actual E0 types load independently; legacy six-field plan replays
+PASS current-profile adapter_name seven-field plan; pre/post checks
+PASS negative profile/revision mixing, old/new schema mixing, adapter_name, arrays, type, count
+PASS negative modified submit dependency and frozen-matrix bytes
+RESOURCE own_process_affinity_cores=4
+RESOURCE process_cpu_seconds=0.109375 wall_seconds=0.109000

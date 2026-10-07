@@ -1,0 +1,9 @@
+{
+  "schema": "prefx-reproduction/1",
+  "scope": "private _plan reproducer only; not public artifact chain",
+  "source_package_sha256": "19b2fe515c6a7f7b9035bc38b0ac48ab513c1b0b6e3bc1f46e1bf3f098c54748",
+  "command": "python -B -c <_plan current profile adapter_name=v3_policy>",
+  "exit_code": 1,
+  "stdout": "",
+  "stderr": "Traceback (most recent call last):\r\n  File \"<string>\", line 4, in <module>\r\n  File \"C:\\Users\\skyya\\multica_workspaces_desktop-api.multica.ai\\canopus-3ho-7fd8c6d77d72\\kaggle-30-c6667983dd2b\\workdir\\tmphs3k99xv\\shared_foundation\\native_artifact.py\", line 22, in _plan\r\n    raise ContractError('native_plan_invalid_' + name)\r\nshared_foundation.records.ContractError: native_plan_invalid_adapter_name\r\n"
+}

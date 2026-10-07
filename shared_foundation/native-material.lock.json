@@ -1,0 +1,20 @@
+{
+  "schema": "native-material-lock/0.1",
+  "repo_id": "google/gemma-4-31B-it-qat-w4a16-ct",
+  "revision": "52f3f65bc7a02d555763bc923bd1d9094898219d",
+  "files": {
+    "chat_template.jinja": {"bytes": 18683, "sha256": "ae53464bf3be25802b3a5b37def7fd89667067d7577049b3b2d74c4d8de4c6d4"},
+    "tokenizer.json": {"bytes": 32169626, "sha256": "cc8d3a0ce36466ccc1278bf987df5f71db1719b9ca6b4118264f45cb627bfe0f"},
+    "tokenizer_config.json": {"bytes": 3728, "sha256": "b8045a4576903e86903291d5cbdd4adfc8859e9ce3c98621bdbd957f73ed394b"}
+  },
+  "dependencies": {"tokenizers": "0.23.2", "jinja2": "3.1.6"},
+  "e0": {
+    "repo": "https://github.com/Liang0695/gamma",
+    "revision": "ffc37b4f3ecde6579117b0012ab4f69b4cff16ab",
+    "runner_path": "v3/train/runner.py",
+    "runner_lf_sha256": "f9d34a7fdab7d6252d1782a49e6049ac7ec059b827d93780dff819cc651b60dd",
+    "template_lf_sha256": "fdd2fc2d7e00e094bd76e60e59dcd5f3ca1045671b6543aa4a61d8f5a2ecde80"
+  },
+  "weights_downloaded": false,
+  "training_environment_verified": false
+}

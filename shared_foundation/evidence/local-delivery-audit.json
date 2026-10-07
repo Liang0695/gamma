@@ -1,0 +1,43 @@
+{
+  "scope": "Static delivery audit only; not independent review or real qualification.",
+  "latest_tests": 54,
+  "latest_captures": 35,
+  "actual_commands": 48,
+  "status_counts": {
+    "completed": 27,
+    "inconclusive": 6,
+    "timeout": 2
+  },
+  "cleanup_failures": 0,
+  "fixture_source_sha_mismatches": 0,
+  "staged_shared_files": 16,
+  "staged_byte_mismatches": [],
+  "protected_legacy_files_unchanged": true,
+  "archives": [
+    {
+      "path": "evidence/local-runs/22bc746a8f0a4f79af3cf503a11f8243.zip",
+      "bytes": 123160,
+      "sha256": "d4aa1e9310840fe8f4189403bb9ebc38405673bf3d520043ae6da6dd78561610",
+      "members": 237
+    },
+    {
+      "path": "evidence/local-runs/31cb55959d854ecc8ca9059b4044ffd2.zip",
+      "bytes": 114859,
+      "sha256": "da81177c126ff60f32f05d4092180d29013fcbb65ebaf8644d00858ea4abd1d6",
+      "members": 221
+    },
+    {
+      "path": "evidence/local-runs/8ae56bbe3d2b4ad1860235fd7ccb68e8.zip",
+      "bytes": 114961,
+      "sha256": "515de936eda4c7f4e3614a56267972797bc518f79fb53be9027d4a05238b2385",
+      "members": 221
+    },
+    {
+      "path": "evidence/local-runs/d4fc3c1ef6334b018be97091b2485905.zip",
+      "bytes": 123129,
+      "sha256": "a3e69f7d74282bfb626a8d15270064fdf77d254eba99b22e221acdd9d672a117",
+      "members": 237
+    }
+  ],
+  "static_check_seconds": 0.5319999998901039
+}

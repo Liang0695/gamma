@@ -1,0 +1,12 @@
+{
+  "accepted": false,
+  "rejection": "e0_type_identity_mismatch",
+  "phase": "after",
+  "baseline_sha": "c9b58151c3d4fc010df81c20310e6c214dd7c3a9",
+  "baseline_adapter_source_sha256": "c9844eaaaf478b6ed3e9eba7d07a984d6a3b4c8d00dcac8156d03a210f8794d7",
+  "constructors_called": [],
+  "own_process_affinity_cores": 4,
+  "tokenizer_threads": 1,
+  "training_called": false,
+  "elapsed_seconds_including_prepare": 3.125
+}
