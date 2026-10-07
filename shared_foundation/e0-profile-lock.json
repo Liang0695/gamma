@@ -1,0 +1,31 @@
+{
+  "schema": "e0-profile-lock/1",
+  "profile": "e0-128d9b98/1",
+  "revision": "128d9b98b05ddf128c2e77b599e078de65675b8a",
+  "compared_revision": "30b0356c5e7b13ff0d6bd63ad34890afb3bd1a3b",
+  "changed_paths_between_revisions": [
+    "v3/cli.py",
+    "v3/data/dedup.py",
+    "v3/data/g2_integrity.py"
+  ],
+  "source_lf_sha256": {
+    "v3/__init__.py": "f1945cd6c19e56b3c1c78943ef5ec18116907a4ca1efc40a57d48ab1db7adfc5",
+    "v3/common/__init__.py": "f1945cd6c19e56b3c1c78943ef5ec18116907a4ca1efc40a57d48ab1db7adfc5",
+    "v3/train/__init__.py": "f1945cd6c19e56b3c1c78943ef5ec18116907a4ca1efc40a57d48ab1db7adfc5",
+    "v3/common/errors.py": "d8f907e528c5cd6e3b9807b6c061925a1852a34a106ac2d0c18e04fa657733d2",
+    "v3/common/canonical.py": "75f5784190d25354bd02622aacde8761d990ee48434b7459c95b7054c0867e2e",
+    "v3/train/streaming.py": "e343f4d46755760f5e646849bd750adc0c4ecfd72eda3b096a59ce5278987e54",
+    "v3/train/runner.py": "89d9ed1df542b5b45a0ac1976354ce68a6585e06876c55f86a1832eee335eb55",
+    "v3/submit/__init__.py": "99add1dce5d56f481f111245bdc2d603ebcc556837ab1c7bd52745f53eb539e1",
+    "v3/submit/adapter_contract.py": "38300db44a8c65e9eebb0ba507da5f60c3fc7046d26e2ee1947536da9fa70bba"
+  },
+  "frozen_matrix_sha256": {
+    "docs/v3/design/kaggle-27-s1-adapter-matrix.json": "fe918929f679165623e6aadc78bfb6a52363cd875ca4c59a7d5a214d7edb4f35",
+    "docs/v3/design/kaggle-27-s1b-discovery-rule-cells.json": "b9fd7643046ba00e39b184d7e38cbcd7771136d2997ca62c41817d12460b23d1"
+  },
+  "dependencies": {
+    "python": "3.10+",
+    "tokenizers": "0.23.2",
+    "jinja2": "3.1.6"
+  }
+}

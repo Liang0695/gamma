@@ -29,9 +29,13 @@ FILE_BYTES = {'chat_template.jinja': 18683, 'tokenizer.json': 32169626, 'tokeniz
 E0_LOCK = dict(repo='https://github.com/Liang0695/gamma', revision='ffc37b4f3ecde6579117b0012ab4f69b4cff16ab',
     runner_path='v3/train/runner.py', runner_lf_sha256='f9d34a7fdab7d6252d1782a49e6049ac7ec059b827d93780dff819cc651b60dd',
     template_lf_sha256='fdd2fc2d7e00e094bd76e60e59dcd5f3ca1045671b6543aa4a61d8f5a2ecde80')
+LEGACY_PROFILE = 'e0-ffc37b4/1'
+CURRENT_PROFILE = 'e0-128d9b98/1'
+PROFILE_LOCK_PATH = Path(__file__).with_name('e0-profile-lock.json')
+PROFILE_LOCK_SHA256 = 'bef3f817b5f249b6a79f2e72fb08855fd3f6472eacfdca12d396af5a244759e2'
 
 
-def checked_lock():
+def checked_lock(profile=LEGACY_PROFILE):
     lock = json.loads(LOCK_PATH.read_text(encoding='utf-8'))
     if (lock.get('schema') != 'native-material-lock/0.1' or lock.get('repo_id') != REPO
         or lock.get('revision') != REVISION or lock.get('dependencies') != DEPS
@@ -41,7 +45,23 @@ def checked_lock():
         or lock.get('training_environment_verified') is not False
         or set(lock) != {'schema', 'repo_id', 'revision', 'files', 'dependencies', 'e0', 'weights_downloaded', 'training_environment_verified'}):
         raise ContractError('native_material_lock_mismatch')
-    return lock
+    if profile == LEGACY_PROFILE:
+        return lock
+    if profile != CURRENT_PROFILE:
+        raise ContractError('native_profile_unknown')
+    profile_bytes = PROFILE_LOCK_PATH.read_bytes()
+    if hashlib.sha256(profile_bytes).hexdigest() != PROFILE_LOCK_SHA256:
+        raise ContractError('native_profile_lock_bytes_mismatch')
+    profile_lock = json.loads(profile_bytes.decode('utf-8'))
+    if profile_lock.get('profile') != CURRENT_PROFILE or profile_lock.get('revision') != '128d9b98b05ddf128c2e77b599e078de65675b8a':
+        raise ContractError('native_profile_lock_mismatch')
+    selected = dict(lock)
+    selected['schema'] = 'native-material-lock/0.2'
+    selected['e0'] = dict(repo='https://github.com/Liang0695/gamma', revision=profile_lock['revision'],
+        runner_path='v3/train/runner.py', source_lf_sha256=profile_lock['source_lf_sha256'],
+        frozen_matrix_sha256=profile_lock['frozen_matrix_sha256'])
+    selected['profile'] = CURRENT_PROFILE
+    return selected
 
 
 def _strip_markers(marked, nonce, registry):

@@ -1,16 +1,20 @@
 """Explicit byte-pinned E0 module identity and independently checked data outputs."""
 import hashlib
+import json
 from pathlib import Path
 import sys
 from types import ModuleType
 import uuid
 
 from .native_artifact import validate_artifact
+from .native_render import CURRENT_PROFILE, LEGACY_PROFILE, checked_lock
 from .records import ContractError
 
 E0_SHA = 'ffc37b4f3ecde6579117b0012ab4f69b4cff16ab'
+CURRENT_E0_SHA = '128d9b98b05ddf128c2e77b599e078de65675b8a'
 E0_RUNNER_LF_SHA = 'f9d34a7fdab7d6252d1782a49e6049ac7ec059b827d93780dff819cc651b60dd'
 E0_BINDING_VERSION = 'verified-e0-module/0.2'
+CURRENT_E0_BINDING_VERSION = 'verified-e0-module/0.3'
 E0_SOURCE_LF_SHA = {
     'v3/__init__.py': 'f1945cd6c19e56b3c1c78943ef5ec18116907a4ca1efc40a57d48ab1db7adfc5',
     'v3/common/__init__.py': 'f1945cd6c19e56b3c1c78943ef5ec18116907a4ca1efc40a57d48ab1db7adfc5',
@@ -24,25 +28,41 @@ E0_SOURCE_LF_SHA = {
 _MODULES = {}
 
 
-def load_e0_module(*, e0_root, e0_sha):
-    """Explicitly read/hash the seven fixed E0 files before executing captured bytes.
+def _profile(e0_sha, profile):
+    if profile is None:
+        if e0_sha != E0_SHA:
+            raise ContractError('e0_profile_explicit_required')
+        profile = LEGACY_PROFILE
+    if profile == LEGACY_PROFILE and e0_sha == E0_SHA:
+        return profile, E0_SOURCE_LF_SHA, {}
+    if profile == CURRENT_PROFILE and e0_sha == CURRENT_E0_SHA:
+        checked_lock(profile)
+        from .native_render import PROFILE_LOCK_PATH
+        lock = json.loads(PROFILE_LOCK_PATH.read_bytes().decode('utf-8'))
+        return profile, lock['source_lf_sha256'], lock['frozen_matrix_sha256']
+    raise ContractError('e0_profile_revision_mismatch')
 
-    Relative dependencies resolve only to this in-memory snapshot. No inferred checkout,
-    disk package search, AST substitute types, training call or authorization is added.
-    This is a trusted source compatibility factory, not an in-process security boundary.
+
+def load_e0_module(*, e0_root, e0_sha, profile=None):
+    """Hash the selected profile's fixed source closure and matrix before execution.
+
+    Relative dependencies resolve only to this in-memory snapshot. The current profile
+    also byte-locks the frozen adapter matrices and submit carrier dependencies. No inferred
+    checkout, disk package search, training call or authorization is added.
     """
-    if e0_sha != E0_SHA:
-        raise ContractError('e0_revision_mismatch')
+    profile, source_hashes, matrix_hashes = _profile(e0_sha, profile)
     root = Path(e0_root).resolve()
     sources = {}
-    for relative, expected in E0_SOURCE_LF_SHA.items():
+    for relative, expected in {**source_hashes, **matrix_hashes}.items():
         path = root / relative
         if not path.is_file():
             raise ContractError('e0_source_missing')
-        raw = path.read_bytes().replace(b'\r\n', b'\n')
-        if hashlib.sha256(raw).hexdigest() != expected:
+        raw = path.read_bytes()
+        hashed = raw if relative in matrix_hashes else raw.replace(b'\r\n', b'\n').replace(b'\r', b'\n')
+        if hashlib.sha256(hashed).hexdigest() != expected:
             raise ContractError('e0_source_bytes_mismatch')
-        sources[relative] = raw
+        if relative.endswith('.py'):
+            sources[relative] = hashed
     prefix = '_shared_foundation_e0_' + uuid.uuid4().hex
     modules = {}
     for relative in sources:
@@ -57,11 +77,24 @@ def load_e0_module(*, e0_root, e0_sha):
         modules[relative] = module
         sys.modules[name] = module  # Required by dataclasses and relative imports.
     try:
-        for relative, raw in sources.items():
+        def load_order(item):
+            relative = item[0]
+            if relative.endswith('/__init__.py'):
+                return (0, relative)
+            if relative == 'v3/common/errors.py':
+                return (1, relative)
+            if relative == 'v3/common/canonical.py':
+                return (2, relative)
+            if relative.startswith('v3/submit/'):
+                return (3, relative)
+            if relative == 'v3/train/streaming.py':
+                return (4, relative)
+            return (5, relative)
+        for relative, raw in sorted(sources.items(), key=load_order):
             module = modules[relative]
             exec(compile(raw, module.__file__, 'exec'), module.__dict__)
         runner = modules['v3/train/runner.py']
-        _MODULES[runner] = (runner.TrainBatch, runner.TrainRunPlan, tuple(modules.values()))
+        _MODULES[runner] = (runner.TrainBatch, runner.TrainRunPlan, tuple(modules.values()), profile)
         return runner
     except BaseException:
         for module in modules.values():
@@ -73,7 +106,7 @@ def load_e0_module(*, e0_root, e0_sha):
 def _bound_types(module, batch_type, plan_type):
     if type(module) is not ModuleType or module not in _MODULES:
         raise ContractError('e0_verified_module_required')
-    bound_batch, bound_plan, snapshot = _MODULES[module]
+    bound_batch, bound_plan, snapshot, _profile_name = _MODULES[module]
     if (sys.modules.get(module.__name__) is not module or module.TrainBatch is not bound_batch
         or module.TrainRunPlan is not bound_plan
         or any(sys.modules.get(part.__name__) is not part for part in snapshot)):
@@ -98,10 +131,15 @@ def _check_batch(batch, batch_type, expected):
         raise ContractError('e0_batch_count_mismatch')
 
 
-def _check_plan(plan, plan_type, batch, batch_type, expected_batch, config):
+def _check_plan(plan, plan_type, batch, batch_type, expected_batch, config, profile):
     if type(plan) is not plan_type:
         raise ContractError('e0_plan_type_mismatch')
     fields = vars(plan)
+    expected_fields = {'steps', 'lr', 'seq_len', 'lora_rank', 'lora_alpha', 'seed', 'batches'}
+    if profile == CURRENT_PROFILE:
+        expected_fields.add('adapter_name')
+    if set(fields) != expected_fields:
+        raise ContractError('e0_plan_fields_mismatch')
     for name, expected in config.items():
         if type(fields.get(name)) is not type(expected) or fields[name] != expected:
             raise ContractError('e0_plan_config_mismatch')
@@ -110,23 +148,27 @@ def _check_plan(plan, plan_type, batch, batch_type, expected_batch, config):
     _check_batch(fields['batches'][0], batch_type, expected_batch)
 
 
-def adapt_e0(artifact, *, renderer, e0_sha, e0_module=None, TrainBatch=None, TrainRunPlan=None):
+def adapt_e0(artifact, *, renderer, e0_sha, e0_module=None, TrainBatch=None, TrainRunPlan=None, profile=None):
     """Require an explicitly factory-loaded byte-pinned module and actual object identity.
 
     Source identity is a compatibility check, not ACL or runtime code authenticity.
     This cannot authorize start(), run_training(), a backend or an optimizer.
     """
-    if e0_sha != E0_SHA:
-        raise ContractError('e0_revision_mismatch')
+    selected_profile, _source_hashes, _matrix_hashes = _profile(e0_sha, profile)
+    if type(e0_module) is not ModuleType or e0_module not in _MODULES or _MODULES[e0_module][3] != selected_profile:
+        raise ContractError('e0_profile_module_mismatch')
     batch_type, plan_type = _bound_types(e0_module, TrainBatch, TrainRunPlan)
     obj = validate_artifact(artifact, renderer=renderer)
+    artifact_profile = obj.get('profile', LEGACY_PROFILE)
+    if artifact_profile != selected_profile:
+        raise ContractError('e0_profile_artifact_mismatch')
     batch = obj['batch']
     config = obj['plan']['config']
     native_batch = batch_type(input_ids=list(batch['input_ids']), labels=list(batch['labels']))
     _check_batch(native_batch, batch_type, batch)
     native_plan = plan_type(**config, batches=[native_batch])
-    _check_plan(native_plan, plan_type, native_batch, batch_type, batch, config)
+    _check_plan(native_plan, plan_type, native_batch, batch_type, batch, config, selected_profile)
     native_plan.assert_runnable()  # Shape/config validation only; no training function.
-    _check_plan(native_plan, plan_type, native_batch, batch_type, batch, config)
+    _check_plan(native_plan, plan_type, native_batch, batch_type, batch, config, selected_profile)
     _bound_types(e0_module, batch_type, plan_type)
     return native_plan

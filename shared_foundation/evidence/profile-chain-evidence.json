@@ -1,0 +1,138 @@
+{
+  "current_e0_revision": "128d9b98b05ddf128c2e77b599e078de65675b8a",
+  "full_chain": "NOT_RUN",
+  "implementation_identity_sha256": {
+    "e0-profile-lock.json": "bef3f817b5f249b6a79f2e72fb08855fd3f6472eacfdca12d396af5a244759e2",
+    "native_artifact.py": "eaf37b0da8eaa70a21ed8aa1b75f5928f8102645eebaf284611571055739195e",
+    "native_e0.py": "a2c5063dac24cbdfd0b58e378000f128eb7ddb3337e9d99c72fbeb610e2542fb",
+    "native_render.py": "e14d9e86cf169a36fc322103911611f64e030e8332d3bbd0b1c0b55704405898",
+    "run_profile_chain.py": "6f1d7fe32a28824dbfd7ff28e34e11249b06434b583c6c28b4268d8035aa8415",
+    "run_profile_smoke.py": "20a7336f1230019fc78f989467c53175ce6802bb76f7d9c4aa26647fbd08c8e3"
+  },
+  "legacy_e0_revision": "ffc37b4f3ecde6579117b0012ab4f69b4cff16ab",
+  "material_pins": {
+    "chat_template.jinja": {
+      "bytes": 18683,
+      "sha256": "ae53464bf3be25802b3a5b37def7fd89667067d7577049b3b2d74c4d8de4c6d4"
+    },
+    "tokenizer.json": {
+      "bytes": 32169626,
+      "sha256": "cc8d3a0ce36466ccc1278bf987df5f71db1719b9ca6b4118264f45cb627bfe0f"
+    },
+    "tokenizer_config.json": {
+      "bytes": 3728,
+      "sha256": "b8045a4576903e86903291d5cbdd4adfc8859e9ce3c98621bdbd957f73ed394b"
+    }
+  },
+  "material_root_supplied": true,
+  "observed_materials": {},
+  "own_process_affinity_cores": 4,
+  "process_cpu_seconds": 0.015625,
+  "reason": "authorized pinned tokenizer/template bytes are not present; downloads are disabled",
+  "schema": "profile-chain-evidence/1",
+  "source_identity": {
+    "current": {
+      "v3/__init__.py": {
+        "expected_sha256": "f1945cd6c19e56b3c1c78943ef5ec18116907a4ca1efc40a57d48ab1db7adfc5",
+        "matches": true,
+        "observed_sha256": "f1945cd6c19e56b3c1c78943ef5ec18116907a4ca1efc40a57d48ab1db7adfc5"
+      },
+      "v3/common/__init__.py": {
+        "expected_sha256": "f1945cd6c19e56b3c1c78943ef5ec18116907a4ca1efc40a57d48ab1db7adfc5",
+        "matches": true,
+        "observed_sha256": "f1945cd6c19e56b3c1c78943ef5ec18116907a4ca1efc40a57d48ab1db7adfc5"
+      },
+      "v3/common/canonical.py": {
+        "expected_sha256": "75f5784190d25354bd02622aacde8761d990ee48434b7459c95b7054c0867e2e",
+        "matches": true,
+        "observed_sha256": "75f5784190d25354bd02622aacde8761d990ee48434b7459c95b7054c0867e2e"
+      },
+      "v3/common/errors.py": {
+        "expected_sha256": "d8f907e528c5cd6e3b9807b6c061925a1852a34a106ac2d0c18e04fa657733d2",
+        "matches": true,
+        "observed_sha256": "d8f907e528c5cd6e3b9807b6c061925a1852a34a106ac2d0c18e04fa657733d2"
+      },
+      "v3/submit/__init__.py": {
+        "expected_sha256": "99add1dce5d56f481f111245bdc2d603ebcc556837ab1c7bd52745f53eb539e1",
+        "matches": true,
+        "observed_sha256": "99add1dce5d56f481f111245bdc2d603ebcc556837ab1c7bd52745f53eb539e1"
+      },
+      "v3/submit/adapter_contract.py": {
+        "expected_sha256": "38300db44a8c65e9eebb0ba507da5f60c3fc7046d26e2ee1947536da9fa70bba",
+        "matches": true,
+        "observed_sha256": "38300db44a8c65e9eebb0ba507da5f60c3fc7046d26e2ee1947536da9fa70bba"
+      },
+      "v3/train/__init__.py": {
+        "expected_sha256": "f1945cd6c19e56b3c1c78943ef5ec18116907a4ca1efc40a57d48ab1db7adfc5",
+        "matches": true,
+        "observed_sha256": "f1945cd6c19e56b3c1c78943ef5ec18116907a4ca1efc40a57d48ab1db7adfc5"
+      },
+      "v3/train/runner.py": {
+        "expected_sha256": "89d9ed1df542b5b45a0ac1976354ce68a6585e06876c55f86a1832eee335eb55",
+        "matches": true,
+        "observed_sha256": "89d9ed1df542b5b45a0ac1976354ce68a6585e06876c55f86a1832eee335eb55"
+      },
+      "v3/train/streaming.py": {
+        "expected_sha256": "e343f4d46755760f5e646849bd750adc0c4ecfd72eda3b096a59ce5278987e54",
+        "matches": true,
+        "observed_sha256": "e343f4d46755760f5e646849bd750adc0c4ecfd72eda3b096a59ce5278987e54"
+      }
+    },
+    "current_frozen_matrices": {
+      "docs/v3/design/kaggle-27-s1-adapter-matrix.json": {
+        "expected_sha256": "fe918929f679165623e6aadc78bfb6a52363cd875ca4c59a7d5a214d7edb4f35",
+        "matches": true,
+        "observed_sha256": "fe918929f679165623e6aadc78bfb6a52363cd875ca4c59a7d5a214d7edb4f35"
+      },
+      "docs/v3/design/kaggle-27-s1b-discovery-rule-cells.json": {
+        "expected_sha256": "b9fd7643046ba00e39b184d7e38cbcd7771136d2997ca62c41817d12460b23d1",
+        "matches": true,
+        "observed_sha256": "b9fd7643046ba00e39b184d7e38cbcd7771136d2997ca62c41817d12460b23d1"
+      }
+    },
+    "legacy": {
+      "v3/__init__.py": {
+        "expected_sha256": "f1945cd6c19e56b3c1c78943ef5ec18116907a4ca1efc40a57d48ab1db7adfc5",
+        "matches": true,
+        "observed_sha256": "f1945cd6c19e56b3c1c78943ef5ec18116907a4ca1efc40a57d48ab1db7adfc5"
+      },
+      "v3/common/__init__.py": {
+        "expected_sha256": "f1945cd6c19e56b3c1c78943ef5ec18116907a4ca1efc40a57d48ab1db7adfc5",
+        "matches": true,
+        "observed_sha256": "f1945cd6c19e56b3c1c78943ef5ec18116907a4ca1efc40a57d48ab1db7adfc5"
+      },
+      "v3/common/canonical.py": {
+        "expected_sha256": "75f5784190d25354bd02622aacde8761d990ee48434b7459c95b7054c0867e2e",
+        "matches": true,
+        "observed_sha256": "75f5784190d25354bd02622aacde8761d990ee48434b7459c95b7054c0867e2e"
+      },
+      "v3/common/errors.py": {
+        "expected_sha256": "d8f907e528c5cd6e3b9807b6c061925a1852a34a106ac2d0c18e04fa657733d2",
+        "matches": true,
+        "observed_sha256": "d8f907e528c5cd6e3b9807b6c061925a1852a34a106ac2d0c18e04fa657733d2"
+      },
+      "v3/train/__init__.py": {
+        "expected_sha256": "f1945cd6c19e56b3c1c78943ef5ec18116907a4ca1efc40a57d48ab1db7adfc5",
+        "matches": true,
+        "observed_sha256": "f1945cd6c19e56b3c1c78943ef5ec18116907a4ca1efc40a57d48ab1db7adfc5"
+      },
+      "v3/train/runner.py": {
+        "expected_sha256": "f9d34a7fdab7d6252d1782a49e6049ac7ec059b827d93780dff819cc651b60dd",
+        "matches": true,
+        "observed_sha256": "f9d34a7fdab7d6252d1782a49e6049ac7ec059b827d93780dff819cc651b60dd"
+      },
+      "v3/train/streaming.py": {
+        "expected_sha256": "e343f4d46755760f5e646849bd750adc0c4ecfd72eda3b096a59ce5278987e54",
+        "matches": true,
+        "observed_sha256": "e343f4d46755760f5e646849bd750adc0c4ecfd72eda3b096a59ce5278987e54"
+      }
+    },
+    "profile_lock_sha256": {
+      "expected": "bef3f817b5f249b6a79f2e72fb08855fd3f6472eacfdca12d396af5a244759e2",
+      "observed": "bef3f817b5f249b6a79f2e72fb08855fd3f6472eacfdca12d396af5a244759e2"
+    }
+  },
+  "status": "NOT_RUN",
+  "training_called": false,
+  "wall_seconds": 0.01600000006146729
+}

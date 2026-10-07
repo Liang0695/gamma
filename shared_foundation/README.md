@@ -334,3 +334,79 @@ summaries. Earlier runs are intermediate versions; the latest summary source has
 the delivered implementation. Extract ZIPs into a short path on Windows. Real train
 qualification, source/fact authentication, trajectory collection, permission/release
 attestations, HF/serving integration and optimizer/model execution remain unconnected.
+# 128d9b98 共用桥 profile 接续（2026-10-07）
+
+本节记录共用桥对已完成 E0 `128d9b98b05ddf128c2e77b599e078de65675b8a` 的适配。实现只在 `shared_foundation/`；原 E0 和 KAGGLE-24 均未修改。
+
+## 锁定与差异
+
+以 PR #4 已交付 `cd2d6fc9c030ab482fcce6eb95c801b9927bc544` 为父，先对照中间 E0 `30b0356c5e7b13ff0d6bd63ad34890afb3bd1a3b`。目标 E0 相对该中间版本改动为 `v3/cli.py`、`v3/data/dedup.py`、`v3/data/g2_integrity.py`；本桥运行依赖与冻结矩阵逐项核验后锁在 `e0-profile-lock.json`。新 profile 捕获字节加载 `runner.py`、`streaming.py`、common、`v3/submit/__init__.py` 和 `adapter_contract.py`，并对两份冻结 adapter 矩阵检查原始字节 SHA-256。加载不回退到磁盘包搜索。
+
+兼容选择如下：
+
+| Profile | Artifact | Plan 字段 | E0 revision |
+|---|---|---|---|
+| `e0-ffc37b4/1`（默认，仅保持旧调用） | `native-sft-batch-plan/0.1` | 六字段 | `ffc37b4f3ecde6579117b0012ab4f69b4cff16ab` |
+| `e0-128d9b98/1`（必须显式传入） | `native-sft-batch-plan/0.2` | 六字段 + `adapter_name` | `128d9b98b05ddf128c2e77b599e078de65675b8a` |
+
+新版本构造示例：
+
+```python
+from shared_foundation.native_artifact import build_artifact
+from shared_foundation.native_e0 import CURRENT_E0_SHA, load_e0_module, adapt_e0
+from shared_foundation.native_render import CURRENT_PROFILE
+
+plan_config = dict(steps=1, lr=0.0001, seq_len=1024, lora_rank=16,
+                   lora_alpha=32, seed=7, adapter_name="v3_policy")
+artifact = build_artifact(mapping, renderer=renderer, plan=plan_config,
+                          profile=CURRENT_PROFILE)
+e0 = load_e0_module(e0_root=fixed_e0_root, e0_sha=CURRENT_E0_SHA,
+                    profile=CURRENT_PROFILE)
+plan = adapt_e0(artifact, renderer=renderer, e0_sha=CURRENT_E0_SHA,
+                e0_module=e0, profile=CURRENT_PROFILE)
+```
+
+旧 profile 继续接受原六字段 artifact；profile、revision、artifact schema、锁、依赖、数组、真实非 `-100` 计数或返回类型有混配时均拒绝，不自动迁移。新 profile 在 E0 构造前后都核对实际 batch 类型、完整 `input_ids`/`labels`、监督计数、plan 的七个配置字段和 `batches`。其中 `adapter_name` 必须存在、为字符串且不是路径片段。
+
+## 单元正反例与真实公共链路状态
+
+修复 `_plan` 将 `adapter_name` 错纳入整数循环的缺陷；字符串合法性仍由专用检查处理。新增 `run_profile_chain.py` 通过公共 API 验证真实链路：官方 renderer → `build_artifact` → `save_artifact`/`load_artifact` → `adapt_e0` → E0 plan，并覆盖新旧 profile 和交叉混配拒绝。
+
+本机工作区及已授权本地位置未发现锁定 tokenizer/template 字节；不联网下载。公共链路执行器因此返回并保存 `NOT_RUN`，不能把私有 helper smoke 或既有回执当成链路通过。新旧 E0 源码根和两份冻结矩阵均已核对，匹配锁定 SHA；逐文件身份在 `evidence/profile-chain-evidence.json`。
+
+独立的合成契约检查执行命令：
+
+```powershell
+python -B shared_foundation/run_profile_smoke.py --e0-root <128d9b98源码根目录> --legacy-e0-root <ffc37b4源码根目录>
+```
+
+实际输出：
+
+```text
+PASS legacy/current actual E0 types load independently; legacy six-field plan replays
+PASS current-profile adapter_name seven-field plan; pre/post checks
+PASS negative profile/revision mixing, old/new schema mixing, adapter_name, arrays, type, count
+PASS negative modified submit dependency and frozen-matrix bytes
+RESOURCE own_process_affinity_cores=4
+RESOURCE process_cpu_seconds=0.109375 wall_seconds=0.109000
+```
+
+此脚本使用 CPU 合成 batch 和当前固定 E0 源码，直接做 profile/helper 正反例；**不运行 renderer/artifact/save/load 公共链路**。它覆盖旧六字段计划、新七字段 `v3_policy`，以及整数、bool、空名、路径名、错类型 adapter 名，数组/类型/计数变化、profile 混配和字节篡改拒绝。原始输出保存在 `evidence/profile-smoke-after.txt`。修前 `_plan` 失败复现及输入包身份见 `evidence/profile-adapter-name-prefx.json`。
+
+公共链命令（不会下载物料；缺少时只写 `NOT_RUN`）：
+
+```powershell
+python -B shared_foundation/run_profile_chain.py --material-root shared_foundation/_native_materials --legacy-e0-root <固定ffc37b4源码根目录> --e0-root <固定128d9b98源码根目录> --evidence-output shared_foundation/evidence/profile-chain-evidence.json
+```
+
+本轮单元进程实测 CPU 0.109375 秒、墙钟 0.109000 秒，进程 affinity 限制为4核；公共链因锁定 tokenizer/template 缺失为 `NOT_RUN`（原始结果含材料pin、实现源码哈希及E0字节身份）。含准备、修前复现、失败加载顺序复跑和保存，保守追加计 1 设备分钟、≤4核；此前本任务累计约75分2.42秒，本轮后约76分2.42秒，早期未计量耗时仍未知。没有运行训练、读取权重/真实数据或使用 GPU。
+
+## 文件清单
+
+- `native_render.py`：profile 选择、旧材料锁保持及新依赖/矩阵锁验证。
+- `e0-profile-lock.json`：128d9b98 的依赖闭包、冻结矩阵 SHA 与相对 30b0356 的差异记录。
+- `native_artifact.py`：旧 0.1 和显式新 0.2 artifact/六字段或七字段 plan。
+- `native_e0.py`：按 profile 检查 revision、依赖/矩阵字节并从捕获源码加载实际 E0 类型；构造前后核验数组、计数和 plan。
+- `run_profile_smoke.py`：新 profile CPU 合成正反例。
+- `run_profile_chain.py`：新旧 profile 公共 artifact/save/load/adapt/plan 链；无物料时写 `NOT_RUN` 与源字节身份。
+- `evidence/profile-adapter-name-prefx.json`、`evidence/profile-smoke-after.txt`、`evidence/profile-chain-evidence.json`：修前复现、修后原始输出及公共链未运行记录。
