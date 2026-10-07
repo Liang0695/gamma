@@ -1,0 +1,141 @@
+{
+  "schema_version": "v3-v2-exclusion-proof-execution-manifest-3",
+  "supersedes": "v3-v2-exclusion-proof-execution-manifest-2",
+  "purpose": "独立执行 manifest：承载一次实际执行的绑定值与声明，通过 protocol_sha256 引用冻结协议。被检清单的自述字段一律不参与验收结论。",
+  "protocol_ref": {
+    "schema_version": "v3-v2-exclusion-proof-protocol-4",
+    "protocol_sha256": "418e5cb311a53e469988c85995d7a716d2bf1aa44a769cd182f2a61c5050e5fa",
+    "protocol_newline_mode": "lf"
+  },
+
+  "execution_mode": {
+    "synthetic_mode": false,
+    "synthetic_mode_rule": "必须是 JSON 布尔（严格类型）。字符串 \"false\" / 整数一律 MODE_TYPE_INVALID。合成模式最多给 SYNTHETIC_ACCEPTED，且不得要求也不得伪造 G4。",
+    "authorization_ref": {
+      "present": false,
+      "authorization_id": null,
+      "file_bytes_sha256": null,
+      "trust_anchor_sha256": null,
+      "note": "授权来自清单之外的可信授权记录，并由调用方提供的信任锚校验；清单自填 true 不构成授权。"
+    },
+    "isolation_ready_claim": {
+      "claimed": false,
+      "evidence": []
+    }
+  },
+
+  "binding": {
+    "candidate": {
+      "file_bytes_sha256": null,
+      "byte_length": null,
+      "newline_mode": null
+    },
+    "denylist": {
+      "file_bytes_sha256": null,
+      "byte_length": null,
+      "newline_mode": null,
+      "canonical_json_sha256": null,
+      "denylist_schema_version": null
+    },
+    "validator": {
+      "cli_entrypoint": "python -m v3.cli split",
+      "import_closure": [],
+      "file_set": [],
+      "file_set_rule": "逐文件记录 path / file_bytes_sha256 / byte_length / newline_mode / git_blob_sha1。至少覆盖 v3/data/dedup.py、v3/common/errors.py、v3/common/canonical.py（或真实 CLI 入口的完整文件集）。缺项 ⇒ BINDING_INCOMPLETE。"
+    },
+    "snapshot": {
+      "content_status": "not_obtained",
+      "file_bytes_sha256": null,
+      "byte_length": null
+    }
+  },
+
+  "counts": {
+    "candidate": {
+      "records_raw_count": null,
+      "records_effective_count": null,
+      "records_rejected_count": null
+    },
+    "denylist": {
+      "denylist_raw_count": null,
+      "denylist_effective_count": null,
+      "denylist_rejected_count": null,
+      "denylist_duplicate_count": null,
+      "denylist_cross_array_duplicate_count": null,
+      "denylist_per_array": {
+        "d_family_ids": {"raw_count": null, "effective_count": null, "duplicate_count": null},
+        "h_family_ids": {"raw_count": null, "effective_count": null, "duplicate_count": null},
+        "exposed_family_ids": {"raw_count": null, "effective_count": null, "duplicate_count": null}
+      },
+      "source_array_map_is_multi_valued": null
+    },
+    "result": {
+      "intersection_count": null
+    },
+    "invariant": {
+      "raw_equals_effective_plus_duplicate": null,
+      "rule": "必须为 true；false 或缺失 ⇒ COUNT_INVARIANT_BROKEN。"
+    }
+  },
+
+  "denominator_check": {
+    "baseline_artifact_id": null,
+    "baseline_file_bytes_sha256": null,
+    "compared_denominators": [],
+    "measured": {},
+    "rule": "必须逐项声明对照了哪些冻结分母口径。未提供基线或未逐项核对 ⇒ DENOMINATOR_MISSING；实测低于基线 ⇒ DENOMINATOR_SHORTFALL。"
+  },
+
+  "records": {
+    "computation_result": {
+      "label": null,
+      "synthetic_mode": false,
+      "exit_code": null,
+      "exit_code_source": null,
+      "entrypoint": null,
+      "denylist_schema_consumed": null,
+      "raised_error_code": null,
+      "log_file_bytes_sha256": null,
+      "emitted_at": null
+    },
+    "isolation_acceptance": {
+      "status": "NOT_ACCEPTED",
+      "G1_namespace_compatibility": {"claimed": false, "evidence": []},
+      "G2_effective_input_binding": {"claimed": false, "evidence": []},
+      "G3_snapshot_content_bound": {"claimed": false, "evidence": []},
+      "G4_isolation_verified": {"claimed": false, "evidence": []},
+      "isolation_mechanism": null,
+      "permission_matrix_sha256": null,
+      "training_context_cannot_self_authorize": false,
+      "admin_owner_daemon_paths_excluded": false,
+      "negative_test": {
+        "exit_code": null,
+        "exit_code_source": null,
+        "stat_result": null,
+        "open_result": null,
+        "subject_os_identity": null,
+        "subprocess_checked": null
+      },
+      "positive_test": {
+        "exit_code": null,
+        "subject_os_identity": null
+      },
+      "custody_principal_os_identity": null
+    },
+    "overall": null,
+    "overall_rule": "本字段是被检清单的自述，**不参与**生产模式的验收判定，也不得作为测试模式的期望来源。机器结论写入独立输出件。"
+  },
+
+  "fill_rules": [
+    "overall 不得由人手填写决定验收结论；生产模式 exit 0 只代表机器判定为真实 ACCEPTED。",
+    "授权判定必须发生在读取任何受保护输入之前；未通过则零读取。",
+    "binding.*.file_bytes_sha256 必须是实际执行文件磁盘字节的摘要，并记录 byte_length / newline_mode；canonical JSON 摘要另用 canonical_json_sha256。",
+    "validator 必须绑定导入闭包（或真实 CLI 入口文件集），逐文件含 git_blob_sha1。",
+    "每个文件单次读取，哈希与解析使用同一份字节。",
+    "G1..G4 的 claimed=true 必须附可解析证据，覆盖门槛含义（主体/版本/来源/可信批准记录）；self_declared 永不足够。",
+    "counts_declared 三个数组全部必需；raw == effective + duplicate 必须成立；来源映射必须多值。",
+    "denominator_check 必须对照协议冻结的期望分母。",
+    "OS 身份字段须通过格式校验；不接受 agent UUID。",
+    "本 manifest 不改写任何已冻结协议文件。"
+  ]
+}

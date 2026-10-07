@@ -1,0 +1,12 @@
+{
+  "syn-independent-reviewer": {
+    "role": "designated_evaluator",
+    "os_identity": "S-1-5-21-0-0-1-1005",
+    "approved_scope": [
+      "G1",
+      "G2",
+      "G3",
+      "G4"
+    ]
+  }
+}

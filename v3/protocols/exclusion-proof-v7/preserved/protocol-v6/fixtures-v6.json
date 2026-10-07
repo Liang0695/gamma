@@ -1,0 +1,737 @@
+{
+  "cases": [
+    {
+      "id": "pos_synthetic_consumer_acceptance",
+      "note": "合成消费者：验收轮 0 / 诊断轮 7 / 坏输入轮 4",
+      "mode": "test",
+      "expect": "SYNTHETIC_ACCEPTED",
+      "targets": [],
+      "args": [
+        "--allow-synthetic",
+        "--fixture-root",
+        "L:\\multica工作区\\canopus-3ho-7fd8c6d77d72\\kaggle-26-f7af040033d8\\workdir\\deliverables\\v6\\synthetic",
+        "--validator-mode",
+        "synthetic_consumer",
+        "--trusted-principals",
+        "L:\\multica工作区\\canopus-3ho-7fd8c6d77d72\\kaggle-26-f7af040033d8\\workdir\\deliverables\\v6\\trust\\trusted_principals.json",
+        "--approvals",
+        "L:\\multica工作区\\canopus-3ho-7fd8c6d77d72\\kaggle-26-f7af040033d8\\workdir\\deliverables\\v6\\trust\\approvals.json"
+      ],
+      "dir": "synthetic/pos_synthetic_consumer_acceptance",
+      "validator_src": "e0",
+      "need_auth": true,
+      "trust_anchor_ok": true
+    },
+    {
+      "id": "neg_b1_plain_evidence_all_gates",
+      "note": "同一无关普通文本冒充四门槛（合法摘要、伪 producer、伪 kind）",
+      "mode": "test",
+      "expect": "SYNTHETIC_ACCEPTED",
+      "targets": [
+        "EVIDENCE_MEANING_UNSUPPORTED"
+      ],
+      "args": [
+        "--allow-synthetic",
+        "--fixture-root",
+        "L:\\multica工作区\\canopus-3ho-7fd8c6d77d72\\kaggle-26-f7af040033d8\\workdir\\deliverables\\v6\\synthetic"
+      ],
+      "dir": "synthetic/neg_b1_plain_evidence_all_gates",
+      "validator_src": "e0",
+      "need_auth": true,
+      "trust_anchor_ok": true
+    },
+    {
+      "id": "neg_b1_evidence_self_produced",
+      "note": "证据由候选作者本人产出 ⇒ 不构成独立证据",
+      "mode": "test",
+      "expect": "SYNTHETIC_ACCEPTED",
+      "targets": [
+        "EVIDENCE_SELF_PRODUCED"
+      ],
+      "args": [
+        "--allow-synthetic",
+        "--fixture-root",
+        "L:\\multica工作区\\canopus-3ho-7fd8c6d77d72\\kaggle-26-f7af040033d8\\workdir\\deliverables\\v6\\synthetic"
+      ],
+      "dir": "synthetic/neg_b1_evidence_self_produced",
+      "validator_src": "e0",
+      "need_auth": true,
+      "trust_anchor_ok": true
+    },
+    {
+      "id": "neg_b1_evidence_bad_time",
+      "note": "produced_at 非法时间被接受（v4 缺陷）",
+      "mode": "test",
+      "expect": "SYNTHETIC_ACCEPTED",
+      "targets": [
+        "EVIDENCE_TIME_INVALID"
+      ],
+      "args": [
+        "--allow-synthetic",
+        "--fixture-root",
+        "L:\\multica工作区\\canopus-3ho-7fd8c6d77d72\\kaggle-26-f7af040033d8\\workdir\\deliverables\\v6\\synthetic"
+      ],
+      "dir": "synthetic/neg_b1_evidence_bad_time",
+      "validator_src": "e0",
+      "need_auth": true,
+      "trust_anchor_ok": true
+    },
+    {
+      "id": "neg_b1_trusted_approval_not_approval",
+      "note": "kind=trusted_approval 但正文不是批准记录",
+      "mode": "test",
+      "expect": "SYNTHETIC_ACCEPTED",
+      "targets": [
+        "EVIDENCE_MEANING_UNSUPPORTED"
+      ],
+      "args": [
+        "--allow-synthetic",
+        "--fixture-root",
+        "L:\\multica工作区\\canopus-3ho-7fd8c6d77d72\\kaggle-26-f7af040033d8\\workdir\\deliverables\\v6\\synthetic"
+      ],
+      "dir": "synthetic/neg_b1_trusted_approval_not_approval",
+      "validator_src": "e0",
+      "need_auth": true,
+      "trust_anchor_ok": true
+    },
+    {
+      "id": "neg_b1_production_test_double",
+      "note": "生产模式使用测试替身（v4 缺陷：可得到 ACCEPTED/exit 0）",
+      "mode": "production",
+      "expect": null,
+      "targets": [
+        "PRODUCTION_FORBIDS_TEST_DOUBLE"
+      ],
+      "args": [
+        "--validator-mode",
+        "test_double"
+      ],
+      "dir": "synthetic/neg_b1_production_test_double",
+      "validator_src": "e0",
+      "need_auth": true,
+      "trust_anchor_ok": true
+    },
+    {
+      "id": "neg_b1_g4_negative_exit_zero",
+      "note": "negative_test.exit_code=0 ⇒ 未发生拒绝，G4 必须失败",
+      "mode": "test",
+      "expect": "SYNTHETIC_ACCEPTED",
+      "targets": [
+        "G4_MECHANISM_INSUFFICIENT"
+      ],
+      "args": [
+        "--allow-synthetic",
+        "--fixture-root",
+        "L:\\multica工作区\\canopus-3ho-7fd8c6d77d72\\kaggle-26-f7af040033d8\\workdir\\deliverables\\v6\\synthetic"
+      ],
+      "dir": "synthetic/neg_b1_g4_negative_exit_zero",
+      "validator_src": "e0",
+      "need_auth": true,
+      "trust_anchor_ok": true
+    },
+    {
+      "id": "neg_b2_scope_omits_snapshot",
+      "note": "授权对象清单漏 snapshot ⇒ 拒绝前零打开",
+      "mode": "production",
+      "expect": null,
+      "targets": [
+        "AUTH_SCOPE_INSUFFICIENT",
+        "AUTH_BEFORE_ACCESS"
+      ],
+      "args": [],
+      "dir": "synthetic/neg_b2_scope_omits_snapshot",
+      "validator_src": "e0",
+      "need_auth": true,
+      "trust_anchor_ok": true
+    },
+    {
+      "id": "neg_b2_production_manifest_selects_synthetic",
+      "note": "生产模式下被检清单自填 synthetic_mode=true（v4 缺陷：可绕过授权读取并启动替身）",
+      "mode": "production",
+      "expect": null,
+      "targets": [
+        "SYNTHETIC_NOT_PERMITTED_IN_PRODUCTION",
+        "AUTH_MISSING",
+        "AUTH_BEFORE_ACCESS"
+      ],
+      "args": [],
+      "dir": "synthetic/neg_b2_production_manifest_selects_synthetic",
+      "validator_src": "e0",
+      "need_auth": false,
+      "trust_anchor_ok": true
+    },
+    {
+      "id": "neg_b2_relative_path_escape",
+      "note": "file_set 用 ../ 越界读取 root 外文件",
+      "mode": "test",
+      "expect": "SYNTHETIC_ACCEPTED",
+      "targets": [
+        "PATH_OUTSIDE_ROOT"
+      ],
+      "args": [
+        "--allow-synthetic",
+        "--fixture-root",
+        "L:\\multica工作区\\canopus-3ho-7fd8c6d77d72\\kaggle-26-f7af040033d8\\workdir\\deliverables\\v6\\synthetic"
+      ],
+      "dir": "synthetic/neg_b2_relative_path_escape",
+      "validator_src": "e0",
+      "need_auth": true,
+      "trust_anchor_ok": true
+    },
+    {
+      "id": "neg_b2_absolute_path_escape",
+      "note": "file_set 用绝对路径越界",
+      "mode": "test",
+      "expect": "SYNTHETIC_ACCEPTED",
+      "targets": [
+        "PATH_OUTSIDE_ROOT"
+      ],
+      "args": [
+        "--allow-synthetic",
+        "--fixture-root",
+        "L:\\multica工作区\\canopus-3ho-7fd8c6d77d72\\kaggle-26-f7af040033d8\\workdir\\deliverables\\v6\\synthetic"
+      ],
+      "dir": "synthetic/neg_b2_absolute_path_escape",
+      "validator_src": "e0",
+      "need_auth": true,
+      "trust_anchor_ok": true
+    },
+    {
+      "id": "neg_b2_evidence_root_escape",
+      "note": "证据路径 ../ 逃出 evidence root",
+      "mode": "test",
+      "expect": "SYNTHETIC_ACCEPTED",
+      "targets": [
+        "EVIDENCE_NOT_RESOLVABLE"
+      ],
+      "args": [
+        "--allow-synthetic",
+        "--fixture-root",
+        "L:\\multica工作区\\canopus-3ho-7fd8c6d77d72\\kaggle-26-f7af040033d8\\workdir\\deliverables\\v6\\synthetic"
+      ],
+      "dir": "synthetic/neg_b2_evidence_root_escape",
+      "validator_src": "e0",
+      "need_auth": true,
+      "trust_anchor_ok": true
+    },
+    {
+      "id": "neg_b2_auth_wrong_isolation",
+      "note": "授权记录 isolation.verified=false",
+      "mode": "production",
+      "expect": null,
+      "targets": [
+        "AUTH_ISOLATION_UNVERIFIED",
+        "AUTH_BEFORE_ACCESS"
+      ],
+      "args": [],
+      "dir": "synthetic/neg_b2_auth_wrong_isolation",
+      "validator_src": "e0",
+      "need_auth": true,
+      "trust_anchor_ok": true
+    },
+    {
+      "id": "neg_b2_binding_failure_no_compute",
+      "note": "绑定摘要失败 ⇒ 必须在启动计算前终止（compute_invocations 必须为 0）",
+      "mode": "test",
+      "expect": "SYNTHETIC_ACCEPTED",
+      "targets": [
+        "COMPUTE_NOT_STARTED",
+        "BINDING_MISMATCH"
+      ],
+      "args": [
+        "--allow-synthetic",
+        "--fixture-root",
+        "L:\\multica工作区\\canopus-3ho-7fd8c6d77d72\\kaggle-26-f7af040033d8\\workdir\\deliverables\\v6\\synthetic"
+      ],
+      "dir": "synthetic/neg_b2_binding_failure_no_compute",
+      "validator_src": "e0",
+      "need_auth": true,
+      "trust_anchor_ok": true
+    },
+    {
+      "id": "neg_b3_denominator_string",
+      "note": "分母声明值类型非法（string）",
+      "mode": "test",
+      "expect": "SYNTHETIC_ACCEPTED",
+      "targets": [
+        "DENOMINATOR_TYPE_INVALID"
+      ],
+      "args": [
+        "--allow-synthetic",
+        "--fixture-root",
+        "L:\\multica工作区\\canopus-3ho-7fd8c6d77d72\\kaggle-26-f7af040033d8\\workdir\\deliverables\\v6\\synthetic"
+      ],
+      "dir": "synthetic/neg_b3_denominator_string",
+      "validator_src": "e0",
+      "need_auth": true,
+      "trust_anchor_ok": true
+    },
+    {
+      "id": "neg_b3_denominator_bool",
+      "note": "分母声明值类型非法（bool）",
+      "mode": "test",
+      "expect": "SYNTHETIC_ACCEPTED",
+      "targets": [
+        "DENOMINATOR_TYPE_INVALID"
+      ],
+      "args": [
+        "--allow-synthetic",
+        "--fixture-root",
+        "L:\\multica工作区\\canopus-3ho-7fd8c6d77d72\\kaggle-26-f7af040033d8\\workdir\\deliverables\\v6\\synthetic"
+      ],
+      "dir": "synthetic/neg_b3_denominator_bool",
+      "validator_src": "e0",
+      "need_auth": true,
+      "trust_anchor_ok": true
+    },
+    {
+      "id": "neg_b3_denominator_float",
+      "note": "分母声明值类型非法（float）",
+      "mode": "test",
+      "expect": "SYNTHETIC_ACCEPTED",
+      "targets": [
+        "DENOMINATOR_TYPE_INVALID"
+      ],
+      "args": [
+        "--allow-synthetic",
+        "--fixture-root",
+        "L:\\multica工作区\\canopus-3ho-7fd8c6d77d72\\kaggle-26-f7af040033d8\\workdir\\deliverables\\v6\\synthetic"
+      ],
+      "dir": "synthetic/neg_b3_denominator_float",
+      "validator_src": "e0",
+      "need_auth": true,
+      "trust_anchor_ok": true
+    },
+    {
+      "id": "neg_b3_denominator_list",
+      "note": "分母声明值类型非法（list）",
+      "mode": "test",
+      "expect": "SYNTHETIC_ACCEPTED",
+      "targets": [
+        "DENOMINATOR_TYPE_INVALID"
+      ],
+      "args": [
+        "--allow-synthetic",
+        "--fixture-root",
+        "L:\\multica工作区\\canopus-3ho-7fd8c6d77d72\\kaggle-26-f7af040033d8\\workdir\\deliverables\\v6\\synthetic"
+      ],
+      "dir": "synthetic/neg_b3_denominator_list",
+      "validator_src": "e0",
+      "need_auth": true,
+      "trust_anchor_ok": true
+    },
+    {
+      "id": "neg_b3_denominator_dict",
+      "note": "分母声明值类型非法（dict）",
+      "mode": "test",
+      "expect": "SYNTHETIC_ACCEPTED",
+      "targets": [
+        "DENOMINATOR_TYPE_INVALID"
+      ],
+      "args": [
+        "--allow-synthetic",
+        "--fixture-root",
+        "L:\\multica工作区\\canopus-3ho-7fd8c6d77d72\\kaggle-26-f7af040033d8\\workdir\\deliverables\\v6\\synthetic"
+      ],
+      "dir": "synthetic/neg_b3_denominator_dict",
+      "validator_src": "e0",
+      "need_auth": true,
+      "trust_anchor_ok": true
+    },
+    {
+      "id": "neg_b3_choose_unrelated_denominator",
+      "note": "自行只比较无关分母项 ⇒ 必比项由基线冻结",
+      "mode": "test",
+      "expect": "SYNTHETIC_ACCEPTED",
+      "targets": [
+        "DENOMINATOR_SET_MISMATCH"
+      ],
+      "args": [
+        "--allow-synthetic",
+        "--fixture-root",
+        "L:\\multica工作区\\canopus-3ho-7fd8c6d77d72\\kaggle-26-f7af040033d8\\workdir\\deliverables\\v6\\synthetic"
+      ],
+      "dir": "synthetic/neg_b3_choose_unrelated_denominator",
+      "validator_src": "e0",
+      "need_auth": true,
+      "trust_anchor_ok": true
+    },
+    {
+      "id": "neg_b3_shrink_input_sync_counts",
+      "note": "输入与 counts 同步缩小 ⇒ 必须被冻结基线挡住",
+      "mode": "test",
+      "expect": "SYNTHETIC_ACCEPTED",
+      "targets": [
+        "DENOMINATOR_SHORTFALL"
+      ],
+      "args": [
+        "--allow-synthetic",
+        "--fixture-root",
+        "L:\\multica工作区\\canopus-3ho-7fd8c6d77d72\\kaggle-26-f7af040033d8\\workdir\\deliverables\\v6\\synthetic"
+      ],
+      "dir": "synthetic/neg_b3_shrink_input_sync_counts",
+      "validator_src": "e0",
+      "need_auth": true,
+      "trust_anchor_ok": true
+    },
+    {
+      "id": "neg_b3_candidate_dict_identity",
+      "note": "记录族字段是 dict ⇒ 身份类型非法，整批失败",
+      "mode": "test",
+      "expect": "SYNTHETIC_ACCEPTED",
+      "targets": [
+        "RECORD_IDENTITY_TYPE_INVALID"
+      ],
+      "args": [
+        "--allow-synthetic",
+        "--fixture-root",
+        "L:\\multica工作区\\canopus-3ho-7fd8c6d77d72\\kaggle-26-f7af040033d8\\workdir\\deliverables\\v6\\synthetic"
+      ],
+      "dir": "synthetic/neg_b3_candidate_dict_identity",
+      "validator_src": "e0",
+      "need_auth": true,
+      "trust_anchor_ok": true
+    },
+    {
+      "id": "neg_b3_rejected_count_99",
+      "note": "denylist_rejected_count=99 被忽略（v4 缺陷）",
+      "mode": "test",
+      "expect": "SYNTHETIC_ACCEPTED",
+      "targets": [
+        "COUNT_INVARIANT_BROKEN"
+      ],
+      "args": [
+        "--allow-synthetic",
+        "--fixture-root",
+        "L:\\multica工作区\\canopus-3ho-7fd8c6d77d72\\kaggle-26-f7af040033d8\\workdir\\deliverables\\v6\\synthetic"
+      ],
+      "dir": "synthetic/neg_b3_rejected_count_99",
+      "validator_src": "e0",
+      "need_auth": true,
+      "trust_anchor_ok": true
+    },
+    {
+      "id": "neg_b3_count_type_string",
+      "note": "计数写成字符串",
+      "mode": "test",
+      "expect": "SYNTHETIC_ACCEPTED",
+      "targets": [
+        "COUNT_TYPE_INVALID"
+      ],
+      "args": [
+        "--allow-synthetic",
+        "--fixture-root",
+        "L:\\multica工作区\\canopus-3ho-7fd8c6d77d72\\kaggle-26-f7af040033d8\\workdir\\deliverables\\v6\\synthetic"
+      ],
+      "dir": "synthetic/neg_b3_count_type_string",
+      "validator_src": "e0",
+      "need_auth": true,
+      "trust_anchor_ok": true
+    },
+    {
+      "id": "neg_b4_closure_incomplete",
+      "note": "file_set 漏 v3/cli.py（v4 只绑三文件）",
+      "mode": "test",
+      "expect": "SYNTHETIC_ACCEPTED",
+      "targets": [
+        "BINDING_INCOMPLETE"
+      ],
+      "args": [
+        "--allow-synthetic",
+        "--fixture-root",
+        "L:\\multica工作区\\canopus-3ho-7fd8c6d77d72\\kaggle-26-f7af040033d8\\workdir\\deliverables\\v6\\synthetic"
+      ],
+      "dir": "synthetic/neg_b4_closure_incomplete",
+      "validator_src": "e0",
+      "need_auth": true,
+      "trust_anchor_ok": true
+    },
+    {
+      "id": "neg_b4_cli_mutation_unbound",
+      "note": "只改 v3/cli.py 而绑定摘要不变（v4 无 BINDING 告警）",
+      "mode": "test",
+      "expect": "SYNTHETIC_ACCEPTED",
+      "targets": [
+        "BINDING_MISMATCH"
+      ],
+      "args": [
+        "--allow-synthetic",
+        "--fixture-root",
+        "L:\\multica工作区\\canopus-3ho-7fd8c6d77d72\\kaggle-26-f7af040033d8\\workdir\\deliverables\\v6\\synthetic"
+      ],
+      "dir": "synthetic/neg_b4_cli_mutation_unbound",
+      "validator_src": "e0",
+      "need_auth": true,
+      "trust_anchor_ok": true
+    },
+    {
+      "id": "neg_b4_old_e0_schema_unconsumed",
+      "note": "真实 E0 未消费协议 schema ⇒ 诊断轮必须报未消费",
+      "mode": "production",
+      "expect": null,
+      "targets": [
+        "DENYLIST_SCHEMA_NOT_CONSUMED"
+      ],
+      "args": [
+        "--validator-mode",
+        "real_cli"
+      ],
+      "dir": "synthetic/neg_b4_old_e0_schema_unconsumed",
+      "validator_src": "e0",
+      "need_auth": true,
+      "trust_anchor_ok": true
+    },
+    {
+      "id": "neg_y1_records_top_level_list",
+      "note": "records 顶层为 JSON list（v4 在此抛 AttributeError、exit 1、无报告）⇒ 必须给稳定码且仍输出报告",
+      "mode": "test",
+      "expect": "SYNTHETIC_ACCEPTED",
+      "targets": [
+        "CANDIDATE_EMPTY"
+      ],
+      "args": [
+        "--allow-synthetic",
+        "--fixture-root",
+        "L:\\multica工作区\\canopus-3ho-7fd8c6d77d72\\kaggle-26-f7af040033d8\\workdir\\deliverables\\v6\\synthetic"
+      ],
+      "dir": "synthetic/neg_y1_records_top_level_list",
+      "validator_src": "e0",
+      "need_auth": true,
+      "trust_anchor_ok": true
+    },
+    {
+      "id": "neg_y2_stat_both_denied_expectation",
+      "note": "stat 未单列（stat_recorded_separately=false）⇒ 与 stat 单列口径冲突",
+      "mode": "test",
+      "expect": "SYNTHETIC_ACCEPTED",
+      "targets": [
+        "G4_MECHANISM_INSUFFICIENT"
+      ],
+      "args": [
+        "--allow-synthetic",
+        "--fixture-root",
+        "L:\\multica工作区\\canopus-3ho-7fd8c6d77d72\\kaggle-26-f7af040033d8\\workdir\\deliverables\\v6\\synthetic"
+      ],
+      "dir": "synthetic/neg_y2_stat_both_denied_expectation",
+      "validator_src": "e0",
+      "need_auth": true,
+      "trust_anchor_ok": true
+    },
+    {
+      "id": "neg_keep_intersection",
+      "note": "候选与 denylist 真实相交 ⇒ 诊断语义保留",
+      "mode": "test",
+      "expect": "SYNTHETIC_ACCEPTED",
+      "targets": [
+        "INTERSECTION_NONZERO"
+      ],
+      "args": [
+        "--allow-synthetic",
+        "--fixture-root",
+        "L:\\multica工作区\\canopus-3ho-7fd8c6d77d72\\kaggle-26-f7af040033d8\\workdir\\deliverables\\v6\\synthetic"
+      ],
+      "dir": "synthetic/neg_keep_intersection",
+      "validator_src": "e0",
+      "need_auth": true,
+      "trust_anchor_ok": true
+    },
+    {
+      "id": "neg_keep_denylist_null_item",
+      "note": "denylist 含 null 项 ⇒ 整批失败",
+      "mode": "test",
+      "expect": "SYNTHETIC_ACCEPTED",
+      "targets": [
+        "DENYLIST_ITEM_INVALID"
+      ],
+      "args": [
+        "--allow-synthetic",
+        "--fixture-root",
+        "L:\\multica工作区\\canopus-3ho-7fd8c6d77d72\\kaggle-26-f7af040033d8\\workdir\\deliverables\\v6\\synthetic"
+      ],
+      "dir": "synthetic/neg_keep_denylist_null_item",
+      "validator_src": "e0",
+      "need_auth": true,
+      "trust_anchor_ok": true
+    },
+    {
+      "id": "neg_keep_candidate_empty",
+      "note": "候选 0 条",
+      "mode": "test",
+      "expect": "SYNTHETIC_ACCEPTED",
+      "targets": [
+        "CANDIDATE_EMPTY"
+      ],
+      "args": [
+        "--allow-synthetic",
+        "--fixture-root",
+        "L:\\multica工作区\\canopus-3ho-7fd8c6d77d72\\kaggle-26-f7af040033d8\\workdir\\deliverables\\v6\\synthetic"
+      ],
+      "dir": "synthetic/neg_keep_candidate_empty",
+      "validator_src": "e0",
+      "need_auth": true,
+      "trust_anchor_ok": true
+    },
+    {
+      "id": "neg_keep_bool_only_evidence",
+      "note": "四门槛只填布尔、证据为空",
+      "mode": "test",
+      "expect": "SYNTHETIC_ACCEPTED",
+      "targets": [
+        "EVIDENCE_SELF_DECLARED"
+      ],
+      "args": [
+        "--allow-synthetic",
+        "--fixture-root",
+        "L:\\multica工作区\\canopus-3ho-7fd8c6d77d72\\kaggle-26-f7af040033d8\\workdir\\deliverables\\v6\\synthetic"
+      ],
+      "dir": "synthetic/neg_keep_bool_only_evidence",
+      "validator_src": "e0",
+      "need_auth": true,
+      "trust_anchor_ok": true
+    },
+    {
+      "id": "neg_b1_forged_evidence_complete_format",
+      "note": "格式完整的伪造证据：字段齐全、摘要正确、时间合法、producer 只是另一个字符串 ⇒ 受控注册表核验必须拒绝",
+      "mode": "test",
+      "expect": "SYNTHETIC_ACCEPTED",
+      "targets": [
+        "EVIDENCE_UNTRUSTED_PRODUCER"
+      ],
+      "args": [
+        "--trusted-principals",
+        "L:\\multica工作区\\canopus-3ho-7fd8c6d77d72\\kaggle-26-f7af040033d8\\workdir\\deliverables\\v6\\trust\\trusted_principals.json",
+        "--allow-synthetic",
+        "--fixture-root",
+        "L:\\multica工作区\\canopus-3ho-7fd8c6d77d72\\kaggle-26-f7af040033d8\\workdir\\deliverables\\v6\\synthetic",
+        "--trusted-principals",
+        "L:\\multica工作区\\canopus-3ho-7fd8c6d77d72\\kaggle-26-f7af040033d8\\workdir\\deliverables\\v6\\trust\\trusted_principals.json"
+      ],
+      "dir": "synthetic/neg_b1_forged_evidence_complete_format",
+      "validator_src": "e0",
+      "need_auth": true,
+      "trust_anchor_ok": true
+    },
+    {
+      "id": "neg_b1_forged_approval_ref",
+      "note": "kind=trusted_approval 且引用不在受控批准注册表内的 approval_id ⇒ 拒绝",
+      "mode": "test",
+      "expect": "SYNTHETIC_ACCEPTED",
+      "targets": [
+        "EVIDENCE_APPROVAL_UNTRUSTED"
+      ],
+      "args": [
+        "--trusted-principals",
+        "L:\\multica工作区\\canopus-3ho-7fd8c6d77d72\\kaggle-26-f7af040033d8\\workdir\\deliverables\\v6\\trust\\trusted_principals.json",
+        "--approvals",
+        "L:\\multica工作区\\canopus-3ho-7fd8c6d77d72\\kaggle-26-f7af040033d8\\workdir\\deliverables\\v6\\trust\\approvals.json",
+        "--allow-synthetic",
+        "--fixture-root",
+        "L:\\multica工作区\\canopus-3ho-7fd8c6d77d72\\kaggle-26-f7af040033d8\\workdir\\deliverables\\v6\\synthetic",
+        "--trusted-principals",
+        "L:\\multica工作区\\canopus-3ho-7fd8c6d77d72\\kaggle-26-f7af040033d8\\workdir\\deliverables\\v6\\trust\\trusted_principals.json",
+        "--approvals",
+        "L:\\multica工作区\\canopus-3ho-7fd8c6d77d72\\kaggle-26-f7af040033d8\\workdir\\deliverables\\v6\\trust\\approvals.json"
+      ],
+      "dir": "synthetic/neg_b1_forged_approval_ref",
+      "validator_src": "e0",
+      "need_auth": true,
+      "trust_anchor_ok": true
+    },
+    {
+      "id": "neg_b1_production_requires_real_trust_root",
+      "note": "生产模式未提供受控主体注册表 ⇒ 不得仅凭自填字段认定可信来源",
+      "mode": "production",
+      "expect": null,
+      "targets": [
+        "EVIDENCE_TRUST_ROOT_MISSING"
+      ],
+      "args": [],
+      "dir": "synthetic/neg_b1_production_requires_real_trust_root",
+      "validator_src": "e0",
+      "need_auth": true,
+      "trust_anchor_ok": true
+    },
+    {
+      "id": "neg_b4_receipt_missing_real_cli",
+      "note": "真实 CLI 未回传消费回执 ⇒ 不得通过（缺失/null 一律阻断）",
+      "mode": "production",
+      "expect": null,
+      "targets": [
+        "CONSUMPTION_RECEIPT_MISSING"
+      ],
+      "args": [
+        "--validator-mode",
+        "real_cli"
+      ],
+      "dir": "synthetic/neg_b4_receipt_missing_real_cli",
+      "validator_src": "e0",
+      "need_auth": true,
+      "trust_anchor_ok": true
+    },
+    {
+      "id": "neg_git_blob_zero_placeholder",
+      "note": "git_blob_sha1 用 40 个零占位 ⇒ 不是真实 Git 对象身份",
+      "mode": "test",
+      "expect": "SYNTHETIC_ACCEPTED",
+      "targets": [
+        "GIT_BLOB_INVALID"
+      ],
+      "args": [
+        "--allow-synthetic",
+        "--fixture-root",
+        "L:\\multica工作区\\canopus-3ho-7fd8c6d77d72\\kaggle-26-f7af040033d8\\workdir\\deliverables\\v6\\synthetic"
+      ],
+      "dir": "synthetic/neg_git_blob_zero_placeholder",
+      "validator_src": "e0",
+      "need_auth": true,
+      "trust_anchor_ok": true
+    },
+    {
+      "id": "neg_root_init_unbound",
+      "note": "file_set 漏根包初始化文件 v3/__init__.py（会退化为 namespace package）",
+      "mode": "test",
+      "expect": "SYNTHETIC_ACCEPTED",
+      "targets": [
+        "BINDING_INCOMPLETE"
+      ],
+      "args": [
+        "--allow-synthetic",
+        "--fixture-root",
+        "L:\\multica工作区\\canopus-3ho-7fd8c6d77d72\\kaggle-26-f7af040033d8\\workdir\\deliverables\\v6\\synthetic"
+      ],
+      "dir": "synthetic/neg_root_init_unbound",
+      "validator_src": "e0",
+      "need_auth": true,
+      "trust_anchor_ok": true
+    }
+  ],
+  "closure": [
+    "v3/__init__.py",
+    "v3/cli.py",
+    "v3/common/canonical.py",
+    "v3/common/errors.py",
+    "v3/data/dedup.py",
+    "v3/data/exporter.py",
+    "v3/data/faces.py",
+    "v3/data/oracle.py",
+    "v3/data/source_lock.py",
+    "v3/exp/exp1.py",
+    "v3/search/lexsearch.py",
+    "v3/t0/deps.py",
+    "v3/t0/official.py",
+    "v3/train/__init__.py",
+    "v3/train/checkpoint.py",
+    "v3/train/config.py",
+    "v3/train/entry.py",
+    "v3/train/fixtures.py",
+    "v3/train/masks.py",
+    "v3/train/targets.py",
+    "v3/train/template.py"
+  ],
+  "evidence_names": [
+    "g1_namespace.json",
+    "g2_binding.json",
+    "g3_snapshot.json",
+    "g4_isolation.json"
+  ]
+}

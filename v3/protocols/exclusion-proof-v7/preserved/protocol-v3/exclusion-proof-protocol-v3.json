@@ -1,0 +1,368 @@
+{
+  "schema_version": "v3-v2-exclusion-proof-protocol-3",
+  "supersedes": "v3-v2-exclusion-proof-protocol-2",
+  "preserved_immutable": [
+    "v3-v2-exclusion-proof-protocol-1",
+    "v3-v2-exclusion-proof-protocol-2",
+    "v3-v2-exclusion-proof-execution-manifest-1"
+  ],
+  "revision_reason": "Mika 2026-10-06（KAGGLE-27 顶部范围 + KAGGLE-26 合并退回）：三数组版本化 schema、严格类型与整批失败、必需输入、完整计数与分母、同一实际输入字节哈希、真实子进程退出码、机器可判 ACCEPTED、COMPUTATION_ONLY 非授权。",
+  "generated_by": "Kaggle 竞赛管理员 (KAGGLE-27)",
+  "frozen_at": "2026-10-06T15:55:00Z",
+
+  "what_is_frozen_here": {
+    "frozen": [
+      "denylist 三数组 schema 与版本号",
+      "无效输入的处理口径（整批失败，不过滤）",
+      "计数定义与分母口径（raw / effective / rejected / duplicate / union）",
+      "四门槛 G1..G4 的判定语义与证据要求",
+      "哈希语义（实际文件字节 vs canonical JSON）与字段命名",
+      "ACCEPTED 的机器可判合取式"
+    ],
+    "NOT_frozen": [
+      "candidate_sha256 / denylist_sha256 / snapshot_sha256 的实际取值",
+      "实际执行所用的验证器 SHA（待 E0 新 SHA 到齐后绑定）",
+      "真实 denylist 内容与真实 H 家族身份"
+    ],
+    "is_protocol_version": true,
+    "is_frozen_execution_input": false,
+    "statement": "本件冻结协议版本与判据，不冻结执行输入。执行绑定值一律写入独立 execution manifest，通过 protocol_sha256 引用本件，永不事后改写本件。"
+  },
+
+  "evidence_levels": {
+    "A_local_reproducible": "本地可重跑复现的字节/输出",
+    "B_custody_declared": "保管侧自述，未经独立字节验证",
+    "C_platform_attribution": "平台元数据（author_id / assignee_id）—— 仅证明任务责任归属，不证明文件所有者、OS 安全主体或独占保管",
+    "D_unverified": "未验证"
+  },
+
+  "denylist_input_contract": {
+    "contract_status": "FROZEN_PENDING_E0_ALIGNMENT",
+    "authority_note": "本节是生产 consumer（v3/cli.py:120-121）与协议之间唯一被批准的转换规格。E0 必须按本节实现或提出反提案；在 E0 新 SHA 到齐并复核前，本节不构成端到端通过。",
+    "file_schema_version_field": "denylist_schema_version",
+    "supported_schema_versions": ["v2-dh-exclusion-denylist-1"],
+    "top_level_shape": "JSON object（不得是 array / string / null / number）",
+    "required_top_level_keys": [
+      "denylist_schema_version",
+      "d_family_ids",
+      "h_family_ids",
+      "exposed_family_ids"
+    ],
+    "optional_top_level_keys": [
+      "source_sha256",
+      "counts_declared",
+      "produced_by",
+      "produced_at"
+    ],
+    "unknown_top_level_key_rule": "拒绝：MissingInput(denylist_unknown_key)，exit_code=4。不做忽略式前向兼容。",
+    "array_contract": {
+      "d_family_ids": {
+        "meaning": "V2 的 D（dev/公开侧）家族 id",
+        "required": true,
+        "unit": "families",
+        "type": "JSON array of string",
+        "may_be_empty": true
+      },
+      "h_family_ids": {
+        "meaning": "V2 的 H（held-out）家族 id",
+        "required": true,
+        "unit": "families",
+        "type": "JSON array of string",
+        "may_be_empty": true
+      },
+      "exposed_family_ids": {
+        "meaning": "并集中已被公开暴露的家族 id",
+        "required": true,
+        "unit": "families",
+        "type": "JSON array of string",
+        "may_be_empty": true
+      }
+    },
+    "item_rules": {
+      "item_type": "str only（bool / int / float / null / list / dict / bytes 一律拒绝）",
+      "item_non_empty_after_strip": true,
+      "literal_none_vs_null": "字符串字面量 'none' 是合法家族标签；JSON null 是非法项。二者必须在 code 层区分。",
+      "reject_rule": "任一必需数组的任一项不满足上述规则 ⇒ 整批失败 MissingInput(denylist_item_invalid)，exit_code=4；不 str() 兜底、不静默丢弃、不部分接受。",
+      "rationale": "冻结验证器 _normalize_match_token(None) == 'none' 为真值，静默过滤会掩盖遗漏；过滤后计算零交集是伪结论。"
+    },
+    "container_rules": {
+      "dict_as_denylist": "拒绝。dict 迭代的是键，键为占位符时真实 ID 被完全忽略（假阴性）。",
+      "str_as_denylist": "拒绝。str 按字符迭代（假阴性）。",
+      "bytes_as_denylist": "拒绝。bytes 按字节 int 化（假阴性）。",
+      "generator": "拒绝（不可重放、计数不可复核）。必须物化为 list。",
+      "none_or_int_or_float": "拒绝。原实现抛 TypeError（非 FailClosed，真实进程退出码 1），不得作为已定义失败模式。"
+    },
+    "empty_set_rule": "三数组去重并集为空 ⇒ MissingInput(denylist_empty)，exit_code=4。空集不得被当作『零交集 ⇒ PASS』。",
+    "counts_declared_rule": "若提供 counts_declared，其每个数组的声明值必须等于本件计数口径算出的 effective_count；不符 ⇒ MissingInput(denylist_count_mismatch)，exit_code=4。",
+    "union_derivation": {
+      "order": ["d_family_ids", "h_family_ids", "exposed_family_ids"],
+      "algorithm": "按数组顺序拼接 -> 逐项 strip -> 归一 token（strip + lower，与冻结验证器 _normalize_match_token 同口径）-> 按 token 去重，保留首次出现顺序",
+      "output": "denylist_effective（list of str，去重后）",
+      "consumed_by": "assert_no_split_leak(records, denylist_effective)",
+      "note": "这是协议中唯一被批准的『三数组 -> 冻结函数第二参数』映射。原 v2 协议缺此段，导致按协议产出的文件喂进生产入口得到 exit 0 的伪零交集。"
+    },
+    "prohibited_in_denylist_file": [
+      "statement",
+      "hints_text",
+      "patch",
+      "test_patch",
+      "gold",
+      "任何判题正文、题面或补丁内容",
+      "任何真实受限件正文或其字节摘要"
+    ],
+    "pii_note": "家族 id 即使不含 gold 语义也不构成匿名公开数据；不得进入公共附件、Git 或训练作者视图。"
+  },
+
+  "count_definitions": {
+    "rule": "以下分母口径彼此不可互换。任何报告或 manifest 必须显式写出所用口径名与单位。",
+    "units": {
+      "tasks": "题目 / instance 记录",
+      "families": "家族 id",
+      "arms": "评测臂"
+    },
+    "v2_source_declared": {
+      "v2_task_count": {"value": 129, "unit": "tasks", "scope": "v2-registry", "level": "B_custody_declared"},
+      "v2_family_count": {"value": 126, "unit": "families", "scope": "v2-registry", "level": "B_custody_declared"},
+      "v2_d8_count": {"value": 8, "unit": "families", "scope": "v2-dev-D8", "level": "B_custody_declared"},
+      "v2_h24_count": {"value": 24, "unit": "families", "scope": "v2-held-out-H24", "level": "B_custody_declared"},
+      "v2_exposed_ids_in_union": {"value": 17, "unit": "families", "scope": "v2-union-exposed", "level": "B_custody_declared"}
+    },
+    "v3_scope": {
+      "v3_d8_pool": {"value": 8, "unit": "families", "scope": "v3-dev D8 = 4 真实 + 4 变异", "note": "与 v2_d8_count 同名不同物，禁止合并"},
+      "v3_h16_sealed": {"value": 16, "unit": "families", "scope": "v3-sealed H16", "note": "V3 封存集分母，与 v2_h24_count 不是同一集合"}
+    },
+    "these_are_NOT_interchangeable": true,
+    "hardcode_prohibition": "不得把上述常数直接硬编码成同一个分母，也不得用其中任一常数替代运行时实测计数。",
+    "runtime_count_fields": {
+      "candidate": {
+        "records_raw_count": "候选 registry 中 tasks 数组的原始条数",
+        "records_effective_count": "通过必需字段校验、真正进入比对的记录条数",
+        "records_rejected_count": "因缺失/空/非法而拒绝的记录条数（>0 即整批失败，不允许静默）"
+      },
+      "denylist": {
+        "denylist_raw_count": "三数组原始项数之和（含重复、含非法项）",
+        "denylist_effective_count": "去重后进入比对的 token 数（= union 分母）",
+        "denylist_rejected_count": "非法项数（>0 即整批失败）",
+        "denylist_duplicate_count": "去重被折叠掉的项数",
+        "denylist_per_array": {
+          "d_family_ids": {"raw_count": null, "effective_count": null, "duplicate_count": null},
+          "h_family_ids": {"raw_count": null, "effective_count": null, "duplicate_count": null},
+          "exposed_family_ids": {"raw_count": null, "effective_count": null, "duplicate_count": null}
+        }
+      },
+      "result": {
+        "intersection_count": "归一后同时出现在 records 与 denylist_effective 的 token 数",
+        "exit_code": "真实操作系统进程退出码（非异常属性映射）"
+      }
+    },
+    "anomaly_rules": [
+      "records_raw_count == 0 ⇒ 拒绝（MissingInput(empty_registry)）",
+      "denylist_effective_count == 0 ⇒ 拒绝（MissingInput(denylist_empty)）",
+      "任一声明计数与实测不符 ⇒ 拒绝",
+      "分母字段缺失 ⇒ 拒绝（不得以 null 通过）"
+    ]
+  },
+
+  "hash_semantics": {
+    "rule": "同名不同物的哈希必须在字段名上区分。禁止用一个名字承载两种字节。",
+    "fields": {
+      "file_bytes_sha256": "实际喂入验证器/被执行的文件**磁盘字节**的 SHA-256，必须同时记录 newline_mode（\"lf\" | \"crlf\" | \"mixed\"）与 byte_length",
+      "canonical_json_sha256": "解析后对象的规范 JSON 摘要（原实现 sha256_json(payload)）。**不得**再命名为 denylist_sha256；v2/旧 manifest 中的该名字为历史遗留，引用时必须显式标注语义",
+      "git_blob_sha1": "git rev-parse <rev>:<path> 得到的 blob 身份，随换行模式无关",
+      "git_commit_sha": "执行所用提交 SHA"
+    },
+    "verified_instance": {
+      "path": "v3/data/dedup.py",
+      "repo_sha": "ffc37b4f3ecde6579117b0012ab4f69b4cff16ab",
+      "file_bytes_sha256_crlf": "b75c5980d9f44a9245ff09c732a982ad257e513959522acbc8b29f7e172fa234",
+      "file_bytes_crlf": 12144,
+      "file_bytes_sha256_lf": "291dbdab27cd1d753b0c1fb07cb98d73ab941bc96f0f685d687aa79e73926223",
+      "file_bytes_lf": 11862,
+      "git_blob_sha1": "36a1dc0c031a2cc2d43abbf4b5d8c0f3606bfef5",
+      "note": "协议与 P1 历史记录的是 CRLF 工作副本摘要。Linux/CI 打开同一 commit 得到 LF 摘要。第三方按旧记录核对会判『验证器 SHA 不匹配』。",
+      "evidence_level": "A_local_reproducible"
+    },
+    "entrypoint_identity": {
+      "module": "v3.data.dedup",
+      "function": "assert_no_split_leak",
+      "python_requires": "必须记录执行所用解释器版本",
+      "deps_identity": "必须记录被 import 的本地模块集合或其摘要（用于证明『同一实际执行代码』）"
+    }
+  },
+
+  "acceptance_gates": {
+    "rule": "任一门槛未满足 ⇒ 不得产出可验收 ACCEPTED。四门槛各自必须有**可追溯证据引用**，不接受自填布尔。",
+    "evidence_entry_shape": {
+      "kind": "artifact | command_log | custody_record （不接受 self_declared）",
+      "path": "证据文件路径（保管侧路径可为占位符，但必须存在可解析的引用）",
+      "sha256": "证据文件字节 SHA-256",
+      "exit_code": "若为 command_log，记录真实 OS 退出码"
+    },
+    "G1_namespace_compatibility": {
+      "question": "V3 的 problem_family_id / repo_family 与 V2 family id 是否同源同构",
+      "decides": "计算结果是否可信",
+      "pass_requires": [
+        "claimed == true",
+        "至少一条 kind != self_declared 的证据引用，且其 sha256 可解析",
+        "双方家族派生规则与比对契约（strip+lower）一致性对照记录"
+      ],
+      "status_now": "D_unverified"
+    },
+    "G2_effective_input_binding": {
+      "question": "candidate / denylist / validator 三者的实际执行字节是否已绑定",
+      "decides": "计算结果是否可信",
+      "pass_requires": [
+        "binding.candidate.file_bytes_sha256 非空且与实际喂入文件字节一致",
+        "binding.denylist.file_bytes_sha256 非空且与实际喂入文件字节一致，且 newline_mode 已记录",
+        "binding.validator.file_bytes_sha256 非空且与实际执行文件字节一致，且 git_blob_sha1 / git_commit_sha 已记录",
+        "denylist 通过本件 denylist_input_contract 全部校验（整批）",
+        "counts 五组分母字段均非 null 且自洽",
+        "至少一条 kind != self_declared 的证据引用"
+      ],
+      "status_now": "D_unverified（verifier 已绑 A；candidate / denylist 仍 PENDING）"
+    },
+    "G3_snapshot_content_bound": {
+      "question": "snapshot 内容是否已取得并绑定",
+      "decides": "计算结果是否可信",
+      "pass_requires": [
+        "snapshot.content_status == obtained",
+        "snapshot.file_bytes_sha256 非空",
+        "索引哈希不得替代内容哈希"
+      ],
+      "status_now": "D_unverified（snapshot_content_status = not_obtained，单列保留）"
+    },
+    "G4_isolation_verified": {
+      "question": "是否存在真实隔离（独立主体 + 权限矩阵 + 否定测试实测）",
+      "decides": "隔离是否可验收",
+      "pass_requires": [
+        "isolation_mechanism 非空且属于 {independent_host, controlled_vm, separate_os_account_with_broken_acl_inheritance}",
+        "permission_matrix_sha256 非空且可解析",
+        "negative_test_exit_code 为真实 OS 退出码（非异常属性），且拒绝情形与允许情形**分开**记录（stat 可见 ≠ 正文可读）",
+        "custody_principal_os_identity 非空（SID/UID 级别，不接受 agent UUID）",
+        "训练侧实际执行上下文**及其子进程**对受限 canary 的 stat 与 open 均被拒",
+        "训练侧不能经管理员、文件 owner 或 daemon 路径自行获得评测权限"
+      ],
+      "explicitly_insufficient": [
+        "不同目录",
+        "不同卷",
+        "不同 agent 名 / agent UUID",
+        "目录名含 restricted",
+        "仅 stat 可见或不可见"
+      ],
+      "status_now": "D_unverified（读侧无隔离；A 方案尚不具备执行批准条件）"
+    },
+    "gate_interaction": "G1/G2/G3 决定计算结果是否可信；G4 决定隔离是否可验收。四者全真才允许合并成一条 ACCEPTED。"
+  },
+
+  "accepted_rule": {
+    "machine_decidable_conjunction": [
+      "G1.claimed == true AND G1.evidence 至少一条非 self_declared",
+      "G2.claimed == true AND G2.evidence 至少一条非 self_declared",
+      "G3.claimed == true AND G3.evidence 至少一条非 self_declared",
+      "G4.claimed == true AND G4.evidence 至少一条非 self_declared",
+      "binding.candidate.file_bytes_sha256 != null AND == 实际字节摘要",
+      "binding.denylist.file_bytes_sha256 != null AND == 实际字节摘要",
+      "binding.validator.file_bytes_sha256 != null AND == 实际字节摘要",
+      "binding.snapshot.file_bytes_sha256 != null",
+      "denylist 通过 denylist_input_contract 全部校验",
+      "counts.records_raw_count > 0",
+      "counts.records_effective_count > 0",
+      "counts.records_rejected_count == 0",
+      "counts.denylist_raw_count > 0",
+      "counts.denylist_effective_count > 0",
+      "counts.denylist_rejected_count == 0",
+      "counts.intersection_count == 0",
+      "computation_result.exit_code == 0（真实 OS 退出码）",
+      "computation_result.exit_code_source == \"os_process\""
+    ],
+    "explicit_negative_rule": "四个自述布尔、或仅哈希非空、或缺分母、或 exit_code 来源为异常属性映射 —— 任一情形均不得输出 ACCEPTED。",
+    "close_channel_rule": "ACCEPTED 判定必须由机器验收器对上述合取逐项求值后给出，不得由人填写 overall 字段决定。"
+  },
+
+  "record_separation": {
+    "computation_result": {
+      "meaning": "冻结验证器实际返回了什么（含真实退出码）",
+      "label_when_gates_unmet": "COMPUTATION_ONLY — 非验收结论",
+      "may_be_emitted_when_gates_unmet": true,
+      "hard_constraints": [
+        "COMPUTATION_ONLY 不是访问授权。隔离就绪前不得读取受限件、不得导出真实 denylist。",
+        "G4.claimed == false 时，禁止任何包含真实 denylist 摘要的输出（含 manifest 内的 binding.denylist）。",
+        "『输出不含 SHA』不构成访问控制；真正控制是 OS 权限边界。",
+        "未运行（exit_code == null）或异常退出时不得输出成功计算标签。",
+        "合成模式必须显式标记 synthetic_mode == true，且不得与真实结果混在同一条记录。"
+      ]
+    },
+    "isolation_acceptance": {
+      "meaning": "隔离侧是否达到可验收标准",
+      "may_be_emitted_when_gates_unmet": false,
+      "note": "G4 未过时该块恒为 NOT_ACCEPTED，不得被计算侧结果覆盖"
+    },
+    "combination_rule": "只有 (computation_result 有效) AND (G1..G4 全真) 才可输出单一 ACCEPTED；否则必须分开输出两行，禁止合并。"
+  },
+
+  "namespaces": {
+    "v3_candidate_records": {
+      "required_fields": ["problem_family_id", "repo_family"],
+      "missing_field_behaviour": "MissingInput(split_leak_check_missing_family), exit_code=4",
+      "split_field_participates_in_matching": false,
+      "split_coverage": "LEGACY_UNCHECKED_SPLITS 为空 ⇒ sealed / 历史别名 test / 任意未知取值均纳入检查"
+    }
+  },
+
+  "validator_contract": {
+    "path": "v3/data/dedup.py",
+    "repo_sha": "ffc37b4f3ecde6579117b0012ab4f69b4cff16ab",
+    "entrypoint": "assert_no_split_leak(records, denylist)",
+    "legacy_unchecked_splits": [],
+    "normalization_real_behaviour": {
+      "implementation": "str(value).strip().lower()",
+      "does_NFC": false,
+      "collapses_internal_whitespace": false,
+      "nbsp_equals_space": false,
+      "measured": "合成数据实测（见 p1_validator_contract_v3.py 输出）"
+    },
+    "normalization_scope_warning": "V2 文档里的 NFC / CRLF→LF / \\s+→单空格 是 statement 侧派生规则（用于派生家族标签）；验证器比对家族标签只做 strip+lower。两者是不同层的规则，必须分开记录。",
+    "denylist_none_hazard": {
+      "description": "非对称：记录侧对 None/空白拒绝，但 denylist 侧 _normalize_match_token(None) == 'none' 会静默进入比对集合。denylist=[None] 与字面家族名 'none' 误命中并抛 PolicyViolation。",
+      "v2_mitigation_rejected": "v2 的『过滤 None / 空串 / 纯空白』已撤回，不获批准。",
+      "v3_rule": "改为『无效必需身份 ⇒ 整批失败并记录缺口』，见 denylist_input_contract.item_rules。"
+    },
+    "probe_exit_code_rule": "P1 探针中的 exit_code 若来自异常属性（exc.exit_code）必须标注为 exception_attribute；真实入口退出码必须由 subprocess 实测并标注 os_process。两者不得混同。"
+  },
+
+  "exit_codes": {
+    "0": "PASS —— 仅当四项合取全部满足时可作为验收 PASS",
+    "4": "MissingInput（族字段缺失/空；denylist 非法项/空集/schema 不支持/未知键/计数不符）",
+    "7": "PolicyViolation（命中排除清单）",
+    "1": "未捕获异常（例如原实现下 denylist 文件内容为 null 时抛 AttributeError）—— 属未定义失败模式，不得作为已定义退出码使用",
+    "recording_rule": "必须记录真实 OS 退出码与来源标注"
+  },
+
+  "snapshot_content_status": "not_obtained",
+  "snapshot_note": "单列保留，不并入四项清单，不以索引哈希替代。",
+
+  "attachment_and_access_surface": {
+    "pointer": "attachment-control-surface.md（同批交付）",
+    "rule": "只做公开协议与副本/附件访问面**元数据**配合；不下载受限件、不传播逐份路径、不传播真实家族身份。",
+    "cli_capability_verified": "multica CLI 暴露 issue comment delete（评论删除）与 attachment download/upload；无独立附件删除或撤回子命令。附件 blob 是否随评论删除而清除**未经验证**，因此既不能断言可删除，也不能断言不可删除。",
+    "prohibited": [
+      "断言平台附件不可删除",
+      "绕过 CLI 自行处置附件",
+      "在当前阶段执行受限件哈希复核或 denylist 导出"
+    ]
+  },
+
+  "current_status": {
+    "G1": "D_unverified",
+    "G2": "D_unverified",
+    "G3": "D_unverified",
+    "G4": "D_unverified",
+    "overall": "BLOCKED — 四门槛未满足；本件不构成端到端通过，不构成 GPU 放行，不构成正式提交通行证。",
+    "pending_bindings": [
+      "E0 新 SHA（协议 v3 与本件 schema 对齐后）",
+      "candidate / denylist 实际文件字节摘要",
+      "snapshot 内容",
+      "隔离载体与否定测试证据"
+    ]
+  }
+}

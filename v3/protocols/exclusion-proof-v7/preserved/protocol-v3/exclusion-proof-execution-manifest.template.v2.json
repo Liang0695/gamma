@@ -1,0 +1,124 @@
+{
+  "schema_version": "v3-v2-exclusion-proof-execution-manifest-2",
+  "supersedes": "v3-v2-exclusion-proof-execution-manifest-1",
+  "purpose": "独立执行 manifest：承载一次实际执行的绑定值，通过 protocol_sha256 引用冻结协议，从而无需事后改写冻结文件。",
+  "protocol_ref": {
+    "schema_version": "v3-v2-exclusion-proof-protocol-3",
+    "protocol_sha256": "4557ed18d9ad894fab86c6dfded2ee2291c62e150f6ca40c1fac3d004971d554",
+    "protocol_newline_mode": "lf"
+  },
+  "execution_mode": {
+    "synthetic_mode": false,
+    "synthetic_mode_rule": "synthetic_mode == true 时，本 manifest 不得产出真实 ACCEPTED；机器验收器最多给 SYNTHETIC_ACCEPTED — 非验收结论。",
+    "access_authorization": {
+      "authorization_ref": null,
+      "isolation_ready": false,
+      "rule": "COMPUTATION_ONLY 不构成访问授权。isolation_ready == false 时，禁止填写 binding.denylist（真实 denylist 摘要）。"
+    }
+  },
+  "binding": {
+    "candidate": {
+      "file_bytes_sha256": null,
+      "byte_length": null,
+      "newline_mode": null
+    },
+    "denylist": {
+      "file_bytes_sha256": null,
+      "byte_length": null,
+      "newline_mode": null,
+      "canonical_json_sha256": null,
+      "denylist_schema_version": null
+    },
+    "validator": {
+      "file_bytes_sha256": null,
+      "byte_length": null,
+      "newline_mode": null,
+      "git_blob_sha1": null,
+      "git_commit_sha": null,
+      "entrypoint": null
+    },
+    "snapshot": {
+      "content_status": "not_obtained",
+      "file_bytes_sha256": null,
+      "byte_length": null
+    }
+  },
+  "counts": {
+    "candidate": {
+      "records_raw_count": null,
+      "records_effective_count": null,
+      "records_rejected_count": null
+    },
+    "denylist": {
+      "denylist_raw_count": null,
+      "denylist_effective_count": null,
+      "denylist_rejected_count": null,
+      "denylist_duplicate_count": null,
+      "denylist_per_array": {
+        "d_family_ids": {"raw_count": null, "effective_count": null, "duplicate_count": null},
+        "h_family_ids": {"raw_count": null, "effective_count": null, "duplicate_count": null},
+        "exposed_family_ids": {"raw_count": null, "effective_count": null, "duplicate_count": null}
+      }
+    },
+    "result": {
+      "intersection_count": null
+    },
+    "v2_source_declared": {
+      "v2_task_count": 129,
+      "v2_family_count": 126,
+      "v2_d8_count": 8,
+      "v2_h24_count": 24,
+      "v2_exposed_ids_in_union": 17
+    },
+    "v3_scope": {
+      "v3_d8_pool": 8,
+      "v3_h16_sealed": 16
+    },
+    "denominator_rule": "以上各常数为不同口径，彼此不可互换，也不得替代运行时实测计数。"
+  },
+  "records": {
+    "computation_result": {
+      "label": null,
+      "synthetic_mode": false,
+      "exit_code": null,
+      "exit_code_source": null,
+      "raised_error_code": null,
+      "log_path": null,
+      "log_file_bytes_sha256": null,
+      "emitted_at": null
+    },
+    "isolation_acceptance": {
+      "status": "NOT_ACCEPTED",
+      "G1_namespace_compatibility": {"claimed": false, "evidence": []},
+      "G2_effective_input_binding": {"claimed": false, "evidence": []},
+      "G3_snapshot_content_bound": {"claimed": false, "evidence": []},
+      "G4_isolation_verified": {"claimed": false, "evidence": []},
+      "isolation_mechanism": null,
+      "permission_matrix_sha256": null,
+      "negative_test": {
+        "exit_code": null,
+        "exit_code_source": null,
+        "stat_result": null,
+        "open_result": null,
+        "subject_os_identity": null,
+        "subprocess_checked": null
+      },
+      "positive_test": {
+        "exit_code": null,
+        "subject_os_identity": null
+      },
+      "custody_principal_os_identity": null
+    },
+    "overall": null
+  },
+  "fill_rules": [
+    "overall 不由人手填写决定；必须由 verify_manifest.py 逐项求值后写入/覆盖。",
+    "binding.*.file_bytes_sha256 必须是实际执行文件磁盘字节的摘要，并同时记录 byte_length 与 newline_mode；canonical JSON 摘要另用 canonical_json_sha256。",
+    "snapshot 的 content_status 为 not_obtained 时不得填写 file_bytes_sha256，也不得以索引哈希替代。",
+    "G1..G4 的 claimed 必须各自附至少一条 kind != self_declared 的证据引用。",
+    "records.isolation_acceptance 各门槛的证据不得由计算侧结果推出。",
+    "exit_code_source 只能是 os_process 或 exception_attribute；ACCEPTED 要求 os_process。",
+    "G4.claimed == false 时禁止填写 binding.denylist 的真实摘要。",
+    "本 manifest 不改写任何已冻结协议文件。"
+  ]
+}

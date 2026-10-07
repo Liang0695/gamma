@@ -1,0 +1,110 @@
+{
+  "schema_version": "v3-v2-exclusion-proof-protocol-1",
+  "generated_by": "Kaggle 竞赛管理员 (KAGGLE-27)",
+  "principal_binding": {
+    "v2_data_custodian": {
+      "agent_id": "42f57fba-cbd1-49ce-9da2-527f3e9f4ad5",
+      "name": "Kaggle 竞赛管理员",
+      "evidence": "KAGGLE-14 全部 7 条评论 author_id 均为本人；KAGGLE-14 assignee_id 同为本人"
+    },
+    "v3_code_training_author": {
+      "agent_id": "aa829060-a7c4-4e3f-ac51-910c9b3cef96",
+      "name": "需求交付编码官",
+      "evidence": "KAGGLE-24 交付评论 author_id"
+    },
+    "independent_verifier_owner": {
+      "agent_id": "e57b0396-d3a9-41c6-b33e-b8323054a84c",
+      "name": "代码审查官 (Q0)",
+      "evidence": "KAGGLE-26 assignee_id"
+    },
+    "principal_identity_verdict": "V2 数据保管角色 与 V3 编码/训练角色 = 两个不同 agent principal（42f57fba vs aa829060），非同一主体；亦非『不同名字即隔离』",
+    "isolation_status": "NOT_ESTABLISHED",
+    "isolation_finding": "四个受限件在共享文件系统上以普通文件存在，至少 7 份副本分布于 2 个 kaggle-14-* workdir 及其 v3/v4/v5/_reruns 子目录；目录名 restricted 与文件系统 ACL 不提供任何隔离。任何具备 workspace-write 的 agent（含训练作者）按路径即可读。",
+    "isolation_evidence_method": "仅列目录项与字节数（元数据）；未读取文件内容，未计算其哈希"
+  },
+  "namespaces": {
+    "v3_candidate_records": {
+      "required_fields": [
+        "problem_family_id",
+        "repo_family"
+      ],
+      "missing_field_behaviour": "MissingInput(split_leak_check_missing_family) — fail-closed"
+    },
+    "v2_denylist": {
+      "fields": [
+        "d_family_ids",
+        "h_family_ids",
+        "exposed_family_ids"
+      ],
+      "must_not_contain": [
+        "statement",
+        "hints_text",
+        "patch",
+        "test_patch",
+        "gold"
+      ]
+    },
+    "namespace_compatibility": "双方均为 family 级不透明标签；V3 侧比对 problem_family_id / repo_family，V2 侧提供 d/h/exposed family id 列表 —— 命名空间一致性尚未经实测确认，列为待验项"
+  },
+  "normalization": {
+    "statement_rule": "Unicode NFC; CRLF/CR -> LF; \\s+ -> single space; strip",
+    "statement_rule_source": "KAGGLE-14 custody-record.json:statement_hash_convention / split-audit-public.json:family_rule",
+    "match_token_rule": "case-fold + strip（E0 _normalize_match_token）",
+    "match_token_source": "E0 v3/data/dedup.py:_normalize_match_token @ ffc37b4f",
+    "note": "raw hash 与 NFC 归一 hash 是不同值；roster 须同时给出并标注 norm_/raw_ 两个字段"
+  },
+  "validator": {
+    "entrypoint": "assert_no_split_leak(records, denylist)",
+    "path": "v3/data/dedup.py",
+    "repo_sha": "ffc37b4f3ecde6579117b0012ab4f69b4cff16ab",
+    "file_sha256": "b75c5980d9f44a9245ff09c732a982ad257e513959522acbc8b29f7e172fa234",
+    "git_blob_sha1": "36a1dc0c031a2cc2d43abbf4b5d8c0f3606bfef5",
+    "legacy_unchecked_splits": [],
+    "fail_closed_properties": [
+      "sealed 与历史别名 test 及任何未知 split 取值全部纳入检查",
+      "缺 problem_family_id / repo_family 抛 MissingInput，不用 str(None) 参与比对"
+    ]
+  },
+  "candidate_set": {
+    "sha256": "PENDING",
+    "note": "V3 候选家族集尚未冻结；冻结后填入"
+  },
+  "denylist": {
+    "sha256": "PENDING",
+    "status": "custodian-held",
+    "source": "KAGGLE-14 v5/out/restricted/family-map-restricted.json",
+    "source_declared_sha256": "cd15aa0b9d576edd6b901ecf8b64a3aab06361280f2e25da4d080d9deaf8754c",
+    "source_byte_verified": false,
+    "emission_form": "仅含 d_family_ids / h_family_ids / exposed_family_ids 三个数组 + source_sha256 + emitted_at"
+  },
+  "counts": {
+    "v2_total_tasks": 129,
+    "v2_family_count": 126,
+    "v2_d8_count": 8,
+    "v2_h24_count": 24,
+    "v2_exposed_ids_in_union": 17,
+    "v2_exposed_families_excluded_from_h": 17,
+    "v3_candidate_count": "PENDING",
+    "expected_intersections": {
+      "v3_x_v2_d_family": 0,
+      "v3_x_v2_h_family": 0,
+      "v3_x_exposed_family": 0
+    },
+    "counts_source": "KAGGLE-14 split-audit-public.json / separation-summary.md（公开面，计数）"
+  },
+  "exit_codes": {
+    "0": "PASS — 全部交集为 0 且候选集/denylist/验证器三个 SHA 均匹配",
+    "non_zero": "任一交集非 0、任一 SHA 不匹配、或任一族字段缺失",
+    "note": "必须记录实际退出码，不接受口头『已通过』"
+  },
+  "snapshot_content_status": "not_obtained",
+  "snapshot_note": "单列保留，不并入四项清单，不以索引哈希替代；snapshot 内容绑定为独立待办",
+  "v2_verification_recipe_inherited": [
+    "sha256(evidence/public-d8-v{0,1,2,3}.jsonl) == registry file_sha256",
+    "并集 instance_ids == 17",
+    "family-map H_family_ids 与 exposed_family_ids 不相交",
+    "无 exposed id 出现在 H_members（同族污染 = 0）",
+    "H_family_ids 与 D_family_ids 不相交"
+  ],
+  "frozen_at": "2026-10-06T10:24:25Z"
+}
