@@ -1783,6 +1783,12 @@ class AuditR3CounterexampleRegressionTests(unittest.TestCase):
                 def to(self, _device):
                     return self
 
+                def named_parameters(self):
+                    return []
+
+                def parameters(self):
+                    return []
+
             old = _FakeModel("old")
             backend.model = old
             import weakref
@@ -1805,7 +1811,7 @@ class AuditR3CounterexampleRegressionTests(unittest.TestCase):
 
             class _FakePeftModel:
                 @staticmethod
-                def from_pretrained(base_model, _path):
+                def from_pretrained(base_model, _path, **kwargs):
                     return _FakeModel("adapter on " + base_model.tag)
 
             fake_peft = types.ModuleType("peft")

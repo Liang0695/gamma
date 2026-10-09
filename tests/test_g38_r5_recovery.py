@@ -40,6 +40,7 @@ def backend(root, device='cpu'):
 class Model:
     def to(self, *_): return self
     def named_parameters(self): return []
+    def parameters(self): return []
 
 
 class RecoveryTests(unittest.TestCase):
@@ -63,7 +64,7 @@ class RecoveryTests(unittest.TestCase):
             (carrier / runner.ADAPTER_FILE).write_bytes(b'fixture')
             auto = types.SimpleNamespace(from_pretrained=unittest.mock.Mock(return_value=Model()))
             peft = types.ModuleType('peft')
-            peft.PeftModel = types.SimpleNamespace(from_pretrained=lambda *_: Model())
+            peft.PeftModel = types.SimpleNamespace(from_pretrained=lambda *_, **kwargs: Model())
             with patch.object(obj, '_import_stack', return_value=(obj._torch,None,None,None,auto,None)), \
                  patch.object(runner.adapter_contract, 'assert_official_adapter_carrier'), \
                  patch.dict(sys.modules, {'peft': peft}):

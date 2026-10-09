@@ -687,7 +687,7 @@ def run_engineering_check(
                 seq_len=plan.seq_len,
                 prepare=False,
                 prepared_report=reused_prepared_report,
-                note="真实后端工程检查：复用已加载实例，主机峰值与显存峰值来自同一次加载的模型。",
+                note="真实后端工程检查：测量受控重载并从最终checkpoint恢复的模型/optimizer，不持有旧基座。",
             )
         else:
             profiler_backend = _make_backend(BACKEND_SYNTHETIC, **backend_kwargs)
@@ -704,14 +704,17 @@ def run_engineering_check(
     if is_real_backend:
         # 参数归属反例判据：测量用的必须是训练用过的**同一组**参数。
         training_ownership = (training.get("prepared") or {}).get("parameter_ownership")
+        restored_ownership = ((training.get('reloaded') or {}).get('training_state_restored') or {}).get('parameter_ownership')
+        expected_ownership = restored_ownership or training_ownership
         measurement_ownership = memory_profile.get("backend_parameter_ownership")
         report["memory_profile_same_instance"] = {
             "reused_prepared_backend": bool(memory_profile.get("reused_prepared_backend")),
             "backend_load_count": int(memory_profile.get("backend_load_count") or 0),
             "training_parameter_ownership": training_ownership,
+            "restored_parameter_ownership": restored_ownership,
             "measurement_parameter_ownership": measurement_ownership,
-            "same_parameter_ids": bool(training_ownership)
-            and training_ownership == measurement_ownership,
+            "same_parameter_ids": bool(expected_ownership)
+            and expected_ownership == measurement_ownership,
             "loaded_exactly_once": int(memory_profile.get("backend_load_count") or 0) == 1,
         }
     report["cuda_probe"] = (

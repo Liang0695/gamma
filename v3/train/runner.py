@@ -1077,15 +1077,18 @@ class TorchPeftBackend(TrainBackend):
         for parameter in base.parameters():
             parameter.requires_grad_(False)
             frozen += 1
+        from .targets import resolve_peft_scope, verify_peft_scope
+        target_scope = resolve_peft_scope(base, self.target_modules, torch.nn.Linear)
         lora_config = LoraConfig(
             r=int(plan.lora_rank),
             lora_alpha=int(plan.lora_alpha),
             lora_dropout=0.0,
             bias="none",
             task_type="CAUSAL_LM",
-            target_modules=self.target_modules,
+            target_modules=target_scope['target_regex'],
         )
         self.model = get_peft_model(base, lora_config)
+        mounted_targets = verify_peft_scope(base, target_scope)
         self.model.to(self.device)
         matched = sorted(
             {
@@ -1113,6 +1116,8 @@ class TorchPeftBackend(TrainBackend):
             "dtype": "bfloat16",
             "frozen_base_parameter_tensors": frozen,
             "lora_target_modules": self.target_modules,
+            "lora_target_scope": target_scope,
+            "lora_mounted_targets": mounted_targets,
             "lora_matched_suffixes": matched,
             "trainable_parameter_tensors": len(trainable),
             "base_frozen_enforced": True,
@@ -1342,10 +1347,17 @@ class TorchPeftBackend(TrainBackend):
         torch = self._torch
         chunks = []
         for name, parameter in sorted(self.model.named_parameters()):
-            if bool(parameter.requires_grad) != trainable:
+            # Adapter identity survives inference-mode reload (all tensors frozen).
+            is_adapter = any(part in ("lora_A", "lora_B") for part in name.split("."))
+            if is_adapter != trainable:
                 continue
             chunks.append(name)
-            chunks.append(str(float(parameter.detach().float().sum().item())))
+            if is_adapter:
+                value = parameter.detach().to('cpu').float().contiguous()
+                chunks.append({'shape':list(value.shape),
+                               'float32_sha256':hashlib.sha256(value.numpy().tobytes()).hexdigest()})
+            else:
+                chunks.append(str(float(parameter.detach().float().sum().item())))
         if not chunks:
             return ""
         return sha256_json(chunks)
@@ -1439,8 +1451,9 @@ class TorchPeftBackend(TrainBackend):
             "carrier_contract": carrier,
         }
 
-    def load_adapter(self, src_dir: str, *, adapter_name: str | None = None) -> dict:
-        """重载校验：**新建**基座 + `PeftModel.from_pretrained`，比对 adapter 参数摘要。"""
+    def load_adapter(self, src_dir: str, *, adapter_name: str | None = None,
+                     is_trainable: bool = False) -> dict:
+        """Integrity reload is inference-only by default; resumption is explicit."""
         module = self._import_stack()
         _torch, _peft, _LoraConfig, _get_peft_model, AutoModelForCausalLM, _AutoTokenizer = module
         from peft import PeftModel  # type: ignore
@@ -1472,9 +1485,17 @@ class TorchPeftBackend(TrainBackend):
             torch_dtype=self._torch.bfloat16,
             local_files_only=True,
         )
-        reloaded = PeftModel.from_pretrained(fresh_base, peft_dir)
+        self.load_count += 1
+        reloaded = PeftModel.from_pretrained(fresh_base, peft_dir, is_trainable=is_trainable)
         reloaded.to(self.device)
         self.model = reloaded
+        for parameter_name, parameter in self.model.named_parameters():
+            adapter_parameter = any(part in ('lora_A','lora_B') for part in parameter_name.split('.'))
+            if bool(parameter.requires_grad) != bool(is_trainable and adapter_parameter):
+                raise PolicyViolation('adapter_reload_trainability_mismatch',
+                                      'Reload changed the requested adapter/base freezing scope',
+                                      parameter=parameter_name)
+        self.parameter_ownership = self.parameter_ownership_snapshot()
         after = self.adapter_params_digest()
         if after != before:
             raise IntegrityError(
@@ -1488,6 +1509,8 @@ class TorchPeftBackend(TrainBackend):
             "adapter_name": name,
             "reloaded_adapter_params": after,
             "matches_saved_adapter": True,
+            "is_trainable": bool(is_trainable),
+            "optimizer_restored": False,
             "base_reloaded_from_scratch": True,
             # 缺陷 1 证据：释放发生在 `from_pretrained` **之前**，且旧基座弱引用已失效。
             "old_base_release_evidence": release_evidence,
@@ -1846,12 +1869,45 @@ class TorchPeftBackend(TrainBackend):
                 "optimizer_state_missing",
                 "checkpoint 里没有 optimizer 状态：续训不得只恢复 RNG 与游标",
             )
+        adapter_restored = False
+        adapter_bytes = getattr(state, 'adapter_bytes', None)
+        if getattr(state, 'checkpoint_dir', None):
+            if adapter_bytes is None or _sha256_bytes(adapter_bytes) != state.adapter_sha256:
+                raise IntegrityError('checkpoint_adapter_missing', 'Missing or changed checkpoint adapter bytes')
+            payload = json.loads(adapter_bytes.decode('utf-8'))
+            if payload.get('format') != 'torch-peft-adapter-bytes/1' or payload.get('contains_base_weights'):
+                raise IntegrityError('checkpoint_adapter_format', 'Checkpoint is not a torch adapter-only payload')
+            params = {name:p for name,p in self.model.named_parameters()
+                      if any(part in ('lora_A','lora_B') for part in name.split('.'))}
+            if set(payload.get('tensors', {})) != set(params):
+                raise IntegrityError('checkpoint_adapter_keys', 'Checkpoint adapter identity differs from model')
+            import numpy
+            with self._torch.no_grad():
+                for name,param in params.items():
+                    item = payload['tensors'][name]
+                    raw = base64.b64decode(item['data_base64'], validate=True)
+                    if list(param.shape) != item['shape'] or _sha256_bytes(raw) != item['sha256']:
+                        raise IntegrityError('checkpoint_adapter_tensor', 'Checkpoint tensor changed: '+name)
+                    array = numpy.frombuffer(raw, dtype='<f4').copy().reshape(item['shape'])
+                    param.copy_(self._torch.from_numpy(array).to(device=param.device, dtype=param.dtype))
+            adapter_restored = True
         trainable = [
             parameter for parameter in self.model.parameters() if parameter.requires_grad
         ]
         optimizer = self._ensure_optimizer(trainable)
         torch = self._torch
-        optimizer.load_state_dict(unjsonify_tensors(state.optimizer, decoder=_torch_decoder(torch)))
+        optimizer_state = unjsonify_tensors(state.optimizer, decoder=_torch_decoder(torch))
+        # JSON object keys are strings, but AdamW maps moments by integer IDs.
+        # Leaving "0" as a string silently detaches its moments from new params.
+        moments = optimizer_state.get('state', {})
+        try:
+            ids = {int(key):value for key,value in moments.items()}
+        except (ValueError, TypeError) as exc:
+            raise IntegrityError('optimizer_state_invalid', 'Invalid optimizer parameter IDs') from exc
+        if len(ids) != len(moments):
+            raise IntegrityError('optimizer_state_invalid', 'Duplicate normalized optimizer parameter IDs')
+        optimizer_state['state'] = ids
+        optimizer.load_state_dict(optimizer_state)
         if state.scheduler is not None:
             if self._scheduler is None:
                 raise MissingInput(
@@ -1862,10 +1918,12 @@ class TorchPeftBackend(TrainBackend):
                 unjsonify_tensors(state.scheduler, decoder=_torch_decoder(torch))
             )
         if state.scaler is not None:
-            raise MissingInput(
-                "scaler_not_wired",
-                "checkpoint 带 scaler 状态但本后端没有 AMP scaler：拒绝只恢复一半",
-            )
+            if self._scaler is None:
+                raise MissingInput(
+                    "scaler_not_wired",
+                    "checkpoint 带 scaler 状态但本后端没有 AMP scaler：拒绝只恢复一半",
+                )
+            self._scaler.load_state_dict(unjsonify_tensors(state.scaler, decoder=_torch_decoder(torch)))
         # RNG：三份分别恢复；有状态就恢复，标 unavailable 的如实跳过（不编造）。
         python_state = rng.get("python_state")
         if not isinstance(python_state, Mapping):
@@ -1911,6 +1969,7 @@ class TorchPeftBackend(TrainBackend):
         self.consumed_supervised_tokens = int(state.consumed_supervised_tokens)
         self.accum_boundary = int(state.accum_boundary)
         self.resumed_state_applied = True
+        self.parameter_ownership = self.parameter_ownership_snapshot()
         cuda_block = rng.get("torch_cuda_states") or {}
         return {
             "applied": True,
@@ -1918,6 +1977,8 @@ class TorchPeftBackend(TrainBackend):
             "cursor_position": self.cursor_position,
             "sampler_order_sha256": cursor["sampler_order_sha256"],
             "optimizer_state_restored": True,
+            "checkpoint_adapter_restored": adapter_restored,
+            "parameter_ownership": self.parameter_ownership,
             "scheduler_state_restored": bool(state.scheduler is not None),
             "scheduler_status": getattr(state, "scheduler_status", None),
             "scaler_status": getattr(state, "scaler_status", None),
@@ -2095,7 +2156,6 @@ def run_training(
             "adapter_payload_not_adapter_only",
             "保存产物不是纯 adapter，禁止把完整权重当 adapter 交付",
         )
-    reloaded = backend.load_adapter(dest_dir, adapter_name=adapter_name)
     final_step = int(
         trained.get("global_step")
         or getattr(backend, "global_step", 0)
@@ -2106,6 +2166,19 @@ def run_training(
         if lifecycle is not None
         else None
     )
+    # Persist moments/RNG/cursor while the trained model and optimizer still
+    # exist. Reload is a destructive, single-base integrity check, not a resume.
+    restore_after_reload = isinstance(backend, TorchPeftBackend) and lifecycle_report is not None
+    if restore_after_reload:
+        checkpoints = lifecycle_report['checkpoints']
+        if not checkpoints or checkpoints[-1]['step'] != final_step:
+            raise PolicyViolation('reload_requires_final_checkpoint',
+                                  'Refuse to release trained state without a checkpoint at the final step')
+        reloaded = backend.load_adapter(dest_dir, adapter_name=adapter_name, is_trainable=True)
+        latest = lifecycle_report['checkpoints'][-1]['checkpoint_dir']
+        reloaded['training_state_restored'] = backend.import_training_state(lifecycle.store.load(latest))
+    else:
+        reloaded = backend.load_adapter(dest_dir, adapter_name=adapter_name)
     report = {
         "backend": backend.name,
         "requires_gpu": backend.requires_gpu,
