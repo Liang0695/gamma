@@ -1,0 +1,136 @@
+{
+  "counterexamples": {
+    "bad_json_arguments_rejected": {
+      "code": "tool_arguments_invalid_json",
+      "message": "tool_call.arguments 是字符串但不是合法 JSON：Expecting property name enclosed in double quotes: line 1 column 2 (char 1)",
+      "rejected": true
+    },
+    "json_string_arguments_normalized": {
+      "rejected": false,
+      "result": "json-string"
+    },
+    "modified_copy_rejected": {
+      "code": "input_pin_mismatch",
+      "message": "绑定的输入文件与被核验的官方 pin 不一致（官方 hash 匹配但加载了修改版）：chat_template.jinja 实测 aa7c358e7fcd681a，锁里 ae53464bf3be2580",
+      "rejected": true
+    },
+    "string_arguments_rejected": {
+      "code": "tool_arguments_not_a_mapping",
+      "message": "tool_call.arguments 解析后不是 mapping（得到 str）：不得直接交给模板",
+      "rejected": true
+    },
+    "template_override_authorized_recorded": {
+      "rejected": false,
+      "result": {
+        "authorized": true,
+        "note": "覆盖已授权并记录；本记录**不**表示覆盖后的模板与官方语义等价，需另行行为回归与独审。",
+        "official_template_sha256": null,
+        "override_bytes": 35,
+        "override_sha256": "17bdf76ac8950ae2897de7038a480e964008f542c8d1fe884d7c1394eefd0393",
+        "override_used": true,
+        "reason": "compat patch pending 26 review"
+      }
+    },
+    "template_override_rejected": {
+      "code": "template_override_not_authorized",
+      "message": "提供了显式 chat template 覆盖但未授权：不得绕过官方模板（fail-closed）",
+      "rejected": true
+    },
+    "unlocked_pin_rejected": {
+      "code": "input_pin_not_locked",
+      "message": "输入 pin chat_template_sha256 仍是 null：未锁定的值不得用作加载绑定",
+      "rejected": true
+    }
+  },
+  "kind": "kaggle-38-r3-input-binding",
+  "positive_bound_inputs": {
+    "binding_sha256": "6259b711dd119144b732ad17c1faa858635837b442af52309e9b14a20ee3fa51",
+    "consumed_inputs": {
+      "chat_template.jinja": {
+        "bytes": 18683,
+        "path": "L:\\multica工作区\\canopus-3ho-7fd8c6d77d72\\kaggle-28-3b7a4350a573\\workdir\\r3demo\\chat_template.jinja",
+        "pin": "chat_template_sha256",
+        "sha256": "ae53464bf3be25802b3a5b37def7fd89667067d7577049b3b2d74c4d8de4c6d4"
+      },
+      "tokenizer.json": {
+        "bytes": 32169626,
+        "path": "L:\\multica工作区\\canopus-3ho-7fd8c6d77d72\\kaggle-28-3b7a4350a573\\workdir\\r3demo\\tokenizer.json",
+        "pin": "tokenizer_vocab_sha256",
+        "sha256": "cc8d3a0ce36466ccc1278bf987df5f71db1719b9ca6b4118264f45cb627bfe0f"
+      },
+      "tokenizer_config.json": {
+        "bytes": 3728,
+        "path": "L:\\multica工作区\\canopus-3ho-7fd8c6d77d72\\kaggle-28-3b7a4350a573\\workdir\\r3demo\\tokenizer_config.json",
+        "pin": "tokenizer_config_sha256",
+        "sha256": "b8045a4576903e86903291d5cbdd4adfc8859e9ce3c98621bdbd957f73ed394b"
+      }
+    },
+    "load_view": {
+      "chat_template_path": "L:\\multica工作区\\canopus-3ho-7fd8c6d77d72\\kaggle-28-3b7a4350a573\\workdir\\r3demo\\load_view\\chat_template.jinja",
+      "manifest_sha256": "7e2ad485c1af46993f849bc160e012c0128901c6595c7a052b2bb84ec3e15753",
+      "tokenizer_config_path": "L:\\multica工作区\\canopus-3ho-7fd8c6d77d72\\kaggle-28-3b7a4350a573\\workdir\\r3demo\\load_view\\tokenizer_config.json",
+      "tokenizer_data_path": "L:\\multica工作区\\canopus-3ho-7fd8c6d77d72\\kaggle-28-3b7a4350a573\\workdir\\r3demo\\load_view\\tokenizer.json",
+      "view_dir": "L:\\multica工作区\\canopus-3ho-7fd8c6d77d72\\kaggle-28-3b7a4350a573\\workdir\\r3demo\\load_view"
+    },
+    "load_view_files": [
+      {
+        "bytes": 3728,
+        "companion": false,
+        "copy_matches_source": true,
+        "filename": "tokenizer_config.json",
+        "path": "L:\\multica工作区\\canopus-3ho-7fd8c6d77d72\\kaggle-28-3b7a4350a573\\workdir\\r3demo\\load_view\\tokenizer_config.json",
+        "pin": "tokenizer_config_sha256",
+        "sha256": "b8045a4576903e86903291d5cbdd4adfc8859e9ce3c98621bdbd957f73ed394b",
+        "source_path": "L:\\multica工作区\\canopus-3ho-7fd8c6d77d72\\kaggle-28-3b7a4350a573\\workdir\\r3demo\\tokenizer_config.json"
+      },
+      {
+        "bytes": 32169626,
+        "companion": false,
+        "copy_matches_source": true,
+        "filename": "tokenizer.json",
+        "path": "L:\\multica工作区\\canopus-3ho-7fd8c6d77d72\\kaggle-28-3b7a4350a573\\workdir\\r3demo\\load_view\\tokenizer.json",
+        "pin": "tokenizer_vocab_sha256",
+        "sha256": "cc8d3a0ce36466ccc1278bf987df5f71db1719b9ca6b4118264f45cb627bfe0f",
+        "source_path": "L:\\multica工作区\\canopus-3ho-7fd8c6d77d72\\kaggle-28-3b7a4350a573\\workdir\\r3demo\\tokenizer.json"
+      },
+      {
+        "bytes": 18683,
+        "companion": false,
+        "copy_matches_source": true,
+        "filename": "chat_template.jinja",
+        "path": "L:\\multica工作区\\canopus-3ho-7fd8c6d77d72\\kaggle-28-3b7a4350a573\\workdir\\r3demo\\load_view\\chat_template.jinja",
+        "pin": "chat_template_sha256",
+        "sha256": "ae53464bf3be25802b3a5b37def7fd89667067d7577049b3b2d74c4d8de4c6d4",
+        "source_path": "L:\\multica工作区\\canopus-3ho-7fd8c6d77d72\\kaggle-28-3b7a4350a573\\workdir\\r3demo\\chat_template.jinja"
+      }
+    ],
+    "shadowed_files": [
+      {
+        "agrees_with_pin": true,
+        "decoy_path": "L:\\multica工作区\\canopus-3ho-7fd8c6d77d72\\kaggle-28-3b7a4350a573\\workdir\\r3demo\\decoy\\tokenizer_config.json",
+        "decoy_root": "L:\\multica工作区\\canopus-3ho-7fd8c6d77d72\\kaggle-28-3b7a4350a573\\workdir\\r3demo\\decoy",
+        "decoy_sha256": "b8045a4576903e86903291d5cbdd4adfc8859e9ce3c98621bdbd957f73ed394b",
+        "filename": "tokenizer_config.json",
+        "used": false
+      },
+      {
+        "agrees_with_pin": true,
+        "decoy_path": "L:\\multica工作区\\canopus-3ho-7fd8c6d77d72\\kaggle-28-3b7a4350a573\\workdir\\r3demo\\decoy\\tokenizer.json",
+        "decoy_root": "L:\\multica工作区\\canopus-3ho-7fd8c6d77d72\\kaggle-28-3b7a4350a573\\workdir\\r3demo\\decoy",
+        "decoy_sha256": "cc8d3a0ce36466ccc1278bf987df5f71db1719b9ca6b4118264f45cb627bfe0f",
+        "filename": "tokenizer.json",
+        "used": false
+      },
+      {
+        "agrees_with_pin": false,
+        "decoy_path": "L:\\multica工作区\\canopus-3ho-7fd8c6d77d72\\kaggle-28-3b7a4350a573\\workdir\\r3demo\\decoy\\chat_template.jinja",
+        "decoy_root": "L:\\multica工作区\\canopus-3ho-7fd8c6d77d72\\kaggle-28-3b7a4350a573\\workdir\\r3demo\\decoy",
+        "decoy_sha256": "aa7c358e7fcd681aac9d9a48adac5e957afb7205d79e42394ed7c3ab29638e0f",
+        "filename": "chat_template.jinja",
+        "used": false
+      }
+    ],
+    "weights_sha256": "hash_pending"
+  },
+  "repo_root": "L:\\multica工作区\\canopus-3ho-7fd8c6d77d72\\kaggle-28-3b7a4350a573\\workdir\\r3\\gamma-e0-kaggle-38"
+}

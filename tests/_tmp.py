@@ -29,3 +29,23 @@ def temp_dir(prefix: str = "case_"):
         yield path
     finally:
         shutil.rmtree(path, ignore_errors=True)
+
+
+#: 仓库的**父目录**：G13 要求训练产物目录必须在仓库外，测试需要一条合规路径。
+#: 在 107 上这就是 `$HOME`（仓库是 `$HOME/gamma`），本地是工作区根。
+OUTSIDE_ROOT = os.path.dirname(REPO_ROOT)
+
+
+@contextlib.contextmanager
+def temp_dir_outside_repo(prefix: str = "outside_"):
+    """仓库**外**的临时目录（G13 契约要求：`--dest-dir` 不得落在仓库内）。
+
+    仍然不用 `tempfile.mkdtemp`：它的受限 ACL 会让子进程读不到（见模块开头说明）。
+    """
+    os.makedirs(OUTSIDE_ROOT, exist_ok=True)
+    path = os.path.join(OUTSIDE_ROOT, "%s%d" % (prefix, next(_counter)))
+    os.makedirs(path, exist_ok=True)
+    try:
+        yield path
+    finally:
+        shutil.rmtree(path, ignore_errors=True)

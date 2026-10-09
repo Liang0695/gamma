@@ -19,7 +19,7 @@ import os
 import re
 import unittest
 
-from tests._tmp import temp_dir
+from tests._tmp import temp_dir, temp_dir_outside_repo
 from v3.common.errors import FailClosed, MissingInput, PolicyViolation, UnverifiedLock
 from v3.train import checkpoint, entry, runner
 from v3.train.entry import resolve_backend_pins
@@ -195,6 +195,10 @@ class StartWiringTests(unittest.TestCase):
             "backend": "spy",
             "executed": True,
             "prepared": {"unverified_claims": []},
+            # G13：产物路径必须落在已解析的 dest_dir 之下，否则入口会判"路径不同源"。
+            "saved": {"path": os.path.join(dest, "adapter.synthetic.json")},
+            "reloaded": {"path": os.path.join(dest, "adapter.synthetic.json")},
+            "evidence_path": os.path.join(dest, "training_evidence.json"),
         }
         entry.measure_gates = lambda **kwargs: {
             "gates": {name: True for name in entry.GATE_NAMES},
@@ -203,7 +207,7 @@ class StartWiringTests(unittest.TestCase):
         entry.assert_start_allowed = lambda **kwargs: {"allowed": True}
         entry.assert_no_auto_gpu = lambda flags: None
         try:
-            with temp_dir("start_wire_") as workdir:
+            with temp_dir_outside_repo("start_wire_") as workdir:
                 report = entry.start(
                     operator="Liang",
                     gpu_hours=6.0,

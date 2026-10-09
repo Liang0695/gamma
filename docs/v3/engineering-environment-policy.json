@@ -1,0 +1,34 @@
+{
+  "executable": "/home/scc/pb24511961/v3/envs/py3119/bin/python",
+  "python_version": "3.11.9",
+  "prefix": "/home/scc/pb24511961/v3/envs/py3119",
+  "site_packages": [
+    "/home/scc/pb24511961/v3/envs/py3119/lib/python3.11/site-packages"
+  ],
+  "modules": {
+    "accelerate": {
+      "path": "/home/scc/pb24511961/v3/envs/py3119/lib/python3.11/site-packages/accelerate/__init__.py",
+      "version": "1.11.0"
+    },
+    "compressed_tensors": {
+      "path": "/home/scc/pb24511961/v3/envs/py3119/lib/python3.11/site-packages/compressed_tensors/__init__.py",
+      "version": "0.15.0.1"
+    },
+    "peft": {
+      "path": "/home/scc/pb24511961/v3/envs/py3119/lib/python3.11/site-packages/peft/__init__.py",
+      "version": "0.21.0"
+    },
+    "safetensors": {
+      "path": "/home/scc/pb24511961/v3/envs/py3119/lib/python3.11/site-packages/safetensors/__init__.py",
+      "version": "0.8.0"
+    },
+    "torch": {
+      "path": "/home/scc/pb24511961/v3/envs/py3119/lib/python3.11/site-packages/torch/__init__.py",
+      "version": "2.10.0+cu128"
+    },
+    "transformers": {
+      "path": "/home/scc/pb24511961/v3/envs/py3119/lib/python3.11/site-packages/transformers/__init__.py",
+      "version": "5.17.0"
+    }
+  }
+}

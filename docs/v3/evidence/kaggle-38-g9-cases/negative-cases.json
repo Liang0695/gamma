@@ -1,0 +1,80 @@
+{
+  "01_template_tampered": {
+    "all_match": false,
+    "lock_modified": false,
+    "problems": [
+      "chat_template_sha256 与证据不一致"
+    ],
+    "verdicts": {
+      "chat_template_sha256": "mismatch",
+      "tokenizer_config_sha256": "match",
+      "tokenizer_vocab_sha256": "match",
+      "vllm_mapper_revision": "probed_not_installed"
+    },
+    "verified_flipped": false
+  },
+  "02_template_absent": {
+    "all_match": false,
+    "lock_modified": false,
+    "problems": [],
+    "verdicts": {
+      "chat_template_sha256": "missing_evidence",
+      "tokenizer_config_sha256": "match",
+      "tokenizer_vocab_sha256": "match",
+      "vllm_mapper_revision": "probed_not_installed"
+    },
+    "verified_flipped": false
+  },
+  "03_other_revision": {
+    "all_match": false,
+    "lock_modified": false,
+    "problems": [
+      "证据的 model_revision='ffffffffffffffffffffffffffffffffffffffff' 与锁里的 pin '52f3f65bc7a02d555763bc923bd1d9094898219d' 不一致：这份证据不适用于当前锁定版本"
+    ],
+    "verdicts": {
+      "chat_template_sha256": "match",
+      "tokenizer_config_sha256": "match",
+      "tokenizer_vocab_sha256": "match",
+      "vllm_mapper_revision": "probed_not_installed"
+    },
+    "verified_flipped": false
+  },
+  "04_retrieval_failed": {
+    "all_match": false,
+    "lock_modified": false,
+    "problems": [
+      "证据 manifest 声明本轮取回失败（retrieval_status='failed'）：证据本身不可达"
+    ],
+    "verdicts": {
+      "chat_template_sha256": "unreachable",
+      "tokenizer_config_sha256": "unreachable",
+      "tokenizer_vocab_sha256": "unreachable",
+      "vllm_mapper_revision": "unreachable"
+    },
+    "verified_flipped": false
+  },
+  "05_vllm_installed_without_version": {
+    "all_match": false,
+    "lock_modified": false,
+    "problems": [],
+    "verdicts": {
+      "chat_template_sha256": "match",
+      "tokenizer_config_sha256": "match",
+      "tokenizer_vocab_sha256": "match",
+      "vllm_mapper_revision": "missing_evidence"
+    },
+    "verified_flipped": false
+  },
+  "06_vocab_not_locked": {
+    "all_match": false,
+    "lock_modified": false,
+    "problems": [],
+    "verdicts": {
+      "chat_template_sha256": "match",
+      "tokenizer_config_sha256": "match",
+      "tokenizer_vocab_sha256": "not_locked",
+      "vllm_mapper_revision": "probed_not_installed"
+    },
+    "verified_flipped": false
+  }
+}

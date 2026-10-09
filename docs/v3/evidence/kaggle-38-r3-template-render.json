@@ -1,0 +1,668 @@
+{
+  "kind": "chat-template-render-regression/1",
+  "status": "ok",
+  "generated_at": "2026-10-08T15:17:01",
+  "local_interpreter": {
+    "executable": "C:\\Users\\28037\\AppData\\Local\\Programs\\Python\\Python313\\python.exe",
+    "version": "3.13.7",
+    "platform": "win32"
+  },
+  "target_interpreter": {
+    "executable": "/home/scc/pb24511961/v3/envs/py3119/bin/python",
+    "command": "/home/scc/pb24511961/v3/envs/py3119/bin/python tools/render_chat_template_regression.py --out <report.json>",
+    "required": true,
+    "reason": "shim 只是本地替身：不证明生产加载路径，也不覆盖 apply_chat_template 的全部语义；本报告的渲染结论必须在目标解释器的锁定栈上复跑。"
+  },
+  "vendor_probe": {
+    "used": "L:\\multica工作区\\canopus-3ho-7fd8c6d77d72\\kaggle-28-3b7a4350a573\\workdir\\_vendor",
+    "candidate_dirs": [
+      "L:\\multica工作区\\canopus-3ho-7fd8c6d77d72\\kaggle-28-3b7a4350a573\\workdir\\r3\\_vendor",
+      "L:\\multica工作区\\canopus-3ho-7fd8c6d77d72\\kaggle-28-3b7a4350a573\\workdir\\_vendor"
+    ],
+    "default_dir": "L:\\multica工作区\\canopus-3ho-7fd8c6d77d72\\kaggle-28-3b7a4350a573\\workdir\\r3\\_vendor",
+    "in_repo": false,
+    "note": "jinja2 的目录级安装位于**包根之外**（不会进交付 ZIP）；没有 PYTHONPATH 时本文件会主动探测候选目录。"
+  },
+  "inputs": {
+    "root": "L:\\multica工作区\\canopus-3ho-7fd8c6d77d72\\kaggle-28-3b7a4350a573\\workdir\\r3\\gamma-e0-kaggle-38\\docs\\v3\\evidence\\kaggle-38-g9-evidence",
+    "interface_path": "L:\\multica工作区\\canopus-3ho-7fd8c6d77d72\\kaggle-28-3b7a4350a573\\workdir\\r3\\gamma-e0-kaggle-38\\v3\\locks\\official-interface.json",
+    "layout": {
+      "tokenizer_config.json": "tokenizer_config.json",
+      "tokenizer.json": "tokenizer.json",
+      "chat_template.jinja": "chat_template.jinja"
+    },
+    "binding_sha256": "d8907c8acebcc051b1661aa4e9ee6ccfea570b1eebffc7db6d445832de5d624b",
+    "repo_id": "google/gemma-4-31B-it-qat-w4a16-ct",
+    "revision": "52f3f65bc7a02d555763bc923bd1d9094898219d",
+    "files": [
+      {
+        "filename": "tokenizer_config.json",
+        "pin": "tokenizer_config_sha256",
+        "declared_sha256": "b8045a4576903e86903291d5cbdd4adfc8859e9ce3c98621bdbd957f73ed394b",
+        "measured_sha256": "b8045a4576903e86903291d5cbdd4adfc8859e9ce3c98621bdbd957f73ed394b",
+        "bytes": 3728,
+        "source_path": "L:\\multica工作区\\canopus-3ho-7fd8c6d77d72\\kaggle-28-3b7a4350a573\\workdir\\r3\\gamma-e0-kaggle-38\\docs\\v3\\evidence\\kaggle-38-g9-evidence\\tokenizer_config.json",
+        "matches_pin": true
+      },
+      {
+        "filename": "tokenizer.json",
+        "pin": "tokenizer_vocab_sha256",
+        "declared_sha256": "cc8d3a0ce36466ccc1278bf987df5f71db1719b9ca6b4118264f45cb627bfe0f",
+        "measured_sha256": "cc8d3a0ce36466ccc1278bf987df5f71db1719b9ca6b4118264f45cb627bfe0f",
+        "bytes": 32169626,
+        "source_path": "L:\\multica工作区\\canopus-3ho-7fd8c6d77d72\\kaggle-28-3b7a4350a573\\workdir\\r3\\gamma-e0-kaggle-38\\docs\\v3\\evidence\\kaggle-38-g9-evidence\\tokenizer.json",
+        "matches_pin": true
+      },
+      {
+        "filename": "chat_template.jinja",
+        "pin": "chat_template_sha256",
+        "declared_sha256": "ae53464bf3be25802b3a5b37def7fd89667067d7577049b3b2d74c4d8de4c6d4",
+        "measured_sha256": "ae53464bf3be25802b3a5b37def7fd89667067d7577049b3b2d74c4d8de4c6d4",
+        "bytes": 18683,
+        "source_path": "L:\\multica工作区\\canopus-3ho-7fd8c6d77d72\\kaggle-28-3b7a4350a573\\workdir\\r3\\gamma-e0-kaggle-38\\docs\\v3\\evidence\\kaggle-38-g9-evidence\\chat_template.jinja",
+        "matches_pin": true
+      }
+    ],
+    "consumed_inputs": {
+      "tokenizer_config.json": {
+        "path": "L:\\multica工作区\\canopus-3ho-7fd8c6d77d72\\kaggle-28-3b7a4350a573\\workdir\\r3\\gamma-e0-kaggle-38\\docs\\v3\\evidence\\kaggle-38-g9-evidence\\tokenizer_config.json",
+        "sha256": "b8045a4576903e86903291d5cbdd4adfc8859e9ce3c98621bdbd957f73ed394b",
+        "bytes": 3728,
+        "pin": "tokenizer_config_sha256"
+      },
+      "tokenizer.json": {
+        "path": "L:\\multica工作区\\canopus-3ho-7fd8c6d77d72\\kaggle-28-3b7a4350a573\\workdir\\r3\\gamma-e0-kaggle-38\\docs\\v3\\evidence\\kaggle-38-g9-evidence\\tokenizer.json",
+        "sha256": "cc8d3a0ce36466ccc1278bf987df5f71db1719b9ca6b4118264f45cb627bfe0f",
+        "bytes": 32169626,
+        "pin": "tokenizer_vocab_sha256"
+      },
+      "chat_template.jinja": {
+        "path": "L:\\multica工作区\\canopus-3ho-7fd8c6d77d72\\kaggle-28-3b7a4350a573\\workdir\\r3\\gamma-e0-kaggle-38\\docs\\v3\\evidence\\kaggle-38-g9-evidence\\chat_template.jinja",
+        "sha256": "ae53464bf3be25802b3a5b37def7fd89667067d7577049b3b2d74c4d8de4c6d4",
+        "bytes": 18683,
+        "pin": "chat_template_sha256"
+      }
+    },
+    "weights_sha256": "hash_pending"
+  },
+  "load_view": {
+    "view_dir": "L:\\multica工作区\\canopus-3ho-7fd8c6d77d72\\kaggle-28-3b7a4350a573\\workdir\\r3demo\\render_view",
+    "manifest_sha256": "d005580f01116cc5701a270739e380aa78d06c8e5277967bc4450de14fb7f67f",
+    "files": [
+      {
+        "filename": "tokenizer_config.json",
+        "path": "L:\\multica工作区\\canopus-3ho-7fd8c6d77d72\\kaggle-28-3b7a4350a573\\workdir\\r3demo\\render_view\\tokenizer_config.json",
+        "bytes": 3728,
+        "sha256": "b8045a4576903e86903291d5cbdd4adfc8859e9ce3c98621bdbd957f73ed394b",
+        "source_path": "L:\\multica工作区\\canopus-3ho-7fd8c6d77d72\\kaggle-28-3b7a4350a573\\workdir\\r3\\gamma-e0-kaggle-38\\docs\\v3\\evidence\\kaggle-38-g9-evidence\\tokenizer_config.json",
+        "copy_matches_source": true,
+        "pin": "tokenizer_config_sha256",
+        "companion": false
+      },
+      {
+        "filename": "tokenizer.json",
+        "path": "L:\\multica工作区\\canopus-3ho-7fd8c6d77d72\\kaggle-28-3b7a4350a573\\workdir\\r3demo\\render_view\\tokenizer.json",
+        "bytes": 32169626,
+        "sha256": "cc8d3a0ce36466ccc1278bf987df5f71db1719b9ca6b4118264f45cb627bfe0f",
+        "source_path": "L:\\multica工作区\\canopus-3ho-7fd8c6d77d72\\kaggle-28-3b7a4350a573\\workdir\\r3\\gamma-e0-kaggle-38\\docs\\v3\\evidence\\kaggle-38-g9-evidence\\tokenizer.json",
+        "copy_matches_source": true,
+        "pin": "tokenizer_vocab_sha256",
+        "companion": false
+      },
+      {
+        "filename": "chat_template.jinja",
+        "path": "L:\\multica工作区\\canopus-3ho-7fd8c6d77d72\\kaggle-28-3b7a4350a573\\workdir\\r3demo\\render_view\\chat_template.jinja",
+        "bytes": 18683,
+        "sha256": "ae53464bf3be25802b3a5b37def7fd89667067d7577049b3b2d74c4d8de4c6d4",
+        "source_path": "L:\\multica工作区\\canopus-3ho-7fd8c6d77d72\\kaggle-28-3b7a4350a573\\workdir\\r3\\gamma-e0-kaggle-38\\docs\\v3\\evidence\\kaggle-38-g9-evidence\\chat_template.jinja",
+        "copy_matches_source": true,
+        "pin": "chat_template_sha256",
+        "companion": false
+      }
+    ]
+  },
+  "template": {
+    "path": "L:\\multica工作区\\canopus-3ho-7fd8c6d77d72\\kaggle-28-3b7a4350a573\\workdir\\r3demo\\render_view\\chat_template.jinja",
+    "sha256": "ae53464bf3be25802b3a5b37def7fd89667067d7577049b3b2d74c4d8de4c6d4",
+    "bytes": 18683,
+    "pin": "chat_template_sha256",
+    "pin_value": "ae53464bf3be25802b3a5b37def7fd89667067d7577049b3b2d74c4d8de4c6d4",
+    "matches_pin": true,
+    "official_sha256_reference": "ae53464bf3be25802b3a5b37def7fd89667067d7577049b3b2d74c4d8de4c6d4",
+    "tokenizer_config_pin": "tokenizer_config_sha256",
+    "template_pin_is_separate_from_tokenizer_config_pin": true,
+    "tokenizer_config_has_inline_chat_template": false,
+    "raised_globals_in_template": [
+      "raise_exception"
+    ]
+  },
+  "renderer": {
+    "kind": "jinja2-shim",
+    "local_stand_in": true,
+    "implementation": "tools\\render_chat_template_regression.py::Jinja2ShimRenderer",
+    "jinja2_version": "3.1.6",
+    "shim_globals": [
+      "raise_exception",
+      "tojson",
+      "strftime_now"
+    ],
+    "shim_filters": [
+      "tojson"
+    ],
+    "exception_class": "jinja2.exceptions.TemplateError",
+    "environment": "ImmutableSandboxedEnvironment(trim_blocks=True, lstrip_blocks=True, extensions=['jinja2.ext.loopcontrols'])",
+    "bos_token": "<bos>",
+    "caveat": "jinja2-shim 是**本地替身**：它复刻 transformers 的 Jinja 环境与三个 global，但不是生产加载路径，也不覆盖 apply_chat_template 的全部语义。本报告的渲染结论必须在目标解释器上用锁定栈复跑确认。",
+    "detected_kind": "jinja2-shim",
+    "notes": [
+      "本机没有 transformers，改用 jinja2 + transformers 兼容 shim（本地替身）"
+    ],
+    "import_probe": {
+      "transformers": {
+        "type": "ModuleNotFoundError",
+        "message": "No module named 'httpx'",
+        "usable": false
+      },
+      "jinja2": null
+    }
+  },
+  "global_checks": [
+    {
+      "check": "template_sha256_equals_official_pin",
+      "passed": true
+    },
+    {
+      "check": "template_pin_is_chat_template_sha256_not_tokenizer_config",
+      "passed": true
+    },
+    {
+      "check": "tokenizer_config_carries_no_inline_chat_template",
+      "passed": true
+    },
+    {
+      "check": "load_view_copies_match_binding",
+      "passed": true
+    }
+  ],
+  "cases": [
+    {
+      "case": "mapping_arguments_positive",
+      "expect": "render",
+      "description": "tool_calls[].function.arguments 是 mapping → 必须渲染出 call:<name>{k:v}",
+      "expected_code": null,
+      "expected_message_contains": null,
+      "requires_renderer": true,
+      "checks": [
+        {
+          "check": "tool_call_rendered",
+          "passed": true
+        },
+        {
+          "check": "tool_response_rendered",
+          "passed": true
+        },
+        {
+          "check": "raw_json_string_absent",
+          "passed": true
+        },
+        {
+          "check": "tool_declaration_rendered",
+          "passed": true
+        }
+      ],
+      "check_failures": [],
+      "outcome": "rendered",
+      "exception": null,
+      "mismatch_reasons": [],
+      "rendered": "<bos><|turn>system\n<|tool>declaration:get_weather{description:<|\"|>Get the current weather for a city.<|\"|>,parameters:{properties:{city:{description:<|\"|>City name.<|\"|>,type:<|\"|>STRING<|\"|>}},required:[<|\"|>city<|\"|>],type:<|\"|>OBJECT<|\"|>}}<tool|><turn|>\n<|turn>user\nWhat's the weather in Paris?<turn|>\n<|turn>model\n<|tool_call>call:get_weather{city:<|\"|>Paris<|\"|>}<tool_call|><|tool_response>response:get_weather{value:<|\"|>21 C and sunny<|\"|>}<tool_response|>",
+      "rendered_bytes": 466,
+      "rendered_sha256": "72866f327f4de2fe2d3405972f1f433d6912071c9be0a253e2896d1e6971e3aa",
+      "stand_in": {
+        "template_sha256": "ebe70f8f4e3b26c585203fca4cfb7b345379eb3cbf3bc8070524666ff5509f19",
+        "official_template_sha256": "ae53464bf3be25802b3a5b37def7fd89667067d7577049b3b2d74c4d8de4c6d4",
+        "note": "合成替身（只复刻字符串 arguments 一处分叉），不是现场工作副本",
+        "outcome": "rendered",
+        "same_as_official": true,
+        "rendered_sha256": "72866f327f4de2fe2d3405972f1f433d6912071c9be0a253e2896d1e6971e3aa"
+      },
+      "matched": true
+    },
+    {
+      "case": "string_arguments_rejected",
+      "expect": "reject",
+      "description": "同一调用但 arguments 是 JSON 字符串 → 官方模板必须经 raise_exception 拒绝",
+      "expected_code": null,
+      "expected_message_contains": "must be a JSON object (mapping), not a string",
+      "requires_renderer": true,
+      "checks": [
+        {
+          "check": "stand_in_does_not_reject",
+          "passed": true
+        },
+        {
+          "check": "stand_in_prints_raw_string",
+          "passed": true
+        },
+        {
+          "check": "stand_in_lacks_rejection_message",
+          "passed": true
+        }
+      ],
+      "check_failures": [],
+      "outcome": "rejected",
+      "exception": {
+        "type": "TemplateError",
+        "code": null,
+        "message": "chat_template: tool_calls[].function.arguments must be a JSON object (mapping), not a string. Deserialize arguments before passing to the template.",
+        "text": "Traceback (most recent call last):\n  File \"L:\\multica工作区\\canopus-3ho-7fd8c6d77d72\\kaggle-28-3b7a4350a573\\workdir\\r3\\gamma-e0-kaggle-38\\tools\\render_chat_template_regression.py\", line 1090, in run_case\n    rendered = case.run(ctx, renderer, record)\n  File \"L:\\multica工作区\\canopus-3ho-7fd8c6d77d72\\kaggle-28-3b7a4350a573\\workdir\\r3\\gamma-e0-kaggle-38\\tools\\render_chat_template_regression.py\", line 611, in _case_string_arguments_rejected\n    return renderer.render(\n           ~~~~~~~~~~~~~~~^\n        ctx[\"template_text\"],\n        ^^^^^^^^^^^^^^^^^^^^^\n    ...<2 lines>...\n        add_generation_prompt=True,\n        ^^^^^^^^^^^^^^^^^^^^^^^^^^^\n    )\n    ^\n  File \"L:\\multica工作区\\canopus-3ho-7fd8c6d77d72\\kaggle-28-3b7a4350a573\\workdir\\r3\\gamma-e0-kaggle-38\\tools\\render_chat_template_regression.py\", line 328, in render\n    return template.render(**template_kwargs)\n           ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^\n  File \"L:\\multica工作区\\canopus-3ho-7fd8c6d77d72\\kaggle-28-3b7a4350a573\\workdir\\_vendor\\jinja2\\environment.py\", line 1295, in render\n    self.environment.handle_exception()\n    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^\n  File \"L:\\multica工作区\\canopus-3ho-7fd8c6d77d72\\kaggle-28-3b7a4350a573\\workdir\\_vendor\\jinja2\\environment.py\", line 942, in handle_exception\n    raise rewrite_traceback_stack(source=source)\n  File \"<template>\", line 258, in top-level template code\n  File \"L:\\multica工作区\\canopus-3ho-7fd8c6d77d72\\kaggle-28-3b7a4350a573\\workdir\\_vendor\\jinja2\\sandbox.py\", line 401, in call\n    return __context.call(__obj, *args, **kwargs)\n           ~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"L:\\multica工作区\\canopus-3ho-7fd8c6d77d72\\kaggle-28-3b7a4350a573\\workdir\\r3\\gamma-e0-kaggle-38\\tools\\render_chat_template_regression.py\", line 243, in _raise_exception\n    raise TemplateError(str(message))\njinja2.exceptions.TemplateError: chat_template: tool_calls[].function.arguments must be a JSON object (mapping), not a string. Deserialize arguments before passing to the template.\n"
+      },
+      "mismatch_reasons": [],
+      "stand_in": {
+        "template_sha256": "ebe70f8f4e3b26c585203fca4cfb7b345379eb3cbf3bc8070524666ff5509f19",
+        "official_template_sha256": "ae53464bf3be25802b3a5b37def7fd89667067d7577049b3b2d74c4d8de4c6d4",
+        "differs_from_official": true,
+        "note": "合成替身：把 raise_exception 分支换成直接打印原始字符串（不是现场工作副本）",
+        "outcome": "rendered",
+        "same_as_official": false,
+        "rendered_preview": "<bos><|turn>system\n<|tool>declaration:get_weather{description:<|\"|>Get the current weather for a city.<|\"|>,parameters:{properties:{city:{description:<|\"|>City name.<|\"|>,type:<|\"|>STRING<|\"|>}},required:[<|\"|>city<|\"|>],type:<|\"|>OBJECT<|\"|>}}<tool|><turn|>\n<|turn>user\nWhat's the weather in Paris?<turn|>\n<|turn>model\n<|tool_call>call:get_weather{{\"city\": \"Paris\"}}<tool_call|><|tool_response>response:get_weather{value:<|\"|>21 C and sunny<|\"|>}<tool_response|>"
+      },
+      "matched": true
+    },
+    {
+      "case": "bad_json_rejected",
+      "expect": "reject",
+      "description": "调用边界收到畸形 JSON 字符串 → normalize_tool_arguments 必须拒绝",
+      "expected_code": "tool_arguments_invalid_json",
+      "expected_message_contains": null,
+      "requires_renderer": false,
+      "checks": [],
+      "check_failures": [],
+      "outcome": "rejected",
+      "exception": {
+        "type": "PolicyViolation",
+        "code": "tool_arguments_invalid_json",
+        "message": "tool_call.arguments 是字符串但不是合法 JSON：Expecting ',' delimiter: line 1 column 17 (char 16)",
+        "text": "[tool_arguments_invalid_json] tool_call.arguments 是字符串但不是合法 JSON：Expecting ',' delimiter: line 1 column 17 (char 16)",
+        "context": {
+          "arguments": "{\"city\": \"Paris\""
+        }
+      },
+      "mismatch_reasons": [],
+      "raw_arguments": "{\"city\": \"Paris\"",
+      "normalize_code": "tool_arguments_invalid_json",
+      "matched": true
+    },
+    {
+      "case": "json_string_normalized",
+      "expect": "render",
+      "description": "合法 JSON 字符串 → 先归一化成 mapping，再由**归一化后的 mapping** 渲染",
+      "expected_code": null,
+      "expected_message_contains": null,
+      "requires_renderer": true,
+      "checks": [
+        {
+          "check": "source_is_json_string",
+          "passed": true
+        },
+        {
+          "check": "normalized_value_is_mapping",
+          "passed": true
+        },
+        {
+          "check": "normalized_mapping_renders",
+          "passed": true
+        },
+        {
+          "check": "raw_json_string_absent",
+          "passed": true
+        }
+      ],
+      "check_failures": [],
+      "outcome": "rendered",
+      "exception": null,
+      "mismatch_reasons": [],
+      "normalized": {
+        "source": "json-string",
+        "value": {
+          "city": "Paris"
+        }
+      },
+      "rendered": "<bos><|turn>system\n<|tool>declaration:get_weather{description:<|\"|>Get the current weather for a city.<|\"|>,parameters:{properties:{city:{description:<|\"|>City name.<|\"|>,type:<|\"|>STRING<|\"|>}},required:[<|\"|>city<|\"|>],type:<|\"|>OBJECT<|\"|>}}<tool|><turn|>\n<|turn>user\nWhat's the weather in Paris?<turn|>\n<|turn>model\n<|tool_call>call:get_weather{city:<|\"|>Paris<|\"|>}<tool_call|><|tool_response>response:get_weather{value:<|\"|>21 C and sunny<|\"|>}<tool_response|>",
+      "rendered_bytes": 466,
+      "rendered_sha256": "72866f327f4de2fe2d3405972f1f433d6912071c9be0a253e2896d1e6971e3aa",
+      "stand_in": {
+        "template_sha256": "ebe70f8f4e3b26c585203fca4cfb7b345379eb3cbf3bc8070524666ff5509f19",
+        "official_template_sha256": "ae53464bf3be25802b3a5b37def7fd89667067d7577049b3b2d74c4d8de4c6d4",
+        "note": "合成替身（只复刻字符串 arguments 一处分叉），不是现场工作副本",
+        "outcome": "rendered",
+        "same_as_official": true,
+        "rendered_sha256": "72866f327f4de2fe2d3405972f1f433d6912071c9be0a253e2896d1e6971e3aa"
+      },
+      "matched": true
+    },
+    {
+      "case": "multi_turn_tool_continuation",
+      "expect": "render",
+      "description": "user → assistant tool_call → tool 响应 → user：回合必须正确收口",
+      "expected_code": null,
+      "expected_message_contains": null,
+      "requires_renderer": true,
+      "checks": [
+        {
+          "check": "tool_call_marker_present",
+          "passed": true
+        },
+        {
+          "check": "tool_response_marker_present",
+          "passed": true
+        },
+        {
+          "check": "tool_response_body_is_the_string_content",
+          "passed": true
+        },
+        {
+          "check": "tool_response_block_closed",
+          "passed": true
+        },
+        {
+          "check": "model_turn_closed_before_next_user_turn",
+          "passed": true
+        },
+        {
+          "check": "generation_prompt_opens_a_model_turn_with_consumed_thinking_placeholder",
+          "passed": true
+        },
+        {
+          "check": "no_dangling_tool_response_wait",
+          "passed": true
+        }
+      ],
+      "check_failures": [],
+      "outcome": "rendered",
+      "exception": null,
+      "mismatch_reasons": [],
+      "mapping_tool_content": {
+        "outcome": "rejected",
+        "exception_type": "UndefinedError",
+        "message": "'str object' has no attribute 'get'",
+        "note": "官方模板前向扫描分支把 mapping 当 sequence、对键调用 .get() 而报错；OpenAI 风格 tool 响应必须传字符串 content（本用例用的就是字符串）。"
+      },
+      "rendered": "<bos><|turn>user\nWhat's the weather in Paris?<turn|>\n<|turn>model\n<|tool_call>call:get_weather{city:<|\"|>Paris<|\"|>}<tool_call|><|tool_response>response:get_weather{value:<|\"|>{\"temp_c\": 21, \"sky\": \"sunny\"}<|\"|>}<tool_response|><turn|>\n<|turn>user\nAnd in Tokyo?<turn|>\n<|turn>model\n<|channel>thought\n<channel|>",
+      "rendered_bytes": 310,
+      "rendered_sha256": "e8adcd2c6868a766d1d63ff1dcc99eb2d793f4585a3cbf74651da7e6e313f706",
+      "stand_in": {
+        "template_sha256": "ebe70f8f4e3b26c585203fca4cfb7b345379eb3cbf3bc8070524666ff5509f19",
+        "official_template_sha256": "ae53464bf3be25802b3a5b37def7fd89667067d7577049b3b2d74c4d8de4c6d4",
+        "note": "合成替身（只复刻字符串 arguments 一处分叉），不是现场工作副本",
+        "outcome": "rendered",
+        "same_as_official": true,
+        "rendered_sha256": "e8adcd2c6868a766d1d63ff1dcc99eb2d793f4585a3cbf74651da7e6e313f706"
+      },
+      "matched": true
+    },
+    {
+      "case": "turn_closure_forward_scan",
+      "expect": "render",
+      "description": "前向扫描：连续 assistant 属同一回合（continued），遇到 user 才收口（ended）",
+      "expected_code": null,
+      "expected_message_contains": null,
+      "requires_renderer": true,
+      "checks": [
+        {
+          "check": "continued_scenario_keeps_one_model_turn",
+          "passed": true
+        },
+        {
+          "check": "continued_scenario_does_not_close_in_between",
+          "passed": true
+        },
+        {
+          "check": "continued_scenario_content_is_contiguous",
+          "passed": true
+        },
+        {
+          "check": "ended_scenario_opens_exactly_one_model_turn",
+          "passed": true
+        },
+        {
+          "check": "ended_scenario_closes_turn_after_assistant_content",
+          "passed": true
+        }
+      ],
+      "check_failures": [],
+      "outcome": "rendered",
+      "exception": null,
+      "mismatch_reasons": [],
+      "continued_output": "<bos><|turn>user\nSummarise the repo.<turn|>\n<|turn>model\nPart one.Part two.<turn|>\n<|turn>user\nNow do it in Chinese.<turn|>\n",
+      "ended_output": "<bos><|turn>user\nSummarise the repo.<turn|>\n<|turn>model\nDone.<turn|>\n<|turn>user\nNow do it in Chinese.<turn|>\n",
+      "stand_in_scope": "continued_scenario",
+      "rendered": "<bos><|turn>user\nSummarise the repo.<turn|>\n<|turn>model\nPart one.Part two.<turn|>\n<|turn>user\nNow do it in Chinese.<turn|>\n",
+      "rendered_bytes": 124,
+      "rendered_sha256": "600198402de36e0117f2c8c8423920b03d6ae7811ff884c7142279347d4193cc",
+      "stand_in": {
+        "template_sha256": "ebe70f8f4e3b26c585203fca4cfb7b345379eb3cbf3bc8070524666ff5509f19",
+        "official_template_sha256": "ae53464bf3be25802b3a5b37def7fd89667067d7577049b3b2d74c4d8de4c6d4",
+        "note": "合成替身（只复刻字符串 arguments 一处分叉），不是现场工作副本",
+        "outcome": "rendered",
+        "same_as_official": true,
+        "rendered_sha256": "600198402de36e0117f2c8c8423920b03d6ae7811ff884c7142279347d4193cc"
+      },
+      "matched": true
+    },
+    {
+      "case": "thinking_enabled",
+      "expect": "render",
+      "description": "enable_thinking=True → 必须出现 <|think|> 思考开关标记",
+      "expected_code": null,
+      "expected_message_contains": null,
+      "requires_renderer": true,
+      "checks": [
+        {
+          "check": "think_enable_marker_present",
+          "passed": true
+        },
+        {
+          "check": "model_turn_opened",
+          "passed": true
+        },
+        {
+          "check": "no_empty_thought_placeholder",
+          "passed": true
+        }
+      ],
+      "check_failures": [],
+      "outcome": "rendered",
+      "exception": null,
+      "mismatch_reasons": [],
+      "thinking_channel_contents": [],
+      "rendered": "<bos><|turn>system\n<|think|>\n<turn|>\n<|turn>user\nName three primes.<turn|>\n<|turn>model\n",
+      "rendered_bytes": 88,
+      "rendered_sha256": "db8bdbd822ec225f6693d00f0c80f389163e4425081698d2756e15924408f188",
+      "stand_in": {
+        "template_sha256": "ebe70f8f4e3b26c585203fca4cfb7b345379eb3cbf3bc8070524666ff5509f19",
+        "official_template_sha256": "ae53464bf3be25802b3a5b37def7fd89667067d7577049b3b2d74c4d8de4c6d4",
+        "note": "合成替身（只复刻字符串 arguments 一处分叉），不是现场工作副本",
+        "outcome": "rendered",
+        "same_as_official": true,
+        "rendered_sha256": "db8bdbd822ec225f6693d00f0c80f389163e4425081698d2756e15924408f188"
+      },
+      "matched": true
+    },
+    {
+      "case": "thinking_disabled",
+      "expect": "render",
+      "description": "enable_thinking=False → 不得出现 <|think|>，思考通道不得带内容",
+      "expected_code": null,
+      "expected_message_contains": null,
+      "requires_renderer": true,
+      "checks": [
+        {
+          "check": "think_enable_marker_absent",
+          "passed": true
+        },
+        {
+          "check": "no_thinking_channel_content",
+          "passed": true
+        }
+      ],
+      "check_failures": [],
+      "outcome": "rendered",
+      "exception": null,
+      "mismatch_reasons": [],
+      "thinking_channel_contents": [
+        ""
+      ],
+      "empty_thought_placeholder_emitted": true,
+      "rendered": "<bos><|turn>user\nName three primes.<turn|>\n<|turn>model\n<|channel>thought\n<channel|>",
+      "rendered_bytes": 84,
+      "rendered_sha256": "bb7fb6c2d5ec631ebd34305315cc655e8e1b5e58724a67008626d164740c8e95",
+      "stand_in": {
+        "template_sha256": "ebe70f8f4e3b26c585203fca4cfb7b345379eb3cbf3bc8070524666ff5509f19",
+        "official_template_sha256": "ae53464bf3be25802b3a5b37def7fd89667067d7577049b3b2d74c4d8de4c6d4",
+        "note": "合成替身（只复刻字符串 arguments 一处分叉），不是现场工作副本",
+        "outcome": "rendered",
+        "same_as_official": true,
+        "rendered_sha256": "bb7fb6c2d5ec631ebd34305315cc655e8e1b5e58724a67008626d164740c8e95"
+      },
+      "matched": true
+    },
+    {
+      "case": "reject_official_verified_but_modified_loaded",
+      "expect": "reject",
+      "description": "官方 pin 核过之后，再绑一个被改过的 template 根 → 必须 input_pin_mismatch",
+      "expected_code": "input_pin_mismatch",
+      "expected_message_contains": null,
+      "requires_renderer": false,
+      "checks": [
+        {
+          "check": "official_template_bound_to_its_own_pin",
+          "passed": true
+        },
+        {
+          "check": "modified_template_differs_from_official",
+          "passed": true
+        },
+        {
+          "check": "tokenizer_config_byte_identical_in_modified_root",
+          "passed": true
+        }
+      ],
+      "check_failures": [],
+      "outcome": "rejected",
+      "exception": {
+        "type": "PolicyViolation",
+        "code": "input_pin_mismatch",
+        "message": "绑定的输入文件与被核验的官方 pin 不一致（官方 hash 匹配但加载了修改版）：chat_template.jinja 实测 ebe70f8f4e3b26c5，锁里 ae53464bf3be2580",
+        "text": "[input_pin_mismatch] 绑定的输入文件与被核验的官方 pin 不一致（官方 hash 匹配但加载了修改版）：chat_template.jinja 实测 ebe70f8f4e3b26c5，锁里 ae53464bf3be2580",
+        "context": {
+          "mismatches": [
+            {
+              "filename": "chat_template.jinja",
+              "pin": "chat_template_sha256",
+              "declared": "ae53464bf3be25802b3a5b37def7fd89667067d7577049b3b2d74c4d8de4c6d4",
+              "measured": "ebe70f8f4e3b26c585203fca4cfb7b345379eb3cbf3bc8070524666ff5509f19"
+            }
+          ],
+          "source_root": "L:\\multica工作区\\canopus-3ho-7fd8c6d77d72\\kaggle-28-3b7a4350a573\\workdir\\r3demo\\render_work\\modified_root"
+        }
+      },
+      "mismatch_reasons": [],
+      "official_binding_sha256": "d8907c8acebcc051b1661aa4e9ee6ccfea570b1eebffc7db6d445832de5d624b",
+      "official_template": {
+        "pin": "chat_template_sha256",
+        "declared_sha256": "ae53464bf3be25802b3a5b37def7fd89667067d7577049b3b2d74c4d8de4c6d4",
+        "measured_sha256": "ae53464bf3be25802b3a5b37def7fd89667067d7577049b3b2d74c4d8de4c6d4",
+        "matches_pin": true
+      },
+      "modified_root": {
+        "root": "L:\\multica工作区\\canopus-3ho-7fd8c6d77d72\\kaggle-28-3b7a4350a573\\workdir\\r3demo\\render_work\\modified_root",
+        "link_methods": {
+          "tokenizer_config.json": "hardlink",
+          "tokenizer.json": "hardlink"
+        },
+        "template_path": "L:\\multica工作区\\canopus-3ho-7fd8c6d77d72\\kaggle-28-3b7a4350a573\\workdir\\r3demo\\render_work\\modified_root\\chat_template.jinja",
+        "template_sha256": "ebe70f8f4e3b26c585203fca4cfb7b345379eb3cbf3bc8070524666ff5509f19",
+        "official_template_sha256": "ae53464bf3be25802b3a5b37def7fd89667067d7577049b3b2d74c4d8de4c6d4",
+        "differs_from_official": true,
+        "note": "被改过的 template 是**合成替身**（只复刻字符串 arguments 一处分叉），不是现场 224 行工作副本。"
+      },
+      "modified_root_tokenizer_config_sha256": "b8045a4576903e86903291d5cbdd4adfc8859e9ce3c98621bdbd957f73ed394b",
+      "official_tokenizer_config_sha256": "b8045a4576903e86903291d5cbdd4adfc8859e9ce3c98621bdbd957f73ed394b",
+      "matched": true
+    },
+    {
+      "case": "reject_explicit_template_override",
+      "expect": "reject",
+      "description": "显式 template 覆盖未授权 → template_override_not_authorized（授权则留审计记录）",
+      "expected_code": "template_override_not_authorized",
+      "expected_message_contains": null,
+      "requires_renderer": false,
+      "checks": [
+        {
+          "check": "unauthorized_override_rejected",
+          "passed": true
+        },
+        {
+          "check": "authorized_record_has_override_sha256",
+          "passed": true
+        },
+        {
+          "check": "authorized_record_names_the_official_template",
+          "passed": true
+        },
+        {
+          "check": "authorized_record_does_not_claim_semantic_equivalence",
+          "passed": true
+        },
+        {
+          "check": "override_sha256_documents_the_inline_template",
+          "passed": true
+        }
+      ],
+      "check_failures": [],
+      "outcome": "rejected",
+      "exception": {
+        "type": "PolicyViolation",
+        "code": "template_override_not_authorized",
+        "message": "提供了显式 chat template 覆盖但未授权：不得绕过官方模板（fail-closed）",
+        "text": "[template_override_not_authorized] 提供了显式 chat template 覆盖但未授权：不得绕过官方模板（fail-closed）",
+        "context": {
+          "override": "{% for message in messages %}{{ raise_exception('nope') }}{% endfor %}",
+          "binding_revision": "52f3f65bc7a02d555763bc923bd1d9094898219d"
+        }
+      },
+      "mismatch_reasons": [],
+      "unauthorized_code": "template_override_not_authorized",
+      "no_override_record": {
+        "override_used": false,
+        "authorized": false
+      },
+      "authorized_record": {
+        "override_used": true,
+        "authorized": true,
+        "reason": "本地渲染回归需要一份合成模板做取证对照（不用于生产加载）",
+        "override_sha256": "eb1f292178e3b2165912ad7b7842117bcd42b0a002d4d2ee95319b56bcd05277",
+        "override_bytes": 70,
+        "official_template_sha256": "ae53464bf3be25802b3a5b37def7fd89667067d7577049b3b2d74c4d8de4c6d4",
+        "note": "覆盖已授权并记录；本记录**不**表示覆盖后的模板与官方语义等价，需另行行为回归与独审。"
+      },
+      "matched": true
+    }
+  ],
+  "summary": {
+    "cases_run": 10,
+    "cases_matched": 10,
+    "cases_mismatched": 0,
+    "cases_blocked": 0,
+    "failed_cases": [],
+    "renderer_kind": "jinja2-shim"
+  },
+  "not_verified_locally": [
+    "本机**没有** transformers / peft：没有在 PreTrainedTokenizerBase.apply_chat_template （生产入口）上跑过；本报告的渲染结论来自本地 shim。",
+    "仓库内**没有**现场那份 224 行工作副本；本回归用的是**合成替身**，只复刻「字符串 arguments 由拒绝改成静默打印」这一处分叉，不代表改写版其余差异。",
+    "本回归证明「渲染器读到的字节 = 被 pin 核过的官方模板字节」，不证明生产 `TorchPeftBackend.prepare()` 的 `from_pretrained` 真的指向该加载视图（那属于 runner 接线，另行评审）。",
+    "权重 `model.safetensors` 仍是 hash_pending，不属于本回归范围。",
+    "未在 GPU / 目标解释器上执行；目标解释器命令见 target_interpreter.command。"
+  ],
+  "note": "绑定只证明本轮读到的字节等于锁里 pin 的字节；渲染结论只证明「该模板文本在这些输入下的行为」。两者都不翻 verified，也不证明模型可训练。"
+}

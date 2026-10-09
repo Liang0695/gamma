@@ -22,10 +22,15 @@ REPO_ROOT = os.path.abspath(os.path.join(HERE, ".."))
 if REPO_ROOT not in sys.path:
     sys.path.insert(0, REPO_ROOT)
 
-from tests._tmp import temp_dir  # noqa: E402
+from tests._adapter_fixtures import (  # noqa: E402
+    legacy_self_report_manifest,
+    make_export_manifest,
+    make_official_export_dir,
+)
+from tests._tmp import temp_dir, temp_dir_outside_repo  # noqa: E402
 
 from v3.common.errors import FailClosed, PolicyViolation  # noqa: E402
-from v3.train import entry, fixtures, runner  # noqa: E402
+from v3.train import entry, fixtures, profile as profile_mod, runner  # noqa: E402
 from v3.train.masks import LabelResult, build_labels, render_and_mask  # noqa: E402
 from v3.train.template import (  # noqa: E402
     ShimRenderer,
@@ -34,6 +39,35 @@ from v3.train.template import (  # noqa: E402
 )
 
 RUNNER_PATH = os.path.join(REPO_ROOT, "v3", "train", "runner.py")
+
+
+def measured_profile(*, peak_gpu_gib: float, host_rss_gib: float) -> dict:
+    """构造一份**结构完整、来源可核**的测量记录（本机没有 GPU，因此是合成证据）。
+
+    刻意复用生产模块的字段名与白名单 provenance，用来单独验证**消费者**的判定逻辑；
+    真实测量只在获批 GPU 作业上由 `v3/train/profile.py` 产出。
+    """
+    return {
+        "seq_len": 2048,
+        "peak_gpu_gib": float(peak_gpu_gib),
+        "host_rss_gib": float(host_rss_gib),
+        "gpu_measurement_status": profile_mod.GPU_MEASURED,
+        "gpu_provenance": profile_mod.REAL_GPU_PROVENANCE,
+        "is_real_measurement": True,
+        "source": "measured-%s" % profile_mod.REAL_GPU_PROVENANCE,
+        "host_measurement": {
+            "probe": "proc/self/status:VmHWM",
+            "is_real_measurement": True,
+        },
+        "workload": {
+            "backend": "torch-peft-bf16-lora",
+            "requires_gpu": True,
+            "uses_gpu": True,
+            "steps": 8,
+        },
+        "phases": [{"phase": name} for name in profile_mod.REQUIRED_PHASES],
+        "missing_phases": [],
+    }
 
 
 class AssistantContentPresenceTests(unittest.TestCase):
@@ -314,30 +348,61 @@ class GateMeasurementTests(unittest.TestCase):
         self.assertTrue(state["evidence"]["memory_plan_reason"])
 
     def test_memory_gate_uses_measurement(self) -> None:
-        good = entry.measure_gates(
+        """G7b：内存闸门只认**真实测量**，手打的数字不再能过门。"""
+        hand_written = entry.measure_gates(
             memory_profile={"peak_gpu_gib": 40.0, "host_rss_gib": 8.0, "source": "unit-test"},
             run_cpu_self_check=False,
         )
-        self.assertTrue(good["gates"]["memory_plan_pass"])
-        bad = entry.measure_gates(
-            memory_profile={"peak_gpu_gib": 999.0, "host_rss_gib": 8.0, "source": "unit-test"},
+        self.assertFalse(
+            hand_written["gates"]["memory_plan_pass"],
+            "手打 profile 不得通过内存闸门（G7b）",
+        )
+        self.assertIn(
+            "来源校验", hand_written["evidence"]["memory_plan_reason"] or ""
+        )
+        measured = entry.measure_gates(
+            memory_profile=measured_profile(peak_gpu_gib=40.0, host_rss_gib=8.0),
             run_cpu_self_check=False,
         )
-        self.assertFalse(bad["gates"]["memory_plan_pass"])
+        self.assertTrue(measured["gates"]["memory_plan_pass"])
+        self.assertTrue(measured["evidence"]["memory_profile_provenance"]["ok"])
+        too_big = entry.measure_gates(
+            memory_profile=measured_profile(peak_gpu_gib=999.0, host_rss_gib=8.0),
+            run_cpu_self_check=False,
+        )
+        self.assertFalse(too_big["gates"]["memory_plan_pass"])
 
-    def test_export_gate_requires_hashes_and_adapter_only(self) -> None:
+    def test_export_gate_requires_artifacts_and_rejects_self_report(self) -> None:
+        """G8：导出闸门要求 v2 契约 + 绑定的产物目录，并拒绝自报通过字段。"""
         empty = entry.measure_gates(export_manifest={"files": []}, run_cpu_self_check=False)
         self.assertFalse(empty["gates"]["export_manifest_pass"])
-        complete = entry.measure_gates(
-            export_manifest={
-                **{key: "a" * 64 for key in ("source_sha256", "data_sha256", "config_sha256",
-                                             "code_sha256", "deps_sha256")},
-                "adapter_only": True,
-                "files": ["adapters/v3_policy/adapter_model.safetensors"],
-            },
-            run_cpu_self_check=False,
-        )
-        self.assertTrue(complete["gates"]["export_manifest_pass"])
+
+        with temp_dir_outside_repo("gate_export_") as export_dir:
+            make_official_export_dir(export_dir)
+            manifest = make_export_manifest(export_dir)
+            complete = entry.measure_gates(
+                export_manifest=manifest,
+                export_dir=export_dir,
+                run_cpu_self_check=False,
+            )
+            self.assertTrue(complete["gates"]["export_manifest_pass"])
+            self.assertTrue(
+                complete["evidence"]["export_manifest"]["adapter_validation"]["verified_from_artifacts"]
+            )
+            # 清单与产物脱钩（不给 --export-dir）即不通过。
+            unbound = entry.measure_gates(
+                export_manifest=manifest, run_cpu_self_check=False
+            )
+            self.assertFalse(unbound["gates"]["export_manifest_pass"])
+            # 旧口径的手拼清单（自报 load_ok / fixture_pass）必须被拒绝。
+            legacy = entry.measure_gates(
+                export_manifest=legacy_self_report_manifest(),
+                export_dir=export_dir,
+                run_cpu_self_check=False,
+            )
+            self.assertFalse(legacy["gates"]["export_manifest_pass"])
+            problems = " ".join(legacy["evidence"]["export_manifest"]["problems"])
+            self.assertIn("自报通过字段", problems)
 
     def test_start_is_fail_closed_without_authorization(self) -> None:
         with self.assertRaises(PolicyViolation) as ctx:

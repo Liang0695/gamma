@@ -29,6 +29,18 @@ MODULES = (
     "tests.test_q0_pins_and_guards",
     "tests.test_k27_adapter_contract",
     "tests.test_k27_serving_lock",
+    # KAGGLE-38 增量（G13 / G8 / G7b / G14 / G6 / G9）
+    "tests.test_g38_increment",
+    "tests.test_g6g9_lock_materials",
+    # KAGGLE-38 整改第二轮：真实后端路径接线 + 单一总截止 + G6 依赖锁版本
+    "tests.test_g38_real_backend_path",
+    "tests.test_g38_g6_versions",
+    # KAGGLE-38 整改第二轮：官方 chat template 的真实渲染回归 + template pin 分离
+    "tests.test_g38_template_render",
+    # KAGGLE-38 整改第三轮（独审阻断 6）：v6 监督器接线 —— 硬截止/授权上下文/反例
+    "tests.test_g38_supervised_check",
+    "tests.test_g38_r5_recovery",
+    "tests.test_g38_publication_environment",
 )
 
 

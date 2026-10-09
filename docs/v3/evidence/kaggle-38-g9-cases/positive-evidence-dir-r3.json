@@ -1,0 +1,194 @@
+{
+  "all_match": false,
+  "checked_at_utc": "2026-10-08T05:55:42Z",
+  "downloaded_any_model_file": false,
+  "endpoint": {
+    "is_mirror": false,
+    "note": "evidence-dir 模式不发起网络请求，这里只记录端点配置，便于与 metadata-only 报告对齐。",
+    "source": "default-huggingface",
+    "template": "https://huggingface.co/api/models/{repo}/revision/{revision}",
+    "used_for_fetch": false
+  },
+  "evidence_dir": "L:\\multica工作区\\canopus-3ho-7fd8c6d77d72\\kaggle-28-3b7a4350a573\\workdir\\r3\\gamma-e0-kaggle-38\\docs\\v3\\evidence\\kaggle-38-g9-evidence",
+  "evidence_manifest": {
+    "consistency_check_only": true,
+    "downloaded_weight_files": [],
+    "file_sha256": {
+      "chat_template.jinja": "ae53464bf3be25802b3a5b37def7fd89667067d7577049b3b2d74c4d8de4c6d4",
+      "config.json": "b100d85e571c25b688e82919d819253063a1defb0e6cee3b9b1c1fbad99bd0c2",
+      "tokenizer.json": "cc8d3a0ce36466ccc1278bf987df5f71db1719b9ca6b4118264f45cb627bfe0f",
+      "tokenizer_config.json": "b8045a4576903e86903291d5cbdd4adfc8859e9ce3c98621bdbd957f73ed394b"
+    },
+    "files": {
+      "chat_template.jinja": {
+        "bytes": 18683,
+        "mirror_metadata_agrees": null,
+        "mirror_metadata_sha256": null,
+        "sha256": "ae53464bf3be25802b3a5b37def7fd89667067d7577049b3b2d74c4d8de4c6d4",
+        "url": "https://hf-mirror.com/google/gemma-4-31B-it-qat-w4a16-ct/resolve/52f3f65bc7a02d555763bc923bd1d9094898219d/chat_template.jinja"
+      },
+      "config.json": {
+        "bytes": 18711,
+        "mirror_metadata_agrees": null,
+        "mirror_metadata_sha256": null,
+        "sha256": "b100d85e571c25b688e82919d819253063a1defb0e6cee3b9b1c1fbad99bd0c2",
+        "url": "https://hf-mirror.com/google/gemma-4-31B-it-qat-w4a16-ct/resolve/52f3f65bc7a02d555763bc923bd1d9094898219d/config.json"
+      },
+      "tokenizer.json": {
+        "bytes": 32169626,
+        "mirror_metadata_agrees": true,
+        "mirror_metadata_sha256": "cc8d3a0ce36466ccc1278bf987df5f71db1719b9ca6b4118264f45cb627bfe0f",
+        "sha256": "cc8d3a0ce36466ccc1278bf987df5f71db1719b9ca6b4118264f45cb627bfe0f",
+        "url": "https://hf-mirror.com/google/gemma-4-31B-it-qat-w4a16-ct/resolve/52f3f65bc7a02d555763bc923bd1d9094898219d/tokenizer.json"
+      },
+      "tokenizer_config.json": {
+        "bytes": 3728,
+        "mirror_metadata_agrees": null,
+        "mirror_metadata_sha256": null,
+        "sha256": "b8045a4576903e86903291d5cbdd4adfc8859e9ce3c98621bdbd957f73ed394b",
+        "url": "https://hf-mirror.com/google/gemma-4-31B-it-qat-w4a16-ct/resolve/52f3f65bc7a02d555763bc923bd1d9094898219d/tokenizer_config.json"
+      }
+    },
+    "metadata_sha256": "b66f20d4777153d8ef2b2f07d35ebf739ee4d253f48dcc650b262f21aad96693",
+    "model_repo_id": "google/gemma-4-31B-it-qat-w4a16-ct",
+    "model_revision": "52f3f65bc7a02d555763bc923bd1d9094898219d",
+    "note": "只取非权重小文件；revision 为精确 commit，不是 latest。本 manifest 不构成任何 verified 翻转依据。",
+    "retrieval_command": "python tools/capture_interface_pin_evidence.py --repo-id google/gemma-4-31B-it-qat-w4a16-ct --revision 52f3f65bc7a02d555763bc923bd1d9094898219d --endpoint https://hf-mirror.com",
+    "retrieval_status": "ok",
+    "retrieved_at_utc": "2026-10-08T03:15:46Z",
+    "source": "hf-mirror.com",
+    "source_authentication_note": "本目录里的文件字节取自同一个只读**镜像**，与**该镜像自己**的元数据清单互为一致只能算镜像自洽校验（consistency check only）；**不构成**对官方源 huggingface.co 的独立来源认证。",
+    "source_is_mirror": true
+  },
+  "evidence_source_authenticity": {
+    "consistency_check_only": true,
+    "source": "hf-mirror.com",
+    "source_is_mirror": true,
+    "statement": "该文件字节与**同一镜像自己**的元数据/清单一致，只构成镜像自洽校验（consistency check only），不构成对官方源 huggingface.co 的独立认证。"
+  },
+  "interface_lock": {
+    "path": "L:\\multica工作区\\canopus-3ho-7fd8c6d77d72\\kaggle-28-3b7a4350a573\\workdir\\r3\\gamma-e0-kaggle-38\\v3\\locks\\official-interface.json",
+    "writable_by_this_tool": false
+  },
+  "local_reachability_note": "本机（Windows 工作区）实测：huggingface.co TCP 超时；同一 API 路径在 hf-mirror.com 可用。默认端点仍是 huggingface.co，需要走镜像请显式传 --endpoint；注意镜像结果只是镜像自洽校验，不等于官方源独立认证。",
+  "lock_modified": false,
+  "mode": "evidence-dir",
+  "pinned_repo_id": "google/gemma-4-31B-it-qat-w4a16-ct",
+  "pinned_revision": "52f3f65bc7a02d555763bc923bd1d9094898219d",
+  "pins": {
+    "chat_template_sha256": {
+      "consistency_check_only": true,
+      "declared": "ae53464bf3be25802b3a5b37def7fd89667067d7577049b3b2d74c4d8de4c6d4",
+      "lock_state": "locked",
+      "measured": {
+        "bytes": 18683,
+        "source_file": "chat_template.jinja",
+        "value": "ae53464bf3be25802b3a5b37def7fd89667067d7577049b3b2d74c4d8de4c6d4"
+      },
+      "mirror_metadata_agrees": true,
+      "mirror_metadata_note": "该文件字节与**同一镜像自己**的元数据/清单一致，只构成镜像自洽校验（consistency check only），不构成对官方源 huggingface.co 的独立认证。",
+      "mirror_metadata_sha256": "ae53464bf3be25802b3a5b37def7fd89667067d7577049b3b2d74c4d8de4c6d4",
+      "reason": "与锁里声明的值逐位一致；该文件字节与**同一镜像自己**的元数据/清单一致，只构成镜像自洽校验（consistency check only），不构成对官方源 huggingface.co 的独立认证。",
+      "verdict": "match"
+    },
+    "tokenizer_config_sha256": {
+      "consistency_check_only": true,
+      "declared": "b8045a4576903e86903291d5cbdd4adfc8859e9ce3c98621bdbd957f73ed394b",
+      "lock_state": "locked",
+      "measured": {
+        "bytes": 3728,
+        "source_file": "tokenizer_config.json",
+        "value": "b8045a4576903e86903291d5cbdd4adfc8859e9ce3c98621bdbd957f73ed394b"
+      },
+      "mirror_metadata_agrees": true,
+      "mirror_metadata_note": "该文件字节与**同一镜像自己**的元数据/清单一致，只构成镜像自洽校验（consistency check only），不构成对官方源 huggingface.co 的独立认证。",
+      "mirror_metadata_sha256": "b8045a4576903e86903291d5cbdd4adfc8859e9ce3c98621bdbd957f73ed394b",
+      "reason": "与锁里声明的值逐位一致；该文件字节与**同一镜像自己**的元数据/清单一致，只构成镜像自洽校验（consistency check only），不构成对官方源 huggingface.co 的独立认证。",
+      "verdict": "match"
+    },
+    "tokenizer_vocab_sha256": {
+      "consistency_check_only": true,
+      "declared": "cc8d3a0ce36466ccc1278bf987df5f71db1719b9ca6b4118264f45cb627bfe0f",
+      "lock_state": "locked",
+      "measured": {
+        "bytes": 32169626,
+        "source_file": "tokenizer.json",
+        "value": "cc8d3a0ce36466ccc1278bf987df5f71db1719b9ca6b4118264f45cb627bfe0f"
+      },
+      "mirror_metadata_agrees": true,
+      "mirror_metadata_note": "该文件字节与**同一镜像自己**的元数据/清单一致，只构成镜像自洽校验（consistency check only），不构成对官方源 huggingface.co 的独立认证。",
+      "mirror_metadata_sha256": "cc8d3a0ce36466ccc1278bf987df5f71db1719b9ca6b4118264f45cb627bfe0f",
+      "reason": "与锁里声明的值逐位一致；该文件字节与**同一镜像自己**的元数据/清单一致，只构成镜像自洽校验（consistency check only），不构成对官方源 huggingface.co 的独立认证。",
+      "verdict": "match"
+    },
+    "vllm_mapper_revision": {
+      "declared": null,
+      "lock_state": "not_locked",
+      "measured": "0.19.1",
+      "measured_from": "probed_environment:107 项目自有 serving 环境 $HOME/gemma4/prep/venvrun312",
+      "probed_environments": [
+        {
+          "name": "107 登录节点 /usr/bin/python3",
+          "vllm_installed": false,
+          "vllm_version": null
+        },
+        {
+          "name": "107 conda env elf",
+          "vllm_installed": false,
+          "vllm_version": null
+        },
+        {
+          "name": "107 conda env h3",
+          "vllm_installed": false,
+          "vllm_version": null
+        },
+        {
+          "name": "107 项目自有 serving 环境 $HOME/gemma4/prep/venvrun312",
+          "vllm_installed": true,
+          "vllm_version": "0.19.1"
+        }
+      ],
+      "public_source_reference": {
+        "is_a_pin": false,
+        "note": "这是另列的公开源码 revision 参考（如 vLLM 仓库 git revision），不是任何环境的实测值，不得写进 measured。",
+        "value": "vllm-project/vllm v0.19.1 @ b1388b1fbf5aaef47937fabe98931211684666a6"
+      },
+      "reason": "锁里该 pin 仍是 null（尚未锁定）：本次测得的是**候选值**，需要作者线写入并独立审查",
+      "verdict": "not_locked"
+    }
+  },
+  "problems": [],
+  "proposed_pin_patch": {
+    "chat_template_sha256": {
+      "bytes": 18683,
+      "source_file": "chat_template.jinja",
+      "value": "ae53464bf3be25802b3a5b37def7fd89667067d7577049b3b2d74c4d8de4c6d4"
+    },
+    "tokenizer_config_sha256": {
+      "bytes": 3728,
+      "source_file": "tokenizer_config.json",
+      "value": "b8045a4576903e86903291d5cbdd4adfc8859e9ce3c98621bdbd957f73ed394b"
+    },
+    "tokenizer_vocab_sha256": {
+      "bytes": 32169626,
+      "source_file": "tokenizer.json",
+      "value": "cc8d3a0ce36466ccc1278bf987df5f71db1719b9ca6b4118264f45cb627bfe0f"
+    },
+    "vllm_mapper_revision": "0.19.1"
+  },
+  "public_source_reference": {
+    "is_a_pin": false,
+    "note": "这是另列的公开源码 revision 参考（如 vLLM 仓库 git revision），不是任何环境的实测值，不得写进 measured。",
+    "value": "vllm-project/vllm v0.19.1 @ b1388b1fbf5aaef47937fabe98931211684666a6"
+  },
+  "required_review": "本工具**不改** official-interface.json、**不**把 verified 置真：翻 verified 需要作者线按 proposed_pin_patch 提交 + KAGGLE-26/Q0 独立复核。",
+  "verdict_counts": {
+    "match": 3,
+    "mismatch": 0,
+    "missing_evidence": 0,
+    "not_locked": 1,
+    "probed_not_installed": 0,
+    "unreachable": 0
+  },
+  "verified_flipped": false
+}

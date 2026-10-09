@@ -346,37 +346,42 @@ class ExportWiringTests(unittest.TestCase):
 
 
 class ExportGateTests(unittest.TestCase):
-    """`measure_gates` 的导出闸门必须认官方载体路径。"""
-
-    def _manifest(self, files: list[str]) -> dict:
-        return {
-            **{
-                key: "a" * 64
-                for key in (
-                    "source_sha256",
-                    "data_sha256",
-                    "config_sha256",
-                    "code_sha256",
-                    "deps_sha256",
-                )
-            },
-            "adapter_only": True,
-            "files": files,
-        }
+    """`measure_gates` 的导出闸门必须认官方载体路径（G8 后：还须与真实产物对账）。"""
 
     def test_official_carrier_path_satisfies_the_gate(self) -> None:
+        from tests._adapter_fixtures import make_export_manifest, make_official_export_dir
+        from tests._tmp import temp_dir_outside_repo
         from v3.train import entry
 
-        manifest = self._manifest([ac.carrier_weights_relative_path(ac.DEFAULT_ADAPTER_NAME)])
-        report = entry.measure_gates(export_manifest=manifest, run_cpu_self_check=False)
+        with temp_dir_outside_repo("k27_carrier_") as export_dir:
+            make_official_export_dir(export_dir)
+            manifest = make_export_manifest(export_dir)
+            self.assertIn(
+                ac.carrier_weights_relative_path(ac.DEFAULT_ADAPTER_NAME),
+                [item["path"] for item in manifest["files"]],
+            )
+            report = entry.measure_gates(
+                export_manifest=manifest, export_dir=export_dir, run_cpu_self_check=False
+            )
         self.assertTrue(report["gates"]["export_manifest_pass"])
 
     def test_legacy_file_list_fails_the_gate(self) -> None:
+        from tests._tmp import temp_dir_outside_repo
         from v3.train import entry
 
-        report = entry.measure_gates(
-            export_manifest=self._manifest(["adapter.safetensors"]), run_cpu_self_check=False
-        )
+        with temp_dir_outside_repo("k27_legacy_") as export_dir:
+            report = entry.measure_gates(
+                export_manifest={
+                    **{key: "a" * 64 for key in (
+                        "source_sha256", "data_sha256", "config_sha256",
+                        "code_sha256", "deps_sha256",
+                    )},
+                    "adapter_only": True,
+                    "files": [{"path": "adapter.safetensors", "sha256": "a" * 64, "bytes": 1}],
+                },
+                export_dir=export_dir,
+                run_cpu_self_check=False,
+            )
         self.assertFalse(report["gates"]["export_manifest_pass"])
         problems = report["evidence"]["export_manifest"]["problems"]
         self.assertTrue(
