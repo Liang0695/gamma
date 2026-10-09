@@ -1,0 +1,10 @@
+{
+  "gpu": {
+    "prep": "set -uo pipefail\ncd \"$V3_REPO_DIR\" || { echo \"prep: cd 失败\"; exit 25; }\nactual=\"$(git rev-parse HEAD 2>/dev/null)\"\n[ \"$actual\" = \"$V3_PIN_COMMIT\" ] || { echo \"prep: HEAD=$actual 与固定版本不符\"; exit 27; }\nif [ -n \"$(git status --porcelain)\" ]; then echo \"prep: 工作树不干净\"; git status --porcelain; exit 28; fi\n\"$V3_PY\" -V || { echo \"prep: 解释器不可用\"; exit 29; }\nnvidia-smi -L || echo \"prep: WARN nvidia-smi 不可用\"\ndf -h \"$HOME\" | tail -1\nif \"$V3_PY\" -m v3.train.entry --help 2>/dev/null | grep -q -- '--dest-dir'; then\n  : > \"$V3_RUN_DIR/dest_supported\"\n  echo \"prep: 入口支持 --dest-dir\"\nelse\n  rm -f \"$V3_RUN_DIR/dest_supported\"\n  echo \"prep: 入口**不支持** --dest-dir —— adapter 会落到仓库内\"\n  exit 30\nfi",
+    "main": "set -uo pipefail\ncd \"$V3_REPO_DIR\" || exit 25\n[ -f \"$V3_RUN_DIR/dest_supported\" ] || { echo \"main: 入口不支持 --dest-dir，拒绝开训\"; exit 30; }\nEXTRA=()\n[ -n \"$V3_MEMORY_PROFILE\" ] && EXTRA+=(--memory-profile \"$V3_MEMORY_PROFILE\")\n[ -n \"$V3_EXPORT_MANIFEST\" ] && EXTRA+=(--export-manifest \"$V3_EXPORT_MANIFEST\")\nexec \"$V3_PY\" -m v3.train.entry --start \\\n  --operator \"$V3_OPERATOR\" --gpu-hours \"$V3_GPU_HOURS_ARG\" --stage T1 \\\n  --v2-conflict-checked --dest-dir \"$V3_RUN_DIR/adapter\" \\\n  ${EXTRA[@]+\"${EXTRA[@]}\"}"
+  },
+  "cpu": {
+    "prep": "set -uo pipefail\ncd \"$V3_REPO_DIR\" || { echo \"prep: cd 失败\"; exit 25; }\nactual=\"$(git rev-parse HEAD 2>/dev/null)\"\n[ \"$actual\" = \"$V3_PIN_COMMIT\" ] || { echo \"prep: HEAD=$actual 与固定版本不符\"; exit 27; }\nif [ -n \"$(git status --porcelain)\" ]; then echo \"prep: 工作树不干净\"; git status --porcelain; exit 28; fi\n\"$V3_PY\" -V || { echo \"prep: 解释器不可用\"; exit 29; }\nnvidia-smi -L 2>/dev/null || echo \"prep: 无 GPU（符合 gpu:0 作业预期）\"\ndf -h \"$HOME\" | tail -1",
+    "main": "set -uo pipefail\ncd \"$V3_REPO_DIR\" || exit 25\nexec \"$V3_PY\" -m v3.train.entry \"$V3_ENTRY_FLAG\""
+  }
+}

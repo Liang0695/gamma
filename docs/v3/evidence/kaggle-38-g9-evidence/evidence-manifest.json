@@ -1,0 +1,50 @@
+{
+  "consistency_check_only": true,
+  "downloaded_weight_files": [],
+  "file_sha256": {
+    "chat_template.jinja": "ae53464bf3be25802b3a5b37def7fd89667067d7577049b3b2d74c4d8de4c6d4",
+    "config.json": "b100d85e571c25b688e82919d819253063a1defb0e6cee3b9b1c1fbad99bd0c2",
+    "tokenizer.json": "cc8d3a0ce36466ccc1278bf987df5f71db1719b9ca6b4118264f45cb627bfe0f",
+    "tokenizer_config.json": "b8045a4576903e86903291d5cbdd4adfc8859e9ce3c98621bdbd957f73ed394b"
+  },
+  "files": {
+    "chat_template.jinja": {
+      "bytes": 18683,
+      "mirror_metadata_agrees": null,
+      "mirror_metadata_sha256": null,
+      "sha256": "ae53464bf3be25802b3a5b37def7fd89667067d7577049b3b2d74c4d8de4c6d4",
+      "url": "https://hf-mirror.com/google/gemma-4-31B-it-qat-w4a16-ct/resolve/52f3f65bc7a02d555763bc923bd1d9094898219d/chat_template.jinja"
+    },
+    "config.json": {
+      "bytes": 18711,
+      "mirror_metadata_agrees": null,
+      "mirror_metadata_sha256": null,
+      "sha256": "b100d85e571c25b688e82919d819253063a1defb0e6cee3b9b1c1fbad99bd0c2",
+      "url": "https://hf-mirror.com/google/gemma-4-31B-it-qat-w4a16-ct/resolve/52f3f65bc7a02d555763bc923bd1d9094898219d/config.json"
+    },
+    "tokenizer.json": {
+      "bytes": 32169626,
+      "mirror_metadata_agrees": true,
+      "mirror_metadata_sha256": "cc8d3a0ce36466ccc1278bf987df5f71db1719b9ca6b4118264f45cb627bfe0f",
+      "sha256": "cc8d3a0ce36466ccc1278bf987df5f71db1719b9ca6b4118264f45cb627bfe0f",
+      "url": "https://hf-mirror.com/google/gemma-4-31B-it-qat-w4a16-ct/resolve/52f3f65bc7a02d555763bc923bd1d9094898219d/tokenizer.json"
+    },
+    "tokenizer_config.json": {
+      "bytes": 3728,
+      "mirror_metadata_agrees": null,
+      "mirror_metadata_sha256": null,
+      "sha256": "b8045a4576903e86903291d5cbdd4adfc8859e9ce3c98621bdbd957f73ed394b",
+      "url": "https://hf-mirror.com/google/gemma-4-31B-it-qat-w4a16-ct/resolve/52f3f65bc7a02d555763bc923bd1d9094898219d/tokenizer_config.json"
+    }
+  },
+  "metadata_sha256": "b66f20d4777153d8ef2b2f07d35ebf739ee4d253f48dcc650b262f21aad96693",
+  "model_repo_id": "google/gemma-4-31B-it-qat-w4a16-ct",
+  "model_revision": "52f3f65bc7a02d555763bc923bd1d9094898219d",
+  "note": "只取非权重小文件；revision 为精确 commit，不是 latest。本 manifest 不构成任何 verified 翻转依据。",
+  "retrieval_command": "python tools/capture_interface_pin_evidence.py --repo-id google/gemma-4-31B-it-qat-w4a16-ct --revision 52f3f65bc7a02d555763bc923bd1d9094898219d --endpoint https://hf-mirror.com",
+  "retrieval_status": "ok",
+  "retrieved_at_utc": "2026-10-08T03:15:46Z",
+  "source": "hf-mirror.com",
+  "source_authentication_note": "本目录里的文件字节取自同一个只读**镜像**，与**该镜像自己**的元数据清单互为一致只能算镜像自洽校验（consistency check only）；**不构成**对官方源 huggingface.co 的独立来源认证。",
+  "source_is_mirror": true
+}

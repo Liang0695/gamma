@@ -1,0 +1,62 @@
+{
+  "cases": [
+    {
+      "case": "no_hashes",
+      "code": "real_mode_requires_real_hashes",
+      "exit": 4,
+      "message": "真实后端（torch-peft）必须用 --hashes 传入真实的环境/数据/配置/代码/依赖哈希：不得回退到 SYNTHETIC_HASHES —— 那会让 checkpoint 的同源判定建立在假哈希上",
+      "verdict": null
+    },
+    {
+      "case": "no_local_load_authorization",
+      "code": "local_load_not_authorized",
+      "exit": 7,
+      "message": "真实后端未获**本地加载**授权（--local-load-authorized）：--allow-download 只授权联网取权重，不构成工程作业批准",
+      "verdict": null
+    },
+    {
+      "case": "no_time_budget",
+      "code": "real_mode_requires_time_budget",
+      "exit": 4,
+      "message": "真实后端必须显式给出 --time-budget-seconds：真实作业不得无界运行",
+      "verdict": null
+    },
+    {
+      "case": "no_stop_at_step",
+      "code": "real_mode_requires_stop_at_step",
+      "exit": 4,
+      "message": "真实后端必须显式给出 --stop-at-step：首片必须有确定的停机点",
+      "verdict": null
+    },
+    {
+      "case": "no_model_inputs_root",
+      "code": "model_inputs_root_missing",
+      "exit": 4,
+      "message": "真实后端必须给出 --model-inputs-root（被核验的官方配置/tokenizer/template 所在目录）：不得让 from_pretrained 隐式读现场可能被改过的工作副本",
+      "verdict": null
+    },
+    {
+      "case": "bound_and_reaches_real_backend",
+      "code": "peft_unavailable",
+      "exit": 8,
+      "message": "缺少锁定版本 peft：No module named 'httpx'",
+      "verdict": null
+    },
+    {
+      "case": "expired_budget",
+      "code": "engineering_check_deadline_exceeded",
+      "exit": 8,
+      "message": "总截止已到（mask_fixtures 阶段开始前，剩余 -0.003 s）：停止后续阶段，不越过 --time-budget-seconds；本节判定独立于 step_limit/signal 等业务停止原因",
+      "verdict": null
+    },
+    {
+      "case": "synthetic_still_uses_fixture",
+      "code": null,
+      "exit": 0,
+      "message": "",
+      "verdict": "pass"
+    }
+  ],
+  "generated_at_utc": "2026-10-08T06:02:52Z",
+  "kind": "kaggle-38-r3-gates-and-deadline"
+}

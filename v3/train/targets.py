@@ -90,6 +90,58 @@ def expected_module_count() -> int:
     return GEOMETRY["num_hidden_layers"] * 2
 
 
+def resolve_peft_scope(model, requested, linear_type) -> dict:
+    """Keep the full text-tower contract at the actual PEFT injection boundary.
+
+    A suffix list selects vision/audio q_proj too. Do not unwrap those frozen
+    towers just to make suffix-based injection succeed.
+    """
+    if sorted(requested) != target_module_names():
+        raise PolicyViolation('lora_scope_request_mismatch', 'Expected the approved text q/o targets')
+    modules = dict(model.named_modules())
+    selected = sorted(name for name in modules if re.fullmatch(TARGET_REGEX, name))
+    expected = sorted(ModulePlan().expected_names())
+    if selected != expected:
+        raise MissingInput('lora_text_scope_incomplete', 'Expected all 120 exact text attention targets',
+                           missing=sorted(set(expected)-set(selected)), extra=sorted(set(selected)-set(expected)))
+    unsupported = {name:type(modules[name]).__name__ for name in selected
+                   if not isinstance(modules[name], linear_type)}
+    if unsupported:
+        raise PolicyViolation('lora_text_target_unsupported', 'Text target is not a PEFT-supported Linear',
+                              unsupported=unsupported)
+    unavailable = []
+    for name in selected:
+        module = modules[name]
+        weight = getattr(module, 'weight', None)
+        if (weight is None or getattr(weight, 'is_meta', False)
+                or not getattr(weight, 'is_floating_point', lambda:False)()
+                or tuple(weight.shape) != (module.out_features, module.in_features)):
+            unavailable.append(name)
+    if unavailable:
+        raise PolicyViolation('lora_text_weight_unavailable',
+                              'Materialize text Linear weights before PEFT (dequantize=True)', modules=unavailable)
+    excluded = sorted(name for name in modules if name.split('.')[-1] in requested and name not in selected)
+    return {'target_regex':TARGET_REGEX,'matched':selected,'matched_count':len(selected),
+            'excluded_suffix_matches':excluded,
+            'module_types':{name:type(modules[name]).__name__ for name in selected}}
+
+
+def verify_peft_scope(model, scope) -> list[str]:
+    """Verify PEFT replaced exactly the intended layers, keeping all others frozen."""
+    mounted = sorted(name for name,module in model.named_modules()
+                     if hasattr(module,'lora_A') and hasattr(module,'lora_B'))
+    if mounted != scope['matched']:
+        raise PolicyViolation('lora_mounted_scope_mismatch', 'PEFT mounted targets differ from text scope',
+                              mounted=mounted, expected=scope['matched'])
+    unexpected = [name for name,param in model.named_parameters() if param.requires_grad and
+                  not any(name.startswith(target+'.'+adapter+'.')
+                          for target in mounted for adapter in ('lora_A','lora_B'))]
+    if unexpected:
+        raise PolicyViolation('lora_trainable_scope_mismatch', 'Parameters outside text LoRA are trainable',
+                              unexpected=unexpected)
+    return mounted
+
+
 def project_dim(layer_index: int, projection: str) -> int:
     """q_proj 的输出维度（local 8192 / global 16384）或 o_proj 的输入维度。"""
     is_local = layer_index < GEOMETRY["local_layers"]

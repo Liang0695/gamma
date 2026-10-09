@@ -1,0 +1,133 @@
+{
+  "budget": {
+    "binding_source": "approved-budget",
+    "budget_seconds": 90.0,
+    "candidates": [
+      {
+        "seconds": 90.0,
+        "source": "approved-budget"
+      }
+    ],
+    "deadline_epoch": 1791473177.3548417,
+    "deadline_monotonic": 349533.5997063,
+    "never_widens": true,
+    "note": "只取更早者：外层截止与本入口预算都不可能被对方放宽",
+    "started_monotonic": 349443.5997063
+  },
+  "budget_respected": true,
+  "child_env_note": "子进程拿不到任何 V3_* 截止/预算环境变量：唯一的授权截止来自父进程签发的截止文件（带 SHA-256 自锚）",
+  "child_env_stripped_keys": [],
+  "deadline_file": {
+    "approval_context_sha256": "ca3d163bab055381827226140568f3bef7eaac187cebd76878e0b63e9e442356",
+    "binding_source": "approved-budget",
+    "budget_seconds": 90.0,
+    "deadline_epoch": 1791473177.3548417,
+    "deadline_monotonic": 349533.5997063,
+    "file_sha256": "e585e111739ce1b08f4a53ecfe2e6a9d5208c00178564e1f13fb3a1bf7089992",
+    "issued_utc": "2026-10-08T15:24:47Z",
+    "never_widens": true,
+    "path": "L:\\multica工作区\\canopus-3ho-7fd8c6d77d72\\kaggle-38-b8ebea2f6b55\\workdir\\r5ev\\runs\\local-20261008T152447\\supervised_deadline.json",
+    "source": "v6-supervisor-adapter"
+  },
+  "elapsed_seconds": 2.2145,
+  "events": {
+    "child_started": 5,
+    "job_result": 1,
+    "phase_end": 3,
+    "phase_start": 3,
+    "setup_end": 1,
+    "setup_ready": 1,
+    "supervisor_end": 1,
+    "supervisor_start": 1
+  },
+  "evidence_sha256": "5cacc0ca1b824a31dd25261943e8086560d76769684ccc6c3cd104bb4db10729",
+  "is_real_gpu": false,
+  "ledger_path": "L:\\multica工作区\\canopus-3ho-7fd8c6d77d72\\kaggle-38-b8ebea2f6b55\\workdir\\r5ev\\runs\\local-20261008T152447\\ledger.jsonl",
+  "ledger_written": true,
+  "main_exit_code": 0,
+  "non_json_lines": [],
+  "note": "本层只做编排：真正的硬截止能力来自 v6 监督器对子进程的 TERM/KILL",
+  "overall_exit_code": 0,
+  "overall_status": "succeeded",
+  "phase_caps": {
+    "kill_after": 4.5,
+    "prep_cap": 13.5,
+    "wrapup_cap": 22.5
+  },
+  "phases": [
+    {
+      "child_settled": true,
+      "elapsed_seconds": 0.05640479997964576,
+      "exit_code": 0,
+      "kind": "prep",
+      "phase": "prep",
+      "stop_reason": "completed_within_deadline"
+    },
+    {
+      "child_settled": true,
+      "elapsed_seconds": 1.9419888000120409,
+      "exit_code": 0,
+      "kind": "main",
+      "phase": "main",
+      "stop_reason": "completed_within_deadline"
+    },
+    {
+      "child_settled": true,
+      "elapsed_seconds": 0.053424199984874576,
+      "exit_code": 0,
+      "kind": "wrapup",
+      "phase": "wrapup",
+      "stop_reason": "completed_within_deadline"
+    }
+  ],
+  "plan_path": "L:\\multica工作区\\canopus-3ho-7fd8c6d77d72\\kaggle-38-b8ebea2f6b55\\workdir\\r5ev\\runs\\local-20261008T152447\\plan.json",
+  "run_dir": "L:\\multica工作区\\canopus-3ho-7fd8c6d77d72\\kaggle-38-b8ebea2f6b55\\workdir\\r5ev\\runs\\local-20261008T152447",
+  "stage": "supervised-engineering-check",
+  "supervisor_command": [
+    "C:\\Users\\28037\\AppData\\Local\\Programs\\Python\\Python313\\python.exe",
+    "-B",
+    "L:\\multica工作区\\canopus-3ho-7fd8c6d77d72\\kaggle-38-b8ebea2f6b55\\workdir\\r4\\tools\\v6\\shard_supervisor.py",
+    "--plan",
+    "L:\\multica工作区\\canopus-3ho-7fd8c6d77d72\\kaggle-38-b8ebea2f6b55\\workdir\\r5ev\\runs\\local-20261008T152447\\plan.json",
+    "--run-dir",
+    "L:\\multica工作区\\canopus-3ho-7fd8c6d77d72\\kaggle-38-b8ebea2f6b55\\workdir\\r5ev\\runs\\local-20261008T152447",
+    "--ledger",
+    "L:\\multica工作区\\canopus-3ho-7fd8c6d77d72\\kaggle-38-b8ebea2f6b55\\workdir\\r5ev\\runs\\local-20261008T152447\\ledger.jsonl",
+    "--total-budget",
+    "90.000000",
+    "--started-monotonic",
+    "349443.599706",
+    "--prep-cap",
+    "13.500000",
+    "--wrapup-cap",
+    "22.500000",
+    "--kill-after",
+    "4.500000"
+  ],
+  "supervisor_exit_code": 0,
+  "supervisor_stderr_tail": "",
+  "termination": {
+    "detail": [],
+    "escalated_to_kill": [],
+    "kill_settled_events": 0,
+    "phases_terminated": [],
+    "terminate_signals_sent": 0
+  },
+  "v6_package": {
+    "directory": "L:\\multica工作区\\canopus-3ho-7fd8c6d77d72\\kaggle-38-b8ebea2f6b55\\workdir\\r4\\tools\\v6",
+    "note": "逐字节核对通过：本入口复用的是 v6 原件，不是同名的本地改写版",
+    "optional_files": {
+      "deadline_wrapper.py": "5c515706ad2e1f52bafc6e7d10c1b39343c56a908f72b09940b8355139726f2c"
+    },
+    "package_sha256_anchor": "0151b35ad92c36985d1632d37b9b06e9513c64e3afd4c4c8d26f889dfd1676c9",
+    "verified_files": {
+      "shard_guard.py": "f459321fde54e0fa660eba7d63d3f8a1fc031afacffe4fc58fc7512f4bb46845",
+      "shard_job.py": "63ee2531757e3a34d70660ca257171dcd3b23f893cbddd8e0137c68215f9cd33",
+      "shard_supervisor.py": "a3f96572a14cf98965c739d85bd5ecee318ace912fd0339453036a877e6420e5",
+      "stage_scripts.json": "7c1a7b6009ee2e82f61820060d53a92fc91cbf1e33e2f6013c63eb85e9e1bfd2"
+    }
+  },
+  "verdict": "pass",
+  "within_observation_tolerance": true,
+  "wrapup_exit_code": 0
+}

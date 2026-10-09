@@ -22,7 +22,12 @@
     "除 evaluation.* 四个字段外，其余上限在比赛环境中不可配置（KAGGLE-22 §4.1）。",
     "run_command 的 5000 字符截断按字母序取前若干行，信息被系统性扭曲，必须两段式收窄输出。",
     "图中边类型只观察到小写 calls；传 CALLS 很可能返回 0 邻居。",
-    "节点无 file/line 字段，图工具输出只能当符号候选，必须再用文本检索还原 path:line。"
+    "节点无 file/line 字段，图工具输出只能当符号候选，必须再用文本检索还原 path:line。",
+    "【G9 2026-10-08】tokenizer 三个 pin 由作者线按**固定 revision 52f3f65b…219d 取回原件并自行重算**，同时与 Mika 的独立复算一致；`verified` 在独审通过前一律保持 false —— 写入的是**候选值 + 来源绑定**，不是放行。",
+    "【G9】口径：镜像（hf-mirror.com）取回的字节与**同一镜像自己的元数据**一致，只构成一致性核对（consistency check only），**不构成**对官方源 huggingface.co 的独立来源认证；本机 huggingface.co 实测 TCP 超时。",
+    "【G9】`tokenizer_config_sha256` **不覆盖** `chat_template.jinja`：chat template 是同 revision 的独立文件，单列为 `chat_template_sha256`，下游若消费 template 必须按该哈希单独绑定。",
+    "【G9 裁定 B】`vllm_mapper_revision` 保持 null/未验证。口径限定为『已探测的三个环境未安装 vllm；本轮未取得评分宿主版本证据』，不扩大为永远不可观测；真实加载回归只能证明所测环境。",
+    "【G8 分阶段校验】`vllm_mapper_revision` 是 serving 侧事实：训练阶段导出清单允许其为 null（并显式写 serving_pins_verified=false），serving 阶段必须另行单独校验 —— **null 不是通过**。"
   ],
   "pins": {
     "graph_edge_types_observed": {
@@ -47,20 +52,103 @@
       "value": "gemma4",
       "verified": true
     },
+    "chat_template_sha256": {
+      "source": "作者线按固定 revision 取回 chat_template.jinja 原件并自行重算 SHA-256；与 config 哈希分开绑定（Mika 裁定）",
+      "value": "ae53464bf3be25802b3a5b37def7fd89667067d7577049b3b2d74c4d8de4c6d4",
+      "verified": false,
+      "evidence": {
+        "repo_id": "google/gemma-4-31B-it-qat-w4a16-ct",
+        "revision": "52f3f65bc7a02d555763bc923bd1d9094898219d",
+        "path": "chat_template.jinja",
+        "source": "hf-mirror.com（只读镜像）",
+        "bytes": 18683,
+        "sha256_recomputed": "ae53464bf3be25802b3a5b37def7fd89667067d7577049b3b2d74c4d8de4c6d4",
+        "evidence_level": "author_recomputed_at_pinned_revision",
+        "independent_official_source_authentication": false,
+        "consistency_check_only": true,
+        "verification_scope": "仅确认该文件的字节；不代表模型可训练、serving 兼容，或 parser 口径已确认",
+        "report": "docs/v3/evidence/kaggle-38-g9-evidence/"
+      }
+    },
     "tokenizer_config_sha256": {
-      "source": "KAGGLE-20 §4（CT tokenizer_config SHA，词表仍须下游下载锁定）",
+      "source": "作者线按固定 revision 取回 tokenizer_config.json 原件并自行重算（与 Mika 独立复算逐位一致）；不覆盖独立的 chat_template.jinja",
       "value": "b8045a4576903e86903291d5cbdd4adfc8859e9ce3c98621bdbd957f73ed394b",
-      "verified": false
+      "verified": false,
+      "evidence": {
+        "repo_id": "google/gemma-4-31B-it-qat-w4a16-ct",
+        "revision": "52f3f65bc7a02d555763bc923bd1d9094898219d",
+        "path": "tokenizer_config.json",
+        "source": "hf-mirror.com（只读镜像）",
+        "bytes": 3728,
+        "sha256_recomputed": "b8045a4576903e86903291d5cbdd4adfc8859e9ce3c98621bdbd957f73ed394b",
+        "evidence_level": "author_recomputed_at_pinned_revision",
+        "independently_recomputed_by": "Mika（KAGGLE-28 评论 01a11938-4510-765c-9fb9-78b5b85366f5）",
+        "independent_official_source_authentication": false,
+        "consistency_check_only": true,
+        "verification_scope": "仅确认该文件的字节；不代表模型可训练或 serving 兼容",
+        "report": "docs/v3/evidence/kaggle-38-g9-evidence/"
+      }
     },
     "tokenizer_vocab_sha256": {
-      "source": "未取得：必须以真实 tokenizer 下载后复核",
-      "value": null,
-      "verified": false
+      "source": "作者线按固定 revision 取回 tokenizer.json 原件并自行重算（与 Liang 现场候选值一致，并与同镜像元数据 lfs.sha256 自洽）；独审通过前保持 false",
+      "value": "cc8d3a0ce36466ccc1278bf987df5f71db1719b9ca6b4118264f45cb627bfe0f",
+      "verified": false,
+      "evidence": {
+        "repo_id": "google/gemma-4-31B-it-qat-w4a16-ct",
+        "revision": "52f3f65bc7a02d555763bc923bd1d9094898219d",
+        "path": "tokenizer.json",
+        "source": "hf-mirror.com（只读镜像）",
+        "bytes": 32169626,
+        "sha256_recomputed": "cc8d3a0ce36466ccc1278bf987df5f71db1719b9ca6b4118264f45cb627bfe0f",
+        "evidence_level": "author_recomputed_at_pinned_revision",
+        "mirror_metadata_lfs_sha256": "cc8d3a0ce36466ccc1278bf987df5f71db1719b9ca6b4118264f45cb627bfe0f",
+        "mirror_metadata_agrees": true,
+        "independent_official_source_authentication": false,
+        "consistency_check_only": true,
+        "verification_scope": "仅确认该文件的字节；不代表模型可训练或 serving 兼容",
+        "report": "docs/v3/evidence/kaggle-38-g9-evidence/"
+      }
+    },
+    "config_sha256": {
+      "source": "Mika 2026-10-08 裁定（KAGGLE-38 顶部第 3 项）：config.json 原本是无 pin 的伴随文件，独立审查实测把它改成 {\"model_type\":\"changed\"} 仍会被复制进加载视图；现补为受核对输入，值由 Mika 指定（等于现场快照 shared/config.json 与 G9 证据包里那份原件的实算值）",
+      "value": "b100d85e571c25b688e82919d819253063a1defb0e6cee3b9b1c1fbad99bd0c2",
+      "verified": false,
+      "evidence": {
+        "repo_id": "google/gemma-4-31B-it-qat-w4a16-ct",
+        "revision": "52f3f65bc7a02d555763bc923bd1d9094898219d",
+        "path": "config.json",
+        "source": "现场快照 /home/scc/pb24511961/v3/snapshot/model-small/shared/config.json（Liang 交付 01a11998-cd06-7857-8ce3-22d84519ef1e）",
+        "bytes": 18711,
+        "sha256_recomputed": "b100d85e571c25b688e82919d819253063a1defb0e6cee3b9b1c1fbad99bd0c2",
+        "evidence_level": "author_recomputed_at_pinned_revision",
+        "value_authority": "Mika 在 KAGGLE-38 顶部明文给出该 SHA",
+        "independent_official_source_authentication": false,
+        "consistency_check_only": true,
+        "verification_scope": "仅确认该文件的字节；不代表模型可训练或 serving 兼容",
+        "report": "docs/v3/evidence/kaggle-38-g9-evidence/"
+      },
+      "pin_role": "model_config_identity",
+      "note": "权重 model.safetensors 仍 hash_pending（按口径不扫描 23.3GB）；但配置身份从此不可任意替换"
     },
     "vllm_mapper_revision": {
-      "source": "KAGGLE-19 §2：实际官方 resolver/mapper 版本未知，须做加载回归",
+      "source": "KAGGLE-19 §2 + G9 裁定 B：实际官方 resolver/mapper 版本仍未知，保持 null。口径（2026-10-08 更正后）：已探测的三个 107 环境未安装 vllm；项目自有 serving 环境 venvrun312 装有 vLLM 0.19.1（自有环境的已安装事实，**不是**评分宿主版本，也不证明 mapper commit 或 adapter 加载通过）；本轮仍未取得评分宿主版本证据。不扩大为永远不可观测",
       "value": null,
-      "verified": false
+      "verified": false,
+      "public_source_reference": {
+        "repo": "vllm-project/vllm",
+        "tag": "v0.19.1",
+        "revision": "b1388b1fbf5aaef47937fabe98931211684666a6",
+        "is_a_pin": false,
+        "note": "**公开源码参考**，不是目标环境或评分宿主的实测版本；不得据此补填 pin 值，也不得当作已探测事实",
+        "source_report": "KAGGLE-28 评论 01a11936-06a5-75c4-b546-16999b6b5987"
+      },
+      "evidence": {
+        "probe_scope": "已探测的三个 107 环境（登录节点 /usr/bin/python3、conda elf、conda h3）未安装 vllm；项目自有 venvrun312 装有 vLLM 0.19.1（非评分宿主）；本轮未取得评分宿主版本证据",
+        "probed_environments": 4,
+        "project_owned_env_vllm_version": "0.19.1（venvrun312，非评分宿主，不作为 pin 候选）",
+        "scoring_host_version_evidence": false,
+        "report": "docs/v3/evidence/kaggle-38-g9-evidence/env-report.json"
+      }
     }
   },
   "tools": {

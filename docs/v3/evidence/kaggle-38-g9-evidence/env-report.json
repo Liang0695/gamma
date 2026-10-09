@@ -1,0 +1,51 @@
+{
+  "probe_kind": "read-only-exec",
+  "probed_at_utc": "2026-10-08T00:35:05Z",
+  "probed_by": "KAGGLE-28 G9 现场取证（107 只读 exec，载荷见 KAGGLE-28 评论 01a11936-06a5-75c4-b546-16999b6b5987 及其附件 g9-forensics-2026-10-08.md）",
+  "probe_commands": [
+    "srun --pty bash -c 'python3 -c \"import importlib.metadata as m; print(m.version(\\\"vllm\\\"))\"' || echo NOT-INSTALLED",
+    "ls -d $HOME/miniconda3/envs/*/lib/python*/site-packages/vllm 2>/dev/null || echo NO-VLLM-DIR",
+    "find $HOME -maxdepth 6 -name vllm -type d"
+  ],
+  "probed_environments": [
+    {
+      "name": "107 登录节点 /usr/bin/python3",
+      "python": "3.12.3",
+      "vllm_installed": false,
+      "evidence": "importlib.metadata.version('vllm') 抛 PackageNotFoundError"
+    },
+    {
+      "name": "107 conda env elf",
+      "python": "3.11.16",
+      "vllm_installed": false,
+      "evidence": "site-packages 下无 vllm 目录"
+    },
+    {
+      "name": "107 conda env h3",
+      "python": "3.11.16",
+      "vllm_installed": false,
+      "evidence": "site-packages 下无 vllm 目录；find 只命中 ~/.cache/vllm 与 ~/.config/vllm 两个空目录"
+    },
+    {
+      "name": "107 项目自有 serving 环境 $HOME/gemma4/prep/venvrun312",
+      "python": "3.12.3",
+      "vllm_installed": true,
+      "vllm_version": "0.19.1",
+      "evidence": "现场 `venvrun312` 装有 vLLM 0.19.1（Mika 2026-10-08 更正，KAGGLE-28 评论 01a11984-419b-783f-b142-b73c1cf629a4）",
+      "not_the_scoring_host": true,
+      "note": "这是**项目自有**环境里已安装的版本事实，不是评分宿主版本，也不证明 mapper commit 或 adapter 加载通过；历史 MODELCONFIG_OK 只证明对应配置检查。"
+    }
+  ],
+  "scoring_host_version_evidence": false,
+  "vllm_public_source_revision": "vllm-project/vllm v0.19.1 @ b1388b1fbf5aaef47937fabe98931211684666a6",
+  "scoring_host_note": "Kaggle 官方评分宿主上实际运行的 vLLM 版本，第三方从外部不可观测；本轮未取得该版本的任何证据。",
+  "scope_note": "口径（2026-10-08 更正后）：已探测的三个 107 环境（登录节点 /usr/bin/python3、conda elf、conda h3）**未安装** vllm；项目自有 serving 环境 `venvrun312` **装有 vLLM 0.19.1**，但那是自有环境的已安装事实，**不是**评分宿主版本；**本轮仍未取得评分宿主版本证据**。不扩大为『永远不可观测』——真实加载回归可以证明所测环境的版本，但不能据此补填评分宿主版本。",
+  "scope_correction": {
+    "corrected_at_utc": "2026-10-08T05:05:00Z",
+    "previous_scope": "已探测的三个环境未安装 vllm；本轮未取得评分宿主版本证据",
+    "reason": "Mika 更正：现场 venvrun312 装有 vLLM 0.19.1。原先的措辞只覆盖了当时探测的三个环境，容易被读成『所有可达环境都没有 vllm』，因此补上第四个已探测环境并改写口径。pin 值仍为 null/未验证，评分宿主版本仍无证据。",
+    "pin_value_changed": false,
+    "verified_flipped": false
+  },
+  "provenance_note": "本文件由 KAGGLE-38 作者线整理成 `verify_interface_pins.py --evidence-dir` 可消费的形状；内容来源是 KAGGLE-28 的只读探测记录与 Mika 的更正。作者线本轮**未**重新探测 107，也未在本机安装 vllm。`vllm_public_source_revision` 是**公开源码参考**，不是任何环境的实测值。"
+}

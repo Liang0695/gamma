@@ -1,0 +1,3081 @@
+﻿python : test_canonical_bytes_are_sorted_compact_and_lf_terminated (tests.test_common_t0.CanonicalTests.test_canonical_
+bytes_are_sorted_compact_and_lf_terminated) ... ok
+At line:1 char:239
++ ... nv:PYTHONIOENCODING="utf-8"; python -X utf8 run_tests.py 2>&1 | Out-F ...
++                                  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (test_canonical_...minated) ... ok:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+ 
+test_canonical_rejects_nan_and_infinity (tests.test_common_t0.CanonicalTests.test_canonical_rejects_nan_and_infinity) .
+.. ok
+test_problem_family_id_ignores_order_and_duplicates (tests.test_common_t0.CanonicalTests.test_problem_family_id_ignores
+_order_and_duplicates) ... ok
+test_relative_path_rejects_escape (tests.test_common_t0.CanonicalTests.test_relative_path_rejects_escape) ... ok
+test_tree_hash_changes_with_content_and_is_stable (tests.test_common_t0.CanonicalTests.test_tree_hash_changes_with_cont
+ent_and_is_stable) ... ok
+test_tree_hash_detects_symlink (tests.test_common_t0.CanonicalTests.test_tree_hash_detects_symlink) ... skipped '当前平台不允
+许创建 symlink'
+test_fully_pinned_and_verified_lock_passes (tests.test_common_t0.DependencyLockTests.test_fully_pinned_and_verified_loc
+k_passes) ... ok
+test_incomplete_wheel_sha_is_reported (tests.test_common_t0.DependencyLockTests.test_incomplete_wheel_sha_is_reported)
+非 64 位小写 hex 的 `wheel_sha256`（含 PENDING / 空串 / 大小写 / 长度）必须被报出。 ... ok
+test_latest_in_lock_is_blocked (tests.test_common_t0.DependencyLockTests.test_latest_in_lock_is_blocked) ... ok
+test_shipped_train_lock_blocks_because_unverified (tests.test_common_t0.DependencyLockTests.test_shipped_train_lock_blo
+cks_because_unverified) ... ok
+test_shipped_train_lock_packages_are_fully_pinned (tests.test_common_t0.DependencyLockTests.test_shipped_train_lock_pac
+kages_are_fully_pinned)
+随包锁的 `packages` 必须无 problem：无 TRL、无 PENDING（Mika r3 裁定）。 ... ok
+test_synthetic_fully_pinned_entry_has_no_problems (tests.test_common_t0.DependencyLockTests.test_synthetic_fully_pinned
+_entry_has_no_problems) ... ok
+test_synthetic_missing_required_field_is_reported (tests.test_common_t0.DependencyLockTests.test_synthetic_missing_requ
+ired_field_is_reported) ... ok
+test_train_and_serving_locks_must_differ (tests.test_common_t0.DependencyLockTests.test_train_and_serving_locks_must_di
+ffer) ... ok
+test_hard_limits_match_design (tests.test_common_t0.OfficialInterfaceTests.test_hard_limits_match_design) ... ok
+test_registry_matches_official_nine_tools (tests.test_common_t0.OfficialInterfaceTests.test_registry_matches_official_n
+ine_tools) ... ok
+test_submit_patch_and_get_status_are_not_billed (tests.test_common_t0.OfficialInterfaceTests.test_submit_patch_and_get_
+status_are_not_billed) ... ok
+test_unknown_tool_and_field_are_rejected (tests.test_common_t0.OfficialInterfaceTests.test_unknown_tool_and_field_are_r
+ejected) ... ok
+test_unverified_pins_cannot_be_read (tests.test_common_t0.OfficialInterfaceTests.test_unverified_pins_cannot_be_read) .
+.. ok
+test_exact_version_passes (tests.test_common_t0.RejectUnpinnedTests.test_exact_version_passes) ... ok
+test_floating_versions_are_rejected (tests.test_common_t0.RejectUnpinnedTests.test_floating_versions_are_rejected) ... 
+ok
+test_build_export_produces_manifest (tests.test_data.ExporterTests.test_build_export_produces_manifest) ... ok
+test_build_export_refuses_hard_violation (tests.test_data.ExporterTests.test_build_export_refuses_hard_violation) ... o
+k
+test_empty_trajectory_is_rejected (tests.test_data.ExporterTests.test_empty_trajectory_is_rejected) ... ok
+test_mix_audit_flags_hard_isolation_violation (tests.test_data.ExporterTests.test_mix_audit_flags_hard_isolation_violat
+ion) ... ok
+test_recovery_observation_and_successor_stay_together (tests.test_data.ExporterTests.test_recovery_observation_and_succ
+essor_stay_together) ... ok
+test_steps_to_messages_keeps_tool_arguments_structured (tests.test_data.ExporterTests.test_steps_to_messages_keeps_tool
+_arguments_structured) ... ok
+test_window_never_contains_oracle_fields (tests.test_data.ExporterTests.test_window_never_contains_oracle_fields) ... o
+k
+test_windows_split_on_complete_turns (tests.test_data.ExporterTests.test_windows_split_on_complete_turns) ... ok
+test_family_id_must_match_canonical_origin_ids (tests.test_data.FaceTests.test_family_id_must_match_canonical_origin_id
+s) ... ok
+test_missing_field_is_illegal (tests.test_data.FaceTests.test_missing_field_is_illegal) ... ok
+test_oracle_keys_never_reach_actor_input (tests.test_data.FaceTests.test_oracle_keys_never_reach_actor_input) ... ok
+test_placeholder_release_id_is_rejected (tests.test_data.FaceTests.test_placeholder_release_id_is_rejected) ... ok
+test_public_face_accepts_valid_record (tests.test_data.FaceTests.test_public_face_accepts_valid_record) ... ok
+test_release_gating (tests.test_data.FaceTests.test_release_gating) ... ok
+test_split_and_origin_kind_are_enumerated (tests.test_data.FaceTests.test_split_and_origin_kind_are_enumerated) ... ok
+test_step_requires_all_action_fields (tests.test_data.FaceTests.test_step_requires_all_action_fields) ... ok
+test_verification_status_consistency (tests.test_data.FaceTests.test_verification_status_consistency) ... ok
+test_broken_that_does_not_fail_is_quarantined (tests.test_data.OracleTests.test_broken_that_does_not_fail_is_quarantine
+d) ... ok
+test_flaky_runs_are_inconclusive (tests.test_data.OracleTests.test_flaky_runs_are_inconclusive) ... ok
+test_good_question_passes_and_needs_two_repeats (tests.test_data.OracleTests.test_good_question_passes_and_needs_two_re
+peats) ... ok
+test_p2p_regression_is_quarantined (tests.test_data.OracleTests.test_p2p_regression_is_quarantined) ... ok
+test_question_set_requires_all_eight (tests.test_data.OracleTests.test_question_set_requires_all_eight) ... ok
+test_reference_that_fails_is_quarantined (tests.test_data.OracleTests.test_reference_that_fails_is_quarantined) ... ok
+test_replay_detects_tree_and_observation_divergence (tests.test_data.OracleTests.test_replay_detects_tree_and_observati
+on_divergence) ... ok
+test_build_index_command_writes_to_tmp (tests.test_search.IndexTests.test_build_index_command_writes_to_tmp) ... ok
+test_index_builds_and_binds_tree_hash (tests.test_search.IndexTests.test_index_builds_and_binds_tree_hash) ... ok
+test_index_target_must_not_be_inside_workspace (tests.test_search.IndexTests.test_index_target_must_not_be_inside_works
+pace) ... ok
+test_lookup_prefers_exact_qualname (tests.test_search.IndexTests.test_lookup_prefers_exact_qualname) ... ok
+test_registry_drops_stale_index_after_source_edit (tests.test_search.IndexTests.test_registry_drops_stale_index_after_s
+ource_edit) ... ok
+test_anchor_direct_only_matches_path_tokens (tests.test_search.LexicalTests.test_anchor_direct_only_matches_path_tokens
+) ... ok
+test_anchor_extraction_buckets (tests.test_search.LexicalTests.test_anchor_extraction_buckets) ... ok
+test_anchor_extraction_on_double_backtick_escapes (tests.test_search.LexicalTests.test_anchor_extraction_on_double_back
+tick_escapes)
+markdown 转义 `` `x` `` 仍应抽出 x（回归用）。 ... ok
+test_candidate_table_is_compact (tests.test_search.LexicalTests.test_candidate_table_is_compact) ... ok
+test_exclude_tests_removes_test_candidates_only (tests.test_search.LexicalTests.test_exclude_tests_removes_test_candida
+tes_only) ... ok
+test_hit_at_k_versus_true_recall (tests.test_search.LexicalTests.test_hit_at_k_versus_true_recall) ... ok
+test_lexical_rank_orders_non_test_sources_first_on_tie (tests.test_search.LexicalTests.test_lexical_rank_orders_non_tes
+t_sources_first_on_tie) ... ok
+test_narrow_output_rejects_inverted_budget (tests.test_search.LexicalTests.test_narrow_output_rejects_inverted_budget) 
+... ok
+test_narrow_output_truncates_and_flags (tests.test_search.LexicalTests.test_narrow_output_truncates_and_flags) ... ok
+test_region_hit_requires_overlap (tests.test_search.LexicalTests.test_region_hit_requires_overlap) ... ok
+test_test_path_detection_and_src_priority (tests.test_search.LexicalTests.test_test_path_detection_and_src_priority) ..
+. ok
+test_absolute_and_escaping_paths_are_rejected (tests.test_search.LocateTests.test_absolute_and_escaping_paths_are_rejec
+ted) ... ok
+test_bad_next_action_and_lines_are_rejected (tests.test_search.LocateTests.test_bad_next_action_and_lines_are_rejected)
+ ... ok
+test_block_rejects_regurgitation_and_overlong (tests.test_search.LocateTests.test_block_rejects_regurgitation_and_overl
+ong) ... ok
+test_candidate_count_is_capped_at_five (tests.test_search.LocateTests.test_candidate_count_is_capped_at_five) ... ok
+test_chosen_must_come_from_candidates (tests.test_search.LocateTests.test_chosen_must_come_from_candidates) ... ok
+test_evidence_none_is_rejected_for_retrieval_sources (tests.test_search.LocateTests.test_evidence_none_is_rejected_for_
+retrieval_sources) ... ok
+test_future_or_gold_information_is_rejected (tests.test_search.LocateTests.test_future_or_gold_information_is_rejected)
+ ... ok
+test_missing_field_is_rejected (tests.test_search.LocateTests.test_missing_field_is_rejected) ... ok
+test_missing_observation_ref_is_rejected (tests.test_search.LocateTests.test_missing_observation_ref_is_rejected) ... o
+k
+test_missing_path_is_rejected (tests.test_search.LocateTests.test_missing_path_is_rejected) ... ok
+test_valid_state_and_block_contract (tests.test_search.LocateTests.test_valid_state_and_block_contract) ... ok
+test_ast_outline_covers_methods_async_nested_and_decorators (tests.test_search.OutlineTests.test_ast_outline_covers_met
+hods_async_nested_and_decorators) ... ok
+test_find_symbol_reports_ambiguity (tests.test_search.OutlineTests.test_find_symbol_reports_ambiguity) ... ok
+test_regex_fallback_matches_ast_on_indented_methods_and_async (tests.test_search.OutlineTests.test_regex_fallback_match
+es_ast_on_indented_methods_and_async) ... ok
+test_regex_path_is_used_for_unparsable_source (tests.test_search.OutlineTests.test_regex_path_is_used_for_unparsable_so
+urce) ... ok
+test_escalation_requires_a_trigger_and_is_capped (tests.test_search.ProtocolTests.test_escalation_requires_a_trigger_an
+d_is_capped) ... ok
+test_fail_closed_never_forces_a_blind_edit (tests.test_search.ProtocolTests.test_fail_closed_never_forces_a_blind_edit)
+ ... ok
+test_fail_closed_when_evidence_insufficient (tests.test_search.ProtocolTests.test_fail_closed_when_evidence_insufficien
+t) ... ok
+test_four_arms_are_single_writer (tests.test_search.ProtocolTests.test_four_arms_are_single_writer) ... ok
+test_non_search_calls_do_not_consume_search_budget (tests.test_search.ProtocolTests.test_non_search_calls_do_not_consum
+e_search_budget) ... ok
+test_output_flags_record_hard_truncation (tests.test_search.ProtocolTests.test_output_flags_record_hard_truncation) ...
+ ok
+test_policy_plan_drives_next_action (tests.test_search.ProtocolTests.test_policy_plan_drives_next_action) ... ok
+test_read_command_enforces_line_cap (tests.test_search.ProtocolTests.test_read_command_enforces_line_cap) ... ok
+test_s0_and_s1_share_one_skeleton (tests.test_search.ProtocolTests.test_s0_and_s1_share_one_skeleton) ... ok
+test_s1_excludes_tests_in_ranking_but_s0_does_not (tests.test_search.ProtocolTests.test_s1_excludes_tests_in_ranking_bu
+t_s0_does_not) ... ok
+test_search_budget_is_enforced (tests.test_search.ProtocolTests.test_search_budget_is_enforced) ... ok
+test_shell_arguments_are_quoted (tests.test_search.ProtocolTests.test_shell_arguments_are_quoted) ... ok
+test_stop_conditions (tests.test_search.ProtocolTests.test_stop_conditions) ... ok
+test_export_manifest_requires_module_count_and_mapper_revision (tests.test_train.CheckpointTests.test_export_manifest_r
+equires_module_count_and_mapper_revision) ... ok
+test_full_model_payload_is_rejected (tests.test_train.CheckpointTests.test_full_model_payload_is_rejected) ... ok
+test_invalid_adapter_cannot_pass_silently (tests.test_train.CheckpointTests.test_invalid_adapter_cannot_pass_silently) 
+... ok
+test_mid_accum_interruption_rolls_back_boundary (tests.test_train.CheckpointTests.test_mid_accum_interruption_rolls_bac
+k_boundary) ... ok
+test_missing_complete_marker_is_not_usable (tests.test_train.CheckpointTests.test_missing_complete_marker_is_not_usable
+) ... ok
+test_partial_rng_or_cursor_is_rejected (tests.test_train.CheckpointTests.test_partial_rng_or_cursor_is_rejected) ... ok
+test_prune_keeps_only_last_two (tests.test_train.CheckpointTests.test_prune_keeps_only_last_two) ... ok
+test_resume_rejects_hash_mismatch (tests.test_train.CheckpointTests.test_resume_rejects_hash_mismatch) ... ok
+test_save_load_and_resume_roundtrip (tests.test_train.CheckpointTests.test_save_load_and_resume_roundtrip) ... ok
+test_config_payload_roundtrip_is_canonical (tests.test_train.ConfigTests.test_config_payload_roundtrip_is_canonical) ..
+. ok
+test_default_config_is_valid_and_pinned (tests.test_train.ConfigTests.test_default_config_is_valid_and_pinned) ... ok
+test_start_gate_blocks_on_every_missing_precondition (tests.test_train.ConfigTests.test_start_gate_blocks_on_every_miss
+ing_precondition) ... ok
+test_tampered_configs_are_rejected (tests.test_train.ConfigTests.test_tampered_configs_are_rejected) ... ok
+{
+  "blockers": [
+    {
+      "code": "train_lock_unverified",
+      "message": "train 依赖锁 verified=false：禁止自动取 latest"
+    },
+    {
+      "code": "serving_lock_invalid",
+      "problems": [
+        "serving.packages.torch.wheel_sha256 未取得或不是 64 位小写 hex（'PENDING'）"
+      ]
+    },
+    {
+      "code": "serving_lock_unverified",
+      "message": "serving 依赖锁 verified=false：禁止自动取 latest"
+    },
+    {
+      "code": "interface_pins_unverified",
+      "message": "未验证的 pin 不得当作已确认事实使用",
+      "pins": [
+        "chat_template_sha256",
+        "config_sha256",
+        "tokenizer_config_sha256",
+        "tokenizer_vocab_sha256",
+        "vllm_mapper_revision"
+      ]
+    }
+  ],
+  "can_start_training_now": false,
+  "config": {
+    "config_sha256": "9cd10a61779603adeaa907c23b8d4ecfc5afc0a3e95edfd578a5885a3efc7d5f",
+    "lora_rank": 16,
+    "optimizer_updates_cap": 32,
+    "seq_len": 2048
+  },
+  "gates": {
+    "export_manifest_pass": false,
+    "memory_plan_pass": false,
+    "t1_engineering_pass": true
+  },
+  "gates_evidence": {
+    "cpu_training_self_check": {
+      "adapter_sha256": "49fbdb8c857e1e888a86c9f2abe6bb2c2314e09e354ba6969a635d1508155147",
+      "all_passed": true,
+      "artifacts_kept": false,
+      "backend": "synthetic-cpu-loop",
+      "checks": {
+        "adapter_changed": true,
+        "adapter_only_saved": true,
+        "base_frozen": true,
+        "forward_backward_ran": true,
+        "loss_finite": true,
+        "optimizer_stepped": true,
+        "reload_matches": true
+      },
+      "full_state_dict_guard": {
+        "allowed_bytes": 0,
+        "checked": true,
+        "evidence": {
+          "method": "逐参数遍历：从不在同一容器里持有全部参数",
+          "probe": "synthetic-parameter-residency"
+        },
+        "full_state_dict_resident": false,
+        "observation": {
+          "declared_weight_bytes": 11520,
+          "method": "逐参数遍历：从不在同一容器里持有全部参数",
+          "peak_full_state_dict_bytes": 0,
+          "probe": "synthetic-parameter-residency"
+        },
+        "peak_full_state_dict_bytes": 0,
+        "rss_limit_bytes": 12884901888,
+        "total_weight_bytes": 11520
+      },
+      "grad_norm_min": 0.007705795046671062,
+      "is_real_model_training": false,
+      "loss_decreased_observation_only": true,
+      "loss_first": 3.4521500786293204,
+      "loss_last": 1.0135118580897045,
+      "note": "合成玩具模型上的自检：只证明前向/反向/优化器步进/保存重载这条链路可用，不证明真实模型可训练，也不产生任何可提交产物。loss_decreased 只作观察值，不作为通过条件。",
+      "optimizer_step_count": 40,
+      "saved_filename": "adapter.synthetic.json",
+      "stage": "cpu-training-loop-self-check",
+      "steps": 40,
+      "supervised_tokens_seen": 360
+    },
+    "export_manifest": {
+      "adapter_validation": null,
+      "contract": "v3-adapter-export/2",
+      "cross_checks": [],
+      "engineering_evidence": null,
+      "export_dir": null,
+      "problems": [
+        "没有提供导出清单：必须先有一份可校验的 adapter 导出清单"
+      ],
+      "provided": false
+    },
+    "mask_fixtures": {
+      "all_passed": true,
+      "count": 20,
+      "passed": 20,
+      "renderer": "shim-deterministic"
+    },
+    "memory_plan": null,
+    "memory_plan_reason": "没有提供实测内存 profile：未实测不得当作通过（设计常量只是上限）",
+    "memory_profile_provenance": null
+  },
+  "locks": {
+    "channels_isolated": {
+      "checked": true,
+      "distinct": true,
+      "package_count": {
+        "serving": 8,
+        "train": 6
+      },
+      "package_overlap": [
+        "compressed-tensors",
+        "torch",
+        "transformers"
+      ],
+      "package_versions_identical": false,
+      "serving_channel": "serving",
+      "serving_lock_sha256": "faee21c3b0e8bc67c1aaa1e915f49d16a1b6d6bf1d8c52662959faad0181ee44",
+      "serving_path": "L:\\multica工作区\\canopus-3ho-7fd8c6d77d72\\kaggle-38-b8ebea2f6b55\\workdir\\r4\\v3\\locks\\serving.lock.json",
+      "serving_source_sha256": "0b3819b4857c1a497523d59f01e932128f79caee4890640c6ce433b357dc88ff",
+      "train_channel": "train",
+      "train_lock_sha256": "2be015503c9b47d208784687c88248e3e9d59022eb915154e46c639f3669bb98",
+      "train_path": "L:\\multica工作区\\canopus-3ho-7fd8c6d77d72\\kaggle-38-b8ebea2f6b55\\workdir\\r4\\v3\\locks\\train.lock.json",
+      "train_source_sha256": "96f451272e5db93eb9ec7589a3842c6520a5a47cfa902b776da3d4a3272be9fa"
+    },
+    "serving": {
+      "channel": "serving",
+      "evidence_levels": {
+        "full_package_compiler_passed": {
+          "does_not_imply": "真实提交包（真实 adapter 权重）已通过官方 compiler",
+          "note": "本条只证明合成 fixture 的命名契约成立，不证明真实 adapter 可加载。",
+          "real_submission_package": false,
+          "scope": "官方 compile_submission() 对**合成 fixture**返回 ok=true：格子为官方命名 adapters/v3_policy/adapter_model.safetensors（该格无 adapter_config.json 也仍解析到 v3_policy）",
+          "value": true
+        },
+        "limits_builder_executed": {
+          "does_not_imply": "提交包通过官方校验",
+          "scope": "官方 sweegemma.config.build_submission_limits() 在本机装好官方包的环境里被真实调用（KAGGLE-27 S1 探针，E0 本轮独立重跑得到字节相同的产物）",
+          "value": true
+        },
+        "overall_verified": {
+          "reason": "真实 adapter 加载回归、真实提交包编译、评分端实际版本三项均未验；不得因上面三条为 true 就把整体置真。",
+          "value": false
+        },
+        "source_hash_verified": {
+          "does_not_imply": "评分端实际安装这些物料",
+          "scope": "8 个物料（含 vllm 与 HARNESS_README.md）的 SHA-256 由 E0 本轮对物料本体逐字节重算，与 KAGGLE-27 S2 记录逐项一致",
+          "value": true
+        }
+      },
+      "lock_sha256": "faee21c3b0e8bc67c1aaa1e915f49d16a1b6d6bf1d8c52662959faad0181ee44",
+      "package_count": 8,
+      "packages": {
+        "adk-eval-core": "0.1.0",
+        "adk_submission": "0.2.12",
+        "compressed-tensors": "0.15.0.1",
+        "google-adk": "1.36.1",
+        "sweegemma": "0.2.7",
+        "torch": "2.9.1",
+        "transformers": "5.13.1",
+        "vllm": "0.19.1"
+      },
+      "python": "3.13.7",
+      "python_evidence": {
+        "eval_sandbox_base_image": "python:3.13-slim",
+        "eval_sandbox_base_image_source": "Dockerfile.public / Dockerfile.sandbox（官方公开材料）",
+        "hard_floor": ">=3.12",
+        "hard_floor_source": "swegemma-0.2.7 wheel METADATA: Requires-Python >=3.12（E0 本轮从 wheel 内直接读出）",
+        "measured_running_version": "3.13.7",
+        "measured_where": "本机参与官方 compiler/parser 实测的环境（swegemma 0.2.7 + adk_submission 0.2.12 已安装）",
+        "note": "3.13.7 是**实测**值，不是猜的补丁号；python:3.13-slim 是浮动 tag，精确补丁号随构建变化，未验。",
+        "scoring_host_exact_patch": "unknown"
+      },
+      "python_requirement": ">=3.12",
+      "verified": false,
+      "version_scopes": {
+        "actual_vllm_version_on_scoring_host": {
+          "note": "README §3.1 给 serving 配置但不给 vLLM 版本号。",
+          "status": "unknown"
+        },
+        "material_wheelhouse": {
+          "adk-eval-core": "0.1.0",
+          "adk-submission": "0.2.12",
+          "compressed-tensors": "0.15.0.1",
+          "google-adk": "1.36.1",
+          "status": "material_sha256_verified_locally",
+          "swegemma": "0.2.7",
+          "transformers": "5.13.1",
+          "vllm": "0.19.1"
+        },
+        "scoring_host_installed": {
+          "note": "评分端（4×L4 机器）实际安装的包版本没有任何一手来源，保持 unknown；不得用 wheelhouse 版本代替。",
+          "status": "unknown"
+        }
+      }
+    },
+    "train": {
+      "channel": "train",
+      "lock_sha256": "2be015503c9b47d208784687c88248e3e9d59022eb915154e46c639f3669bb98",
+      "package_count": 6,
+      "packages": {
+        "accelerate": "1.11.0",
+        "compressed-tensors": "0.15.0.1",
+        "peft": "0.21.0",
+        "safetensors": "0.8.0",
+        "torch": "2.10.0",
+        "transformers": "5.17.0"
+      },
+      "python": "3.11.9",
+      "verified": false
+    }
+  },
+  "mask_fixtures": {
+    "count": 20,
+    "passed": 20,
+    "renderer": "shim-deterministic",
+    "unverified_claims": [
+      "official_template_byte_equality",
+      "real_tokenizer_offsets",
+      "serving_render_parity"
+    ]
+  },
+  "notes": [
+    "未提供真实模块清单：target 模块数按设计值 120 计，实际必须导出后才允许训练",
+    "开训闸门 memory_plan_pass 未通过（见 gates.evidence）",
+    "开训闸门 export_manifest_pass 未通过（见 gates.evidence）"
+  ],
+  "official_interface": {
+    "interface_sha256": "3dabd6fda37828f88205a3ef45fe2bd7950459042bf0315475c38ce58c2a845b",
+    "tool_count": 9,
+    "verified_pins": {
+      "chat_template_sha256": false,
+      "config_sha256": false,
+      "graph_edge_types_observed": true,
+      "model_repo_id": true,
+      "model_revision": true,
+      "official_parser": true,
+      "tokenizer_config_sha256": false,
+      "tokenizer_vocab_sha256": false,
+      "vllm_mapper_revision": false
+    }
+  },
+  "stage": "T0-preflight",
+  "target_plan": {
+    "adapter_train_state_gib": 0.4272,
+    "dense_reference_bytes": 62546177752,
+    "disk": {
+      "minimum_gib": 80,
+      "note": "先核查权重/环境/最大快照/日志 + 15% 余量，再按实际文件 manifest 调整。"
+    },
+    "expected_modules": 120,
+    "first_round_seq_len": 2048,
+    "geometry_layers": 60,
+    "gpu_peak_limit_gib": 72.0,
+    "memory_plan_unmeasured_baseline": {
+      "gpu_limit_gib": 72.0,
+      "host_rss_limit_gib": 12.0,
+      "measured": false,
+      "measured_host_rss_gib": 0.0,
+      "measured_peak_gpu_gib": 0.0,
+      "measured_source": "declared_estimate",
+      "note": "这是**未实测**时的对照：0 GiB 占用当然过门槛，因此该结果不构成任何内存合格结论；真正的门槛由实测 profile 经 measure_gates() 判定",
+      "pass": true,
+      "seq_len": 2048,
+      "status": "pass"
+    },
+    "memory_plan_upper_bound_only": true,
+    "trainable_params": 28672000
+  },
+  "training_entry": {
+    "backends": [
+      "synthetic-cpu-loop（CPU 自检）",
+      "torch-peft-bf16-lora（GPU 执行面，未实测）"
+    ],
+    "implemented": true,
+    "module": "v3/train/runner.py",
+    "note": "训练实现已在仓库内且 CPU 自检可复跑；GPU 实耗交 Liang 统筹链并先过闸门",
+    "real_gpu_executed_on_this_machine": false
+  },
+  "unverified_claims": [
+    "实际训练收益（未跑真实 GPU）",
+    "TP4 / 长上下文行为",
+    "官方模板渲染逐字节一致",
+    "vLLM 实际 mapper 版本与加载回归",
+    "真实模块 shape 与显存峰值",
+    "torch/peft 后端在真实 GPU 上的端到端行为（本机无 GPU、无锁定软件）"
+  ]
+test_cli_preflight_exit_code (tests.test_train.EntryTests.test_cli_preflight_exit_code) ... ok
+test_cli_start_exit_code_is_fail_closed (tests.test_train.EntryTests.test_cli_start_exit_code_is_fail_closed) ... ok
+test_preflight_reports_blockers_and_never_claims_ready (tests.test_train.EntryTests.test_preflight_reports_blockers_and
+_never_claims_ready) ... ok
+test_start_is_blocked_even_with_authorization_but_missing_gates (tests.test_train.EntryTests.test_start_is_blocked_even
+_with_authorization_but_missing_gates) ... ok
+test_start_is_blocked_without_authorization (tests.test_train.EntryTests.test_start_is_blocked_without_authorization) .
+.. ok
+test_frozen_patterns (tests.test_train.TargetTests.test_frozen_patterns) ... ok
+test_full_module_plan_validates (tests.test_train.TargetTests.test_full_module_plan_validates) ... ok
+test_gpu_auto_start_is_forbidden (tests.test_train.TargetTests.test_gpu_auto_start_is_forbidden) ... ok
+test_incomplete_module_plan_allowed_with_explained_mapping (tests.test_train.TargetTests.test_incomplete_module_plan_al
+lowed_with_explained_mapping) ... ok
+test_incomplete_module_plan_is_blocked_without_explanation (tests.test_train.TargetTests.test_incomplete_module_plan_is
+_blocked_without_explanation) ... ok
+test_memory_plan_gates (tests.test_train.TargetTests.test_memory_plan_gates) ... ok
+test_module_and_parameter_arithmetic (tests.test_train.TargetTests.test_module_and_parameter_arithmetic) ... ok
+test_unexplained_fused_names_are_rejected (tests.test_train.TargetTests.test_unexplained_fused_names_are_rejected) ... 
+ok
+test_build_labels_pads_with_ignore_index (tests.test_train.TemplateAndMaskTests.test_build_labels_pads_with_ignore_inde
+x) ... ok
+test_fixture_set_covers_required_topics (tests.test_train.TemplateAndMaskTests.test_fixture_set_covers_required_topics)
+ ... ok
+test_no_supervised_action_is_rejected (tests.test_train.TemplateAndMaskTests.test_no_supervised_action_is_rejected) ...
+ ok
+test_official_renderer_rejects_wrong_template_sha (tests.test_train.TemplateAndMaskTests.test_official_renderer_rejects
+_wrong_template_sha) ... ok
+test_official_renderer_requires_explicit_download_authorization (tests.test_train.TemplateAndMaskTests.test_official_re
+nderer_requires_explicit_download_authorization) ... ok
+test_official_renderer_verifies_template_bytes (tests.test_train.TemplateAndMaskTests.test_official_renderer_verifies_t
+emplate_bytes) ... ok
+test_shim_renderer_never_claims_official_parity (tests.test_train.TemplateAndMaskTests.test_shim_renderer_never_claims_
+official_parity) ... ok
+test_system_and_tool_tokens_never_get_labels (tests.test_train.TemplateAndMaskTests.test_system_and_tool_tokens_never_g
+et_labels) ... ok
+test_twenty_fixtures_all_pass (tests.test_train.TemplateAndMaskTests.test_twenty_fixtures_all_pass) ... ok
+test_unsupervised_assistant_action_is_context_only (tests.test_train.TemplateAndMaskTests.test_unsupervised_assistant_a
+ction_is_context_only) ... ok
+test_corpus_is_capped_at_twenty_four (tests.test_exp1.CorpusTests.test_corpus_is_capped_at_twenty_four) ... ok
+test_missing_field_is_rejected (tests.test_exp1.CorpusTests.test_missing_field_is_rejected) ... ok
+test_single_repo_corpus_is_rejected (tests.test_exp1.CorpusTests.test_single_repo_corpus_is_rejected) ... ok
+test_synthetic_corpus_is_labeled_and_covers_two_repos (tests.test_exp1.CorpusTests.test_synthetic_corpus_is_labeled_and
+_covers_two_repos) ... ok
+test_unlicensed_question_is_rejected (tests.test_exp1.CorpusTests.test_unlicensed_question_is_rejected) ... ok
+test_excluding_test_candidates_never_hurts_non_test_gold (tests.test_exp1.Exp1ReportTests.test_excluding_test_candidate
+s_never_hurts_non_test_gold) ... ok
+test_output_budget_section_is_explicitly_an_estimate (tests.test_exp1.Exp1ReportTests.test_output_budget_section_is_exp
+licitly_an_estimate) ... ok
+test_promotion_verdict_has_all_gates (tests.test_exp1.Exp1ReportTests.test_promotion_verdict_has_all_gates) ... ok
+test_report_does_not_claim_real_measurements (tests.test_exp1.Exp1ReportTests.test_report_does_not_claim_real_measureme
+nts) ... ok
+test_report_structure_and_metrics (tests.test_exp1.Exp1ReportTests.test_report_structure_and_metrics) ... ok
+test_stratification_by_gold_file_count (tests.test_exp1.Exp1ReportTests.test_stratification_by_gold_file_count) ... ok
+test_gold_is_never_a_test_path (tests.test_exp1.QuestionEvaluationTests.test_gold_is_never_a_test_path) ... ok
+test_single_question_metrics (tests.test_exp1.QuestionEvaluationTests.test_single_question_metrics) ... ok
+test_audit_accepts_design_only_bundle (tests.test_pipeline.CliTests.test_audit_accepts_design_only_bundle) ... ok
+}
+{
+  "code": "start_not_allowed",
+  "message": "开训闸门未通过（7 项）：GPU 执行交 Liang 统筹且门槛验收后才启动",
+  "context": {
+    "problems": [
+      "未显式授权 GPU：本编码任务不独自申请作业，GPU 执行交 Liang 统筹",
+      "训练依赖锁 verified=false",
+      "门槛未通过：memory_plan_pass",
+      "门槛未通过：export_manifest_pass",
+      "未被释放任何 GPU 预算（本编码任务不独自申请作业）",
+      "未指定 107 作业操作者（所有 107 操作仅 Liang 运行时）",
+      "未确认与 V2 排期无冲突（单账号单 GPU 必须串行）"
+    ],
+    "gates": {
+      "t1_engineering_pass": true,
+      "memory_plan_pass": false,
+      "export_manifest_pass": false
+    },
+    "gate_evidence": {
+      "mask_fixtures": {
+        "count": 20,
+        "passed": 20,
+        "all_passed": true,
+        "renderer": "shim-deterministic"
+      },
+      "cpu_training_self_check": {
+        "stage": "cpu-training-loop-self-check",
+        "backend": "synthetic-cpu-loop",
+        "is_real_model_training": false,
+        "steps": 40,
+        "checks": {
+          "forward_backward_ran": true,
+          "optimizer_stepped": true,
+          "loss_finite": true,
+          "base_frozen": true,
+          "adapter_changed": true,
+          "adapter_only_saved": true,
+          "reload_matches": true
+        },
+        "all_passed": true,
+        "loss_first": 3.4521500786293204,
+        "loss_last": 1.0135118580897045,
+        "loss_decreased_observation_only": true,
+        "grad_norm_min": 0.007705795046671062,
+        "supervised_tokens_seen": 360,
+        "optimizer_step_count": 40,
+        "adapter_sha256": "49fbdb8c857e1e888a86c9f2abe6bb2c2314e09e354ba6969a635d1508155147",
+        "saved_filename": "adapter.synthetic.json",
+        "full_state_dict_guard": {
+          "checked": true,
+          "full_state_dict_resident": false,
+          "peak_full_state_dict_bytes": 0,
+          "allowed_bytes": 0,
+          "rss_limit_bytes": 12884901888,
+          "total_weight_bytes": 11520,
+          "evidence": {
+            "probe": "synthetic-parameter-residency",
+            "method": "逐参数遍历：从不在同一容器里持有全部参数"
+          },
+          "observation": {
+            "probe": "synthetic-parameter-residency",
+            "method": "逐参数遍历：从不在同一容器里持有全部参数",
+            "peak_full_state_dict_bytes": 0,
+            "declared_weight_bytes": 11520
+          }
+        },
+        "note": "合成玩具模型上的自检：只证明前向/反向/优化器步进/保存重载这条链路可用，不证明真实模型可训练，也不产生任何可提交产物。loss_decreased 只作观察值，不作为通过条件。",
+        "artifacts_kept": false
+      },
+      "memory_plan": null,
+      "memory_plan_reason": "没有提供实测内存 profile：未实测不得当作通过（设计常量只是上限）",
+      "memory_profile_provenance": null,
+      "export_manifest": {
+        "provided": false,
+        "export_dir": null,
+        "contract": "v3-adapter-export/2",
+        "problems": [
+          "没有提供导出清单：必须先有一份可校验的 adapter 导出清单"
+        ],
+        "adapter_validation": null,
+        "engineering_evidence": null,
+        "cross_checks": []
+      }
+    }
+  }
+}
+{
+  "code": "start_not_allowed",
+  "message": "开训闸门未通过（5 项）：GPU 执行交 Liang 统筹且门槛验收后才启动",
+  "context": {
+    "problems": [
+      "验收门槛未通过前不得启动 GPU 执行",
+      "训练依赖锁 verified=false",
+      "门槛未通过：memory_plan_pass",
+      "门槛未通过：export_manifest_pass",
+      "未确认与 V2 排期无冲突（单账号单 GPU 必须串行）"
+    ],
+    "gates": {
+      "t1_engineering_pass": true,
+      "memory_plan_pass": false,
+      "export_manifest_pass": false
+    },
+    "gate_evidence": {
+      "mask_fixtures": {
+        "count": 20,
+        "passed": 20,
+        "all_passed": true,
+        "renderer": "shim-deterministic"
+      },
+      "cpu_training_self_check": {
+        "stage": "cpu-training-loop-self-check",
+        "backend": "synthetic-cpu-loop",
+        "is_real_model_training": false,
+        "steps": 40,
+        "checks": {
+          "forward_backward_ran": true,
+          "optimizer_stepped": true,
+          "loss_finite": true,
+          "base_frozen": true,
+          "adapter_changed": true,
+          "adapter_only_saved": true,
+          "reload_matches": true
+        },
+        "all_passed": true,
+        "loss_first": 3.4521500786293204,
+        "loss_last": 1.0135118580897045,
+        "loss_decreased_observation_only": true,
+        "grad_norm_min": 0.007705795046671062,
+        "supervised_tokens_seen": 360,
+        "optimizer_step_count": 40,
+        "adapter_sha256": "49fbdb8c857e1e888a86c9f2abe6bb2c2314e09e354ba6969a635d1508155147",
+        "saved_filename": "adapter.synthetic.json",
+        "full_state_dict_guard": {
+          "checked": true,
+          "full_state_dict_resident": false,
+          "peak_full_state_dict_bytes": 0,
+          "allowed_bytes": 0,
+          "rss_limit_bytes": 12884901888,
+          "total_weight_bytes": 11520,
+          "evidence": {
+            "probe": "synthetic-parameter-residency",
+            "method": "逐参数遍历：从不在同一容器里持有全部参数"
+          },
+          "observation": {
+            "probe": "synthetic-parameter-residency",
+            "method": "逐参数遍历：从不在同一容器里持有全部参数",
+            "peak_full_state_dict_bytes": 0,
+            "declared_weight_bytes": 11520
+          }
+        },
+        "note": "合成玩具模型上的自检：只证明前向/反向/优化器步进/保存重载这条链路可用，不证明真实模型可训练，也不产生任何可提交产物。loss_decreased 只作观察值，不作为通过条件。",
+        "artifacts_kept": false
+      },
+      "memory_plan": null,
+      "memory_plan_reason": "没有提供实测内存 profile：未实测不得当作通过（设计常量只是上限）",
+      "memory_profile_provenance": null,
+      "export_manifest": {
+        "provided": false,
+        "export_dir": null,
+        "contract": "v3-adapter-export/2",
+        "problems": [
+          "没有提供导出清单：必须先有一份可校验的 adapter 导出清单"
+        ],
+        "adapter_validation": null,
+        "engineering_evidence": null,
+        "cross_checks": []
+      }
+    }
+  }
+}
+{
+  "bundle_sha256": "b2add8c362d22a1796e1ae5f5e1e042224e85617f07f100bb121e148aa6875cb",
+  "faces": [
+    "oracle.private",
+    "task.audit",
+    "task.public",
+    "trajectory"
+  ],
+  "release_id": "rel-syn-1",
+  "release_state": "design_only",
+  "stage": "audit"
+}
+{
+  "serving": {
+    "channel": "serving",
+    "evidence_levels": {
+      "full_package_compiler_passed": {
+        "does_not_imply": "真实提交包（真实 adapter 权重）已通过官方 compiler",
+        "note": "本条只证明合成 fixture 的命名契约成立，不证明真实 adapter 可加载。",
+        "real_submission_package": false,
+        "scope": "官方 compile_submission() 对**合成 fixture**返回 ok=true：格子为官方命名 adapters/v3_policy/adapter_model.safetensors（该格无 adapter_config.json 也仍解析到 v3_policy）",
+        "value": true
+      },
+      "limits_builder_executed": {
+        "does_not_imply": "提交包通过官方校验",
+        "scope": "官方 sweegemma.config.build_submission_limits() 在本机装好官方包的环境里被真实调用（KAGGLE-27 S1 探针，E0 本轮独立重跑得到字节相同的产物）",
+        "value": true
+      },
+      "overall_verified": {
+        "reason": "真实 adapter 加载回归、真实提交包编译、评分端实际版本三项均未验；不得因上面三条为 true 就把整体置真。",
+        "value": false
+      },
+      "source_hash_verified": {
+        "does_not_imply": "评分端实际安装这些物料",
+        "scope": "8 个物料（含 vllm 与 HARNESS_README.md）的 SHA-256 由 E0 本轮对物料本体逐字节重算，与 KAGGLE-27 S2 记录逐项一致",
+        "value": true
+      }
+    },
+    "lock_sha256": "faee21c3b0e8bc67c1aaa1e915f49d16a1b6d6bf1d8c52662959faad0181ee44",
+    "package_count": 8,
+    "packages": {
+      "adk-eval-core": "0.1.0",
+      "adk_submission": "0.2.12",
+      "compressed-tensors": "0.15.0.1",
+      "google-adk": "1.36.1",
+      "sweegemma": "0.2.7",
+      "torch": "2.9.1",
+      "transformers": "5.13.1",
+      "vllm": "0.19.1"
+    },
+    "python": "3.13.7",
+    "python_evidence": {
+      "eval_sandbox_base_image": "python:3.13-slim",
+      "eval_sandbox_base_image_source": "Dockerfile.public / Dockerfile.sandbox（官方公开材料）",
+      "hard_floor": ">=3.12",
+      "hard_floor_source": "swegemma-0.2.7 wheel METADATA: Requires-Python >=3.12（E0 本轮从 wheel 内直接读出）",
+      "measured_running_version": "3.13.7",
+      "measured_where": "本机参与官方 compiler/parser 实测的环境（swegemma 0.2.7 + adk_submission 0.2.12 已安装）",
+      "note": "3.13.7 是**实测**值，不是猜的补丁号；python:3.13-slim 是浮动 tag，精确补丁号随构建变化，未验。",
+test_deps_reports_blocked_for_unverified_locks (tests.test_pipeline.CliTests.test_deps_reports_blocked_for_unverified_l
+ocks) ... ok
+      "scoring_host_exact_patch": "unknown"
+    },
+    "python_requirement": ">=3.12",
+    "verified": false,
+    "version_scopes": {
+      "actual_vllm_version_on_scoring_host": {
+        "note": "README §3.1 给 serving 配置但不给 vLLM 版本号。",
+        "status": "unknown"
+      },
+      "material_wheelhouse": {
+        "adk-eval-core": "0.1.0",
+        "adk-submission": "0.2.12",
+        "compressed-tensors": "0.15.0.1",
+        "google-adk": "1.36.1",
+        "status": "material_sha256_verified_locally",
+        "swegemma": "0.2.7",
+        "transformers": "5.13.1",
+        "vllm": "0.19.1"
+      },
+      "scoring_host_installed": {
+        "note": "评分端（4×L4 机器）实际安装的包版本没有任何一手来源，保持 unknown；不得用 wheelhouse 版本代替。",
+        "status": "unknown"
+      }
+    }
+  },
+  "train": {
+    "channel": "train",
+    "lock_sha256": "2be015503c9b47d208784687c88248e3e9d59022eb915154e46c639f3669bb98",
+    "package_count": 6,
+    "packages": {
+      "accelerate": "1.11.0",
+      "compressed-tensors": "0.15.0.1",
+      "peft": "0.21.0",
+      "safetensors": "0.8.0",
+      "torch": "2.10.0",
+      "transformers": "5.17.0"
+    },
+    "python": "3.11.9",
+    "verified": false
+  }
+test_exp1_runs_on_synthetic_corpus (tests.test_pipeline.CliTests.test_exp1_runs_on_synthetic_corpus) ... ok
+}{
+  "code": "empty_records",
+  "context": {},
+  "message": "records 为空",
+  "reason_code": "empty_records"
+}
+test_export_rejects_empty_records_first (tests.test_pipeline.CliTests.test_export_rejects_empty_records_first) ... ok
+{
+  "code": "template_lock_missing",
+  "context": {},
+  "message": "缺少模板锁定（template_sha256）：不得用未锁定模板导出训练视图",
+  "reason_code": "template_lock_missing"
+}
+test_export_requires_template_lock (tests.test_pipeline.CliTests.test_export_requires_template_lock) ... ok
+{
+  "code": "source_lock_invalid",
+  "context": {
+    "origin_format": "v3-source-lock/1",
+    "problems": [
+      "a 许可未 approved（authorization_scope=unverified，decision_source=flat-approval-key）"
+    ]
+  },
+  "message": "来源锁不合规（1 项）",
+  "reason_code": "source_lock_invalid"
+}
+test_ingest_blocks_unlicensed_source (tests.test_pipeline.CliTests.test_ingest_blocks_unlicensed_source) ... ok
+{
+  "code": "source_lock_invalid",
+  "context": {
+    "origin_format": "v3-source-lock/1",
+    "problems": [
+      "a commit 不是 40 位 hex（不得猜 SHA）：'abc'"
+    ]
+  },
+  "message": "来源锁不合规（1 项）",
+  "reason_code": "source_lock_invalid"
+}
+
+{
+  "by_gold_bucket": {
+    "1": {
+      "V0": {
+        "hit@1": 0.1667,
+        "hit@5": 0.1667,
+        "n": 6,
+        "region_hit@1": null,
+        "region_hit_evaluable_n": 0,
+        "region_hit_na_n": 6,
+        "top1_is_test_rate": 0.0,
+        "true_recall@5": 0.1667
+      },
+      "V1": {
+        "hit@1": 0.6667,
+        "hit@5": 0.6667,
+        "n": 6,
+        "region_hit@1": 0.3333,
+        "region_hit_evaluable_n": 6,
+        "region_hit_na_n": 0,
+        "top1_is_test_rate": 0.1667,
+        "true_recall@5": 0.6667
+      },
+      "V2": {
+        "hit@1": 0.6667,
+        "hit@5": 1.0,
+        "n": 6,
+        "region_hit@1": 0.4,
+        "region_hit_evaluable_n": 5,
+        "region_hit_na_n": 1,
+        "top1_is_test_rate": 0.0,
+        "true_recall@5": 1.0
+      },
+      "V3": {
+        "hit@1": 0.6667,
+        "hit@5": 0.6667,
+        "n": 6,
+        "region_hit@1": 0.4,
+        "region_hit_evaluable_n": 5,
+        "region_hit_na_n": 1,
+        "top1_is_test_rate": 0.0,
+        "true_recall@5": 0.6667
+      }
+    },
+    "2-4": {
+      "V0": {
+        "hit@1": 0.0,
+        "hit@5": 0.0,
+        "n": 2,
+        "region_hit@1": null,
+        "region_hit_evaluable_n": 0,
+        "region_hit_na_n": 2,
+        "top1_is_test_rate": 0.0,
+        "true_recall@5": 0.0
+      },
+      "V1": {
+        "hit@1": 1.0,
+        "hit@5": 1.0,
+        "n": 2,
+        "region_hit@1": 0.5,
+        "region_hit_evaluable_n": 2,
+        "region_hit_na_n": 0,
+        "top1_is_test_rate": 0.0,
+        "true_recall@5": 0.5
+      },
+      "V2": {
+        "hit@1": 0.5,
+        "hit@5": 1.0,
+        "n": 2,
+        "region_hit@1": 1.0,
+        "region_hit_evaluable_n": 1,
+        "region_hit_na_n": 1,
+        "top1_is_test_rate": 0.0,
+        "true_recall@5": 0.75
+      },
+      "V3": {
+        "hit@1": 1.0,
+        "hit@5": 1.0,
+        "n": 2,
+        "region_hit@1": 0.5,
+        "region_hit_evaluable_n": 2,
+        "region_hit_na_n": 0,
+        "top1_is_test_rate": 0.0,
+        "true_recall@5": 0.5
+      }
+    }
+  },
+  "by_origin_kind": {
+    "mutation": {
+      "V1": {
+        "hit@1": 1.0,
+        "hit@5": 1.0,
+        "n": 4,
+        "region_hit@1": 0.75,
+        "region_hit_evaluable_n": 4,
+        "region_hit_na_n": 0,
+        "top1_is_test_rate": 0.0,
+        "true_recall@5": 0.75
+      },
+      "V3": {
+        "hit@1": 1.0,
+        "hit@5": 1.0,
+        "n": 4,
+        "region_hit@1": 0.75,
+        "region_hit_evaluable_n": 4,
+        "region_hit_na_n": 0,
+        "top1_is_test_rate": 0.0,
+        "true_recall@5": 0.75
+      }
+    },
+    "synthetic_behaviour": {
+      "V1": {
+        "hit@1": 0.5,
+        "hit@5": 0.5,
+        "n": 4,
+        "region_hit@1": 0.0,
+        "region_hit_evaluable_n": 4,
+        "region_hit_na_n": 0,
+        "top1_is_test_rate": 0.25,
+        "true_recall@5": 0.5
+      },
+      "V3": {
+        "hit@1": 0.5,
+        "hit@5": 0.5,
+        "n": 4,
+        "region_hit@1": 0.0,
+        "region_hit_evaluable_n": 3,
+        "region_hit_na_n": 1,
+        "top1_is_test_rate": 0.0,
+        "true_recall@5": 0.5
+      }
+    }
+  },
+  "corpus": {
+    "corpus_id": "synthetic-exp1-corpus",
+    "corpus_sha256": "c016849e84aa68627a8f67951bff42739037fa3e699a6421e91c594394e50823",
+    "is_real_data": false,
+    "license": "synthetic-fixture",
+    "question_count": 8,
+    "repo_families": [
+      "alpha",
+      "beta"
+    ]
+  },
+  "cpu": {
+    "per_question_wall_seconds": [
+      5.6e-05,
+      4.3e-05,
+      3.4e-05,
+      5e-05,
+      2.9e-05,
+      2.5e-05,
+      3.3e-05,
+      3.2e-05
+    ],
+    "timing_clock": "time.perf_counter（墙上时间），不是 time.process_time",
+    "timing_note": "Q0 附带项：旧字段 process_time() 在 Windows 粒度约 15.6ms，整段评测恒为 0.0，等于假指标；现如实记墙上时间并改掉字段名。",
+    "total_wall_seconds": 0.0003
+  },
+  "experiment": "EXP-1",
+  "limitations": [
+    "合成题库（若 is_real_data=false）：只能验证流水线",
+    "输出字符数是估算而非实测截断日志",
+    "RegionHit 只用规则检索候选自带行区间，未经模型定位验证；NA 样本已从分母剔除",
+    "未使用任何模型"
+  ],
+  "output_budget": {
+    "estimate_basis": "命中行数 × 80 字符：这是估算，不是实测官方截断日志",
+    "estimated_chars": [
+      240,
+      480,
+      400,
+      160,
+      320,
+      80,
+      240,
+      320
+    ],
+    "hard_limit_chars": 5000,
+    "p95_estimated_chars": 480,
+    "p95_estimated_chars_nearest_rank": 480,
+    "p95_method": "最近秩法（nearest-rank）：sorted[round(0.95*n)-1]。n 较小时等价于最大值，不是插值 p95；样本量足够前不得据此声称尾部分布已刻画",
+    "target_chars": 1500,
+    "truncation_rate_over_hard_limit": 0.0
+  },
+  "overall": {
+    "V0": {
+      "hit@1": 0.125,
+      "hit@5": 0.125,
+      "n": 8,
+      "region_hit@1": null,
+      "region_hit_evaluable_n": 0,
+      "region_hit_na_n": 8,
+      "top1_is_test_rate": 0.0,
+      "true_recall@5": 0.125
+    },
+    "V1": {
+      "hit@1": 0.75,
+      "hit@5": 0.75,
+      "n": 8,
+      "region_hit@1": 0.375,
+      "region_hit_evaluable_n": 8,
+      "region_hit_na_n": 0,
+      "top1_is_test_rate": 0.125,
+      "true_recall@5": 0.625
+    },
+    "V2": {
+      "hit@1": 0.625,
+      "hit@5": 1.0,
+      "n": 8,
+      "region_hit@1": 0.5,
+      "region_hit_evaluable_n": 6,
+      "region_hit_na_n": 2,
+      "top1_is_test_rate": 0.0,
+      "true_recall@5": 0.9375
+    },
+    "V3": {
+      "hit@1": 0.75,
+      "hit@5": 0.75,
+      "n": 8,
+      "region_hit@1": 0.4286,
+      "region_hit_evaluable_n": 7,
+      "region_hit_na_n": 1,
+      "top1_is_test_rate": 0.0,
+      "true_recall@5": 0.625
+    }
+  },
+  "promotion_verdict": {
+    "hit@1_gain_pp": 0.0,
+    "hit@1_not_down": true,
+    "hit@5_gain_pp": 0.0,
+    "hit@5_not_down": true,
+    "promote": false,
+    "truncation_ok": true,
+    "truncation_rate": 0.0
+  },
+  "region_hit_basis": "只用候选自带的行区间（lexsearch.longest_hit_block 由真实命中行推出）；缺失记 NA 并从分母剔除（region_hit_evaluable_n / region_hit_na_n），禁止用写死的 1..1 之类假区间造指标",
+  "report_path": "L:\\multica工作区\\canopus-3ho-7fd8c6d77d72\\kaggle-38-b8ebea2f6b55\\workdir\\r4\\_tmp\\cli_exp1_12\\exp1-report.json",
+  "scope": "只评估规则检索；不构成对模型自主工具使用的实验"
+}
+{
+  "alternative_candidate_status": "imported_only_not_approved_as_replacement_and_not_released",
+  "candidate_pools": {
+    "alternative_candidates": [],
+    "locked_candidates": [
+      "a"
+    ]
+  },
+  "excluded_non_train": [],
+  "generated_by": null,
+  "license_assessment": {
+    "approval_revision_matches_pin": 0,
+    "decision_counts": {
+      "approved": 1,
+      "rejected": 0,
+      "unverified": 0
+    },
+    "independent_review_countersigned": false,
+    "independent_review_pending": 0,
+    "records_assessed": 1,
+    "source": "repos.<name>.license_review.decision（D0 license_review_schema）"
+  },
+  "license_metadata_imported_is_not_independent_approval": true,
+  "manifest_sha256": "8589cdd4e5f6d673232731253d0f59c0e9546dd59d423a3fb0f598eb005509d3",
+  "note": "本步只登记与校验，不下载权重/受限数据；未获批的来源不会被静默放行。许可元数据被导入**不等于**独立批准（independent_review 仍是 pending），也**不等于**任何 split 被 released；替代候选被导入不等于已批准替换或发布。",
+  "origin_format": "v3-source-lock/1",
+  "released_splits": [],
+  "source_count": 1,
+  "source_lock_sha256": "a43b27894b92a783cf8c8ea741085b4742778da64e436b666c86bd386d9f962d",
+  "sources": [
+    {
+      "acquired_at": "2026-03-01",
+      "approval_revision": null,
+      "approval_revision_matches_pin": null,
+      "authorization_scope": "approved",
+      "commit": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+      "independent_review_status": null,
+      "license_approved_spdx": null,
+      "license_decision": null,
+      "license_decision_source": "flat-approval-key",
+      "license_spdx": "MIT",
+      "name": "a",
+      "pinned_tag": null,
+      "repo_url": "u",
+      "role_class": null,
+      "split_role": null,
+      "tree_sha": null
+    }
+  ],
+  "stage": "ingest",
+  "train_only_view": false,
+  "training_released": false
+}{
+  "code": "no_gpu_budget",
+  "context": {},
+  "message": "未被释放 GPU 预算：不自动扩大预算、不启动第二个 GPU 作业",
+  "reason_code": "no_gpu_budget"
+}
+{
+  "code": "rollout_requires_teacher_model",
+  "context": {},
+  "message": "轨迹生成需要许可的教师模型与目标平台环境，交 107 运行统筹执行",
+  "reason_code": "rollout_requires_teacher_model"
+}
+test_ingest_rejects_guessed_or_unlicensed_sources (tests.test_pipeline.CliTests.test_ingest_rejects_guessed_or_unlicens
+ed_sources) ... ok
+test_rollout_refuses_without_budget (tests.test_pipeline.CliTests.test_rollout_refuses_without_budget) ... ok
+test_split_blocks_on_denylist_intersection (tests.test_pipeline.CliTests.test_split_blocks_on_denylist_intersection) ..
+. ok
+test_split_selects_when_clean (tests.test_pipeline.CliTests.test_split_selects_when_clean) ... ok
+
+{
+  "blockers": [
+    {
+      "code": "train_lock_unverified",
+      "message": "train 依赖锁 verified=false：禁止自动取 latest"
+    },
+    {
+      "code": "serving_lock_invalid",
+      "problems": [
+        "serving.packages.torch.wheel_sha256 未取得或不是 64 位小写 hex（'PENDING'）"
+      ]
+    },
+    {
+      "code": "serving_lock_unverified",
+      "message": "serving 依赖锁 verified=false：禁止自动取 latest"
+    },
+    {
+      "code": "interface_pins_unverified",
+      "message": "未验证的 pin 不得当作已确认事实使用",
+      "pins": [
+        "chat_template_sha256",
+        "config_sha256",
+        "tokenizer_config_sha256",
+        "tokenizer_vocab_sha256",
+        "vllm_mapper_revision"
+      ]
+    }
+  ],
+  "can_start_training_now": false,
+  "config": {
+    "config_sha256": "9cd10a61779603adeaa907c23b8d4ecfc5afc0a3e95edfd578a5885a3efc7d5f",
+    "lora_rank": 16,
+    "optimizer_updates_cap": 32,
+    "seq_len": 2048
+  },
+  "gates": {
+    "export_manifest_pass": false,
+    "memory_plan_pass": false,
+    "t1_engineering_pass": true
+  },
+  "gates_evidence": {
+    "cpu_training_self_check": {
+      "adapter_sha256": "49fbdb8c857e1e888a86c9f2abe6bb2c2314e09e354ba6969a635d1508155147",
+      "all_passed": true,
+      "artifacts_kept": false,
+      "backend": "synthetic-cpu-loop",
+      "checks": {
+        "adapter_changed": true,
+        "adapter_only_saved": true,
+        "base_frozen": true,
+        "forward_backward_ran": true,
+        "loss_finite": true,
+        "optimizer_stepped": true,
+        "reload_matches": true
+      },
+      "full_state_dict_guard": {
+        "allowed_bytes": 0,
+        "checked": true,
+        "evidence": {
+          "method": "逐参数遍历：从不在同一容器里持有全部参数",
+          "probe": "synthetic-parameter-residency"
+        },
+        "full_state_dict_resident": false,
+        "observation": {
+          "declared_weight_bytes": 11520,
+          "method": "逐参数遍历：从不在同一容器里持有全部参数",
+          "peak_full_state_dict_bytes": 0,
+          "probe": "synthetic-parameter-residency"
+        },
+        "peak_full_state_dict_bytes": 0,
+        "rss_limit_bytes": 12884901888,
+        "total_weight_bytes": 11520
+      },
+      "grad_norm_min": 0.007705795046671062,
+      "is_real_model_training": false,
+      "loss_decreased_observation_only": true,
+      "loss_first": 3.4521500786293204,
+      "loss_last": 1.0135118580897045,
+      "note": "合成玩具模型上的自检：只证明前向/反向/优化器步进/保存重载这条链路可用，不证明真实模型可训练，也不产生任何可提交产物。loss_decreased 只作观察值，不作为通过条件。",
+      "optimizer_step_count": 40,
+      "saved_filename": "adapter.synthetic.json",
+      "stage": "cpu-training-loop-self-check",
+      "steps": 40,
+      "supervised_tokens_seen": 360
+    },
+    "export_manifest": {
+      "adapter_validation": null,
+      "contract": "v3-adapter-export/2",
+      "cross_checks": [],
+      "engineering_evidence": null,
+      "export_dir": null,
+      "problems": [
+        "没有提供导出清单：必须先有一份可校验的 adapter 导出清单"
+      ],
+      "provided": false
+    },
+    "mask_fixtures": {
+      "all_passed": true,
+      "count": 20,
+      "passed": 20,
+      "renderer": "shim-deterministic"
+    },
+    "memory_plan": null,
+    "memory_plan_reason": "没有提供实测内存 profile：未实测不得当作通过（设计常量只是上限）",
+    "memory_profile_provenance": null
+  },
+  "locks": {
+    "channels_isolated": {
+      "checked": true,
+      "distinct": true,
+      "package_count": {
+        "serving": 8,
+        "train": 6
+      },
+      "package_overlap": [
+        "compressed-tensors",
+        "torch",
+        "transformers"
+      ],
+      "package_versions_identical": false,
+      "serving_channel": "serving",
+      "serving_lock_sha256": "faee21c3b0e8bc67c1aaa1e915f49d16a1b6d6bf1d8c52662959faad0181ee44",
+      "serving_path": "L:\\multica工作区\\canopus-3ho-7fd8c6d77d72\\kaggle-38-b8ebea2f6b55\\workdir\\r4\\v3\\locks\\serving.lock.json",
+      "serving_source_sha256": "0b3819b4857c1a497523d59f01e932128f79caee4890640c6ce433b357dc88ff",
+      "train_channel": "train",
+      "train_lock_sha256": "2be015503c9b47d208784687c88248e3e9d59022eb915154e46c639f3669bb98",
+      "train_path": "L:\\multica工作区\\canopus-3ho-7fd8c6d77d72\\kaggle-38-b8ebea2f6b55\\workdir\\r4\\v3\\locks\\train.lock.json",
+      "train_source_sha256": "96f451272e5db93eb9ec7589a3842c6520a5a47cfa902b776da3d4a3272be9fa"
+    },
+    "serving": {
+      "channel": "serving",
+      "evidence_levels": {
+        "full_package_compiler_passed": {
+          "does_not_imply": "真实提交包（真实 adapter 权重）已通过官方 compiler",
+          "note": "本条只证明合成 fixture 的命名契约成立，不证明真实 adapter 可加载。",
+          "real_submission_package": false,
+          "scope": "官方 compile_submission() 对**合成 fixture**返回 ok=true：格子为官方命名 adapters/v3_policy/adapter_model.safetensors（该格无 adapter_config.json 也仍解析到 v3_policy）",
+          "value": true
+        },
+        "limits_builder_executed": {
+          "does_not_imply": "提交包通过官方校验",
+          "scope": "官方 sweegemma.config.build_submission_limits() 在本机装好官方包的环境里被真实调用（KAGGLE-27 S1 探针，E0 本轮独立重跑得到字节相同的产物）",
+          "value": true
+        },
+        "overall_verified": {
+          "reason": "真实 adapter 加载回归、真实提交包编译、评分端实际版本三项均未验；不得因上面三条为 true 就把整体置真。",
+          "value": false
+        },
+        "source_hash_verified": {
+          "does_not_imply": "评分端实际安装这些物料",
+          "scope": "8 个物料（含 vllm 与 HARNESS_README.md）的 SHA-256 由 E0 本轮对物料本体逐字节重算，与 KAGGLE-27 S2 记录逐项一致",
+          "value": true
+        }
+      },
+      "lock_sha256": "faee21c3b0e8bc67c1aaa1e915f49d16a1b6d6bf1d8c52662959faad0181ee44",
+      "package_count": 8,
+      "packages": {
+        "adk-eval-core": "0.1.0",
+        "adk_submission": "0.2.12",
+        "compressed-tensors": "0.15.0.1",
+        "google-adk": "1.36.1",
+        "sweegemma": "0.2.7",
+        "torch": "2.9.1",
+        "transformers": "5.13.1",
+        "vllm": "0.19.1"
+      },
+      "python": "3.13.7",
+      "python_evidence": {
+        "eval_sandbox_base_image": "python:3.13-slim",
+        "eval_sandbox_base_image_source": "Dockerfile.public / Dockerfile.sandbox（官方公开材料）",
+        "hard_floor": ">=3.12",
+        "hard_floor_source": "swegemma-0.2.7 wheel METADATA: Requires-Python >=3.12（E0 本轮从 wheel 内直接读出）",
+        "measured_running_version": "3.13.7",
+        "measured_where": "本机参与官方 compiler/parser 实测的环境（swegemma 0.2.7 + adk_submission 0.2.12 已安装）",
+        "note": "3.13.7 是**实测**值，不是猜的补丁号；python:3.13-slim 是浮动 tag，精确补丁号随构建变化，未验。",
+        "scoring_host_exact_patch": "unknown"
+      },
+      "python_requirement": ">=3.12",
+      "verified": false,
+      "version_scopes": {
+        "actual_vllm_version_on_scoring_host": {
+          "note": "README §3.1 给 serving 配置但不给 vLLM 版本号。",
+          "status": "unknown"
+        },
+        "material_wheelhouse": {
+          "adk-eval-core": "0.1.0",
+          "adk-submission": "0.2.12",
+          "compressed-tensors": "0.15.0.1",
+          "google-adk": "1.36.1",
+          "status": "material_sha256_verified_locally",
+          "swegemma": "0.2.7",
+          "transformers": "5.13.1",
+          "vllm": "0.19.1"
+        },
+        "scoring_host_installed": {
+          "note": "评分端（4×L4 机器）实际安装的包版本没有任何一手来源，保持 unknown；不得用 wheelhouse 版本代替。",
+          "status": "unknown"
+        }
+      }
+    },
+    "train": {
+      "channel": "train",
+      "lock_sha256": "2be015503c9b47d208784687c88248e3e9d59022eb915154e46c639f3669bb98",
+      "package_count": 6,
+      "packages": {
+        "accelerate": "1.11.0",
+        "compressed-tensors": "0.15.0.1",
+        "peft": "0.21.0",
+        "safetensors": "0.8.0",
+        "torch": "2.10.0",
+        "transformers": "5.17.0"
+      },
+      "python": "3.11.9",
+      "verified": false
+    }
+  },
+  "mask_fixtures": {
+    "count": 20,
+    "passed": 20,
+    "renderer": "shim-deterministic",
+    "unverified_claims": [
+      "official_template_byte_equality",
+      "real_tokenizer_offsets",
+      "serving_render_parity"
+    ]
+  },
+  "notes": [
+    "未提供真实模块清单：target 模块数按设计值 120 计，实际必须导出后才允许训练",
+    "开训闸门 memory_plan_pass 未通过（见 gates.evidence）",
+    "开训闸门 export_manifest_pass 未通过（见 gates.evidence）"
+  ],
+  "official_interface": {
+    "interface_sha256": "3dabd6fda37828f88205a3ef45fe2bd7950459042bf0315475c38ce58c2a845b",
+    "tool_count": 9,
+    "verified_pins": {
+      "chat_template_sha256": false,
+      "config_sha256": false,
+      "graph_edge_types_observed": true,
+      "model_repo_id": true,
+      "model_revision": true,
+      "official_parser": true,
+      "tokenizer_config_sha256": false,
+      "tokenizer_vocab_sha256": false,
+      "vllm_mapper_revision": false
+    }
+  },
+  "stage": "T0-preflight",
+  "target_plan": {
+    "adapter_train_state_gib": 0.4272,
+    "dense_reference_bytes": 62546177752,
+    "disk": {
+      "minimum_gib": 80,
+      "note": "先核查权重/环境/最大快照/日志 + 15% 余量，再按实际文件 manifest 调整。"
+    },
+    "expected_modules": 120,
+    "first_round_seq_len": 2048,
+    "geometry_layers": 60,
+    "gpu_peak_limit_gib": 72.0,
+    "memory_plan_unmeasured_baseline": {
+      "gpu_limit_gib": 72.0,
+      "host_rss_limit_gib": 12.0,
+      "measured": false,
+      "measured_host_rss_gib": 0.0,
+      "measured_peak_gpu_gib": 0.0,
+      "measured_source": "declared_estimate",
+      "note": "这是**未实测**时的对照：0 GiB 占用当然过门槛，因此该结果不构成任何内存合格结论；真正的门槛由实测 profile 经 measure_gates() 判定",
+      "pass": true,
+      "seq_len": 2048,
+      "status": "pass"
+    },
+    "memory_plan_upper_bound_only": true,
+    "trainable_params": 28672000
+  },
+  "training_entry": {
+    "backends": [
+      "synthetic-cpu-loop（CPU 自检）",
+      "torch-peft-bf16-lora（GPU 执行面，未实测）"
+    ],
+    "implemented": true,
+    "module": "v3/train/runner.py",
+    "note": "训练实现已在仓库内且 CPU 自检可复跑；GPU 实耗交 Liang 统筹链并先过闸门",
+    "real_gpu_executed_on_this_machine": false
+  },
+  "unverified_claims": [
+    "实际训练收益（未跑真实 GPU）",
+    "TP4 / 长上下文行为",
+    "官方模板渲染逐字节一致",
+    "vLLM 实际 mapper 版本与加载回归",
+    "真实模块 shape 与显存峰值",
+    "torch/peft 后端在真实 GPU 上的端到端行为（本机无 GPU、无锁定软件）"
+  ]
+}{
+  "code": "face_missing_fields",
+  "context": {
+    "missing": [
+      "arch",
+      "container_digest",
+      "python_version",
+      "test_runner_version",
+      "dependency_wheel_hashes",
+      "install_commands",
+      "locale",
+      "timezone",
+      "env_allowlist",
+      "network_policy",
+      "cpu",
+      "ram_bytes",
+      "seed",
+      "test_selection",
+      "timeout_seconds",
+      "snapshot_tree_sha256"
+    ]
+  },
+  "message": "env.lock 缺少必需字段",
+  "reason_code": "face_missing_fields"
+}
+test_train_preflight_is_blocked_and_lists_fixture_pass (tests.test_pipeline.CliTests.test_train_preflight_is_blocked_an
+d_lists_fixture_pass) ... ok
+test_validate_env_requires_all_env_fields (tests.test_pipeline.CliTests.test_validate_env_requires_all_env_fields) ... 
+ok
+test_code_similarity_is_high_for_comment_and_path_renames (tests.test_pipeline.DedupTests.test_code_similarity_is_high_
+for_comment_and_path_renames) ... ok
+test_denylist_intersection_blocks_every_split (tests.test_pipeline.DedupTests.test_denylist_intersection_blocks_every_s
+plit)
+V2 排除清单对**所有** split 生效（Q0 Y8：旧实现只查 train/dev，是 fail-open）。 ... ok
+test_deterministic_selection_respects_quota_and_families (tests.test_pipeline.DedupTests.test_deterministic_selection_r
+espects_quota_and_families) ... ok
+test_exact_duplicate_detection (tests.test_pipeline.DedupTests.test_exact_duplicate_detection) ... ok
+test_family_components_merge_suspicious_neighbours (tests.test_pipeline.DedupTests.test_family_components_merge_suspici
+ous_neighbours) ... ok
+test_near_duplicate_statement_triggers_review (tests.test_pipeline.DedupTests.test_near_duplicate_statement_triggers_re
+view) ... ok
+test_statement_normalization_and_hash (tests.test_pipeline.DedupTests.test_statement_normalization_and_hash) ... ok
+test_d0_flat_authorization_scope_alias_cannot_bypass_license_review (tests.test_pipeline.SourceLockAdapterTests.test_d0
+_flat_authorization_scope_alias_cannot_bypass_license_review)
+Mika：不得用无条件 approved 别名绕过审核。 ... ok
+test_d0_manifest_is_blocked_until_license_is_approved (tests.test_pipeline.SourceLockAdapterTests.test_d0_manifest_is_b
+locked_until_license_is_approved) ... ok
+test_d0_manifest_passes_once_license_review_is_explicit (tests.test_pipeline.SourceLockAdapterTests.test_d0_manifest_pa
+sses_once_license_review_is_explicit) ... ok
+test_d0_shape_is_recognized_and_normalized (tests.test_pipeline.SourceLockAdapterTests.test_d0_shape_is_recognized_and_
+normalized) ... ok
+test_flat_sources_list_still_works (tests.test_pipeline.SourceLockAdapterTests.test_flat_sources_list_still_works) ... 
+ok
+test_guessed_short_commit_is_rejected (tests.test_pipeline.SourceLockAdapterTests.test_guessed_short_commit_is_rejected
+) ... ok
+test_train_only_guard_blocks_dev_and_sealed_roles (tests.test_pipeline.SourceLockAdapterTests.test_train_only_guard_blo
+cks_dev_and_sealed_roles) ... ok
+test_unknown_shape_is_rejected (tests.test_pipeline.SourceLockAdapterTests.test_unknown_shape_is_rejected) ... ok
+test_bf16_intermediate_estimate (tests.test_pipeline.StreamingTests.test_bf16_intermediate_estimate) ... ok
+test_cgroup_margin_is_applied (tests.test_pipeline.StreamingTests.test_cgroup_margin_is_applied) ... ok
+test_disk_plan_adds_headroom_and_floor (tests.test_pipeline.StreamingTests.test_disk_plan_adds_headroom_and_floor) ... 
+ok
+test_full_state_dict_is_forbidden_even_if_it_fits (tests.test_pipeline.StreamingTests.test_full_state_dict_is_forbidden
+_even_if_it_fits) ... ok
+test_manifest_without_shards_is_rejected (tests.test_pipeline.StreamingTests.test_manifest_without_shards_is_rejected) 
+... ok
+test_oversized_single_shard_stops (tests.test_pipeline.StreamingTests.test_oversized_single_shard_stops) ... ok
+test_plan_reports_streaming_required_but_peak_within_budget (tests.test_pipeline.StreamingTests.test_plan_reports_strea
+ming_required_but_peak_within_budget) ... ok
+test_shard_summary_is_sorted (tests.test_pipeline.StreamingTests.test_shard_summary_is_sorted) ... ok
+test_simulation_enforces_release_discipline (tests.test_pipeline.StreamingTests.test_simulation_enforces_release_discip
+line) ... ok
+test_boolean_null_bad_schema_and_empty_union_fail_closed (tests.test_g2_exclusion_contract.DenylistContractTests.test_b
+oolean_null_bad_schema_and_empty_union_fail_closed) ... ok
+test_counts_declared_is_mandatory_complete_and_strict_integer (tests.test_g2_exclusion_contract.DenylistContractTests.t
+est_counts_declared_is_mandatory_complete_and_strict_integer) ... ok
+test_synchronized_self_count_shrink_fails_independent_denominator (tests.test_g2_exclusion_contract.DenylistContractTes
+ts.test_synchronized_self_count_shrink_fails_independent_denominator) ... ok
+test_union_count_invariant_and_multisource_mapping (tests.test_g2_exclusion_contract.DenylistContractTests.test_union_c
+ount_invariant_and_multisource_mapping) ... ok
+test_mutating_cli_or_dependency_breaks_frozen_execution_pin (tests.test_g2_exclusion_contract.FixedCliFixtureProcessTes
+ts.test_mutating_cli_or_dependency_breaks_frozen_execution_pin) ... 
+  test_mutating_cli_or_dependency_breaks_frozen_execution_pin (tests.test_g2_exclusion_contract.FixedCliFixtureProcessT
+ests.test_mutating_cli_or_dependency_breaks_frozen_execution_pin) (path='v3/cli.py') ... ERROR
+  test_mutating_cli_or_dependency_breaks_frozen_execution_pin (tests.test_g2_exclusion_contract.FixedCliFixtureProcessT
+ests.test_mutating_cli_or_dependency_breaks_frozen_execution_pin) (path='v3/common/errors.py') ... ERROR
+test_real_python_module_entrypoint_os_exit_codes_0_4_7_and_v4_binding (tests.test_g2_exclusion_contract.FixedCliFixture
+ProcessTests.test_real_python_module_entrypoint_os_exit_codes_0_4_7_and_v4_binding) ... ok
+test_a2_sanitized_derivative_is_reproducible_and_preserves_source_bytes (tests.test_g2_exclusion_contract.RealCliAuthor
+izationTests.test_a2_sanitized_derivative_is_reproducible_and_preserves_source_bytes) ... ERROR
+test_fixed_fixture_hash_detects_synchronized_file_and_count_shrink (tests.test_g2_exclusion_contract.RealCliAuthorizati
+onTests.test_fixed_fixture_hash_detects_synchronized_file_and_count_shrink) ... ERROR
+test_fixture_entry_rejects_all_caller_paths_hashes_and_auth_files (tests.test_g2_exclusion_contract.RealCliAuthorizatio
+nTests.test_fixture_entry_rejects_all_caller_paths_hashes_and_auth_files) ... ok
+test_self_authored_decision_and_self_computed_hash_do_not_read_inputs (tests.test_g2_exclusion_contract.RealCliAuthoriz
+ationTests.test_self_authored_decision_and_self_computed_hash_do_not_read_inputs) ... ERROR
+test_collection_error_is_recognised (tests.test_q0_oracle.CollectionErrorTests.test_collection_error_is_recognised) ...
+ ok
+test_missing_symbol_at_import_time_is_a_collection_error (tests.test_q0_oracle.CollectionErrorTests.test_missing_symbol
+_at_import_time_is_a_collection_error)
+pytest 收集期导入失败会打 `ERROR <nodeid>` 行。 ... ok
+test_plain_assertion_failure_is_not_a_collection_error (tests.test_q0_oracle.CollectionErrorTests.test_plain_assertion_
+failure_is_not_a_collection_error)
+断言失败是正常的 F2P 失败，误判成 collection error 会让 broken 段永远算 pass。 ... ok
+test_broken_without_declared_f2p_node_is_inconclusive (tests.test_q0_oracle.P2PExecutionTests.test_broken_without_decla
+red_f2p_node_is_inconclusive)
+broken 段失败的不是声明的 F2P 节点 → 结论 inconclusive（不是 pass）。 ... ok
+test_empty_f2p_test_list_is_missing_input (tests.test_q0_oracle.P2PExecutionTests.test_empty_f2p_test_list_is_missing_i
+nput)
+空的 f2p_tests 同样必须 fail-closed。 ... ok
+test_empty_p2p_test_list_is_missing_input (tests.test_q0_oracle.P2PExecutionTests.test_empty_p2p_test_list_is_missing_i
+nput)
+空的 p2p_tests 必须 fail-closed，不得当成"无需对照"。 ... ok
+test_failing_p2p_command_is_executed_and_quarantined (tests.test_q0_oracle.P2PExecutionTests.test_failing_p2p_command_i
+s_executed_and_quarantined)
+反例：p2p_tests 给一条必然失败的命令，结论不得为 pass。 ... ok
+test_p2p_runs_on_both_clean_and_reference (tests.test_q0_oracle.P2PExecutionTests.test_p2p_runs_on_both_clean_and_refer
+ence)
+P2P 必须在 clean 与 reference 两个工作区各跑 repeats 次。 ... ok
+test_skip_in_p2p_segment_is_a_problem (tests.test_q0_oracle.P2PExecutionTests.test_skip_in_p2p_segment_is_a_problem)
+skip 出现在 P2P 段也算问题（不止 reference 段的 F2P）。 ... ok
+test_parse_dedupes_summary_and_progress_lines (tests.test_q0_oracle.PytestReportParsingTests.test_parse_dedupes_summary
+_and_progress_lines) ... ok
+test_parse_extracts_node_names_including_skips (tests.test_q0_oracle.PytestReportParsingTests.test_parse_extracts_node_
+names_including_skips) ... ok
+test_parse_marks_output_without_nodes_as_unparsable (tests.test_q0_oracle.PytestReportParsingTests.test_parse_marks_out
+put_without_nodes_as_unparsable) ... ok
+test_parse_recognises_zero_collected_as_parsable (tests.test_q0_oracle.PytestReportParsingTests.test_parse_recognises_z
+ero_collected_as_parsable)
+确实零用例是"有结论"，不是"解析失败"。 ... ok
+test_unparsable_pytest_failure_raises_blocked (tests.test_q0_oracle.PytestReportParsingTests.test_unparsable_pytest_fai
+lure_raises_blocked)
+解析不出来必须 fail-closed：Blocked('test_report_unparsable')。 ... ok
+test_unparsable_pytest_zero_exit_also_raises_blocked (tests.test_q0_oracle.PytestReportParsingTests.test_unparsable_pyt
+est_zero_exit_also_raises_blocked)
+零退出但解析不出节点名同样 fail-closed，不得冒充"无 skip"。 ... ok
+test_node_ids_available_defaults_true_for_synthetic_results (tests.test_q0_oracle.RunResultContractTests.test_node_ids_
+available_defaults_true_for_synthetic_results)
+合成结果默认按"节点名可用"处理，保持既有 ScriptedRunner fixture 语义。 ... ok
+test_to_dict_carries_commands_run (tests.test_q0_oracle.RunResultContractTests.test_to_dict_carries_commands_run) ... o
+k
+test_looks_like_pytest (tests.test_q0_oracle.RunnerCommandLineTests.test_looks_like_pytest) ... ok
+test_non_pytest_command_is_recorded_at_command_level (tests.test_q0_oracle.RunnerCommandLineTests.test_non_pytest_comma
+nd_is_recorded_at_command_level)
+非 pytest 命令：退出码 0 → passed_tests 装命令字符串且 node_ids_available=False。 ... ok
+test_pytest_argv_gets_per_node_report_flags (tests.test_q0_oracle.RunnerCommandLineTests.test_pytest_argv_gets_per_node
+_report_flags) ... ok
+test_missing_fields_and_bad_types_are_fail_closed (tests.test_q0_ckpt_config.Y11ConfigMergeTests.test_missing_fields_an
+d_bad_types_are_fail_closed)
+缺字段 → MissingInput；字段类型错 → 记入 problems，绝不抛裸 TypeError。 ... ok
+test_non_object_config_is_rejected (tests.test_q0_ckpt_config.Y11ConfigMergeTests.test_non_object_config_is_rejected) .
+.. ok
+test_partial_config_never_raises_bare_exception (tests.test_q0_ckpt_config.Y11ConfigMergeTests.test_partial_config_neve
+r_raises_bare_exception)
+反例原文：只写 {"lora": {"r": 16}} 时原来抛裸 KeyError: 'lora_alpha'。 ... ok
+test_partial_section_keeps_siblings (tests.test_q0_ckpt_config.Y11ConfigMergeTests.test_partial_section_keeps_siblings)
+ ... ok
+test_unknown_keys_are_rejected (tests.test_q0_ckpt_config.Y11ConfigMergeTests.test_unknown_keys_are_rejected) ... ok
+test_constants_match_frozen_fixture_suite (tests.test_q0_ckpt_config.Y4AdapterFixtureCountTests.test_constants_match_fr
+ozen_fixture_suite)
+具名常量必须与仓库里真实的 20 项 mask fixture 集一致（出处可核）。 ... ok
+test_default_entry_marks_small_suite_as_not_frozen (tests.test_q0_ckpt_config.Y4AdapterFixtureCountTests.test_default_e
+ntry_marks_small_suite_as_not_frozen)
+向后兼容入口：8/8 这类非冻结小集可以过，但必须自报未满足冻结口径。 ... ok
+test_frozen_20_must_all_pass (tests.test_q0_ckpt_config.Y4AdapterFixtureCountTests.test_frozen_20_must_all_pass)
+Y4：7/20 不达冻结验收（20 项 mask fixture 必须全过）。 ... ok
+test_frozen_20_of_20_passes (tests.test_q0_ckpt_config.Y4AdapterFixtureCountTests.test_frozen_20_of_20_passes) ... ok
+test_negative_counts_and_bad_types_are_fail_closed (tests.test_q0_ckpt_config.Y4AdapterFixtureCountTests.test_negative_
+counts_and_bad_types_are_fail_closed) ... ok
+test_oversized_suite_is_rejected (tests.test_q0_ckpt_config.Y4AdapterFixtureCountTests.test_oversized_suite_is_rejected
+)
+不得用自定义大集合冒充验收证据。 ... ok
+test_pass_exceeding_total_is_rejected (tests.test_q0_ckpt_config.Y4AdapterFixtureCountTests.test_pass_exceeding_total_i
+s_rejected)
+Y4 反例：fixture_pass=7 / fixture_total=2 必须被拒（原来会静默放行）。 ... ok
+test_strict_entry_rejects_smaller_suite (tests.test_q0_ckpt_config.Y4AdapterFixtureCountTests.test_strict_entry_rejects
+_smaller_suite)
+生产入口：fixture_total != 20 直接阻断（不给"小集全绿"留口子）。 ... ok
+test_plain_resume_never_rolls_back (tests.test_q0_ckpt_config.Y5MidAccumRollbackTests.test_plain_resume_never_rolls_bac
+k) ... ok
+test_rollback_switches_every_stateful_field (tests.test_q0_ckpt_config.Y5MidAccumRollbackTests.test_rollback_switches_e
+very_stateful_field) ... ok
+test_save_records_previous_complete_step (tests.test_q0_ckpt_config.Y5MidAccumRollbackTests.test_save_records_previous_
+complete_step) ... ok
+test_without_snapshot_rollback_is_not_faked (tests.test_q0_ckpt_config.Y5MidAccumRollbackTests.test_without_snapshot_ro
+llback_is_not_faked)
+只有一份 checkpoint 时不得假装回滚：rollback_applied=False 且不改字段。 ... ok
+test_negative_counter_is_rejected (tests.test_q0_ckpt_config.Y9FullStateDictTests.test_negative_counter_is_rejected) ..
+. ok
+test_no_evidence_is_fail_closed (tests.test_q0_ckpt_config.Y9FullStateDictTests.test_no_evidence_is_fail_closed)
+不提供证据（旧调用形态）不得视为通过。 ... ok
+test_resident_full_state_dict_is_blocked (tests.test_q0_ckpt_config.Y9FullStateDictTests.test_resident_full_state_dict_
+is_blocked) ... ok
+test_zero_residency_passes (tests.test_q0_ckpt_config.Y9FullStateDictTests.test_zero_residency_passes) ... ok
+test_channel_mismatch_is_aliased (tests.test_q0_ckpt_config.Y9LockChannelIsolationTests.test_channel_mismatch_is_aliase
+d) ... ok
+test_distinct_locks_pass_with_structured_result (tests.test_q0_ckpt_config.Y9LockChannelIsolationTests.test_distinct_lo
+cks_pass_with_structured_result) ... ok
+test_identical_package_versions_are_aliased (tests.test_q0_ckpt_config.Y9LockChannelIsolationTests.test_identical_packa
+ge_versions_are_aliased)
+包名→版本映射完全一致 = 两侧没有分面锁定。 ... ok
+test_same_bytes_in_two_paths_are_aliased (tests.test_q0_ckpt_config.Y9LockChannelIsolationTests.test_same_bytes_in_two_
+paths_are_aliased) ... ok
+test_same_file_is_aliased (tests.test_q0_ckpt_config.Y9LockChannelIsolationTests.test_same_file_is_aliased) ... ok
+test_declared_estimate_is_not_measured_evidence (tests.test_q0_ckpt_config.Y9MemoryPlanTests.test_declared_estimate_is_
+not_measured_evidence) ... ok
+test_evaluate_or_block_requires_measurement (tests.test_q0_ckpt_config.Y9MemoryPlanTests.test_evaluate_or_block_require
+s_measurement) ... ok
+test_evaluate_or_block_uses_measured_values (tests.test_q0_ckpt_config.Y9MemoryPlanTests.test_evaluate_or_block_uses_me
+asured_values) ... ok
+test_incomplete_measurement_is_rejected (tests.test_q0_ckpt_config.Y9MemoryPlanTests.test_incomplete_measurement_is_rej
+ected) ... ok
+test_measured_gate_failure_is_policy_violation (tests.test_q0_ckpt_config.Y9MemoryPlanTests.test_measured_gate_failure_
+is_policy_violation) ... ok
+test_fake_renderer_fails (tests.test_q0_train_entry.ArgsRoundtripTests.test_fake_renderer_fails) ... ok
+test_real_renderer_recovers_arguments (tests.test_q0_train_entry.ArgsRoundtripTests.test_real_renderer_recovers_argumen
+ts) ... ok
+test_content_token_subsequence_is_present (tests.test_q0_train_entry.AssistantContentPresenceTests.test_content_token_s
+ubsequence_is_present) ... ok
+test_empty_arguments_object_keeps_content (tests.test_q0_train_entry.AssistantContentPresenceTests.test_empty_arguments
+_object_keeps_content)
+F19 的 `arguments={}` 与 F01 的 `arguments=None` 必须同样保留 content。 ... ok
+test_every_fixture_assistant_content_is_locatable (tests.test_q0_train_entry.AssistantContentPresenceTests.test_every_f
+ixture_assistant_content_is_locatable) ... ok
+test_export_gate_requires_artifacts_and_rejects_self_report (tests.test_q0_train_entry.GateMeasurementTests.test_export
+_gate_requires_artifacts_and_rejects_self_report)
+G8：导出闸门要求 v2 契约 + 绑定的产物目录，并拒绝自报通过字段。 ... ok
+test_gates_are_measured (tests.test_q0_train_entry.GateMeasurementTests.test_gates_are_measured) ... ok
+test_memory_gate_uses_measurement (tests.test_q0_train_entry.GateMeasurementTests.test_memory_gate_uses_measurement)
+G7b：内存闸门只认**真实测量**，手打的数字不再能过门。 ... ok
+test_preflight_reports_implemented_entry (tests.test_q0_train_entry.GateMeasurementTests.test_preflight_reports_impleme
+nted_entry) ... ok
+test_start_is_fail_closed_without_authorization (tests.test_q0_train_entry.GateMeasurementTests.test_start_is_fail_clos
+ed_without_authorization) ... ok
+test_start_requires_a_plan_even_when_gates_pass (tests.test_q0_train_entry.GateMeasurementTests.test_start_requires_a_p
+lan_even_when_gates_pass)
+闸门全过但没有训练计划时，入口**不会自己编造数据**。 ... ok
+test_build_labels_does_not_mutate_input (tests.test_q0_train_entry.MaskAccountingTests.test_build_labels_does_not_mutat
+e_input) ... ok
+test_loss_counts_buckets_are_not_constant_zero (tests.test_q0_train_entry.MaskAccountingTests.test_loss_counts_buckets_
+are_not_constant_zero) ... ok
+test_fixture_suite_reports_thinking_channels (tests.test_q0_train_entry.ThinkingChannelTests.test_fixture_suite_reports
+_thinking_channels) ... ok
+test_reasoning_channel_is_never_supervised (tests.test_q0_train_entry.ThinkingChannelTests.test_reasoning_channel_is_ne
+ver_supervised) ... ok
+test_thinking_flag_changes_input_ids (tests.test_q0_train_entry.ThinkingChannelTests.test_thinking_flag_changes_input_i
+ds) ... ok
+test_thinking_off_has_no_reasoning_channel (tests.test_q0_train_entry.ThinkingChannelTests.test_thinking_off_has_no_rea
+soning_channel) ... ok
+test_cpu_self_check_passes_every_check (tests.test_q0_train_entry.TrainingEntryImplementationTests.test_cpu_self_check_
+passes_every_check) ... ok
+test_gpu_execution_not_implemented_is_gone (tests.test_q0_train_entry.TrainingEntryImplementationTests.test_gpu_executi
+on_not_implemented_is_gone)
+旧实现的"无条件抛出"必须消失。 ... ok
+test_out_of_range_token_is_fail_closed (tests.test_q0_train_entry.TrainingEntryImplementationTests.test_out_of_range_to
+ken_is_fail_closed) ... ok
+test_runner_contains_real_training_calls (tests.test_q0_train_entry.TrainingEntryImplementationTests.test_runner_contai
+ns_real_training_calls) ... ok
+test_adapter_reload_detects_tampering (tests.test_q0_train_entry.TrainingLoopTests.test_adapter_reload_detects_tamperin
+g) ... ok
+test_batch_without_supervised_tokens_is_rejected (tests.test_q0_train_entry.TrainingLoopTests.test_batch_without_superv
+ised_tokens_is_rejected) ... ok
+test_full_loop_produces_evidence (tests.test_q0_train_entry.TrainingLoopTests.test_full_loop_produces_evidence) ... ok
+test_zero_steps_is_rejected (tests.test_q0_train_entry.TrainingLoopTests.test_zero_steps_is_rejected) ... ok
+test_approved_licenses_pass (tests.test_q0_counterexamples.R3LicenseGateTests.test_approved_licenses_pass) ... ok
+test_license_evidence_field_is_required (tests.test_q0_counterexamples.R3LicenseGateTests.test_license_evidence_field_i
+s_required) ... ok
+test_rejected_licenses_are_not_allowlisted (tests.test_q0_counterexamples.R3LicenseGateTests.test_rejected_licenses_are
+_not_allowlisted) ... ok
+test_spdx_expression_rules (tests.test_q0_counterexamples.R3LicenseGateTests.test_spdx_expression_rules) ... ok
+test_synthetic_corpus_still_freezes (tests.test_q0_counterexamples.R3LicenseGateTests.test_synthetic_corpus_still_freez
+es) ... ok
+test_aggregate_excludes_na_from_denominator (tests.test_q0_counterexamples.Y10RegionHitTests.test_aggregate_excludes_na
+_from_denominator) ... ok
+test_candidate_carries_line_span (tests.test_q0_counterexamples.Y10RegionHitTests.test_candidate_carries_line_span) ...
+ ok
+test_missing_span_is_na (tests.test_q0_counterexamples.Y10RegionHitTests.test_missing_span_is_na) ... ok
+test_real_span_is_evaluated (tests.test_q0_counterexamples.Y10RegionHitTests.test_real_span_is_evaluated) ... ok
+test_adapter_count_limit_is_enforced (tests.test_q0_counterexamples.Y14SubmissionCarrierTests.test_adapter_count_limit_
+is_enforced) ... ok
+test_allowed_submission_passes (tests.test_q0_counterexamples.Y14SubmissionCarrierTests.test_allowed_submission_passes)
+ ... ok
+test_bare_string_pin_is_unverified (tests.test_q0_counterexamples.Y14SubmissionCarrierTests.test_bare_string_pin_is_unv
+erified) ... ok
+test_disallowed_extension_is_rejected (tests.test_q0_counterexamples.Y14SubmissionCarrierTests.test_disallowed_extensio
+n_is_rejected) ... ok
+test_missing_adapter_is_rejected (tests.test_q0_counterexamples.Y14SubmissionCarrierTests.test_missing_adapter_is_rejec
+ted) ... ok
+test_non_safetensors_adapter_is_rejected (tests.test_q0_counterexamples.Y14SubmissionCarrierTests.test_non_safetensors_
+adapter_is_rejected) ... ok
+test_official_limits_are_blocked_not_faked (tests.test_q0_counterexamples.Y14SubmissionCarrierTests.test_official_limit
+s_are_blocked_not_faked) ... ok
+test_service_lock_pins_official_carriers (tests.test_q0_counterexamples.Y14SubmissionCarrierTests.test_service_lock_pin
+s_official_carriers) ... ok
+test_total_size_limit_is_enforced (tests.test_q0_counterexamples.Y14SubmissionCarrierTests.test_total_size_limit_is_enf
+orced) ... ok
+test_unverified_limits_are_not_silently_enforced (tests.test_q0_counterexamples.Y14SubmissionCarrierTests.test_unverifi
+ed_limits_are_not_silently_enforced)
+🟡-2 修订：限额出处已由 KAGGLE-27 A 段证据落实，不再是"找不到出处"。 ... ok
+test_canonical_oracle_key_still_rejected (tests.test_q0_counterexamples.Y1ActorVisibleSurfaceTests.test_canonical_oracl
+e_key_still_rejected) ... ok
+test_legitimate_actor_payload_passes (tests.test_q0_counterexamples.Y1ActorVisibleSurfaceTests.test_legitimate_actor_pa
+yload_passes) ... ok
+test_patch_text_value_is_rejected (tests.test_q0_counterexamples.Y1ActorVisibleSurfaceTests.test_patch_text_value_is_re
+jected) ... ok
+test_renamed_keys_are_rejected (tests.test_q0_counterexamples.Y1ActorVisibleSurfaceTests.test_renamed_keys_are_rejected
+) ... ok
+test_all_positive_signals_approve (tests.test_q0_counterexamples.Y6Y7SourceLockTests.test_all_positive_signals_approve)
+ ... ok
+test_conflicting_approval_signals_are_order_independent (tests.test_q0_counterexamples.Y6Y7SourceLockTests.test_conflic
+ting_approval_signals_are_order_independent) ... ok
+test_missing_split_role_is_blocked (tests.test_q0_counterexamples.Y6Y7SourceLockTests.test_missing_split_role_is_blocke
+d) ... ok
+test_non_train_role_is_blocked (tests.test_q0_counterexamples.Y6Y7SourceLockTests.test_non_train_role_is_blocked) ... o
+k
+test_train_role_passes (tests.test_q0_counterexamples.Y6Y7SourceLockTests.test_train_role_passes) ... ok
+test_denylist_covers_sealed_and_legacy_test (tests.test_q0_counterexamples.Y8SplitTests.test_denylist_covers_sealed_and
+_legacy_test) ... ok
+test_first_missing_record_does_not_excuse_later_records (tests.test_q0_counterexamples.Y8SplitTests.test_first_missing_
+record_does_not_excuse_later_records)
+旧实现用累计的 missing 做 continue 条件，会让后面所有记录都被放过。 ... ok
+test_missing_family_fields_block (tests.test_q0_counterexamples.Y8SplitTests.test_missing_family_fields_block) ... ok
+test_sealed_is_a_valid_split (tests.test_q0_counterexamples.Y8SplitTests.test_sealed_is_a_valid_split)
+`sealed` 不再被判 `bad_split`（旧实现 `SPLITS` 里没有它）。 ... ok
+test_absent_block_is_rejected_when_required (tests.test_q0_d0_contract.AssessLicenseReviewUnitTests.test_absent_block_i
+s_rejected_when_required) ... ok
+test_clean_block_is_approved_and_pending_is_kept (tests.test_q0_d0_contract.AssessLicenseReviewUnitTests.test_clean_blo
+ck_is_approved_and_pending_is_kept) ... ok
+test_independent_review_approved_is_accepted_but_never_claimed (tests.test_q0_d0_contract.AssessLicenseReviewUnitTests.
+test_independent_review_approved_is_accepted_but_never_claimed) ... ok
+test_non_mapping_block_is_rejected (tests.test_q0_d0_contract.AssessLicenseReviewUnitTests.test_non_mapping_block_is_re
+jected) ... ok
+test_frozen_manifest_is_byte_identical_to_the_pinned_sha (tests.test_q0_d0_contract.FrozenD0ManifestTests.test_frozen_m
+anifest_is_byte_identical_to_the_pinned_sha) ... ok
+test_copyleft_conflict_beats_self_declared_approval (tests.test_q0_d0_contract.NegativeIngestTests.test_copyleft_confli
+ct_beats_self_declared_approval) ... ok
+test_decision_pending_is_rejected (tests.test_q0_d0_contract.NegativeIngestTests.test_decision_pending_is_rejected) ...
+ ok
+test_decision_rejected_is_rejected (tests.test_q0_d0_contract.NegativeIngestTests.test_decision_rejected_is_rejected) .
+.. ok
+test_empty_approved_spdx_is_rejected (tests.test_q0_d0_contract.NegativeIngestTests.test_empty_approved_spdx_is_rejecte
+d) ... ok
+test_flat_authorization_scope_alias_cannot_bypass_review (tests.test_q0_d0_contract.NegativeIngestTests.test_flat_autho
+rization_scope_alias_cannot_bypass_review)
+Mika：不得用无条件 approved 别名绕过审核。 ... ok
+test_independent_review_rejected_is_rejected (tests.test_q0_d0_contract.NegativeIngestTests.test_independent_review_rej
+ected_is_rejected) ... ok
+test_independent_review_status_out_of_domain_is_rejected (tests.test_q0_d0_contract.NegativeIngestTests.test_independen
+t_review_status_out_of_domain_is_rejected) ... ok
+test_missing_license_review_block_is_rejected (tests.test_q0_d0_contract.NegativeIngestTests.test_missing_license_revie
+w_block_is_rejected) ... ok
+test_missing_pinned_commit_cannot_be_approval_bound (tests.test_q0_d0_contract.NegativeIngestTests.test_missing_pinned_
+commit_cannot_be_approval_bound) ... ok
+test_missing_revision_field_is_rejected (tests.test_q0_d0_contract.NegativeIngestTests.test_missing_revision_field_is_r
+ejected) ... ok
+test_non_osi_permissive_is_rejected (tests.test_q0_d0_contract.NegativeIngestTests.test_non_osi_permissive_is_rejected)
+ ... ok
+test_restrictive_conflict_beats_self_declared_approval (tests.test_q0_d0_contract.NegativeIngestTests.test_restrictive_
+conflict_beats_self_declared_approval) ... ok
+test_revision_mismatch_is_rejected (tests.test_q0_d0_contract.NegativeIngestTests.test_revision_mismatch_is_rejected)
+批准绑定的 revision 与 pinned_commit 不一致 → 拒绝（重新 pin 让旧批准失效）。 ... ok
+test_single_rejected_record_poisons_the_whole_ingest (tests.test_q0_d0_contract.NegativeIngestTests.test_single_rejecte
+d_record_poisons_the_whole_ingest)
+任一拒绝信号优先拒绝：不因为其余 8 条干净就放行。 ... ok
+test_unknown_decision_is_rejected (tests.test_q0_d0_contract.NegativeIngestTests.test_unknown_decision_is_rejected) ...
+ ok
+test_cli_ingest_train_only_exits_zero_on_the_real_manifest (tests.test_q0_d0_contract.PositiveIngestTests.test_cli_inge
+st_train_only_exits_zero_on_the_real_manifest) ... ok
+test_full_manifest_view_also_ingests (tests.test_q0_d0_contract.PositiveIngestTests.test_full_manifest_view_also_ingest
+s)
+不带 --train-only 时全量 9 条都进 sources（dev/sealed 也在其中，但未被 released）。 ... ok
+test_real_manifest_ingests_with_exit_zero (tests.test_q0_d0_contract.PositiveIngestTests.test_real_manifest_ingests_wit
+h_exit_zero) ... ok
+test_real_d0_approved_spdx_values_are_all_allowlisted (tests.test_q0_license_allowlist.AllowlistIsSingleSourcedTests.te
+st_real_d0_approved_spdx_values_are_all_allowlisted) ... ok
+test_source_surface_reuses_the_frozen_table (tests.test_q0_license_allowlist.AllowlistIsSingleSourcedTests.test_source_
+surface_reuses_the_frozen_table) ... ok
+test_bool_is_not_treated_as_str (tests.test_q0_license_allowlist.CheckApprovedSpdxUnitTests.test_bool_is_not_treated_as
+_str) ... ok
+test_failure_message_is_non_empty_and_actionable (tests.test_q0_license_allowlist.CheckApprovedSpdxUnitTests.test_failu
+re_message_is_non_empty_and_actionable) ... ok
+test_success_message_names_the_hit (tests.test_q0_license_allowlist.CheckApprovedSpdxUnitTests.test_success_message_nam
+es_the_hit) ... ok
+test_flat_alias_still_cannot_bypass_a_bad_approval_spdx (tests.test_q0_license_allowlist.ConflictPriorityAndRevisionBin
+dingPreservedTests.test_flat_alias_still_cannot_bypass_a_bad_approval_spdx)
+平铺 `authorization_scope=approved` 不能把坏的 `approved_spdx` 翻回来。 ... ok
+test_spdx_content_and_conflict_markers_are_both_reported (tests.test_q0_license_allowlist.ConflictPriorityAndRevisionBi
+ndingPreservedTests.test_spdx_content_and_conflict_markers_are_both_reported) ... ok
+test_spdx_content_and_revision_mismatch_are_both_reported (tests.test_q0_license_allowlist.ConflictPriorityAndRevisionB
+indingPreservedTests.test_spdx_content_and_revision_mismatch_are_both_reported)
+两条独立问题不得互相吞掉：内容错 + revision 不符都要在 problems 里。 ... ok
+test_flat_path_also_checks_syntax_before_selection (tests.test_q0_license_allowlist.ExpressionSyntaxIsCheckedBeforeLice
+nseSelectionTests.test_flat_path_also_checks_syntax_before_selection) ... ok
+test_illegal_branch_embedded_in_AND_or_OR (tests.test_q0_license_allowlist.ExpressionSyntaxIsCheckedBeforeLicenseSelect
+ionTests.test_illegal_branch_embedded_in_AND_or_OR) ... ok
+test_illegal_text_before_and_after_OR (tests.test_q0_license_allowlist.ExpressionSyntaxIsCheckedBeforeLicenseSelectionT
+ests.test_illegal_text_before_and_after_OR) ... ok
+test_missing_operands_are_rejected (tests.test_q0_license_allowlist.ExpressionSyntaxIsCheckedBeforeLicenseSelectionTest
+s.test_missing_operands_are_rejected) ... ok
+test_pseudo_identifier_is_rejected_on_syntax_grounds_after_grammar_passes (tests.test_q0_license_allowlist.ExpressionSy
+ntaxIsCheckedBeforeLicenseSelectionTests.test_pseudo_identifier_is_rejected_on_syntax_grounds_after_grammar_passes)
+`synthetic-fixture` 本身是**合法原子**，它被拒是因为命中排除集 —— 理由要能区分。 ... ok
+test_quotes_semicolons_and_trailing_text_are_rejected (tests.test_q0_license_allowlist.ExpressionSyntaxIsCheckedBeforeL
+icenseSelectionTests.test_quotes_semicolons_and_trailing_text_are_rejected) ... ok
+test_allowlisted_flat_license_still_ingests (tests.test_q0_license_allowlist.FlatShapeLicenseSpdxTests.test_allowlisted
+_flat_license_still_ingests) ... ok
+test_non_allowlisted_flat_license_is_rejected (tests.test_q0_license_allowlist.FlatShapeLicenseSpdxTests.test_non_allow
+listed_flat_license_is_rejected) ... ok
+test_typed_flat_license_is_rejected (tests.test_q0_license_allowlist.FlatShapeLicenseSpdxTests.test_typed_flat_license_
+is_rejected) ... ok
+test_compound_containing_a_non_allowlisted_atom_is_rejected (tests.test_q0_license_allowlist.NegativeSpdxContentTests.t
+est_compound_containing_a_non_allowlisted_atom_is_rejected) ... ok
+test_empty_values_are_rejected (tests.test_q0_license_allowlist.NegativeSpdxContentTests.test_empty_values_are_rejected
+) ... ok
+test_malformed_expressions_are_rejected (tests.test_q0_license_allowlist.NegativeSpdxContentTests.test_malformed_expres
+sions_are_rejected) ... ok
+test_non_permissive_license_is_rejected (tests.test_q0_license_allowlist.NegativeSpdxContentTests.test_non_permissive_l
+icense_is_rejected) ... ok
+test_osi_permissive_true_cannot_substitute_for_content (tests.test_q0_license_allowlist.NegativeSpdxContentTests.test_o
+si_permissive_true_cannot_substitute_for_content)
+`osi_permissive=true` 不能替代内容检查（否则等于自述批准）。 ... ok
+test_synthetic_fixture_pseudo_license_is_rejected_for_real_repos (tests.test_q0_license_allowlist.NegativeSpdxContentTe
+sts.test_synthetic_fixture_pseudo_license_is_rejected_for_real_repos)
+`synthetic-fixture` 不是 SPDX 许可标识符，真实来源不得用它声明许可。 ... ok
+test_type_errors_are_rejected_explicitly (tests.test_q0_license_allowlist.NegativeSpdxContentTests.test_type_errors_are
+_rejected_explicitly)
+`str(True) == "True"` 这类隐式强转必须被挡在清单比较之外。 ... ok
+test_unknown_value_is_rejected (tests.test_q0_license_allowlist.NegativeSpdxContentTests.test_unknown_value_is_rejected
+) ... ok
+test_unsupported_compound_expressions_are_rejected (tests.test_q0_license_allowlist.NegativeSpdxContentTests.test_unsup
+ported_compound_expressions_are_rejected) ... ok
+test_allowlist_was_not_widened (tests.test_q0_license_allowlist.PolicySemanticsAreUnchangedTests.test_allowlist_was_not
+_widened)
+不得为了通过本轮而扩大允许清单：逐条断言清单项没有变化。 ... ok
+test_expression_evaluator_exclusion_is_atom_level (tests.test_q0_license_allowlist.PolicySemanticsAreUnchangedTests.tes
+t_expression_evaluator_exclusion_is_atom_level) ... ok
+test_expression_evaluator_rejects_whole_input_on_bad_atom (tests.test_q0_license_allowlist.PolicySemanticsAreUnchangedT
+ests.test_expression_evaluator_rejects_whole_input_on_bad_atom)
+直接调生产函数：语法阶段在整个表达式范围内先行，OR 不短路。 ... ok
+test_operator_case_insensitivity_and_whitespace_still_accepted (tests.test_q0_license_allowlist.PolicySemanticsAreUncha
+ngedTests.test_operator_case_insensitivity_and_whitespace_still_accepted) ... ok
+test_real_dual_licenses_are_unaffected (tests.test_q0_license_allowlist.PolicySemanticsAreUnchangedTests.test_real_dual
+_licenses_are_unaffected) ... ok
+test_valid_and_with_a_non_allowlisted_atom_is_still_rejected (tests.test_q0_license_allowlist.PolicySemanticsAreUnchang
+edTests.test_valid_and_with_a_non_allowlisted_atom_is_still_rejected) ... ok
+test_valid_or_still_selects_the_allowlisted_branch (tests.test_q0_license_allowlist.PolicySemanticsAreUnchangedTests.te
+st_valid_or_still_selects_the_allowlisted_branch)
+Mika 点名：`MIT OR GPL-3.0` 语义合法 → 仍按既定策略选 MIT 通过。 ... ok
+test_allowlisted_compound_expressions_still_pass (tests.test_q0_license_allowlist.PositiveIngestTests.test_allowlisted_
+compound_expressions_still_pass)
+`OR` / `AND` 是**已支持**的复合形式，不得被"复合即拒绝"误伤。 ... ok
+test_lowercase_is_accepted (tests.test_q0_license_allowlist.PositiveIngestTests.test_lowercase_is_accepted) ... ok
+test_real_manifest_still_ingests_with_exit_zero_semantics (tests.test_q0_license_allowlist.PositiveIngestTests.test_rea
+l_manifest_still_ingests_with_exit_zero_semantics) ... ok
+test_flat_path_also_rejects_mixed_pseudo_identifier (tests.test_q0_license_allowlist.PseudoIdentifierCannotBeRescuedByO
+RTests.test_flat_path_also_rejects_mixed_pseudo_identifier) ... ok
+test_pseudo_identifier_alone_and_case_variants (tests.test_q0_license_allowlist.PseudoIdentifierCannotBeRescuedByORTest
+s.test_pseudo_identifier_alone_and_case_variants) ... ok
+test_pseudo_identifier_before_and_after_OR (tests.test_q0_license_allowlist.PseudoIdentifierCannotBeRescuedByORTests.te
+st_pseudo_identifier_before_and_after_OR) ... ok
+test_pseudo_identifier_in_AND_combinations (tests.test_q0_license_allowlist.PseudoIdentifierCannotBeRescuedByORTests.te
+st_pseudo_identifier_in_AND_combinations) ... ok
+test_content_level_limits_are_not_claimed_as_enforced (tests.test_q0_submit_limits.BoundaryTests.test_content_level_lim
+its_are_not_claimed_as_enforced) ... ok
+test_extension_allowlist_cannot_be_widened_by_caller (tests.test_q0_submit_limits.BoundaryTests.test_extension_allowlis
+t_cannot_be_widened_by_caller) ... ok
+test_file_count_boundary (tests.test_q0_submit_limits.BoundaryTests.test_file_count_boundary) ... ok
+test_library_default_extensions_are_not_official (tests.test_q0_submit_limits.BoundaryTests.test_library_default_extens
+ions_are_not_official)
+`.sh` 在库默认的 29 种里，但不在官方 7 种里 —— 必须拒。 ... ok
+test_non_safetensors_adapter_from_library_defaults_is_rejected (tests.test_q0_submit_limits.BoundaryTests.test_non_safe
+tensors_adapter_from_library_defaults_is_rejected)
+.gguf 在库默认的 6 种 adapter 扩展名里，但官方只认 `.safetensors`。 ... ok
+test_official_builder_is_still_blocked_when_absent (tests.test_q0_submit_limits.BoundaryTests.test_official_builder_is_
+still_blocked_when_absent) ... ok
+test_structured_limits_are_exposed_in_the_report (tests.test_q0_submit_limits.BoundaryTests.test_structured_limits_are_
+exposed_in_the_report) ... ok
+test_total_size_is_strictly_less_than_three_gib (tests.test_q0_submit_limits.BoundaryTests.test_total_size_is_strictly_
+less_than_three_gib)
+官方 `max_total_size_bytes` 是 ≤ 3GiB，设计稿要求 < 3GiB：本模块取更严的。 ... ok
+test_yaml_count_boundary_counts_yml_too (tests.test_q0_submit_limits.BoundaryTests.test_yaml_count_boundary_counts_yml_
+too) ... ok
+test_yaml_size_boundary (tests.test_q0_submit_limits.BoundaryTests.test_yaml_size_boundary) ... ok
+test_extension_allowlist_is_exactly_the_official_seven (tests.test_q0_submit_limits.EvidenceCrossCheckTests.test_extens
+ion_allowlist_is_exactly_the_official_seven) ... ok
+test_unverified_bucket_is_now_empty_and_documented (tests.test_q0_submit_limits.EvidenceCrossCheckTests.test_unverified
+_bucket_is_now_empty_and_documented) ... ok
+test_values_match_the_kaggle27_evidence (tests.test_q0_submit_limits.EvidenceCrossCheckTests.test_values_match_the_kagg
+le27_evidence) ... ok
+test_extracted_evidence_matches (tests.test_q0_submit_limits.EvidenceFileShapeTests.test_extracted_evidence_matches) ..
+. ok
+test_frozen_evidence_copy_is_present (tests.test_q0_submit_limits.EvidenceFileShapeTests.test_frozen_evidence_copy_is_p
+resent) ... ok
+test_frozen_entry_accepts_20_of_20 (tests.test_q0_pins_and_guards.FixtureEntryIsolationTests.test_frozen_entry_accepts_
+20_of_20) ... ok
+test_frozen_entry_rejects_8_of_8 (tests.test_q0_pins_and_guards.FixtureEntryIsolationTests.test_frozen_entry_rejects_8_
+of_8) ... ok
+test_lenient_entry_marks_itself_as_test_only (tests.test_q0_pins_and_guards.FixtureEntryIsolationTests.test_lenient_ent
+ry_marks_itself_as_test_only) ... ok
+test_no_production_call_site_for_the_lenient_entry (tests.test_q0_pins_and_guards.FixtureEntryIsolationTests.test_no_pr
+oduction_call_site_for_the_lenient_entry)
+生产零调用证据：`v3/` 下**没有任何**非注释调用/导入。 ... ok
+test_old_unqualified_name_no_longer_exists (tests.test_q0_pins_and_guards.FixtureEntryIsolationTests.test_old_unqualifi
+ed_name_no_longer_exists) ... ok
+test_production_entry_uses_the_frozen_spec (tests.test_q0_pins_and_guards.FixtureEntryIsolationTests.test_production_en
+try_uses_the_frozen_spec) ... ok
+test_clean_observation_passes_and_is_reported (tests.test_q0_pins_and_guards.FullStateDictGuardWiringTests.test_clean_o
+bservation_passes_and_is_reported) ... ok
+test_explicit_observation_overrides_the_backend (tests.test_q0_pins_and_guards.FullStateDictGuardWiringTests.test_expli
+cit_observation_overrides_the_backend) ... ok
+test_guard_rejects_incomplete_observation (tests.test_q0_pins_and_guards.FullStateDictGuardWiringTests.test_guard_rejec
+ts_incomplete_observation) ... ok
+test_missing_observation_blocks_the_save (tests.test_q0_pins_and_guards.FullStateDictGuardWiringTests.test_missing_obse
+rvation_blocks_the_save) ... ok
+test_production_call_site_exists_in_runner (tests.test_q0_pins_and_guards.FullStateDictGuardWiringTests.test_production
+_call_site_exists_in_runner) ... ok
+test_resident_full_state_dict_blocks_the_save (tests.test_q0_pins_and_guards.FullStateDictGuardWiringTests.test_residen
+t_full_state_dict_blocks_the_save) ... ok
+test_self_check_reports_the_guard (tests.test_q0_pins_and_guards.FullStateDictGuardWiringTests.test_self_check_reports_
+the_guard) ... ok
+test_torch_backend_probe_walks_without_state_dict (tests.test_q0_pins_and_guards.FullStateDictGuardWiringTests.test_tor
+ch_backend_probe_walks_without_state_dict)
+真实后端的探针**不调用** `state_dict()`（一次性物化全部权重 = 硬规则禁止）。 ... ok
+test_start_raises_before_constructing_the_backend (tests.test_q0_pins_and_guards.MissingPinStopsBeforeBackendConstructi
+onTests.test_start_raises_before_constructing_the_backend) ... ok
+test_authorization_does_not_pretend_to_carry_pins (tests.test_q0_pins_and_guards.NoHardcodedFallbackSourceScanTests.tes
+t_authorization_does_not_pretend_to_carry_pins)
+旧实现从 `authorization.get("model_id")` 取值 —— 那个字典里从来没有该键。 ... ok
+test_hardcoded_model_id_is_gone (tests.test_q0_pins_and_guards.NoHardcodedFallbackSourceScanTests.test_hardcoded_model_
+id_is_gone) ... ok
+test_target_suffixes_key_is_gone (tests.test_q0_pins_and_guards.NoHardcodedFallbackSourceScanTests.test_target_suffixes
+_key_is_gone) ... ok
+test_explicit_arguments_override_the_lock (tests.test_q0_pins_and_guards.ResolveBackendPinsTests.test_explicit_argument
+s_override_the_lock) ... ok
+test_latest_revision_is_rejected (tests.test_q0_pins_and_guards.ResolveBackendPinsTests.test_latest_revision_is_rejecte
+d) ... ok
+test_missing_interface_file_is_fail_closed (tests.test_q0_pins_and_guards.ResolveBackendPinsTests.test_missing_interfac
+e_file_is_fail_closed) ... ok
+test_missing_revision_pin_is_rejected (tests.test_q0_pins_and_guards.ResolveBackendPinsTests.test_missing_revision_pin_
+is_rejected) ... ok
+test_pins_come_from_the_official_interface_lock (tests.test_q0_pins_and_guards.ResolveBackendPinsTests.test_pins_come_f
+rom_the_official_interface_lock) ... ok
+test_unverified_revision_pin_is_rejected (tests.test_q0_pins_and_guards.ResolveBackendPinsTests.test_unverified_revisio
+n_pin_is_rejected) ... ok
+test_empty_revision_is_still_rejected_by_the_real_backend (tests.test_q0_pins_and_guards.StartWiringTests.test_empty_re
+vision_is_still_rejected_by_the_real_backend) ... ok
+test_pins_reach_the_real_backend_constructor (tests.test_q0_pins_and_guards.StartWiringTests.test_pins_reach_the_real_b
+ackend_constructor) ... ok
+test_resolved_pins_are_accepted_by_the_real_backend_class (tests.test_q0_pins_and_guards.StartWiringTests.test_resolved
+_pins_are_accepted_by_the_real_backend_class)
+用**真实** `TorchPeftBackend` 构造（不 prepare，不联网、不加载权重）。 ... ok
+test_names_are_derived_from_the_regex (tests.test_q0_pins_and_guards.TargetModuleDerivationTests.test_names_are_derived
+_from_the_regex) ... ok
+test_underivable_regex_fails_closed (tests.test_q0_pins_and_guards.TargetModuleDerivationTests.test_underivable_regex_f
+ails_closed) ... ok
+test_adapter_name_with_separator_is_rejected (tests.test_k27_adapter_contract.CarrierNegativeTests.test_adapter_name_wi
+th_separator_is_rejected) ... ok
+test_declared_name_mismatch_is_rejected (tests.test_k27_adapter_contract.CarrierNegativeTests.test_declared_name_mismat
+ch_is_rejected)
+错声明：目录叫 v3_policy，YAML 却声明 policy_beta → 官方会 AdapterNotFoundError。 ... ok
+test_legacy_e0_name_is_rejected (tests.test_k27_adapter_contract.CarrierNegativeTests.test_legacy_e0_name_is_rejected)
+旧命名 `adapter.safetensors`：即便有 config 也拒（不再接受旧形态）。 ... ok
+test_missing_adapter_directory_is_rejected (tests.test_k27_adapter_contract.CarrierNegativeTests.test_missing_adapter_d
+irectory_is_rejected) ... ok
+test_missing_config_is_rejected (tests.test_k27_adapter_contract.CarrierNegativeTests.test_missing_config_is_rejected) 
+... ok
+test_non_object_config_is_rejected (tests.test_k27_adapter_contract.CarrierNegativeTests.test_non_object_config_is_reje
+cted) ... ok
+test_production_default_requires_config (tests.test_k27_adapter_contract.CarrierNegativeTests.test_production_default_r
+equires_config)
+默认入口必须要求 config；只有显式 require_config=False 才放宽（测试辅助语义）。 ... ok
+test_unparsable_config_is_rejected (tests.test_k27_adapter_contract.CarrierNegativeTests.test_unparsable_config_is_reje
+cted) ... ok
+test_weights_outside_adapters_dir_are_rejected (tests.test_k27_adapter_contract.CarrierNegativeTests.test_weights_outsi
+de_adapters_dir_are_rejected) ... ok
+test_wrong_basename_is_rejected (tests.test_k27_adapter_contract.CarrierNegativeTests.test_wrong_basename_is_rejected) 
+... ok
+test_carrier_paths_are_the_official_ones (tests.test_k27_adapter_contract.CarrierPositiveTests.test_carrier_paths_are_t
+he_official_ones) ... ok
+test_custom_adapter_name_is_supported (tests.test_k27_adapter_contract.CarrierPositiveTests.test_custom_adapter_name_is
+_supported) ... ok
+test_declared_limits_expose_the_contract (tests.test_k27_adapter_contract.CarrierPositiveTests.test_declared_limits_exp
+ose_the_contract) ... ok
+test_official_layout_passes (tests.test_k27_adapter_contract.CarrierPositiveTests.test_official_layout_passes) ... ok
+test_official_layout_passes_without_declared_name (tests.test_k27_adapter_contract.CarrierPositiveTests.test_official_l
+ayout_passes_without_declared_name)
+不给声明名时只做载体形态校验，也应通过；且仍报告发现名。 ... ok
+test_legacy_file_list_fails_the_gate (tests.test_k27_adapter_contract.ExportGateTests.test_legacy_file_list_fails_the_g
+ate) ... ok
+test_official_carrier_path_satisfies_the_gate (tests.test_k27_adapter_contract.ExportGateTests.test_official_carrier_pa
+th_satisfies_the_gate) ... ok
+test_plan_adapter_name_must_be_valid (tests.test_k27_adapter_contract.ExportWiringTests.test_plan_adapter_name_must_be_
+valid) ... ok
+test_plan_default_adapter_name_is_official (tests.test_k27_adapter_contract.ExportWiringTests.test_plan_default_adapter
+_name_is_official) ... ok
+test_save_adapter_rejects_backend_without_config (tests.test_k27_adapter_contract.ExportWiringTests.test_save_adapter_r
+ejects_backend_without_config)
+后端没写 config 时必须拦住（而不是等到官方 compiler 报 AdapterNotFoundError）。 ... ok
+test_save_adapter_writes_official_carrier (tests.test_k27_adapter_contract.ExportWiringTests.test_save_adapter_writes_o
+fficial_carrier) ... ok
+test_each_disambiguating_case (tests.test_k27_adapter_contract.NamingRuleTests.test_each_disambiguating_case) ... ok
+test_frozen_s1_matrix_is_present_and_byte_stable (tests.test_k27_adapter_contract.NamingRuleTests.test_frozen_s1_matrix
+_is_present_and_byte_stable) ... ok
+test_rule_matches_frozen_official_matrix (tests.test_k27_adapter_contract.NamingRuleTests.test_rule_matches_frozen_offi
+cial_matrix)
+规则必须能逐格复现官方 6 格（S1）+ E0 补的 4 格，共 10 格。 ... ok
+test_rule_rejects_a_tampered_frozen_matrix (tests.test_k27_adapter_contract.NamingRuleTests.test_rule_rejects_a_tampere
+d_frozen_matrix)
+反例：冻结证据被改动时，规则自检必须失败，而不是静默放过。 ... ok
+test_v3_sources_do_not_hardcode_legacy_adapter_filename (tests.test_k27_adapter_contract.NoLegacyNameTests.test_v3_sour
+ces_do_not_hardcode_legacy_adapter_filename)
+旧名字面量只允许出现在 `v3/submit/adapter_contract.py` 的常量定义处。 ... ok
+test_probe_is_fail_closed_without_official_packages (tests.test_k27_adapter_contract.ToolAvailabilityTests.test_probe_i
+s_fail_closed_without_official_packages) ... [official_compiler_unavailable] 无法导入官方包，本探针不产出结果：No module named 'adk_subm
+ission'
+ok
+test_overall_is_not_promoted_to_true (tests.test_k27_serving_lock.EvidenceLevelTests.test_overall_is_not_promoted_to_tr
+ue) ... ok
+test_submit_limits_are_not_promoted_by_a_builder_run (tests.test_k27_serving_lock.EvidenceLevelTests.test_submit_limits
+_are_not_promoted_by_a_builder_run)
+builder 跑过 ≠ 提交包通过官方校验：`official_limits_verified` 必须仍为 False。 ... ok
+test_three_levels_are_recorded_separately (tests.test_k27_serving_lock.EvidenceLevelTests.test_three_levels_are_recorde
+d_separately) ... ok
+test_channels_stay_isolated (tests.test_k27_serving_lock.FrozenMaterialEvidenceTests.test_channels_stay_isolated) ... o
+k
+test_every_non_pending_sha_is_64_hex_and_locally_verified (tests.test_k27_serving_lock.FrozenMaterialEvidenceTests.test
+_every_non_pending_sha_is_64_hex_and_locally_verified) ... ok
+test_frozen_copies_have_no_local_absolute_paths (tests.test_k27_serving_lock.FrozenMaterialEvidenceTests.test_frozen_co
+pies_have_no_local_absolute_paths) ... ok
+test_frozen_readme_hash_is_recorded (tests.test_k27_serving_lock.FrozenMaterialEvidenceTests.test_frozen_readme_hash_is
+_recorded) ... ok
+test_hashes_match_the_frozen_s2_records (tests.test_k27_serving_lock.FrozenMaterialEvidenceTests.test_hashes_match_the_
+frozen_s2_records)
+能对上 S2 的逐项对齐；S2 未下载的（vllm）必须能在 E0 wheelhouse 清单里找到。 ... ok
+test_material_versions_are_recorded (tests.test_k27_serving_lock.ScopeSeparationTests.test_material_versions_are_record
+ed) ... ok
+test_notes_forbid_substituting_wheelhouse_for_scoring_host (tests.test_k27_serving_lock.ScopeSeparationTests.test_notes
+_forbid_substituting_wheelhouse_for_scoring_host) ... ok
+test_scoring_host_versions_stay_unknown (tests.test_k27_serving_lock.ScopeSeparationTests.test_scoring_host_versions_st
+ay_unknown) ... ok
+test_lock_still_fails_closed (tests.test_k27_serving_lock.ServingLockAlignmentTests.test_lock_still_fails_closed)
+torch 物料未取得 → 保持 PENDING，锁不合法、verified false（fail-closed 不变）。 ... ok
+test_named_versions_are_aligned (tests.test_k27_serving_lock.ServingLockAlignmentTests.test_named_versions_are_aligned)
+ ... ok
+test_python_satisfies_the_swegemma_floor (tests.test_k27_serving_lock.ServingLockAlignmentTests.test_python_satisfies_t
+he_swegemma_floor)
+`python` 必须精确锁定，且满足 sweegemma 的 `Requires-Python >=3.12`。 ... ok
+test_summary_surfaces_scopes_and_evidence_levels (tests.test_k27_serving_lock.ServingLockAlignmentTests.test_summary_su
+rfaces_scopes_and_evidence_levels) ... ok
+test_superseded_versions_are_gone (tests.test_k27_serving_lock.ServingLockAlignmentTests.test_superseded_versions_are_g
+one) ... ok
+test_artifact_digest_mismatch_is_detected (tests.test_g38_increment.AdapterExportContractTests.test_artifact_digest_mis
+match_is_detected) ... ok
+test_artifacts_must_be_bound (tests.test_g38_increment.AdapterExportContractTests.test_artifacts_must_be_bound) ... ok
+test_data_export_is_not_an_adapter_export (tests.test_g38_increment.AdapterExportContractTests.test_data_export_is_not_
+an_adapter_export) ... ok
+test_extra_unlisted_file_is_detected (tests.test_g38_increment.AdapterExportContractTests.test_extra_unlisted_file_is_d
+etected) ... ok
+test_legacy_carrier_name_fails_the_producer (tests.test_g38_increment.AdapterExportContractTests.test_legacy_carrier_na
+me_fails_the_producer) ... ok
+test_legacy_v1_format_is_rejected (tests.test_g38_increment.AdapterExportContractTests.test_legacy_v1_format_is_rejecte
+d) ... ok
+test_producer_and_consumer_agree (tests.test_g38_increment.AdapterExportContractTests.test_producer_and_consumer_agree)
+ ... ok
+test_producer_requires_pins_and_module_count (tests.test_g38_increment.AdapterExportContractTests.test_producer_require
+s_pins_and_module_count) ... ok
+test_self_reported_fields_are_rejected (tests.test_g38_increment.AdapterExportContractTests.test_self_reported_fields_a
+re_rejected) ... ok
+test_tampered_bytes_are_detected (tests.test_g38_increment.AdapterExportContractTests.test_tampered_bytes_are_detected)
+ ... ok
+test_cli_start_without_dest_dir_never_writes_into_repo (tests.test_g38_increment.DestDirTests.test_cli_start_without_de
+st_dir_never_writes_into_repo)
+缺 `--dest-dir` 时 CLI 必须非零退出，且**不得**在仓库里建默认产物目录。 ... ok
+test_existing_file_is_rejected (tests.test_g38_increment.DestDirTests.test_existing_file_is_rejected) ... ok
+test_missing_dest_dir_is_rejected (tests.test_g38_increment.DestDirTests.test_missing_dest_dir_is_rejected) ... ok
+test_path_inside_repo_is_rejected (tests.test_g38_increment.DestDirTests.test_path_inside_repo_is_rejected) ... ok
+test_paths_consistency (tests.test_g38_increment.DestDirTests.test_paths_consistency) ... ok
+test_relative_path_is_rejected (tests.test_g38_increment.DestDirTests.test_relative_path_is_rejected) ... ok
+test_repo_ancestor_is_rejected (tests.test_g38_increment.DestDirTests.test_repo_ancestor_is_rejected) ... ok
+test_valid_outside_path_is_created_and_probed (tests.test_g38_increment.DestDirTests.test_valid_outside_path_is_created
+_and_probed) ... ok
+test_engineering_check_refuses_repo_internal_dest (tests.test_g38_increment.EngineeringCheckTests.test_engineering_chec
+k_refuses_repo_internal_dest) ... ok
+test_run_engineering_check_passes_and_reports_honestly (tests.test_g38_increment.EngineeringCheckTests.test_run_enginee
+ring_check_passes_and_reports_honestly) ... ok
+test_backend_without_step_hook_is_refused (tests.test_g38_increment.LifecycleTests.test_backend_without_step_hook_is_re
+fused) ... ok
+test_checkpoints_are_written_and_stop_is_honoured (tests.test_g38_increment.LifecycleTests.test_checkpoints_are_written
+_and_stop_is_honoured) ... ok
+test_deadline_stop_reason (tests.test_g38_increment.LifecycleTests.test_deadline_stop_reason) ... ok
+test_import_state_requires_rng_and_cursor (tests.test_g38_increment.LifecycleTests.test_import_state_requires_rng_and_c
+ursor) ... ok
+test_jsonify_rejects_unserializable (tests.test_g38_increment.LifecycleTests.test_jsonify_rejects_unserializable) ... o
+k
+test_lifecycle_requires_all_hashes (tests.test_g38_increment.LifecycleTests.test_lifecycle_requires_all_hashes) ... ok
+test_resume_continues_from_checkpoint (tests.test_g38_increment.LifecycleTests.test_resume_continues_from_checkpoint) .
+.. ok
+test_resume_rejects_hash_mismatch (tests.test_g38_increment.LifecycleTests.test_resume_rejects_hash_mismatch) ... ok
+test_signal_request_is_idempotent_and_restored (tests.test_g38_increment.LifecycleTests.test_signal_request_is_idempote
+nt_and_restored) ... ok
+test_tensor_codec_roundtrip_with_duck_typed_tensor (tests.test_g38_increment.LifecycleTests.test_tensor_codec_roundtrip
+_with_duck_typed_tensor) ... ok
+test_gpu_unavailable_is_recorded_not_guessed (tests.test_g38_increment.MemoryProfileTests.test_gpu_unavailable_is_recor
+ded_not_guessed) ... ok
+test_host_peak_probe_is_real (tests.test_g38_increment.MemoryProfileTests.test_host_peak_probe_is_real) ... ok
+test_phases_can_be_asserted (tests.test_g38_increment.MemoryProfileTests.test_phases_can_be_asserted) ... ok
+test_profile_covers_all_required_phases (tests.test_g38_increment.MemoryProfileTests.test_profile_covers_all_required_p
+hases) ... ok
+test_synthetic_fixture_profile_is_rejected (tests.test_g38_increment.MemoryProfileTests.test_synthetic_fixture_profile_
+is_rejected) ... ok
+test_test_double_provenance_is_rejected (tests.test_g38_increment.MemoryProfileTests.test_test_double_provenance_is_rej
+ected) ... ok
+test_cuda_reader_returns_nonzero_peak (tests.test_g38_increment.RealCudaProbeTests.test_cuda_reader_returns_nonzero_pea
+k) ... skipped '默认不碰真实 GPU（设 V3_RUN_CUDA_PROBE=1 才跑）'
+test_chat_template_match_and_mismatch_use_its_own_bytes (tests.test_g6g9_lock_materials.InterfacePinTests.test_chat_tem
+plate_match_and_mismatch_use_its_own_bytes) ... ok
+test_chat_template_mirror_metadata_agreement_is_consistency_only (tests.test_g6g9_lock_materials.InterfacePinTests.test
+_chat_template_mirror_metadata_agreement_is_consistency_only) ... ok
+test_chat_template_pin_is_separate_from_the_config_hash (tests.test_g6g9_lock_materials.InterfacePinTests.test_chat_tem
+plate_pin_is_separate_from_the_config_hash)
+config 哈希正确也**不能**顶替模板 pin：没取到模板就是 missing_evidence。 ... ok
+test_cli_metadata_only_mirror_endpoint_never_touches_the_lock (tests.test_g6g9_lock_materials.InterfacePinTests.test_cl
+i_metadata_only_mirror_endpoint_never_touches_the_lock)
+真跑一次 CLI（注入取数器，不联网）：只读真锁、输出镜像端点报告。 ... ok
+test_cli_rejects_a_template_without_placeholders (tests.test_g6g9_lock_materials.InterfacePinTests.test_cli_rejects_a_t
+emplate_without_placeholders) ... 端点模板不合法：端点模板必须含 {repo}/{revision} 或两个 {} 占位符，实际收到：'https://example.invalid/fixed'
+ok
+test_endpoint_template_forms (tests.test_g6g9_lock_materials.InterfacePinTests.test_endpoint_template_forms) ... ok
+test_evidence_for_another_revision_is_flagged (tests.test_g6g9_lock_materials.InterfacePinTests.test_evidence_for_anoth
+er_revision_is_flagged) ... ok
+test_match_when_evidence_agrees (tests.test_g6g9_lock_materials.InterfacePinTests.test_match_when_evidence_agrees) ... 
+ok
+test_metadata_only_reachable_but_unable_to_answer (tests.test_g6g9_lock_materials.InterfacePinTests.test_metadata_only_
+reachable_but_unable_to_answer) ... ok
+test_metadata_only_reports_endpoint_source_and_reachability (tests.test_g6g9_lock_materials.InterfacePinTests.test_meta
+data_only_reports_endpoint_source_and_reachability) ... ok
+test_metadata_only_unreachable_is_unreachable_not_missing (tests.test_g6g9_lock_materials.InterfacePinTests.test_metada
+ta_only_unreachable_is_unreachable_not_missing) ... ok
+test_mirror_bytes_matching_mirror_metadata_is_consistency_check_only (tests.test_g6g9_lock_materials.InterfacePinTests.
+test_mirror_bytes_matching_mirror_metadata_is_consistency_check_only) ... ok
+test_mismatch_is_reported_and_blocks (tests.test_g6g9_lock_materials.InterfacePinTests.test_mismatch_is_reported_and_bl
+ocks) ... ok
+test_missing_evidence_manifest (tests.test_g6g9_lock_materials.InterfacePinTests.test_missing_evidence_manifest) ... ok
+test_missing_files_and_env_report_are_missing_evidence (tests.test_g6g9_lock_materials.InterfacePinTests.test_missing_f
+iles_and_env_report_are_missing_evidence) ... ok
+test_non_mirror_source_is_not_downgraded (tests.test_g6g9_lock_materials.InterfacePinTests.test_non_mirror_source_is_no
+t_downgraded) ... ok
+test_null_pins_yield_not_locked_with_candidate_only (tests.test_g6g9_lock_materials.InterfacePinTests.test_null_pins_yi
+eld_not_locked_with_candidate_only) ... ok
+test_probed_env_without_installed_flag_is_missing_evidence (tests.test_g6g9_lock_materials.InterfacePinTests.test_probe
+d_env_without_installed_flag_is_missing_evidence) ... ok
+test_probed_not_installed_beats_a_declared_value (tests.test_g6g9_lock_materials.InterfacePinTests.test_probed_not_inst
+alled_beats_a_declared_value)
+锁里写了值也不能把它报成 match：测不到就是测不到。 ... ok
+test_probed_not_installed_is_its_own_verdict (tests.test_g6g9_lock_materials.InterfacePinTests.test_probed_not_installe
+d_is_its_own_verdict) ... ok
+test_public_source_revision_is_never_a_measured_value (tests.test_g6g9_lock_materials.InterfacePinTests.test_public_sou
+rce_revision_is_never_a_measured_value) ... ok
+test_scoring_host_evidence_makes_it_measurable (tests.test_g6g9_lock_materials.InterfacePinTests.test_scoring_host_evid
+ence_makes_it_measurable) ... ok
+test_unreachable_evidence_dir (tests.test_g6g9_lock_materials.InterfacePinTests.test_unreachable_evidence_dir) ... ok
+test_unreachable_when_manifest_declares_retrieval_failure (tests.test_g6g9_lock_materials.InterfacePinTests.test_unreac
+hable_when_manifest_declares_retrieval_failure) ... ok
+test_verdict_vocabulary_is_explicit_and_complete (tests.test_g6g9_lock_materials.InterfacePinTests.test_verdict_vocabul
+ary_is_explicit_and_complete) ... ok
+test_accepts_abi3_stable_abi (tests.test_g6g9_lock_materials.PickWheelTests.test_accepts_abi3_stable_abi) ... ok
+test_prefers_specific_manylinux_over_pure_python (tests.test_g6g9_lock_materials.PickWheelTests.test_prefers_specific_m
+anylinux_over_pure_python) ... ok
+test_rejects_newer_python_tag_for_abi3 (tests.test_g6g9_lock_materials.PickWheelTests.test_rejects_newer_python_tag_for
+_abi3) ... ok
+test_rejects_windows_and_macos_wheels (tests.test_g6g9_lock_materials.PickWheelTests.test_rejects_windows_and_macos_whe
+els) ... ok
+test_yanked_is_deprioritised (tests.test_g6g9_lock_materials.PickWheelTests.test_yanked_is_deprioritised) ... ok
+test_repo_interface_pins_still_unverified (tests.test_g6g9_lock_materials.RepoLockStateTests.test_repo_interface_pins_s
+till_unverified) ... ok
+test_repo_train_lock_still_unverified (tests.test_g6g9_lock_materials.RepoLockStateTests.test_repo_train_lock_still_unv
+erified) ... ok
+test_missing_reason_is_a_bug (tests.test_g6g9_lock_materials.ResolveLockTests.test_missing_reason_is_a_bug) ... ok
+test_offline_metadata_dir (tests.test_g6g9_lock_materials.ResolveLockTests.test_offline_metadata_dir) ... ok
+test_real_lock_file_resolves_at_least_one_package (tests.test_g6g9_lock_materials.ResolveLockTests.test_real_lock_file_
+resolves_at_least_one_package)
+对**仓库里真实的**锁跑一遍（用注入取数器，不联网）。 ... ok
+test_resolved_and_pending_with_reasons (tests.test_g6g9_lock_materials.ResolveLockTests.test_resolved_and_pending_with_
+reasons) ... ok
+test_verified_is_never_flipped (tests.test_g6g9_lock_materials.ResolveLockTests.test_verified_is_never_flipped) ... ok
+test_approval_must_target_the_pinned_commit (tests.test_g38_real_backend_path.AuditR3CounterexampleRegressionTests.test
+_approval_must_target_the_pinned_commit) ... ok
+test_config_pin_is_actually_locked (tests.test_g38_real_backend_path.AuditR3CounterexampleRegressionTests.test_config_p
+in_is_actually_locked)
+config.json 必须是**受核对输入**，不再是无声的伴随文件。 ... ok
+test_cuda_load_requires_local_model_dir (tests.test_g38_real_backend_path.AuditR3CounterexampleRegressionTests.test_cud
+a_load_requires_local_model_dir)
+阻断 4：cuda 真实加载缺本地权重目录即拒（不回退联网）。 ... ok
+test_download_permission_does_not_gate_local_load (tests.test_g38_real_backend_path.AuditR3CounterexampleRegressionTest
+s.test_download_permission_does_not_gate_local_load)
+阻断 4：`allow_download` 既不能放开、也不能阻止本地加载。 ... ok
+test_failed_cuda_rng_capture_is_rejected (tests.test_g38_real_backend_path.AuditR3CounterexampleRegressionTests.test_fa
+iled_cuda_rng_capture_is_rejected)
+审稿脚本第 5 行：采集异常曾被降级成 available=False。 ... ok
+test_gpu_hours_over_approval_is_rejected (tests.test_g38_real_backend_path.AuditR3CounterexampleRegressionTests.test_gp
+u_hours_over_approval_is_rejected) ... ok
+test_hashes_without_external_anchor_cannot_start_real_mode (tests.test_g38_real_backend_path.AuditR3CounterexampleRegre
+ssionTests.test_hashes_without_external_anchor_cannot_start_real_mode)
+阻断 2：字段齐全（甚至哈希格式合法）也**不**等于批准。 ... ok
+test_mismatched_model_identity_is_rejected (tests.test_g38_real_backend_path.AuditR3CounterexampleRegressionTests.test_
+mismatched_model_identity_is_rejected)
+审稿脚本第 2 行：`arbitrary/unapproved@arbitrary-revision` 曾被接受。 ... ok
+test_missing_local_dir_path_is_rejected (tests.test_g38_real_backend_path.AuditR3CounterexampleRegressionTests.test_mis
+sing_local_dir_path_is_rejected) ... ok
+test_old_base_is_released_before_the_fresh_load (tests.test_g38_real_backend_path.AuditR3CounterexampleRegressionTests.
+test_old_base_is_released_before_the_fresh_load)
+审稿脚本第 4 行：`old_base_live_at_fresh_load` 曾是 [True]。 ... ok
+test_previous_hard_deadline_counterexample_stays_fixed (tests.test_g38_real_backend_path.AuditR3CounterexampleRegressio
+nTests.test_previous_hard_deadline_counterexample_stays_fixed) ... ok
+test_self_reported_hashes_are_rejected (tests.test_g38_real_backend_path.AuditR3CounterexampleRegressionTests.test_self
+_reported_hashes_are_rejected)
+审稿脚本第 1 行：五个字段全填 "1" 曾被接受。 ... ok
+test_tampered_approval_breaks_the_external_anchor (tests.test_g38_real_backend_path.AuditR3CounterexampleRegressionTest
+s.test_tampered_approval_breaks_the_external_anchor)
+阻断 2：批准文件被改过（锚还是旧的）必须拒。 ... ok
+test_tampered_config_is_rejected (tests.test_g38_real_backend_path.AuditR3CounterexampleRegressionTests.test_tampered_c
+onfig_is_rejected)
+审稿脚本第 3 行：`{"model_type":"changed"}` 的 config 曾被复制进视图。 ... ok
+test_synthetic_backend_needs_no_pins (tests.test_g38_real_backend_path.BackendChoiceTests.test_synthetic_backend_needs_
+no_pins) ... ok
+test_unknown_backend_name_raises_policy_violation (tests.test_g38_real_backend_path.BackendChoiceTests.test_unknown_bac
+kend_name_raises_policy_violation) ... ok
+test_cuda_rng_absent_is_honest (tests.test_g38_real_backend_path.CudaRngTests.test_cuda_rng_absent_is_honest)
+**没有 CUDA 设备**时明确 not-applicable，不是"失败"，也不编造。 ... ok
+test_cuda_rng_capture_failure_is_fail_closed_when_cuda_in_use (tests.test_g38_real_backend_path.CudaRngTests.test_cuda_
+rng_capture_failure_is_fail_closed_when_cuda_in_use)
+缺陷 5 的核心反例：真实 CUDA 参与时采集异常必须拒绝，不得降级 might succeed。 ... ok
+test_cuda_rng_capture_failure_is_not_applicable_on_cpu (tests.test_g38_real_backend_path.CudaRngTests.test_cuda_rng_cap
+ture_failure_is_not_applicable_on_cpu)
+CPU fixture（无卡参与）时，采集异常仍如实标注，不伪装成 fail-closed 崩溃。 ... ok
+test_cuda_rng_is_present_in_checkpoint_when_the_device_is_there (tests.test_g38_real_backend_path.CudaRngTests.test_cud
+a_rng_is_present_in_checkpoint_when_the_device_is_there)
+CUDA 参与时设备 RNG 必须真的进 checkpoint 结构。 ... ok
+test_cuda_rng_missing_at_restore_is_rejected (tests.test_g38_real_backend_path.CudaRngTests.test_cuda_rng_missing_at_re
+store_is_rejected) ... ok
+test_cuda_rng_roundtrip_restores_each_device (tests.test_g38_real_backend_path.CudaRngTests.test_cuda_rng_roundtrip_res
+tores_each_device) ... ok
+test_cuda_rng_states_are_saved_per_device (tests.test_g38_real_backend_path.CudaRngTests.test_cuda_rng_states_are_saved
+_per_device) ... ok
+test_import_reports_cuda_rng_gap_when_absent (tests.test_g38_real_backend_path.CudaRngTests.test_import_reports_cuda_rn
+g_gap_when_absent) ... ok
+test_missing_device_rng_in_checkpoint_is_rejected_when_cuda_in_use (tests.test_g38_real_backend_path.CudaRngTests.test_
+missing_device_rng_in_checkpoint_is_rejected_when_cuda_in_use) ... ok
+test_rng_state_reports_cpu_scope_when_no_device_participates (tests.test_g38_real_backend_path.CudaRngTests.test_rng_st
+ate_reports_cpu_scope_when_no_device_participates) ... ok
+test_rng_state_reports_cuda_scope (tests.test_g38_real_backend_path.CudaRngTests.test_rng_state_reports_cuda_scope) ...
+ ok
+test_scheduler_and_scaler_status_are_explicit (tests.test_g38_real_backend_path.CudaRngTests.test_scheduler_and_scaler_
+status_are_explicit) ... ok
+test_budget_wins_when_earlier_than_outer (tests.test_g38_real_backend_path.HardDeadlineTests.test_budget_wins_when_earl
+ier_than_outer) ... ok
+test_cli_reads_outer_deadline_from_environment (tests.test_g38_real_backend_path.HardDeadlineTests.test_cli_reads_outer
+_deadline_from_environment) ... ok
+test_hard_deadline_is_independent_of_poll (tests.test_g38_real_backend_path.HardDeadlineTests.test_hard_deadline_is_ind
+ependent_of_poll) ... ok
+test_in_section_overrun_is_recorded (tests.test_g38_real_backend_path.HardDeadlineTests.test_in_section_overrun_is_reco
+rded)
+阶段**内**才越过截止：必须记进 overruns，不能悄悄算通过。 ... ok
+test_no_deadline_means_no_hard_stop (tests.test_g38_real_backend_path.HardDeadlineTests.test_no_deadline_means_no_hard_
+stop) ... ok
+test_outer_supervisor_deadline_wins_when_earlier (tests.test_g38_real_backend_path.HardDeadlineTests.test_outer_supervi
+sor_deadline_wins_when_earlier) ... ok
+test_overrun_makes_the_verdict_fail (tests.test_g38_real_backend_path.HardDeadlineTests.test_overrun_makes_the_verdict_
+fail) ... ok
+test_step_limit_first_then_deadline_overrun_is_blocked (tests.test_g38_real_backend_path.HardDeadlineTests.test_step_li
+mit_first_then_deadline_overrun_is_blocked)
+Mika 的合成反例：deadline=10、先置 step_limit、时钟=11 → 必须拒。 ... ok
+test_authorized_override_without_reason_is_rejected (tests.test_g38_real_backend_path.InputBindingTests.test_authorized
+_override_without_reason_is_rejected) ... ok
+test_authorized_template_override_is_recorded (tests.test_g38_real_backend_path.InputBindingTests.test_authorized_templ
+ate_override_is_recorded) ... ok
+test_binding_matches_the_official_originals (tests.test_g38_real_backend_path.InputBindingTests.test_binding_matches_th
+e_official_originals) ... ok
+test_consumed_inputs_identify_the_actual_files (tests.test_g38_real_backend_path.InputBindingTests.test_consumed_inputs
+_identify_the_actual_files) ... ok
+test_decoy_root_is_recorded_but_never_used (tests.test_g38_real_backend_path.InputBindingTests.test_decoy_root_is_recor
+ded_but_never_used) ... ok
+test_engineering_check_report_carries_the_consumed_inputs (tests.test_g38_real_backend_path.InputBindingTests.test_engi
+neering_check_report_carries_the_consumed_inputs)
+报告里能确定消费者实际用了哪份 tokenizer / template（wiring 级证据）。 ... ok
+test_explicit_template_override_is_rejected_by_default (tests.test_g38_real_backend_path.InputBindingTests.test_explici
+t_template_override_is_rejected_by_default) ... ok
+test_load_view_copies_and_reverifies (tests.test_g38_real_backend_path.InputBindingTests.test_load_view_copies_and_reve
+rifies) ... ok
+test_missing_file_is_fail_closed (tests.test_g38_real_backend_path.InputBindingTests.test_missing_file_is_fail_closed) 
+... ok
+test_modified_copy_uses_the_default_snapshot_layout_too (tests.test_g38_real_backend_path.InputBindingTests.test_modifi
+ed_copy_uses_the_default_snapshot_layout_too)
+现场快照用的是 official/ + shared/ 分组布局，这条把分组布局也钉住。 ... ok
+test_real_backend_requires_bound_inputs (tests.test_g38_real_backend_path.InputBindingTests.test_real_backend_requires_
+bound_inputs) ... ok
+test_real_backend_tokenizer_source_points_at_the_load_view (tests.test_g38_real_backend_path.InputBindingTests.test_rea
+l_backend_tokenizer_source_points_at_the_load_view) ... ok
+test_tool_arguments_strings_are_normalized_and_bad_json_rejected (tests.test_g38_real_backend_path.InputBindingTests.te
+st_tool_arguments_strings_are_normalized_and_bad_json_rejected) ... ok
+test_unlocked_pin_cannot_be_used (tests.test_g38_real_backend_path.InputBindingTests.test_unlocked_pin_cannot_be_used) 
+... ok
+test_verified_official_but_modified_copy_is_rejected (tests.test_g38_real_backend_path.InputBindingTests.test_verified_
+official_but_modified_copy_is_rejected)
+Mika 明确要的拒绝反例：核验官方、实际加载修改版。 ... ok
+test_missing_file_is_fail_closed (tests.test_g38_real_backend_path.PlanFromJsonTests.test_missing_file_is_fail_closed) 
+... ok
+test_plan_missing_scalar_field_is_rejected (tests.test_g38_real_backend_path.PlanFromJsonTests.test_plan_missing_scalar
+_field_is_rejected) ... ok
+test_plan_without_batches_is_rejected (tests.test_g38_real_backend_path.PlanFromJsonTests.test_plan_without_batches_is_
+rejected) ... ok
+test_reads_a_real_plan (tests.test_g38_real_backend_path.PlanFromJsonTests.test_reads_a_real_plan) ... ok
+test_assert_prepared_reports_reuse (tests.test_g38_real_backend_path.PrepareOnceTests.test_assert_prepared_reports_reus
+e) ... ok
+test_parameter_ownership_detects_a_swapped_model (tests.test_g38_real_backend_path.PrepareOnceTests.test_parameter_owne
+rship_detects_a_swapped_model)
+反例判据本身要有效：换掉模型必须导致归属指纹变化。 ... ok
+test_profile_reuse_does_not_prepare_again (tests.test_g38_real_backend_path.PrepareOnceTests.test_profile_reuse_does_no
+t_prepare_again) ... ok
+test_profile_reuse_without_report_is_rejected (tests.test_g38_real_backend_path.PrepareOnceTests.test_profile_reuse_wit
+hout_report_is_rejected) ... ok
+test_second_prepare_is_rejected (tests.test_g38_real_backend_path.PrepareOnceTests.test_second_prepare_is_rejected) ...
+ ok
+test_expired_budget_stops_before_running_any_stage (tests.test_g38_real_backend_path.SingleDeadlineTests.test_expired_b
+udget_stops_before_running_any_stage) ... ok
+test_no_deadline_ledger_is_honest_when_budget_is_absent (tests.test_g38_real_backend_path.SingleDeadlineTests.test_no_d
+eadline_ledger_is_honest_when_budget_is_absent) ... ok
+test_resume_probe_stop_shares_the_main_deadline_at_runtime (tests.test_g38_real_backend_path.SingleDeadlineTests.test_r
+esume_probe_stop_shares_the_main_deadline_at_runtime) ... ok
+test_source_regression_every_stop_request_carries_a_deadline (tests.test_g38_real_backend_path.SingleDeadlineTests.test
+_source_regression_every_stop_request_carries_a_deadline)
+AST 静态判据：`engineering_check.py` 里不得再出现**无 deadline** 的 StopRequest。 ... ok
+test_synthetic_run_uses_one_deadline_for_every_section (tests.test_g38_real_backend_path.SingleDeadlineTests.test_synth
+etic_run_uses_one_deadline_for_every_section) ... ok
+test_serving_stage_accepts_a_verified_mapper (tests.test_g38_real_backend_path.StagedExportValidationTests.test_serving
+_stage_accepts_a_verified_mapper) ... ok
+test_serving_stage_producer_refuses_a_null_mapper (tests.test_g38_real_backend_path.StagedExportValidationTests.test_se
+rving_stage_producer_refuses_a_null_mapper) ... ok
+test_the_same_manifest_is_rejected_at_the_serving_stage (tests.test_g38_real_backend_path.StagedExportValidationTests.t
+est_the_same_manifest_is_rejected_at_the_serving_stage)
+`null` 不是通过：训练阶段过的清单，serving 阶段必须仍然被拒。 ... ok
+test_training_stage_allows_null_mapper_but_flags_serving (tests.test_g38_real_backend_path.StagedExportValidationTests.
+test_training_stage_allows_null_mapper_but_flags_serving) ... ok
+test_training_stage_rejects_an_unverified_non_null_mapper (tests.test_g38_real_backend_path.StagedExportValidationTests
+.test_training_stage_rejects_an_unverified_non_null_mapper) ... ok
+test_unknown_stage_is_rejected (tests.test_g38_real_backend_path.StagedExportValidationTests.test_unknown_stage_is_reje
+cted) ... ok
+test_export_adapter_bytes_is_adapter_only_and_never_calls_state_dict (tests.test_g38_real_backend_path.TorchPeftBackend
+RealPathTests.test_export_adapter_bytes_is_adapter_only_and_never_calls_state_dict) ... ok
+test_import_rejects_incomplete_cursor (tests.test_g38_real_backend_path.TorchPeftBackendRealPathTests.test_import_rejec
+ts_incomplete_cursor) ... ok
+test_import_rejects_missing_optimizer_state (tests.test_g38_real_backend_path.TorchPeftBackendRealPathTests.test_import
+_rejects_missing_optimizer_state) ... ok
+test_import_rejects_wrong_sampler_order (tests.test_g38_real_backend_path.TorchPeftBackendRealPathTests.test_import_rej
+ects_wrong_sampler_order) ... ok
+test_measure_phases_before_prepare_is_blocked (tests.test_g38_real_backend_path.TorchPeftBackendRealPathTests.test_meas
+ure_phases_before_prepare_is_blocked) ... ok
+test_measure_phases_covers_three_phases_with_real_readings (tests.test_g38_real_backend_path.TorchPeftBackendRealPathTe
+sts.test_measure_phases_covers_three_phases_with_real_readings) ... ok
+test_train_steps_runs_to_completion_without_hook (tests.test_g38_real_backend_path.TorchPeftBackendRealPathTests.test_t
+rain_steps_runs_to_completion_without_hook) ... ok
+test_train_steps_supports_on_step_and_global_step (tests.test_g38_real_backend_path.TorchPeftBackendRealPathTests.test_
+train_steps_supports_on_step_and_global_step) ... ok
+test_training_state_roundtrip_restores_optimizer_rng_and_cursor (tests.test_g38_real_backend_path.TorchPeftBackendRealP
+athTests.test_training_state_roundtrip_restores_optimizer_rng_and_cursor) ... ok
+test_real_mode_gate_order_is_fail_closed (tests.test_g38_real_backend_path.TorchPeftCliReachabilityTests.test_real_mode
+_gate_order_is_fail_closed)
+缺陷 D：真实模式的准入闸门按固定顺序 fail-closed，且**不**回退合成哈希。 ... ok
+test_torch_peft_missing_pins_fails_before_backend_construction (tests.test_g38_real_backend_path.TorchPeftCliReachabili
+tyTests.test_torch_peft_missing_pins_fails_before_backend_construction) ... ok
+test_torch_peft_with_plan_json_reaches_the_backend (tests.test_g38_real_backend_path.TorchPeftCliReachabilityTests.test
+_torch_peft_with_plan_json_reaches_the_backend)
+关键回归：过去这一步是 argparse 直接拒（exit 2），现在是执行路径上的 fail-closed。 ... ok
+test_torch_peft_without_plan_json_is_reached_and_fails_closed (tests.test_g38_real_backend_path.TorchPeftCliReachabilit
+yTests.test_torch_peft_without_plan_json_is_reached_and_fails_closed) ... ok
+test_unknown_backend_is_rejected (tests.test_g38_real_backend_path.TorchPeftCliReachabilityTests.test_unknown_backend_i
+s_rejected) ... usage: run_tests.py [-h] --dest-dir DEST_DIR [--steps STEPS]
+                    [--checkpoint-every CHECKPOINT_EVERY]
+                    [--stop-at-step STOP_AT_STEP]
+                    [--time-budget-seconds TIME_BUDGET_SECONDS]
+                    [--adapter-name ADAPTER_NAME] [--hashes HASHES]
+                    [--resume-probe-steps RESUME_PROBE_STEPS] [--probe-cuda]
+                    [--cuda-probe-mib CUDA_PROBE_MIB]
+                    [--backend {synthetic,torch-peft}] [--plan-json PLAN_JSON]
+                    [--model-id MODEL_ID] [--model-revision MODEL_REVISION]
+                    [--target-modules TARGET_MODULES] [--allow-download]
+                    [--local-load-authorized]
+                    [--deadline-epoch DEADLINE_EPOCH]
+                    [--model-inputs-root MODEL_INPUTS_ROOT]
+                    [--model-inputs-layout MODEL_INPUTS_LAYOUT]
+                    [--interface INTERFACE] [--approval APPROVAL]
+                    [--approval-expected-sha256 APPROVAL_EXPECTED_SHA256]
+                    [--approval-evidence-ref APPROVAL_EVIDENCE_REF]
+                    [--requested-gpu-hours REQUESTED_GPU_HOURS]
+                    [--local-model-dir LOCAL_MODEL_DIR]
+                    [--decoy-input-root DECOY_INPUT_ROOT]
+                    [--template-override-file TEMPLATE_OVERRIDE_FILE]
+                    [--allow-template-override]
+                    [--template-override-reason TEMPLATE_OVERRIDE_REASON]
+                    [--device DEVICE] [--supervised]
+                    [--deadline-file DEADLINE_FILE]
+                    [--deadline-file-sha256 DEADLINE_FILE_SHA256] [--out OUT]
+run_tests.py: error: argument --backend: invalid choice: 'sorcery' (choose from synthetic, torch-peft)
+ok
+test_cli_exposes_the_backend_and_plan_flags (tests.test_g38_real_backend_path.WiringSourceScanTests.test_cli_exposes_th
+e_backend_and_plan_flags) ... ok
+test_engineering_check_does_not_hardcode_the_synthetic_backend (tests.test_g38_real_backend_path.WiringSourceScanTests.
+test_engineering_check_does_not_hardcode_the_synthetic_backend)
+回归 Mika 的原话：`engineering_check.py` 不得写死 SyntheticBackend。 ... ok
+test_evidence_hash_chain_is_stable (tests.test_g38_real_backend_path.WiringSourceScanTests.test_evidence_hash_chain_is_
+stable) ... ok
+test_torch_backend_exposes_the_g14_surface (tests.test_g38_real_backend_path.WiringSourceScanTests.test_torch_backend_e
+xposes_the_g14_surface) ... ok
+test_torch_backend_train_steps_accepts_on_step (tests.test_g38_real_backend_path.WiringSourceScanTests.test_torch_backe
+nd_train_steps_accepts_on_step) ... ok
+test_compatibility_basis_is_recorded (tests.test_g38_g6_versions.CompressedTensorsBasisTests.test_compatibility_basis_i
+s_recorded)
+兼容依据必须是**可复核的公开字段**，不是一句"应该能用"。 ... ok
+test_matches_official_wheelhouse_material (tests.test_g38_g6_versions.CompressedTensorsBasisTests.test_matches_official
+_wheelhouse_material)
+PyPI 的 wheel SHA 与官方 wheelhouse 物料记录逐位相同（离线交叉核对）。 ... ok
+test_train_and_serving_pin_the_same_quantization_runtime (tests.test_g38_g6_versions.CompressedTensorsBasisTests.test_t
+rain_and_serving_pin_the_same_quantization_runtime)
+训练面不得为了加载基座升级评分器：两侧的 CT 版本/SHA 必须一致。 ... ok
+test_a_package_cannot_be_in_both_places (tests.test_g38_g6_versions.ResolverExclusionTests.test_a_package_cannot_be_in_
+both_places)
+同一个包不能既在安装集合、又在排除集合里。 ... ok
+test_assert_selfcheck_covers_both_kinds (tests.test_g38_g6_versions.ResolverExclusionTests.test_assert_selfcheck_covers
+_both_kinds) ... ok
+test_excluded_is_reported_not_pending (tests.test_g38_g6_versions.ResolverExclusionTests.test_excluded_is_reported_not_
+pending) ... ok
+test_excluded_without_reason_is_a_bug (tests.test_g38_g6_versions.ResolverExclusionTests.test_excluded_without_reason_i
+s_a_bug) ... ok
+test_offline_metadata_dir_still_reports_excluded (tests.test_g38_g6_versions.ResolverExclusionTests.test_offline_metada
+ta_dir_still_reports_excluded)
+离线元数据目录模式：excluded 结论不依赖任何本地缓存文件。 ... ok
+test_real_lock_has_no_pending_and_reports_trl_excluded (tests.test_g38_g6_versions.ResolverExclusionTests.test_real_loc
+k_has_no_pending_and_reports_trl_excluded)
+对**仓库里真实的**锁跑一遍（注入取数器按 URL 里的版本造元数据，不联网）。 ... ok
+test_old_conflicting_pin_is_recorded_as_superseded (tests.test_g38_g6_versions.SafetensorsConflictTests.test_old_confli
+cting_pin_is_recorded_as_superseded) ... ok
+test_pin_is_a_concrete_wheel_with_sha (tests.test_g38_g6_versions.SafetensorsConflictTests.test_pin_is_a_concrete_wheel
+_with_sha) ... ok
+test_serving_lock_was_not_touched (tests.test_g38_g6_versions.SafetensorsConflictTests.test_serving_lock_was_not_touche
+d)
+训练面修 pin **不得**顺带改推理面。 ... ok
+test_version_satisfies_transformers_lower_bound (tests.test_g38_g6_versions.SafetensorsConflictTests.test_version_satis
+fies_transformers_lower_bound) ... ok
+test_excluded_entry_records_a_real_audit_and_stays_fail_closed (tests.test_g38_g6_versions.TrainLockPinningTests.test_e
+xcluded_entry_records_a_real_audit_and_stays_fail_closed) ... ok
+test_excluded_packages_are_not_in_the_install_set (tests.test_g38_g6_versions.TrainLockPinningTests.test_excluded_packa
+ges_are_not_in_the_install_set)
+r3 裁定：被审计排除的包必须在**顶层** `excluded_packages`，不在 `packages`。 ... ok
+test_install_set_passes_the_frozen_dependency_lock_validator (tests.test_g38_g6_versions.TrainLockPinningTests.test_ins
+tall_set_passes_the_frozen_dependency_lock_validator)
+不改冻结的 `deps.py`，靠"把 trl 移出 packages"让 `validate()` 变干净。 ... ok
+test_kept_packages_have_64_lowercase_hex (tests.test_g38_g6_versions.TrainLockPinningTests.test_kept_packages_have_64_l
+owercase_hex) ... ok
+test_kept_packages_record_a_concrete_wheel_file (tests.test_g38_g6_versions.TrainLockPinningTests.test_kept_packages_re
+cord_a_concrete_wheel_file)
+每个 kept 包都要能指着**一个具体 wheel 文件名**，不许含糊。 ... ok
+test_no_pending_in_the_install_set (tests.test_g38_g6_versions.TrainLockPinningTests.test_no_pending_in_the_install_set
+) ... ok
+test_cuda_runtime_wheels_are_covered (tests.test_g38_g6_versions.TrainStackManifestTests.test_cuda_runtime_wheels_are_c
+overed) ... ok
+test_every_entry_is_fully_pinned (tests.test_g38_g6_versions.TrainStackManifestTests.test_every_entry_is_fully_pinned) 
+... ok
+test_lock_points_at_the_manifest (tests.test_g38_g6_versions.TrainStackManifestTests.test_lock_points_at_the_manifest) 
+... ok
+test_manifest_has_no_trl_and_no_pending (tests.test_g38_g6_versions.TrainStackManifestTests.test_manifest_has_no_trl_an
+d_no_pending) ... ok
+test_manifest_targets_the_isolated_interpreter (tests.test_g38_g6_versions.TrainStackManifestTests.test_manifest_target
+s_the_isolated_interpreter) ... ok
+test_pure_python_wheels_are_allowed_and_present (tests.test_g38_g6_versions.TrainStackManifestTests.test_pure_python_wh
+eels_are_allowed_and_present)
+Mika：允许 py3-none-any，不能只收 cp311/abi3 manylinux 轮子。 ... ok
+test_total_bytes_matches_the_sum_of_entries (tests.test_g38_g6_versions.TrainStackManifestTests.test_total_bytes_matche
+s_the_sum_of_entries) ... ok
+test_evidence_has_no_pending_left (tests.test_g38_g6_versions.VerifiedStaysFalseTests.test_evidence_has_no_pending_left
+) ... ok
+test_evidence_verified_is_false (tests.test_g38_g6_versions.VerifiedStaysFalseTests.test_evidence_verified_is_false) ..
+. ok
+test_lock_and_evidence_agree_on_every_sha (tests.test_g38_g6_versions.VerifiedStaysFalseTests.test_lock_and_evidence_ag
+ree_on_every_sha) ... ok
+test_lock_verified_is_false (tests.test_g38_g6_versions.VerifiedStaysFalseTests.test_lock_verified_is_false) ... ok
+test_bound_template_sha256_equals_the_official_pin (tests.test_g38_template_render.BoundTemplatePinTests.test_bound_tem
+plate_sha256_equals_the_official_pin) ... ok
+test_load_view_copies_are_byte_identical_to_the_bound_sources (tests.test_g38_template_render.BoundTemplatePinTests.tes
+t_load_view_copies_are_byte_identical_to_the_bound_sources) ... ok
+test_official_template_source_has_the_rejection_branch (tests.test_g38_template_render.BoundTemplatePinTests.test_offic
+ial_template_source_has_the_rejection_branch)
+不需要渲染器也能钉住的源码契约：字符串 arguments 走 raise_exception。 ... ok
+test_pin_null_is_rejected_when_required (tests.test_g38_template_render.BoundTemplatePinTests.test_pin_null_is_rejected
+_when_required)
+`require_locked=True` 时 pin 为 null 必须 `input_pin_not_locked`（fail-closed）。 ... ok
+test_synthesised_modified_stand_in_differs_and_lacks_the_rejection (tests.test_g38_template_render.BoundTemplatePinTest
+s.test_synthesised_modified_stand_in_differs_and_lacks_the_rejection)
+合成的改写版替身：换掉拒绝分支后哈希必变、且不再调用 raise_exception。 ... ok
+test_template_pin_is_not_the_tokenizer_config_pin (tests.test_g38_template_render.BoundTemplatePinTests.test_template_p
+in_is_not_the_tokenizer_config_pin) ... ok
+test_three_input_files_match_their_own_pins (tests.test_g38_template_render.BoundTemplatePinTests.test_three_input_file
+s_match_their_own_pins) ... ok
+test_bad_json_string_is_rejected_as_invalid_json (tests.test_g38_template_render.NormalizeToolArgumentsTests.test_bad_j
+son_string_is_rejected_as_invalid_json) ... ok
+test_existing_mapping_passes_through_untouched (tests.test_g38_template_render.NormalizeToolArgumentsTests.test_existin
+g_mapping_passes_through_untouched) ... ok
+test_json_string_that_is_not_a_mapping_is_rejected (tests.test_g38_template_render.NormalizeToolArgumentsTests.test_jso
+n_string_that_is_not_a_mapping_is_rejected) ... ok
+test_unsupported_type_is_rejected (tests.test_g38_template_render.NormalizeToolArgumentsTests.test_unsupported_type_is_
+rejected) ... ok
+test_wellformed_json_string_normalizes_to_a_mapping (tests.test_g38_template_render.NormalizeToolArgumentsTests.test_we
+llformed_json_string_normalizes_to_a_mapping) ... ok
+test_cli_without_vendor_probe_is_blocked_when_only_the_vendor_dir_has_jinja2 (tests.test_g38_template_render.Regression
+CliTests.test_cli_without_vendor_probe_is_blocked_when_only_the_vendor_dir_has_jinja2) ... skipped '本机 jinja2 来自系统级安装：-
+-no-vendor-probe 不能保证 blocked，该路径留给没有系统级 jinja2 的机器'
+test_report_is_coherent_with_local_renderer_availability (tests.test_g38_template_render.RegressionCliTests.test_report
+_is_coherent_with_local_renderer_availability) ... ok
+test_authorized_override_is_recorded_but_never_claims_equivalence (tests.test_g38_template_render.RejectionCounterexamp
+leTests.test_authorized_override_is_recorded_but_never_claims_equivalence) ... ok
+test_authorized_override_without_reason_is_rejected (tests.test_g38_template_render.RejectionCounterexampleTests.test_a
+uthorized_override_without_reason_is_rejected) ... ok
+test_explicit_template_override_is_rejected_without_authorization (tests.test_g38_template_render.RejectionCounterexamp
+leTests.test_explicit_template_override_is_rejected_without_authorization) ... ok
+test_missing_input_root_is_fail_closed (tests.test_g38_template_render.RejectionCounterexampleTests.test_missing_input_
+root_is_fail_closed) ... ok
+test_official_verified_but_modified_template_is_rejected (tests.test_g38_template_render.RejectionCounterexampleTests.t
+est_official_verified_but_modified_template_is_rejected) ... ok
+test_tokenizer_config_pin_does_not_satisfy_the_template_pin (tests.test_g38_template_render.RejectionCounterexampleTest
+s.test_tokenizer_config_pin_does_not_satisfy_the_template_pin)
+正对照：只改 template → 拒绝；把官方 template 字节还原 → 绑定重新通过。 ... ok
+setUpClass (tests.test_g38_template_render.RenderRegressionCaseTests) ... skipped '本机没有可用的 Jinja 渲染器（transformers/jinja
+2 都不可导入），渲染类用例如实跳过；它们必须在目标解释器上真跑'
+test_approved_budget_wins_when_tighter (tests.test_g38_supervised_check.BudgetTests.test_approved_budget_wins_when_tigh
+ter) ... ok
+test_earlier_bound_wins (tests.test_g38_supervised_check.BudgetTests.test_earlier_bound_wins) ... ok
+test_no_bound_is_refused (tests.test_g38_supervised_check.BudgetTests.test_no_bound_is_refused) ... ok
+test_phase_caps_are_reserves_inside_the_budget (tests.test_g38_supervised_check.BudgetTests.test_phase_caps_are_reserve
+s_inside_the_budget) ... ok
+test_strict_positive_rejects_weird_numbers (tests.test_g38_supervised_check.BudgetTests.test_strict_positive_rejects_we
+ird_numbers) ... ok
+test_zero_or_negative_outer_deadline_is_refused (tests.test_g38_supervised_check.BudgetTests.test_zero_or_negative_oute
+r_deadline_is_refused) ... ok
+test_approval_for_another_commit_is_refused (tests.test_g38_supervised_check.ChildCliRefusalTests.test_approval_for_ano
+ther_commit_is_refused) ... ok
+test_gpu_hours_over_approval_is_refused (tests.test_g38_supervised_check.ChildCliRefusalTests.test_gpu_hours_over_appro
+val_is_refused) ... ok
+test_injected_deadline_env_is_rejected (tests.test_g38_supervised_check.ChildCliRefusalTests.test_injected_deadline_env
+_is_rejected) ... ok
+test_relaxed_deadline_file_is_rejected (tests.test_g38_supervised_check.ChildCliRefusalTests.test_relaxed_deadline_file
+_is_rejected) ... ok
+test_supervised_child_consumes_the_issued_deadline (tests.test_g38_supervised_check.ChildCliRefusalTests.test_supervise
+d_child_consumes_the_issued_deadline)
+正例：受监督子进程真的按**外层签发**的截止运行（不是自报预算）。 ... ok
+test_supervised_without_deadline_file_is_missing (tests.test_g38_supervised_check.ChildCliRefusalTests.test_supervised_
+without_deadline_file_is_missing) ... ok
+test_tampered_approval_context_is_refused (tests.test_g38_supervised_check.ChildCliRefusalTests.test_tampered_approval_
+context_is_refused) ... ok
+test_widened_cli_budget_is_rejected (tests.test_g38_supervised_check.ChildCliRefusalTests.test_widened_cli_budget_is_re
+jected) ... ok
+test_anchor_is_verified (tests.test_g38_supervised_check.DeadlineFileTests.test_anchor_is_verified) ... ok
+test_missing_file_and_missing_anchor (tests.test_g38_supervised_check.DeadlineFileTests.test_missing_file_and_missing_a
+nchor) ... ok
+test_relaxed_rewrite_is_detected (tests.test_g38_supervised_check.DeadlineFileTests.test_relaxed_rewrite_is_detected)
+把截止往后改（放宽）必须被发现——这正是原来只能靠自报的那个洞。 ... ok
+test_wrong_anchor_is_rejected (tests.test_g38_supervised_check.DeadlineFileTests.test_wrong_anchor_is_rejected) ... ok
+test_deadline_and_budget_channels_are_stripped (tests.test_g38_supervised_check.EnvSanitizeTests.test_deadline_and_budg
+et_channels_are_stripped) ... ok
+test_injected_channel_in_supervised_child_is_rejected (tests.test_g38_supervised_check.EnvSanitizeTests.test_injected_c
+hannel_in_supervised_child_is_rejected) ... ok
+test_dry_run_reports_the_exact_command (tests.test_g38_supervised_check.SupervisorOrchestrationTests.test_dry_run_repor
+ts_the_exact_command) ... ok
+test_stripped_env_keys_are_recorded (tests.test_g38_supervised_check.SupervisorOrchestrationTests.test_stripped_env_key
+s_are_recorded) ... ok
+test_stuck_child_is_terminated_within_the_total_budget (tests.test_g38_supervised_check.SupervisorOrchestrationTests.te
+st_stuck_child_is_terminated_within_the_total_budget)
+必需反例 ①：卡住的 main 必须在总预算内被 TERM/KILL，且 wrapup 仍要跑。 ... ok
+test_three_phases_run_under_one_deadline (tests.test_g38_supervised_check.SupervisorOrchestrationTests.test_three_phase
+s_run_under_one_deadline) ... ok
+test_missing_package_is_refused (tests.test_g38_supervised_check.V6PackageTests.test_missing_package_is_refused) ... ok
+test_repository_copy_is_the_pinned_v6_package (tests.test_g38_supervised_check.V6PackageTests.test_repository_copy_is_t
+he_pinned_v6_package) ... ok
+test_tampered_supervisor_byte_is_rejected (tests.test_g38_supervised_check.V6PackageTests.test_tampered_supervisor_byte
+_is_rejected) ... ok
+test_later_budget_is_rejected (tests.test_g38_supervised_check.WideningRefusalTests.test_later_budget_is_rejected) ... 
+ok
+test_later_outer_epoch_is_rejected (tests.test_g38_supervised_check.WideningRefusalTests.test_later_outer_epoch_is_reje
+cted) ... ok
+test_no_request_is_allowed (tests.test_g38_supervised_check.WideningRefusalTests.test_no_request_is_allowed) ... ok
+test_tighter_or_equal_request_is_allowed (tests.test_g38_supervised_check.WideningRefusalTests.test_tighter_or_equal_re
+quest_is_allowed) ... ok
+test_child_evidence_is_written_end_to_end (tests.test_g38_supervised_check.WriteThroughSupervisorTests.test_child_evide
+nce_is_written_end_to_end) ... ok
+
+======================================================================
+ERROR: test_mutating_cli_or_dependency_breaks_frozen_execution_pin (tests.test_g2_exclusion_contract.FixedCliFixturePro
+cessTests.test_mutating_cli_or_dependency_breaks_frozen_execution_pin) (path='v3/cli.py')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "L:\multica工作区\canopus-3ho-7fd8c6d77d72\kaggle-38-b8ebea2f6b55\workdir\r4\tests\test_g2_exclusion_contract.py", 
+line 246, in test_mutating_cli_or_dependency_breaks_frozen_execution_pin
+    copied = _copy_source(Path(temp))
+  File "L:\multica工作区\canopus-3ho-7fd8c6d77d72\kaggle-38-b8ebea2f6b55\workdir\r4\tests\test_g2_exclusion_contract.py", 
+line 48, in _copy_source
+    shutil.copytree(
+    ~~~~~~~~~~~~~~~^
+        ROOT,
+        ^^^^^
+        target,
+        ^^^^^^^
+        ignore=shutil.ignore_patterns("__pycache__", "*.pyc", "_tmp"),
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\28037\AppData\Local\Programs\Python\Python313\Lib\shutil.py", line 593, in copytree
+    return _copytree(entries=entries, src=src, dst=dst, symlinks=symlinks,
+                     ignore=ignore, copy_function=copy_function,
+                     ignore_dangling_symlinks=ignore_dangling_symlinks,
+                     dirs_exist_ok=dirs_exist_ok)
+  File "C:\Users\28037\AppData\Local\Programs\Python\Python313\Lib\shutil.py", line 491, in _copytree
+    os.makedirs(dst, exist_ok=dirs_exist_ok)
+    ~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "<frozen os>", line 228, in makedirs
+PermissionError: [WinError 5] 拒绝访问。: 'C:\\Users\\28037\\AppData\\Local\\Temp\\multica-task-3210469936\\dsh-d6vUoW\\g2-c
+ode-tamper-s0yth__l\\source'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "<frozen os>", line 369, in walk
+PermissionError: [WinError 5] 拒绝访问。: 'C:\\Users\\28037\\AppData\\Local\\Temp\\multica-task-3210469936\\dsh-d6vUoW\\g2-c
+ode-tamper-s0yth__l'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "L:\multica工作区\canopus-3ho-7fd8c6d77d72\kaggle-38-b8ebea2f6b55\workdir\r4\tests\test_g2_exclusion_contract.py", 
+line 245, in test_mutating_cli_or_dependency_breaks_frozen_execution_pin
+    with self.subTest(path=relative), tempfile.TemporaryDirectory(prefix="g2-code-tamper-") as temp:
+                                      ~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\28037\AppData\Local\Programs\Python\Python313\Lib\tempfile.py", line 951, in __exit__
+    self.cleanup()
+    ~~~~~~~~~~~~^^
+  File "C:\Users\28037\AppData\Local\Programs\Python\Python313\Lib\tempfile.py", line 955, in cleanup
+    self._rmtree(self.name, ignore_errors=self._ignore_cleanup_errors)
+    ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\28037\AppData\Local\Programs\Python\Python313\Lib\tempfile.py", line 935, in _rmtree
+    _shutil.rmtree(name, onexc=onexc)
+    ~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\28037\AppData\Local\Programs\Python\Python313\Lib\shutil.py", line 790, in rmtree
+    return _rmtree_unsafe(path, onexc)
+  File "C:\Users\28037\AppData\Local\Programs\Python\Python313\Lib\shutil.py", line 613, in _rmtree_unsafe
+    for dirpath, dirnames, filenames in results:
+                                        ^^^^^^^
+  File "<frozen os>", line 372, in walk
+  File "C:\Users\28037\AppData\Local\Programs\Python\Python313\Lib\shutil.py", line 611, in onerror
+    onexc(os.scandir, err.filename, err)
+    ~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\28037\AppData\Local\Programs\Python\Python313\Lib\tempfile.py", line 907, in onexc
+    _resetperms(path)
+    ~~~~~~~~~~~^^^^^^
+  File "C:\Users\28037\AppData\Local\Programs\Python\Python313\Lib\tempfile.py", line 287, in _resetperms
+    _dont_follow_symlinks(_os.chmod, path, 0o700)
+    ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\28037\AppData\Local\Programs\Python\Python313\Lib\tempfile.py", line 276, in _dont_follow_symlinks
+    func(path, *args, follow_symlinks=False)
+    ~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+PermissionError: [WinError 5] 拒绝访问。: 'C:\\Users\\28037\\AppData\\Local\\Temp\\multica-task-3210469936\\dsh-d6vUoW\\g2-c
+ode-tamper-s0yth__l'
+
+======================================================================
+ERROR: test_mutating_cli_or_dependency_breaks_frozen_execution_pin (tests.test_g2_exclusion_contract.FixedCliFixturePro
+cessTests.test_mutating_cli_or_dependency_breaks_frozen_execution_pin) (path='v3/common/errors.py')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "L:\multica工作区\canopus-3ho-7fd8c6d77d72\kaggle-38-b8ebea2f6b55\workdir\r4\tests\test_g2_exclusion_contract.py", 
+line 246, in test_mutating_cli_or_dependency_breaks_frozen_execution_pin
+    copied = _copy_source(Path(temp))
+  File "L:\multica工作区\canopus-3ho-7fd8c6d77d72\kaggle-38-b8ebea2f6b55\workdir\r4\tests\test_g2_exclusion_contract.py", 
+line 48, in _copy_source
+    shutil.copytree(
+    ~~~~~~~~~~~~~~~^
+        ROOT,
+        ^^^^^
+        target,
+        ^^^^^^^
+        ignore=shutil.ignore_patterns("__pycache__", "*.pyc", "_tmp"),
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\28037\AppData\Local\Programs\Python\Python313\Lib\shutil.py", line 593, in copytree
+    return _copytree(entries=entries, src=src, dst=dst, symlinks=symlinks,
+                     ignore=ignore, copy_function=copy_function,
+                     ignore_dangling_symlinks=ignore_dangling_symlinks,
+                     dirs_exist_ok=dirs_exist_ok)
+  File "C:\Users\28037\AppData\Local\Programs\Python\Python313\Lib\shutil.py", line 491, in _copytree
+    os.makedirs(dst, exist_ok=dirs_exist_ok)
+    ~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "<frozen os>", line 228, in makedirs
+PermissionError: [WinError 5] 拒绝访问。: 'C:\\Users\\28037\\AppData\\Local\\Temp\\multica-task-3210469936\\dsh-d6vUoW\\g2-c
+ode-tamper-cw92mayi\\source'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "<frozen os>", line 369, in walk
+PermissionError: [WinError 5] 拒绝访问。: 'C:\\Users\\28037\\AppData\\Local\\Temp\\multica-task-3210469936\\dsh-d6vUoW\\g2-c
+ode-tamper-cw92mayi'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "L:\multica工作区\canopus-3ho-7fd8c6d77d72\kaggle-38-b8ebea2f6b55\workdir\r4\tests\test_g2_exclusion_contract.py", 
+line 245, in test_mutating_cli_or_dependency_breaks_frozen_execution_pin
+    with self.subTest(path=relative), tempfile.TemporaryDirectory(prefix="g2-code-tamper-") as temp:
+                                      ~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\28037\AppData\Local\Programs\Python\Python313\Lib\tempfile.py", line 951, in __exit__
+    self.cleanup()
+    ~~~~~~~~~~~~^^
+  File "C:\Users\28037\AppData\Local\Programs\Python\Python313\Lib\tempfile.py", line 955, in cleanup
+    self._rmtree(self.name, ignore_errors=self._ignore_cleanup_errors)
+    ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\28037\AppData\Local\Programs\Python\Python313\Lib\tempfile.py", line 935, in _rmtree
+    _shutil.rmtree(name, onexc=onexc)
+    ~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\28037\AppData\Local\Programs\Python\Python313\Lib\shutil.py", line 790, in rmtree
+    return _rmtree_unsafe(path, onexc)
+  File "C:\Users\28037\AppData\Local\Programs\Python\Python313\Lib\shutil.py", line 613, in _rmtree_unsafe
+    for dirpath, dirnames, filenames in results:
+                                        ^^^^^^^
+  File "<frozen os>", line 372, in walk
+  File "C:\Users\28037\AppData\Local\Programs\Python\Python313\Lib\shutil.py", line 611, in onerror
+    onexc(os.scandir, err.filename, err)
+    ~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\28037\AppData\Local\Programs\Python\Python313\Lib\tempfile.py", line 907, in onexc
+    _resetperms(path)
+    ~~~~~~~~~~~^^^^^^
+  File "C:\Users\28037\AppData\Local\Programs\Python\Python313\Lib\tempfile.py", line 287, in _resetperms
+    _dont_follow_symlinks(_os.chmod, path, 0o700)
+    ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\28037\AppData\Local\Programs\Python\Python313\Lib\tempfile.py", line 276, in _dont_follow_symlinks
+    func(path, *args, follow_symlinks=False)
+    ~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+PermissionError: [WinError 5] 拒绝访问。: 'C:\\Users\\28037\\AppData\\Local\\Temp\\multica-task-3210469936\\dsh-d6vUoW\\g2-c
+ode-tamper-cw92mayi'
+
+======================================================================
+ERROR: test_a2_sanitized_derivative_is_reproducible_and_preserves_source_bytes (tests.test_g2_exclusion_contract.RealCl
+iAuthorizationTests.test_a2_sanitized_derivative_is_reproducible_and_preserves_source_bytes)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "L:\multica工作区\canopus-3ho-7fd8c6d77d72\kaggle-38-b8ebea2f6b55\workdir\r4\tests\test_g2_exclusion_contract.py", 
+line 185, in test_a2_sanitized_derivative_is_reproducible_and_preserves_source_bytes
+    self.assertEqual(proc.returncode, 0, proc.stdout + proc.stderr)
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: 1 != 0 : Traceback (most recent call last):
+  File "L:\multica工作区\canopus-3ho-7fd8c6d77d72\kaggle-38-b8ebea2f6b55\workdir\r4\tools\sanitize_a2_limits.py", line 91,
+ in <module>
+    raise SystemExit(main())
+                     ~~~~^^
+  File "L:\multica工作区\canopus-3ho-7fd8c6d77d72\kaggle-38-b8ebea2f6b55\workdir\r4\tools\sanitize_a2_limits.py", line 70,
+ in main
+    output.write_bytes(derived_bytes)
+    ~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+  File "C:\Users\28037\AppData\Local\Programs\Python\Python313\Lib\pathlib\_abc.py", line 641, in write_bytes
+    with self.open(mode='wb') as f:
+         ~~~~~~~~~^^^^^^^^^^^
+  File "C:\Users\28037\AppData\Local\Programs\Python\Python313\Lib\pathlib\_local.py", line 537, in open
+    return io.open(self, mode, buffering, encoding, errors, newline)
+           ~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+PermissionError: [Errno 13] Permission denied: 'C:\\Users\\28037\\AppData\\Local\\Temp\\multica-task-3210469936\\dsh-d6
+vUoW\\g2-a2-derive-awynxcq_\\derived.json'
+
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "<frozen os>", line 369, in walk
+PermissionError: [WinError 5] 拒绝访问。: 'C:\\Users\\28037\\AppData\\Local\\Temp\\multica-task-3210469936\\dsh-d6vUoW\\g2-a
+2-derive-awynxcq_'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "L:\multica工作区\canopus-3ho-7fd8c6d77d72\kaggle-38-b8ebea2f6b55\workdir\r4\tests\test_g2_exclusion_contract.py", 
+line 178, in test_a2_sanitized_derivative_is_reproducible_and_preserves_source_bytes
+    with tempfile.TemporaryDirectory(prefix="g2-a2-derive-") as temp:
+         ~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\28037\AppData\Local\Programs\Python\Python313\Lib\tempfile.py", line 951, in __exit__
+    self.cleanup()
+    ~~~~~~~~~~~~^^
+  File "C:\Users\28037\AppData\Local\Programs\Python\Python313\Lib\tempfile.py", line 955, in cleanup
+    self._rmtree(self.name, ignore_errors=self._ignore_cleanup_errors)
+    ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\28037\AppData\Local\Programs\Python\Python313\Lib\tempfile.py", line 935, in _rmtree
+    _shutil.rmtree(name, onexc=onexc)
+    ~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\28037\AppData\Local\Programs\Python\Python313\Lib\shutil.py", line 790, in rmtree
+    return _rmtree_unsafe(path, onexc)
+  File "C:\Users\28037\AppData\Local\Programs\Python\Python313\Lib\shutil.py", line 613, in _rmtree_unsafe
+    for dirpath, dirnames, filenames in results:
+                                        ^^^^^^^
+  File "<frozen os>", line 372, in walk
+  File "C:\Users\28037\AppData\Local\Programs\Python\Python313\Lib\shutil.py", line 611, in onerror
+    onexc(os.scandir, err.filename, err)
+    ~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\28037\AppData\Local\Programs\Python\Python313\Lib\tempfile.py", line 907, in onexc
+    _resetperms(path)
+    ~~~~~~~~~~~^^^^^^
+  File "C:\Users\28037\AppData\Local\Programs\Python\Python313\Lib\tempfile.py", line 287, in _resetperms
+    _dont_follow_symlinks(_os.chmod, path, 0o700)
+    ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\28037\AppData\Local\Programs\Python\Python313\Lib\tempfile.py", line 276, in _dont_follow_symlinks
+    func(path, *args, follow_symlinks=False)
+    ~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+PermissionError: [WinError 5] 拒绝访问。: 'C:\\Users\\28037\\AppData\\Local\\Temp\\multica-task-3210469936\\dsh-d6vUoW\\g2-a
+2-derive-awynxcq_'
+
+======================================================================
+ERROR: test_fixed_fixture_hash_detects_synchronized_file_and_count_shrink (tests.test_g2_exclusion_contract.RealCliAuth
+orizationTests.test_fixed_fixture_hash_detects_synchronized_file_and_count_shrink)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "L:\multica工作区\canopus-3ho-7fd8c6d77d72\kaggle-38-b8ebea2f6b55\workdir\r4\tests\test_g2_exclusion_contract.py", 
+line 197, in test_fixed_fixture_hash_detects_synchronized_file_and_count_shrink
+    copied = _copy_source(Path(temp))
+  File "L:\multica工作区\canopus-3ho-7fd8c6d77d72\kaggle-38-b8ebea2f6b55\workdir\r4\tests\test_g2_exclusion_contract.py", 
+line 48, in _copy_source
+    shutil.copytree(
+    ~~~~~~~~~~~~~~~^
+        ROOT,
+        ^^^^^
+        target,
+        ^^^^^^^
+        ignore=shutil.ignore_patterns("__pycache__", "*.pyc", "_tmp"),
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\28037\AppData\Local\Programs\Python\Python313\Lib\shutil.py", line 593, in copytree
+    return _copytree(entries=entries, src=src, dst=dst, symlinks=symlinks,
+                     ignore=ignore, copy_function=copy_function,
+                     ignore_dangling_symlinks=ignore_dangling_symlinks,
+                     dirs_exist_ok=dirs_exist_ok)
+  File "C:\Users\28037\AppData\Local\Programs\Python\Python313\Lib\shutil.py", line 491, in _copytree
+    os.makedirs(dst, exist_ok=dirs_exist_ok)
+    ~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "<frozen os>", line 228, in makedirs
+PermissionError: [WinError 5] 拒绝访问。: 'C:\\Users\\28037\\AppData\\Local\\Temp\\multica-task-3210469936\\dsh-d6vUoW\\g2-m
+utated-fixture-ucshn4e8\\source'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "<frozen os>", line 369, in walk
+PermissionError: [WinError 5] 拒绝访问。: 'C:\\Users\\28037\\AppData\\Local\\Temp\\multica-task-3210469936\\dsh-d6vUoW\\g2-m
+utated-fixture-ucshn4e8'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "L:\multica工作区\canopus-3ho-7fd8c6d77d72\kaggle-38-b8ebea2f6b55\workdir\r4\tests\test_g2_exclusion_contract.py", 
+line 196, in test_fixed_fixture_hash_detects_synchronized_file_and_count_shrink
+    with tempfile.TemporaryDirectory(prefix="g2-mutated-fixture-") as temp:
+         ~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\28037\AppData\Local\Programs\Python\Python313\Lib\tempfile.py", line 951, in __exit__
+    self.cleanup()
+    ~~~~~~~~~~~~^^
+  File "C:\Users\28037\AppData\Local\Programs\Python\Python313\Lib\tempfile.py", line 955, in cleanup
+    self._rmtree(self.name, ignore_errors=self._ignore_cleanup_errors)
+    ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\28037\AppData\Local\Programs\Python\Python313\Lib\tempfile.py", line 935, in _rmtree
+    _shutil.rmtree(name, onexc=onexc)
+    ~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\28037\AppData\Local\Programs\Python\Python313\Lib\shutil.py", line 790, in rmtree
+    return _rmtree_unsafe(path, onexc)
+  File "C:\Users\28037\AppData\Local\Programs\Python\Python313\Lib\shutil.py", line 613, in _rmtree_unsafe
+    for dirpath, dirnames, filenames in results:
+                                        ^^^^^^^
+  File "<frozen os>", line 372, in walk
+  File "C:\Users\28037\AppData\Local\Programs\Python\Python313\Lib\shutil.py", line 611, in onerror
+    onexc(os.scandir, err.filename, err)
+    ~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\28037\AppData\Local\Programs\Python\Python313\Lib\tempfile.py", line 907, in onexc
+    _resetperms(path)
+    ~~~~~~~~~~~^^^^^^
+  File "C:\Users\28037\AppData\Local\Programs\Python\Python313\Lib\tempfile.py", line 287, in _resetperms
+    _dont_follow_symlinks(_os.chmod, path, 0o700)
+    ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\28037\AppData\Local\Programs\Python\Python313\Lib\tempfile.py", line 276, in _dont_follow_symlinks
+    func(path, *args, follow_symlinks=False)
+    ~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+PermissionError: [WinError 5] 拒绝访问。: 'C:\\Users\\28037\\AppData\\Local\\Temp\\multica-task-3210469936\\dsh-d6vUoW\\g2-m
+utated-fixture-ucshn4e8'
+
+======================================================================
+ERROR: test_self_authored_decision_and_self_computed_hash_do_not_read_inputs (tests.test_g2_exclusion_contract.RealCliA
+uthorizationTests.test_self_authored_decision_and_self_computed_hash_do_not_read_inputs)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "L:\multica工作区\canopus-3ho-7fd8c6d77d72\kaggle-38-b8ebea2f6b55\workdir\r4\tests\test_g2_exclusion_contract.py", 
+line 142, in test_self_authored_decision_and_self_computed_hash_do_not_read_inputs
+    auth.write_text(json.dumps({
+    ~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+        "decision": "authorized",
+        ^^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<3 lines>...
+        "evidence": [{"kind": "custody_record", "path": str(root / "does-not-exist"), "sha256": "a" * 64}],
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    }), encoding="utf-8")
+    ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\28037\AppData\Local\Programs\Python\Python313\Lib\pathlib\_local.py", line 555, in write_text
+    return PathBase.write_text(self, data, encoding, errors, newline)
+           ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\28037\AppData\Local\Programs\Python\Python313\Lib\pathlib\_abc.py", line 651, in write_text
+    with self.open(mode='w', encoding=encoding, errors=errors, newline=newline) as f:
+         ~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\28037\AppData\Local\Programs\Python\Python313\Lib\pathlib\_local.py", line 537, in open
+    return io.open(self, mode, buffering, encoding, errors, newline)
+           ~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+PermissionError: [Errno 13] Permission denied: 'C:\\Users\\28037\\AppData\\Local\\Temp\\multica-task-3210469936\\dsh-d6
+vUoW\\g2-untrusted-auth-tmsulyms\\fabricated.json'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "<frozen os>", line 369, in walk
+PermissionError: [WinError 5] 拒绝访问。: 'C:\\Users\\28037\\AppData\\Local\\Temp\\multica-task-3210469936\\dsh-d6vUoW\\g2-u
+ntrusted-auth-tmsulyms'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "L:\multica工作区\canopus-3ho-7fd8c6d77d72\kaggle-38-b8ebea2f6b55\workdir\r4\tests\test_g2_exclusion_contract.py", 
+line 139, in test_self_authored_decision_and_self_computed_hash_do_not_read_inputs
+    with tempfile.TemporaryDirectory(prefix="g2-untrusted-auth-") as temp:
+         ~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\28037\AppData\Local\Programs\Python\Python313\Lib\tempfile.py", line 951, in __exit__
+    self.cleanup()
+    ~~~~~~~~~~~~^^
+  File "C:\Users\28037\AppData\Local\Programs\Python\Python313\Lib\tempfile.py", line 955, in cleanup
+    self._rmtree(self.name, ignore_errors=self._ignore_cleanup_errors)
+    ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\28037\AppData\Local\Programs\Python\Python313\Lib\tempfile.py", line 935, in _rmtree
+    _shutil.rmtree(name, onexc=onexc)
+    ~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\28037\AppData\Local\Programs\Python\Python313\Lib\shutil.py", line 790, in rmtree
+    return _rmtree_unsafe(path, onexc)
+  File "C:\Users\28037\AppData\Local\Programs\Python\Python313\Lib\shutil.py", line 613, in _rmtree_unsafe
+    for dirpath, dirnames, filenames in results:
+                                        ^^^^^^^
+  File "<frozen os>", line 372, in walk
+  File "C:\Users\28037\AppData\Local\Programs\Python\Python313\Lib\shutil.py", line 611, in onerror
+    onexc(os.scandir, err.filename, err)
+    ~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\28037\AppData\Local\Programs\Python\Python313\Lib\tempfile.py", line 907, in onexc
+    _resetperms(path)
+    ~~~~~~~~~~~^^^^^^
+  File "C:\Users\28037\AppData\Local\Programs\Python\Python313\Lib\tempfile.py", line 287, in _resetperms
+    _dont_follow_symlinks(_os.chmod, path, 0o700)
+    ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\28037\AppData\Local\Programs\Python\Python313\Lib\tempfile.py", line 276, in _dont_follow_symlinks
+    func(path, *args, follow_symlinks=False)
+    ~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+PermissionError: [WinError 5] 拒绝访问。: 'C:\\Users\\28037\\AppData\\Local\\Temp\\multica-task-3210469936\\dsh-d6vUoW\\g2-u
+ntrusted-auth-tmsulyms'
+
+----------------------------------------------------------------------
+Ran 688 tests in 19.619s
+
+FAILED (errors=5, skipped=4)
+
+{
+  "code": "start_not_allowed",
+  "message": "开训闸门未通过（5 项）：GPU 执行交 Liang 统筹且门槛验收后才启动",
+  "context": {
+    "problems": [
+      "验收门槛未通过前不得启动 GPU 执行",
+      "训练依赖锁 verified=false",
+      "门槛未通过：memory_plan_pass",
+      "门槛未通过：export_manifest_pass",
+      "未确认与 V2 排期无冲突（单账号单 GPU 必须串行）"
+    ],
+    "gates": {
+      "t1_engineering_pass": true,
+      "memory_plan_pass": false,
+      "export_manifest_pass": false
+    },
+    "gate_evidence": {
+      "mask_fixtures": {
+        "count": 20,
+        "passed": 20,
+        "all_passed": true,
+        "renderer": "shim-deterministic"
+      },
+      "cpu_training_self_check": {
+        "stage": "cpu-training-loop-self-check",
+        "backend": "synthetic-cpu-loop",
+        "is_real_model_training": false,
+        "steps": 40,
+        "checks": {
+          "forward_backward_ran": true,
+          "optimizer_stepped": true,
+          "loss_finite": true,
+          "base_frozen": true,
+          "adapter_changed": true,
+          "adapter_only_saved": true,
+          "reload_matches": true
+        },
+        "all_passed": true,
+        "loss_first": 3.4521500786293204,
+        "loss_last": 1.0135118580897045,
+        "loss_decreased_observation_only": true,
+        "grad_norm_min": 0.007705795046671062,
+        "supervised_tokens_seen": 360,
+        "optimizer_step_count": 40,
+        "adapter_sha256": "49fbdb8c857e1e888a86c9f2abe6bb2c2314e09e354ba6969a635d1508155147",
+        "saved_filename": "adapter.synthetic.json",
+        "full_state_dict_guard": {
+          "checked": true,
+          "full_state_dict_resident": false,
+          "peak_full_state_dict_bytes": 0,
+          "allowed_bytes": 0,
+          "rss_limit_bytes": 12884901888,
+          "total_weight_bytes": 11520,
+          "evidence": {
+            "probe": "synthetic-parameter-residency",
+            "method": "逐参数遍历：从不在同一容器里持有全部参数"
+          },
+          "observation": {
+            "probe": "synthetic-parameter-residency",
+            "method": "逐参数遍历：从不在同一容器里持有全部参数",
+            "peak_full_state_dict_bytes": 0,
+            "declared_weight_bytes": 11520
+          }
+        },
+        "note": "合成玩具模型上的自检：只证明前向/反向/优化器步进/保存重载这条链路可用，不证明真实模型可训练，也不产生任何可提交产物。loss_decreased 只作观察值，不作为通过条件。",
+        "artifacts_kept": false
+      },
+      "memory_plan": null,
+      "memory_plan_reason": "没有提供实测内存 profile：未实测不得当作通过（设计常量只是上限）",
+      "memory_profile_provenance": null,
+      "export_manifest": {
+        "provided": false,
+        "export_dir": null,
+        "contract": "v3-adapter-export/2",
+        "problems": [
+          "没有提供导出清单：必须先有一份可校验的 adapter 导出清单"
+        ],
+        "adapter_validation": null,
+        "engineering_evidence": null,
+        "cross_checks": []
+      }
+    }
+  }
+}
+
+SUMMARY: run=688 failures=0 errors=5 skipped=4

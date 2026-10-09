@@ -1,0 +1,2463 @@
+{
+  "channel": "train",
+  "entries": [
+    {
+      "constraints": [
+        "==1.11.0（训练锁 packages 里的直接 pin）"
+      ],
+      "extras_requested": [],
+      "name": "accelerate",
+      "required_by": [],
+      "role": "top_level_pin",
+      "sha256": "a628fa6beb069b8e549460fc449135d5bd8d73e7a11fd09f0bc9fc4ace7f06f1",
+      "size_bytes": 375777,
+      "source": "https://files.pythonhosted.org/packages/77/85/85951bc0f9843e2c10baaa1b6657227056095de08f4d1eea7d8b423a6832/accelerate-1.11.0-py3-none-any.whl",
+      "tag": "py3-none-any",
+      "version": "1.11.0",
+      "wheel_filename": "accelerate-1.11.0-py3-none-any.whl"
+    },
+    {
+      "constraints": [
+        ">=0.0.2"
+      ],
+      "extras_requested": [],
+      "name": "annotated-doc",
+      "required_by": [
+        "typer==0.27.3"
+      ],
+      "role": "transitive",
+      "sha256": "117bac03a25ede5df5440e855b32d556049ca169ead221505badf432fed4b101",
+      "size_bytes": 5302,
+      "source": "https://files.pythonhosted.org/packages/3e/30/e900b21425a860e195f32e37657aa1f7c7f2b1bfb26f03ca209b90933c06/annotated_doc-0.0.5-py3-none-any.whl",
+      "tag": "py3-none-any",
+      "version": "0.0.5",
+      "wheel_filename": "annotated_doc-0.0.5-py3-none-any.whl"
+    },
+    {
+      "constraints": [
+        ">=0.6.0"
+      ],
+      "extras_requested": [],
+      "name": "annotated-types",
+      "required_by": [
+        "pydantic==2.13.5"
+      ],
+      "role": "transitive",
+      "sha256": "f072f4d804ea359e4eaf198b1af7a8b0943881a87f31bb764f8bf219bb9419e0",
+      "size_bytes": 13427,
+      "source": "https://files.pythonhosted.org/packages/99/91/8acff4f5e50511b911bbccb72b8628a49c68ce14148cd9f6431094859a90/annotated_types-0.8.0-py3-none-any.whl",
+      "tag": "py3-none-any",
+      "version": "0.8.0",
+      "wheel_filename": "annotated_types-0.8.0-py3-none-any.whl"
+    },
+    {
+      "constraints": [
+        ""
+      ],
+      "extras_requested": [],
+      "name": "anyio",
+      "required_by": [
+        "httpx==0.28.1"
+      ],
+      "role": "transitive",
+      "sha256": "6152fdbbf9a77fdec97731721bebf7c4c44f7c29b424b0065826173efc7ed101",
+      "size_bytes": 132079,
+      "source": "https://files.pythonhosted.org/packages/12/b8/4bd346e22b28902df4d651910f5242c28d84e4a5c2435ca5c3f797ed7e2e/anyio-4.15.1-py3-none-any.whl",
+      "tag": "py3-none-any",
+      "version": "4.15.1",
+      "wheel_filename": "anyio-4.15.1-py3-none-any.whl"
+    },
+    {
+      "constraints": [
+        ""
+      ],
+      "extras_requested": [],
+      "name": "certifi",
+      "required_by": [
+        "httpcore==1.0.9",
+        "httpx==0.28.1"
+      ],
+      "role": "transitive",
+      "sha256": "62f22742b58a1a33014a2b6b706588a8d7e2a88ae7bd1a6ebe8c992928483775",
+      "size_bytes": 136983,
+      "source": "https://files.pythonhosted.org/packages/0b/a7/71ac2cff56fec219ed242bb11b8efb69fcc4bec75db06fb7bfe35de520e6/certifi-2026.7.22-py3-none-any.whl",
+      "tag": "py3-none-any",
+      "version": "2026.7.22",
+      "wheel_filename": "certifi-2026.7.22-py3-none-any.whl"
+    },
+    {
+      "constraints": [
+        "<9.0.0,>=8.4.2"
+      ],
+      "extras_requested": [],
+      "name": "click",
+      "required_by": [
+        "huggingface-hub==1.33.0"
+      ],
+      "role": "transitive",
+      "sha256": "255bc9599cf7748b4b1a446ccc735421bd08a2ae529a8b88597d3de5664ee360",
+      "size_bytes": 125251,
+      "source": "https://files.pythonhosted.org/packages/58/50/6c0d534c5f134586a8e1ba4e330569e32f057e33372ae556463212fb4cd3/click-8.5.0-py3-none-any.whl",
+      "tag": "py3-none-any",
+      "version": "8.5.0",
+      "wheel_filename": "click-8.5.0-py3-none-any.whl"
+    },
+    {
+      "constraints": [
+        "==0.15.0.1（训练锁 packages 里的直接 pin）"
+      ],
+      "extras_requested": [],
+      "name": "compressed-tensors",
+      "required_by": [],
+      "role": "top_level_pin",
+      "sha256": "e1b1f322e82e475715e242bad46925a304ea8e5c98b5055a15b8eb22fb6bfea9",
+      "size_bytes": 194260,
+      "source": "https://files.pythonhosted.org/packages/a8/52/93833dc1610e017ac5b7dcd59b8304d8ef67d1114c2d124e728a2cbbea12/compressed_tensors-0.15.0.1-py3-none-any.whl",
+      "tag": "py3-none-any",
+      "version": "0.15.0.1",
+      "wheel_filename": "compressed_tensors-0.15.0.1-py3-none-any.whl"
+    },
+    {
+      "constraints": [
+        "==12.9.4"
+      ],
+      "extras_requested": [],
+      "name": "cuda-bindings",
+      "required_by": [
+        "torch==2.10.0"
+      ],
+      "role": "transitive",
+      "sha256": "c912a3d9e6b6651853eed8eed96d6800d69c08e94052c292fec3f282c5a817c9",
+      "size_bytes": 12210593,
+      "source": "https://files.pythonhosted.org/packages/45/e7/b47792cc2d01c7e1d37c32402182524774dadd2d26339bd224e0e913832e/cuda_bindings-12.9.4-cp311-cp311-manylinux_2_24_x86_64.manylinux_2_28_x86_64.whl",
+      "tag": "cp311-cp311-manylinux_2_24_x86_64.manylinux_2_28_x86_64",
+      "version": "12.9.4",
+      "wheel_filename": "cuda_bindings-12.9.4-cp311-cp311-manylinux_2_24_x86_64.manylinux_2_28_x86_64.whl"
+    },
+    {
+      "constraints": [
+        "~=1.1"
+      ],
+      "extras_requested": [],
+      "name": "cuda-pathfinder",
+      "required_by": [
+        "cuda-bindings==12.9.4"
+      ],
+      "role": "transitive",
+      "sha256": "e29e59829c297a7a5233bd9cc71094fc5bddbd076951482670178f9eade39b1f",
+      "size_bytes": 62561,
+      "source": "https://files.pythonhosted.org/packages/b9/fb/f8e1890428f9f590b4beebd63b068aac1ce32a3331510c847b9f9a78f261/cuda_pathfinder-1.8.3-py3-none-any.whl",
+      "tag": "py3-none-any",
+      "version": "1.8.3",
+      "wheel_filename": "cuda_pathfinder-1.8.3-py3-none-any.whl"
+    },
+    {
+      "constraints": [
+        "",
+        ">=3.10.0"
+      ],
+      "extras_requested": [],
+      "name": "filelock",
+      "required_by": [
+        "huggingface-hub==1.33.0",
+        "torch==2.10.0"
+      ],
+      "role": "transitive",
+      "sha256": "5f17ee83ecee8a6f3e389c75822fb70a1c2f0506b99438a6dffa1d56793588c8",
+      "size_bytes": 111732,
+      "source": "https://files.pythonhosted.org/packages/da/a1/b047e1c486a2c66283633b7dbb73872ca16ca1ce6a426f70d4d037fc8e1c/filelock-4.0.12-py3-none-any.whl",
+      "tag": "py3-none-any",
+      "version": "4.0.12",
+      "wheel_filename": "filelock-4.0.12-py3-none-any.whl"
+    },
+    {
+      "constraints": [
+        ">=0.8.5",
+        ">=2023.5.0"
+      ],
+      "extras_requested": [],
+      "name": "fsspec",
+      "required_by": [
+        "huggingface-hub==1.33.0",
+        "torch==2.10.0"
+      ],
+      "role": "transitive",
+      "sha256": "8dd6e646e99ea382bd85f97a45e6b526a442d79423a7dc673f1e2756d05fcb5f",
+      "size_bytes": 221738,
+      "source": "https://files.pythonhosted.org/packages/6c/c0/a98505f18594f1bce828bb159cec0fcf9860562f1a2c85913409fc8f3d9e/fsspec-2026.9.0-py3-none-any.whl",
+      "tag": "py3-none-any",
+      "version": "2026.9.0",
+      "wheel_filename": "fsspec-2026.9.0-py3-none-any.whl"
+    },
+    {
+      "constraints": [
+        ">=0.16"
+      ],
+      "extras_requested": [],
+      "name": "h11",
+      "required_by": [
+        "httpcore==1.0.9"
+      ],
+      "role": "transitive",
+      "sha256": "63cf8bbe7522de3bf65932fda1d9c2772064ffb3dae62d55932da54b31cb6c86",
+      "size_bytes": 37515,
+      "source": "https://files.pythonhosted.org/packages/04/4b/29cac41a4d98d144bf5f6d33995617b185d14b22401f75ca86f384e87ff1/h11-0.16.0-py3-none-any.whl",
+      "tag": "py3-none-any",
+      "version": "0.16.0",
+      "wheel_filename": "h11-0.16.0-py3-none-any.whl"
+    },
+    {
+      "constraints": [
+        "<2.0.0,>=1.6.0"
+      ],
+      "extras_requested": [],
+      "name": "hf-xet",
+      "required_by": [
+        "huggingface-hub==1.33.0"
+      ],
+      "role": "transitive",
+      "sha256": "2814a6e999d13464c4d679b788cc5d784eb5a4edfc638a31f10e9a11ab531ef8",
+      "size_bytes": 4212180,
+      "source": "https://files.pythonhosted.org/packages/a3/4c/2bf3b66c215d409655f28de1622393dde04c9461280d48c7924bb3b2decd/hf_xet-1.7.0-cp38-abi3-manylinux2014_x86_64.manylinux_2_17_x86_64.whl",
+      "tag": "cp38-abi3-manylinux2014_x86_64.manylinux_2_17_x86_64",
+      "version": "1.7.0",
+      "wheel_filename": "hf_xet-1.7.0-cp38-abi3-manylinux2014_x86_64.manylinux_2_17_x86_64.whl"
+    },
+    {
+      "constraints": [
+        "==1.*"
+      ],
+      "extras_requested": [],
+      "name": "httpcore",
+      "required_by": [
+        "httpx==0.28.1"
+      ],
+      "role": "transitive",
+      "sha256": "2d400746a40668fc9dec9810239072b40b4484b640a8c38fd654a024c7a1bf55",
+      "size_bytes": 78784,
+      "source": "https://files.pythonhosted.org/packages/7e/f5/f66802a942d491edb555dd61e3a9961140fd64c90bce1eafd741609d334d/httpcore-1.0.9-py3-none-any.whl",
+      "tag": "py3-none-any",
+      "version": "1.0.9",
+      "wheel_filename": "httpcore-1.0.9-py3-none-any.whl"
+    },
+    {
+      "constraints": [
+        "<1,>=0.23.0"
+      ],
+      "extras_requested": [],
+      "name": "httpx",
+      "required_by": [
+        "huggingface-hub==1.33.0"
+      ],
+      "role": "transitive",
+      "sha256": "d909fcccc110f8c7faf814ca82a9a4d816bc5a6dbfea25d6591d6985b8ba59ad",
+      "size_bytes": 73517,
+      "source": "https://files.pythonhosted.org/packages/2a/39/e50c7c3a983047577ee07d2a9e53faf5a69493943ec3f6a384bdc792deb2/httpx-0.28.1-py3-none-any.whl",
+      "tag": "py3-none-any",
+      "version": "0.28.1",
+      "wheel_filename": "httpx-0.28.1-py3-none-any.whl"
+    },
+    {
+      "constraints": [
+        "<2.0,>=0.16.4",
+        "<2.0,>=1.5.0",
+        ">=0.21.0",
+        ">=0.25.0"
+      ],
+      "extras_requested": [],
+      "name": "huggingface-hub",
+      "required_by": [
+        "accelerate==1.11.0",
+        "peft==0.21.0",
+        "tokenizers==0.23.2",
+        "transformers==5.17.0"
+      ],
+      "role": "transitive",
+      "sha256": "04e434b06e100eddbce9a6e817d72693a7884b10a79bd67ab48080d5c07eb899",
+      "size_bytes": 846435,
+      "source": "https://files.pythonhosted.org/packages/fc/16/963096d224b80909432dc16561a615fd33d2d13beef3ce4c63fa25e40867/huggingface_hub-1.33.0-py3-none-any.whl",
+      "tag": "py3-none-any",
+      "version": "1.33.0",
+      "wheel_filename": "huggingface_hub-1.33.0-py3-none-any.whl"
+    },
+    {
+      "constraints": [
+        "",
+        ">=2.8"
+      ],
+      "extras_requested": [],
+      "name": "idna",
+      "required_by": [
+        "anyio==4.15.1",
+        "httpx==0.28.1"
+      ],
+      "role": "transitive",
+      "sha256": "ab7ae7122974553370f0bdb919e1a960b2cd1bc1ef0276416d896db81c14582c",
+      "size_bytes": 69583,
+      "source": "https://files.pythonhosted.org/packages/58/a2/bb081bab032533a855d44de1d56f8e8426114ff1ba5d1f07a438a0a654f8/idna-3.20-py3-none-any.whl",
+      "tag": "py3-none-any",
+      "version": "3.20",
+      "wheel_filename": "idna-3.20-py3-none-any.whl"
+    },
+    {
+      "constraints": [
+        ""
+      ],
+      "extras_requested": [],
+      "name": "jinja2",
+      "required_by": [
+        "torch==2.10.0"
+      ],
+      "role": "transitive",
+      "sha256": "85ece4451f492d0c13c5dd7c13a64681a86afae63a5f347908daf103ce6d2f67",
+      "size_bytes": 134899,
+      "source": "https://files.pythonhosted.org/packages/62/a1/3d680cbfd5f4b8f15abc1d571870c5fc3e594bb582bc3b64ea099db13e56/jinja2-3.1.6-py3-none-any.whl",
+      "tag": "py3-none-any",
+      "version": "3.1.6",
+      "wheel_filename": "jinja2-3.1.6-py3-none-any.whl"
+    },
+    {
+      "constraints": [
+        ""
+      ],
+      "extras_requested": [],
+      "name": "loguru",
+      "required_by": [
+        "compressed-tensors==0.15.0.1"
+      ],
+      "role": "transitive",
+      "sha256": "31a33c10c8e1e10422bfd431aeb5d351c7cf7fa671e3c4df004162264b28220c",
+      "size_bytes": 61595,
+      "source": "https://files.pythonhosted.org/packages/0c/29/0348de65b8cc732daa3e33e67806420b2ae89bdce2b04af740289c5c6c8c/loguru-0.7.3-py3-none-any.whl",
+      "tag": "py3-none-any",
+      "version": "0.7.3",
+      "wheel_filename": "loguru-0.7.3-py3-none-any.whl"
+    },
+    {
+      "constraints": [
+        ">=2.2.0"
+      ],
+      "extras_requested": [],
+      "name": "markdown-it-py",
+      "required_by": [
+        "rich==15.0.0"
+      ],
+      "role": "transitive",
+      "sha256": "9f7ebbcd14fe59494226453aed97c1070d83f8d24b6fc3a3bcf9a38092641c4a",
+      "size_bytes": 91687,
+      "source": "https://files.pythonhosted.org/packages/b3/81/4da04ced5a082363ecfa159c010d200ecbd959ae410c10c0264a38cac0f5/markdown_it_py-4.2.0-py3-none-any.whl",
+      "tag": "py3-none-any",
+      "version": "4.2.0",
+      "wheel_filename": "markdown_it_py-4.2.0-py3-none-any.whl"
+    },
+    {
+      "constraints": [
+        ">=2.0"
+      ],
+      "extras_requested": [],
+      "name": "markupsafe",
+      "required_by": [
+        "jinja2==3.1.6"
+      ],
+      "role": "transitive",
+      "sha256": "6da83a088f8ef93b2d483a8232a4dbf4d69d3d8496b568a03c56becac43e1808",
+      "size_bytes": 22961,
+      "source": "https://files.pythonhosted.org/packages/81/a5/a513b76c139a3915b43404324e55c0b7979ae4f0d39eb6f075b0282e90a8/markupsafe-3.0.4-cp311-cp311-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl",
+      "tag": "cp311-cp311-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64",
+      "version": "3.0.4",
+      "wheel_filename": "markupsafe-3.0.4-cp311-cp311-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl"
+    },
+    {
+      "constraints": [
+        "~=0.1"
+      ],
+      "extras_requested": [],
+      "name": "mdurl",
+      "required_by": [
+        "markdown-it-py==4.2.0"
+      ],
+      "role": "transitive",
+      "sha256": "84008a41e51615a49fc9966191ff91509e3c40b939176e643fd50a5c2196b8f8",
+      "size_bytes": 9979,
+      "source": "https://files.pythonhosted.org/packages/b3/38/89ba8ad64ae25be8de66a6d463314cf1eb366222074cfda9ee839c56a4b4/mdurl-0.1.2-py3-none-any.whl",
+      "tag": "py3-none-any",
+      "version": "0.1.2",
+      "wheel_filename": "mdurl-0.1.2-py3-none-any.whl"
+    },
+    {
+      "constraints": [
+        "<1.4,>=1.1.0"
+      ],
+      "extras_requested": [],
+      "name": "mpmath",
+      "required_by": [
+        "sympy==1.14.0"
+      ],
+      "role": "transitive",
+      "sha256": "a0b2b9fe80bbcd81a6647ff13108738cfb482d481d826cc0e02f5b35e5c88d2c",
+      "size_bytes": 536198,
+      "source": "https://files.pythonhosted.org/packages/43/e3/7d92a15f894aa0c9c4b49b8ee9ac9850d6e63b03c9c32c0367a13ae62209/mpmath-1.3.0-py3-none-any.whl",
+      "tag": "py3-none-any",
+      "version": "1.3.0",
+      "wheel_filename": "mpmath-1.3.0-py3-none-any.whl"
+    },
+    {
+      "constraints": [
+        ">=2.5.1"
+      ],
+      "extras_requested": [],
+      "name": "networkx",
+      "required_by": [
+        "torch==2.10.0"
+      ],
+      "role": "transitive",
+      "sha256": "d47fbf302e7d9cbbb9e2555a0d267983d2aa476bac30e90dfbe5669bd57f3762",
+      "size_bytes": 2068504,
+      "source": "https://files.pythonhosted.org/packages/9e/c9/b2622292ea83fbb4ec318f5b9ab867d0a28ab43c5717bb85b0a5f6b3b0a4/networkx-3.6.1-py3-none-any.whl",
+      "tag": "py3-none-any",
+      "version": "3.6.1",
+      "wheel_filename": "networkx-3.6.1-py3-none-any.whl"
+    },
+    {
+      "constraints": [
+        ">=1.17"
+      ],
+      "extras_requested": [],
+      "name": "numpy",
+      "required_by": [
+        "accelerate==1.11.0",
+        "peft==0.21.0",
+        "transformers==5.17.0"
+      ],
+      "role": "transitive",
+      "sha256": "89cd468399cfd2504718f0ba50e410dca55a170b61a02ad92bb18c8a65186e93",
+      "size_bytes": 16918164,
+      "source": "https://files.pythonhosted.org/packages/02/03/74fe2a4cb3817d94d86402f2506554130a2f01414e299b5a843e5a8a957f/numpy-2.4.6-cp311-cp311-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl",
+      "tag": "cp311-cp311-manylinux_2_27_x86_64.manylinux_2_28_x86_64",
+      "version": "2.4.6",
+      "wheel_filename": "numpy-2.4.6-cp311-cp311-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl"
+    },
+    {
+      "constraints": [
+        "",
+        "==12.8.4.1"
+      ],
+      "extras_requested": [],
+      "name": "nvidia-cublas-cu12",
+      "required_by": [
+        "nvidia-cudnn-cu12==9.10.2.21",
+        "nvidia-cusolver-cu12==11.7.3.90",
+        "torch==2.10.0"
+      ],
+      "role": "transitive",
+      "sha256": "8ac4e771d5a348c551b2a426eda6193c19aa630236b418086020df5ba9667142",
+      "size_bytes": 594346921,
+      "source": "https://files.pythonhosted.org/packages/dc/61/e24b560ab2e2eaeb3c839129175fb330dfcfc29e5203196e5541a4c44682/nvidia_cublas_cu12-12.8.4.1-py3-none-manylinux_2_27_x86_64.whl",
+      "tag": "py3-none-manylinux_2_27_x86_64",
+      "version": "12.8.4.1",
+      "wheel_filename": "nvidia_cublas_cu12-12.8.4.1-py3-none-manylinux_2_27_x86_64.whl"
+    },
+    {
+      "constraints": [
+        "==12.8.90"
+      ],
+      "extras_requested": [],
+      "name": "nvidia-cuda-cupti-cu12",
+      "required_by": [
+        "torch==2.10.0"
+      ],
+      "role": "transitive",
+      "sha256": "ea0cb07ebda26bb9b29ba82cda34849e73c166c18162d3913575b0c9db9a6182",
+      "size_bytes": 10248621,
+      "source": "https://files.pythonhosted.org/packages/f8/02/2adcaa145158bf1a8295d83591d22e4103dbfd821bcaf6f3f53151ca4ffa/nvidia_cuda_cupti_cu12-12.8.90-py3-none-manylinux2014_x86_64.manylinux_2_17_x86_64.whl",
+      "tag": "py3-none-manylinux2014_x86_64.manylinux_2_17_x86_64",
+      "version": "12.8.90",
+      "wheel_filename": "nvidia_cuda_cupti_cu12-12.8.90-py3-none-manylinux2014_x86_64.manylinux_2_17_x86_64.whl"
+    },
+    {
+      "constraints": [
+        "==12.8.93"
+      ],
+      "extras_requested": [],
+      "name": "nvidia-cuda-nvrtc-cu12",
+      "required_by": [
+        "torch==2.10.0"
+      ],
+      "role": "transitive",
+      "sha256": "a7756528852ef889772a84c6cd89d41dfa74667e24cca16bb31f8f061e3e9994",
+      "size_bytes": 88040029,
+      "source": "https://files.pythonhosted.org/packages/05/6b/32f747947df2da6994e999492ab306a903659555dddc0fbdeb9d71f75e52/nvidia_cuda_nvrtc_cu12-12.8.93-py3-none-manylinux2010_x86_64.manylinux_2_12_x86_64.whl",
+      "tag": "py3-none-manylinux2010_x86_64.manylinux_2_12_x86_64",
+      "version": "12.8.93",
+      "wheel_filename": "nvidia_cuda_nvrtc_cu12-12.8.93-py3-none-manylinux2010_x86_64.manylinux_2_12_x86_64.whl"
+    },
+    {
+      "constraints": [
+        "==12.8.90"
+      ],
+      "extras_requested": [],
+      "name": "nvidia-cuda-runtime-cu12",
+      "required_by": [
+        "torch==2.10.0"
+      ],
+      "role": "transitive",
+      "sha256": "adade8dcbd0edf427b7204d480d6066d33902cab2a4707dcfc48a2d0fd44ab90",
+      "size_bytes": 954765,
+      "source": "https://files.pythonhosted.org/packages/0d/9b/a997b638fcd068ad6e4d53b8551a7d30fe8b404d6f1804abf1df69838932/nvidia_cuda_runtime_cu12-12.8.90-py3-none-manylinux2014_x86_64.manylinux_2_17_x86_64.whl",
+      "tag": "py3-none-manylinux2014_x86_64.manylinux_2_17_x86_64",
+      "version": "12.8.90",
+      "wheel_filename": "nvidia_cuda_runtime_cu12-12.8.90-py3-none-manylinux2014_x86_64.manylinux_2_17_x86_64.whl"
+    },
+    {
+      "constraints": [
+        "==9.10.2.21"
+      ],
+      "extras_requested": [],
+      "name": "nvidia-cudnn-cu12",
+      "required_by": [
+        "torch==2.10.0"
+      ],
+      "role": "transitive",
+      "sha256": "949452be657fa16687d0930933f032835951ef0892b37d2d53824d1a84dc97a8",
+      "size_bytes": 706758467,
+      "source": "https://files.pythonhosted.org/packages/ba/51/e123d997aa098c61d029f76663dedbfb9bc8dcf8c60cbd6adbe42f76d049/nvidia_cudnn_cu12-9.10.2.21-py3-none-manylinux_2_27_x86_64.whl",
+      "tag": "py3-none-manylinux_2_27_x86_64",
+      "version": "9.10.2.21",
+      "wheel_filename": "nvidia_cudnn_cu12-9.10.2.21-py3-none-manylinux_2_27_x86_64.whl"
+    },
+    {
+      "constraints": [
+        "==11.3.3.83"
+      ],
+      "extras_requested": [],
+      "name": "nvidia-cufft-cu12",
+      "required_by": [
+        "torch==2.10.0"
+      ],
+      "role": "transitive",
+      "sha256": "4d2dd21ec0b88cf61b62e6b43564355e5222e4a3fb394cac0db101f2dd0d4f74",
+      "size_bytes": 193118695,
+      "source": "https://files.pythonhosted.org/packages/1f/13/ee4e00f30e676b66ae65b4f08cb5bcbb8392c03f54f2d5413ea99a5d1c80/nvidia_cufft_cu12-11.3.3.83-py3-none-manylinux2014_x86_64.manylinux_2_17_x86_64.whl",
+      "tag": "py3-none-manylinux2014_x86_64.manylinux_2_17_x86_64",
+      "version": "11.3.3.83",
+      "wheel_filename": "nvidia_cufft_cu12-11.3.3.83-py3-none-manylinux2014_x86_64.manylinux_2_17_x86_64.whl"
+    },
+    {
+      "constraints": [
+        "==1.13.1.3"
+      ],
+      "extras_requested": [],
+      "name": "nvidia-cufile-cu12",
+      "required_by": [
+        "torch==2.10.0"
+      ],
+      "role": "transitive",
+      "sha256": "1d069003be650e131b21c932ec3d8969c1715379251f8d23a1860554b1cb24fc",
+      "size_bytes": 1197834,
+      "source": "https://files.pythonhosted.org/packages/bb/fe/1bcba1dfbfb8d01be8d93f07bfc502c93fa23afa6fd5ab3fc7c1df71038a/nvidia_cufile_cu12-1.13.1.3-py3-none-manylinux2014_x86_64.manylinux_2_17_x86_64.whl",
+      "tag": "py3-none-manylinux2014_x86_64.manylinux_2_17_x86_64",
+      "version": "1.13.1.3",
+      "wheel_filename": "nvidia_cufile_cu12-1.13.1.3-py3-none-manylinux2014_x86_64.manylinux_2_17_x86_64.whl"
+    },
+    {
+      "constraints": [
+        "==10.3.9.90"
+      ],
+      "extras_requested": [],
+      "name": "nvidia-curand-cu12",
+      "required_by": [
+        "torch==2.10.0"
+      ],
+      "role": "transitive",
+      "sha256": "b32331d4f4df5d6eefa0554c565b626c7216f87a06a4f56fab27c3b68a830ec9",
+      "size_bytes": 63619976,
+      "source": "https://files.pythonhosted.org/packages/fb/aa/6584b56dc84ebe9cf93226a5cde4d99080c8e90ab40f0c27bda7a0f29aa1/nvidia_curand_cu12-10.3.9.90-py3-none-manylinux_2_27_x86_64.whl",
+      "tag": "py3-none-manylinux_2_27_x86_64",
+      "version": "10.3.9.90",
+      "wheel_filename": "nvidia_curand_cu12-10.3.9.90-py3-none-manylinux_2_27_x86_64.whl"
+    },
+    {
+      "constraints": [
+        "==11.7.3.90"
+      ],
+      "extras_requested": [],
+      "name": "nvidia-cusolver-cu12",
+      "required_by": [
+        "torch==2.10.0"
+      ],
+      "role": "transitive",
+      "sha256": "4376c11ad263152bd50ea295c05370360776f8c3427b30991df774f9fb26c450",
+      "size_bytes": 267506905,
+      "source": "https://files.pythonhosted.org/packages/85/48/9a13d2975803e8cf2777d5ed57b87a0b6ca2cc795f9a4f59796a910bfb80/nvidia_cusolver_cu12-11.7.3.90-py3-none-manylinux_2_27_x86_64.whl",
+      "tag": "py3-none-manylinux_2_27_x86_64",
+      "version": "11.7.3.90",
+      "wheel_filename": "nvidia_cusolver_cu12-11.7.3.90-py3-none-manylinux_2_27_x86_64.whl"
+    },
+    {
+      "constraints": [
+        "",
+        "==12.5.8.93"
+      ],
+      "extras_requested": [],
+      "name": "nvidia-cusparse-cu12",
+      "required_by": [
+        "nvidia-cusolver-cu12==11.7.3.90",
+        "torch==2.10.0"
+      ],
+      "role": "transitive",
+      "sha256": "1ec05d76bbbd8b61b06a80e1eaf8cf4959c3d4ce8e711b65ebd0443bb0ebb13b",
+      "size_bytes": 288216466,
+      "source": "https://files.pythonhosted.org/packages/c2/f5/e1854cb2f2bcd4280c44736c93550cc300ff4b8c95ebe370d0aa7d2b473d/nvidia_cusparse_cu12-12.5.8.93-py3-none-manylinux2014_x86_64.manylinux_2_17_x86_64.whl",
+      "tag": "py3-none-manylinux2014_x86_64.manylinux_2_17_x86_64",
+      "version": "12.5.8.93",
+      "wheel_filename": "nvidia_cusparse_cu12-12.5.8.93-py3-none-manylinux2014_x86_64.manylinux_2_17_x86_64.whl"
+    },
+    {
+      "constraints": [
+        "==0.7.1"
+      ],
+      "extras_requested": [],
+      "name": "nvidia-cusparselt-cu12",
+      "required_by": [
+        "torch==2.10.0"
+      ],
+      "role": "transitive",
+      "sha256": "f1bb701d6b930d5a7cea44c19ceb973311500847f81b634d802b7b539dc55623",
+      "size_bytes": 287193691,
+      "source": "https://files.pythonhosted.org/packages/56/79/12978b96bd44274fe38b5dde5cfb660b1d114f70a65ef962bcbbed99b549/nvidia_cusparselt_cu12-0.7.1-py3-none-manylinux2014_x86_64.whl",
+      "tag": "py3-none-manylinux2014_x86_64",
+      "version": "0.7.1",
+      "wheel_filename": "nvidia_cusparselt_cu12-0.7.1-py3-none-manylinux2014_x86_64.whl"
+    },
+    {
+      "constraints": [
+        "==2.27.5"
+      ],
+      "extras_requested": [],
+      "name": "nvidia-nccl-cu12",
+      "required_by": [
+        "torch==2.10.0"
+      ],
+      "role": "transitive",
+      "sha256": "ad730cf15cb5d25fe849c6e6ca9eb5b76db16a80f13f425ac68d8e2e55624457",
+      "size_bytes": 322348229,
+      "source": "https://files.pythonhosted.org/packages/6e/89/f7a07dc961b60645dbbf42e80f2bc85ade7feb9a491b11a1e973aa00071f/nvidia_nccl_cu12-2.27.5-py3-none-manylinux2014_x86_64.manylinux_2_17_x86_64.whl",
+      "tag": "py3-none-manylinux2014_x86_64.manylinux_2_17_x86_64",
+      "version": "2.27.5",
+      "wheel_filename": "nvidia_nccl_cu12-2.27.5-py3-none-manylinux2014_x86_64.manylinux_2_17_x86_64.whl"
+    },
+    {
+      "constraints": [
+        "",
+        "==12.8.93"
+      ],
+      "extras_requested": [],
+      "name": "nvidia-nvjitlink-cu12",
+      "required_by": [
+        "nvidia-cufft-cu12==11.3.3.83",
+        "nvidia-cusolver-cu12==11.7.3.90",
+        "nvidia-cusparse-cu12==12.5.8.93",
+        "torch==2.10.0"
+      ],
+      "role": "transitive",
+      "sha256": "81ff63371a7ebd6e6451970684f916be2eab07321b73c9d244dc2b4da7f73b88",
+      "size_bytes": 39254836,
+      "source": "https://files.pythonhosted.org/packages/f6/74/86a07f1d0f42998ca31312f998bd3b9a7eff7f52378f4f270c8679c77fb9/nvidia_nvjitlink_cu12-12.8.93-py3-none-manylinux2010_x86_64.manylinux_2_12_x86_64.whl",
+      "tag": "py3-none-manylinux2010_x86_64.manylinux_2_12_x86_64",
+      "version": "12.8.93",
+      "wheel_filename": "nvidia_nvjitlink_cu12-12.8.93-py3-none-manylinux2010_x86_64.manylinux_2_12_x86_64.whl"
+    },
+    {
+      "constraints": [
+        "==3.4.5"
+      ],
+      "extras_requested": [],
+      "name": "nvidia-nvshmem-cu12",
+      "required_by": [
+        "torch==2.10.0"
+      ],
+      "role": "transitive",
+      "sha256": "042f2500f24c021db8a06c5eec2539027d57460e1c1a762055a6554f72c369bd",
+      "size_bytes": 139103095,
+      "source": "https://files.pythonhosted.org/packages/b5/09/6ea3ea725f82e1e76684f0708bbedd871fc96da89945adeba65c3835a64c/nvidia_nvshmem_cu12-3.4.5-py3-none-manylinux2014_x86_64.manylinux_2_17_x86_64.whl",
+      "tag": "py3-none-manylinux2014_x86_64.manylinux_2_17_x86_64",
+      "version": "3.4.5",
+      "wheel_filename": "nvidia_nvshmem_cu12-3.4.5-py3-none-manylinux2014_x86_64.manylinux_2_17_x86_64.whl"
+    },
+    {
+      "constraints": [
+        "==12.8.90"
+      ],
+      "extras_requested": [],
+      "name": "nvidia-nvtx-cu12",
+      "required_by": [
+        "torch==2.10.0"
+      ],
+      "role": "transitive",
+      "sha256": "5b17e2001cc0d751a5bc2c6ec6d26ad95913324a4adb86788c944f8ce9ba441f",
+      "size_bytes": 89954,
+      "source": "https://files.pythonhosted.org/packages/a2/eb/86626c1bbc2edb86323022371c39aa48df6fd8b0a1647bc274577f72e90b/nvidia_nvtx_cu12-12.8.90-py3-none-manylinux2014_x86_64.manylinux_2_17_x86_64.whl",
+      "tag": "py3-none-manylinux2014_x86_64.manylinux_2_17_x86_64",
+      "version": "12.8.90",
+      "wheel_filename": "nvidia_nvtx_cu12-12.8.90-py3-none-manylinux2014_x86_64.manylinux_2_17_x86_64.whl"
+    },
+    {
+      "constraints": [
+        ">=20.0",
+        ">=20.9"
+      ],
+      "extras_requested": [],
+      "name": "packaging",
+      "required_by": [
+        "accelerate==1.11.0",
+        "huggingface-hub==1.33.0",
+        "peft==0.21.0",
+        "transformers==5.17.0"
+      ],
+      "role": "transitive",
+      "sha256": "d7193f7c8e4e93f444fde0262bf90af30e16fa0ad0ad44cb553c87339b23cd1c",
+      "size_bytes": 129956,
+      "source": "https://files.pythonhosted.org/packages/63/34/ba1c580383c9eada3711951fef0795c80b829a078d72188184bcab9dd527/packaging-26.3-py3-none-any.whl",
+      "tag": "py3-none-any",
+      "version": "26.3",
+      "wheel_filename": "packaging-26.3-py3-none-any.whl"
+    },
+    {
+      "constraints": [
+        "==0.21.0（训练锁 packages 里的直接 pin）"
+      ],
+      "extras_requested": [],
+      "name": "peft",
+      "required_by": [],
+      "role": "top_level_pin",
+      "sha256": "b64eb75fd9dece7401c70e675b8d9de024993b70483691b41c62876f0c7809b7",
+      "size_bytes": 832883,
+      "source": "https://files.pythonhosted.org/packages/13/f0/29c37002f5ef5cb5be54890114d5c8f726f0cb5072a8ba0880758c912bfd/peft-0.21.0-py3-none-any.whl",
+      "tag": "py3-none-any",
+      "version": "0.21.0",
+      "wheel_filename": "peft-0.21.0-py3-none-any.whl"
+    },
+    {
+      "constraints": [
+        ""
+      ],
+      "extras_requested": [],
+      "name": "psutil",
+      "required_by": [
+        "accelerate==1.11.0",
+        "peft==0.21.0"
+      ],
+      "role": "transitive",
+      "sha256": "076a2d2f923fd4821644f5ba89f059523da90dc9014e85f8e45a5774ca5bc6f9",
+      "size_bytes": 155560,
+      "source": "https://files.pythonhosted.org/packages/b5/70/5d8df3b09e25bce090399cf48e452d25c935ab72dad19406c77f4e828045/psutil-7.2.2-cp36-abi3-manylinux2010_x86_64.manylinux_2_12_x86_64.manylinux_2_28_x86_64.whl",
+      "tag": "cp36-abi3-manylinux2010_x86_64.manylinux_2_12_x86_64.manylinux_2_28_x86_64",
+      "version": "7.2.2",
+      "wheel_filename": "psutil-7.2.2-cp36-abi3-manylinux2010_x86_64.manylinux_2_12_x86_64.manylinux_2_28_x86_64.whl"
+    },
+    {
+      "constraints": [
+        ">=2.0"
+      ],
+      "extras_requested": [],
+      "name": "pydantic",
+      "required_by": [
+        "compressed-tensors==0.15.0.1"
+      ],
+      "role": "transitive",
+      "sha256": "346a034f080da3755d8e9cb5e00e8b07de1d39e4f6e2c87d8ab7cafa0b269a73",
+      "size_bytes": 472589,
+      "source": "https://files.pythonhosted.org/packages/eb/47/c95ffc2009878c7aac0c5e08528022dcb885933252a88b5f170058014464/pydantic-2.13.5-py3-none-any.whl",
+      "tag": "py3-none-any",
+      "version": "2.13.5",
+      "wheel_filename": "pydantic-2.13.5-py3-none-any.whl"
+    },
+    {
+      "constraints": [
+        "==2.46.5"
+      ],
+      "extras_requested": [],
+      "name": "pydantic-core",
+      "required_by": [
+        "pydantic==2.13.5"
+      ],
+      "role": "transitive",
+      "sha256": "49776eab08766a08dfff7012f8b422dcd7e25e43b316eedf0477c24fcfa84b7c",
+      "size_bytes": 2062091,
+      "source": "https://files.pythonhosted.org/packages/cf/bc/3fa2d76b83162820a17da7f645b28d1cba99fc8e1e5fc6517067ec450fa1/pydantic_core-2.46.5-cp311-cp311-manylinux_2_17_x86_64.manylinux2014_x86_64.whl",
+      "tag": "cp311-cp311-manylinux_2_17_x86_64.manylinux2014_x86_64",
+      "version": "2.46.5",
+      "wheel_filename": "pydantic_core-2.46.5-cp311-cp311-manylinux_2_17_x86_64.manylinux2014_x86_64.whl"
+    },
+    {
+      "constraints": [
+        "<3.0.0,>=2.13.0"
+      ],
+      "extras_requested": [],
+      "name": "pygments",
+      "required_by": [
+        "rich==15.0.0"
+      ],
+      "role": "transitive",
+      "sha256": "2363c69b61c4a97c838da3b130dcd6468f4848992b21a82f2a63ec34377137d9",
+      "size_bytes": 1250147,
+      "source": "https://files.pythonhosted.org/packages/71/46/17f022dd3e953bf20a04a028a21ec746d942f8d2af30fa0f124fa0e6a684/pygments-2.21.0-py3-none-any.whl",
+      "tag": "py3-none-any",
+      "version": "2.21.0",
+      "wheel_filename": "pygments-2.21.0-py3-none-any.whl"
+    },
+    {
+      "constraints": [
+        "",
+        ">=5.1"
+      ],
+      "extras_requested": [],
+      "name": "pyyaml",
+      "required_by": [
+        "accelerate==1.11.0",
+        "huggingface-hub==1.33.0",
+        "peft==0.21.0",
+        "transformers==5.17.0"
+      ],
+      "role": "transitive",
+      "sha256": "b8bb0864c5a28024fac8a632c443c87c5aa6f215c0b126c449ae1a150412f31d",
+      "size_bytes": 806638,
+      "source": "https://files.pythonhosted.org/packages/71/60/917329f640924b18ff085ab889a11c763e0b573da888e8404ff486657602/pyyaml-6.0.3-cp311-cp311-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl",
+      "tag": "cp311-cp311-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64",
+      "version": "6.0.3",
+      "wheel_filename": "pyyaml-6.0.3-cp311-cp311-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl"
+    },
+    {
+      "constraints": [
+        ">=2025.10.22"
+      ],
+      "extras_requested": [],
+      "name": "regex",
+      "required_by": [
+        "transformers==5.17.0"
+      ],
+      "role": "transitive",
+      "sha256": "612b709381c0355b70d89cdb51b7f670591ed5cbbc0e3b5337488019dc667b65",
+      "size_bytes": 804978,
+      "source": "https://files.pythonhosted.org/packages/8a/70/aa08d1d2b294894b365e5f8ba5380fe3f8546acdb81f10639dfd74209c37/regex-2026.9.29-cp311-cp311-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl",
+      "tag": "cp311-cp311-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64",
+      "version": "2026.9.29",
+      "wheel_filename": "regex-2026.9.29-cp311-cp311-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl"
+    },
+    {
+      "constraints": [
+        ">=13.8.0"
+      ],
+      "extras_requested": [],
+      "name": "rich",
+      "required_by": [
+        "typer==0.27.3"
+      ],
+      "role": "transitive",
+      "sha256": "33bd4ef74232fb73fe9279a257718407f169c09b78a87ad3d296f548e27de0bb",
+      "size_bytes": 310654,
+      "source": "https://files.pythonhosted.org/packages/82/3b/64d4899d73f91ba49a8c18a8ff3f0ea8f1c1d75481760df8c68ef5235bf5/rich-15.0.0-py3-none-any.whl",
+      "tag": "py3-none-any",
+      "version": "15.0.0",
+      "wheel_filename": "rich-15.0.0-py3-none-any.whl"
+    },
+    {
+      "constraints": [
+        "==0.8.0（训练锁 packages 里的直接 pin）"
+      ],
+      "extras_requested": [],
+      "name": "safetensors",
+      "required_by": [],
+      "role": "top_level_pin",
+      "sha256": "fd6f3f93c9a0a7cc2788ee63fb763353d4bd2e89b0751bc78fcf7dda00bea774",
+      "size_bytes": 516040,
+      "source": "https://files.pythonhosted.org/packages/28/50/f203ff3a3ddfe19308efc83c5a3a29ed02bf786732ec35e68bf9162f3365/safetensors-0.8.0-cp310-abi3-manylinux_2_17_x86_64.manylinux2014_x86_64.whl",
+      "tag": "cp310-abi3-manylinux_2_17_x86_64.manylinux2014_x86_64",
+      "version": "0.8.0",
+      "wheel_filename": "safetensors-0.8.0-cp310-abi3-manylinux_2_17_x86_64.manylinux2014_x86_64.whl"
+    },
+    {
+      "constraints": [
+        ">=1.3.0"
+      ],
+      "extras_requested": [],
+      "name": "shellingham",
+      "required_by": [
+        "typer==0.27.3"
+      ],
+      "role": "transitive",
+      "sha256": "7ecfff8f2fd72616f7481040475a65b2bf8af90a56c89140852d1120324e8686",
+      "size_bytes": 9755,
+      "source": "https://files.pythonhosted.org/packages/e0/f9/0595336914c5619e5f28a1fb793285925a8cd4b432c9da0a987836c7f822/shellingham-1.5.4-py2.py3-none-any.whl",
+      "tag": "py2.py3-none-any",
+      "version": "1.5.4",
+      "wheel_filename": "shellingham-1.5.4-py2.py3-none-any.whl"
+    },
+    {
+      "constraints": [
+        ">=1.13.3"
+      ],
+      "extras_requested": [],
+      "name": "sympy",
+      "required_by": [
+        "torch==2.10.0"
+      ],
+      "role": "transitive",
+      "sha256": "e091cc3e99d2141a0ba2847328f5479b05d94a6635cb96148ccb3f34671bd8f5",
+      "size_bytes": 6299353,
+      "source": "https://files.pythonhosted.org/packages/a2/09/77d55d46fd61b4a135c444fc97158ef34a095e5681d0a6c10b75bf356191/sympy-1.14.0-py3-none-any.whl",
+      "tag": "py3-none-any",
+      "version": "1.14.0",
+      "wheel_filename": "sympy-1.14.0-py3-none-any.whl"
+    },
+    {
+      "constraints": [
+        "<0.24.0,>=0.23.1"
+      ],
+      "extras_requested": [],
+      "name": "tokenizers",
+      "required_by": [
+        "transformers==5.17.0"
+      ],
+      "role": "transitive",
+      "sha256": "41c2f84d172449b4dadb9cdc508e3e364076613c35b16e76ecfe47a60d1e3305",
+      "size_bytes": 3386843,
+      "source": "https://files.pythonhosted.org/packages/2c/ca/ca6b93c7820df123b2662a9469e8facc826ccc94e98fdd0d615f6431e73a/tokenizers-0.23.2-cp310-abi3-manylinux_2_17_x86_64.manylinux2014_x86_64.whl",
+      "tag": "cp310-abi3-manylinux_2_17_x86_64.manylinux2014_x86_64",
+      "version": "0.23.2",
+      "wheel_filename": "tokenizers-0.23.2-cp310-abi3-manylinux_2_17_x86_64.manylinux2014_x86_64.whl"
+    },
+    {
+      "constraints": [
+        "==2.10.0（训练锁 packages 里的直接 pin）"
+      ],
+      "extras_requested": [],
+      "name": "torch",
+      "required_by": [],
+      "role": "top_level_pin",
+      "sha256": "ac5bdcbb074384c66fa160c15b1ead77839e3fe7ed117d667249afce0acabfac",
+      "size_bytes": 915518691,
+      "source": "https://files.pythonhosted.org/packages/36/ab/7b562f1808d3f65414cd80a4f7d4bb00979d9355616c034c171249e1a303/torch-2.10.0-3-cp311-cp311-manylinux_2_28_x86_64.whl",
+      "tag": "cp311-cp311-manylinux_2_28_x86_64",
+      "version": "2.10.0",
+      "wheel_filename": "torch-2.10.0-3-cp311-cp311-manylinux_2_28_x86_64.whl"
+    },
+    {
+      "constraints": [
+        "",
+        ">=4.42.1",
+        ">=4.60"
+      ],
+      "extras_requested": [],
+      "name": "tqdm",
+      "required_by": [
+        "huggingface-hub==1.33.0",
+        "peft==0.21.0",
+        "transformers==5.17.0"
+      ],
+      "role": "transitive",
+      "sha256": "c293e525e6fef9c20e8728fd4612df02a0aa31bb5fe91ecd93e123b1b7bffa73",
+      "size_bytes": 80199,
+      "source": "https://files.pythonhosted.org/packages/a7/03/921a3d3c75785aca9ebfbfcabfbc3a1be12e2ab5265deb026d55a5a3f83e/tqdm-4.70.1-py3-none-any.whl",
+      "tag": "py3-none-any",
+      "version": "4.70.1",
+      "wheel_filename": "tqdm-4.70.1-py3-none-any.whl"
+    },
+    {
+      "constraints": [
+        "==5.17.0（训练锁 packages 里的直接 pin）"
+      ],
+      "extras_requested": [],
+      "name": "transformers",
+      "required_by": [],
+      "role": "top_level_pin",
+      "sha256": "78ec1ce21579b38dfb83950a0658cd119f87212a2fcfdff478096ce9d6c03801",
+      "size_bytes": 12295140,
+      "source": "https://files.pythonhosted.org/packages/e8/d0/c502b60d684adbd98a8dc7d5bb866842772b816ac4354e4608be240041ae/transformers-5.17.0-py3-none-any.whl",
+      "tag": "py3-none-any",
+      "version": "5.17.0",
+      "wheel_filename": "transformers-5.17.0-py3-none-any.whl"
+    },
+    {
+      "constraints": [
+        "==3.6.0"
+      ],
+      "extras_requested": [],
+      "name": "triton",
+      "required_by": [
+        "torch==2.10.0"
+      ],
+      "role": "transitive",
+      "sha256": "e8e323d608e3a9bfcc2d9efcc90ceefb764a82b99dea12a86d643c72539ad5d3",
+      "size_bytes": 188214640,
+      "source": "https://files.pythonhosted.org/packages/e0/12/b05ba554d2c623bffa59922b94b0775673de251f468a9609bc9e45de95e9/triton-3.6.0-cp311-cp311-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl",
+      "tag": "cp311-cp311-manylinux_2_27_x86_64.manylinux_2_28_x86_64",
+      "version": "3.6.0",
+      "wheel_filename": "triton-3.6.0-cp311-cp311-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl"
+    },
+    {
+      "constraints": [
+        ""
+      ],
+      "extras_requested": [],
+      "name": "typer",
+      "required_by": [
+        "transformers==5.17.0"
+      ],
+      "role": "transitive",
+      "sha256": "e50022f28b82a86313e54501317a1db64bf8f8d036ff8cfe5ca7e47675454aff",
+      "size_bytes": 123312,
+      "source": "https://files.pythonhosted.org/packages/07/ea/2e31b67051e91a133189e9c000c222502ddc6969856416de0d095de4c0b0/typer-0.27.3-py3-none-any.whl",
+      "tag": "py3-none-any",
+      "version": "0.27.3",
+      "wheel_filename": "typer-0.27.3-py3-none-any.whl"
+    },
+    {
+      "constraints": [
+        ">=4.1.0",
+        ">=4.10.0",
+        ">=4.14.1",
+        ">=4.15.0",
+        ">=4.16.0"
+      ],
+      "extras_requested": [],
+      "name": "typing-extensions",
+      "required_by": [
+        "anyio==4.15.1",
+        "huggingface-hub==1.33.0",
+        "pydantic-core==2.46.5",
+        "pydantic==2.13.5",
+        "torch==2.10.0",
+        "typing-inspection==0.4.4"
+      ],
+      "role": "transitive",
+      "sha256": "481caa481374e813c1b176ada14e97f1f67a4539ce9cfeb3f350d78d6370c2e8",
+      "size_bytes": 45571,
+      "source": "https://files.pythonhosted.org/packages/49/d3/b8441a820a491ddfc024b0b0cf0393375b75ea13866d9c66727e54c2fc80/typing_extensions-4.16.0-py3-none-any.whl",
+      "tag": "py3-none-any",
+      "version": "4.16.0",
+      "wheel_filename": "typing_extensions-4.16.0-py3-none-any.whl"
+    },
+    {
+      "constraints": [
+        ">=0.4.2"
+      ],
+      "extras_requested": [],
+      "name": "typing-inspection",
+      "required_by": [
+        "pydantic==2.13.5"
+      ],
+      "role": "transitive",
+      "sha256": "65b8397ba37ccbce054456aaccddfc91e6e3083c92824df348d96ca832f3f147",
+      "size_bytes": 14750,
+      "source": "https://files.pythonhosted.org/packages/67/81/4add07e5172b7ac40d8ed5ff580409a7801a4fe26d529bdd915401dabfbe/typing_inspection-0.4.4-py3-none-any.whl",
+      "tag": "py3-none-any",
+      "version": "0.4.4",
+      "wheel_filename": "typing_inspection-0.4.4-py3-none-any.whl"
+    }
+  ],
+  "estimates": {
+    "caveats": [
+      "网络吞吐与解包吞吐都是在**本机**测的，目标机（107 登录/计算节点 + 并行文件系统）都没有实测；本估算给的是**数量级与算法**，不是目标机上的承诺值。",
+      "按上面公式可重算：若 107 到 files.pythonhosted.org 的实际吞吐是 r MiB/s，下载耗时 ≈ 3981/r 秒。",
+      "首字节时延取 0.4145 s 是**悲观**假设（每个 wheel 都重做一次完整 TLS 建连）；pip 复用连接时这项会显著更小。",
+      "未计入 pip 的解析阶段（读 simple index / 元数据）—— 那部分与本机实测的元数据抓取同量级，通常十几秒到一两分钟。",
+      "`--no-index` 从本地 wheelhouse 安装时**没有**下载环节，只剩 sha256 校验 + 解包，即约 5 秒 + 建连开销 0。"
+    ],
+    "components_seconds": {
+      "download": 415.2,
+      "per_file_request_overhead": 24.9,
+      "sha256_verify": 1.55,
+      "unzip_and_write": 3.88
+    },
+    "download_bound_human": "6 分 55 秒",
+    "download_bound_seconds": 415.2,
+    "download_bytes": 4174079978,
+    "download_mib": 3980.713,
+    "formula": "T_total ≈ B/rate_net + B/rate_sha256 + B/rate_unzip + N_files×RTT，其中 B = 总下载字节数 = 4174079978，N_files = 60（每个 wheel 一次请求）",
+    "measured_basis": {
+      "cdn_download": {
+        "method": "对 files.pythonhosted.org 上 torch-2.10.0-3-cp311-cp311-manylinux_2_28_x86_64.whl 发 Range GET 取前 16 MiB 并计时（Content-Range 回报该轮子真实大小 915518691，与锁里记的字节数逐位相同）",
+        "mib_per_second": 9.587,
+        "note": "只取了前 16 MiB，**没有**下载任何完整 wheel；测得的吞吐受本机链路上限约束。",
+        "seconds_to_first_byte": 0.4145,
+        "source": "https://files.pythonhosted.org/packages/36/ab/7b562f1808d3f65414cd80a4f7d4bb00979d9355616c034c171249e1a303/torch-2.10.0-3-cp311-cp311-manylinux_2_28_x86_64.whl"
+      },
+      "measured_on": "本机（Windows / NTFS / CPython 3.13.7），**不是**目标机",
+      "sha256_local": {
+        "method": "对本机 64 MiB 随机字节做一次 hashlib.sha256",
+        "mib_per_second": 2560.932,
+        "why_it_matters": "`--require-hashes` 会对每个下载到的 wheel 重算 SHA-256。"
+      },
+      "zip_extract_local": {
+        "method": "本地 256 MiB 合成 ZIP_STORED 包解包计时（wheel 安装的本质就是 zip 解包落盘）",
+        "mib_per_second": 1027.196,
+        "note": "受操作系统 write-back cache 影响，是**乐观**值；目标机并行文件系统上的持续写入吞吐**未实测**。"
+      }
+    },
+    "total_human": "7 分 25 秒",
+    "total_seconds": 445.5
+  },
+  "evidence_sources": {
+    "candidate_universe": "https://pypi.org/simple/<name>/（Accept: application/vnd.pypi.simple.v1+json）",
+    "no_wheel_downloaded": true,
+    "per_package_metadata": "https://pypi.org/pypi/<name>/<version>/json（info.requires_dist / urls[]）",
+    "safetensors_decision": "https://pypi.org/pypi/transformers/5.17.0/json（info.requires_dist 含 `safetensors>=0.8.0`）+ https://pypi.org/pypi/accelerate/1.11.0/json（`safetensors>=0.4.3`）+ https://pypi.org/pypi/peft/0.21.0/json（无约束）→ 交集 >=0.8.0 → PyPI 上唯一非预发布解 0.8.0",
+    "torch_cuda_metadata": "https://pypi.org/pypi/torch/2.10.0/json → info.requires_dist"
+  },
+  "format": "v3-train-stack-manifest/1",
+  "generated_at_utc": "2026-10-08T05:40:26Z",
+  "install_command": {
+    "notes": [
+      "所有 60 个条目都来自 `https://pypi.org/pypi/<name>/<version>/json` 的 `urls[]`（filename / digests.sha256 / size / url），未下载任何 wheel、未安装任何包。",
+      "**不临时联网补未锁依赖、不源码构建**：清单里每个包都有兼容目标标签的 wheel，没有任何 sdist、没有任何 PENDING；`--only-binary=:all:` 与 `--require-hashes` 必须同时保留（写进 requirements 的 --hash 让任何不一致直接失败）。",
+      "`--no-index --find-links=<wheelhouse>` 保证离线：wheelhouse 必须由上面的 URL 预取并逐个核对 sha256 后放入。"
+    ],
+    "offline_from_wheelhouse": "/home/scc/pb24511961/v3/envs/py3119/bin/python -m pip install --no-index --find-links=<wheelhouse> --only-binary=:all: --require-hashes --requirement requirements-train-stack.txt",
+    "one_line_plain": "/home/scc/pb24511961/v3/envs/py3119/bin/python -m pip install --no-index --find-links=<wheelhouse> --only-binary=:all: --require-hashes --requirement requirements-train-stack.txt",
+    "requirements_lines": [
+      "accelerate==1.11.0 \\\n    --hash=sha256:a628fa6beb069b8e549460fc449135d5bd8d73e7a11fd09f0bc9fc4ace7f06f1",
+      "annotated-doc==0.0.5 \\\n    --hash=sha256:117bac03a25ede5df5440e855b32d556049ca169ead221505badf432fed4b101",
+      "annotated-types==0.8.0 \\\n    --hash=sha256:f072f4d804ea359e4eaf198b1af7a8b0943881a87f31bb764f8bf219bb9419e0",
+      "anyio==4.15.1 \\\n    --hash=sha256:6152fdbbf9a77fdec97731721bebf7c4c44f7c29b424b0065826173efc7ed101",
+      "certifi==2026.7.22 \\\n    --hash=sha256:62f22742b58a1a33014a2b6b706588a8d7e2a88ae7bd1a6ebe8c992928483775",
+      "click==8.5.0 \\\n    --hash=sha256:255bc9599cf7748b4b1a446ccc735421bd08a2ae529a8b88597d3de5664ee360",
+      "compressed-tensors==0.15.0.1 \\\n    --hash=sha256:e1b1f322e82e475715e242bad46925a304ea8e5c98b5055a15b8eb22fb6bfea9",
+      "cuda-bindings==12.9.4 \\\n    --hash=sha256:c912a3d9e6b6651853eed8eed96d6800d69c08e94052c292fec3f282c5a817c9",
+      "cuda-pathfinder==1.8.3 \\\n    --hash=sha256:e29e59829c297a7a5233bd9cc71094fc5bddbd076951482670178f9eade39b1f",
+      "filelock==4.0.12 \\\n    --hash=sha256:5f17ee83ecee8a6f3e389c75822fb70a1c2f0506b99438a6dffa1d56793588c8",
+      "fsspec==2026.9.0 \\\n    --hash=sha256:8dd6e646e99ea382bd85f97a45e6b526a442d79423a7dc673f1e2756d05fcb5f",
+      "h11==0.16.0 \\\n    --hash=sha256:63cf8bbe7522de3bf65932fda1d9c2772064ffb3dae62d55932da54b31cb6c86",
+      "hf-xet==1.7.0 \\\n    --hash=sha256:2814a6e999d13464c4d679b788cc5d784eb5a4edfc638a31f10e9a11ab531ef8",
+      "httpcore==1.0.9 \\\n    --hash=sha256:2d400746a40668fc9dec9810239072b40b4484b640a8c38fd654a024c7a1bf55",
+      "httpx==0.28.1 \\\n    --hash=sha256:d909fcccc110f8c7faf814ca82a9a4d816bc5a6dbfea25d6591d6985b8ba59ad",
+      "huggingface-hub==1.33.0 \\\n    --hash=sha256:04e434b06e100eddbce9a6e817d72693a7884b10a79bd67ab48080d5c07eb899",
+      "idna==3.20 \\\n    --hash=sha256:ab7ae7122974553370f0bdb919e1a960b2cd1bc1ef0276416d896db81c14582c",
+      "jinja2==3.1.6 \\\n    --hash=sha256:85ece4451f492d0c13c5dd7c13a64681a86afae63a5f347908daf103ce6d2f67",
+      "loguru==0.7.3 \\\n    --hash=sha256:31a33c10c8e1e10422bfd431aeb5d351c7cf7fa671e3c4df004162264b28220c",
+      "markdown-it-py==4.2.0 \\\n    --hash=sha256:9f7ebbcd14fe59494226453aed97c1070d83f8d24b6fc3a3bcf9a38092641c4a",
+      "markupsafe==3.0.4 \\\n    --hash=sha256:6da83a088f8ef93b2d483a8232a4dbf4d69d3d8496b568a03c56becac43e1808",
+      "mdurl==0.1.2 \\\n    --hash=sha256:84008a41e51615a49fc9966191ff91509e3c40b939176e643fd50a5c2196b8f8",
+      "mpmath==1.3.0 \\\n    --hash=sha256:a0b2b9fe80bbcd81a6647ff13108738cfb482d481d826cc0e02f5b35e5c88d2c",
+      "networkx==3.6.1 \\\n    --hash=sha256:d47fbf302e7d9cbbb9e2555a0d267983d2aa476bac30e90dfbe5669bd57f3762",
+      "numpy==2.4.6 \\\n    --hash=sha256:89cd468399cfd2504718f0ba50e410dca55a170b61a02ad92bb18c8a65186e93",
+      "nvidia-cublas-cu12==12.8.4.1 \\\n    --hash=sha256:8ac4e771d5a348c551b2a426eda6193c19aa630236b418086020df5ba9667142",
+      "nvidia-cuda-cupti-cu12==12.8.90 \\\n    --hash=sha256:ea0cb07ebda26bb9b29ba82cda34849e73c166c18162d3913575b0c9db9a6182",
+      "nvidia-cuda-nvrtc-cu12==12.8.93 \\\n    --hash=sha256:a7756528852ef889772a84c6cd89d41dfa74667e24cca16bb31f8f061e3e9994",
+      "nvidia-cuda-runtime-cu12==12.8.90 \\\n    --hash=sha256:adade8dcbd0edf427b7204d480d6066d33902cab2a4707dcfc48a2d0fd44ab90",
+      "nvidia-cudnn-cu12==9.10.2.21 \\\n    --hash=sha256:949452be657fa16687d0930933f032835951ef0892b37d2d53824d1a84dc97a8",
+      "nvidia-cufft-cu12==11.3.3.83 \\\n    --hash=sha256:4d2dd21ec0b88cf61b62e6b43564355e5222e4a3fb394cac0db101f2dd0d4f74",
+      "nvidia-cufile-cu12==1.13.1.3 \\\n    --hash=sha256:1d069003be650e131b21c932ec3d8969c1715379251f8d23a1860554b1cb24fc",
+      "nvidia-curand-cu12==10.3.9.90 \\\n    --hash=sha256:b32331d4f4df5d6eefa0554c565b626c7216f87a06a4f56fab27c3b68a830ec9",
+      "nvidia-cusolver-cu12==11.7.3.90 \\\n    --hash=sha256:4376c11ad263152bd50ea295c05370360776f8c3427b30991df774f9fb26c450",
+      "nvidia-cusparse-cu12==12.5.8.93 \\\n    --hash=sha256:1ec05d76bbbd8b61b06a80e1eaf8cf4959c3d4ce8e711b65ebd0443bb0ebb13b",
+      "nvidia-cusparselt-cu12==0.7.1 \\\n    --hash=sha256:f1bb701d6b930d5a7cea44c19ceb973311500847f81b634d802b7b539dc55623",
+      "nvidia-nccl-cu12==2.27.5 \\\n    --hash=sha256:ad730cf15cb5d25fe849c6e6ca9eb5b76db16a80f13f425ac68d8e2e55624457",
+      "nvidia-nvjitlink-cu12==12.8.93 \\\n    --hash=sha256:81ff63371a7ebd6e6451970684f916be2eab07321b73c9d244dc2b4da7f73b88",
+      "nvidia-nvshmem-cu12==3.4.5 \\\n    --hash=sha256:042f2500f24c021db8a06c5eec2539027d57460e1c1a762055a6554f72c369bd",
+      "nvidia-nvtx-cu12==12.8.90 \\\n    --hash=sha256:5b17e2001cc0d751a5bc2c6ec6d26ad95913324a4adb86788c944f8ce9ba441f",
+      "packaging==26.3 \\\n    --hash=sha256:d7193f7c8e4e93f444fde0262bf90af30e16fa0ad0ad44cb553c87339b23cd1c",
+      "peft==0.21.0 \\\n    --hash=sha256:b64eb75fd9dece7401c70e675b8d9de024993b70483691b41c62876f0c7809b7",
+      "psutil==7.2.2 \\\n    --hash=sha256:076a2d2f923fd4821644f5ba89f059523da90dc9014e85f8e45a5774ca5bc6f9",
+      "pydantic-core==2.46.5 \\\n    --hash=sha256:49776eab08766a08dfff7012f8b422dcd7e25e43b316eedf0477c24fcfa84b7c",
+      "pydantic==2.13.5 \\\n    --hash=sha256:346a034f080da3755d8e9cb5e00e8b07de1d39e4f6e2c87d8ab7cafa0b269a73",
+      "pygments==2.21.0 \\\n    --hash=sha256:2363c69b61c4a97c838da3b130dcd6468f4848992b21a82f2a63ec34377137d9",
+      "pyyaml==6.0.3 \\\n    --hash=sha256:b8bb0864c5a28024fac8a632c443c87c5aa6f215c0b126c449ae1a150412f31d",
+      "regex==2026.9.29 \\\n    --hash=sha256:612b709381c0355b70d89cdb51b7f670591ed5cbbc0e3b5337488019dc667b65",
+      "rich==15.0.0 \\\n    --hash=sha256:33bd4ef74232fb73fe9279a257718407f169c09b78a87ad3d296f548e27de0bb",
+      "safetensors==0.8.0 \\\n    --hash=sha256:fd6f3f93c9a0a7cc2788ee63fb763353d4bd2e89b0751bc78fcf7dda00bea774",
+      "shellingham==1.5.4 \\\n    --hash=sha256:7ecfff8f2fd72616f7481040475a65b2bf8af90a56c89140852d1120324e8686",
+      "sympy==1.14.0 \\\n    --hash=sha256:e091cc3e99d2141a0ba2847328f5479b05d94a6635cb96148ccb3f34671bd8f5",
+      "tokenizers==0.23.2 \\\n    --hash=sha256:41c2f84d172449b4dadb9cdc508e3e364076613c35b16e76ecfe47a60d1e3305",
+      "torch==2.10.0 \\\n    --hash=sha256:ac5bdcbb074384c66fa160c15b1ead77839e3fe7ed117d667249afce0acabfac",
+      "tqdm==4.70.1 \\\n    --hash=sha256:c293e525e6fef9c20e8728fd4612df02a0aa31bb5fe91ecd93e123b1b7bffa73",
+      "transformers==5.17.0 \\\n    --hash=sha256:78ec1ce21579b38dfb83950a0658cd119f87212a2fcfdff478096ce9d6c03801",
+      "triton==3.6.0 \\\n    --hash=sha256:e8e323d608e3a9bfcc2d9efcc90ceefb764a82b99dea12a86d643c72539ad5d3",
+      "typer==0.27.3 \\\n    --hash=sha256:e50022f28b82a86313e54501317a1db64bf8f8d036ff8cfe5ca7e47675454aff",
+      "typing-extensions==4.16.0 \\\n    --hash=sha256:481caa481374e813c1b176ada14e97f1f67a4539ce9cfeb3f350d78d6370c2e8",
+      "typing-inspection==0.4.4 \\\n    --hash=sha256:65b8397ba37ccbce054456aaccddfc91e6e3083c92824df348d96ca832f3f147"
+    ]
+  },
+  "isolation": {
+    "serving_lock_untouched": {
+      "path": "v3/locks/serving.lock.json",
+      "sha256": "0b3819b4857c1a497523d59f01e932128f79caee4890640c6ce433b357dc88ff",
+      "statement": "本清单只描述训练面；serving.lock.json 的字节未被本轮任何改动触碰。"
+    },
+    "trl": "TRL **不在**本清单里：它已移到 train.lock.json 顶层 excluded_packages 审计块。"
+  },
+  "marker_evaluation": {
+    "applied_count": 92,
+    "applied_markers": [
+      {
+        "marker": "platform_machine == \"x86_64\" or platform_machine == \"amd64\" or platform_machine == \"AMD64\" or platform_machine == \"arm64\" or platform_machine == \"aarch64\"",
+        "required_by": [
+          "huggingface-hub==1.33.0"
+        ]
+      },
+      {
+        "marker": "platform_system == \"Linux\" and platform_machine == \"x86_64\"",
+        "required_by": [
+          "torch==2.10.0"
+        ]
+      },
+      {
+        "marker": "python_version < \"3.15\"",
+        "required_by": [
+          "anyio==4.15.1"
+        ]
+      }
+    ],
+    "applied_without_marker_count": 73,
+    "environment": {
+      "extra": "",
+      "implementation_name": "cpython",
+      "implementation_version": "3.11.9",
+      "os_name": "posix",
+      "platform_machine": "x86_64",
+      "platform_python_implementation": "CPython",
+      "platform_release": "5.15.0",
+      "platform_system": "Linux",
+      "platform_version": "#1 SMP",
+      "python_full_version": "3.11.9",
+      "python_version": "3.11",
+      "sys_platform": "linux"
+    },
+    "evaluated_entry_count": 895,
+    "explicit_examples": [
+      {
+        "marker": "python_version < \"3.11\"",
+        "verdict": false,
+        "why": "目标 python_version = 3.11，3.11 < 3.11 为假 → 相关依赖**不装**。"
+      },
+      {
+        "marker": "platform_system == \"Linux\"",
+        "verdict": true,
+        "why": "目标 platform_system = Linux → 相关依赖**装**（这正是 CUDA 轮子进入清单的原因）。"
+      },
+      {
+        "marker": "platform_system == \"Windows\"",
+        "verdict": false,
+        "why": "目标不是 Windows → `colorama` 之类的 Windows 专用依赖**不装**。"
+      },
+      {
+        "marker": "extra == \"...\"（任意 extra）",
+        "verdict": false,
+        "why": "只安装顶层包的**默认**（无 extra）安装集：extra 上下文固定为空串，所有 `extra == \"...\"` 的 marker 一律为假。清单里 `extras_requested` 全为空也印证了这点；本轮**没有**任何依赖以 `pkg[extra]` 形式被引入，因此不存在需要二次展开的 extra。"
+      },
+      {
+        "marker": "python_version >= \"3.12\"",
+        "verdict": false,
+        "why": "目标 3.11 → torch 的 `setuptools; python_version >= \"3.12\"` **不装**。"
+      }
+    ],
+    "skipped_count": 803,
+    "skipped_markers": [
+      {
+        "count": 166,
+        "examples": [
+          "accelerate==1.11.0",
+          "compressed-tensors==0.15.0.1",
+          "fsspec==2026.9.0"
+        ],
+        "marker": "extra == \"dev\""
+      },
+      {
+        "count": 103,
+        "examples": [
+          "accelerate==1.11.0",
+          "huggingface-hub==1.33.0",
+          "markdown-it-py==4.2.0"
+        ],
+        "marker": "extra == \"testing\""
+      },
+      {
+        "count": 64,
+        "examples": [
+          "cuda-bindings==12.9.4",
+          "huggingface-hub==1.33.0",
+          "idna==3.20"
+        ],
+        "marker": "extra == \"all\""
+      },
+      {
+        "count": 51,
+        "examples": [
+          "transformers==5.17.0"
+        ],
+        "marker": "extra == \"deepspeed-testing\""
+      },
+      {
+        "count": 42,
+        "examples": [
+          "cuda-bindings==12.9.4",
+          "fsspec==2026.9.0",
+          "networkx==3.6.1"
+        ],
+        "marker": "extra == \"test\""
+      },
+      {
+        "count": 37,
+        "examples": [
+          "fsspec==2026.9.0"
+        ],
+        "marker": "extra == \"test-full\""
+      },
+      {
+        "count": 19,
+        "examples": [
+          "accelerate==1.11.0",
+          "huggingface-hub==1.33.0",
+          "peft==0.21.0"
+        ],
+        "marker": "extra == \"quality\""
+      },
+      {
+        "count": 18,
+        "examples": [
+          "fsspec==2026.9.0"
+        ],
+        "marker": "extra == \"full\""
+      },
+      {
+        "count": 13,
+        "examples": [
+          "fsspec==2026.9.0",
+          "networkx==3.6.1"
+        ],
+        "marker": "extra == \"doc\""
+      },
+      {
+        "count": 11,
+        "examples": [
+          "accelerate==1.11.0"
+        ],
+        "marker": "extra == \"test-dev\""
+      },
+      {
+        "count": 10,
+        "examples": [
+          "hf-xet==1.7.0",
+          "mpmath==1.3.0",
+          "triton==3.6.0"
+        ],
+        "marker": "extra == \"tests\""
+      },
+      {
+        "count": 9,
+        "examples": [
+          "markdown-it-py==4.2.0"
+        ],
+        "marker": "extra == \"rtd\""
+      },
+      {
+        "count": 8,
+        "examples": [
+          "transformers==5.17.0"
+        ],
+        "marker": "extra == \"serving\""
+      },
+      {
+        "count": 8,
+        "examples": [
+          "networkx==3.6.1"
+        ],
+        "marker": "extra == \"example\""
+      },
+      {
+        "count": 7,
+        "examples": [
+          "accelerate==1.11.0"
+        ],
+        "marker": "extra == \"test-trackers\""
+      },
+      {
+        "count": 7,
+        "examples": [
+          "transformers==5.17.0"
+        ],
+        "marker": "extra == \"ja\""
+      },
+      {
+        "count": 6,
+        "examples": [
+          "huggingface-hub==1.33.0",
+          "safetensors==0.8.0",
+          "transformers==5.17.0"
+        ],
+        "marker": "extra == \"torch\""
+      },
+      {
+        "count": 6,
+        "examples": [
+          "fsspec==2026.9.0"
+        ],
+        "marker": "extra == \"test-downstream\""
+      },
+      {
+        "count": 6,
+        "examples": [
+          "huggingface-hub==1.33.0"
+        ],
+        "marker": "extra == \"typing\""
+      },
+      {
+        "count": 6,
+        "examples": [
+          "loguru==0.7.3"
+        ],
+        "marker": "extra == \"dev\" and python_version >= \"3.8\""
+      },
+      {
+        "count": 6,
+        "examples": [
+          "markdown-it-py==4.2.0"
+        ],
+        "marker": "extra == \"compare\""
+      },
+      {
+        "count": 5,
+        "examples": [
+          "accelerate==1.11.0"
+        ],
+        "marker": "extra == \"test-prod\""
+      },
+      {
+        "count": 5,
+        "examples": [
+          "mpmath==1.3.0",
+          "tokenizers==0.23.2",
+          "transformers==5.17.0"
+        ],
+        "marker": "extra == \"docs\""
+      },
+      {
+        "count": 5,
+        "examples": [
+          "loguru==0.7.3"
+        ],
+        "marker": "extra == \"dev\" and python_version < \"3.8\""
+      },
+      {
+        "count": 5,
+        "examples": [
+          "loguru==0.7.3"
+        ],
+        "marker": "extra == \"dev\" and python_version >= \"3.11\""
+      },
+      {
+        "count": 5,
+        "examples": [
+          "markdown-it-py==4.2.0",
+          "networkx==3.6.1"
+        ],
+        "marker": "extra == \"benchmarking\""
+      },
+      {
+        "count": 5,
+        "examples": [
+          "mpmath==1.3.0"
+        ],
+        "marker": "extra == \"develop\""
+      },
+      {
+        "count": 4,
+        "examples": [
+          "safetensors==0.8.0"
+        ],
+        "marker": "extra == \"jax\""
+      },
+      {
+        "count": 4,
+        "examples": [
+          "transformers==5.17.0"
+        ],
+        "marker": "extra == \"audio\""
+      },
+      {
+        "count": 4,
+        "examples": [
+          "transformers==5.17.0"
+        ],
+        "marker": "extra == \"integrations\""
+      },
+      {
+        "count": 4,
+        "examples": [
+          "huggingface-hub==1.33.0"
+        ],
+        "marker": "extra == \"oauth\""
+      },
+      {
+        "count": 4,
+        "examples": [
+          "networkx==3.6.1"
+        ],
+        "marker": "extra == \"default\""
+      },
+      {
+        "count": 4,
+        "examples": [
+          "networkx==3.6.1"
+        ],
+        "marker": "extra == \"extra\""
+      },
+      {
+        "count": 4,
+        "examples": [
+          "networkx==3.6.1"
+        ],
+        "marker": "extra == \"release\""
+      },
+      {
+        "count": 3,
+        "examples": [
+          "accelerate==1.11.0",
+          "transformers==5.17.0"
+        ],
+        "marker": "extra == \"deepspeed\""
+      },
+      {
+        "count": 3,
+        "examples": [
+          "peft==0.21.0"
+        ],
+        "marker": "extra == \"docs-specific\""
+      },
+      {
+        "count": 3,
+        "examples": [
+          "fsspec==2026.9.0"
+        ],
+        "marker": "extra == \"dropbox\""
+      },
+      {
+        "count": 3,
+        "examples": [
+          "huggingface-hub==1.33.0"
+        ],
+        "marker": "extra == \"fastai\""
+      },
+      {
+        "count": 3,
+        "examples": [
+          "psutil==7.2.2"
+        ],
+        "marker": "(os_name == \"nt\" and implementation_name != \"pypy\") and extra == \"dev\""
+      },
+      {
+        "count": 3,
+        "examples": [
+          "psutil==7.2.2"
+        ],
+        "marker": "(os_name == \"nt\" and implementation_name != \"pypy\") and extra == \"test\""
+      },
+      {
+        "count": 3,
+        "examples": [
+          "triton==3.6.0"
+        ],
+        "marker": "extra == \"tutorials\""
+      },
+      {
+        "count": 3,
+        "examples": [
+          "httpx==0.28.1"
+        ],
+        "marker": "extra == \"cli\""
+      },
+      {
+        "count": 2,
+        "examples": [
+          "accelerate==1.11.0",
+          "transformers==5.17.0"
+        ],
+        "marker": "extra == \"sagemaker\""
+      },
+      {
+        "count": 2,
+        "examples": [
+          "compressed-tensors==0.15.0.1",
+          "transformers==5.17.0"
+        ],
+        "marker": "extra == \"accelerate\""
+      },
+      {
+        "count": 2,
+        "examples": [
+          "safetensors==0.8.0"
+        ],
+        "marker": "extra == \"convert\""
+      },
+      {
+        "count": 2,
+        "examples": [
+          "safetensors==0.8.0"
+        ],
+        "marker": "extra == \"paddlepaddle\""
+      },
+      {
+        "count": 2,
+        "examples": [
+          "safetensors==0.8.0"
+        ],
+        "marker": "extra == \"pinned-tf\""
+      },
+      {
+        "count": 2,
+        "examples": [
+          "safetensors==0.8.0"
+        ],
+        "marker": "extra == \"tensorflow\""
+      },
+      {
+        "count": 2,
+        "examples": [
+          "safetensors==0.8.0"
+        ],
+        "marker": "extra == \"tf-nightly\""
+      },
+      {
+        "count": 2,
+        "examples": [
+          "transformers==5.17.0"
+        ],
+        "marker": "extra == \"vision\""
+      },
+      {
+        "count": 2,
+        "examples": [
+          "transformers==5.17.0"
+        ],
+        "marker": "extra == \"sentencepiece\""
+      },
+      {
+        "count": 2,
+        "examples": [
+          "transformers==5.17.0"
+        ],
+        "marker": "extra == \"tiktoken\""
+      },
+      {
+        "count": 2,
+        "examples": [
+          "transformers==5.17.0"
+        ],
+        "marker": "extra == \"retrieval\""
+      },
+      {
+        "count": 2,
+        "examples": [
+          "fsspec==2026.9.0"
+        ],
+        "marker": "extra == \"dask\""
+      },
+      {
+        "count": 2,
+        "examples": [
+          "fsspec==2026.9.0"
+        ],
+        "marker": "python_version < \"3.14\" and extra == \"test-full\""
+      },
+      {
+        "count": 2,
+        "examples": [
+          "anyio==4.15.1",
+          "huggingface-hub==1.33.0"
+        ],
+        "marker": "python_version < \"3.11\""
+      },
+      {
+        "count": 2,
+        "examples": [
+          "huggingface-hub==1.33.0"
+        ],
+        "marker": "extra == \"gradio\""
+      },
+      {
+        "count": 2,
+        "examples": [
+          "loguru==0.7.3"
+        ],
+        "marker": "sys_platform == \"win32\""
+      },
+      {
+        "count": 2,
+        "examples": [
+          "loguru==0.7.3"
+        ],
+        "marker": "extra == \"dev\" and python_version >= \"3.9\""
+      },
+      {
+        "count": 2,
+        "examples": [
+          "networkx==3.6.1"
+        ],
+        "marker": "extra == \"developer\""
+      },
+      {
+        "count": 2,
+        "examples": [
+          "networkx==3.6.1"
+        ],
+        "marker": "extra == \"test-extras\""
+      },
+      {
+        "count": 2,
+        "examples": [
+          "psutil==7.2.2"
+        ],
+        "marker": "os_name == \"nt\" and extra == \"dev\""
+      },
+      {
+        "count": 2,
+        "examples": [
+          "tqdm==4.70.1",
+          "typer==0.27.3"
+        ],
+        "marker": "platform_system == \"Windows\""
+      },
+      {
+        "count": 2,
+        "examples": [
+          "tqdm==4.70.1"
+        ],
+        "marker": "extra == \"discord\""
+      },
+      {
+        "count": 2,
+        "examples": [
+          "tqdm==4.70.1"
+        ],
+        "marker": "extra == \"slack\""
+      },
+      {
+        "count": 2,
+        "examples": [
+          "tqdm==4.70.1"
+        ],
+        "marker": "extra == \"telegram\""
+      },
+      {
+        "count": 2,
+        "examples": [
+          "triton==3.6.0"
+        ],
+        "marker": "extra == \"build\""
+      },
+      {
+        "count": 2,
+        "examples": [
+          "httpcore==1.0.9",
+          "httpx==0.28.1"
+        ],
+        "marker": "extra == \"http2\""
+      },
+      {
+        "count": 2,
+        "examples": [
+          "httpcore==1.0.9",
+          "httpx==0.28.1"
+        ],
+        "marker": "extra == \"socks\""
+      },
+      {
+        "count": 2,
+        "examples": [
+          "anyio==4.15.1",
+          "httpcore==1.0.9"
+        ],
+        "marker": "extra == \"trio\""
+      },
+      {
+        "count": 1,
+        "examples": [
+          "accelerate==1.11.0"
+        ],
+        "marker": "extra == \"rich\""
+      },
+      {
+        "count": 1,
+        "examples": [
+          "accelerate==1.11.0"
+        ],
+        "marker": "extra == \"test-fp8\""
+      },
+      {
+        "count": 1,
+        "examples": [
+          "safetensors==0.8.0"
+        ],
+        "marker": "extra == \"mlx\""
+      },
+      {
+        "count": 1,
+        "examples": [
+          "safetensors==0.8.0"
+        ],
+        "marker": "extra == \"numpy\""
+      },
+      {
+        "count": 1,
+        "examples": [
+          "torch==2.10.0"
+        ],
+        "marker": "python_version >= \"3.12\""
+      },
+      {
+        "count": 1,
+        "examples": [
+          "torch==2.10.0"
+        ],
+        "marker": "extra == \"optree\""
+      },
+      {
+        "count": 1,
+        "examples": [
+          "torch==2.10.0"
+        ],
+        "marker": "extra == \"opt-einsum\""
+      },
+      {
+        "count": 1,
+        "examples": [
+          "torch==2.10.0"
+        ],
+        "marker": "extra == \"pyyaml\""
+      },
+      {
+        "count": 1,
+        "examples": [
+          "transformers==5.17.0"
+        ],
+        "marker": "extra == \"video\""
+      },
+      {
+        "count": 1,
+        "examples": [
+          "transformers==5.17.0"
+        ],
+        "marker": "extra == \"timm\""
+      },
+      {
+        "count": 1,
+        "examples": [
+          "transformers==5.17.0"
+        ],
+        "marker": "extra == \"kernels\""
+      },
+      {
+        "count": 1,
+        "examples": [
+          "transformers==5.17.0"
+        ],
+        "marker": "extra == \"mistral-common\""
+      },
+      {
+        "count": 1,
+        "examples": [
+          "transformers==5.17.0"
+        ],
+        "marker": "extra == \"chat-template\""
+      },
+      {
+        "count": 1,
+        "examples": [
+          "transformers==5.17.0"
+        ],
+        "marker": "extra == \"sklearn\""
+      },
+      {
+        "count": 1,
+        "examples": [
+          "transformers==5.17.0"
+        ],
+        "marker": "extra == \"optuna\""
+      },
+      {
+        "count": 1,
+        "examples": [
+          "transformers==5.17.0"
+        ],
+        "marker": "extra == \"ray\""
+      },
+      {
+        "count": 1,
+        "examples": [
+          "transformers==5.17.0"
+        ],
+        "marker": "extra == \"codecarbon\""
+      },
+      {
+        "count": 1,
+        "examples": [
+          "transformers==5.17.0"
+        ],
+        "marker": "extra == \"num2words\""
+      },
+      {
+        "count": 1,
+        "examples": [
+          "transformers==5.17.0"
+        ],
+        "marker": "extra == \"benchmark\""
+      },
+      {
+        "count": 1,
+        "examples": [
+          "cuda-bindings==12.9.4"
+        ],
+        "marker": "sys_platform == \"linux\" and extra == \"all\""
+      },
+      {
+        "count": 1,
+        "examples": [
+          "fsspec==2026.9.0"
+        ],
+        "marker": "extra == \"abfs\""
+      },
+      {
+        "count": 1,
+        "examples": [
+          "fsspec==2026.9.0"
+        ],
+        "marker": "extra == \"adl\""
+      },
+      {
+        "count": 1,
+        "examples": [
+          "fsspec==2026.9.0"
+        ],
+        "marker": "extra == \"arrow\""
+      },
+      {
+        "count": 1,
+        "examples": [
+          "fsspec==2026.9.0"
+        ],
+        "marker": "extra == \"fuse\""
+      },
+      {
+        "count": 1,
+        "examples": [
+          "fsspec==2026.9.0"
+        ],
+        "marker": "extra == \"gcs\""
+      },
+      {
+        "count": 1,
+        "examples": [
+          "fsspec==2026.9.0"
+        ],
+        "marker": "extra == \"git\""
+      },
+      {
+        "count": 1,
+        "examples": [
+          "fsspec==2026.9.0"
+        ],
+        "marker": "extra == \"github\""
+      },
+      {
+        "count": 1,
+        "examples": [
+          "fsspec==2026.9.0"
+        ],
+        "marker": "extra == \"gs\""
+      },
+      {
+        "count": 1,
+        "examples": [
+          "fsspec==2026.9.0"
+        ],
+        "marker": "extra == \"gui\""
+      },
+      {
+        "count": 1,
+        "examples": [
+          "fsspec==2026.9.0"
+        ],
+        "marker": "extra == \"hdfs\""
+      },
+      {
+        "count": 1,
+        "examples": [
+          "fsspec==2026.9.0"
+        ],
+        "marker": "extra == \"http\""
+      },
+      {
+        "count": 1,
+        "examples": [
+          "fsspec==2026.9.0"
+        ],
+        "marker": "extra == \"libarchive\""
+      },
+      {
+        "count": 1,
+        "examples": [
+          "fsspec==2026.9.0"
+        ],
+        "marker": "extra == \"oci\""
+      },
+      {
+        "count": 1,
+        "examples": [
+          "fsspec==2026.9.0"
+        ],
+        "marker": "extra == \"s3\""
+      },
+      {
+        "count": 1,
+        "examples": [
+          "fsspec==2026.9.0"
+        ],
+        "marker": "extra == \"sftp\""
+      },
+      {
+        "count": 1,
+        "examples": [
+          "fsspec==2026.9.0"
+        ],
+        "marker": "extra == \"smb\""
+      },
+      {
+        "count": 1,
+        "examples": [
+          "fsspec==2026.9.0"
+        ],
+        "marker": "extra == \"ssh\""
+      },
+      {
+        "count": 1,
+        "examples": [
+          "fsspec==2026.9.0"
+        ],
+        "marker": "extra == \"tqdm\""
+      },
+      {
+        "count": 1,
+        "examples": [
+          "huggingface-hub==1.33.0"
+        ],
+        "marker": "extra == \"hf-xet\""
+      },
+      {
+        "count": 1,
+        "examples": [
+          "huggingface-hub==1.33.0"
+        ],
+        "marker": "extra == \"mcp\""
+      },
+      {
+        "count": 1,
+        "examples": [
+          "jinja2==3.1.6"
+        ],
+        "marker": "extra == \"i18n\""
+      },
+      {
+        "count": 1,
+        "examples": [
+          "loguru==0.7.3"
+        ],
+        "marker": "python_version < \"3.7\""
+      },
+      {
+        "count": 1,
+        "examples": [
+          "loguru==0.7.3"
+        ],
+        "marker": "extra == \"dev\" and (python_version >= \"3.8\" and python_version < \"3.9\")"
+      },
+      {
+        "count": 1,
+        "examples": [
+          "loguru==0.7.3"
+        ],
+        "marker": "extra == \"dev\" and (python_version >= \"3.6\" and python_version < \"3.8\")"
+      },
+      {
+        "count": 1,
+        "examples": [
+          "loguru==0.7.3"
+        ],
+        "marker": "extra == \"dev\" and (python_version >= \"3.7\" and python_version < \"3.11\")"
+      },
+      {
+        "count": 1,
+        "examples": [
+          "loguru==0.7.3"
+        ],
+        "marker": "extra == \"dev\" and python_version < \"3.6\""
+      },
+      {
+        "count": 1,
+        "examples": [
+          "loguru==0.7.3"
+        ],
+        "marker": "extra == \"dev\" and (python_version >= \"3.6\" and python_version < \"3.7\")"
+      },
+      {
+        "count": 1,
+        "examples": [
+          "loguru==0.7.3"
+        ],
+        "marker": "extra == \"dev\" and (python_version >= \"3.7\" and python_version < \"3.8\")"
+      },
+      {
+        "count": 1,
+        "examples": [
+          "pydantic==2.13.5"
+        ],
+        "marker": "extra == \"email\""
+      },
+      {
+        "count": 1,
+        "examples": [
+          "pydantic==2.13.5"
+        ],
+        "marker": "(python_version >= \"3.9\" and platform_system == \"Windows\") and extra == \"timezone\""
+      },
+      {
+        "count": 1,
+        "examples": [
+          "tqdm==4.70.1"
+        ],
+        "marker": "extra == \"notebook\""
+      },
+      {
+        "count": 1,
+        "examples": [
+          "triton==3.6.0"
+        ],
+        "marker": "python_version < \"3.10\""
+      },
+      {
+        "count": 1,
+        "examples": [
+          "httpx==0.28.1"
+        ],
+        "marker": "platform_python_implementation == \"CPython\" and extra == \"brotli\""
+      },
+      {
+        "count": 1,
+        "examples": [
+          "httpx==0.28.1"
+        ],
+        "marker": "platform_python_implementation != \"CPython\" and extra == \"brotli\""
+      },
+      {
+        "count": 1,
+        "examples": [
+          "httpx==0.28.1"
+        ],
+        "marker": "extra == \"zstd\""
+      },
+      {
+        "count": 1,
+        "examples": [
+          "mpmath==1.3.0"
+        ],
+        "marker": "platform_python_implementation != \"PyPy\" and extra == \"gmpy\""
+      },
+      {
+        "count": 1,
+        "examples": [
+          "rich==15.0.0"
+        ],
+        "marker": "extra == \"jupyter\""
+      },
+      {
+        "count": 1,
+        "examples": [
+          "httpcore==1.0.9"
+        ],
+        "marker": "extra == \"asyncio\""
+      },
+      {
+        "count": 1,
+        "examples": [
+          "markdown-it-py==4.2.0"
+        ],
+        "marker": "extra == \"linkify\""
+      },
+      {
+        "count": 1,
+        "examples": [
+          "markdown-it-py==4.2.0"
+        ],
+        "marker": "extra == \"plugins\""
+      },
+      {
+        "count": 1,
+        "examples": [
+          "markdown-it-py==4.2.0"
+        ],
+        "marker": "extra == \"profiling\""
+      },
+      {
+        "count": 1,
+        "examples": [
+          "pygments==2.21.0"
+        ],
+        "marker": "extra == \"windows-terminal\""
+      }
+    ]
+  },
+  "not_pinned": {
+    "entries": [],
+    "excluded_by_audit": {
+      "trl": "**唯一**被排除的包，且是**审计结论**而非「解不出来」：TRL 不是训练路径的依赖（见 train.lock.json 的 excluded_packages.trl）。它不在本清单，也不在任何 PENDING 状态里。"
+    },
+    "statement": "**没有**任何依赖无法 pin：54 个传递依赖全部解到精确版本，且每个都有兼容目标平台标签的 wheel（无 sdist-only、无约束不可满足、无 requires-python 排除）。因此本清单里没有一行是「编出来的」占位值。"
+  },
+  "purpose": "KAGGLE-38 r3 / G6：训练面**完整传递依赖清单**。Mika 裁定要求：完整传递依赖锁、文件名/SHA、平台标签、来源及下载体积，**包括必要 CUDA 依赖**；允许兼容的 py3-none-any 纯 Python 轮子，不能只收 cp311/abi3 轮子；二进制轮子按目标平台支持标签选取。六个顶层包不等于完整安装锁 —— 本文件就是那条完整清单。",
+  "resolution_method": {
+    "marker_semantics": "environment marker 按 PEP 508 求值。`extra` 上下文固定为空串（默认安装集），所以 `extra == \"...\"` 一律为假；若某个依赖以 `pkg[extra]` 形式被引入，该 extra 会加入该包的 extra 上下文并二次展开其 requires_dist —— 本轮没有触发这种情况。",
+    "steps": [
+      "起点：train.lock.json 的 6 个顶层精确 pin（accelerate 1.11.0 / compressed-tensors 0.15.0.1 / peft 0.21.0 / safetensors 0.8.0 / torch 2.10.0 / transformers 5.17.0）。",
+      "逐层展开：对每个已选版本读 `https://pypi.org/pypi/<name>/<version>/json` 的 `info.requires_dist`，用 packaging 求值每条 Requirement 的 environment marker（环境见 marker_evaluation.environment），把**应用**的约束并入该依赖的约束集合。",
+      "版本选择：对每个依赖名读 PEP 691 simple index（`https://pypi.org/simple/<name>/`，Accept: application/vnd.pypi.simple.v1+json）拿到全部候选版本与逐文件的 `requires-python` / `yanked`；过滤掉 yanked、预发布（除非约束显式要求预发布）、`requires-python` 不含 3.11.9、以及**没有兼容目标标签 wheel** 的版本；在剩下的版本里取满足全部约束的**最高**版本（与 pip 的解析偏好一致）。",
+      "wheel 选择：在同版本的文件里，按（非 yanked → 平台标签具体度 → 文件名）排序取第一个兼容目标标签的 wheel；二进制轮子按目标平台支持标签选取，纯 Python `py3-none-any` 轮子同样接受。",
+      "迭代到不动点：任何依赖的版本变化都会重新展开它的 requires_dist 并重算约束，直到版本与约束集合都不再变化（上限 80 轮，实际远小于此）。"
+    ],
+    "wheel_size_source": "字节数来自 `https://pypi.org/pypi/<name>/<version>/json` 的 `urls[].size`（与 `urls[].filename` 逐条对应），不是估算值。"
+  },
+  "source_lock": {
+    "declared_python": "3.11.9",
+    "declared_verified": false,
+    "excluded_packages": [
+      "trl"
+    ],
+    "path": "v3/locks/train.lock.json",
+    "sha256": "96f451272e5db93eb9ec7589a3842c6520a5a47cfa902b776da3d4a3272be9fa",
+    "top_level_packages": [
+      "accelerate",
+      "compressed-tensors",
+      "peft",
+      "safetensors",
+      "torch",
+      "transformers"
+    ]
+  },
+  "target": {
+    "abi_tag": "cp311",
+    "glibc": "2.39",
+    "implementation": "CPython",
+    "install_flags": [
+      "--only-binary=:all:",
+      "--require-hashes"
+    ],
+    "interpreter": "/home/scc/pb24511961/v3/envs/py3119/bin/python",
+    "marker_environment": {
+      "extra": "",
+      "implementation_name": "cpython",
+      "implementation_version": "3.11.9",
+      "os_name": "posix",
+      "platform_machine": "x86_64",
+      "platform_python_implementation": "CPython",
+      "platform_release": "5.15.0",
+      "platform_system": "Linux",
+      "platform_version": "#1 SMP",
+      "python_full_version": "3.11.9",
+      "python_version": "3.11",
+      "sys_platform": "linux"
+    },
+    "platform": "Linux x86_64",
+    "python_version": "3.11.9",
+    "supported_platform_tags": [
+      "manylinux_2_39_x86_64",
+      "manylinux_2_38_x86_64",
+      "manylinux_2_37_x86_64",
+      "manylinux_2_36_x86_64",
+      "manylinux_2_35_x86_64",
+      "manylinux_2_34_x86_64",
+      "manylinux_2_33_x86_64",
+      "manylinux_2_32_x86_64",
+      "manylinux_2_31_x86_64",
+      "manylinux_2_30_x86_64",
+      "manylinux_2_29_x86_64",
+      "manylinux_2_28_x86_64",
+      "manylinux_2_27_x86_64",
+      "manylinux_2_26_x86_64",
+      "manylinux_2_25_x86_64",
+      "manylinux_2_24_x86_64",
+      "manylinux_2_17_x86_64",
+      "manylinux2014_x86_64",
+      "manylinux_2_12_x86_64",
+      "manylinux2010_x86_64",
+      "manylinux_2_5_x86_64",
+      "manylinux1_x86_64",
+      "linux_x86_64",
+      "any"
+    ],
+    "tag_selection_rule": "从 glibc 2.39 推导的可安装标签阶梯（新→旧），再依次接受纯 Python `py3-none-any`、`cp310-abi3`（abi3 稳定 ABI，cp310 ≤ cp311 适用）与 `cp311` 二进制轮子；musllinux / macOS / Windows / 其他架构标签一律排除。",
+    "wheelhouse_install_mode": "offline（--no-index --find-links=<wheelhouse>）"
+  },
+  "totals": {
+    "binary_wheel_count": 28,
+    "binary_wheels": [
+      "cuda-bindings",
+      "hf-xet",
+      "markupsafe",
+      "numpy",
+      "nvidia-cublas-cu12",
+      "nvidia-cuda-cupti-cu12",
+      "nvidia-cuda-nvrtc-cu12",
+      "nvidia-cuda-runtime-cu12",
+      "nvidia-cudnn-cu12",
+      "nvidia-cufft-cu12",
+      "nvidia-cufile-cu12",
+      "nvidia-curand-cu12",
+      "nvidia-cusolver-cu12",
+      "nvidia-cusparse-cu12",
+      "nvidia-cusparselt-cu12",
+      "nvidia-nccl-cu12",
+      "nvidia-nvjitlink-cu12",
+      "nvidia-nvshmem-cu12",
+      "nvidia-nvtx-cu12",
+      "psutil",
+      "pydantic-core",
+      "pyyaml",
+      "regex",
+      "safetensors",
+      "shellingham",
+      "tokenizers",
+      "torch",
+      "triton"
+    ],
+    "cuda": {
+      "basis": "以上 CUDA/triton 条目**不是猜测**：逐字来自 `https://pypi.org/pypi/torch/2.10.0/json` → `info.requires_dist` 里 带 `platform_system == \"Linux\" and platform_machine == \"x86_64\"` marker 的那些 Requirement（15 个 `nvidia-*-cu12` + `cuda-bindings==12.9.4` + `triton==3.6.0`），加上 `cuda-bindings` 自己声明的传递依赖 `cuda-pathfinder~=1.1`。",
+      "cuda_related_total": 17,
+      "nvidia_metapackage_wheel_count": 15,
+      "nvidia_metapackage_wheels": [
+        "nvidia-cublas-cu12",
+        "nvidia-cuda-cupti-cu12",
+        "nvidia-cuda-nvrtc-cu12",
+        "nvidia-cuda-runtime-cu12",
+        "nvidia-cudnn-cu12",
+        "nvidia-cufft-cu12",
+        "nvidia-cufile-cu12",
+        "nvidia-curand-cu12",
+        "nvidia-cusolver-cu12",
+        "nvidia-cusparse-cu12",
+        "nvidia-cusparselt-cu12",
+        "nvidia-nccl-cu12",
+        "nvidia-nvjitlink-cu12",
+        "nvidia-nvshmem-cu12",
+        "nvidia-nvtx-cu12"
+      ],
+      "other_cuda_wheels": [
+        "cuda-bindings",
+        "cuda-pathfinder"
+      ],
+      "triton": "3.6.0"
+    },
+    "entry_count": 60,
+    "largest_entries": [
+      {
+        "name": "torch",
+        "share_of_total": 0.2193,
+        "size_bytes": 915518691,
+        "version": "2.10.0"
+      },
+      {
+        "name": "nvidia-cudnn-cu12",
+        "share_of_total": 0.1693,
+        "size_bytes": 706758467,
+        "version": "9.10.2.21"
+      },
+      {
+        "name": "nvidia-cublas-cu12",
+        "share_of_total": 0.1424,
+        "size_bytes": 594346921,
+        "version": "12.8.4.1"
+      },
+      {
+        "name": "nvidia-nccl-cu12",
+        "share_of_total": 0.0772,
+        "size_bytes": 322348229,
+        "version": "2.27.5"
+      },
+      {
+        "name": "nvidia-cusparse-cu12",
+        "share_of_total": 0.069,
+        "size_bytes": 288216466,
+        "version": "12.5.8.93"
+      },
+      {
+        "name": "nvidia-cusparselt-cu12",
+        "share_of_total": 0.0688,
+        "size_bytes": 287193691,
+        "version": "0.7.1"
+      },
+      {
+        "name": "nvidia-cusolver-cu12",
+        "share_of_total": 0.0641,
+        "size_bytes": 267506905,
+        "version": "11.7.3.90"
+      },
+      {
+        "name": "nvidia-cufft-cu12",
+        "share_of_total": 0.0463,
+        "size_bytes": 193118695,
+        "version": "11.3.3.83"
+      },
+      {
+        "name": "triton",
+        "share_of_total": 0.0451,
+        "size_bytes": 188214640,
+        "version": "3.6.0"
+      },
+      {
+        "name": "nvidia-nvshmem-cu12",
+        "share_of_total": 0.0333,
+        "size_bytes": 139103095,
+        "version": "3.4.5"
+      }
+    ],
+    "pure_python_py3_none_any": [
+      "accelerate",
+      "annotated-doc",
+      "annotated-types",
+      "anyio",
+      "certifi",
+      "click",
+      "compressed-tensors",
+      "cuda-pathfinder",
+      "filelock",
+      "fsspec",
+      "h11",
+      "httpcore",
+      "httpx",
+      "huggingface-hub",
+      "idna",
+      "jinja2",
+      "loguru",
+      "markdown-it-py",
+      "mdurl",
+      "mpmath",
+      "networkx",
+      "packaging",
+      "peft",
+      "pydantic",
+      "pygments",
+      "rich",
+      "sympy",
+      "tqdm",
+      "transformers",
+      "typer",
+      "typing-extensions",
+      "typing-inspection"
+    ],
+    "pure_python_py3_none_any_count": 32,
+    "top_level_count": 6,
+    "total_download_bytes": 4174079978,
+    "total_download_gib": 3.8874,
+    "total_download_mib": 3980.713,
+    "transitive_count": 54
+  },
+  "verified": false,
+  "verified_note": "本清单**不是**安装验证。`verified` 的真正含义是「在目标解释器上按这些 SHA 装上了、能 import、并且独立审查过」；那需要在 107 上执行上面的 pip 命令并留证据，由作者线提交、独审确认。本清单只提供可复核的公开元数据来源 + 逐条精确 pin。"
+}

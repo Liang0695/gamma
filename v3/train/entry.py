@@ -29,16 +29,18 @@ import argparse
 import json
 import os
 import sys
+import time
 from typing import Sequence
 
 from ..common.errors import Blocked, FailClosed, MissingInput, PolicyViolation, UnverifiedLock
 from ..submit import adapter_contract
 from ..t0.deps import DependencyLock, assert_distinct_lock_channels, load_pair
 from ..t0.official import OfficialInterface
-from . import runner
+from . import adapter_export_contract, destdir, profile as profile_mod, runner
 from .checkpoint import REQUIRED_HASH_KEYS, assert_adapter_valid_frozen_spec
 from .config import TrainingConfig, assert_start_allowed
 from .fixtures import run_all as run_fixture_suite
+from .lifecycle import STOP_EXTERNAL, LifecyclePolicy, StopRequest, TrainingLifecycle
 from .targets import (
     FIRST_ROUND_SEQ_LEN,
     MemoryPlan,
@@ -166,6 +168,8 @@ def measure_gates(
     fixture_report: dict | None = None,
     memory_profile: dict | None = None,
     export_manifest: dict | None = None,
+    export_dir: str | None = None,
+    engineering_evidence: dict | None = None,
     run_cpu_self_check: bool = True,
 ) -> dict:
     """**实测**三项开训闸门，返回 `{"gates": {...}, "evidence": {...}}`。
@@ -174,71 +178,101 @@ def measure_gates(
 
     - `t1_engineering_pass`：20 项 mask fixture 全过 **且** CPU 训练循环自检
       （前向/反向/优化器步进/保存重载）全过；
-    - `memory_plan_pass`：必须有**真实实测**的显存/RSS 数字。没有实测就是不过 ——
-      设计常量 `effective_gpu_limit()` 只是上限，不能替代测量；
-    - `export_manifest_pass`：必须提供一份通过校验的导出 manifest
-      （含 `REQUIRED_HASH_KEYS` 全部哈希键、adapter-only 文件清单）。
+    - `memory_plan_pass`：必须有**真实测量**的显存/RSS 数字，且测量来源可核
+      （G7b：`v3.train.profile.check_profile_provenance`）。手打的
+      `{"peak_gpu_gib": ..., "host_rss_gib": ...}` 不再能过门；
+    - `export_manifest_pass`：必须给出 `v3-adapter-export/2` 契约的导出清单**并绑定
+      实际产物目录**（`export_dir`），由消费侧逐文件重算哈希对账（G8：
+      `v3.train.adapter_export_contract`）。清单里自报的
+      `load_ok` / `params_changed` / `fixture_pass` / `fixture_total` 一律拒绝。
     """
     fixtures = fixture_report if fixture_report is not None else run_fixture_suite()
     self_check = runner.self_check_cpu() if run_cpu_self_check else {"all_passed": False, "skipped": True}
 
     memory = None
+    memory_provenance: dict | None = None
     memory_reason = "没有提供实测内存 profile：未实测不得当作通过（设计常量只是上限）"
     if isinstance(memory_profile, dict) and memory_profile:
-        try:
-            # Q0 Y9-2：走 evaluate_or_block —— 缺实测字段 / 实测不过门槛都 fail-closed，
-            # 不再是"只取 effective_gpu_limit() 常量"。
-            memory = MemoryPlan(
-                peak_gpu_gib=float(memory_profile.get("peak_gpu_gib") or 0.0),
-                host_rss_gib=float(memory_profile.get("host_rss_gib") or 0.0),
-                seq_len=int(memory_profile.get("seq_len", FIRST_ROUND_SEQ_LEN)),
-                available_gpu_gib=memory_profile.get("available_gpu_gib"),
-                downgrade_used=bool(memory_profile.get("downgrade_used", False)),
-            ).evaluate_or_block(memory_profile)
-            memory["source"] = memory_profile.get("source", "caller-provided-measurement")
-        except FailClosed as exc:
-            memory = {"measured": True, "pass": False, "status": "blocked", "error": exc.to_dict()}
-            memory_reason = "实测内存判定 fail-closed：%s（%s）" % (exc.code, exc.message)
-
-    manifest_problems: list[str] = []
-    adapter_validation: dict | None = None
-    if not isinstance(export_manifest, dict) or not export_manifest:
-        manifest_problems.append("没有提供导出 manifest：必须先有一份可校验的 adapter 导出清单")
-    else:
-        missing = [key for key in REQUIRED_HASH_KEYS if not export_manifest.get(key)]
-        if missing:
-            manifest_problems.append("导出 manifest 缺少哈希键：%s" % ", ".join(sorted(missing)))
-        files = export_manifest.get("files") or []
-        if not export_manifest.get("adapter_only"):
-            manifest_problems.append("导出 manifest 未声明 adapter_only=true（禁止整权重当 adapter）")
-        if not files:
-            manifest_problems.append("导出 manifest 没有任何文件条目")
-        elif any(str(name).endswith((".bin", ".pt", ".ckpt", ".pth")) for name in files):
-            manifest_problems.append("导出清单里出现非 .safetensors 权重文件")
+        memory_provenance = profile_mod.check_profile_provenance(memory_profile)
+        if not memory_provenance["ok"]:
+            memory = {
+                "measured": True,
+                "pass": False,
+                "status": "blocked",
+                "problems": list(memory_provenance["problems"]),
+            }
+            memory_reason = "内存 profile 未通过来源校验：%s" % memory_provenance["problems"][0]
         else:
-            # KAGGLE-27 整改①：导出清单必须声明**官方 PEFT 载体**相对路径，
-            # 不允许再用旧的 `adapter.safetensors`（缺 config 时官方会退化成 stem）。
-            expected_carrier = adapter_contract.carrier_weights_relative_path(
-                str(export_manifest.get("adapter_name") or adapter_contract.DEFAULT_ADAPTER_NAME)
-            )
-            normalized = {str(name).replace("\\", "/") for name in files}
-            if expected_carrier not in normalized:
-                manifest_problems.append(
-                    "导出清单缺少官方 PEFT 载体路径 %s（现有：%s）"
-                    % (expected_carrier, sorted(normalized))
-                )
-        # Q0 Y4：带 fixture 计数时走**严格 20/20** 的生产入口，而不是宽松默认入口。
-        if export_manifest.get("fixture_total") is not None or export_manifest.get("fixture_pass") is not None:
             try:
-                adapter_validation = assert_adapter_valid_frozen_spec(
-                    export_manifest,
-                    load_ok=bool(export_manifest.get("load_ok", True)),
-                    params_changed=bool(export_manifest.get("params_changed", True)),
-                    fixture_pass=int(export_manifest.get("fixture_pass") or 0),
-                    fixture_total=int(export_manifest.get("fixture_total") or 0),
-                )
+                # Q0 Y9-2：走 evaluate_or_block —— 缺实测字段 / 实测不过门槛都 fail-closed，
+                # 不再是"只取 effective_gpu_limit() 常量"。
+                memory = MemoryPlan(
+                    peak_gpu_gib=float(memory_profile.get("peak_gpu_gib") or 0.0),
+                    host_rss_gib=float(memory_profile.get("host_rss_gib") or 0.0),
+                    seq_len=int(memory_profile.get("seq_len", FIRST_ROUND_SEQ_LEN)),
+                    available_gpu_gib=memory_profile.get("available_gpu_gib"),
+                    downgrade_used=bool(memory_profile.get("downgrade_used", False)),
+                ).evaluate_or_block(memory_profile)
+                memory["source"] = memory_profile.get("source", "caller-provided-measurement")
+                memory["provenance"] = memory_provenance
             except FailClosed as exc:
-                manifest_problems.append("adapter 冻结规格校验未过：%s（%s）" % (exc.code, exc.message))
+                memory = {"measured": True, "pass": False, "status": "blocked", "error": exc.to_dict()}
+                memory_reason = "实测内存判定 fail-closed：%s（%s）" % (exc.code, exc.message)
+
+    # —— G8：导出清单必须过版本化契约，并且与**实际产物字节**对账 ——
+    manifest_problems: list[str] = adapter_export_contract.collect_export_manifest_problems(
+        export_manifest,
+        export_dir=export_dir,
+        require_artifacts=True,
+    )
+    adapter_validation: dict | None = None
+    if not manifest_problems and export_manifest:
+        try:
+            adapter_validation = adapter_export_contract.validate_export_manifest(
+                export_manifest, export_dir=export_dir
+            )
+        except FailClosed as exc:  # pragma: no cover - collect 已先跑过一遍
+            manifest_problems.append("导出清单校验未过：%s（%s）" % (exc.code, exc.message))
+
+    # —— 工程检查证据：只做**交叉核对**，不当作通过依据 ——
+    cross_checks: list[str] = []
+    cross_failures: list[str] = []
+    engineering: dict | None = None
+    if isinstance(engineering_evidence, dict) and engineering_evidence:
+        engineering = {
+            "stage": engineering_evidence.get("stage"),
+            "backend": engineering_evidence.get("backend"),
+            "is_real_gpu": bool(engineering_evidence.get("is_real_gpu", False)),
+            "is_real_training": bool(engineering_evidence.get("is_real_training", False)),
+        }
+        declared_pass = engineering_evidence.get("fixture_pass")
+        declared_total = engineering_evidence.get("fixture_total")
+        if declared_pass is not None or declared_total is not None:
+            recomputed_pass = int(fixtures.get("passed") or 0)
+            recomputed_total = int(fixtures.get("fixture_count") or 0)
+            if int(declared_pass or 0) != recomputed_pass or int(declared_total or 0) != recomputed_total:
+                cross_failures.append(
+                    "工程检查证据自报 fixture %s/%s，本入口重算为 %s/%s：不一致"
+                    % (declared_pass, declared_total, recomputed_pass, recomputed_total)
+                )
+            else:
+                cross_checks.append("fixture 计数与重算一致（%d/%d）" % (recomputed_pass, recomputed_total))
+                # 计数一致时才走冻结规格的生产入口（20/20 是硬要求）。
+                try:
+                    adapter_validation = assert_adapter_valid_frozen_spec(
+                        dict(export_manifest or {}),
+                        load_ok=bool(engineering_evidence.get("load_ok", False)),
+                        params_changed=bool(engineering_evidence.get("params_changed", False)),
+                        fixture_pass=int(declared_pass or 0),
+                        fixture_total=int(declared_total or 0),
+                    )
+                    cross_checks.append("冻结规格 20/20 校验通过（计数来自重算一致的证据）")
+                except FailClosed as exc:
+                    cross_failures.append(
+                        "adapter 冻结规格校验未过：%s（%s）" % (exc.code, exc.message)
+                    )
+    if cross_failures:
+        manifest_problems.extend(cross_failures)
 
     gates = {
         "t1_engineering_pass": bool(fixtures.get("all_passed")) and bool(self_check.get("all_passed")),
@@ -255,10 +289,15 @@ def measure_gates(
         "cpu_training_self_check": self_check,
         "memory_plan": memory,
         "memory_plan_reason": memory_reason if not gates["memory_plan_pass"] else None,
+        "memory_profile_provenance": memory_provenance,
         "export_manifest": {
             "provided": bool(export_manifest),
+            "export_dir": export_dir,
+            "contract": adapter_export_contract.PRODUCTION_FORMAT,
             "problems": manifest_problems,
             "adapter_validation": adapter_validation,
+            "engineering_evidence": engineering,
+            "cross_checks": cross_checks,
         },
     }
     return {"gates": gates, "evidence": evidence}
@@ -453,6 +492,16 @@ def start(
     backend=None,
     plan=None,
     dest_dir: str | None = None,
+    export_dir: str | None = None,
+    engineering_evidence: dict | None = None,
+    checkpoint_root: str | None = None,
+    hashes: dict | None = None,
+    resume_from: str | None = None,
+    interrupted_mid_accum: bool = False,
+    checkpoint_every: int = 0,
+    stop_at_step: int | None = None,
+    time_budget_seconds: float | None = None,
+    stop: StopRequest | None = None,
     allow_download: bool = False,
 ) -> dict:
     """真正的开训入口：闸门全过且授权明确时**真的执行训练**，否则 fail-closed。
@@ -468,6 +517,14 @@ def start(
     未显式给出时一律走 :func:`resolve_backend_pins`（来自 official-interface 锁的
     `model_repo_id` / `model_revision` pin，`verified != true` 即 `UnverifiedLock`；
     `target_modules` 由目标正则机械导出）。缺 pin 在**构造后端之前**就拒绝。
+
+    G13：`dest_dir` **必须显式给出**，且经 :func:`v3.train.destdir.resolve_dest_dir`
+    校验为"绝对路径 + 仓库外 + 可写"。产物路径（evidence / 保存 / 重载）随后由
+    :func:`v3.train.destdir.verify_paths_consistent` 核对同源。
+
+    G14：给出 `checkpoint_root` + `hashes` 时接线 checkpoint 保存/恢复与停止处理；
+    `resume_from` 指定要恢复的 checkpoint 目录，`interrupted_mid_accum` 触发回滚，
+    `stop` 提供信号/截止时间停止请求（省略时按 `time_budget_seconds` 新建一个）。
     """
     train_lock_path = train_lock_path or os.path.join(LOCKS_DIR, "train.lock.json")
     serving_lock_path = serving_lock_path or os.path.join(LOCKS_DIR, "serving.lock.json")
@@ -484,7 +541,12 @@ def start(
         config=config,
     )
 
-    gate_state = measure_gates(memory_profile=memory_profile, export_manifest=export_manifest)
+    gate_state = measure_gates(
+        memory_profile=memory_profile,
+        export_manifest=export_manifest,
+        export_dir=export_dir,
+        engineering_evidence=engineering_evidence,
+    )
     gates = gate_state["gates"]
     authorization = {
         "gpu_hours_released": gpu_hours,
@@ -538,8 +600,53 @@ def start(
             target_modules=pins["target_modules"],
             allow_download=allow_download,
         )
-    dest_dir = dest_dir or os.path.join(HERE, "_run_adapter")
-    report = runner.run_training(backend, plan, dest_dir)
+
+    # —— G13：产物目录必须显式给出、且在仓库外 ——
+    resolution = destdir.resolve_dest_dir(dest_dir, must_be_outside_repo=True)
+
+    # —— G14：停止请求与 checkpoint 生命周期 ——
+    if stop is None:
+        stop = StopRequest(
+            deadline_monotonic=(
+                None if time_budget_seconds is None
+                else time.monotonic() + float(time_budget_seconds)
+            )
+        )
+    lifecycle = None
+    if checkpoint_root or resume_from:
+        if not checkpoint_root:
+            raise MissingInput(
+                "checkpoint_root_missing",
+                "给了 resume_from 却没有 checkpoint_root：无法定位 checkpoint 存储根",
+            )
+        lifecycle = TrainingLifecycle(
+            store_root=checkpoint_root,
+            hashes=dict(hashes or {}),
+            policy=LifecyclePolicy(
+                checkpoint_every=int(checkpoint_every), stop_at_step=stop_at_step
+            ),
+            resume_from=resume_from,
+            interrupted_mid_accum=bool(interrupted_mid_accum),
+            stop=stop,
+        )
+
+    report = runner.run_training(
+        backend,
+        plan,
+        resolution["resolved"],
+        lifecycle=lifecycle,
+        stop=stop,
+    )
+    # 输出 / 保存 / 重载必须落在同一个已解析的 dest_dir 之下。
+    report["dest_dir_resolution"] = resolution
+    report["path_consistency"] = destdir.verify_paths_consistent(
+        resolution,
+        [
+            ("adapter_saved", (report.get("saved") or {}).get("path")),
+            ("adapter_reloaded", (report.get("reloaded") or {}).get("path")),
+            ("evidence", report.get("evidence_path")),
+        ],
+    )
     report["gates"] = gates
     report["gate_evidence"] = gate_state["evidence"]
     report["authorization"] = authorization
@@ -561,6 +668,34 @@ def main(argv: list[str] | None = None) -> int:
     parser.add_argument("--config", default=None)
     parser.add_argument("--memory-profile", default=None, help="实测内存 profile 的 JSON 路径")
     parser.add_argument("--export-manifest", default=None, help="导出 manifest 的 JSON 路径")
+    # G8：清单必须与**实际产物目录**对账（无此参数即 fail-closed）。
+    parser.add_argument("--export-dir", default=None, help="adapter 导出产物目录（仓库外绝对路径）")
+    parser.add_argument(
+        "--engineering-evidence", default=None, help="工程检查证据 JSON（只做交叉核对，不作为通过依据）"
+    )
+    # G13：产物目录必须显式给出。
+    parser.add_argument(
+        "--dest-dir",
+        default=None,
+        help="训练产物目录：绝对路径且必须在仓库外（无默认值，缺省即拒绝开训）",
+    )
+    # G14：checkpoint 保存 / 恢复 / 停止。
+    parser.add_argument("--checkpoint-root", default=None, help="checkpoint 存储根目录（仓库外）")
+    parser.add_argument("--hashes", default=None, help="5 项环境/数据哈希的 JSON 路径（启用 checkpoint 必需）")
+    parser.add_argument("--resume-from", default=None, help="要恢复的 checkpoint 目录")
+    parser.add_argument(
+        "--interrupted-mid-accum",
+        action="store_true",
+        help="上次中断发生在 accum 中途：恢复时回滚到上一份完整 optimizer 步",
+    )
+    parser.add_argument("--checkpoint-every", type=int, default=0, help="每 N 个 optimizer 步落一份 checkpoint")
+    parser.add_argument("--stop-at-step", type=int, default=None, help="到达该步后立刻停止并保存")
+    parser.add_argument(
+        "--time-budget-seconds",
+        type=float,
+        default=None,
+        help="硬截止（monotonic 计时）：到点即停止、保存、重载，用于同一总截止内停机",
+    )
     # 🟡-3：显式 pin 可选；不给时一律从 official-interface 锁取（无硬编码回退）。
     parser.add_argument("--interface", default=None, help="official-interface.json 路径")
     parser.add_argument("--model-id", default=None, help="显式覆盖锁定的 model_repo_id")
@@ -586,6 +721,15 @@ def main(argv: list[str] | None = None) -> int:
         if args.export_manifest:
             with open(args.export_manifest, "r", encoding="utf-8") as handle:
                 export_manifest = json.load(handle)
+        engineering_evidence = None
+        if args.engineering_evidence:
+            with open(args.engineering_evidence, "r", encoding="utf-8") as handle:
+                engineering_evidence = json.load(handle)
+        hashes = None
+        if args.hashes:
+            from .lifecycle import hashes_from_json
+
+            hashes = hashes_from_json(args.hashes)
         try:
             start(
                 operator=args.operator,
@@ -603,6 +747,16 @@ def main(argv: list[str] | None = None) -> int:
                 config_path=args.config,
                 memory_profile=memory_profile,
                 export_manifest=export_manifest,
+                export_dir=args.export_dir,
+                engineering_evidence=engineering_evidence,
+                dest_dir=args.dest_dir,
+                checkpoint_root=args.checkpoint_root,
+                hashes=hashes,
+                resume_from=args.resume_from,
+                interrupted_mid_accum=bool(args.interrupted_mid_accum),
+                checkpoint_every=int(args.checkpoint_every),
+                stop_at_step=args.stop_at_step,
+                time_budget_seconds=args.time_budget_seconds,
             )
         except FailClosed as exc:
             print(json.dumps(exc.to_dict(), ensure_ascii=False, indent=2))

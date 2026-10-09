@@ -99,8 +99,31 @@ class RejectUnpinnedTests(unittest.TestCase):
 
 
 class DependencyLockTests(unittest.TestCase):
+    """`DependencyLock` 的静态校验与 fail-closed 闸门。
+
+    KAGGLE-38 r3 起，TRL 的依赖审计块已从 `packages` 移到顶层 `excluded_packages`，
+    因此**随包发布的** `v3/locks/train.lock.json` 的 `packages` 现在完全 pin 死、
+    `validate()` 期望返回**空列表**（安装集合里既没有 TRL、也没有任何 `PENDING`）。
+    fail-closed 闸门不变：仍由 `verified=false` 承担 —— `verify()` 抛 `UnverifiedLock`。
+
+    因此"非 64 位 hex 的 `wheel_sha256` 必须被报出来"这条行为改用**内联合成载荷**
+    验证，不再依赖随包锁里恰好留着一个 PENDING 字段（那个字段已经不存在了）。
+    """
+
     def _lock(self, payload: dict) -> DependencyLock:
         return DependencyLock(payload["channel"], payload)
+
+    def _synthetic(self, spec: dict) -> DependencyLock:
+        """单包合成锁（`channel=train`），用来单独验证 `validate()` 的静态规则。"""
+        return self._lock(
+            {
+                "channel": "train",
+                "python": "3.11.9",
+                "verified": False,
+                "notes": [],
+                "packages": {"torch": spec},
+            }
+        )
 
     def test_shipped_train_lock_blocks_because_unverified(self) -> None:
         lock = DependencyLock.from_file(os.path.join(LOCKS, "train.lock.json"))
@@ -109,10 +132,44 @@ class DependencyLockTests(unittest.TestCase):
         with self.assertRaises(UnverifiedLock):
             lock.verify()
 
-    def test_incomplete_wheel_sha_is_reported(self) -> None:
+    def test_shipped_train_lock_packages_are_fully_pinned(self) -> None:
+        """随包锁的 `packages` 必须无 problem：无 TRL、无 PENDING（Mika r3 裁定）。"""
         lock = DependencyLock.from_file(os.path.join(LOCKS, "train.lock.json"))
         problems = lock.validate()
-        self.assertTrue(any("wheel_sha256" in item for item in problems), problems)
+        self.assertEqual(
+            problems,
+            [],
+            "r3 起 train.lock.json 的 packages 必须完全 pin 死（TRL 已移到 excluded_packages）：%s"
+            % problems,
+        )
+        payload = lock.payload
+        self.assertNotIn("trl", payload["packages"], "TRL 不得留在安装集里")
+        self.assertIn("trl", payload["excluded_packages"], "TRL 的审计结论不得静默消失")
+        # 静态校验干净 ≠ 可以开训：闸门仍由 verified=false 关闭。
+        self.assertFalse(payload["verified"])
+        with self.assertRaises(UnverifiedLock):
+            lock.verify()
+
+    def test_incomplete_wheel_sha_is_reported(self) -> None:
+        """非 64 位小写 hex 的 `wheel_sha256`（含 PENDING / 空串 / 大小写 / 长度）必须被报出。"""
+        for bad in ("PENDING", "", "a" * 63, "a" * 65, "A" * 64, "z" * 64):
+            problems = self._synthetic(
+                {"version": "2.10.0", "wheel_sha256": bad, "source": "pypi"}
+            ).validate()
+            self.assertTrue(
+                any("wheel_sha256" in item for item in problems),
+                "wheel_sha256=%r 必须被报出来：%s" % (bad, problems),
+            )
+
+    def test_synthetic_fully_pinned_entry_has_no_problems(self) -> None:
+        problems = self._synthetic(
+            {"version": "2.10.0", "wheel_sha256": "a" * 64, "source": "pypi"}
+        ).validate()
+        self.assertEqual(problems, [])
+
+    def test_synthetic_missing_required_field_is_reported(self) -> None:
+        problems = self._synthetic({"version": "2.10.0", "wheel_sha256": "a" * 64}).validate()
+        self.assertTrue(any("source" in item for item in problems), problems)
 
     def test_fully_pinned_and_verified_lock_passes(self) -> None:
         payload = {

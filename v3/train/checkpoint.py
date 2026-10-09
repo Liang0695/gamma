@@ -39,6 +39,7 @@ ADAPTER_NAME = adapter_contract.ADAPTER_WEIGHTS_FILENAME
 OPTIMIZER_NAME = "optimizer_state.json"
 RNG_NAME = "rng_state.json"
 CURSOR_NAME = "sampler_cursor.json"
+OPTIONAL_STATE_NAME = "training_optional_state.json"
 
 #: 禁止出现在 checkpoint 里的整模型标记。
 FORBIDDEN_KEY_MARKERS = (
@@ -80,6 +81,9 @@ class ResumeState:
     rolled_back_from: str | None = None
     #: 回滚的目标目录（切过去的那份快照）。
     rolled_back_to: str | None = None
+    scheduler: dict | None = None
+    scaler: dict | None = None
+    adapter_bytes: bytes | None = None
 
     def to_dict(self) -> dict:
         return {
@@ -208,6 +212,7 @@ class CheckpointStore:
             (OPTIMIZER_NAME, dict(optimizer)),
             (RNG_NAME, dict(rng)),
             (CURSOR_NAME, dict(cursor)),
+            (OPTIONAL_STATE_NAME, dict(optional_state or {})),
         ):
             with open(os.path.join(temp, name), "wb") as handle:
                 handle.write(canonical_json_bytes(payload))
@@ -232,6 +237,7 @@ class CheckpointStore:
                 OPTIMIZER_NAME: sha256_json(dict(optimizer)),
                 RNG_NAME: sha256_json(dict(rng)),
                 CURSOR_NAME: sha256_json(dict(cursor)),
+                OPTIONAL_STATE_NAME: sha256_json(dict(optional_state or {})),
             },
             "policy": "adapter-only：不含基座权重，不含 FP32 主权重，optimizer 状态不进提交包",
         }
@@ -302,7 +308,8 @@ class CheckpointStore:
             raise IntegrityError("checkpoint_manifest_mismatch", "COMPLETE 标记与 manifest 不匹配")
         self._verify_dir(path, manifest)
         with open(os.path.join(path, ADAPTER_NAME), "rb") as handle:
-            adapter_sha = sha256_bytes(handle.read())
+            adapter_bytes = handle.read()
+            adapter_sha = sha256_bytes(adapter_bytes)
         if adapter_sha != manifest["adapter_sha256"]:
             raise IntegrityError("adapter_hash_mismatch", "adapter 哈希与 manifest 不一致")
         with open(os.path.join(path, OPTIMIZER_NAME), "rb") as handle:
@@ -311,7 +318,14 @@ class CheckpointStore:
             rng = json.loads(handle.read())
         with open(os.path.join(path, CURSOR_NAME), "rb") as handle:
             cursor = json.loads(handle.read())
+        optional = {}
+        if OPTIONAL_STATE_NAME in manifest['files']:
+            with open(os.path.join(path, OPTIONAL_STATE_NAME), 'r', encoding='utf-8') as handle:
+                optional = json.load(handle)
         return ResumeState(
+            adapter_bytes=adapter_bytes,
+            scheduler=optional.get('scheduler'),
+            scaler=optional.get('scaler'),
             global_step=int(manifest["global_step"]),
             consumed_input_tokens=int(manifest["consumed_input_tokens"]),
             consumed_supervised_tokens=int(manifest["consumed_supervised_tokens"]),

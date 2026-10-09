@@ -1,0 +1,11 @@
+$ C:\Users\skyya\anaconda3\python.exe audit_r3_repro.py
+exit=0
+stdout:
+self_reported_hashes_accepted {'source_sha256': '1', 'data_sha256': '1', 'config_sha256': '1', 'code_sha256': '1', 'deps_sha256': '1'}
+mismatched_model_identity_accepted arbitrary/unapproved arbitrary-revision google/gemma-4-31B-it-qat-w4a16-ct 52f3f65bc7a02d555763bc923bd1d9094898219d
+tampered_config_copied {"model_type":"changed"}
+old_base_live_at_fresh_load [True] still_owned_after_return True
+failed_cuda_rng_capture {'available': False, 'reason': 'unavailable:RuntimeError', 'devices': {}}
+step_limit_then_hard_deadline engineering_check_deadline_exceeded
+
+stderr:

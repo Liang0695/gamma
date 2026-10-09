@@ -1,0 +1,55 @@
+{
+  "capture_command": "python tools/capture_interface_pin_evidence.py --repo-id google/gemma-4-31B-it-qat-w4a16-ct --revision 52f3f65bc7a02d555763bc923bd1d9094898219d --endpoint https://hf-mirror.com",
+  "downloaded_weight_files": [],
+  "endpoint": "https://hf-mirror.com",
+  "evidence_manifest": "docs/v3/evidence/kaggle-38-g9-evidence\\evidence-manifest.json",
+  "file_sha256": {
+    "chat_template.jinja": "ae53464bf3be25802b3a5b37def7fd89667067d7577049b3b2d74c4d8de4c6d4",
+    "config.json": "b100d85e571c25b688e82919d819253063a1defb0e6cee3b9b1c1fbad99bd0c2",
+    "tokenizer.json": "cc8d3a0ce36466ccc1278bf987df5f71db1719b9ca6b4118264f45cb627bfe0f",
+    "tokenizer_config.json": "b8045a4576903e86903291d5cbdd4adfc8859e9ce3c98621bdbd957f73ed394b"
+  },
+  "files": {
+    "chat_template.jinja": {
+      "bytes": 18683,
+      "mirror_metadata_agrees": null,
+      "mirror_metadata_sha256": null,
+      "sha256": "ae53464bf3be25802b3a5b37def7fd89667067d7577049b3b2d74c4d8de4c6d4",
+      "url": "https://hf-mirror.com/google/gemma-4-31B-it-qat-w4a16-ct/resolve/52f3f65bc7a02d555763bc923bd1d9094898219d/chat_template.jinja"
+    },
+    "config.json": {
+      "bytes": 18711,
+      "mirror_metadata_agrees": null,
+      "mirror_metadata_sha256": null,
+      "sha256": "b100d85e571c25b688e82919d819253063a1defb0e6cee3b9b1c1fbad99bd0c2",
+      "url": "https://hf-mirror.com/google/gemma-4-31B-it-qat-w4a16-ct/resolve/52f3f65bc7a02d555763bc923bd1d9094898219d/config.json"
+    },
+    "tokenizer.json": {
+      "bytes": 32169626,
+      "mirror_metadata_agrees": true,
+      "mirror_metadata_sha256": "cc8d3a0ce36466ccc1278bf987df5f71db1719b9ca6b4118264f45cb627bfe0f",
+      "sha256": "cc8d3a0ce36466ccc1278bf987df5f71db1719b9ca6b4118264f45cb627bfe0f",
+      "url": "https://hf-mirror.com/google/gemma-4-31B-it-qat-w4a16-ct/resolve/52f3f65bc7a02d555763bc923bd1d9094898219d/tokenizer.json"
+    },
+    "tokenizer_config.json": {
+      "bytes": 3728,
+      "mirror_metadata_agrees": null,
+      "mirror_metadata_sha256": null,
+      "sha256": "b8045a4576903e86903291d5cbdd4adfc8859e9ce3c98621bdbd957f73ed394b",
+      "url": "https://hf-mirror.com/google/gemma-4-31B-it-qat-w4a16-ct/resolve/52f3f65bc7a02d555763bc923bd1d9094898219d/tokenizer_config.json"
+    }
+  },
+  "lock_modified": false,
+  "metadata_sha256": "b66f20d4777153d8ef2b2f07d35ebf739ee4d253f48dcc650b262f21aad96693",
+  "metadata_sha_field": "52f3f65bc7a02d555763bc923bd1d9094898219d",
+  "metadata_sha_matches_revision": true,
+  "metadata_url": "https://hf-mirror.com/api/models/google/gemma-4-31B-it-qat-w4a16-ct/revision/52f3f65bc7a02d555763bc923bd1d9094898219d?blobs=true",
+  "mode": "capture",
+  "only_non_weight_files": true,
+  "problems": [],
+  "repo_id": "google/gemma-4-31B-it-qat-w4a16-ct",
+  "retrieved_at_utc": "2026-10-08T03:15:46Z",
+  "revision": "52f3f65bc7a02d555763bc923bd1d9094898219d",
+  "source": "hf-mirror.com",
+  "verified_flipped": false
+}

@@ -4,45 +4,152 @@
   "notes": [
     "T0 产物：训练面软件锁。与比赛推理面（serving.lock.json）分离，禁止为训练升级正式评分器。",
     "候选起点来自 KAGGLE-20 §5：PyTorch 2.10.0 / Transformers 5.17.0 / PEFT 0.21.0（设计稿明确标注本轮未安装验证）。",
-    "TRL 与 compressed-tensors 的具体 release/commit 与 wheel SHA 属开训前产物，此处照实写 PENDING，runner 因此 fail-closed。",
-    "verified=false 时任何训练入口必须停止；禁止用 latest 顶替。"
+    "G6 修锁（作者线，Mika 2026-10-08 裁定）：compressed-tensors 由 PENDING 定为 PyPI 精确 wheel 0.15.0.1（sha256 e1b1f322e82e475715e242bad46925a304ea8e5c98b5055a15b8eb22fb6bfea9）；其余 5 个既存 pin 的 wheel_sha256 一并补全（由 tools/resolve_train_lock_shas.py 联网读 PyPI 元数据取得）。verified 仍为 false。",
+    "G6 修锁 r3（Mika 2026-10-08 第二轮裁定：“安装方案原则接受，具体安装清单尚未批准”）：① `trl` 由 `packages` 移到顶层 `excluded_packages` 审计块 —— 理由见该块，**安装集合里不再有 TRL，也不再有任何 PENDING 字段**；② 授权作者修既存 `safetensors` pin，0.6.2 → **0.8.0**（依据见该条目 `compatibility`）；③ 新增顶层 `train_stack_manifest` 指针，指向完整传递闭包清单 `docs/v3/evidence/kaggle-38-train-stack-manifest.json`（60 个 wheel：6 顶层 + 54 传递；含 torch 2.10.0 自己声明的 15 个 `nvidia-*-cu12` + `cuda-bindings`，连带其传递依赖 `cuda-pathfinder` 共 17 个 CUDA 相关轮子，另加 `triton 3.6.0`）。**serving 锁与服务面一律未动，未用 latest 顶替。**",
+    "`trl` 为什么必须离开 `packages`（而不是继续在 `packages` 里带 `excluded` 块）：`v3/t0/deps.py::DependencyLock.validate()` 在**冻结执行闭包**里（`v3/data/g2_integrity.py` 的 `EXPECTED_EXECUTION_SOURCE_LF_SHA256`），它不认识 `excluded`，会把 `packages.trl` 的 `PENDING` 同时报成 `unpinned` 与 `wheel_sha256 未取得` 两条 problem —— 于是“安装集合已无 PENDING”与“validate() 为空”无法同时成立。改 `deps.py` 会让 `v3.cli split` 报 `BINDING_CHANGED`（本仓库 r1 已如实回退过一次）。因此把审计结论移到 `packages` **之外**的顶层块：安装集干净、冻结闭包不被动、审计留痕不丢。",
+    "compressed-tensors 0.15.0.1 的兼容依据：PyPI `https://pypi.org/pypi/compressed-tensors/0.15.0.1/json` 的 `info.requires_dist` = [\"torch>=1.7.0\", \"transformers>=4.45.0\"]，本锁 torch 2.10.0 / transformers 5.17.0 均满足；同一 JSON 的 `urls[].digests.sha256`（wheel compressed_tensors-0.15.0.1-py3-none-any.whl, 194260 字节）与官方 wheelhouse 物料 `docs/v3/design/kaggle-27-wheelhouse-material-sha256.json` 的记录**逐位相同**，也与 `v3/locks/serving.lock.json`（推理面）的 0.15.0.1 一致 —— 训练面因此不需要为加载基座改动评分器版本。",
+    "compressed-tensors 属训练路径运行时依赖的依据：训练基座 `google/gemma-4-31B-it-qat-w4a16-ct` revision `52f3f65bc7a02d555763bc923bd1d9094898219d` 的 config.json（经 hf-mirror.com 取回，18711 字节）声明 `quantization_config.quant_method = \"compressed-tensors\"`、`format = \"pack-quantized\"`、num_bits=4/group_size=32；`v3/train/runner.py::TorchPeftBackend._import_stack()` 走 `AutoModelForCausalLM.from_pretrained(...)` 加载该权重，transformers 的 compressed-tensors 量化后端在缺包时无法实例化。",
+    "**未采用**的 compressed-tensors 候选与理由：同一 config 的 `quantization_config.version` 为 `0.15.1.a20260521`（对应 PyPI 预发布 0.15.1a20260521，sha256 c7f88c0e…，211474 字节）。它是 alpha 预发布、不在官方 wheelhouse、也不在推理面锁里，故不选；PyPI 观测到的 0.19.0（当时最新）同样不选 —— 锁里禁止用 latest 顶替。该 config `version` 字段是否被加载器强制比对**未验证**。",
+    "safetensors 既存 pin 已由作者线修正（Mika 明确授权，见 notes 第 4 条）：0.6.2 → 0.8.0。精确约束交集与目标 wheel SHA 见该条目 `compatibility`：transformers 5.17.0 要求 `safetensors>=0.8.0`，accelerate 1.11.0 要求 `safetensors>=0.4.3`，peft 0.21.0 对 safetensors **无版本上限**，三者的交集是 `>=0.8.0`；PyPI 上满足该交集且**非预发布**的版本**只有一个**：0.8.0。选它是约束推导的结果，不是“取 latest”（0.8.0 恰好也是 `https://pypi.org/pypi/safetensors/json` 的 `info.version`，本锁**不**以该字段为选择依据）。",
+    "verified=false 时任何训练入口必须停止；禁止用 latest 顶替。",
+    "本锁的 `packages` 仍是**直接 pin 列表**（6 个顶层包），但完整传递闭包已单独产出：`docs/v3/evidence/kaggle-38-train-stack-manifest.json`（每一层的 `requires_dist` 逐条按目标平台 marker 求值后锁定，含 torch 2.10.0 自己声明的 17 个 CUDA 运行时轮子与 triton 3.6.0）。清单里 `py3-none-any` 纯 Python 轮子与 `cp311` / `cp310-abi3` 二进制轮子并存。install 时仍必须走 `--require-hashes --only-binary=:all:`。"
   ],
   "packages": {
     "accelerate": {
       "source": "pypi",
       "version": "1.11.0",
-      "wheel_sha256": "PENDING"
+      "wheel_filename": "accelerate-1.11.0-py3-none-any.whl",
+      "wheel_sha256": "a628fa6beb069b8e549460fc449135d5bd8d73e7a11fd09f0bc9fc4ace7f06f1"
     },
     "compressed-tensors": {
-      "source": "pypi-or-git",
-      "version": "PENDING",
-      "wheel_sha256": "PENDING"
+      "source": "pypi",
+      "version": "0.15.0.1",
+      "wheel_filename": "compressed_tensors-0.15.0.1-py3-none-any.whl",
+      "wheel_sha256": "e1b1f322e82e475715e242bad46925a304ea8e5c98b5055a15b8eb22fb6bfea9",
+      "compatibility": {
+        "evidence_url": "https://pypi.org/pypi/compressed-tensors/0.15.0.1/json",
+        "python_requires": "未声明（null）",
+        "requires_dist": [
+          "torch>=1.7.0",
+          "transformers>=4.45.0"
+        ],
+        "satisfied_by": {
+          "torch": "2.10.0",
+          "transformers": "5.17.0"
+        },
+        "cross_check": "wheel 的 PyPI digests.sha256 与 docs/v3/design/kaggle-27-wheelhouse-material-sha256.json 的 compressed_tensors-0.15.0.1-py3-none-any.whl 记录逐位相同（e1b1f322…，194260 字节）；与 v3/locks/serving.lock.json 的推理面版本 0.15.0.1 一致。"
+      }
     },
     "peft": {
       "source": "pypi",
       "version": "0.21.0",
-      "wheel_sha256": "PENDING"
+      "wheel_filename": "peft-0.21.0-py3-none-any.whl",
+      "wheel_sha256": "b64eb75fd9dece7401c70e675b8d9de024993b70483691b41c62876f0c7809b7"
     },
     "safetensors": {
       "source": "pypi",
-      "version": "0.6.2",
-      "wheel_sha256": "PENDING"
+      "version": "0.8.0",
+      "wheel_filename": "safetensors-0.8.0-cp310-abi3-manylinux_2_17_x86_64.manylinux2014_x86_64.whl",
+      "wheel_sha256": "fd6f3f93c9a0a7cc2788ee63fb763353d4bd2e89b0751bc78fcf7dda00bea774",
+      "wheel_size_bytes": 516040,
+      "note": "既存 pin 由作者线修正（Mika 授权）：0.6.2 → 0.8.0。旧值 0.6.2（safetensors-0.6.2-cp38-abi3-manylinux_2_17_x86_64.manylinux2014_x86_64.whl，8045db2c872db8f4cbe3faa0495932d89c38c899c603f21e9b6486951a5ecb8f）与 transformers 5.17.0 的 safetensors>=0.8.0 硬冲突，按 SHA 实装必被 --require-hashes 解析器拒绝。",
+      "compatibility": {
+        "evidence_url": "https://pypi.org/pypi/safetensors/0.8.0/json",
+        "requires_python": ">=3.10（同一 JSON 的 info.requires_python；目标 3.11.9 满足）",
+        "constraint_intersection": {
+          "transformers 5.17.0": {
+            "url": "https://pypi.org/pypi/transformers/5.17.0/json",
+            "field": "info.requires_dist",
+            "constraint_string": "safetensors>=0.8.0"
+          },
+          "accelerate 1.11.0": {
+            "url": "https://pypi.org/pypi/accelerate/1.11.0/json",
+            "field": "info.requires_dist",
+            "constraint_string": "safetensors>=0.4.3"
+          },
+          "peft 0.21.0": {
+            "url": "https://pypi.org/pypi/peft/0.21.0/json",
+            "field": "info.requires_dist",
+            "constraint_string": "safetensors（无版本说明符，即任意版本）"
+          },
+          "torch 2.10.0": {
+            "url": "https://pypi.org/pypi/torch/2.10.0/json",
+            "field": "info.requires_dist",
+            "constraint_string": "无 safetensors 约束（torch 不依赖 safetensors）"
+          },
+          "compressed-tensors 0.15.0.1": {
+            "url": "https://pypi.org/pypi/compressed-tensors/0.15.0.1/json",
+            "field": "info.requires_dist",
+            "constraint_string": "无 safetensors 约束"
+          },
+          "intersection": ">=0.8.0"
+        },
+        "unique_stable_candidate": {
+          "url": "https://pypi.org/pypi/safetensors/json",
+          "field": "releases（键集合）",
+          "observation": "在 >=0.8.0 的约束下，非预发布版本集合为 {0.8.0} —— 只有一个。预发布版本集合为空。故 0.8.0 是约束唯一解，不是“取 latest”。",
+          "prereleases_satisfying": []
+        },
+        "wheel_selection": {
+          "url": "https://pypi.org/pypi/safetensors/0.8.0/json",
+          "field": "urls[].filename / urls[].digests.sha256 / urls[].size",
+          "target_tags": "cp311 / cp310-abi3 / manylinux_2_17_x86_64.manylinux2014_x86_64",
+          "filename": "safetensors-0.8.0-cp310-abi3-manylinux_2_17_x86_64.manylinux2014_x86_64.whl",
+          "sha256": "fd6f3f93c9a0a7cc2788ee63fb763353d4bd2e89b0751bc78fcf7dda00bea774",
+          "size_bytes": 516040,
+          "why_this_wheel": "0.8.0 只发布 abi3 稳定 ABI 轮子（cp310-abi3），不发布 cp311 专属轮子；abi3 轮子对**更高**的 CPython 同样适用，cp310 ≤ cp311，故该轮子是目标解释器上的唯一候选（manylinux_2_17 ≤ glibc 2.39）。同版本的 win/macos/musllinux/其他架构轮子按目标标签排除。"
+        }
+      }
     },
     "torch": {
       "source": "pypi",
       "version": "2.10.0",
-      "wheel_sha256": "PENDING"
+      "wheel_filename": "torch-2.10.0-3-cp311-cp311-manylinux_2_28_x86_64.whl",
+      "wheel_sha256": "ac5bdcbb074384c66fa160c15b1ead77839e3fe7ed117d667249afce0acabfac",
+      "note": "解析器按 (非 yanked, 平台具体度, 文件名) 排序取到 PyPI 上该版本的最新 build（build 3）；非 build 的 torch-2.10.0-cp311-cp311-manylinux_2_28_x86_64.whl 为 a2f9edd8…（未采用）。"
     },
     "transformers": {
       "source": "pypi",
       "version": "5.17.0",
-      "wheel_sha256": "PENDING"
-    },
-    "trl": {
-      "source": "pypi-or-git",
-      "version": "PENDING",
-      "wheel_sha256": "PENDING"
+      "wheel_filename": "transformers-5.17.0-py3-none-any.whl",
+      "wheel_sha256": "78ec1ce21579b38dfb83950a0658cd119f87212a2fcfdff478096ce9d6c03801"
     }
+  },
+  "excluded_packages": {
+    "trl": {
+      "source": "excluded",
+      "version": "PENDING",
+      "wheel_sha256": "PENDING",
+      "pinning_note": "version / wheel_sha256 故意留 PENDING：本块是**排除**结论，不是 pin。任何把 excluded_packages 当安装集读的朴素消费者都会 fail-closed，不会把“已排除”误读成“已固定版本”。",
+      "reason": "not_a_dependency_of_the_training_path",
+      "audit": [
+        "全仓检索 `trl` / `TRL` / `SFTTrainer` / `DPOTrainer` / `GRPOTrainer` / `RewardTrainer`：`v3/` 下代码零命中（命中的只有设计稿 docs/、证据文件与锁自身）—— 没有任何训练代码 import 或实例化 TRL。",
+        "训练循环由 `v3/train/runner.py::TorchPeftBackend._import_stack()` 自写，只 import torch / peft（LoraConfig, get_peft_model, PeftModel）/ transformers（AutoModelForCausalLM, AutoTokenizer），没有 TRL Trainer；`v3/train/entry.py` 的闸门也只看 adapter 载体契约。",
+        "标签与 mask 由 `v3/train/masks.py` 自实现，不依赖 TRL 的 assistant_only_loss；KAGGLE-20 §5 只把 TRL 的 SFT 文档当作 generation 区间与分块 loss 的**参考资料**（文档引用），不是运行依赖。",
+        "PyPI 元数据（`https://pypi.org/pypi/trl/json` → `info.requires_dist`，观测版本 1.14.2，requires_python >=3.10）显示引入 TRL 会额外拉入 datasets>=4.7.0 / jinja2 / packaging>20.0 / transformers>=4.56.2；训练面并不需要这条依赖链。",
+        "完整传递闭包（`docs/v3/evidence/kaggle-38-train-stack-manifest.json`）由 6 个顶层 pin 逐层走 `requires_dist` 解出，**不经过 TRL**：闭包里没有 trl、datasets、accelerate 之外的训练框架包 —— 独立复核了这条排除结论。",
+        "结论：trl **不进安装集**。审计结论保留在本块仅为**可复核的留痕**（不静默删除），不再放在 `packages` 里（放在 packages 里会让冻结闭包 `v3/t0/deps.py` 把它的 PENDING 报成 problem，见 notes）。"
+      ],
+      "evidence": [
+        "https://pypi.org/pypi/trl/json（info.requires_dist，观测 latest=1.14.2，**不是** pin）",
+        "v3/train/runner.py::TorchPeftBackend._import_stack（仅 torch/peft/transformers）",
+        "v3/train/masks.py（自实现 mask）",
+        "docs/v3/design/KAGGLE-20-V3-LoRA-joint-design.md §5（TRL 只作为文档参考）",
+        "docs/v3/evidence/kaggle-38-train-stack-manifest.json（60 包闭包中无 trl）"
+      ],
+      "recorded_at_utc": "2026-10-08T02:49:26Z",
+      "moved_to_top_level_at_utc": "2026-10-08T05:12:00Z",
+      "reintroduce_if": "若训练设计改走 TRL 的 SFTTrainer（例如为了 assistant_only_loss / chunked_nll），必须先给出精确版本 + 目标平台（cp311 / manylinux x86_64）wheel SHA 并**删掉本顶层块、把精确 pin 写回 `packages`**，再走同一套锁评审。本排除不代表对 TRL 任何版本的背书或否决。"
+    }
+  },
+  "train_stack_manifest": {
+    "path": "docs/v3/evidence/kaggle-38-train-stack-manifest.json",
+    "note": "完整传递依赖清单（60 个 wheel：6 个顶层 pin + 54 个传递依赖，含 torch 2.10.0 自己声明的 15 个 `nvidia-*-cu12` + `cuda-bindings==12.9.4`、连带 `cuda-bindings` 的传递依赖 `cuda-pathfinder` 共 17 个 CUDA 相关轮子，另加 `triton==3.6.0`）。逐条记录 包名 / 精确版本 / wheel 文件名 / sha256 / 来源 URL / 目标平台标签 / 字节数，并给出 pip 安装命令行、总下载体积与安装耗时估算及其依据。清单的 `packages` 里同样**没有 trl、没有任何 PENDING**。",
+    "entry_count": 60,
+    "total_download_bytes": 4174079978,
+    "target_platform": "CPython 3.11.9 / Linux x86_64 / glibc 2.39",
+    "generated_at_utc": "2026-10-08T05:20:00Z",
+    "circularity_note": "本指针**不**记录清单自身的 sha256：清单里记录的是本锁文件（train.lock.json）的 sha256，若本锁再记录清单的 sha256 会形成互相依赖、任何一方改动都会让另一方失效。清单 → 锁 单向绑定，锁 → 清单 只给路径。"
   },
   "verified": false
 }
