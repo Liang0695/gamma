@@ -44,6 +44,7 @@ MODULES = (
     "tests.test_g38_dynamic_torch_modules",
     "tests.test_g38_lora_scope",
     "tests.test_g38_reload_checkpoint",
+    "tests.test_g38_quantized_loading",
 )
 
 

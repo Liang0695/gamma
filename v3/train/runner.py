@@ -997,6 +997,21 @@ class TorchPeftBackend(TrainBackend):
         self.last_release_evidence = evidence
         return evidence
 
+    def _training_load_options(self, load_source):
+        """Explicit load-time CT dequantization, on the selected device."""
+        path = os.path.join(str(load_source), 'config.json')
+        if not os.path.isfile(path):
+            return {}  # Tiny CPU factories have no disk quantization config.
+        with open(path, encoding='utf-8') as handle:
+            quantization = json.load(handle).get('quantization_config') or {}
+        if quantization.get('quant_method') != 'compressed-tensors':
+            return {}
+        from transformers import CompressedTensorsConfig
+        config = CompressedTensorsConfig(dequantize=True, use_optimized_inference=False)
+        self.last_training_load_policy = {'dequantize':config.dequantize,
+            'use_optimized_inference':config.use_optimized_inference,'device_map':{'':self.device}}
+        return {'quantization_config':config, 'device_map':{'':self.device}}
+
     def assert_base_released(self):
         gc.collect()
         alive = any(ref() is not None for ref in self._released_model_refs)
@@ -1062,11 +1077,13 @@ class TorchPeftBackend(TrainBackend):
             revision=load_revision,
             torch_dtype=torch.bfloat16,
             local_files_only=True,
+            **self._training_load_options(load_source),
         )
         self.load_mode = load_mode
         self.model_identity = identity
         self.model_load_args = {
             "source": str(load_source),
+            "quantization_loading": getattr(self, 'last_training_load_policy', None),
             "revision": load_revision,
             "local_files_only": True,
             "load_mode": load_mode,
@@ -1484,8 +1501,12 @@ class TorchPeftBackend(TrainBackend):
             revision=load_revision,
             torch_dtype=self._torch.bfloat16,
             local_files_only=True,
+            **self._training_load_options(load_source),
         )
         self.load_count += 1
+        if (getattr(self, 'last_training_load_policy', None) or {}).get('dequantize'):
+            from .targets import resolve_peft_scope
+            resolve_peft_scope(fresh_base, self.target_modules, self._torch.nn.Linear)
         reloaded = PeftModel.from_pretrained(fresh_base, peft_dir, is_trainable=is_trainable)
         reloaded.to(self.device)
         self.model = reloaded
@@ -1516,6 +1537,7 @@ class TorchPeftBackend(TrainBackend):
             "old_base_release_evidence": release_evidence,
             "old_base_alive_during_fresh_load": observed["old_base_alive"],
             "model_load_args": getattr(self, "model_load_args", {}),
+            "quantization_loading": getattr(self, 'last_training_load_policy', None),
             "model_identity": identity,
             "local_files_only": True,
         }

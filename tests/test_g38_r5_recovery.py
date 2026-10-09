@@ -66,6 +66,7 @@ class RecoveryTests(unittest.TestCase):
             peft = types.ModuleType('peft')
             peft.PeftModel = types.SimpleNamespace(from_pretrained=lambda *_, **kwargs: Model())
             with patch.object(obj, '_import_stack', return_value=(obj._torch,None,None,None,auto,None)), \
+                 patch.object(obj, '_training_load_options', return_value={}), \
                  patch.object(runner.adapter_contract, 'assert_official_adapter_carrier'), \
                  patch.dict(sys.modules, {'peft': peft}):
                 for _ in range(2):

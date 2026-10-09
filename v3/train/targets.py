@@ -109,6 +109,17 @@ def resolve_peft_scope(model, requested, linear_type) -> dict:
     if unsupported:
         raise PolicyViolation('lora_text_target_unsupported', 'Text target is not a PEFT-supported Linear',
                               unsupported=unsupported)
+    unavailable = []
+    for name in selected:
+        module = modules[name]
+        weight = getattr(module, 'weight', None)
+        if (weight is None or getattr(weight, 'is_meta', False)
+                or not getattr(weight, 'is_floating_point', lambda:False)()
+                or tuple(weight.shape) != (module.out_features, module.in_features)):
+            unavailable.append(name)
+    if unavailable:
+        raise PolicyViolation('lora_text_weight_unavailable',
+                              'Materialize text Linear weights before PEFT (dequantize=True)', modules=unavailable)
     excluded = sorted(name for name in modules if name.split('.')[-1] in requested and name not in selected)
     return {'target_regex':TARGET_REGEX,'matched':selected,'matched_count':len(selected),
             'excluded_suffix_matches':excluded,
