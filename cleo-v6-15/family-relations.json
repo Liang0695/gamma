@@ -1,0 +1,101 @@
+[
+  {
+    "pr": 179,
+    "issues": [
+      "python-poetry/cleo#162"
+    ],
+    "root": "UNKNOWN",
+    "shared_event_not_independent_root": true
+  },
+  {
+    "pr": 236,
+    "issues": [
+      "python-poetry/cleo#56"
+    ],
+    "root": "UNKNOWN",
+    "shared_event_not_independent_root": true
+  },
+  {
+    "pr": 239,
+    "issues": [
+      "python-poetry/cleo#64",
+      "python-poetry/cleo#65"
+    ],
+    "root": "UNKNOWN",
+    "shared_event_not_independent_root": true
+  },
+  {
+    "pr": 245,
+    "issues": [
+      "python-poetry/cleo#232"
+    ],
+    "root": "UNKNOWN",
+    "shared_event_not_independent_root": true
+  },
+  {
+    "pr": 247,
+    "issues": [
+      "python-poetry/cleo#133"
+    ],
+    "root": "UNKNOWN",
+    "shared_event_not_independent_root": true
+  },
+  {
+    "pr": 269,
+    "issues": [
+      "python-poetry/cleo#74"
+    ],
+    "root": "UNKNOWN",
+    "shared_event_not_independent_root": true
+  },
+  {
+    "pr": 285,
+    "issues": [
+      "python-poetry/cleo#284"
+    ],
+    "root": "UNKNOWN",
+    "shared_event_not_independent_root": true
+  },
+  {
+    "pr": 291,
+    "issues": [
+      "python-poetry/cleo#289"
+    ],
+    "root": "UNKNOWN",
+    "shared_event_not_independent_root": true
+  },
+  {
+    "pr": 313,
+    "issues": [
+      "python-poetry/cleo#104"
+    ],
+    "root": "UNKNOWN",
+    "shared_event_not_independent_root": true
+  },
+  {
+    "pr": 321,
+    "issues": [
+      "python-poetry/cleo#314"
+    ],
+    "root": "UNKNOWN",
+    "shared_event_not_independent_root": true
+  },
+  {
+    "pr": 327,
+    "issues": [
+      "python-poetry/cleo#325"
+    ],
+    "root": "UNKNOWN",
+    "shared_event_not_independent_root": true
+  },
+  {
+    "pr": 247,
+    "issues": [
+      "python-poetry/cleo#133",
+      "python-poetry/cleo#437"
+    ],
+    "evidence": "133 current closure;437 v6.12 earlier closure only, later null closers remain unresolved",
+    "root": "UNKNOWN",
+    "no_body_permission": true
+  }
+]

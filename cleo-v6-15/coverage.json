@@ -1,0 +1,19 @@
+{
+  "cutoff_exclusive": "2026-01-01T00:00:00Z",
+  "scope": "Issue metadata, closed-event closer identity, PR merge parent/tree, exact LICENSE blob only",
+  "not_acquired": [
+    "title",
+    "body",
+    "comments",
+    "PR body",
+    "patch",
+    "diff",
+    "commit message",
+    "future tests",
+    "source snapshots",
+    "foreign repository content"
+  ],
+  "gate": "v15 selected metadata plus v6.12 detailed identities and v6.14 stops; no complete hidden clearance",
+  "two_zero_material_batches_direction": "Three batches selected distinct previously unqueried CLOSED_EVENT identities from the existing issue index. All three remain metadata qualification; no new body/source direction was activated. Stop after the authorized three batches; no automatic fourth batch or index pagination.",
+  "historical_license_not_text_training_right": true
+}

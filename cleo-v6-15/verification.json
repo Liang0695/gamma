@@ -1,0 +1,57 @@
+{
+  "selected_input_members": [
+    {
+      "archive": "KAGGLE-62-recovery-v15.zip",
+      "member": "global-manifest.json",
+      "sha256_matches_inventory": true
+    },
+    {
+      "archive": "KAGGLE-62-recovery-v15.zip",
+      "member": "dedup-and-gates.json",
+      "sha256_matches_inventory": true
+    },
+    {
+      "archive": "KAGGLE-62-recovery-v15.zip",
+      "member": "body-prescreen-exclusions.json",
+      "sha256_matches_inventory": true
+    },
+    {
+      "archive": "KAGGLE-62-recovery-v15.zip",
+      "member": "owner-queue.json",
+      "sha256_matches_inventory": true
+    },
+    {
+      "archive": "KAGGLE-62-recovery-v15.zip",
+      "member": "research-source-registry.json",
+      "sha256_matches_inventory": true
+    },
+    {
+      "archive": "KAGGLE-62-recovery-v15.zip",
+      "member": "cleo614-next-queue.json",
+      "sha256_matches_inventory": true
+    },
+    {
+      "archive": "kaggle49-v6-12-cleo-issue-identities.zip",
+      "member": "manifest.json",
+      "sha256_matches_inventory": true
+    },
+    {
+      "archive": "kaggle49-v6-12-cleo-issue-identities.zip",
+      "member": "next-queue.json",
+      "sha256_matches_inventory": true
+    },
+    {
+      "archive": "kaggle49-v6-12-cleo-issue-identities.zip",
+      "member": "selection.json",
+      "sha256_matches_inventory": true
+    },
+    {
+      "archive": "kaggle49-v6-12-cleo-issue-identities.zip",
+      "member": "index-response.json",
+      "sha256_matches_inventory": true
+    }
+  ],
+  "license_bindings_verified": 11,
+  "candidate_execution": false,
+  "network_replays": 0
+}

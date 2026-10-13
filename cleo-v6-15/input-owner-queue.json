@@ -1,0 +1,306 @@
+{
+  "as_of_utc": "2026-10-13T08:12:32.116964+00:00",
+  "lanes": [
+    {
+      "issue_number": 40,
+      "exclusive_sources": [
+        "more-itertools/more-itertools",
+        "mahmoud/boltons"
+      ],
+      "owner_agent_id": "3f2c8a1f-aa12-4f37-8783-a29d1ef2c245",
+      "recorded_candidate_archives": 58,
+      "ordinary_material_upper": 53,
+      "separate_research_materials": 0,
+      "target100_ordinary_increment_upper": 45,
+      "remaining_to100_at_least": 55,
+      "authorized_after100_archive_count": 49,
+      "valid_next_metadata_leads": [],
+      "active_runs": [],
+      "action": "Single original-owner continuation only if latest active remains empty; no dispatch counted as materials",
+      "guard": "Foreground<=30min and<=3 batches, target10/batch, request<=30sec; original100/resource budgets not reset; two zero-new batches change to unexamined direction; actual limits stop branch.",
+      "status": "in_progress",
+      "observation_time_utc": "2026-10-13T08:11:56.437008+00:00",
+      "last_completed_run": "01a133af-df28-7478-8f0c-1f41b2458776",
+      "latest_evidence": {
+        "comment_id": "01a13410-6c78-7f2b-892a-34937b75825f",
+        "attachment_id": "01a13410-67f8-7dae-b9e7-f2ae5ae1f8f0"
+      },
+      "metadata_only_queue_count": "Old cache0;new qualified capacity UNKNOWN",
+      "stopped_next_metadata_leads": [
+        "more-itertools/more-itertools#353",
+        "more-itertools/more-itertools#351",
+        "more-itertools/more-itertools#344",
+        "more-itertools/more-itertools#342"
+      ],
+      "consecutive_zero_package_batches": [
+        "v24 third batch",
+        "v25 partial first batch"
+      ],
+      "source_capacity": "Unknown; next queue is metadata only",
+      "historical_blocking_reason": {
+        "status": 403,
+        "remaining": 0,
+        "limit": 60,
+        "reset_epoch": 1791864304,
+        "reset_utc": "2026-10-13T04:05:04+00:00",
+        "retry_after": "NOT_PROVIDED",
+        "retrieved_at_utc": "2026-10-13T03:16:26.509757+00:00"
+      },
+      "api_recovery_evidence": {
+        "file": "recovery-evidence-v5.json",
+        "run_id": "01a1336c-67da-72d6-bae5-0231ff0ef2c0",
+        "message_seq": 38,
+        "scope": "actual run tool result, no independent HTTP replay"
+      },
+      "new_material_packages_received_this_checkpoint": 0,
+      "collection_completion_observed": true,
+      "new_material_packages_received": 0,
+      "ordinary_source_ready_added_this_checkpoint": 0,
+      "next_instruction_member": "lane40-continuation.md",
+      "required_guard_sidecar": "v31-queue-exclusion-sidecar.json",
+      "new_research_preparation_received_this_checkpoint": 0,
+      "next_action": "MI#2/#7/#8 latest gate then one opening screen each; neutral behavior sufficient before unique v36 fixed-base research preparation. #6 version hold; old13 consumed; no stopped item reopened.",
+      "observation_scope": "Initial scheduled read;not final completion acceptance",
+      "consumed_queue_override": "v35-queue-consumption-sidecar.json",
+      "effective_pending_opening_ids": [],
+      "collection_window": "USER_AUTHORIZED_ROLLING_BOUNDED_SEGMENT",
+      "next_collection": "MI#2/#7/#8 latest gate then one opening screen each; neutral behavior sufficient before unique v36 fixed-base research preparation. #6 version hold; old13 consumed; no stopped item reopened.",
+      "coordination_deadline": "2026-10-13T14:05:07.802624Z",
+      "dispatch_state": "PENDING_FINAL_ACTIVE_CHECK",
+      "body_prescreen_stop_delta": []
+    },
+    {
+      "issue_number": 49,
+      "exclusive_sources": [
+        "pallets/click",
+        "theskumar/python-dotenv"
+      ],
+      "owner_agent_id": "1b62b5f5-e26f-4f8a-b5bf-dcbeb4412cad",
+      "recorded_candidate_archives": 35,
+      "ordinary_material_upper": 22,
+      "separate_research_materials": 16,
+      "target100_ordinary_increment_upper": 15,
+      "remaining_to100_at_least": 85,
+      "authorized_after100_archive_count": 25,
+      "valid_next_metadata_leads": [],
+      "active_runs": [],
+      "action": "Single original-owner continuation only if latest active remains empty; no dispatch counted as materials",
+      "guard": "Foreground<=30min and<=3 batches, target10/batch, request<=30sec; original100/resource budgets not reset; two zero-new batches change to unexamined direction; actual limits stop branch.",
+      "status": "in_progress",
+      "observation_time_utc": "2026-10-13T08:11:59.391794+00:00",
+      "last_completed_run": "01a133af-fdbd-7b8f-944a-3b568f747bab",
+      "latest_evidence": {
+        "comment_id": "01a133fb-2e23-7734-b959-47ed9aa2134e",
+        "attachment_id": "01a133fb-2cdc-7375-a0f4-94bd2d5c19a4"
+      },
+      "stopped_next_metadata_leads": [
+        "pallets/click#605",
+        "pallets/click#750",
+        "pallets/click#1476",
+        "pallets/click#1992",
+        "pallets/click#2067",
+        "pallets/click#2164",
+        "pallets/click#2264",
+        "pallets/click#2267",
+        "pallets/click#2280",
+        "pallets/click#2452",
+        "pallets/click#2567",
+        "pallets/click#2590",
+        "pallets/click#2598",
+        "pallets/click#2623",
+        "pallets/click#2632",
+        "pallets/click#2638",
+        "pallets/click#2697",
+        "pallets/click#2703",
+        "pallets/click#2705",
+        "pallets/click#2717",
+        "pallets/click#2777",
+        "pallets/click#2787",
+        "pallets/click#2813",
+        "pallets/click#2851",
+        "pallets/click#2894",
+        "pallets/click#2896",
+        "pallets/click#2906",
+        "pallets/click#2909",
+        "pallets/click#2911",
+        "pallets/click#2926",
+        "pallets/click#2939",
+        "pallets/click#2975",
+        "pallets/click#2993",
+        "pallets/click#3039",
+        "pallets/click#3054",
+        "pallets/click#3066",
+        "pallets/click#3128",
+        "pallets/click#3136"
+      ],
+      "screening_scope": {
+        "pool52": 52,
+        "already_archived14": 14,
+        "reviewed38": 38,
+        "first_time34": 34,
+        "restated4": 4,
+        "new_packages0": 0
+      },
+      "capacity_conclusion": "38 selected remaining pool rejects; no full repository/source-route exhaustion proof",
+      "missing_sidecar": "check-cap-regression.py must fail every new!=expected row; fixed/unchanged counts include only expected matches",
+      "sidecar_cpu": "existing cumulative approval only, no reset or borrowing42 budget; if no clear balance, static diff and NOT_RUN; metadata collection continues",
+      "research_source_registry": "research-source-registry.json; no new-source body/source grant",
+      "api_recovery_evidence": {
+        "file": "recovery-evidence-v5.json",
+        "run_id": "01a1336c-9359-78ce-9c83-65445c66e6ae",
+        "message_seq": 34,
+        "scope": "actual run tool result, no independent HTTP replay"
+      },
+      "new_material_packages_received_this_checkpoint": 0,
+      "collection_completion_observed": true,
+      "historical_failed_attempt": {
+        "run_id": "01a13355-4d91-7dc4-901d-98fc89b04fad",
+        "ended_at_utc": "2026-10-13T03:43:16Z",
+        "status": "failed",
+        "reason": "provider429 budget_exceeded; historical, not current permanently blocked"
+      },
+      "draft_and_regression_status": "Native metadata entry works; old draft completeness/CPU balance unresolved; regression NOT_RUN does not block metadata",
+      "next_leads_are_pr_metadata_not_materials": true,
+      "historical_entrypoint_blocker": {
+        "as_of": "2026-10-13",
+        "action": "read-metadata.ps1 -Numbers 586,569,566,553,497,468,456,446,441,423 -OutputFile recovery-v6-1/dotenv-batch01-metadata.json",
+        "process_exit_code": 1,
+        "error_type": "PSSecurityException",
+        "fully_qualified_error_id": "UnauthorizedAccess",
+        "error_text": "Cannot load the script because running scripts is disabled on this system.",
+        "script_executed": false,
+        "graphql_requests_issued": 0,
+        "execution_policy_changed": false,
+        "retry_performed": false,
+        "effect": "metadata acquisition branch stopped"
+      },
+      "entrypoint_recovery": {
+        "native_entry": "gh api",
+        "actual_repository_http": 200,
+        "actual_graphql_http": 200,
+        "query_exit": 0,
+        "policy_changed": false,
+        "bypass_used": false,
+        "evidence_attachment": "01a1337c-78d2-7119-ae4a-f1ae913c81a1"
+      },
+      "metadata_scope": "Contract/use pre-screen with existing event/pin/license bytes; if none materializable, cleo qualification metadata only",
+      "source_capacity": "Unknown; next queue is metadata only",
+      "new_material_packages_received": 0,
+      "ordinary_source_ready_added_this_checkpoint": 0,
+      "next_action": "Use genuinely unexamined cleo metadata identities first; explicit issue/fixed base then existing use-review chain. Five v6.14 marker stops and454 excluded;446 contract gaps retained; correction not repeated; no new-body/source permission from metadata alone.",
+      "do_not_materialize": [
+        "theskumar/python-dotenv#450",
+        "theskumar/python-dotenv#413",
+        "old held/stopped subjects"
+      ],
+      "next_instruction_member": "lane49-continuation.md",
+      "contract_sidecar_received": "01a133a5-f8c4-7a31-8126-47190b7441d8",
+      "contract_spec_status": "ACCEPTED_PROJECT_RESEARCH_SPEC_ONLY",
+      "new_research_preparation_received_this_checkpoint": 0,
+      "observation_scope": "Initial scheduled read;not final completion acceptance",
+      "backup_metadata_queue": "No automatic next index page or PR sweep in this restricted research batch",
+      "collection_window": "USER_AUTHORIZED_ROLLING_BOUNDED_SEGMENT",
+      "next_collection": "Use genuinely unexamined cleo metadata identities first; explicit issue/fixed base then existing use-review chain. Five v6.14 marker stops and454 excluded;446 contract gaps retained; correction not repeated; no new-body/source permission from metadata alone.",
+      "blocking_reason": "Local regex error after single permitted opening request;screen unknown/raw unavailable;no autoretry and original deadline expired",
+      "coordination_deadline": "2026-10-13T14:05:07.802624Z",
+      "dispatch_state": "PENDING_FINAL_ACTIVE_CHECK",
+      "body_prescreen_stop_delta": [
+        "python-poetry/cleo#341",
+        "python-poetry/cleo#84",
+        "python-poetry/cleo#231",
+        "python-poetry/cleo#366",
+        "python-poetry/cleo#359"
+      ]
+    },
+    {
+      "issue_number": 50,
+      "exclusive_sources": [
+        "pytest-dev/pluggy",
+        "hukkin/tomli"
+      ],
+      "owner_agent_id": "9e300925-1da4-4581-8a80-63e37740f759",
+      "recorded_candidate_archives": 21,
+      "ordinary_material_upper": 10,
+      "separate_research_materials": 3,
+      "target100_ordinary_increment_upper": 4,
+      "remaining_to100_at_least": 96,
+      "authorized_after100_archive_count": null,
+      "valid_next_metadata_leads": [],
+      "active_runs": [],
+      "action": "Single original-owner continuation only if latest active remains empty; no dispatch counted as materials",
+      "guard": "Foreground<=30min and<=3 batches, target10/batch, request<=30sec; original100/resource budgets not reset; two zero-new batches change to unexamined direction; actual limits stop branch.",
+      "status": "in_progress",
+      "latest_evidence": {
+        "comment_id": "01a13407-879d-7d28-bb68-0c7b69f9f9bc",
+        "attachment_id": "01a13407-8315-7867-b1ea-17eeff262949"
+      },
+      "consecutive_zero_package_batches": [
+        "B12",
+        "B13"
+      ],
+      "stopped_next_metadata_leads": [
+        "pytest-dev/pluggy#353"
+      ],
+      "observation_time_utc": "2026-10-13T08:12:02.323844+00:00",
+      "recovery_authorization_comment": "01a13343-62a1-7d1c-a1d6-1faede1ab9c8",
+      "recovery_max_http_requests": 2,
+      "recovery_http_timeout_seconds": 30,
+      "last_completed_run": "01a133b0-1c36-70ba-ab47-93f619119060",
+      "recovery_semantics": "Authenticated rate_limit200 and required PR223200; previous anonymous PR223403 is historical",
+      "historical_blocking_reason": {
+        "http_status": 403,
+        "cause": "PR223 target API limit still exceeded",
+        "rate_limit_endpoint_status": 200,
+        "remaining": 0,
+        "limit": 60,
+        "reset_utc": "2026-10-13T04:05:04Z",
+        "observed_at_utc": "2026-10-13T03:24:04Z",
+        "retry_after": null
+      },
+      "api_recovery_evidence": {
+        "file": "recovery-evidence-v5.json",
+        "run_id": "01a1336c-7d1d-739a-a113-acf52576e421",
+        "message_seq": 38,
+        "scope": "actual run tool result, no independent HTTP replay"
+      },
+      "new_material_packages_received_this_checkpoint": 0,
+      "collection_completion_observed": true,
+      "source_capacity": "Unknown; next queue is metadata only",
+      "new_material_packages_received": 0,
+      "ordinary_source_ready_added_this_checkpoint": 0,
+      "next_action": "Prioritize tenacity#462 then471/478: one opening screen, only neutral behavior then already approved unique first-parent base research preparation. Preserve471/478 version edge;436 empty closer not polled.",
+      "do_not_collect_source": "python-attrs/attrs; known dev excluded",
+      "metadata_only_queue_count": "Current186 issue search snapshot matched against gate204; selected two additions not materializable; not permanent source exhaustion",
+      "next_instruction_member": "lane50-continuation.md",
+      "registered_research_sources": [
+        "pallets-eco/blinker",
+        "jd/tenacity"
+      ],
+      "new_research_preparation_received_this_checkpoint": 0,
+      "observation_scope": "Initial checkpoint read,not final acceptance",
+      "collection_window": "USER_AUTHORIZED_ROLLING_BOUNDED_SEGMENT",
+      "next_collection": "Prioritize tenacity#462 then471/478: one opening screen, only neutral behavior then already approved unique first-parent base research preparation. Preserve471/478 version edge;436 empty closer not polled.",
+      "coordination_deadline": "2026-10-13T14:05:07.802624Z",
+      "dispatch_state": "PENDING_FINAL_ACTIVE_CHECK",
+      "body_prescreen_stop_delta": []
+    }
+  ],
+  "corrected_queue40": {
+    "removed": [
+      "more-itertools/more-itertools#514",
+      "more-itertools/more-itertools#512",
+      "more-itertools/more-itertools#495",
+      "more-itertools/more-itertools#493"
+    ],
+    "reason": "v21 screening records already STOP_PRE_SCREEN; v23 and later queue cannot remove historic stops; v24 now stops#495/#493; next#353/#351/#344/#342",
+    "evidence_attachment": "01a13168-d5d2-745c-bb99-2486d24809d0",
+    "evidence_member": "screening-v21.json"
+  },
+  "general_rules": [
+    "Two consecutive zero-add batches: move to unexamined leads or evaluate unoccupied repository public metadata; do not recheck rejected bodies.",
+    "New source register owner, fixed cutoff, license, existing gates and unknown role as research before body/source acquisition.",
+    "One missing candidate blocks only that branch. 403/429/401/provider or actual budget limit stops its branch without identity change.",
+    "At100 per lane, aggregate real shortfall and source capacity for Mika; no unapproved quota extension."
+  ],
+  "continuation": "Only original owners after fresh active/status/comment checks; no rule extension"
+}

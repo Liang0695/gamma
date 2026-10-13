@@ -1,0 +1,62 @@
+{
+  "data": {
+    "repository": {
+      "p236": {
+        "id": "PR_kwDOAOhlGM49wx5H",
+        "databaseId": 1036197447,
+        "number": 236,
+        "url": "https://github.com/python-poetry/cleo/pull/236",
+        "mergedAt": "2022-09-02T07:49:29Z",
+        "mergeCommit": {
+          "oid": "ac596628480961468e5c5c7c5af335b70111bab7",
+          "tree": {
+            "oid": "7e2b4f44130cdecb56366d63cb17a15b4affe401"
+          },
+          "parents": {
+            "totalCount": 1,
+            "pageInfo": {
+              "hasNextPage": false,
+              "endCursor": "MQ"
+            },
+            "nodes": [
+              {
+                "oid": "aee0dae9b83641f36a027783c210c8b3bf087f05",
+                "tree": {
+                  "oid": "3c5cc63baaab50adffa2e802792949d8de7d14b8"
+                }
+              }
+            ]
+          }
+        }
+      },
+      "p239": {
+        "id": "PR_kwDOAOhlGM4-AAyH",
+        "databaseId": 1040190599,
+        "number": 239,
+        "url": "https://github.com/python-poetry/cleo/pull/239",
+        "mergedAt": "2022-09-05T14:47:36Z",
+        "mergeCommit": {
+          "oid": "e7687e99288f013400293236b113a1010d9a57ee",
+          "tree": {
+            "oid": "87044c169d470a62bb6ebb48851c07a606aa0871"
+          },
+          "parents": {
+            "totalCount": 1,
+            "pageInfo": {
+              "hasNextPage": false,
+              "endCursor": "MQ"
+            },
+            "nodes": [
+              {
+                "oid": "37d4e48327bf01921298033336cf3df5fea641dc",
+                "tree": {
+                  "oid": "051e8898b144955adeb4a5a53852224d030f6395"
+                }
+              }
+            ]
+          }
+        }
+      }
+    }
+  }
+}

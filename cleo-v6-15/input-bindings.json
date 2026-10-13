@@ -1,0 +1,83 @@
+{
+  "as_of": "2026-10-13T08:17:21.978555+00:00",
+  "archives": [
+    {
+      "file": "cleo614-marker-stops.json",
+      "bytes": 6339,
+      "sha256": "875ad556576f88a0b57c43ca57bf88fceb158ead6445921b66f86bc1f1a04874"
+    },
+    {
+      "file": "KAGGLE-62-recovery-v15.zip",
+      "bytes": 176449,
+      "sha256": "269231cf97de60f8503b9aff3afee569644f82e50a11a751bc6bd93556ad4c1d"
+    },
+    {
+      "file": "kaggle49-v6-12-cleo-issue-identities.zip",
+      "bytes": 148269,
+      "sha256": "8ec21d7705bd3b68b59bedd7fb55a2021843670b716b1b093f0295b93f9bb987"
+    }
+  ],
+  "selected_members": [
+    {
+      "archive": "KAGGLE-62-recovery-v15.zip",
+      "member": "global-manifest.json",
+      "bytes": 261584,
+      "sha256": "8d9dcf105508092f9c5e928162308408eb3f3b8ff9fdce6c8f9a932f04407822"
+    },
+    {
+      "archive": "KAGGLE-62-recovery-v15.zip",
+      "member": "dedup-and-gates.json",
+      "bytes": 533377,
+      "sha256": "2838decff754b6c96d5037645fc60b6ba0bf4d30d08fed85251244cd81dbb720"
+    },
+    {
+      "archive": "KAGGLE-62-recovery-v15.zip",
+      "member": "body-prescreen-exclusions.json",
+      "bytes": 23293,
+      "sha256": "39a7652b79c7c6d7fbbb7c73aabf5448269903c6b38291631e2d64aedeac4372"
+    },
+    {
+      "archive": "KAGGLE-62-recovery-v15.zip",
+      "member": "owner-queue.json",
+      "bytes": 15622,
+      "sha256": "6eb1b3c07bfde547db66f7b6489e2d596c62fc7e71369ca989e03b799e671701"
+    },
+    {
+      "archive": "KAGGLE-62-recovery-v15.zip",
+      "member": "research-source-registry.json",
+      "bytes": 221486,
+      "sha256": "a030d54b64c5d7a2a38d6262301d86c4694adb32d4a6d3653208024ba7212b48"
+    },
+    {
+      "archive": "KAGGLE-62-recovery-v15.zip",
+      "member": "cleo614-next-queue.json",
+      "bytes": 770,
+      "sha256": "17aa2438fe525a16f712f0a6b06bf5e9aaf2202c2c0188aa1969106feaaa5aee"
+    },
+    {
+      "archive": "kaggle49-v6-12-cleo-issue-identities.zip",
+      "member": "manifest.json",
+      "bytes": 23027,
+      "sha256": "6173d007d73344659c4d7151dac81711323c15f92759d7075bd6fd56108b6cd0"
+    },
+    {
+      "archive": "kaggle49-v6-12-cleo-issue-identities.zip",
+      "member": "next-queue.json",
+      "bytes": 758,
+      "sha256": "d96f10c8ccaf779ddae95176d459bb4181bcb610720af41f38518e7a0a864772"
+    },
+    {
+      "archive": "kaggle49-v6-12-cleo-issue-identities.zip",
+      "member": "selection.json",
+      "bytes": 10818,
+      "sha256": "2c77f4915e170a9a04f94a4da5c8f67fbfdf9dfae50b0805d6284e5b85209392"
+    },
+    {
+      "archive": "kaggle49-v6-12-cleo-issue-identities.zip",
+      "member": "index-response.json",
+      "bytes": 17586,
+      "sha256": "dea0c449b26a977b27186dc84213ea1dc0d6e799789f85ddc0d8e6c24ae6cd54"
+    }
+  ],
+  "coverage": "Selected available metadata only; no hidden/dev/sealed/root clearance"
+}

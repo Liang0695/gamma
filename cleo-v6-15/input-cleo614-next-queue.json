@@ -1,0 +1,22 @@
+{
+  "body_prescreen_exclusions": [
+    "python-poetry/cleo#454",
+    "python-poetry/cleo#341",
+    "python-poetry/cleo#84",
+    "python-poetry/cleo#231",
+    "python-poetry/cleo#366",
+    "python-poetry/cleo#359"
+  ],
+  "consumed_correction_scope": [
+    "python-poetry/cleo#446",
+    "python-poetry/cleo#341",
+    "python-poetry/cleo#84",
+    "python-poetry/cleo#231",
+    "python-poetry/cleo#366",
+    "python-poetry/cleo#359"
+  ],
+  "further_opening_requests_allowed": 0,
+  "pr358_group": "HOLD_MARKER_MEMBERS_NO_ALIAS_MATERIALISATION_ROOT_UNKNOWN",
+  "pending_446": "Mika review of initial neutral workflow requirement and concrete unknowns; no source scope activated in this correction",
+  "old_62_cycle": "expired and disabled; not restored"
+}

@@ -1,0 +1,56 @@
+[
+  {
+    "batch": 1,
+    "metadata_issue_count": 10,
+    "issues_with_same_repo_pr_closer": 4,
+    "pr_events": [
+      291,
+      313,
+      321,
+      327
+    ],
+    "new_pr_pin_queries": [
+      291,
+      313,
+      321,
+      327
+    ],
+    "new_materials": 0,
+    "direction": "Previously index-listed issues with genuinely unexamined closure identities; not repeated PR/template sweep"
+  },
+  {
+    "batch": 2,
+    "metadata_issue_count": 10,
+    "issues_with_same_repo_pr_closer": 4,
+    "pr_events": [
+      179,
+      245,
+      269,
+      285
+    ],
+    "new_pr_pin_queries": [
+      179,
+      245,
+      269,
+      285
+    ],
+    "new_materials": 0,
+    "direction": "Previously index-listed issues with genuinely unexamined closure identities; not repeated PR/template sweep"
+  },
+  {
+    "batch": 3,
+    "metadata_issue_count": 10,
+    "issues_with_same_repo_pr_closer": 4,
+    "pr_events": [
+      236,
+      239,
+      247
+    ],
+    "new_pr_pin_queries": [
+      236,
+      239
+    ],
+    "new_materials": 0,
+    "direction": "Previously index-listed issues with genuinely unexamined closure identities; not repeated PR/template sweep"
+  }
+]

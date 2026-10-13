@@ -1,0 +1,262 @@
+{
+  "data": {
+    "repository": {
+      "i284": {
+        "id": "I_kwDOAOhlGM5WrEMt",
+        "number": 284,
+        "url": "https://github.com/python-poetry/cleo/issues/284",
+        "repository": {
+          "nameWithOwner": "python-poetry/cleo"
+        },
+        "timelineItems": {
+          "totalCount": 1,
+          "pageInfo": {
+            "hasNextPage": false,
+            "endCursor": "Y3Vyc29yOnYyOpPPAAABhJZ0AkABqjc4NTIwMzEwMzA="
+          },
+          "nodes": [
+            {
+              "id": "CE_lADOAOhlGM5WrEMtzwAAAAHUBHw2",
+              "createdAt": "2022-11-20T19:11:36Z",
+              "closer": {
+                "__typename": "PullRequest",
+                "id": "PR_kwDOAOhlGM5DTofQ",
+                "databaseId": 1129220048,
+                "number": 285,
+                "url": "https://github.com/python-poetry/cleo/pull/285",
+                "repository": {
+                  "nameWithOwner": "python-poetry/cleo"
+                }
+              }
+            }
+          ]
+        }
+      },
+      "i162": {
+        "id": "I_kwDOAOhlGM5Ldoxd",
+        "number": 162,
+        "url": "https://github.com/python-poetry/cleo/issues/162",
+        "repository": {
+          "nameWithOwner": "python-poetry/cleo"
+        },
+        "timelineItems": {
+          "totalCount": 1,
+          "pageInfo": {
+            "hasNextPage": false,
+            "endCursor": "Y3Vyc29yOnYyOpPPAAABhI2Cx0gBqjc4NDg1Mjg2ODc="
+          },
+          "nodes": [
+            {
+              "id": "CE_lADOAOhlGM5LdoxdzwAAAAHTzwsv",
+              "createdAt": "2022-11-19T01:31:09Z",
+              "closer": {
+                "__typename": "PullRequest",
+                "id": "PR_kwDOAOhlGM47gs2v",
+                "databaseId": 998428079,
+                "number": 179,
+                "url": "https://github.com/python-poetry/cleo/pull/179",
+                "repository": {
+                  "nameWithOwner": "python-poetry/cleo"
+                }
+              }
+            }
+          ]
+        }
+      },
+      "i279": {
+        "id": "I_kwDOAOhlGM5WMXDy",
+        "number": 279,
+        "url": "https://github.com/python-poetry/cleo/issues/279",
+        "repository": {
+          "nameWithOwner": "python-poetry/cleo"
+        },
+        "timelineItems": {
+          "totalCount": 1,
+          "pageInfo": {
+            "hasNextPage": false,
+            "endCursor": "Y3Vyc29yOnYyOpPPAAABhGkqePABqjc3OTU1NjU0NzU="
+          },
+          "nodes": [
+            {
+              "id": "CE_lADOAOhlGM5WMXDyzwAAAAHQpuOj",
+              "createdAt": "2022-11-12T00:08:22Z",
+              "closer": null
+            }
+          ]
+        }
+      },
+      "i74": {
+        "id": "MDU6SXNzdWU1MTY3MTY1NzE=",
+        "number": 74,
+        "url": "https://github.com/python-poetry/cleo/issues/74",
+        "repository": {
+          "nameWithOwner": "python-poetry/cleo"
+        },
+        "timelineItems": {
+          "totalCount": 1,
+          "pageInfo": {
+            "hasNextPage": false,
+            "endCursor": "Y3Vyc29yOnYyOpPPAAABhDvibnABqjc3Mjg5NDY3NDI="
+          },
+          "nodes": [
+            {
+              "id": "CE_lADOAOhlGM4ezHgbzwAAAAHMrl42",
+              "createdAt": "2022-11-03T05:06:46Z",
+              "closer": {
+                "__typename": "PullRequest",
+                "id": "PR_kwDOAOhlGM5A27Zr",
+                "databaseId": 1088140907,
+                "number": 269,
+                "url": "https://github.com/python-poetry/cleo/pull/269",
+                "repository": {
+                  "nameWithOwner": "python-poetry/cleo"
+                }
+              }
+            }
+          ]
+        }
+      },
+      "i69": {
+        "id": "MDU6SXNzdWU0NjI0MzY1Mjg=",
+        "number": 69,
+        "url": "https://github.com/python-poetry/cleo/issues/69",
+        "repository": {
+          "nameWithOwner": "python-poetry/cleo"
+        },
+        "timelineItems": {
+          "totalCount": 1,
+          "pageInfo": {
+            "hasNextPage": false,
+            "endCursor": "Y3Vyc29yOnYyOpPPAAABg96XHYgBqjc1OTU3NTY5MTg="
+          },
+          "nodes": [
+            {
+              "id": "CE_lADOAOhlGM4bkDiwzwAAAAHEvg12",
+              "createdAt": "2022-10-16T02:19:49Z",
+              "closer": null
+            }
+          ]
+        }
+      },
+      "i232": {
+        "id": "I_kwDOAOhlGM5QGasO",
+        "number": 232,
+        "url": "https://github.com/python-poetry/cleo/issues/232",
+        "repository": {
+          "nameWithOwner": "python-poetry/cleo"
+        },
+        "timelineItems": {
+          "totalCount": 1,
+          "pageInfo": {
+            "hasNextPage": false,
+            "endCursor": "Y3Vyc29yOnYyOpPPAAABgv0QW-ABqjczMTA4OTc3MTE="
+          },
+          "nodes": [
+            {
+              "id": "CE_lADOAOhlGM5QGasOzwAAAAGzw3Iv",
+              "createdAt": "2022-09-02T07:18:04Z",
+              "closer": {
+                "__typename": "PullRequest",
+                "id": "PR_kwDOAOhlGM4-QTSX",
+                "databaseId": 1044460695,
+                "number": 245,
+                "url": "https://github.com/python-poetry/cleo/pull/245",
+                "repository": {
+                  "nameWithOwner": "python-poetry/cleo"
+                }
+              }
+            }
+          ]
+        }
+      },
+      "i255": {
+        "id": "I_kwDOAOhlGM5Rp1rq",
+        "number": 255,
+        "url": "https://github.com/python-poetry/cleo/issues/255",
+        "repository": {
+          "nameWithOwner": "python-poetry/cleo"
+        },
+        "timelineItems": {
+          "totalCount": 1,
+          "pageInfo": {
+            "hasNextPage": false,
+            "endCursor": "Y3Vyc29yOnYyOpPPAAABgzjfUVgBqjczODAzODE4MTQ="
+          },
+          "nodes": [
+            {
+              "id": "CE_lADOAOhlGM5Rp1rqzwAAAAG357B2",
+              "createdAt": "2022-09-13T22:01:43Z",
+              "closer": null
+            }
+          ]
+        }
+      },
+      "i256": {
+        "id": "I_kwDOAOhlGM5RrnRU",
+        "number": 256,
+        "url": "https://github.com/python-poetry/cleo/issues/256",
+        "repository": {
+          "nameWithOwner": "python-poetry/cleo"
+        },
+        "timelineItems": {
+          "totalCount": 1,
+          "pageInfo": {
+            "hasNextPage": false,
+            "endCursor": "Y3Vyc29yOnYyOpPPAAABgzNdmqABqjczNzA4NDIwNzE="
+          },
+          "nodes": [
+            {
+              "id": "CE_lADOAOhlGM5RrnRUzwAAAAG3Vh_X",
+              "createdAt": "2022-09-12T20:21:56Z",
+              "closer": null
+            }
+          ]
+        }
+      },
+      "i127": {
+        "id": "I_kwDOAOhlGM5BqAMj",
+        "number": 127,
+        "url": "https://github.com/python-poetry/cleo/issues/127",
+        "repository": {
+          "nameWithOwner": "python-poetry/cleo"
+        },
+        "timelineItems": {
+          "totalCount": 1,
+          "pageInfo": {
+            "hasNextPage": false,
+            "endCursor": "Y3Vyc29yOnYyOpPPAAABgylXVcgBqjczNjE0NTA1MDU="
+          },
+          "nodes": [
+            {
+              "id": "CE_lADOAOhlGM5BqAMjzwAAAAG2xtIJ",
+              "createdAt": "2022-09-10T21:38:53Z",
+              "closer": null
+            }
+          ]
+        }
+      },
+      "i63": {
+        "id": "MDU6SXNzdWUzOTc0NjI0Nzk=",
+        "number": 63,
+        "url": "https://github.com/python-poetry/cleo/issues/63",
+        "repository": {
+          "nameWithOwner": "python-poetry/cleo"
+        },
+        "timelineItems": {
+          "totalCount": 1,
+          "pageInfo": {
+            "hasNextPage": false,
+            "endCursor": "Y3Vyc29yOnYyOpPPAAABgxR7chABqjczMzM1NTc0MzA="
+          },
+          "nodes": [
+            {
+              "id": "CE_lADOAOhlGM4XsMvPzwAAAAG1HTS2",
+              "createdAt": "2022-09-06T20:26:18Z",
+              "closer": null
+            }
+          ]
+        }
+      }
+    }
+  }
+}

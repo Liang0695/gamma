@@ -1,0 +1,3 @@
+{
+  "query": "{repository(owner:\"python-poetry\",name:\"cleo\"){p291:object(expression:\"a625154145060353736d0fd797d3c2262e92e3b2:LICENSE\"){... on Blob{oid byteSize text}} p313:object(expression:\"84300442bee51acee20135f8512c26c70f07411d:LICENSE\"){... on Blob{oid byteSize text}} p321:object(expression:\"94cf3c62a065322eb93935a427f328507ebcde30:LICENSE\"){... on Blob{oid byteSize text}} p327:object(expression:\"d2d9d6ee1dbf31676a7c7b4514087a4ba0baf8cd:LICENSE\"){... on Blob{oid byteSize text}}}}"
+}

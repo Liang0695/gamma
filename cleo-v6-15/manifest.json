@@ -1,0 +1,2158 @@
+{
+  "schema": "kaggle49-cleo-metadata/6.15",
+  "as_of": "2026-10-13T08:17:32.000267+00:00",
+  "records": [
+    {
+      "repo_issue": "python-poetry/cleo#26",
+      "identity": {
+        "id": "MDU6SXNzdWU1MjgxNjgwMw==",
+        "databaseId": 52816803,
+        "number": 26,
+        "url": "https://github.com/python-poetry/cleo/issues/26",
+        "state": "CLOSED",
+        "createdAt": "2014-12-24T12:37:22Z",
+        "closedAt": "2023-09-27T18:41:33Z",
+        "repository": {
+          "nameWithOwner": "python-poetry/cleo"
+        },
+        "labels": {
+          "totalCount": 1,
+          "pageInfo": {
+            "hasNextPage": false,
+            "endCursor": "MQ"
+          },
+          "nodes": [
+            {
+              "name": "enhancement"
+            }
+          ]
+        }
+      },
+      "closed_timeline": {
+        "totalCount": 1,
+        "pageInfo": {
+          "hasNextPage": false,
+          "endCursor": "Y3Vyc29yOnYyOpPPAAABitfyRzABqzEwNDkxMDE0MzQ1"
+        },
+        "nodes": [
+          {
+            "id": "CE_lADOAOhlGM4DJeujzwAAAAJxUCzJ",
+            "createdAt": "2023-09-27T18:41:34Z",
+            "closer": null
+          }
+        ]
+      },
+      "same_repo_pre_cutoff_pr_events": [],
+      "candidate_pin_bindings": [],
+      "role": "RESEARCH_SOURCE_QUALIFICATION_METADATA_ONLY",
+      "effective_split": "UNASSIGNED",
+      "body_read": false,
+      "source_snapshot_acquired": false,
+      "behavior_contract": "UNKNOWN_NOT_READ",
+      "text_use": "UNKNOWN",
+      "root": "UNKNOWN",
+      "actor_authorized": false,
+      "training_released": false,
+      "known_relationship_matches": [],
+      "remaining_gaps": [
+        "initial behavior/text-use scope not granted",
+        "broken and trusted acceptance unverified",
+        "root/family and retained coverage incomplete",
+        "candidate source permission not implied"
+      ]
+    },
+    {
+      "repo_issue": "python-poetry/cleo#372",
+      "identity": {
+        "id": "I_kwDOAOhlGM5xtBHl",
+        "databaseId": 1907626469,
+        "number": 372,
+        "url": "https://github.com/python-poetry/cleo/issues/372",
+        "state": "CLOSED",
+        "createdAt": "2023-09-21T19:28:35Z",
+        "closedAt": "2023-09-21T19:44:42Z",
+        "repository": {
+          "nameWithOwner": "python-poetry/cleo"
+        },
+        "labels": {
+          "totalCount": 0,
+          "pageInfo": {
+            "hasNextPage": false,
+            "endCursor": null
+          },
+          "nodes": []
+        }
+      },
+      "closed_timeline": {
+        "totalCount": 1,
+        "pageInfo": {
+          "hasNextPage": false,
+          "endCursor": "Y3Vyc29yOnYyOpPPAAABirlF7_gBqzEwNDM5Njg1MTIy"
+        },
+        "nodes": [
+          {
+            "id": "CE_lADOAOhlGM5xtBHlzwAAAAJuQPQC",
+            "createdAt": "2023-09-21T19:44:43Z",
+            "closer": null
+          }
+        ]
+      },
+      "same_repo_pre_cutoff_pr_events": [],
+      "candidate_pin_bindings": [],
+      "role": "RESEARCH_SOURCE_QUALIFICATION_METADATA_ONLY",
+      "effective_split": "UNASSIGNED",
+      "body_read": false,
+      "source_snapshot_acquired": false,
+      "behavior_contract": "UNKNOWN_NOT_READ",
+      "text_use": "UNKNOWN",
+      "root": "UNKNOWN",
+      "actor_authorized": false,
+      "training_released": false,
+      "known_relationship_matches": [],
+      "remaining_gaps": [
+        "initial behavior/text-use scope not granted",
+        "broken and trusted acceptance unverified",
+        "root/family and retained coverage incomplete",
+        "candidate source permission not implied"
+      ]
+    },
+    {
+      "repo_issue": "python-poetry/cleo#363",
+      "identity": {
+        "id": "I_kwDOAOhlGM5vGZkh",
+        "databaseId": 1863948577,
+        "number": 363,
+        "url": "https://github.com/python-poetry/cleo/issues/363",
+        "state": "CLOSED",
+        "createdAt": "2023-08-23T20:13:11Z",
+        "closedAt": "2023-08-26T20:21:59Z",
+        "repository": {
+          "nameWithOwner": "python-poetry/cleo"
+        },
+        "labels": {
+          "totalCount": 0,
+          "pageInfo": {
+            "hasNextPage": false,
+            "endCursor": null
+          },
+          "nodes": []
+        }
+      },
+      "closed_timeline": {
+        "totalCount": 1,
+        "pageInfo": {
+          "hasNextPage": false,
+          "endCursor": "Y3Vyc29yOnYyOpPPAAABijOCukABqzEwMjAwNjYyNzUz"
+        },
+        "nodes": [
+          {
+            "id": "CE_lADOAOhlGM5vGZkhzwAAAAJgAcLh",
+            "createdAt": "2023-08-26T20:22:00Z",
+            "closer": null
+          }
+        ]
+      },
+      "same_repo_pre_cutoff_pr_events": [],
+      "candidate_pin_bindings": [],
+      "role": "RESEARCH_SOURCE_QUALIFICATION_METADATA_ONLY",
+      "effective_split": "UNASSIGNED",
+      "body_read": false,
+      "source_snapshot_acquired": false,
+      "behavior_contract": "UNKNOWN_NOT_READ",
+      "text_use": "UNKNOWN",
+      "root": "UNKNOWN",
+      "actor_authorized": false,
+      "training_released": false,
+      "known_relationship_matches": [],
+      "remaining_gaps": [
+        "initial behavior/text-use scope not granted",
+        "broken and trusted acceptance unverified",
+        "root/family and retained coverage incomplete",
+        "candidate source permission not implied"
+      ]
+    },
+    {
+      "repo_issue": "python-poetry/cleo#362",
+      "identity": {
+        "id": "I_kwDOAOhlGM5vGJ8W",
+        "databaseId": 1863884566,
+        "number": 362,
+        "url": "https://github.com/python-poetry/cleo/issues/362",
+        "state": "CLOSED",
+        "createdAt": "2023-08-23T19:18:33Z",
+        "closedAt": "2023-08-24T13:40:27Z",
+        "repository": {
+          "nameWithOwner": "python-poetry/cleo"
+        },
+        "labels": {
+          "totalCount": 0,
+          "pageInfo": {
+            "hasNextPage": false,
+            "endCursor": null
+          },
+          "nodes": []
+        }
+      },
+      "closed_timeline": {
+        "totalCount": 1,
+        "pageInfo": {
+          "hasNextPage": false,
+          "endCursor": "Y3Vyc29yOnYyOpPPAAABiifGYPgBqzEwMTgxNjI5NTIz"
+        },
+        "nodes": [
+          {
+            "id": "CE_lADOAOhlGM5vGJ8WzwAAAAJe31ZT",
+            "createdAt": "2023-08-24T13:40:27Z",
+            "closer": null
+          }
+        ]
+      },
+      "same_repo_pre_cutoff_pr_events": [],
+      "candidate_pin_bindings": [],
+      "role": "RESEARCH_SOURCE_QUALIFICATION_METADATA_ONLY",
+      "effective_split": "UNASSIGNED",
+      "body_read": false,
+      "source_snapshot_acquired": false,
+      "behavior_contract": "UNKNOWN_NOT_READ",
+      "text_use": "UNKNOWN",
+      "root": "UNKNOWN",
+      "actor_authorized": false,
+      "training_released": false,
+      "known_relationship_matches": [],
+      "remaining_gaps": [
+        "initial behavior/text-use scope not granted",
+        "broken and trusted acceptance unverified",
+        "root/family and retained coverage incomplete",
+        "candidate source permission not implied"
+      ]
+    },
+    {
+      "repo_issue": "python-poetry/cleo#104",
+      "identity": {
+        "id": "MDU6SXNzdWU5NzA2MDIwODk=",
+        "databaseId": 970602089,
+        "number": 104,
+        "url": "https://github.com/python-poetry/cleo/issues/104",
+        "state": "CLOSED",
+        "createdAt": "2021-08-13T17:48:37Z",
+        "closedAt": "2023-06-17T13:42:05Z",
+        "repository": {
+          "nameWithOwner": "python-poetry/cleo"
+        },
+        "labels": {
+          "totalCount": 0,
+          "pageInfo": {
+            "hasNextPage": false,
+            "endCursor": null
+          },
+          "nodes": []
+        }
+      },
+      "closed_timeline": {
+        "totalCount": 1,
+        "pageInfo": {
+          "hasNextPage": false,
+          "endCursor": "Y3Vyc29yOnYyOpPPAAABiMmXb8gBqjk1NTg4NTU0NzM="
+        },
+        "nodes": [
+          {
+            "id": "CE_lADOAOhlGM452jZpzwAAAAI5wI8x",
+            "createdAt": "2023-06-17T13:42:05Z",
+            "closer": {
+              "__typename": "PullRequest",
+              "id": "PR_kwDOAOhlGM5OMa86",
+              "databaseId": 1311878970,
+              "number": 313,
+              "url": "https://github.com/python-poetry/cleo/pull/313",
+              "repository": {
+                "nameWithOwner": "python-poetry/cleo"
+              }
+            }
+          }
+        ]
+      },
+      "same_repo_pre_cutoff_pr_events": [
+        {
+          "id": "CE_lADOAOhlGM452jZpzwAAAAI5wI8x",
+          "createdAt": "2023-06-17T13:42:05Z",
+          "closer": {
+            "__typename": "PullRequest",
+            "id": "PR_kwDOAOhlGM5OMa86",
+            "databaseId": 1311878970,
+            "number": 313,
+            "url": "https://github.com/python-poetry/cleo/pull/313",
+            "repository": {
+              "nameWithOwner": "python-poetry/cleo"
+            }
+          }
+        }
+      ],
+      "candidate_pin_bindings": [
+        {
+          "pr": 313,
+          "pr_url": "https://github.com/python-poetry/cleo/pull/313",
+          "candidate_first_parent": "84300442bee51acee20135f8512c26c70f07411d",
+          "candidate_base_tree": "a693494ff6212bff099e5db75a24dcc09d4b9190",
+          "landing": "be7209ac61854776e989bcc6cace41896134a50f",
+          "landing_tree": "df71b8e9a6a8092685cd58eb2005d653d1b33cad",
+          "merged_at": "2023-06-17T13:42:04Z",
+          "broken": "NOT_VERIFIED",
+          "license_blob": "3f0aed7fa14a255a93863e9a9ab9bfbf57c1aeca",
+          "license_bytes": 1061,
+          "license_sha256": "a2b9e0f3a35c5549b0b82edabcc0e229721437994d265cca96185e9f99f3a698",
+          "license_file": "license-3f0aed7fa14a255a93863e9a9ab9bfbf57c1aeca.txt",
+          "git_blob_and_length_verified": true,
+          "license_url": "https://github.com/python-poetry/cleo/blob/84300442bee51acee20135f8512c26c70f07411d/LICENSE"
+        }
+      ],
+      "role": "RESEARCH_SOURCE_QUALIFICATION_METADATA_ONLY",
+      "effective_split": "UNASSIGNED",
+      "body_read": false,
+      "source_snapshot_acquired": false,
+      "behavior_contract": "UNKNOWN_NOT_READ",
+      "text_use": "UNKNOWN",
+      "root": "UNKNOWN",
+      "actor_authorized": false,
+      "training_released": false,
+      "known_relationship_matches": [],
+      "remaining_gaps": [
+        "initial behavior/text-use scope not granted",
+        "broken and trusted acceptance unverified",
+        "root/family and retained coverage incomplete",
+        "candidate source permission not implied"
+      ]
+    },
+    {
+      "repo_issue": "python-poetry/cleo#325",
+      "identity": {
+        "id": "I_kwDOAOhlGM5mfbrj",
+        "databaseId": 1719515875,
+        "number": 325,
+        "url": "https://github.com/python-poetry/cleo/issues/325",
+        "state": "CLOSED",
+        "createdAt": "2023-05-22T11:43:56Z",
+        "closedAt": "2023-05-23T07:43:23Z",
+        "repository": {
+          "nameWithOwner": "python-poetry/cleo"
+        },
+        "labels": {
+          "totalCount": 0,
+          "pageInfo": {
+            "hasNextPage": false,
+            "endCursor": null
+          },
+          "nodes": []
+        }
+      },
+      "closed_timeline": {
+        "totalCount": 1,
+        "pageInfo": {
+          "hasNextPage": false,
+          "endCursor": "Y3Vyc29yOnYyOpPPAAABiEeQDXgBqjkzMTIyOTY4MTg="
+        },
+        "nodes": [
+          {
+            "id": "CE_lADOAOhlGM5mfbrjzwAAAAIrDl9y",
+            "createdAt": "2023-05-23T07:43:23Z",
+            "closer": {
+              "__typename": "PullRequest",
+              "id": "PR_kwDOAOhlGM5RGQfP",
+              "databaseId": 1360594895,
+              "number": 327,
+              "url": "https://github.com/python-poetry/cleo/pull/327",
+              "repository": {
+                "nameWithOwner": "python-poetry/cleo"
+              }
+            }
+          }
+        ]
+      },
+      "same_repo_pre_cutoff_pr_events": [
+        {
+          "id": "CE_lADOAOhlGM5mfbrjzwAAAAIrDl9y",
+          "createdAt": "2023-05-23T07:43:23Z",
+          "closer": {
+            "__typename": "PullRequest",
+            "id": "PR_kwDOAOhlGM5RGQfP",
+            "databaseId": 1360594895,
+            "number": 327,
+            "url": "https://github.com/python-poetry/cleo/pull/327",
+            "repository": {
+              "nameWithOwner": "python-poetry/cleo"
+            }
+          }
+        }
+      ],
+      "candidate_pin_bindings": [
+        {
+          "pr": 327,
+          "pr_url": "https://github.com/python-poetry/cleo/pull/327",
+          "candidate_first_parent": "d2d9d6ee1dbf31676a7c7b4514087a4ba0baf8cd",
+          "candidate_base_tree": "d526bd4355943c269079e75fd8b73b2730cff19e",
+          "landing": "6d64c4d153bdf2c724d308acfdd8bdfb3d3640ee",
+          "landing_tree": "de85ac216fda36202a33ef7718afb624e893096f",
+          "merged_at": "2023-05-23T07:43:22Z",
+          "broken": "NOT_VERIFIED",
+          "license_blob": "3f0aed7fa14a255a93863e9a9ab9bfbf57c1aeca",
+          "license_bytes": 1061,
+          "license_sha256": "a2b9e0f3a35c5549b0b82edabcc0e229721437994d265cca96185e9f99f3a698",
+          "license_file": "license-3f0aed7fa14a255a93863e9a9ab9bfbf57c1aeca.txt",
+          "git_blob_and_length_verified": true,
+          "license_url": "https://github.com/python-poetry/cleo/blob/d2d9d6ee1dbf31676a7c7b4514087a4ba0baf8cd/LICENSE"
+        }
+      ],
+      "role": "RESEARCH_SOURCE_QUALIFICATION_METADATA_ONLY",
+      "effective_split": "UNASSIGNED",
+      "body_read": false,
+      "source_snapshot_acquired": false,
+      "behavior_contract": "UNKNOWN_NOT_READ",
+      "text_use": "UNKNOWN",
+      "root": "UNKNOWN",
+      "actor_authorized": false,
+      "training_released": false,
+      "known_relationship_matches": [],
+      "remaining_gaps": [
+        "initial behavior/text-use scope not granted",
+        "broken and trusted acceptance unverified",
+        "root/family and retained coverage incomplete",
+        "candidate source permission not implied"
+      ]
+    },
+    {
+      "repo_issue": "python-poetry/cleo#314",
+      "identity": {
+        "id": "I_kwDOAOhlGM5kFL0y",
+        "databaseId": 1679080754,
+        "number": 314,
+        "url": "https://github.com/python-poetry/cleo/issues/314",
+        "state": "CLOSED",
+        "createdAt": "2023-04-21T20:50:28Z",
+        "closedAt": "2023-05-13T20:00:09Z",
+        "repository": {
+          "nameWithOwner": "python-poetry/cleo"
+        },
+        "labels": {
+          "totalCount": 0,
+          "pageInfo": {
+            "hasNextPage": false,
+            "endCursor": null
+          },
+          "nodes": []
+        }
+      },
+      "closed_timeline": {
+        "totalCount": 1,
+        "pageInfo": {
+          "hasNextPage": false,
+          "endCursor": "Y3Vyc29yOnYyOpPPAAABiBazARABqjkyMzkxNDA5ODY="
+        },
+        "nodes": [
+          {
+            "id": "CE_lADOAOhlGM5kFL0yzwAAAAImshp6",
+            "createdAt": "2023-05-13T20:00:10Z",
+            "closer": {
+              "__typename": "PullRequest",
+              "id": "PR_kwDOAOhlGM5QcVSJ",
+              "databaseId": 1349604489,
+              "number": 321,
+              "url": "https://github.com/python-poetry/cleo/pull/321",
+              "repository": {
+                "nameWithOwner": "python-poetry/cleo"
+              }
+            }
+          }
+        ]
+      },
+      "same_repo_pre_cutoff_pr_events": [
+        {
+          "id": "CE_lADOAOhlGM5kFL0yzwAAAAImshp6",
+          "createdAt": "2023-05-13T20:00:10Z",
+          "closer": {
+            "__typename": "PullRequest",
+            "id": "PR_kwDOAOhlGM5QcVSJ",
+            "databaseId": 1349604489,
+            "number": 321,
+            "url": "https://github.com/python-poetry/cleo/pull/321",
+            "repository": {
+              "nameWithOwner": "python-poetry/cleo"
+            }
+          }
+        }
+      ],
+      "candidate_pin_bindings": [
+        {
+          "pr": 321,
+          "pr_url": "https://github.com/python-poetry/cleo/pull/321",
+          "candidate_first_parent": "94cf3c62a065322eb93935a427f328507ebcde30",
+          "candidate_base_tree": "0662195c42352a81445e1dc7df2e4f63f9a0378e",
+          "landing": "57c6b9ee79164c099aed385413566ac3f3d2af4e",
+          "landing_tree": "9d57b6b6010453db7086f3bde7dfe98f9131791a",
+          "merged_at": "2023-05-13T20:00:08Z",
+          "broken": "NOT_VERIFIED",
+          "license_blob": "3f0aed7fa14a255a93863e9a9ab9bfbf57c1aeca",
+          "license_bytes": 1061,
+          "license_sha256": "a2b9e0f3a35c5549b0b82edabcc0e229721437994d265cca96185e9f99f3a698",
+          "license_file": "license-3f0aed7fa14a255a93863e9a9ab9bfbf57c1aeca.txt",
+          "git_blob_and_length_verified": true,
+          "license_url": "https://github.com/python-poetry/cleo/blob/94cf3c62a065322eb93935a427f328507ebcde30/LICENSE"
+        }
+      ],
+      "role": "RESEARCH_SOURCE_QUALIFICATION_METADATA_ONLY",
+      "effective_split": "UNASSIGNED",
+      "body_read": false,
+      "source_snapshot_acquired": false,
+      "behavior_contract": "UNKNOWN_NOT_READ",
+      "text_use": "UNKNOWN",
+      "root": "UNKNOWN",
+      "actor_authorized": false,
+      "training_released": false,
+      "known_relationship_matches": [],
+      "remaining_gaps": [
+        "initial behavior/text-use scope not granted",
+        "broken and trusted acceptance unverified",
+        "root/family and retained coverage incomplete",
+        "candidate source permission not implied"
+      ]
+    },
+    {
+      "repo_issue": "python-poetry/cleo#295",
+      "identity": {
+        "id": "I_kwDOAOhlGM5XXttq",
+        "databaseId": 1465834346,
+        "number": 295,
+        "url": "https://github.com/python-poetry/cleo/issues/295",
+        "state": "CLOSED",
+        "createdAt": "2022-11-28T05:18:02Z",
+        "closedAt": "2022-11-28T11:29:10Z",
+        "repository": {
+          "nameWithOwner": "python-poetry/cleo"
+        },
+        "labels": {
+          "totalCount": 0,
+          "pageInfo": {
+            "hasNextPage": false,
+            "endCursor": null
+          },
+          "nodes": []
+        }
+      },
+      "closed_timeline": {
+        "totalCount": 1,
+        "pageInfo": {
+          "hasNextPage": false,
+          "endCursor": "Y3Vyc29yOnYyOpPPAAABhL3_g3ABqjc5MDE5ODYwMzA="
+        },
+        "nodes": [
+          {
+            "id": "CE_lADOAOhlGM5XXttqzwAAAAHW_rzu",
+            "createdAt": "2022-11-28T11:29:10Z",
+            "closer": null
+          }
+        ]
+      },
+      "same_repo_pre_cutoff_pr_events": [],
+      "candidate_pin_bindings": [],
+      "role": "RESEARCH_SOURCE_QUALIFICATION_METADATA_ONLY",
+      "effective_split": "UNASSIGNED",
+      "body_read": false,
+      "source_snapshot_acquired": false,
+      "behavior_contract": "UNKNOWN_NOT_READ",
+      "text_use": "UNKNOWN",
+      "root": "UNKNOWN",
+      "actor_authorized": false,
+      "training_released": false,
+      "known_relationship_matches": [],
+      "remaining_gaps": [
+        "initial behavior/text-use scope not granted",
+        "broken and trusted acceptance unverified",
+        "root/family and retained coverage incomplete",
+        "candidate source permission not implied"
+      ]
+    },
+    {
+      "repo_issue": "python-poetry/cleo#289",
+      "identity": {
+        "id": "I_kwDOAOhlGM5XC4-a",
+        "databaseId": 1460375450,
+        "number": 289,
+        "url": "https://github.com/python-poetry/cleo/issues/289",
+        "state": "CLOSED",
+        "createdAt": "2022-11-22T18:35:27Z",
+        "closedAt": "2022-11-22T23:29:19Z",
+        "repository": {
+          "nameWithOwner": "python-poetry/cleo"
+        },
+        "labels": {
+          "totalCount": 0,
+          "pageInfo": {
+            "hasNextPage": false,
+            "endCursor": null
+          },
+          "nodes": []
+        }
+      },
+      "closed_timeline": {
+        "totalCount": 1,
+        "pageInfo": {
+          "hasNextPage": false,
+          "endCursor": "Y3Vyc29yOnYyOpPPAAABhKGsrJgBqjc4NzI0MDU4NTc="
+        },
+        "nodes": [
+          {
+            "id": "CE_lADOAOhlGM5XC4-azwAAAAHVO2Fh",
+            "createdAt": "2022-11-22T23:29:19Z",
+            "closer": {
+              "__typename": "PullRequest",
+              "id": "PR_kwDOAOhlGM5DgOxg",
+              "databaseId": 1132522592,
+              "number": 291,
+              "url": "https://github.com/python-poetry/cleo/pull/291",
+              "repository": {
+                "nameWithOwner": "python-poetry/cleo"
+              }
+            }
+          }
+        ]
+      },
+      "same_repo_pre_cutoff_pr_events": [
+        {
+          "id": "CE_lADOAOhlGM5XC4-azwAAAAHVO2Fh",
+          "createdAt": "2022-11-22T23:29:19Z",
+          "closer": {
+            "__typename": "PullRequest",
+            "id": "PR_kwDOAOhlGM5DgOxg",
+            "databaseId": 1132522592,
+            "number": 291,
+            "url": "https://github.com/python-poetry/cleo/pull/291",
+            "repository": {
+              "nameWithOwner": "python-poetry/cleo"
+            }
+          }
+        }
+      ],
+      "candidate_pin_bindings": [
+        {
+          "pr": 291,
+          "pr_url": "https://github.com/python-poetry/cleo/pull/291",
+          "candidate_first_parent": "a625154145060353736d0fd797d3c2262e92e3b2",
+          "candidate_base_tree": "24171131bb0f7766c126e48736c3ebd05a904a60",
+          "landing": "35896a0bc27e92f1d1f96d66facbf31531356ed7",
+          "landing_tree": "e2d383879536b2990a8cbbe08a82a54c0554547b",
+          "merged_at": "2022-11-22T23:29:18Z",
+          "broken": "NOT_VERIFIED",
+          "license_blob": "3f0aed7fa14a255a93863e9a9ab9bfbf57c1aeca",
+          "license_bytes": 1061,
+          "license_sha256": "a2b9e0f3a35c5549b0b82edabcc0e229721437994d265cca96185e9f99f3a698",
+          "license_file": "license-3f0aed7fa14a255a93863e9a9ab9bfbf57c1aeca.txt",
+          "git_blob_and_length_verified": true,
+          "license_url": "https://github.com/python-poetry/cleo/blob/a625154145060353736d0fd797d3c2262e92e3b2/LICENSE"
+        }
+      ],
+      "role": "RESEARCH_SOURCE_QUALIFICATION_METADATA_ONLY",
+      "effective_split": "UNASSIGNED",
+      "body_read": false,
+      "source_snapshot_acquired": false,
+      "behavior_contract": "UNKNOWN_NOT_READ",
+      "text_use": "UNKNOWN",
+      "root": "UNKNOWN",
+      "actor_authorized": false,
+      "training_released": false,
+      "known_relationship_matches": [],
+      "remaining_gaps": [
+        "initial behavior/text-use scope not granted",
+        "broken and trusted acceptance unverified",
+        "root/family and retained coverage incomplete",
+        "candidate source permission not implied"
+      ]
+    },
+    {
+      "repo_issue": "python-poetry/cleo#248",
+      "identity": {
+        "id": "I_kwDOAOhlGM5RIrvs",
+        "databaseId": 1361230828,
+        "number": 248,
+        "url": "https://github.com/python-poetry/cleo/issues/248",
+        "state": "CLOSED",
+        "createdAt": "2022-09-04T19:17:22Z",
+        "closedAt": "2022-11-22T09:56:03Z",
+        "repository": {
+          "nameWithOwner": "python-poetry/cleo"
+        },
+        "labels": {
+          "totalCount": 0,
+          "pageInfo": {
+            "hasNextPage": false,
+            "endCursor": null
+          },
+          "nodes": []
+        }
+      },
+      "closed_timeline": {
+        "totalCount": 1,
+        "pageInfo": {
+          "hasNextPage": false,
+          "endCursor": "Y3Vyc29yOnYyOpPPAAABhJ7EGzgBqjc4NjYwNjcwNzE="
+        },
+        "nodes": [
+          {
+            "id": "CE_lADOAOhlGM5RIrvszwAAAAHU2qh_",
+            "createdAt": "2022-11-22T09:56:03Z",
+            "closer": null
+          }
+        ]
+      },
+      "same_repo_pre_cutoff_pr_events": [],
+      "candidate_pin_bindings": [],
+      "role": "RESEARCH_SOURCE_QUALIFICATION_METADATA_ONLY",
+      "effective_split": "UNASSIGNED",
+      "body_read": false,
+      "source_snapshot_acquired": false,
+      "behavior_contract": "UNKNOWN_NOT_READ",
+      "text_use": "UNKNOWN",
+      "root": "UNKNOWN",
+      "actor_authorized": false,
+      "training_released": false,
+      "known_relationship_matches": [],
+      "remaining_gaps": [
+        "initial behavior/text-use scope not granted",
+        "broken and trusted acceptance unverified",
+        "root/family and retained coverage incomplete",
+        "candidate source permission not implied"
+      ]
+    },
+    {
+      "repo_issue": "python-poetry/cleo#284",
+      "identity": {
+        "id": "I_kwDOAOhlGM5WrEMt",
+        "databaseId": 1454129965,
+        "number": 284,
+        "url": "https://github.com/python-poetry/cleo/issues/284",
+        "state": "CLOSED",
+        "createdAt": "2022-11-17T23:00:20Z",
+        "closedAt": "2022-11-20T19:11:36Z",
+        "repository": {
+          "nameWithOwner": "python-poetry/cleo"
+        },
+        "labels": {
+          "totalCount": 0,
+          "pageInfo": {
+            "hasNextPage": false,
+            "endCursor": null
+          },
+          "nodes": []
+        }
+      },
+      "closed_timeline": {
+        "totalCount": 1,
+        "pageInfo": {
+          "hasNextPage": false,
+          "endCursor": "Y3Vyc29yOnYyOpPPAAABhJZ0AkABqjc4NTIwMzEwMzA="
+        },
+        "nodes": [
+          {
+            "id": "CE_lADOAOhlGM5WrEMtzwAAAAHUBHw2",
+            "createdAt": "2022-11-20T19:11:36Z",
+            "closer": {
+              "__typename": "PullRequest",
+              "id": "PR_kwDOAOhlGM5DTofQ",
+              "databaseId": 1129220048,
+              "number": 285,
+              "url": "https://github.com/python-poetry/cleo/pull/285",
+              "repository": {
+                "nameWithOwner": "python-poetry/cleo"
+              }
+            }
+          }
+        ]
+      },
+      "same_repo_pre_cutoff_pr_events": [
+        {
+          "id": "CE_lADOAOhlGM5WrEMtzwAAAAHUBHw2",
+          "createdAt": "2022-11-20T19:11:36Z",
+          "closer": {
+            "__typename": "PullRequest",
+            "id": "PR_kwDOAOhlGM5DTofQ",
+            "databaseId": 1129220048,
+            "number": 285,
+            "url": "https://github.com/python-poetry/cleo/pull/285",
+            "repository": {
+              "nameWithOwner": "python-poetry/cleo"
+            }
+          }
+        }
+      ],
+      "candidate_pin_bindings": [
+        {
+          "pr": 285,
+          "pr_url": "https://github.com/python-poetry/cleo/pull/285",
+          "candidate_first_parent": "9ebf24fa4f8e6065765a4d48f87cb7a4d826dd95",
+          "candidate_base_tree": "33687923f8a18131771a247f5b772da61a5f4247",
+          "landing": "b5b9a04d2caf58bf7cf94eb7ae4a1ebbe60ea455",
+          "landing_tree": "cceac5cda671e375ca5e8a7aae1a724ba72a6fbc",
+          "merged_at": "2022-11-20T19:11:35Z",
+          "broken": "NOT_VERIFIED",
+          "license_blob": "3f0aed7fa14a255a93863e9a9ab9bfbf57c1aeca",
+          "license_bytes": 1061,
+          "license_sha256": "a2b9e0f3a35c5549b0b82edabcc0e229721437994d265cca96185e9f99f3a698",
+          "license_file": "license-3f0aed7fa14a255a93863e9a9ab9bfbf57c1aeca.txt",
+          "git_blob_and_length_verified": true,
+          "license_url": "https://github.com/python-poetry/cleo/blob/9ebf24fa4f8e6065765a4d48f87cb7a4d826dd95/LICENSE"
+        }
+      ],
+      "role": "RESEARCH_SOURCE_QUALIFICATION_METADATA_ONLY",
+      "effective_split": "UNASSIGNED",
+      "body_read": false,
+      "source_snapshot_acquired": false,
+      "behavior_contract": "UNKNOWN_NOT_READ",
+      "text_use": "UNKNOWN",
+      "root": "UNKNOWN",
+      "actor_authorized": false,
+      "training_released": false,
+      "known_relationship_matches": [],
+      "remaining_gaps": [
+        "initial behavior/text-use scope not granted",
+        "broken and trusted acceptance unverified",
+        "root/family and retained coverage incomplete",
+        "candidate source permission not implied"
+      ]
+    },
+    {
+      "repo_issue": "python-poetry/cleo#162",
+      "identity": {
+        "id": "I_kwDOAOhlGM5Ldoxd",
+        "databaseId": 1266060381,
+        "number": 162,
+        "url": "https://github.com/python-poetry/cleo/issues/162",
+        "state": "CLOSED",
+        "createdAt": "2022-06-09T12:30:53Z",
+        "closedAt": "2022-11-19T01:31:08Z",
+        "repository": {
+          "nameWithOwner": "python-poetry/cleo"
+        },
+        "labels": {
+          "totalCount": 0,
+          "pageInfo": {
+            "hasNextPage": false,
+            "endCursor": null
+          },
+          "nodes": []
+        }
+      },
+      "closed_timeline": {
+        "totalCount": 1,
+        "pageInfo": {
+          "hasNextPage": false,
+          "endCursor": "Y3Vyc29yOnYyOpPPAAABhI2Cx0gBqjc4NDg1Mjg2ODc="
+        },
+        "nodes": [
+          {
+            "id": "CE_lADOAOhlGM5LdoxdzwAAAAHTzwsv",
+            "createdAt": "2022-11-19T01:31:09Z",
+            "closer": {
+              "__typename": "PullRequest",
+              "id": "PR_kwDOAOhlGM47gs2v",
+              "databaseId": 998428079,
+              "number": 179,
+              "url": "https://github.com/python-poetry/cleo/pull/179",
+              "repository": {
+                "nameWithOwner": "python-poetry/cleo"
+              }
+            }
+          }
+        ]
+      },
+      "same_repo_pre_cutoff_pr_events": [
+        {
+          "id": "CE_lADOAOhlGM5LdoxdzwAAAAHTzwsv",
+          "createdAt": "2022-11-19T01:31:09Z",
+          "closer": {
+            "__typename": "PullRequest",
+            "id": "PR_kwDOAOhlGM47gs2v",
+            "databaseId": 998428079,
+            "number": 179,
+            "url": "https://github.com/python-poetry/cleo/pull/179",
+            "repository": {
+              "nameWithOwner": "python-poetry/cleo"
+            }
+          }
+        }
+      ],
+      "candidate_pin_bindings": [
+        {
+          "pr": 179,
+          "pr_url": "https://github.com/python-poetry/cleo/pull/179",
+          "candidate_first_parent": "7d3623b719470dfbadf34c3919ed649357438021",
+          "candidate_base_tree": "e6e670a61c65f7e678779e933462fad876aa2380",
+          "landing": "675ec7e1d89aa65ce6dbca0938a89b4788db1045",
+          "landing_tree": "9164c62ac92049a98fa04d2199e63a9398379bfe",
+          "merged_at": "2022-11-19T01:31:08Z",
+          "broken": "NOT_VERIFIED",
+          "license_blob": "3f0aed7fa14a255a93863e9a9ab9bfbf57c1aeca",
+          "license_bytes": 1061,
+          "license_sha256": "a2b9e0f3a35c5549b0b82edabcc0e229721437994d265cca96185e9f99f3a698",
+          "license_file": "license-3f0aed7fa14a255a93863e9a9ab9bfbf57c1aeca.txt",
+          "git_blob_and_length_verified": true,
+          "license_url": "https://github.com/python-poetry/cleo/blob/7d3623b719470dfbadf34c3919ed649357438021/LICENSE"
+        }
+      ],
+      "role": "RESEARCH_SOURCE_QUALIFICATION_METADATA_ONLY",
+      "effective_split": "UNASSIGNED",
+      "body_read": false,
+      "source_snapshot_acquired": false,
+      "behavior_contract": "UNKNOWN_NOT_READ",
+      "text_use": "UNKNOWN",
+      "root": "UNKNOWN",
+      "actor_authorized": false,
+      "training_released": false,
+      "known_relationship_matches": [],
+      "remaining_gaps": [
+        "initial behavior/text-use scope not granted",
+        "broken and trusted acceptance unverified",
+        "root/family and retained coverage incomplete",
+        "candidate source permission not implied"
+      ]
+    },
+    {
+      "repo_issue": "python-poetry/cleo#279",
+      "identity": {
+        "id": "I_kwDOAOhlGM5WMXDy",
+        "databaseId": 1446080754,
+        "number": 279,
+        "url": "https://github.com/python-poetry/cleo/issues/279",
+        "state": "CLOSED",
+        "createdAt": "2022-11-11T23:00:13Z",
+        "closedAt": "2022-11-12T00:08:22Z",
+        "repository": {
+          "nameWithOwner": "python-poetry/cleo"
+        },
+        "labels": {
+          "totalCount": 0,
+          "pageInfo": {
+            "hasNextPage": false,
+            "endCursor": null
+          },
+          "nodes": []
+        }
+      },
+      "closed_timeline": {
+        "totalCount": 1,
+        "pageInfo": {
+          "hasNextPage": false,
+          "endCursor": "Y3Vyc29yOnYyOpPPAAABhGkqePABqjc3OTU1NjU0NzU="
+        },
+        "nodes": [
+          {
+            "id": "CE_lADOAOhlGM5WMXDyzwAAAAHQpuOj",
+            "createdAt": "2022-11-12T00:08:22Z",
+            "closer": null
+          }
+        ]
+      },
+      "same_repo_pre_cutoff_pr_events": [],
+      "candidate_pin_bindings": [],
+      "role": "RESEARCH_SOURCE_QUALIFICATION_METADATA_ONLY",
+      "effective_split": "UNASSIGNED",
+      "body_read": false,
+      "source_snapshot_acquired": false,
+      "behavior_contract": "UNKNOWN_NOT_READ",
+      "text_use": "UNKNOWN",
+      "root": "UNKNOWN",
+      "actor_authorized": false,
+      "training_released": false,
+      "known_relationship_matches": [],
+      "remaining_gaps": [
+        "initial behavior/text-use scope not granted",
+        "broken and trusted acceptance unverified",
+        "root/family and retained coverage incomplete",
+        "candidate source permission not implied"
+      ]
+    },
+    {
+      "repo_issue": "python-poetry/cleo#74",
+      "identity": {
+        "id": "MDU6SXNzdWU1MTY3MTY1NzE=",
+        "databaseId": 516716571,
+        "number": 74,
+        "url": "https://github.com/python-poetry/cleo/issues/74",
+        "state": "CLOSED",
+        "createdAt": "2019-11-02T20:46:29Z",
+        "closedAt": "2022-11-03T05:06:46Z",
+        "repository": {
+          "nameWithOwner": "python-poetry/cleo"
+        },
+        "labels": {
+          "totalCount": 0,
+          "pageInfo": {
+            "hasNextPage": false,
+            "endCursor": null
+          },
+          "nodes": []
+        }
+      },
+      "closed_timeline": {
+        "totalCount": 1,
+        "pageInfo": {
+          "hasNextPage": false,
+          "endCursor": "Y3Vyc29yOnYyOpPPAAABhDvibnABqjc3Mjg5NDY3NDI="
+        },
+        "nodes": [
+          {
+            "id": "CE_lADOAOhlGM4ezHgbzwAAAAHMrl42",
+            "createdAt": "2022-11-03T05:06:46Z",
+            "closer": {
+              "__typename": "PullRequest",
+              "id": "PR_kwDOAOhlGM5A27Zr",
+              "databaseId": 1088140907,
+              "number": 269,
+              "url": "https://github.com/python-poetry/cleo/pull/269",
+              "repository": {
+                "nameWithOwner": "python-poetry/cleo"
+              }
+            }
+          }
+        ]
+      },
+      "same_repo_pre_cutoff_pr_events": [
+        {
+          "id": "CE_lADOAOhlGM4ezHgbzwAAAAHMrl42",
+          "createdAt": "2022-11-03T05:06:46Z",
+          "closer": {
+            "__typename": "PullRequest",
+            "id": "PR_kwDOAOhlGM5A27Zr",
+            "databaseId": 1088140907,
+            "number": 269,
+            "url": "https://github.com/python-poetry/cleo/pull/269",
+            "repository": {
+              "nameWithOwner": "python-poetry/cleo"
+            }
+          }
+        }
+      ],
+      "candidate_pin_bindings": [
+        {
+          "pr": 269,
+          "pr_url": "https://github.com/python-poetry/cleo/pull/269",
+          "candidate_first_parent": "9bb89ed9aa6a921b6ac564ab8ca1bbc74cdb9518",
+          "candidate_base_tree": "8c0c0ee32ef7cc2242c6e720a2dc7d1226c6dce9",
+          "landing": "bfcdd7213230d347ee4dcffadd255b7785adeb8a",
+          "landing_tree": "bde201da17fb44bac5eb6a114954c69dcf02203a",
+          "merged_at": "2022-11-03T05:06:44Z",
+          "broken": "NOT_VERIFIED",
+          "license_blob": "3f0aed7fa14a255a93863e9a9ab9bfbf57c1aeca",
+          "license_bytes": 1061,
+          "license_sha256": "a2b9e0f3a35c5549b0b82edabcc0e229721437994d265cca96185e9f99f3a698",
+          "license_file": "license-3f0aed7fa14a255a93863e9a9ab9bfbf57c1aeca.txt",
+          "git_blob_and_length_verified": true,
+          "license_url": "https://github.com/python-poetry/cleo/blob/9bb89ed9aa6a921b6ac564ab8ca1bbc74cdb9518/LICENSE"
+        }
+      ],
+      "role": "RESEARCH_SOURCE_QUALIFICATION_METADATA_ONLY",
+      "effective_split": "UNASSIGNED",
+      "body_read": false,
+      "source_snapshot_acquired": false,
+      "behavior_contract": "UNKNOWN_NOT_READ",
+      "text_use": "UNKNOWN",
+      "root": "UNKNOWN",
+      "actor_authorized": false,
+      "training_released": false,
+      "known_relationship_matches": [],
+      "remaining_gaps": [
+        "initial behavior/text-use scope not granted",
+        "broken and trusted acceptance unverified",
+        "root/family and retained coverage incomplete",
+        "candidate source permission not implied"
+      ]
+    },
+    {
+      "repo_issue": "python-poetry/cleo#69",
+      "identity": {
+        "id": "MDU6SXNzdWU0NjI0MzY1Mjg=",
+        "databaseId": 462436528,
+        "number": 69,
+        "url": "https://github.com/python-poetry/cleo/issues/69",
+        "state": "CLOSED",
+        "createdAt": "2019-06-30T19:13:31Z",
+        "closedAt": "2022-10-16T02:19:49Z",
+        "repository": {
+          "nameWithOwner": "python-poetry/cleo"
+        },
+        "labels": {
+          "totalCount": 1,
+          "pageInfo": {
+            "hasNextPage": false,
+            "endCursor": "MQ"
+          },
+          "nodes": [
+            {
+              "name": "bug"
+            }
+          ]
+        }
+      },
+      "closed_timeline": {
+        "totalCount": 1,
+        "pageInfo": {
+          "hasNextPage": false,
+          "endCursor": "Y3Vyc29yOnYyOpPPAAABg96XHYgBqjc1OTU3NTY5MTg="
+        },
+        "nodes": [
+          {
+            "id": "CE_lADOAOhlGM4bkDiwzwAAAAHEvg12",
+            "createdAt": "2022-10-16T02:19:49Z",
+            "closer": null
+          }
+        ]
+      },
+      "same_repo_pre_cutoff_pr_events": [],
+      "candidate_pin_bindings": [],
+      "role": "RESEARCH_SOURCE_QUALIFICATION_METADATA_ONLY",
+      "effective_split": "UNASSIGNED",
+      "body_read": false,
+      "source_snapshot_acquired": false,
+      "behavior_contract": "UNKNOWN_NOT_READ",
+      "text_use": "UNKNOWN",
+      "root": "UNKNOWN",
+      "actor_authorized": false,
+      "training_released": false,
+      "known_relationship_matches": [],
+      "remaining_gaps": [
+        "initial behavior/text-use scope not granted",
+        "broken and trusted acceptance unverified",
+        "root/family and retained coverage incomplete",
+        "candidate source permission not implied"
+      ]
+    },
+    {
+      "repo_issue": "python-poetry/cleo#232",
+      "identity": {
+        "id": "I_kwDOAOhlGM5QGasO",
+        "databaseId": 1343859470,
+        "number": 232,
+        "url": "https://github.com/python-poetry/cleo/issues/232",
+        "state": "CLOSED",
+        "createdAt": "2022-08-19T02:37:15Z",
+        "closedAt": "2022-09-02T07:18:03Z",
+        "repository": {
+          "nameWithOwner": "python-poetry/cleo"
+        },
+        "labels": {
+          "totalCount": 0,
+          "pageInfo": {
+            "hasNextPage": false,
+            "endCursor": null
+          },
+          "nodes": []
+        }
+      },
+      "closed_timeline": {
+        "totalCount": 1,
+        "pageInfo": {
+          "hasNextPage": false,
+          "endCursor": "Y3Vyc29yOnYyOpPPAAABgv0QW-ABqjczMTA4OTc3MTE="
+        },
+        "nodes": [
+          {
+            "id": "CE_lADOAOhlGM5QGasOzwAAAAGzw3Iv",
+            "createdAt": "2022-09-02T07:18:04Z",
+            "closer": {
+              "__typename": "PullRequest",
+              "id": "PR_kwDOAOhlGM4-QTSX",
+              "databaseId": 1044460695,
+              "number": 245,
+              "url": "https://github.com/python-poetry/cleo/pull/245",
+              "repository": {
+                "nameWithOwner": "python-poetry/cleo"
+              }
+            }
+          }
+        ]
+      },
+      "same_repo_pre_cutoff_pr_events": [
+        {
+          "id": "CE_lADOAOhlGM5QGasOzwAAAAGzw3Iv",
+          "createdAt": "2022-09-02T07:18:04Z",
+          "closer": {
+            "__typename": "PullRequest",
+            "id": "PR_kwDOAOhlGM4-QTSX",
+            "databaseId": 1044460695,
+            "number": 245,
+            "url": "https://github.com/python-poetry/cleo/pull/245",
+            "repository": {
+              "nameWithOwner": "python-poetry/cleo"
+            }
+          }
+        }
+      ],
+      "candidate_pin_bindings": [
+        {
+          "pr": 245,
+          "pr_url": "https://github.com/python-poetry/cleo/pull/245",
+          "candidate_first_parent": "5d2339ca94f84db8873dace27f8a8b1a29779a00",
+          "candidate_base_tree": "ccfe038368782e52deb423ae837f0fe150c2769e",
+          "landing": "aee0dae9b83641f36a027783c210c8b3bf087f05",
+          "landing_tree": "3c5cc63baaab50adffa2e802792949d8de7d14b8",
+          "merged_at": "2022-09-02T07:18:02Z",
+          "broken": "NOT_VERIFIED",
+          "license_blob": "3f0aed7fa14a255a93863e9a9ab9bfbf57c1aeca",
+          "license_bytes": 1061,
+          "license_sha256": "a2b9e0f3a35c5549b0b82edabcc0e229721437994d265cca96185e9f99f3a698",
+          "license_file": "license-3f0aed7fa14a255a93863e9a9ab9bfbf57c1aeca.txt",
+          "git_blob_and_length_verified": true,
+          "license_url": "https://github.com/python-poetry/cleo/blob/5d2339ca94f84db8873dace27f8a8b1a29779a00/LICENSE"
+        }
+      ],
+      "role": "RESEARCH_SOURCE_QUALIFICATION_METADATA_ONLY",
+      "effective_split": "UNASSIGNED",
+      "body_read": false,
+      "source_snapshot_acquired": false,
+      "behavior_contract": "UNKNOWN_NOT_READ",
+      "text_use": "UNKNOWN",
+      "root": "UNKNOWN",
+      "actor_authorized": false,
+      "training_released": false,
+      "known_relationship_matches": [],
+      "remaining_gaps": [
+        "initial behavior/text-use scope not granted",
+        "broken and trusted acceptance unverified",
+        "root/family and retained coverage incomplete",
+        "candidate source permission not implied"
+      ]
+    },
+    {
+      "repo_issue": "python-poetry/cleo#255",
+      "identity": {
+        "id": "I_kwDOAOhlGM5Rp1rq",
+        "databaseId": 1369922282,
+        "number": 255,
+        "url": "https://github.com/python-poetry/cleo/issues/255",
+        "state": "CLOSED",
+        "createdAt": "2022-09-12T13:33:51Z",
+        "closedAt": "2022-09-13T22:01:43Z",
+        "repository": {
+          "nameWithOwner": "python-poetry/cleo"
+        },
+        "labels": {
+          "totalCount": 0,
+          "pageInfo": {
+            "hasNextPage": false,
+            "endCursor": null
+          },
+          "nodes": []
+        }
+      },
+      "closed_timeline": {
+        "totalCount": 1,
+        "pageInfo": {
+          "hasNextPage": false,
+          "endCursor": "Y3Vyc29yOnYyOpPPAAABgzjfUVgBqjczODAzODE4MTQ="
+        },
+        "nodes": [
+          {
+            "id": "CE_lADOAOhlGM5Rp1rqzwAAAAG357B2",
+            "createdAt": "2022-09-13T22:01:43Z",
+            "closer": null
+          }
+        ]
+      },
+      "same_repo_pre_cutoff_pr_events": [],
+      "candidate_pin_bindings": [],
+      "role": "RESEARCH_SOURCE_QUALIFICATION_METADATA_ONLY",
+      "effective_split": "UNASSIGNED",
+      "body_read": false,
+      "source_snapshot_acquired": false,
+      "behavior_contract": "UNKNOWN_NOT_READ",
+      "text_use": "UNKNOWN",
+      "root": "UNKNOWN",
+      "actor_authorized": false,
+      "training_released": false,
+      "known_relationship_matches": [],
+      "remaining_gaps": [
+        "initial behavior/text-use scope not granted",
+        "broken and trusted acceptance unverified",
+        "root/family and retained coverage incomplete",
+        "candidate source permission not implied"
+      ]
+    },
+    {
+      "repo_issue": "python-poetry/cleo#256",
+      "identity": {
+        "id": "I_kwDOAOhlGM5RrnRU",
+        "databaseId": 1370387540,
+        "number": 256,
+        "url": "https://github.com/python-poetry/cleo/issues/256",
+        "state": "CLOSED",
+        "createdAt": "2022-09-12T19:07:58Z",
+        "closedAt": "2022-09-12T20:21:56Z",
+        "repository": {
+          "nameWithOwner": "python-poetry/cleo"
+        },
+        "labels": {
+          "totalCount": 0,
+          "pageInfo": {
+            "hasNextPage": false,
+            "endCursor": null
+          },
+          "nodes": []
+        }
+      },
+      "closed_timeline": {
+        "totalCount": 1,
+        "pageInfo": {
+          "hasNextPage": false,
+          "endCursor": "Y3Vyc29yOnYyOpPPAAABgzNdmqABqjczNzA4NDIwNzE="
+        },
+        "nodes": [
+          {
+            "id": "CE_lADOAOhlGM5RrnRUzwAAAAG3Vh_X",
+            "createdAt": "2022-09-12T20:21:56Z",
+            "closer": null
+          }
+        ]
+      },
+      "same_repo_pre_cutoff_pr_events": [],
+      "candidate_pin_bindings": [],
+      "role": "RESEARCH_SOURCE_QUALIFICATION_METADATA_ONLY",
+      "effective_split": "UNASSIGNED",
+      "body_read": false,
+      "source_snapshot_acquired": false,
+      "behavior_contract": "UNKNOWN_NOT_READ",
+      "text_use": "UNKNOWN",
+      "root": "UNKNOWN",
+      "actor_authorized": false,
+      "training_released": false,
+      "known_relationship_matches": [],
+      "remaining_gaps": [
+        "initial behavior/text-use scope not granted",
+        "broken and trusted acceptance unverified",
+        "root/family and retained coverage incomplete",
+        "candidate source permission not implied"
+      ]
+    },
+    {
+      "repo_issue": "python-poetry/cleo#127",
+      "identity": {
+        "id": "I_kwDOAOhlGM5BqAMj",
+        "databaseId": 1101529891,
+        "number": 127,
+        "url": "https://github.com/python-poetry/cleo/issues/127",
+        "state": "CLOSED",
+        "createdAt": "2022-01-13T10:48:15Z",
+        "closedAt": "2022-09-10T21:38:53Z",
+        "repository": {
+          "nameWithOwner": "python-poetry/cleo"
+        },
+        "labels": {
+          "totalCount": 0,
+          "pageInfo": {
+            "hasNextPage": false,
+            "endCursor": null
+          },
+          "nodes": []
+        }
+      },
+      "closed_timeline": {
+        "totalCount": 1,
+        "pageInfo": {
+          "hasNextPage": false,
+          "endCursor": "Y3Vyc29yOnYyOpPPAAABgylXVcgBqjczNjE0NTA1MDU="
+        },
+        "nodes": [
+          {
+            "id": "CE_lADOAOhlGM5BqAMjzwAAAAG2xtIJ",
+            "createdAt": "2022-09-10T21:38:53Z",
+            "closer": null
+          }
+        ]
+      },
+      "same_repo_pre_cutoff_pr_events": [],
+      "candidate_pin_bindings": [],
+      "role": "RESEARCH_SOURCE_QUALIFICATION_METADATA_ONLY",
+      "effective_split": "UNASSIGNED",
+      "body_read": false,
+      "source_snapshot_acquired": false,
+      "behavior_contract": "UNKNOWN_NOT_READ",
+      "text_use": "UNKNOWN",
+      "root": "UNKNOWN",
+      "actor_authorized": false,
+      "training_released": false,
+      "known_relationship_matches": [],
+      "remaining_gaps": [
+        "initial behavior/text-use scope not granted",
+        "broken and trusted acceptance unverified",
+        "root/family and retained coverage incomplete",
+        "candidate source permission not implied"
+      ]
+    },
+    {
+      "repo_issue": "python-poetry/cleo#63",
+      "identity": {
+        "id": "MDU6SXNzdWUzOTc0NjI0Nzk=",
+        "databaseId": 397462479,
+        "number": 63,
+        "url": "https://github.com/python-poetry/cleo/issues/63",
+        "state": "CLOSED",
+        "createdAt": "2019-01-09T16:55:39Z",
+        "closedAt": "2022-09-06T20:26:18Z",
+        "repository": {
+          "nameWithOwner": "python-poetry/cleo"
+        },
+        "labels": {
+          "totalCount": 0,
+          "pageInfo": {
+            "hasNextPage": false,
+            "endCursor": null
+          },
+          "nodes": []
+        }
+      },
+      "closed_timeline": {
+        "totalCount": 1,
+        "pageInfo": {
+          "hasNextPage": false,
+          "endCursor": "Y3Vyc29yOnYyOpPPAAABgxR7chABqjczMzM1NTc0MzA="
+        },
+        "nodes": [
+          {
+            "id": "CE_lADOAOhlGM4XsMvPzwAAAAG1HTS2",
+            "createdAt": "2022-09-06T20:26:18Z",
+            "closer": null
+          }
+        ]
+      },
+      "same_repo_pre_cutoff_pr_events": [],
+      "candidate_pin_bindings": [],
+      "role": "RESEARCH_SOURCE_QUALIFICATION_METADATA_ONLY",
+      "effective_split": "UNASSIGNED",
+      "body_read": false,
+      "source_snapshot_acquired": false,
+      "behavior_contract": "UNKNOWN_NOT_READ",
+      "text_use": "UNKNOWN",
+      "root": "UNKNOWN",
+      "actor_authorized": false,
+      "training_released": false,
+      "known_relationship_matches": [],
+      "remaining_gaps": [
+        "initial behavior/text-use scope not granted",
+        "broken and trusted acceptance unverified",
+        "root/family and retained coverage incomplete",
+        "candidate source permission not implied"
+      ]
+    },
+    {
+      "repo_issue": "python-poetry/cleo#133",
+      "identity": {
+        "id": "I_kwDOAOhlGM5JbMD6",
+        "databaseId": 1231864058,
+        "number": 133,
+        "url": "https://github.com/python-poetry/cleo/issues/133",
+        "state": "CLOSED",
+        "createdAt": "2022-05-11T00:57:16Z",
+        "closedAt": "2022-09-06T15:41:47Z",
+        "repository": {
+          "nameWithOwner": "python-poetry/cleo"
+        },
+        "labels": {
+          "totalCount": 0,
+          "pageInfo": {
+            "hasNextPage": false,
+            "endCursor": null
+          },
+          "nodes": []
+        }
+      },
+      "closed_timeline": {
+        "totalCount": 1,
+        "pageInfo": {
+          "hasNextPage": false,
+          "endCursor": "Y3Vyc29yOnYyOpPPAAABgxN29ngBqjczMzE2OTQyOTQ="
+        },
+        "nodes": [
+          {
+            "id": "CE_lADOAOhlGM5JbMD6zwAAAAG1AMbW",
+            "createdAt": "2022-09-06T15:41:47Z",
+            "closer": {
+              "__typename": "PullRequest",
+              "id": "PR_kwDOAOhlGM4-VR3g",
+              "databaseId": 1045765600,
+              "number": 247,
+              "url": "https://github.com/python-poetry/cleo/pull/247",
+              "repository": {
+                "nameWithOwner": "python-poetry/cleo"
+              }
+            }
+          }
+        ]
+      },
+      "same_repo_pre_cutoff_pr_events": [
+        {
+          "id": "CE_lADOAOhlGM5JbMD6zwAAAAG1AMbW",
+          "createdAt": "2022-09-06T15:41:47Z",
+          "closer": {
+            "__typename": "PullRequest",
+            "id": "PR_kwDOAOhlGM4-VR3g",
+            "databaseId": 1045765600,
+            "number": 247,
+            "url": "https://github.com/python-poetry/cleo/pull/247",
+            "repository": {
+              "nameWithOwner": "python-poetry/cleo"
+            }
+          }
+        }
+      ],
+      "candidate_pin_bindings": [
+        {
+          "pr": 247,
+          "candidate_first_parent": "6a5afa4372f0b4cf19e855d260ff87c3f96279d1",
+          "candidate_base_tree": "f3174544273d6348510b0c19af85250b8248d6db",
+          "landing": "011de8d8058dc548f37cfca2abfbf33b90fb2557",
+          "landing_tree": "84e887ebfbf874800c2d65f985d2653b88f7954a",
+          "merged_at": "2022-09-06T15:41:45Z",
+          "license_blob": "3f0aed7fa14a255a93863e9a9ab9bfbf57c1aeca",
+          "license_file": "license-3f0aed7fa14a255a93863e9a9ab9bfbf57c1aeca.txt",
+          "license_bytes": 1061,
+          "license_sha256": "a2b9e0f3a35c5549b0b82edabcc0e229721437994d265cca96185e9f99f3a698",
+          "git_blob_and_length_verified": true,
+          "broken": "NOT_VERIFIED"
+        }
+      ],
+      "role": "RESEARCH_SOURCE_QUALIFICATION_METADATA_ONLY",
+      "effective_split": "UNASSIGNED",
+      "body_read": false,
+      "source_snapshot_acquired": false,
+      "behavior_contract": "UNKNOWN_NOT_READ",
+      "text_use": "UNKNOWN",
+      "root": "UNKNOWN",
+      "actor_authorized": false,
+      "training_released": false,
+      "known_relationship_matches": [
+        "011de8d8058dc548f37cfca2abfbf33b90fb2557",
+        "6a5afa4372f0b4cf19e855d260ff87c3f96279d1",
+        "f3174544273d6348510b0c19af85250b8248d6db"
+      ],
+      "remaining_gaps": [
+        "initial behavior/text-use scope not granted",
+        "broken and trusted acceptance unverified",
+        "root/family and retained coverage incomplete",
+        "candidate source permission not implied"
+      ]
+    },
+    {
+      "repo_issue": "python-poetry/cleo#54",
+      "identity": {
+        "id": "MDU6SXNzdWUzMzE2MzMxODI=",
+        "databaseId": 331633182,
+        "number": 54,
+        "url": "https://github.com/python-poetry/cleo/issues/54",
+        "state": "CLOSED",
+        "createdAt": "2018-06-12T15:13:27Z",
+        "closedAt": "2022-09-05T21:05:19Z",
+        "repository": {
+          "nameWithOwner": "python-poetry/cleo"
+        },
+        "labels": {
+          "totalCount": 0,
+          "pageInfo": {
+            "hasNextPage": false,
+            "endCursor": null
+          },
+          "nodes": []
+        }
+      },
+      "closed_timeline": {
+        "totalCount": 1,
+        "pageInfo": {
+          "hasNextPage": false,
+          "endCursor": "Y3Vyc29yOnYyOpPPAAABgw94zpgBqjczMjU2MDA4NTM="
+        },
+        "nodes": [
+          {
+            "id": "CE_lADOAOhlGM4TxFIezwAAAAG0o8xV",
+            "createdAt": "2022-09-05T21:05:19Z",
+            "closer": null
+          }
+        ]
+      },
+      "same_repo_pre_cutoff_pr_events": [],
+      "candidate_pin_bindings": [],
+      "role": "RESEARCH_SOURCE_QUALIFICATION_METADATA_ONLY",
+      "effective_split": "UNASSIGNED",
+      "body_read": false,
+      "source_snapshot_acquired": false,
+      "behavior_contract": "UNKNOWN_NOT_READ",
+      "text_use": "UNKNOWN",
+      "root": "UNKNOWN",
+      "actor_authorized": false,
+      "training_released": false,
+      "known_relationship_matches": [],
+      "remaining_gaps": [
+        "initial behavior/text-use scope not granted",
+        "broken and trusted acceptance unverified",
+        "root/family and retained coverage incomplete",
+        "candidate source permission not implied"
+      ]
+    },
+    {
+      "repo_issue": "python-poetry/cleo#46",
+      "identity": {
+        "id": "MDU6SXNzdWUxNzg0ODkzNjU=",
+        "databaseId": 178489365,
+        "number": 46,
+        "url": "https://github.com/python-poetry/cleo/issues/46",
+        "state": "CLOSED",
+        "createdAt": "2016-09-21T23:47:10Z",
+        "closedAt": "2022-09-05T20:41:37Z",
+        "repository": {
+          "nameWithOwner": "python-poetry/cleo"
+        },
+        "labels": {
+          "totalCount": 0,
+          "pageInfo": {
+            "hasNextPage": false,
+            "endCursor": null
+          },
+          "nodes": []
+        }
+      },
+      "closed_timeline": {
+        "totalCount": 1,
+        "pageInfo": {
+          "hasNextPage": false,
+          "endCursor": "Y3Vyc29yOnYyOpPPAAABgw9jG-gBqjczMjU1NDEyMzA="
+        },
+        "nodes": [
+          {
+            "id": "CE_lADOAOhlGM4Ko4gVzwAAAAG0ouNu",
+            "createdAt": "2022-09-05T20:41:37Z",
+            "closer": null
+          }
+        ]
+      },
+      "same_repo_pre_cutoff_pr_events": [],
+      "candidate_pin_bindings": [],
+      "role": "RESEARCH_SOURCE_QUALIFICATION_METADATA_ONLY",
+      "effective_split": "UNASSIGNED",
+      "body_read": false,
+      "source_snapshot_acquired": false,
+      "behavior_contract": "UNKNOWN_NOT_READ",
+      "text_use": "UNKNOWN",
+      "root": "UNKNOWN",
+      "actor_authorized": false,
+      "training_released": false,
+      "known_relationship_matches": [],
+      "remaining_gaps": [
+        "initial behavior/text-use scope not granted",
+        "broken and trusted acceptance unverified",
+        "root/family and retained coverage incomplete",
+        "candidate source permission not implied"
+      ]
+    },
+    {
+      "repo_issue": "python-poetry/cleo#108",
+      "identity": {
+        "id": "I_kwDOAOhlGM47gpOQ",
+        "databaseId": 998413200,
+        "number": 108,
+        "url": "https://github.com/python-poetry/cleo/issues/108",
+        "state": "CLOSED",
+        "createdAt": "2021-09-16T16:38:32Z",
+        "closedAt": "2022-09-05T19:57:58Z",
+        "repository": {
+          "nameWithOwner": "python-poetry/cleo"
+        },
+        "labels": {
+          "totalCount": 0,
+          "pageInfo": {
+            "hasNextPage": false,
+            "endCursor": null
+          },
+          "nodes": []
+        }
+      },
+      "closed_timeline": {
+        "totalCount": 1,
+        "pageInfo": {
+          "hasNextPage": false,
+          "endCursor": "Y3Vyc29yOnYyOpPPAAABgw87JXABqjczMjUzOTk5MjU="
+        },
+        "nodes": [
+          {
+            "id": "CE_lADOAOhlGM47gpOQzwAAAAG0oLt1",
+            "createdAt": "2022-09-05T19:57:58Z",
+            "closer": null
+          }
+        ]
+      },
+      "same_repo_pre_cutoff_pr_events": [],
+      "candidate_pin_bindings": [],
+      "role": "RESEARCH_SOURCE_QUALIFICATION_METADATA_ONLY",
+      "effective_split": "UNASSIGNED",
+      "body_read": false,
+      "source_snapshot_acquired": false,
+      "behavior_contract": "UNKNOWN_NOT_READ",
+      "text_use": "UNKNOWN",
+      "root": "UNKNOWN",
+      "actor_authorized": false,
+      "training_released": false,
+      "known_relationship_matches": [],
+      "remaining_gaps": [
+        "initial behavior/text-use scope not granted",
+        "broken and trusted acceptance unverified",
+        "root/family and retained coverage incomplete",
+        "candidate source permission not implied"
+      ]
+    },
+    {
+      "repo_issue": "python-poetry/cleo#182",
+      "identity": {
+        "id": "I_kwDOAOhlGM5N-je7",
+        "databaseId": 1308243899,
+        "number": 182,
+        "url": "https://github.com/python-poetry/cleo/issues/182",
+        "state": "CLOSED",
+        "createdAt": "2022-07-18T17:00:28Z",
+        "closedAt": "2022-09-05T19:52:01Z",
+        "repository": {
+          "nameWithOwner": "python-poetry/cleo"
+        },
+        "labels": {
+          "totalCount": 0,
+          "pageInfo": {
+            "hasNextPage": false,
+            "endCursor": null
+          },
+          "nodes": []
+        }
+      },
+      "closed_timeline": {
+        "totalCount": 1,
+        "pageInfo": {
+          "hasNextPage": false,
+          "endCursor": "Y3Vyc29yOnYyOpPPAAABgw81sugBqjczMjUzODIzMzA="
+        },
+        "nodes": [
+          {
+            "id": "CE_lADOAOhlGM5N-je7zwAAAAG0oHa6",
+            "createdAt": "2022-09-05T19:52:01Z",
+            "closer": null
+          }
+        ]
+      },
+      "same_repo_pre_cutoff_pr_events": [],
+      "candidate_pin_bindings": [],
+      "role": "RESEARCH_SOURCE_QUALIFICATION_METADATA_ONLY",
+      "effective_split": "UNASSIGNED",
+      "body_read": false,
+      "source_snapshot_acquired": false,
+      "behavior_contract": "UNKNOWN_NOT_READ",
+      "text_use": "UNKNOWN",
+      "root": "UNKNOWN",
+      "actor_authorized": false,
+      "training_released": false,
+      "known_relationship_matches": [],
+      "remaining_gaps": [
+        "initial behavior/text-use scope not granted",
+        "broken and trusted acceptance unverified",
+        "root/family and retained coverage incomplete",
+        "candidate source permission not implied"
+      ]
+    },
+    {
+      "repo_issue": "python-poetry/cleo#64",
+      "identity": {
+        "id": "MDU6SXNzdWUzOTc1MTA4OTk=",
+        "databaseId": 397510899,
+        "number": 64,
+        "url": "https://github.com/python-poetry/cleo/issues/64",
+        "state": "CLOSED",
+        "createdAt": "2019-01-09T19:02:43Z",
+        "closedAt": "2022-09-05T14:47:38Z",
+        "repository": {
+          "nameWithOwner": "python-poetry/cleo"
+        },
+        "labels": {
+          "totalCount": 0,
+          "pageInfo": {
+            "hasNextPage": false,
+            "endCursor": null
+          },
+          "nodes": []
+        }
+      },
+      "closed_timeline": {
+        "totalCount": 1,
+        "pageInfo": {
+          "hasNextPage": false,
+          "endCursor": "Y3Vyc29yOnYyOpPPAAABgw4fBxABqjczMjM4NzgyNjk="
+        },
+        "nodes": [
+          {
+            "id": "CE_lADOAOhlGM4XsYjzzwAAAAG0iYN9",
+            "createdAt": "2022-09-05T14:47:38Z",
+            "closer": {
+              "__typename": "PullRequest",
+              "id": "PR_kwDOAOhlGM4-AAyH",
+              "databaseId": 1040190599,
+              "number": 239,
+              "url": "https://github.com/python-poetry/cleo/pull/239",
+              "repository": {
+                "nameWithOwner": "python-poetry/cleo"
+              }
+            }
+          }
+        ]
+      },
+      "same_repo_pre_cutoff_pr_events": [
+        {
+          "id": "CE_lADOAOhlGM4XsYjzzwAAAAG0iYN9",
+          "createdAt": "2022-09-05T14:47:38Z",
+          "closer": {
+            "__typename": "PullRequest",
+            "id": "PR_kwDOAOhlGM4-AAyH",
+            "databaseId": 1040190599,
+            "number": 239,
+            "url": "https://github.com/python-poetry/cleo/pull/239",
+            "repository": {
+              "nameWithOwner": "python-poetry/cleo"
+            }
+          }
+        }
+      ],
+      "candidate_pin_bindings": [
+        {
+          "pr": 239,
+          "pr_url": "https://github.com/python-poetry/cleo/pull/239",
+          "candidate_first_parent": "37d4e48327bf01921298033336cf3df5fea641dc",
+          "candidate_base_tree": "051e8898b144955adeb4a5a53852224d030f6395",
+          "landing": "e7687e99288f013400293236b113a1010d9a57ee",
+          "landing_tree": "87044c169d470a62bb6ebb48851c07a606aa0871",
+          "merged_at": "2022-09-05T14:47:36Z",
+          "broken": "NOT_VERIFIED",
+          "license_blob": "3f0aed7fa14a255a93863e9a9ab9bfbf57c1aeca",
+          "license_bytes": 1061,
+          "license_sha256": "a2b9e0f3a35c5549b0b82edabcc0e229721437994d265cca96185e9f99f3a698",
+          "license_file": "license-3f0aed7fa14a255a93863e9a9ab9bfbf57c1aeca.txt",
+          "git_blob_and_length_verified": true,
+          "license_url": "https://github.com/python-poetry/cleo/blob/37d4e48327bf01921298033336cf3df5fea641dc/LICENSE"
+        }
+      ],
+      "role": "RESEARCH_SOURCE_QUALIFICATION_METADATA_ONLY",
+      "effective_split": "UNASSIGNED",
+      "body_read": false,
+      "source_snapshot_acquired": false,
+      "behavior_contract": "UNKNOWN_NOT_READ",
+      "text_use": "UNKNOWN",
+      "root": "UNKNOWN",
+      "actor_authorized": false,
+      "training_released": false,
+      "known_relationship_matches": [],
+      "remaining_gaps": [
+        "initial behavior/text-use scope not granted",
+        "broken and trusted acceptance unverified",
+        "root/family and retained coverage incomplete",
+        "candidate source permission not implied"
+      ]
+    },
+    {
+      "repo_issue": "python-poetry/cleo#65",
+      "identity": {
+        "id": "MDU6SXNzdWUzOTc1MjAxNTg=",
+        "databaseId": 397520158,
+        "number": 65,
+        "url": "https://github.com/python-poetry/cleo/issues/65",
+        "state": "CLOSED",
+        "createdAt": "2019-01-09T19:27:49Z",
+        "closedAt": "2022-09-05T14:47:37Z",
+        "repository": {
+          "nameWithOwner": "python-poetry/cleo"
+        },
+        "labels": {
+          "totalCount": 0,
+          "pageInfo": {
+            "hasNextPage": false,
+            "endCursor": null
+          },
+          "nodes": []
+        }
+      },
+      "closed_timeline": {
+        "totalCount": 1,
+        "pageInfo": {
+          "hasNextPage": false,
+          "endCursor": "Y3Vyc29yOnYyOpPPAAABgw4fAygBqjczMjM4NzgyMzc="
+        },
+        "nodes": [
+          {
+            "id": "CE_lADOAOhlGM4Xsa0ezwAAAAG0iYNd",
+            "createdAt": "2022-09-05T14:47:37Z",
+            "closer": {
+              "__typename": "PullRequest",
+              "id": "PR_kwDOAOhlGM4-AAyH",
+              "databaseId": 1040190599,
+              "number": 239,
+              "url": "https://github.com/python-poetry/cleo/pull/239",
+              "repository": {
+                "nameWithOwner": "python-poetry/cleo"
+              }
+            }
+          }
+        ]
+      },
+      "same_repo_pre_cutoff_pr_events": [
+        {
+          "id": "CE_lADOAOhlGM4Xsa0ezwAAAAG0iYNd",
+          "createdAt": "2022-09-05T14:47:37Z",
+          "closer": {
+            "__typename": "PullRequest",
+            "id": "PR_kwDOAOhlGM4-AAyH",
+            "databaseId": 1040190599,
+            "number": 239,
+            "url": "https://github.com/python-poetry/cleo/pull/239",
+            "repository": {
+              "nameWithOwner": "python-poetry/cleo"
+            }
+          }
+        }
+      ],
+      "candidate_pin_bindings": [
+        {
+          "pr": 239,
+          "pr_url": "https://github.com/python-poetry/cleo/pull/239",
+          "candidate_first_parent": "37d4e48327bf01921298033336cf3df5fea641dc",
+          "candidate_base_tree": "051e8898b144955adeb4a5a53852224d030f6395",
+          "landing": "e7687e99288f013400293236b113a1010d9a57ee",
+          "landing_tree": "87044c169d470a62bb6ebb48851c07a606aa0871",
+          "merged_at": "2022-09-05T14:47:36Z",
+          "broken": "NOT_VERIFIED",
+          "license_blob": "3f0aed7fa14a255a93863e9a9ab9bfbf57c1aeca",
+          "license_bytes": 1061,
+          "license_sha256": "a2b9e0f3a35c5549b0b82edabcc0e229721437994d265cca96185e9f99f3a698",
+          "license_file": "license-3f0aed7fa14a255a93863e9a9ab9bfbf57c1aeca.txt",
+          "git_blob_and_length_verified": true,
+          "license_url": "https://github.com/python-poetry/cleo/blob/37d4e48327bf01921298033336cf3df5fea641dc/LICENSE"
+        }
+      ],
+      "role": "RESEARCH_SOURCE_QUALIFICATION_METADATA_ONLY",
+      "effective_split": "UNASSIGNED",
+      "body_read": false,
+      "source_snapshot_acquired": false,
+      "behavior_contract": "UNKNOWN_NOT_READ",
+      "text_use": "UNKNOWN",
+      "root": "UNKNOWN",
+      "actor_authorized": false,
+      "training_released": false,
+      "known_relationship_matches": [],
+      "remaining_gaps": [
+        "initial behavior/text-use scope not granted",
+        "broken and trusted acceptance unverified",
+        "root/family and retained coverage incomplete",
+        "candidate source permission not implied"
+      ]
+    },
+    {
+      "repo_issue": "python-poetry/cleo#87",
+      "identity": {
+        "id": "MDU6SXNzdWU3MDUyMTg4NTA=",
+        "databaseId": 705218850,
+        "number": 87,
+        "url": "https://github.com/python-poetry/cleo/issues/87",
+        "state": "CLOSED",
+        "createdAt": "2020-09-21T00:34:27Z",
+        "closedAt": "2022-09-04T20:08:54Z",
+        "repository": {
+          "nameWithOwner": "python-poetry/cleo"
+        },
+        "labels": {
+          "totalCount": 0,
+          "pageInfo": {
+            "hasNextPage": false,
+            "endCursor": null
+          },
+          "nodes": []
+        }
+      },
+      "closed_timeline": {
+        "totalCount": 1,
+        "pageInfo": {
+          "hasNextPage": false,
+          "endCursor": "Y3Vyc29yOnYyOpPPAAABgwoey_ABqjczMTg4ODY3Mjc="
+        },
+        "nodes": [
+          {
+            "id": "CE_lADOAOhlGM4qCMkizwAAAAG0PVlH",
+            "createdAt": "2022-09-04T20:08:54Z",
+            "closer": null
+          }
+        ]
+      },
+      "same_repo_pre_cutoff_pr_events": [],
+      "candidate_pin_bindings": [],
+      "role": "RESEARCH_SOURCE_QUALIFICATION_METADATA_ONLY",
+      "effective_split": "UNASSIGNED",
+      "body_read": false,
+      "source_snapshot_acquired": false,
+      "behavior_contract": "UNKNOWN_NOT_READ",
+      "text_use": "UNKNOWN",
+      "root": "UNKNOWN",
+      "actor_authorized": false,
+      "training_released": false,
+      "known_relationship_matches": [],
+      "remaining_gaps": [
+        "initial behavior/text-use scope not granted",
+        "broken and trusted acceptance unverified",
+        "root/family and retained coverage incomplete",
+        "candidate source permission not implied"
+      ]
+    },
+    {
+      "repo_issue": "python-poetry/cleo#246",
+      "identity": {
+        "id": "I_kwDOAOhlGM5REab4",
+        "databaseId": 1360111352,
+        "number": 246,
+        "url": "https://github.com/python-poetry/cleo/issues/246",
+        "state": "CLOSED",
+        "createdAt": "2022-09-02T12:13:02Z",
+        "closedAt": "2022-09-02T16:02:45Z",
+        "repository": {
+          "nameWithOwner": "python-poetry/cleo"
+        },
+        "labels": {
+          "totalCount": 0,
+          "pageInfo": {
+            "hasNextPage": false,
+            "endCursor": null
+          },
+          "nodes": []
+        }
+      },
+      "closed_timeline": {
+        "totalCount": 1,
+        "pageInfo": {
+          "hasNextPage": false,
+          "endCursor": "Y3Vyc29yOnYyOpPPAAABgv7wuIgBqjczMTQzODI4Mjg="
+        },
+        "nodes": [
+          {
+            "id": "CE_lADOAOhlGM5REab4zwAAAAGz-J_s",
+            "createdAt": "2022-09-02T16:02:45Z",
+            "closer": null
+          }
+        ]
+      },
+      "same_repo_pre_cutoff_pr_events": [],
+      "candidate_pin_bindings": [],
+      "role": "RESEARCH_SOURCE_QUALIFICATION_METADATA_ONLY",
+      "effective_split": "UNASSIGNED",
+      "body_read": false,
+      "source_snapshot_acquired": false,
+      "behavior_contract": "UNKNOWN_NOT_READ",
+      "text_use": "UNKNOWN",
+      "root": "UNKNOWN",
+      "actor_authorized": false,
+      "training_released": false,
+      "known_relationship_matches": [],
+      "remaining_gaps": [
+        "initial behavior/text-use scope not granted",
+        "broken and trusted acceptance unverified",
+        "root/family and retained coverage incomplete",
+        "candidate source permission not implied"
+      ]
+    },
+    {
+      "repo_issue": "python-poetry/cleo#56",
+      "identity": {
+        "id": "MDU6SXNzdWUzNDcyNDI2NDU=",
+        "databaseId": 347242645,
+        "number": 56,
+        "url": "https://github.com/python-poetry/cleo/issues/56",
+        "state": "CLOSED",
+        "createdAt": "2018-08-03T03:03:08Z",
+        "closedAt": "2022-09-02T07:49:30Z",
+        "repository": {
+          "nameWithOwner": "python-poetry/cleo"
+        },
+        "labels": {
+          "totalCount": 0,
+          "pageInfo": {
+            "hasNextPage": false,
+            "endCursor": null
+          },
+          "nodes": []
+        }
+      },
+      "closed_timeline": {
+        "totalCount": 1,
+        "pageInfo": {
+          "hasNextPage": false,
+          "endCursor": "Y3Vyc29yOnYyOpPPAAABgv0tIxABqjczMTEwODg4NTg="
+        },
+        "nodes": [
+          {
+            "id": "CE_lADOAOhlGM4UsoCVzwAAAAGzxlza",
+            "createdAt": "2022-09-02T07:49:30Z",
+            "closer": {
+              "__typename": "PullRequest",
+              "id": "PR_kwDOAOhlGM49wx5H",
+              "databaseId": 1036197447,
+              "number": 236,
+              "url": "https://github.com/python-poetry/cleo/pull/236",
+              "repository": {
+                "nameWithOwner": "python-poetry/cleo"
+              }
+            }
+          }
+        ]
+      },
+      "same_repo_pre_cutoff_pr_events": [
+        {
+          "id": "CE_lADOAOhlGM4UsoCVzwAAAAGzxlza",
+          "createdAt": "2022-09-02T07:49:30Z",
+          "closer": {
+            "__typename": "PullRequest",
+            "id": "PR_kwDOAOhlGM49wx5H",
+            "databaseId": 1036197447,
+            "number": 236,
+            "url": "https://github.com/python-poetry/cleo/pull/236",
+            "repository": {
+              "nameWithOwner": "python-poetry/cleo"
+            }
+          }
+        }
+      ],
+      "candidate_pin_bindings": [
+        {
+          "pr": 236,
+          "pr_url": "https://github.com/python-poetry/cleo/pull/236",
+          "candidate_first_parent": "aee0dae9b83641f36a027783c210c8b3bf087f05",
+          "candidate_base_tree": "3c5cc63baaab50adffa2e802792949d8de7d14b8",
+          "landing": "ac596628480961468e5c5c7c5af335b70111bab7",
+          "landing_tree": "7e2b4f44130cdecb56366d63cb17a15b4affe401",
+          "merged_at": "2022-09-02T07:49:29Z",
+          "broken": "NOT_VERIFIED",
+          "license_blob": "3f0aed7fa14a255a93863e9a9ab9bfbf57c1aeca",
+          "license_bytes": 1061,
+          "license_sha256": "a2b9e0f3a35c5549b0b82edabcc0e229721437994d265cca96185e9f99f3a698",
+          "license_file": "license-3f0aed7fa14a255a93863e9a9ab9bfbf57c1aeca.txt",
+          "git_blob_and_length_verified": true,
+          "license_url": "https://github.com/python-poetry/cleo/blob/aee0dae9b83641f36a027783c210c8b3bf087f05/LICENSE"
+        }
+      ],
+      "role": "RESEARCH_SOURCE_QUALIFICATION_METADATA_ONLY",
+      "effective_split": "UNASSIGNED",
+      "body_read": false,
+      "source_snapshot_acquired": false,
+      "behavior_contract": "UNKNOWN_NOT_READ",
+      "text_use": "UNKNOWN",
+      "root": "UNKNOWN",
+      "actor_authorized": false,
+      "training_released": false,
+      "known_relationship_matches": [],
+      "remaining_gaps": [
+        "initial behavior/text-use scope not granted",
+        "broken and trusted acceptance unverified",
+        "root/family and retained coverage incomplete",
+        "candidate source permission not implied"
+      ]
+    }
+  ]
+}
