@@ -1,0 +1,192 @@
+{
+  "schema": "k61-batch1-missing-fields/1",
+  "as_of": "2026-10-15",
+  "batch_id": "more-itertools-batch1-20261015",
+  "result": "ALL_SIX_FIELDS_REMAIN_UNKNOWN_FOR_ALL_FIVE_TASKS",
+  "sources": [
+    {
+      "kind": "accepted-registration-template",
+      "issue_comment_id": "01a13e4a-48b7-75fd-ae15-0768ce4dd50f",
+      "attachment_id": "01a13e4a-42b4-7734-80b1-a053bd314141",
+      "filename": "KAGGLE-61-batch-extension-v1.zip",
+      "sha256": "02dcbcf4f3cfc3ac8d1f6bec8cb3cd81efab06118205b58c21dc84df9d6d5389",
+      "member": "batch1-registration-template.json",
+      "member_sha256": "f43eef1dd242008df02a455604a0df9b16a421b6bb7f74ccdf2936945a984f17",
+      "accessed": "2026-10-15"
+    },
+    {
+      "kind": "read-only-source-supply-index",
+      "issue_comment_id": "01a1365b-f8e5-7b51-b734-a580fbce38cd",
+      "attachment_id": "01a1365b-f784-7476-946a-28371b1a4348",
+      "filename": "source-supply-prep-20261014.zip",
+      "sha256": "4abbc6ebee9e316f7fc1ecbca95d0f9d4ed1930ce7147b5ae9fed8cd688364a2",
+      "member": "source-supply-manifest.json",
+      "member_sha256": "c1bb264a3127053e0e5563b869c637d5ba6fd5e47a77d69593484f867712926f",
+      "accessed": "2026-10-15",
+      "scope_note": "Fixed archive SHA/size only; nested source archives were not extracted or read."
+    }
+  ],
+  "field_names": [
+    "directory",
+    "external_owner",
+    "lock",
+    "build",
+    "dependency_summary",
+    "import_modules"
+  ],
+  "tasks": [
+    {
+      "repo_issue": "more-itertools/more-itertools#768",
+      "candidate_id": "more-itertools-768-problem-candidate-v7",
+      "base_commit": "358983f98e8f21a306560523c96e006afeddb0a5",
+      "source_sha256": "50b76d37f8d03c5db3027a08319d8f5e558ef625815d5743028a96cb58d4e021",
+      "source_archive": "snapshots/50b76d37f8d03c5db3027a08319d8f5e558ef625815d5743028a96cb58d4e021.tar.gz",
+      "source_archive_bytes": 108262,
+      "source_archive_verification": "PASS_SHA_AND_SIZE;NOT_EXTRACTED",
+      "container_package_sha256": "959cd899198236df6f9d5a7e91197aeffe2aa41ac8da59f65d047cc9cdcef2d0",
+      "fields": {
+        "directory": null,
+        "external_owner": null,
+        "lock": null,
+        "build": null,
+        "dependency_summary": null,
+        "import_modules": null
+      },
+      "field_state": {
+        "directory": "UNKNOWN",
+        "external_owner": "UNKNOWN",
+        "lock": "UNKNOWN",
+        "build": "UNKNOWN",
+        "dependency_summary": "UNKNOWN",
+        "import_modules": "UNKNOWN"
+      },
+      "evidence_gap": "Exact dependency/build/layout and interpreter lock not established in the supplied index; archive contents not inspected.",
+      "actor_authorized_raw": false,
+      "deployment_authorized_raw": false
+    },
+    {
+      "repo_issue": "more-itertools/more-itertools#822",
+      "candidate_id": "more-itertools-822-problem-candidate-v7",
+      "base_commit": "4c7e4e2c7dc058972c7b024e9fc22369017810c3",
+      "source_sha256": "b6f3f1ead407d82991697319006cdf28f804da6a616bf16f1103189e0e359c25",
+      "source_archive": "snapshots/b6f3f1ead407d82991697319006cdf28f804da6a616bf16f1103189e0e359c25.tar.gz",
+      "source_archive_bytes": 111366,
+      "source_archive_verification": "PASS_SHA_AND_SIZE;NOT_EXTRACTED",
+      "container_package_sha256": "0783e568ea87bb536e56e5284bcd31288cbfc719a13b39dedf7392e5e71a6121",
+      "fields": {
+        "directory": null,
+        "external_owner": null,
+        "lock": null,
+        "build": null,
+        "dependency_summary": null,
+        "import_modules": null
+      },
+      "field_state": {
+        "directory": "UNKNOWN",
+        "external_owner": "UNKNOWN",
+        "lock": "UNKNOWN",
+        "build": "UNKNOWN",
+        "dependency_summary": "UNKNOWN",
+        "import_modules": "UNKNOWN"
+      },
+      "evidence_gap": "Exact dependency/build/layout and interpreter lock not established in the supplied index; archive contents not inspected.",
+      "actor_authorized_raw": false,
+      "deployment_authorized_raw": false
+    },
+    {
+      "repo_issue": "more-itertools/more-itertools#862",
+      "candidate_id": "more-itertools-862-problem-candidate-v7",
+      "base_commit": "4bd0bd876273a8ff2171352c937b91a8c053d00b",
+      "source_sha256": "e472e9e398cab064ae2cfafcab18a51258dc744421cac5c70304904b4b1c5d54",
+      "source_archive": "snapshots/e472e9e398cab064ae2cfafcab18a51258dc744421cac5c70304904b4b1c5d54.tar.gz",
+      "source_archive_bytes": 114863,
+      "source_archive_verification": "PASS_SHA_AND_SIZE;NOT_EXTRACTED",
+      "container_package_sha256": "a7e96506ce04655ef9b357a29c61e9892c070928e7c8c3395c5f72410709bee6",
+      "fields": {
+        "directory": null,
+        "external_owner": null,
+        "lock": null,
+        "build": null,
+        "dependency_summary": null,
+        "import_modules": null
+      },
+      "field_state": {
+        "directory": "UNKNOWN",
+        "external_owner": "UNKNOWN",
+        "lock": "UNKNOWN",
+        "build": "UNKNOWN",
+        "dependency_summary": "UNKNOWN",
+        "import_modules": "UNKNOWN"
+      },
+      "evidence_gap": "Exact dependency/build/layout and interpreter lock not established in the supplied index; archive contents not inspected.",
+      "actor_authorized_raw": false,
+      "deployment_authorized_raw": false
+    },
+    {
+      "repo_issue": "more-itertools/more-itertools#775",
+      "candidate_id": "more-itertools-775-candidate-v10",
+      "base_commit": "10b69b34b6619876c835559312a7b5346ccfcd86",
+      "source_sha256": "4cd632b166c17c98bdd79b1d50fe6533af8fc0a4580faabe0739f7c332628406",
+      "source_archive": "snapshots/4cd632b166c17c98bdd79b1d50fe6533af8fc0a4580faabe0739f7c332628406.tar.gz",
+      "source_archive_bytes": 108320,
+      "source_archive_verification": "PASS_SHA_AND_SIZE;NOT_EXTRACTED",
+      "container_package_sha256": "e555050717d01945af68e481b9cae2c6bdbc1aa3d248b7e3e82bfd294483ff0f",
+      "fields": {
+        "directory": null,
+        "external_owner": null,
+        "lock": null,
+        "build": null,
+        "dependency_summary": null,
+        "import_modules": null
+      },
+      "field_state": {
+        "directory": "UNKNOWN",
+        "external_owner": "UNKNOWN",
+        "lock": "UNKNOWN",
+        "build": "UNKNOWN",
+        "dependency_summary": "UNKNOWN",
+        "import_modules": "UNKNOWN"
+      },
+      "evidence_gap": "Exact dependency/build/layout and interpreter lock not established in the supplied index; archive contents not inspected.",
+      "actor_authorized_raw": false,
+      "deployment_authorized_raw": false
+    },
+    {
+      "repo_issue": "more-itertools/more-itertools#672",
+      "candidate_id": "more-itertools-672-candidate-r100-b01",
+      "base_commit": "e82e7dc7004186bd5585b2c818f9d6023d13b297",
+      "source_sha256": "b03c7f1d989e3171670d060c8ff9dc793d892c6a9afbf4c237ba08a456e0229e",
+      "source_archive": "snapshots/b03c7f1d989e3171670d060c8ff9dc793d892c6a9afbf4c237ba08a456e0229e.tar.gz",
+      "source_archive_bytes": 102385,
+      "source_archive_verification": "PASS_SHA_AND_SIZE;NOT_EXTRACTED",
+      "container_package_sha256": "556d64f92c275c5b5cc8011390858188b0fccd4004beaa66fc180ebffd7364a6",
+      "fields": {
+        "directory": null,
+        "external_owner": null,
+        "lock": null,
+        "build": null,
+        "dependency_summary": null,
+        "import_modules": null
+      },
+      "field_state": {
+        "directory": "UNKNOWN",
+        "external_owner": "UNKNOWN",
+        "lock": "UNKNOWN",
+        "build": "UNKNOWN",
+        "dependency_summary": "UNKNOWN",
+        "import_modules": "UNKNOWN"
+      },
+      "evidence_gap": "Exact dependency/build/layout and interpreter lock not established in the supplied index; archive contents not inspected.",
+      "actor_authorized_raw": false,
+      "deployment_authorized_raw": false
+    }
+  ],
+  "not_in_scope": [
+    "archive_prefix",
+    "sealed",
+    "license_state",
+    "actor source-only evidence",
+    "remaining budget",
+    "deployment or training release"
+  ]
+}
