@@ -1,0 +1,50 @@
+{
+  "schema": "kaggle67-append-merge-counts/2",
+  "as_of_utc": "2026-10-16T06:50:28+00:00",
+  "basis": "K62 v23 global index + preserved K67 B01 delta + appended K50 B02 delta; K62 v24 gate/exclusion snapshot checked",
+  "delta_b02": {
+    "metadata_identities_added": 20,
+    "pinned_source_candidates_added": 20,
+    "source_ready_added": 0,
+    "deployable_added": 0,
+    "training_approved_added": 0,
+    "exact_duplicates_added": 0,
+    "related_refs_pending_family_review": 4,
+    "family_edges_confirmed_added": 0
+  },
+  "cumulative": {
+    "metadata_identities": 184,
+    "metadata_only_candidates": 20,
+    "material_identities": 164,
+    "candidate_archive_identities": 140,
+    "pinned_source_candidates": 140,
+    "source_ready": 85,
+    "problem_text_and_license_complete": "UNKNOWN_NOT_TRACKED_AS_JOINED_GLOBAL_STAGE",
+    "deployable": 0,
+    "training_approved": 0,
+    "family_or_root_unique_confirmed_from_this_delta": 0
+  },
+  "baseline_v23": {
+    "material_identities": 140,
+    "candidate_archive_identities": 116,
+    "pinned_source_candidates": 116,
+    "source_ready": 85,
+    "deployable": 0,
+    "training_approved": 0
+  },
+  "after_b01_before_b02": {
+    "material_identities": 144,
+    "candidate_archive_identities": 120,
+    "metadata_only_candidates": 20,
+    "pinned_source_candidates": 120,
+    "source_ready": 85,
+    "deployable": 0,
+    "training_approved": 0
+  },
+  "counting_notes": [
+    "Metadata identities count the 140 K62 baseline rows plus the 24 preserved B01 records plus these 20 B02 records; metadata-only candidates are also reported separately and are not material or archive counts.",
+    "Source archives are pinned candidates, not SOURCE_READY. B02 adds 20 pinned source candidates but 0 SOURCE_READY, deployable, or training-approved records.",
+    "K62 v24 gate review reports no exact packaged issue IDs in the checked gate files, while explicitly retaining the pytest-dev/pluggy#140 ↔ pytest-dev/pytest#2639 hold; this does not constitute repository-wide seal or task clearance.",
+    "Candidate tests and environments remain unverified. No tests were run and no PR bodies, diffs, fixes, or hidden evaluation materials were read."
+  ]
+}

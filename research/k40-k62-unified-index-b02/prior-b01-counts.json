@@ -1,0 +1,56 @@
+{
+  "schema": "kaggle67-append-merge-counts/1",
+  "as_of_utc": "2026-10-16T05:58:47+00:00",
+  "baseline": {
+    "version": "KAGGLE-62 v23",
+    "attachment_id": "01a13569-f9fe-7956-b699-109addffe133",
+    "package_sha256": "85c8aff005b7bf961759855b0b427ef335532dc176d846dfa725743e3fba79a5",
+    "material_identities": 140,
+    "candidate_archive_identities": 116,
+    "source_fixed_archives": 116,
+    "source_ready": 85,
+    "problem_text_and_license_complete": "UNKNOWN_NOT_TRACKED_AS_JOINED_GLOBAL_STAGE",
+    "deployment_authorized": 0,
+    "training_released": 0
+  },
+  "delta": {
+    "metadata_only_candidates_added": 20,
+    "source_fixed_candidate_archives_added": 4,
+    "new_material_identities_added": 4,
+    "issue_body_sha256_pinned": 24,
+    "license_pointer_present_but_applicability_unverified": 4,
+    "license_applicability_verified": 0,
+    "problem_text_and_license_complete_added": 0,
+    "family_or_root_unique_confirmed": 0,
+    "confirmed_family_edges_added": 0,
+    "deployment_authorized_added": 0,
+    "training_released_added": 0,
+    "actor_authorized_added": 0,
+    "exact_repo_issue_duplicates_with_baseline": 0,
+    "exact_repo_issue_duplicates_within_delta": 0,
+    "potential_family_duplicates_resolved": 0
+  },
+  "cumulative": {
+    "material_identities": 144,
+    "candidate_archive_identities": 120,
+    "metadata_only_candidates_separate_from_material_count": 20,
+    "source_fixed_archives": 120,
+    "source_ready": 85,
+    "problem_text_and_license_complete": "UNKNOWN_NOT_TRACKED_AS_JOINED_GLOBAL_STAGE; delta adds 0",
+    "deployment_authorized": 0,
+    "training_released": 0,
+    "family_or_root_unique_confirmed_from_delta": 0
+  },
+  "counting_notes": [
+    "Exact repo+issue identity was checked against all 140 K62 v23 manifest records; this does not rule out family, fork, backport, or semantic duplicates.",
+    "K40's 20 entries are metadata-only and do not increase material identity or source-archive totals.",
+    "K50's four source archives each have a pinned pre-merge commit, tree and archive SHA; source pinning does not imply source-ready, deployable or trainable.",
+    "K50 manifests list ./LICENSE pointers, but this merge does not establish fixed-base license applicability or project/repo exposure clearance.",
+    "No root, family, split, actor, deployment or training authority is inferred."
+  ],
+  "owners": {
+    "future_k40_k50_source_collection": "联网资料检索员3f / 3f2c8a1f-aa12-4f37-8783-a29d1ef2c245",
+    "bulk_independent_source_and_qualification_review": "KAGGLE-40 review lane / 082bbef2-a827-4e50-bcb2-57ef1f383924",
+    "unknown_base_source_license_dependency_test_adapter_fields_for_k40": "KAGGLE-40 / 3f2c8a1f-aa12-4f37-8783-a29d1ef2c245"
+  }
+}

@@ -1,0 +1,2044 @@
+{
+  "schema": "kaggle67-append-only-global-delta/2",
+  "delta_id": "K67-B01-PLUS-K50-PYTEST-SOURCE-B02",
+  "created_utc": "2026-10-16T06:50:28+00:00",
+  "baseline_pointer": {
+    "owner_issue": "KAGGLE-62",
+    "version": "v23",
+    "attachment_id": "01a13569-f9fe-7956-b699-109addffe133",
+    "package": "KAGGLE-62-consolidated-v23.zip",
+    "sha256": "85c8aff005b7bf961759855b0b427ef335532dc176d846dfa725743e3fba79a5",
+    "preserved_record_count": 140
+  },
+  "inputs": [
+    {
+      "batch": "K40-PSF-REQUESTS-METADATA-B01-20261016",
+      "attachment_id": "01a14348-6979-7bf1-b209-db6209797928",
+      "filename": "K40-psf-requests-metadata-b01-20261016.zip",
+      "sha256": "87553122b396fb7f94364d4a1c9e1cbb9f98342437b0801222c4750fd8dc843b",
+      "records": 20
+    },
+    {
+      "batch": "K40-PSF-REQUESTS-SOURCE-DISPOSITION-B01-V1",
+      "attachment_id": "01a14348-6afb-744b-a01f-8e09892cd734",
+      "filename": "K40-psf-requests-source-disposition-b01-v1.zip",
+      "sha256": "31e375441ce1ab366c1383b8fa9036b9155182836f2a89f16ed61d3036bef2e3",
+      "records": 20
+    },
+    {
+      "batch": "K50-PYTEST-SOURCE-B01",
+      "attachment_id": "01a14335-bb99-734b-a83f-edae883be0bd",
+      "filename": "KAGGLE-50-pytest-source-batch.zip",
+      "sha256": "4545fd75ad46ce70ca327ca5456fcf9a9e1996689eb7ad7b0d614d9ec1019dde",
+      "records": 4
+    },
+    {
+      "batch": "K50-PYTEST-SOURCE-B02",
+      "attachment_id": "01a14374-c381-7b5a-ad65-e0b4f491d395",
+      "filename": "KAGGLE-50-pytest-source-batch-b2.zip",
+      "sha256": "e0e61099869fdf7570cda534cc77096cd16ae963aa32df15948634e03f6c8e7a",
+      "records": 20,
+      "search_cursor_pages": [
+        "Y3Vyc29yOjMw",
+        "Y3Vyc29yOjUw",
+        "Y3Vyc29yOjcw"
+      ],
+      "next_unconsumed_cursor": "Y3Vyc29yOjkw"
+    }
+  ],
+  "merge_contract": "Append-only extension of K67 B01. Preserves its 24 delta records and the K62 v23 140-record baseline pointer; appends only B02's 20 exact repo/issue/base/source records. K62 v24 is used as the current gate/exclusion snapshot.",
+  "dedup": {
+    "baseline_records_compared": 140,
+    "prior_b01_records_compared": 24,
+    "incoming_b02_records": 20,
+    "exact_repo_issue_duplicates_with_baseline": 0,
+    "exact_repo_issue_duplicates_with_prior_delta": 0,
+    "exact_repo_issue_duplicates_within_b02": 0,
+    "exact_repo_issue_base_source_duplicates": 0,
+    "b02_related_refs_pending_family_review": 4,
+    "confirmed_family_edges_added": 0,
+    "potential_family_duplicates_resolved": 0,
+    "family_dedup_disposition": "Related refs are preserved as pending review. No root/family/backport/cross-repository edge is asserted."
+  },
+  "records": [
+    {
+      "stable_id": "psf-requests-6855-metadata-b01",
+      "repo_issue": "psf/requests#6855",
+      "record_type": "metadata_only_candidate",
+      "exact_repo_issue_duplicate_in_baseline": false,
+      "problem_text_sha256": "b9976d57dd338320f73f031f29f1406854a8419a3a9328dfef92e60605cd7159",
+      "base_commit": "UNKNOWN",
+      "base_tree": "UNKNOWN",
+      "source_archive_sha256": "UNKNOWN",
+      "license_evidence": "UNKNOWN",
+      "family_root": "UNKNOWN",
+      "split": "UNASSIGNED",
+      "repo_role_exposure_clearance": "UNKNOWN",
+      "deployment_authorized": false,
+      "training_released": false,
+      "actor_authorized": false,
+      "timeline_disposition": "CONSUMED_RESPONSE_NOT_CAPTURED",
+      "source_next_owner": "KAGGLE-40 / 3f2c8a1f-aa12-4f37-8783-a29d1ef2c245",
+      "bulk_independent_source_review_owner": "KAGGLE-40 review lane / 082bbef2-a827-4e50-bcb2-57ef1f383924",
+      "evidence": {
+        "batch": "K40-PSF-REQUESTS-METADATA-B01-20261016",
+        "metadata_package": "K40-psf-requests-metadata-b01-20261016.zip",
+        "metadata_package_sha256": "87553122b396fb7f94364d4a1c9e1cbb9f98342437b0801222c4750fd8dc843b",
+        "source_disposition_package": "K40-psf-requests-source-disposition-b01-v1.zip",
+        "source_disposition_attachment_id": "01a14348-6afb-744b-a01f-8e09892cd734"
+      }
+    },
+    {
+      "stable_id": "psf-requests-6838-metadata-b01",
+      "repo_issue": "psf/requests#6838",
+      "record_type": "metadata_only_candidate",
+      "exact_repo_issue_duplicate_in_baseline": false,
+      "problem_text_sha256": "64b2dc12b50fcff38b6b39a31637b296e08e2834579b48153d595c7f7c1f9d24",
+      "base_commit": "UNKNOWN",
+      "base_tree": "UNKNOWN",
+      "source_archive_sha256": "UNKNOWN",
+      "license_evidence": "UNKNOWN",
+      "family_root": "UNKNOWN",
+      "split": "UNASSIGNED",
+      "repo_role_exposure_clearance": "UNKNOWN",
+      "deployment_authorized": false,
+      "training_released": false,
+      "actor_authorized": false,
+      "timeline_disposition": "CONSUMED_RESPONSE_NOT_CAPTURED",
+      "source_next_owner": "KAGGLE-40 / 3f2c8a1f-aa12-4f37-8783-a29d1ef2c245",
+      "bulk_independent_source_review_owner": "KAGGLE-40 review lane / 082bbef2-a827-4e50-bcb2-57ef1f383924",
+      "evidence": {
+        "batch": "K40-PSF-REQUESTS-METADATA-B01-20261016",
+        "metadata_package": "K40-psf-requests-metadata-b01-20261016.zip",
+        "metadata_package_sha256": "87553122b396fb7f94364d4a1c9e1cbb9f98342437b0801222c4750fd8dc843b",
+        "source_disposition_package": "K40-psf-requests-source-disposition-b01-v1.zip",
+        "source_disposition_attachment_id": "01a14348-6afb-744b-a01f-8e09892cd734"
+      }
+    },
+    {
+      "stable_id": "psf-requests-6835-metadata-b01",
+      "repo_issue": "psf/requests#6835",
+      "record_type": "metadata_only_candidate",
+      "exact_repo_issue_duplicate_in_baseline": false,
+      "problem_text_sha256": "986bf297100b041324fbaeab325b2ed20adc95932daee9aebcba3d320c8e801e",
+      "base_commit": "UNKNOWN",
+      "base_tree": "UNKNOWN",
+      "source_archive_sha256": "UNKNOWN",
+      "license_evidence": "UNKNOWN",
+      "family_root": "UNKNOWN",
+      "split": "UNASSIGNED",
+      "repo_role_exposure_clearance": "UNKNOWN",
+      "deployment_authorized": false,
+      "training_released": false,
+      "actor_authorized": false,
+      "timeline_disposition": "CONSUMED_RESPONSE_NOT_CAPTURED",
+      "source_next_owner": "KAGGLE-40 / 3f2c8a1f-aa12-4f37-8783-a29d1ef2c245",
+      "bulk_independent_source_review_owner": "KAGGLE-40 review lane / 082bbef2-a827-4e50-bcb2-57ef1f383924",
+      "evidence": {
+        "batch": "K40-PSF-REQUESTS-METADATA-B01-20261016",
+        "metadata_package": "K40-psf-requests-metadata-b01-20261016.zip",
+        "metadata_package_sha256": "87553122b396fb7f94364d4a1c9e1cbb9f98342437b0801222c4750fd8dc843b",
+        "source_disposition_package": "K40-psf-requests-source-disposition-b01-v1.zip",
+        "source_disposition_attachment_id": "01a14348-6afb-744b-a01f-8e09892cd734"
+      }
+    },
+    {
+      "stable_id": "psf-requests-6823-metadata-b01",
+      "repo_issue": "psf/requests#6823",
+      "record_type": "metadata_only_candidate",
+      "exact_repo_issue_duplicate_in_baseline": false,
+      "problem_text_sha256": "bacd933492fc0e6554bcbc17ff83e88666041ca97a4c87e262e0a50f5f25ff3e",
+      "base_commit": "UNKNOWN",
+      "base_tree": "UNKNOWN",
+      "source_archive_sha256": "UNKNOWN",
+      "license_evidence": "UNKNOWN",
+      "family_root": "UNKNOWN",
+      "split": "UNASSIGNED",
+      "repo_role_exposure_clearance": "UNKNOWN",
+      "deployment_authorized": false,
+      "training_released": false,
+      "actor_authorized": false,
+      "timeline_disposition": "CONSUMED_RESPONSE_NOT_CAPTURED",
+      "source_next_owner": "KAGGLE-40 / 3f2c8a1f-aa12-4f37-8783-a29d1ef2c245",
+      "bulk_independent_source_review_owner": "KAGGLE-40 review lane / 082bbef2-a827-4e50-bcb2-57ef1f383924",
+      "evidence": {
+        "batch": "K40-PSF-REQUESTS-METADATA-B01-20261016",
+        "metadata_package": "K40-psf-requests-metadata-b01-20261016.zip",
+        "metadata_package_sha256": "87553122b396fb7f94364d4a1c9e1cbb9f98342437b0801222c4750fd8dc843b",
+        "source_disposition_package": "K40-psf-requests-source-disposition-b01-v1.zip",
+        "source_disposition_attachment_id": "01a14348-6afb-744b-a01f-8e09892cd734"
+      }
+    },
+    {
+      "stable_id": "psf-requests-6815-metadata-b01",
+      "repo_issue": "psf/requests#6815",
+      "record_type": "metadata_only_candidate",
+      "exact_repo_issue_duplicate_in_baseline": false,
+      "problem_text_sha256": "fbf24cfafce8944213e57ab80963325cfabc23915179f05db97afa03d04dd628",
+      "base_commit": "UNKNOWN",
+      "base_tree": "UNKNOWN",
+      "source_archive_sha256": "UNKNOWN",
+      "license_evidence": "UNKNOWN",
+      "family_root": "UNKNOWN",
+      "split": "UNASSIGNED",
+      "repo_role_exposure_clearance": "UNKNOWN",
+      "deployment_authorized": false,
+      "training_released": false,
+      "actor_authorized": false,
+      "timeline_disposition": "CONSUMED_RESPONSE_NOT_CAPTURED",
+      "source_next_owner": "KAGGLE-40 / 3f2c8a1f-aa12-4f37-8783-a29d1ef2c245",
+      "bulk_independent_source_review_owner": "KAGGLE-40 review lane / 082bbef2-a827-4e50-bcb2-57ef1f383924",
+      "evidence": {
+        "batch": "K40-PSF-REQUESTS-METADATA-B01-20261016",
+        "metadata_package": "K40-psf-requests-metadata-b01-20261016.zip",
+        "metadata_package_sha256": "87553122b396fb7f94364d4a1c9e1cbb9f98342437b0801222c4750fd8dc843b",
+        "source_disposition_package": "K40-psf-requests-source-disposition-b01-v1.zip",
+        "source_disposition_attachment_id": "01a14348-6afb-744b-a01f-8e09892cd734"
+      }
+    },
+    {
+      "stable_id": "psf-requests-6813-metadata-b01",
+      "repo_issue": "psf/requests#6813",
+      "record_type": "metadata_only_candidate",
+      "exact_repo_issue_duplicate_in_baseline": false,
+      "problem_text_sha256": "da7be2c4e1b4d1178ccd8d4018498a8acb9f001427bad845add96b4e7a0004a3",
+      "base_commit": "UNKNOWN",
+      "base_tree": "UNKNOWN",
+      "source_archive_sha256": "UNKNOWN",
+      "license_evidence": "UNKNOWN",
+      "family_root": "UNKNOWN",
+      "split": "UNASSIGNED",
+      "repo_role_exposure_clearance": "UNKNOWN",
+      "deployment_authorized": false,
+      "training_released": false,
+      "actor_authorized": false,
+      "timeline_disposition": "CONSUMED_RESPONSE_NOT_CAPTURED",
+      "source_next_owner": "KAGGLE-40 / 3f2c8a1f-aa12-4f37-8783-a29d1ef2c245",
+      "bulk_independent_source_review_owner": "KAGGLE-40 review lane / 082bbef2-a827-4e50-bcb2-57ef1f383924",
+      "evidence": {
+        "batch": "K40-PSF-REQUESTS-METADATA-B01-20261016",
+        "metadata_package": "K40-psf-requests-metadata-b01-20261016.zip",
+        "metadata_package_sha256": "87553122b396fb7f94364d4a1c9e1cbb9f98342437b0801222c4750fd8dc843b",
+        "source_disposition_package": "K40-psf-requests-source-disposition-b01-v1.zip",
+        "source_disposition_attachment_id": "01a14348-6afb-744b-a01f-8e09892cd734"
+      }
+    },
+    {
+      "stable_id": "psf-requests-6809-metadata-b01",
+      "repo_issue": "psf/requests#6809",
+      "record_type": "metadata_only_candidate",
+      "exact_repo_issue_duplicate_in_baseline": false,
+      "problem_text_sha256": "af6091332c4961e7e3289042009866da48178cd7135a571d3e735baf210f5198",
+      "base_commit": "UNKNOWN",
+      "base_tree": "UNKNOWN",
+      "source_archive_sha256": "UNKNOWN",
+      "license_evidence": "UNKNOWN",
+      "family_root": "UNKNOWN",
+      "split": "UNASSIGNED",
+      "repo_role_exposure_clearance": "UNKNOWN",
+      "deployment_authorized": false,
+      "training_released": false,
+      "actor_authorized": false,
+      "timeline_disposition": "CONSUMED_RESPONSE_NOT_CAPTURED",
+      "source_next_owner": "KAGGLE-40 / 3f2c8a1f-aa12-4f37-8783-a29d1ef2c245",
+      "bulk_independent_source_review_owner": "KAGGLE-40 review lane / 082bbef2-a827-4e50-bcb2-57ef1f383924",
+      "evidence": {
+        "batch": "K40-PSF-REQUESTS-METADATA-B01-20261016",
+        "metadata_package": "K40-psf-requests-metadata-b01-20261016.zip",
+        "metadata_package_sha256": "87553122b396fb7f94364d4a1c9e1cbb9f98342437b0801222c4750fd8dc843b",
+        "source_disposition_package": "K40-psf-requests-source-disposition-b01-v1.zip",
+        "source_disposition_attachment_id": "01a14348-6afb-744b-a01f-8e09892cd734"
+      }
+    },
+    {
+      "stable_id": "psf-requests-6804-metadata-b01",
+      "repo_issue": "psf/requests#6804",
+      "record_type": "metadata_only_candidate",
+      "exact_repo_issue_duplicate_in_baseline": false,
+      "problem_text_sha256": "cd0557b471a37059f9a953b7bc26f065225a32d831a0c3214add42b15a1b319b",
+      "base_commit": "UNKNOWN",
+      "base_tree": "UNKNOWN",
+      "source_archive_sha256": "UNKNOWN",
+      "license_evidence": "UNKNOWN",
+      "family_root": "UNKNOWN",
+      "split": "UNASSIGNED",
+      "repo_role_exposure_clearance": "UNKNOWN",
+      "deployment_authorized": false,
+      "training_released": false,
+      "actor_authorized": false,
+      "timeline_disposition": "CONSUMED_RESPONSE_NOT_CAPTURED",
+      "source_next_owner": "KAGGLE-40 / 3f2c8a1f-aa12-4f37-8783-a29d1ef2c245",
+      "bulk_independent_source_review_owner": "KAGGLE-40 review lane / 082bbef2-a827-4e50-bcb2-57ef1f383924",
+      "evidence": {
+        "batch": "K40-PSF-REQUESTS-METADATA-B01-20261016",
+        "metadata_package": "K40-psf-requests-metadata-b01-20261016.zip",
+        "metadata_package_sha256": "87553122b396fb7f94364d4a1c9e1cbb9f98342437b0801222c4750fd8dc843b",
+        "source_disposition_package": "K40-psf-requests-source-disposition-b01-v1.zip",
+        "source_disposition_attachment_id": "01a14348-6afb-744b-a01f-8e09892cd734"
+      }
+    },
+    {
+      "stable_id": "psf-requests-6800-metadata-b01",
+      "repo_issue": "psf/requests#6800",
+      "record_type": "metadata_only_candidate",
+      "exact_repo_issue_duplicate_in_baseline": false,
+      "problem_text_sha256": "be79aa97cf08d16ef5eb3cdd1be182ebb71e8085ec65959de154628bbb81e09e",
+      "base_commit": "UNKNOWN",
+      "base_tree": "UNKNOWN",
+      "source_archive_sha256": "UNKNOWN",
+      "license_evidence": "UNKNOWN",
+      "family_root": "UNKNOWN",
+      "split": "UNASSIGNED",
+      "repo_role_exposure_clearance": "UNKNOWN",
+      "deployment_authorized": false,
+      "training_released": false,
+      "actor_authorized": false,
+      "timeline_disposition": "CONSUMED_RESPONSE_NOT_CAPTURED",
+      "source_next_owner": "KAGGLE-40 / 3f2c8a1f-aa12-4f37-8783-a29d1ef2c245",
+      "bulk_independent_source_review_owner": "KAGGLE-40 review lane / 082bbef2-a827-4e50-bcb2-57ef1f383924",
+      "evidence": {
+        "batch": "K40-PSF-REQUESTS-METADATA-B01-20261016",
+        "metadata_package": "K40-psf-requests-metadata-b01-20261016.zip",
+        "metadata_package_sha256": "87553122b396fb7f94364d4a1c9e1cbb9f98342437b0801222c4750fd8dc843b",
+        "source_disposition_package": "K40-psf-requests-source-disposition-b01-v1.zip",
+        "source_disposition_attachment_id": "01a14348-6afb-744b-a01f-8e09892cd734"
+      }
+    },
+    {
+      "stable_id": "psf-requests-6794-metadata-b01",
+      "repo_issue": "psf/requests#6794",
+      "record_type": "metadata_only_candidate",
+      "exact_repo_issue_duplicate_in_baseline": false,
+      "problem_text_sha256": "ff93306f43c1d41db0234e516690db9a3d0640632def23c0976f6a15b4cf67da",
+      "base_commit": "UNKNOWN",
+      "base_tree": "UNKNOWN",
+      "source_archive_sha256": "UNKNOWN",
+      "license_evidence": "UNKNOWN",
+      "family_root": "UNKNOWN",
+      "split": "UNASSIGNED",
+      "repo_role_exposure_clearance": "UNKNOWN",
+      "deployment_authorized": false,
+      "training_released": false,
+      "actor_authorized": false,
+      "timeline_disposition": "CONSUMED_RESPONSE_NOT_CAPTURED",
+      "source_next_owner": "KAGGLE-40 / 3f2c8a1f-aa12-4f37-8783-a29d1ef2c245",
+      "bulk_independent_source_review_owner": "KAGGLE-40 review lane / 082bbef2-a827-4e50-bcb2-57ef1f383924",
+      "evidence": {
+        "batch": "K40-PSF-REQUESTS-METADATA-B01-20261016",
+        "metadata_package": "K40-psf-requests-metadata-b01-20261016.zip",
+        "metadata_package_sha256": "87553122b396fb7f94364d4a1c9e1cbb9f98342437b0801222c4750fd8dc843b",
+        "source_disposition_package": "K40-psf-requests-source-disposition-b01-v1.zip",
+        "source_disposition_attachment_id": "01a14348-6afb-744b-a01f-8e09892cd734"
+      }
+    },
+    {
+      "stable_id": "psf-requests-6775-metadata-b01",
+      "repo_issue": "psf/requests#6775",
+      "record_type": "metadata_only_candidate",
+      "exact_repo_issue_duplicate_in_baseline": false,
+      "problem_text_sha256": "6fa5b398171ab4f3babfdfd8144a99a9a960ed09efdf3077177b3d4ff61af7df",
+      "base_commit": "UNKNOWN",
+      "base_tree": "UNKNOWN",
+      "source_archive_sha256": "UNKNOWN",
+      "license_evidence": "UNKNOWN",
+      "family_root": "UNKNOWN",
+      "split": "UNASSIGNED",
+      "repo_role_exposure_clearance": "UNKNOWN",
+      "deployment_authorized": false,
+      "training_released": false,
+      "actor_authorized": false,
+      "timeline_disposition": "CONSUMED_RESPONSE_NOT_CAPTURED",
+      "source_next_owner": "KAGGLE-40 / 3f2c8a1f-aa12-4f37-8783-a29d1ef2c245",
+      "bulk_independent_source_review_owner": "KAGGLE-40 review lane / 082bbef2-a827-4e50-bcb2-57ef1f383924",
+      "evidence": {
+        "batch": "K40-PSF-REQUESTS-METADATA-B01-20261016",
+        "metadata_package": "K40-psf-requests-metadata-b01-20261016.zip",
+        "metadata_package_sha256": "87553122b396fb7f94364d4a1c9e1cbb9f98342437b0801222c4750fd8dc843b",
+        "source_disposition_package": "K40-psf-requests-source-disposition-b01-v1.zip",
+        "source_disposition_attachment_id": "01a14348-6afb-744b-a01f-8e09892cd734"
+      }
+    },
+    {
+      "stable_id": "psf-requests-6768-metadata-b01",
+      "repo_issue": "psf/requests#6768",
+      "record_type": "metadata_only_candidate",
+      "exact_repo_issue_duplicate_in_baseline": false,
+      "problem_text_sha256": "469baf1477688f0cfa0ccafc0285206d832742801f2fed9f1ce1e0bfe77b1e40",
+      "base_commit": "UNKNOWN",
+      "base_tree": "UNKNOWN",
+      "source_archive_sha256": "UNKNOWN",
+      "license_evidence": "UNKNOWN",
+      "family_root": "UNKNOWN",
+      "split": "UNASSIGNED",
+      "repo_role_exposure_clearance": "UNKNOWN",
+      "deployment_authorized": false,
+      "training_released": false,
+      "actor_authorized": false,
+      "timeline_disposition": "CONSUMED_RESPONSE_NOT_CAPTURED",
+      "source_next_owner": "KAGGLE-40 / 3f2c8a1f-aa12-4f37-8783-a29d1ef2c245",
+      "bulk_independent_source_review_owner": "KAGGLE-40 review lane / 082bbef2-a827-4e50-bcb2-57ef1f383924",
+      "evidence": {
+        "batch": "K40-PSF-REQUESTS-METADATA-B01-20261016",
+        "metadata_package": "K40-psf-requests-metadata-b01-20261016.zip",
+        "metadata_package_sha256": "87553122b396fb7f94364d4a1c9e1cbb9f98342437b0801222c4750fd8dc843b",
+        "source_disposition_package": "K40-psf-requests-source-disposition-b01-v1.zip",
+        "source_disposition_attachment_id": "01a14348-6afb-744b-a01f-8e09892cd734"
+      }
+    },
+    {
+      "stable_id": "psf-requests-6763-metadata-b01",
+      "repo_issue": "psf/requests#6763",
+      "record_type": "metadata_only_candidate",
+      "exact_repo_issue_duplicate_in_baseline": false,
+      "problem_text_sha256": "e497b6abd12542994c24e7cb7a42da41f9b7ade1dab24f41c5c565e865560a0b",
+      "base_commit": "UNKNOWN",
+      "base_tree": "UNKNOWN",
+      "source_archive_sha256": "UNKNOWN",
+      "license_evidence": "UNKNOWN",
+      "family_root": "UNKNOWN",
+      "split": "UNASSIGNED",
+      "repo_role_exposure_clearance": "UNKNOWN",
+      "deployment_authorized": false,
+      "training_released": false,
+      "actor_authorized": false,
+      "timeline_disposition": "CONSUMED_RESPONSE_NOT_CAPTURED",
+      "source_next_owner": "KAGGLE-40 / 3f2c8a1f-aa12-4f37-8783-a29d1ef2c245",
+      "bulk_independent_source_review_owner": "KAGGLE-40 review lane / 082bbef2-a827-4e50-bcb2-57ef1f383924",
+      "evidence": {
+        "batch": "K40-PSF-REQUESTS-METADATA-B01-20261016",
+        "metadata_package": "K40-psf-requests-metadata-b01-20261016.zip",
+        "metadata_package_sha256": "87553122b396fb7f94364d4a1c9e1cbb9f98342437b0801222c4750fd8dc843b",
+        "source_disposition_package": "K40-psf-requests-source-disposition-b01-v1.zip",
+        "source_disposition_attachment_id": "01a14348-6afb-744b-a01f-8e09892cd734"
+      }
+    },
+    {
+      "stable_id": "psf-requests-6762-metadata-b01",
+      "repo_issue": "psf/requests#6762",
+      "record_type": "metadata_only_candidate",
+      "exact_repo_issue_duplicate_in_baseline": false,
+      "problem_text_sha256": "0abe64ada3f88807677f8ec5cda3fb558b3cf014efad79b09282601a9e946213",
+      "base_commit": "UNKNOWN",
+      "base_tree": "UNKNOWN",
+      "source_archive_sha256": "UNKNOWN",
+      "license_evidence": "UNKNOWN",
+      "family_root": "UNKNOWN",
+      "split": "UNASSIGNED",
+      "repo_role_exposure_clearance": "UNKNOWN",
+      "deployment_authorized": false,
+      "training_released": false,
+      "actor_authorized": false,
+      "timeline_disposition": "CONSUMED_RESPONSE_NOT_CAPTURED",
+      "source_next_owner": "KAGGLE-40 / 3f2c8a1f-aa12-4f37-8783-a29d1ef2c245",
+      "bulk_independent_source_review_owner": "KAGGLE-40 review lane / 082bbef2-a827-4e50-bcb2-57ef1f383924",
+      "evidence": {
+        "batch": "K40-PSF-REQUESTS-METADATA-B01-20261016",
+        "metadata_package": "K40-psf-requests-metadata-b01-20261016.zip",
+        "metadata_package_sha256": "87553122b396fb7f94364d4a1c9e1cbb9f98342437b0801222c4750fd8dc843b",
+        "source_disposition_package": "K40-psf-requests-source-disposition-b01-v1.zip",
+        "source_disposition_attachment_id": "01a14348-6afb-744b-a01f-8e09892cd734"
+      }
+    },
+    {
+      "stable_id": "psf-requests-6751-metadata-b01",
+      "repo_issue": "psf/requests#6751",
+      "record_type": "metadata_only_candidate",
+      "exact_repo_issue_duplicate_in_baseline": false,
+      "problem_text_sha256": "23c6086c1a04ea9420580dff4145073c3a05e08a0d5ee97ba33ea703dbf772af",
+      "base_commit": "UNKNOWN",
+      "base_tree": "UNKNOWN",
+      "source_archive_sha256": "UNKNOWN",
+      "license_evidence": "UNKNOWN",
+      "family_root": "UNKNOWN",
+      "split": "UNASSIGNED",
+      "repo_role_exposure_clearance": "UNKNOWN",
+      "deployment_authorized": false,
+      "training_released": false,
+      "actor_authorized": false,
+      "timeline_disposition": "CONSUMED_RESPONSE_NOT_CAPTURED",
+      "source_next_owner": "KAGGLE-40 / 3f2c8a1f-aa12-4f37-8783-a29d1ef2c245",
+      "bulk_independent_source_review_owner": "KAGGLE-40 review lane / 082bbef2-a827-4e50-bcb2-57ef1f383924",
+      "evidence": {
+        "batch": "K40-PSF-REQUESTS-METADATA-B01-20261016",
+        "metadata_package": "K40-psf-requests-metadata-b01-20261016.zip",
+        "metadata_package_sha256": "87553122b396fb7f94364d4a1c9e1cbb9f98342437b0801222c4750fd8dc843b",
+        "source_disposition_package": "K40-psf-requests-source-disposition-b01-v1.zip",
+        "source_disposition_attachment_id": "01a14348-6afb-744b-a01f-8e09892cd734"
+      }
+    },
+    {
+      "stable_id": "psf-requests-6744-metadata-b01",
+      "repo_issue": "psf/requests#6744",
+      "record_type": "metadata_only_candidate",
+      "exact_repo_issue_duplicate_in_baseline": false,
+      "problem_text_sha256": "b30049c867f708f8db54fdef992ffd71c9c816d1dc32c7e9cb60df2bf07a95b7",
+      "base_commit": "UNKNOWN",
+      "base_tree": "UNKNOWN",
+      "source_archive_sha256": "UNKNOWN",
+      "license_evidence": "UNKNOWN",
+      "family_root": "UNKNOWN",
+      "split": "UNASSIGNED",
+      "repo_role_exposure_clearance": "UNKNOWN",
+      "deployment_authorized": false,
+      "training_released": false,
+      "actor_authorized": false,
+      "timeline_disposition": "CONSUMED_RESPONSE_NOT_CAPTURED",
+      "source_next_owner": "KAGGLE-40 / 3f2c8a1f-aa12-4f37-8783-a29d1ef2c245",
+      "bulk_independent_source_review_owner": "KAGGLE-40 review lane / 082bbef2-a827-4e50-bcb2-57ef1f383924",
+      "evidence": {
+        "batch": "K40-PSF-REQUESTS-METADATA-B01-20261016",
+        "metadata_package": "K40-psf-requests-metadata-b01-20261016.zip",
+        "metadata_package_sha256": "87553122b396fb7f94364d4a1c9e1cbb9f98342437b0801222c4750fd8dc843b",
+        "source_disposition_package": "K40-psf-requests-source-disposition-b01-v1.zip",
+        "source_disposition_attachment_id": "01a14348-6afb-744b-a01f-8e09892cd734"
+      }
+    },
+    {
+      "stable_id": "psf-requests-6742-metadata-b01",
+      "repo_issue": "psf/requests#6742",
+      "record_type": "metadata_only_candidate",
+      "exact_repo_issue_duplicate_in_baseline": false,
+      "problem_text_sha256": "20d64d90e6bec66c5094a7f0bf3f2ebd4da8214a511573bdbf9239a41f65702c",
+      "base_commit": "UNKNOWN",
+      "base_tree": "UNKNOWN",
+      "source_archive_sha256": "UNKNOWN",
+      "license_evidence": "UNKNOWN",
+      "family_root": "UNKNOWN",
+      "split": "UNASSIGNED",
+      "repo_role_exposure_clearance": "UNKNOWN",
+      "deployment_authorized": false,
+      "training_released": false,
+      "actor_authorized": false,
+      "timeline_disposition": "CONSUMED_RESPONSE_NOT_CAPTURED",
+      "source_next_owner": "KAGGLE-40 / 3f2c8a1f-aa12-4f37-8783-a29d1ef2c245",
+      "bulk_independent_source_review_owner": "KAGGLE-40 review lane / 082bbef2-a827-4e50-bcb2-57ef1f383924",
+      "evidence": {
+        "batch": "K40-PSF-REQUESTS-METADATA-B01-20261016",
+        "metadata_package": "K40-psf-requests-metadata-b01-20261016.zip",
+        "metadata_package_sha256": "87553122b396fb7f94364d4a1c9e1cbb9f98342437b0801222c4750fd8dc843b",
+        "source_disposition_package": "K40-psf-requests-source-disposition-b01-v1.zip",
+        "source_disposition_attachment_id": "01a14348-6afb-744b-a01f-8e09892cd734"
+      }
+    },
+    {
+      "stable_id": "psf-requests-6741-metadata-b01",
+      "repo_issue": "psf/requests#6741",
+      "record_type": "metadata_only_candidate",
+      "exact_repo_issue_duplicate_in_baseline": false,
+      "problem_text_sha256": "d55a913de6dea356304ef3b9614e1daa42f615f24365e7d1facef113fbc25d63",
+      "base_commit": "UNKNOWN",
+      "base_tree": "UNKNOWN",
+      "source_archive_sha256": "UNKNOWN",
+      "license_evidence": "UNKNOWN",
+      "family_root": "UNKNOWN",
+      "split": "UNASSIGNED",
+      "repo_role_exposure_clearance": "UNKNOWN",
+      "deployment_authorized": false,
+      "training_released": false,
+      "actor_authorized": false,
+      "timeline_disposition": "CONSUMED_RESPONSE_NOT_CAPTURED",
+      "source_next_owner": "KAGGLE-40 / 3f2c8a1f-aa12-4f37-8783-a29d1ef2c245",
+      "bulk_independent_source_review_owner": "KAGGLE-40 review lane / 082bbef2-a827-4e50-bcb2-57ef1f383924",
+      "evidence": {
+        "batch": "K40-PSF-REQUESTS-METADATA-B01-20261016",
+        "metadata_package": "K40-psf-requests-metadata-b01-20261016.zip",
+        "metadata_package_sha256": "87553122b396fb7f94364d4a1c9e1cbb9f98342437b0801222c4750fd8dc843b",
+        "source_disposition_package": "K40-psf-requests-source-disposition-b01-v1.zip",
+        "source_disposition_attachment_id": "01a14348-6afb-744b-a01f-8e09892cd734"
+      }
+    },
+    {
+      "stable_id": "psf-requests-6736-metadata-b01",
+      "repo_issue": "psf/requests#6736",
+      "record_type": "metadata_only_candidate",
+      "exact_repo_issue_duplicate_in_baseline": false,
+      "problem_text_sha256": "aff508662aae970543dee866e10b636800b4a0b7de03cc99acc6fe9a45136240",
+      "base_commit": "UNKNOWN",
+      "base_tree": "UNKNOWN",
+      "source_archive_sha256": "UNKNOWN",
+      "license_evidence": "UNKNOWN",
+      "family_root": "UNKNOWN",
+      "split": "UNASSIGNED",
+      "repo_role_exposure_clearance": "UNKNOWN",
+      "deployment_authorized": false,
+      "training_released": false,
+      "actor_authorized": false,
+      "timeline_disposition": "CONSUMED_RESPONSE_NOT_CAPTURED",
+      "source_next_owner": "KAGGLE-40 / 3f2c8a1f-aa12-4f37-8783-a29d1ef2c245",
+      "bulk_independent_source_review_owner": "KAGGLE-40 review lane / 082bbef2-a827-4e50-bcb2-57ef1f383924",
+      "evidence": {
+        "batch": "K40-PSF-REQUESTS-METADATA-B01-20261016",
+        "metadata_package": "K40-psf-requests-metadata-b01-20261016.zip",
+        "metadata_package_sha256": "87553122b396fb7f94364d4a1c9e1cbb9f98342437b0801222c4750fd8dc843b",
+        "source_disposition_package": "K40-psf-requests-source-disposition-b01-v1.zip",
+        "source_disposition_attachment_id": "01a14348-6afb-744b-a01f-8e09892cd734"
+      }
+    },
+    {
+      "stable_id": "psf-requests-6733-metadata-b01",
+      "repo_issue": "psf/requests#6733",
+      "record_type": "metadata_only_candidate",
+      "exact_repo_issue_duplicate_in_baseline": false,
+      "problem_text_sha256": "2e973a3e4ff9b45503a2494326a4f2c718da82f9ddaa8def0ea9f069ec7e2993",
+      "base_commit": "UNKNOWN",
+      "base_tree": "UNKNOWN",
+      "source_archive_sha256": "UNKNOWN",
+      "license_evidence": "UNKNOWN",
+      "family_root": "UNKNOWN",
+      "split": "UNASSIGNED",
+      "repo_role_exposure_clearance": "UNKNOWN",
+      "deployment_authorized": false,
+      "training_released": false,
+      "actor_authorized": false,
+      "timeline_disposition": "CONSUMED_RESPONSE_NOT_CAPTURED",
+      "source_next_owner": "KAGGLE-40 / 3f2c8a1f-aa12-4f37-8783-a29d1ef2c245",
+      "bulk_independent_source_review_owner": "KAGGLE-40 review lane / 082bbef2-a827-4e50-bcb2-57ef1f383924",
+      "evidence": {
+        "batch": "K40-PSF-REQUESTS-METADATA-B01-20261016",
+        "metadata_package": "K40-psf-requests-metadata-b01-20261016.zip",
+        "metadata_package_sha256": "87553122b396fb7f94364d4a1c9e1cbb9f98342437b0801222c4750fd8dc843b",
+        "source_disposition_package": "K40-psf-requests-source-disposition-b01-v1.zip",
+        "source_disposition_attachment_id": "01a14348-6afb-744b-a01f-8e09892cd734"
+      }
+    },
+    {
+      "stable_id": "pytest-dev-pytest-13865-source-b01",
+      "repo_issue": "pytest-dev/pytest#13865",
+      "record_type": "source_fixed_candidate_archive",
+      "exact_repo_issue_duplicate_in_baseline": false,
+      "candidate_identity_key": "pytest-dev/pytest#13865|closing-pr#13868|base:0e1b42a809bd77303822e5d8f2efcb9b7d03c237",
+      "problem_text_sha256": "88c69d84e5124de41c7f885e91fc870e1faa8393c01ee9195bcc0848529774a9",
+      "base_commit": "0e1b42a809bd77303822e5d8f2efcb9b7d03c237",
+      "base_tree": "511b197de34bd3655e637a34be6856242894828b",
+      "source_archive_sha256": "869c94a4d1a2407d5dd03fb1fc3e8d8209280d3c17fd6678c6d5be191d733155",
+      "source_archive_bytes": 1555130,
+      "license_pointer": [
+        "./LICENSE"
+      ],
+      "license_applicability": "UNVERIFIED",
+      "family_root": "UNKNOWN",
+      "source_role": "UNKNOWN",
+      "split": "UNASSIGNED",
+      "environment_materialized": false,
+      "acceptance_verified": false,
+      "repo_role_exposure_clearance": "UNVERIFIED",
+      "deployment_authorized": false,
+      "training_released": false,
+      "actor_authorized": false,
+      "next_source_and_qualification_review_owner": "KAGGLE-40 review lane / 082bbef2-a827-4e50-bcb2-57ef1f383924",
+      "future_collection_owner": "联网资料检索员3f / 3f2c8a1f-aa12-4f37-8783-a29d1ef2c245",
+      "evidence": {
+        "batch": "K50-PYTEST-SOURCE-B01",
+        "source_package": "KAGGLE-50-pytest-source-batch.zip",
+        "source_package_sha256": "4545fd75ad46ce70ca327ca5456fcf9a9e1996689eb7ad7b0d614d9ec1019dde",
+        "manifest_path_in_package": "pytest-13865/manifest.json"
+      }
+    },
+    {
+      "stable_id": "pytest-dev-pytest-13910-source-b01",
+      "repo_issue": "pytest-dev/pytest#13910",
+      "record_type": "source_fixed_candidate_archive",
+      "exact_repo_issue_duplicate_in_baseline": false,
+      "candidate_identity_key": "pytest-dev/pytest#13910|closing-pr#13922|base:f0e458520e129dabdc27cbd6e15a35ce7662e31b",
+      "problem_text_sha256": "d9c74c25948c93597a76176b89e333104221289eaee63608229f73cc4b138925",
+      "base_commit": "f0e458520e129dabdc27cbd6e15a35ce7662e31b",
+      "base_tree": "7deef9f10cb50d06e804dbf08c5748814cab3d59",
+      "source_archive_sha256": "33eb4d9eec0dcf9079006d061254b2b413d45cff244d211760ffcaeb4bb4d17d",
+      "source_archive_bytes": 1558959,
+      "license_pointer": [
+        "./LICENSE"
+      ],
+      "license_applicability": "UNVERIFIED",
+      "family_root": "UNKNOWN",
+      "source_role": "UNKNOWN",
+      "split": "UNASSIGNED",
+      "environment_materialized": false,
+      "acceptance_verified": false,
+      "repo_role_exposure_clearance": "UNVERIFIED",
+      "deployment_authorized": false,
+      "training_released": false,
+      "actor_authorized": false,
+      "next_source_and_qualification_review_owner": "KAGGLE-40 review lane / 082bbef2-a827-4e50-bcb2-57ef1f383924",
+      "future_collection_owner": "联网资料检索员3f / 3f2c8a1f-aa12-4f37-8783-a29d1ef2c245",
+      "evidence": {
+        "batch": "K50-PYTEST-SOURCE-B01",
+        "source_package": "KAGGLE-50-pytest-source-batch.zip",
+        "source_package_sha256": "4545fd75ad46ce70ca327ca5456fcf9a9e1996689eb7ad7b0d614d9ec1019dde",
+        "manifest_path_in_package": "pytest-13910/manifest.json"
+      }
+    },
+    {
+      "stable_id": "pytest-dev-pytest-13946-source-b01",
+      "repo_issue": "pytest-dev/pytest#13946",
+      "record_type": "source_fixed_candidate_archive",
+      "exact_repo_issue_duplicate_in_baseline": false,
+      "candidate_identity_key": "pytest-dev/pytest#13946|closing-pr#13955|base:9668d3b1e62e40be90a55d4a4be03521a95bed7f",
+      "problem_text_sha256": "1c5457a4d9cf5318a919abe32399c61ffdbc1e9f1c695952f435ea9f8cae4b51",
+      "base_commit": "9668d3b1e62e40be90a55d4a4be03521a95bed7f",
+      "base_tree": "81536df6e640d06398baa74946c0b1d8a2e87440",
+      "source_archive_sha256": "41c37a3b47e2c00c1c25e0ce76e0a6f12ff8cc33d5c6305dbd5151f171ad468d",
+      "source_archive_bytes": 1555936,
+      "license_pointer": [
+        "./LICENSE"
+      ],
+      "license_applicability": "UNVERIFIED",
+      "family_root": "UNKNOWN",
+      "source_role": "UNKNOWN",
+      "split": "UNASSIGNED",
+      "environment_materialized": false,
+      "acceptance_verified": false,
+      "repo_role_exposure_clearance": "UNVERIFIED",
+      "deployment_authorized": false,
+      "training_released": false,
+      "actor_authorized": false,
+      "next_source_and_qualification_review_owner": "KAGGLE-40 review lane / 082bbef2-a827-4e50-bcb2-57ef1f383924",
+      "future_collection_owner": "联网资料检索员3f / 3f2c8a1f-aa12-4f37-8783-a29d1ef2c245",
+      "evidence": {
+        "batch": "K50-PYTEST-SOURCE-B01",
+        "source_package": "KAGGLE-50-pytest-source-batch.zip",
+        "source_package_sha256": "4545fd75ad46ce70ca327ca5456fcf9a9e1996689eb7ad7b0d614d9ec1019dde",
+        "manifest_path_in_package": "pytest-13946/manifest.json"
+      }
+    },
+    {
+      "stable_id": "pytest-dev-pytest-13972-source-b01",
+      "repo_issue": "pytest-dev/pytest#13972",
+      "record_type": "source_fixed_candidate_archive",
+      "exact_repo_issue_duplicate_in_baseline": false,
+      "candidate_identity_key": "pytest-dev/pytest#13972|closing-pr#13971|base:dd389d7f9290d8581a1c3d14c5adc07a4dda9bec",
+      "problem_text_sha256": "6016ae6559d2d81a00a2df8c5828b0e6b6a16c183188a5981ef34cc34cbdc552",
+      "base_commit": "dd389d7f9290d8581a1c3d14c5adc07a4dda9bec",
+      "base_tree": "6b53a05a44179ea5e8de7061e9f9f17c3c0a73d6",
+      "source_archive_sha256": "cfc7782dbb55c7c1cbd3e6b8db21049535c32129a12991cdc88c8ce55d1ffa48",
+      "source_archive_bytes": 1561041,
+      "license_pointer": [
+        "./LICENSE"
+      ],
+      "license_applicability": "UNVERIFIED",
+      "family_root": "UNKNOWN",
+      "source_role": "UNKNOWN",
+      "split": "UNASSIGNED",
+      "environment_materialized": false,
+      "acceptance_verified": false,
+      "repo_role_exposure_clearance": "UNVERIFIED",
+      "deployment_authorized": false,
+      "training_released": false,
+      "actor_authorized": false,
+      "next_source_and_qualification_review_owner": "KAGGLE-40 review lane / 082bbef2-a827-4e50-bcb2-57ef1f383924",
+      "future_collection_owner": "联网资料检索员3f / 3f2c8a1f-aa12-4f37-8783-a29d1ef2c245",
+      "evidence": {
+        "batch": "K50-PYTEST-SOURCE-B01",
+        "source_package": "KAGGLE-50-pytest-source-batch.zip",
+        "source_package_sha256": "4545fd75ad46ce70ca327ca5456fcf9a9e1996689eb7ad7b0d614d9ec1019dde",
+        "manifest_path_in_package": "pytest-13972/manifest.json"
+      }
+    },
+    {
+      "stable_id": "pytest-dev-pytest-13549-source-b02",
+      "repo_issue": "pytest-dev/pytest#13549",
+      "record_type": "source_fixed_candidate_archive",
+      "candidate_identity_key": "pytest-dev/pytest#13549|closing-pr#13550|base:48be3c8bce38bc950dba82747d3ecf451a3f45c8",
+      "exact_repo_issue_duplicate_in_baseline": false,
+      "exact_repo_issue_base_source_duplicate": false,
+      "problem_text_sha256": "3ab97ae1d427d96da4c1b5e0657aa96f1a8eedae5123ee55ad624d98c5cd3cdd",
+      "base_commit": "48be3c8bce38bc950dba82747d3ecf451a3f45c8",
+      "base_tree": "aa501c6a60e0a43abab53bd7782f4785c4dd8b9f",
+      "source_archive_sha256": "8e908c6408315fa1f332b69072b036d7dfe536ae24b453e9d6e74c371bae4a8e",
+      "source_archive_bytes": 1510105,
+      "source_archive_member": "pytest-13549/base.tar.gz",
+      "license_pointer": [
+        "pytest-13549/LICENSE"
+      ],
+      "license_applicability": "UNVERIFIED",
+      "family_root": "UNKNOWN",
+      "related_issue_refs": [],
+      "family_clearance": "UNKNOWN_PENDING_K62_FAMILY_DEDUP_REVIEW",
+      "source_role": "UNKNOWN",
+      "split": "UNASSIGNED",
+      "actor_visible": false,
+      "trusted_acceptance": false,
+      "environment_materialized": false,
+      "acceptance_verified": false,
+      "repo_role_exposure_clearance": "UNVERIFIED",
+      "deployment_authorized": false,
+      "training_released": false,
+      "training_release": "BLOCKED",
+      "not_verified": [
+        "independent broken-base reproduction",
+        "candidate test run",
+        "environment lock/materialization",
+        "complete root/backport and cross-repository family clearance",
+        "task source role/split/training-use authorization"
+      ],
+      "next_source_and_family_review_owner": "KAGGLE-40 review lane / 082bbef2-a827-4e50-bcb2-57ef1f383924",
+      "evidence": {
+        "batch": "KAGGLE-50-PYTEST-SOURCE-B02",
+        "source_package": "KAGGLE-50-pytest-source-batch-b2.zip",
+        "source_package_attachment_id": "01a14374-c381-7b5a-ad65-e0b4f491d395",
+        "source_package_sha256": "e0e61099869fdf7570cda534cc77096cd16ae963aa32df15948634e03f6c8e7a",
+        "manifest_path_in_package": "pytest-13549/manifest.json",
+        "public_issue_url": "https://github.com/pytest-dev/pytest/issues/13549",
+        "closing_pr_ref": "https://github.com/pytest-dev/pytest/pull/13550",
+        "merge_commit": "8ca783cf4a3b4007f513a7446b7069d4dac52587",
+        "merge_tree": "aa501c6a60e0a43abab53bd7782f4785c4dd8b9f",
+        "historical_license_sha256": "CA836A5F9ECCA3B2F350230FAA20A48FB8B145653B5568D784862DF864706B9B",
+        "dependency_declarations": [
+          {
+            "path": "./pyproject.toml",
+            "bytes": 18040,
+            "sha256": "86BB505046130F7AC5606D3EA50DF8F5335103A57706CA2F73538775526A562D"
+          },
+          {
+            "path": "./tox.ini",
+            "bytes": 6480,
+            "sha256": "A0315E004144D9A86D3190C96D95D865A5EC15C28EF85A97F901510ECD770DB7"
+          }
+        ],
+        "public_test_path_inventory": "pytest-13549/public-test-paths.json"
+      }
+    },
+    {
+      "stable_id": "pytest-dev-pytest-13559-source-b02",
+      "repo_issue": "pytest-dev/pytest#13559",
+      "record_type": "source_fixed_candidate_archive",
+      "candidate_identity_key": "pytest-dev/pytest#13559|closing-pr#13560|base:cc580b53beb09ab8385c9fa4c9532aa90a294ded",
+      "exact_repo_issue_duplicate_in_baseline": false,
+      "exact_repo_issue_base_source_duplicate": false,
+      "problem_text_sha256": "c1bf7190d7c26cac152ab36d9c6284a4c85616e5e640686b76226e97654f66f5",
+      "base_commit": "cc580b53beb09ab8385c9fa4c9532aa90a294ded",
+      "base_tree": "4af7f395cabe63ca9effe5246573a934856f26fb",
+      "source_archive_sha256": "0e4605e8e4ac1dec3e0d0d7d83c6c253741cb8e016bf5c072667a34e7de8f88b",
+      "source_archive_bytes": 1512161,
+      "source_archive_member": "pytest-13559/base.tar.gz",
+      "license_pointer": [
+        "pytest-13559/LICENSE"
+      ],
+      "license_applicability": "UNVERIFIED",
+      "family_root": "UNKNOWN",
+      "related_issue_refs": [],
+      "family_clearance": "UNKNOWN_PENDING_K62_FAMILY_DEDUP_REVIEW",
+      "source_role": "UNKNOWN",
+      "split": "UNASSIGNED",
+      "actor_visible": false,
+      "trusted_acceptance": false,
+      "environment_materialized": false,
+      "acceptance_verified": false,
+      "repo_role_exposure_clearance": "UNVERIFIED",
+      "deployment_authorized": false,
+      "training_released": false,
+      "training_release": "BLOCKED",
+      "not_verified": [
+        "independent broken-base reproduction",
+        "candidate test run",
+        "environment lock/materialization",
+        "complete root/backport and cross-repository family clearance",
+        "task source role/split/training-use authorization"
+      ],
+      "next_source_and_family_review_owner": "KAGGLE-40 review lane / 082bbef2-a827-4e50-bcb2-57ef1f383924",
+      "evidence": {
+        "batch": "KAGGLE-50-PYTEST-SOURCE-B02",
+        "source_package": "KAGGLE-50-pytest-source-batch-b2.zip",
+        "source_package_attachment_id": "01a14374-c381-7b5a-ad65-e0b4f491d395",
+        "source_package_sha256": "e0e61099869fdf7570cda534cc77096cd16ae963aa32df15948634e03f6c8e7a",
+        "manifest_path_in_package": "pytest-13559/manifest.json",
+        "public_issue_url": "https://github.com/pytest-dev/pytest/issues/13559",
+        "closing_pr_ref": "https://github.com/pytest-dev/pytest/pull/13560",
+        "merge_commit": "ae7346114d65e3a2c0ccd77af8a0ca00012cd91d",
+        "merge_tree": "4af7f395cabe63ca9effe5246573a934856f26fb",
+        "historical_license_sha256": "CA836A5F9ECCA3B2F350230FAA20A48FB8B145653B5568D784862DF864706B9B",
+        "dependency_declarations": [
+          {
+            "path": "./pyproject.toml",
+            "bytes": 18040,
+            "sha256": "86BB505046130F7AC5606D3EA50DF8F5335103A57706CA2F73538775526A562D"
+          },
+          {
+            "path": "./tox.ini",
+            "bytes": 6480,
+            "sha256": "A0315E004144D9A86D3190C96D95D865A5EC15C28EF85A97F901510ECD770DB7"
+          }
+        ],
+        "public_test_path_inventory": "pytest-13559/public-test-paths.json"
+      }
+    },
+    {
+      "stable_id": "pytest-dev-pytest-13574-source-b02",
+      "repo_issue": "pytest-dev/pytest#13574",
+      "record_type": "source_fixed_candidate_archive",
+      "candidate_identity_key": "pytest-dev/pytest#13574|closing-pr#13575|base:37acc4fcc37ccbc3a0a4dd6763521b3415424b63",
+      "exact_repo_issue_duplicate_in_baseline": false,
+      "exact_repo_issue_base_source_duplicate": false,
+      "problem_text_sha256": "67c58cdb2c3bf01ff80f55d1c848a9c74c40d91a298d57622a87f7f032ac9ce1",
+      "base_commit": "37acc4fcc37ccbc3a0a4dd6763521b3415424b63",
+      "base_tree": "d4baa482349b41545de9e372c327a44918b0e5fe",
+      "source_archive_sha256": "4b8b18828310e7a2ce16b55df0579738800e212e733b2ac886a72538e745ad89",
+      "source_archive_bytes": 1531647,
+      "source_archive_member": "pytest-13574/base.tar.gz",
+      "license_pointer": [
+        "pytest-13574/LICENSE"
+      ],
+      "license_applicability": "UNVERIFIED",
+      "family_root": "UNKNOWN",
+      "related_issue_refs": [],
+      "family_clearance": "UNKNOWN_PENDING_K62_FAMILY_DEDUP_REVIEW",
+      "source_role": "UNKNOWN",
+      "split": "UNASSIGNED",
+      "actor_visible": false,
+      "trusted_acceptance": false,
+      "environment_materialized": false,
+      "acceptance_verified": false,
+      "repo_role_exposure_clearance": "UNVERIFIED",
+      "deployment_authorized": false,
+      "training_released": false,
+      "training_release": "BLOCKED",
+      "not_verified": [
+        "independent broken-base reproduction",
+        "candidate test run",
+        "environment lock/materialization",
+        "complete root/backport and cross-repository family clearance",
+        "task source role/split/training-use authorization"
+      ],
+      "next_source_and_family_review_owner": "KAGGLE-40 review lane / 082bbef2-a827-4e50-bcb2-57ef1f383924",
+      "evidence": {
+        "batch": "KAGGLE-50-PYTEST-SOURCE-B02",
+        "source_package": "KAGGLE-50-pytest-source-batch-b2.zip",
+        "source_package_attachment_id": "01a14374-c381-7b5a-ad65-e0b4f491d395",
+        "source_package_sha256": "e0e61099869fdf7570cda534cc77096cd16ae963aa32df15948634e03f6c8e7a",
+        "manifest_path_in_package": "pytest-13574/manifest.json",
+        "public_issue_url": "https://github.com/pytest-dev/pytest/issues/13574",
+        "closing_pr_ref": "https://github.com/pytest-dev/pytest/pull/13575",
+        "merge_commit": "661682c25a9ff844a66ebd9b95d9925b8c4b65c8",
+        "merge_tree": "d4baa482349b41545de9e372c327a44918b0e5fe",
+        "historical_license_sha256": "CA836A5F9ECCA3B2F350230FAA20A48FB8B145653B5568D784862DF864706B9B",
+        "dependency_declarations": [
+          {
+            "path": "./pyproject.toml",
+            "bytes": 18337,
+            "sha256": "6755493CCD03D8494D5A81FF67FCDA228A4E63F2AF4E51098B930F811253234A"
+          },
+          {
+            "path": "./tox.ini",
+            "bytes": 6563,
+            "sha256": "BE6E0A2DBC5E613DB473656E5B3C37E655D90579473126803B2F66B88F5EAB81"
+          }
+        ],
+        "public_test_path_inventory": "pytest-13574/public-test-paths.json"
+      }
+    },
+    {
+      "stable_id": "pytest-dev-pytest-13577-source-b02",
+      "repo_issue": "pytest-dev/pytest#13577",
+      "record_type": "source_fixed_candidate_archive",
+      "candidate_identity_key": "pytest-dev/pytest#13577|closing-pr#13685|base:3d58e8d6d35017aa118952c5265860c5ed23aa4d",
+      "exact_repo_issue_duplicate_in_baseline": false,
+      "exact_repo_issue_base_source_duplicate": false,
+      "problem_text_sha256": "f3b4ce5a802e5cc1e24addcc0bee1bf85c11a5207de5af902356a6dbadb83710",
+      "base_commit": "3d58e8d6d35017aa118952c5265860c5ed23aa4d",
+      "base_tree": "1ee38b5e3ea73448fbb1abfaf4b28dc8dfb9768b",
+      "source_archive_sha256": "be3afe6902eee69d3d287415e5bd727fb5d22aab37b7257c8bf7169d8644ce01",
+      "source_archive_bytes": 1517775,
+      "source_archive_member": "pytest-13577/base.tar.gz",
+      "license_pointer": [
+        "pytest-13577/LICENSE"
+      ],
+      "license_applicability": "UNVERIFIED",
+      "family_root": "UNKNOWN",
+      "related_issue_refs": [],
+      "family_clearance": "UNKNOWN_PENDING_K62_FAMILY_DEDUP_REVIEW",
+      "source_role": "UNKNOWN",
+      "split": "UNASSIGNED",
+      "actor_visible": false,
+      "trusted_acceptance": false,
+      "environment_materialized": false,
+      "acceptance_verified": false,
+      "repo_role_exposure_clearance": "UNVERIFIED",
+      "deployment_authorized": false,
+      "training_released": false,
+      "training_release": "BLOCKED",
+      "not_verified": [
+        "independent broken-base reproduction",
+        "candidate test run",
+        "environment lock/materialization",
+        "complete root/backport and cross-repository family clearance",
+        "task source role/split/training-use authorization"
+      ],
+      "next_source_and_family_review_owner": "KAGGLE-40 review lane / 082bbef2-a827-4e50-bcb2-57ef1f383924",
+      "evidence": {
+        "batch": "KAGGLE-50-PYTEST-SOURCE-B02",
+        "source_package": "KAGGLE-50-pytest-source-batch-b2.zip",
+        "source_package_attachment_id": "01a14374-c381-7b5a-ad65-e0b4f491d395",
+        "source_package_sha256": "e0e61099869fdf7570cda534cc77096cd16ae963aa32df15948634e03f6c8e7a",
+        "manifest_path_in_package": "pytest-13577/manifest.json",
+        "public_issue_url": "https://github.com/pytest-dev/pytest/issues/13577",
+        "closing_pr_ref": "https://github.com/pytest-dev/pytest/pull/13685",
+        "merge_commit": "12bde8af6dda3e7104f840209c199d151258b462",
+        "merge_tree": "1ee38b5e3ea73448fbb1abfaf4b28dc8dfb9768b",
+        "historical_license_sha256": "CA836A5F9ECCA3B2F350230FAA20A48FB8B145653B5568D784862DF864706B9B",
+        "dependency_declarations": [
+          {
+            "path": "./pyproject.toml",
+            "bytes": 18219,
+            "sha256": "15DF636EA4B30A3237B540C72A0B194793481692D8AF89E59FCAE8A3D006DF55"
+          },
+          {
+            "path": "./tox.ini",
+            "bytes": 6480,
+            "sha256": "A0315E004144D9A86D3190C96D95D865A5EC15C28EF85A97F901510ECD770DB7"
+          }
+        ],
+        "public_test_path_inventory": "pytest-13577/public-test-paths.json"
+      }
+    },
+    {
+      "stable_id": "pytest-dev-pytest-13634-source-b02",
+      "repo_issue": "pytest-dev/pytest#13634",
+      "record_type": "source_fixed_candidate_archive",
+      "candidate_identity_key": "pytest-dev/pytest#13634|closing-pr#14018|base:8f5b07d87bf803622bb96227ed939f3c95f8809b",
+      "exact_repo_issue_duplicate_in_baseline": false,
+      "exact_repo_issue_base_source_duplicate": false,
+      "problem_text_sha256": "8b08aec4674fbc0bda61063030b6b36381508be2b5beb58154873eec25a6564c",
+      "base_commit": "8f5b07d87bf803622bb96227ed939f3c95f8809b",
+      "base_tree": "1dc871596feb33e1203766204cebe31f8a179e8f",
+      "source_archive_sha256": "c3686b78cbc544d2516a13ebb50a46d8f0934517970c3cc008fbf175b959691a",
+      "source_archive_bytes": 1568778,
+      "source_archive_member": "pytest-13634/base.tar.gz",
+      "license_pointer": [
+        "pytest-13634/LICENSE"
+      ],
+      "license_applicability": "UNVERIFIED",
+      "family_root": "UNKNOWN",
+      "related_issue_refs": [],
+      "family_clearance": "UNKNOWN_PENDING_K62_FAMILY_DEDUP_REVIEW",
+      "source_role": "UNKNOWN",
+      "split": "UNASSIGNED",
+      "actor_visible": false,
+      "trusted_acceptance": false,
+      "environment_materialized": false,
+      "acceptance_verified": false,
+      "repo_role_exposure_clearance": "UNVERIFIED",
+      "deployment_authorized": false,
+      "training_released": false,
+      "training_release": "BLOCKED",
+      "not_verified": [
+        "independent broken-base reproduction",
+        "candidate test run",
+        "environment lock/materialization",
+        "complete root/backport and cross-repository family clearance",
+        "task source role/split/training-use authorization"
+      ],
+      "next_source_and_family_review_owner": "KAGGLE-40 review lane / 082bbef2-a827-4e50-bcb2-57ef1f383924",
+      "evidence": {
+        "batch": "KAGGLE-50-PYTEST-SOURCE-B02",
+        "source_package": "KAGGLE-50-pytest-source-batch-b2.zip",
+        "source_package_attachment_id": "01a14374-c381-7b5a-ad65-e0b4f491d395",
+        "source_package_sha256": "e0e61099869fdf7570cda534cc77096cd16ae963aa32df15948634e03f6c8e7a",
+        "manifest_path_in_package": "pytest-13634/manifest.json",
+        "public_issue_url": "https://github.com/pytest-dev/pytest/issues/13634",
+        "closing_pr_ref": "https://github.com/pytest-dev/pytest/pull/14018",
+        "merge_commit": "004a96740fb990c7d6dc39bd305b08852635ec5d",
+        "merge_tree": "1dc871596feb33e1203766204cebe31f8a179e8f",
+        "historical_license_sha256": "CA836A5F9ECCA3B2F350230FAA20A48FB8B145653B5568D784862DF864706B9B",
+        "dependency_declarations": [
+          {
+            "path": "./pyproject.toml",
+            "bytes": 19361,
+            "sha256": "2D7C7EA6849AD86F857A906970425C7235C4F7558F0F2D3BE5194CCF44349A9D"
+          },
+          {
+            "path": "./tox.ini",
+            "bytes": 7416,
+            "sha256": "55F6AF936CB5B1B9AACC86F9A0B2FE1E63EEE7F8E6C2E26098A3C9A0F8E06A5F"
+          }
+        ],
+        "public_test_path_inventory": "pytest-13634/public-test-paths.json"
+      }
+    },
+    {
+      "stable_id": "pytest-dev-pytest-13638-source-b02",
+      "repo_issue": "pytest-dev/pytest#13638",
+      "record_type": "source_fixed_candidate_archive",
+      "candidate_identity_key": "pytest-dev/pytest#13638|closing-pr#13639|base:3ce3fceea2161c8991ef5e72232d7a7a42102565",
+      "exact_repo_issue_duplicate_in_baseline": false,
+      "exact_repo_issue_base_source_duplicate": false,
+      "problem_text_sha256": "9358e817ef66392ca8e6cd3da2f1fbb20352220cc6b0c8c2c835c4addf9f67b9",
+      "base_commit": "3ce3fceea2161c8991ef5e72232d7a7a42102565",
+      "base_tree": "bd4d16d3d15b765b801ab5dd25e107a909567a48",
+      "source_archive_sha256": "66370583297e81d371d084d8c04bd3e183c3dd9b258b580f7180b2ee409c8c83",
+      "source_archive_bytes": 1517703,
+      "source_archive_member": "pytest-13638/base.tar.gz",
+      "license_pointer": [
+        "pytest-13638/LICENSE"
+      ],
+      "license_applicability": "UNVERIFIED",
+      "family_root": "UNKNOWN",
+      "related_issue_refs": [],
+      "family_clearance": "UNKNOWN_PENDING_K62_FAMILY_DEDUP_REVIEW",
+      "source_role": "UNKNOWN",
+      "split": "UNASSIGNED",
+      "actor_visible": false,
+      "trusted_acceptance": false,
+      "environment_materialized": false,
+      "acceptance_verified": false,
+      "repo_role_exposure_clearance": "UNVERIFIED",
+      "deployment_authorized": false,
+      "training_released": false,
+      "training_release": "BLOCKED",
+      "not_verified": [
+        "independent broken-base reproduction",
+        "candidate test run",
+        "environment lock/materialization",
+        "complete root/backport and cross-repository family clearance",
+        "task source role/split/training-use authorization"
+      ],
+      "next_source_and_family_review_owner": "KAGGLE-40 review lane / 082bbef2-a827-4e50-bcb2-57ef1f383924",
+      "evidence": {
+        "batch": "KAGGLE-50-PYTEST-SOURCE-B02",
+        "source_package": "KAGGLE-50-pytest-source-batch-b2.zip",
+        "source_package_attachment_id": "01a14374-c381-7b5a-ad65-e0b4f491d395",
+        "source_package_sha256": "e0e61099869fdf7570cda534cc77096cd16ae963aa32df15948634e03f6c8e7a",
+        "manifest_path_in_package": "pytest-13638/manifest.json",
+        "public_issue_url": "https://github.com/pytest-dev/pytest/issues/13638",
+        "closing_pr_ref": "https://github.com/pytest-dev/pytest/pull/13639",
+        "merge_commit": "3d58e8d6d35017aa118952c5265860c5ed23aa4d",
+        "merge_tree": "bd4d16d3d15b765b801ab5dd25e107a909567a48",
+        "historical_license_sha256": "CA836A5F9ECCA3B2F350230FAA20A48FB8B145653B5568D784862DF864706B9B",
+        "dependency_declarations": [
+          {
+            "path": "./pyproject.toml",
+            "bytes": 18219,
+            "sha256": "15DF636EA4B30A3237B540C72A0B194793481692D8AF89E59FCAE8A3D006DF55"
+          },
+          {
+            "path": "./tox.ini",
+            "bytes": 6480,
+            "sha256": "A0315E004144D9A86D3190C96D95D865A5EC15C28EF85A97F901510ECD770DB7"
+          }
+        ],
+        "public_test_path_inventory": "pytest-13638/public-test-paths.json"
+      }
+    },
+    {
+      "stable_id": "pytest-dev-pytest-13678-source-b02",
+      "repo_issue": "pytest-dev/pytest#13678",
+      "record_type": "source_fixed_candidate_archive",
+      "candidate_identity_key": "pytest-dev/pytest#13678|closing-pr#13679|base:d036b12bb6fa09f9a8a3b690cc7336113c93fa44",
+      "exact_repo_issue_duplicate_in_baseline": false,
+      "exact_repo_issue_base_source_duplicate": false,
+      "problem_text_sha256": "cdde7bea57c3034146cf387759742f779a8ee3dfc4c02515b2b5da49b66559ca",
+      "base_commit": "d036b12bb6fa09f9a8a3b690cc7336113c93fa44",
+      "base_tree": "72009cc66dab080739e386e4c4bccb8e832529eb",
+      "source_archive_sha256": "b03882f907ff90589360df132b67299d193d782dd499f0dedbb29487d8b8449f",
+      "source_archive_bytes": 1528613,
+      "source_archive_member": "pytest-13678/base.tar.gz",
+      "license_pointer": [
+        "pytest-13678/LICENSE"
+      ],
+      "license_applicability": "UNVERIFIED",
+      "family_root": "UNKNOWN",
+      "related_issue_refs": [],
+      "family_clearance": "UNKNOWN_PENDING_K62_FAMILY_DEDUP_REVIEW",
+      "source_role": "UNKNOWN",
+      "split": "UNASSIGNED",
+      "actor_visible": false,
+      "trusted_acceptance": false,
+      "environment_materialized": false,
+      "acceptance_verified": false,
+      "repo_role_exposure_clearance": "UNVERIFIED",
+      "deployment_authorized": false,
+      "training_released": false,
+      "training_release": "BLOCKED",
+      "not_verified": [
+        "independent broken-base reproduction",
+        "candidate test run",
+        "environment lock/materialization",
+        "complete root/backport and cross-repository family clearance",
+        "task source role/split/training-use authorization"
+      ],
+      "next_source_and_family_review_owner": "KAGGLE-40 review lane / 082bbef2-a827-4e50-bcb2-57ef1f383924",
+      "evidence": {
+        "batch": "KAGGLE-50-PYTEST-SOURCE-B02",
+        "source_package": "KAGGLE-50-pytest-source-batch-b2.zip",
+        "source_package_attachment_id": "01a14374-c381-7b5a-ad65-e0b4f491d395",
+        "source_package_sha256": "e0e61099869fdf7570cda534cc77096cd16ae963aa32df15948634e03f6c8e7a",
+        "manifest_path_in_package": "pytest-13678/manifest.json",
+        "public_issue_url": "https://github.com/pytest-dev/pytest/issues/13678",
+        "closing_pr_ref": "https://github.com/pytest-dev/pytest/pull/13679",
+        "merge_commit": "83da3437182eb6aa180bf578935d69127deda900",
+        "merge_tree": "72009cc66dab080739e386e4c4bccb8e832529eb",
+        "historical_license_sha256": "CA836A5F9ECCA3B2F350230FAA20A48FB8B145653B5568D784862DF864706B9B",
+        "dependency_declarations": [
+          {
+            "path": "./pyproject.toml",
+            "bytes": 18333,
+            "sha256": "6E16F99BF031ACA12A3B5508357E7F7DF73CD6F9ADB86BDF4E3A29FC164D657F"
+          },
+          {
+            "path": "./tox.ini",
+            "bytes": 6563,
+            "sha256": "BE6E0A2DBC5E613DB473656E5B3C37E655D90579473126803B2F66B88F5EAB81"
+          }
+        ],
+        "public_test_path_inventory": "pytest-13678/public-test-paths.json"
+      }
+    },
+    {
+      "stable_id": "pytest-dev-pytest-13700-source-b02",
+      "repo_issue": "pytest-dev/pytest#13700",
+      "record_type": "source_fixed_candidate_archive",
+      "candidate_identity_key": "pytest-dev/pytest#13700|closing-pr#13702|base:2baa197e249a0d9efeef66763669fba270913145",
+      "exact_repo_issue_duplicate_in_baseline": false,
+      "exact_repo_issue_base_source_duplicate": false,
+      "problem_text_sha256": "07e171e264b31e3185888860255c26eb280864d8945419812abfee89c5a2c56f",
+      "base_commit": "2baa197e249a0d9efeef66763669fba270913145",
+      "base_tree": "3c644ff3356d0c603d20fed652228382df2e50d5",
+      "source_archive_sha256": "4dc1f2f9f51fbc530093e6f60e1ecf94df640734b0f5eb6c8dca40a1211b62cf",
+      "source_archive_bytes": 1520428,
+      "source_archive_member": "pytest-13700/base.tar.gz",
+      "license_pointer": [
+        "pytest-13700/LICENSE"
+      ],
+      "license_applicability": "UNVERIFIED",
+      "family_root": "UNKNOWN",
+      "related_issue_refs": [],
+      "family_clearance": "UNKNOWN_PENDING_K62_FAMILY_DEDUP_REVIEW",
+      "source_role": "UNKNOWN",
+      "split": "UNASSIGNED",
+      "actor_visible": false,
+      "trusted_acceptance": false,
+      "environment_materialized": false,
+      "acceptance_verified": false,
+      "repo_role_exposure_clearance": "UNVERIFIED",
+      "deployment_authorized": false,
+      "training_released": false,
+      "training_release": "BLOCKED",
+      "not_verified": [
+        "independent broken-base reproduction",
+        "candidate test run",
+        "environment lock/materialization",
+        "complete root/backport and cross-repository family clearance",
+        "task source role/split/training-use authorization"
+      ],
+      "next_source_and_family_review_owner": "KAGGLE-40 review lane / 082bbef2-a827-4e50-bcb2-57ef1f383924",
+      "evidence": {
+        "batch": "KAGGLE-50-PYTEST-SOURCE-B02",
+        "source_package": "KAGGLE-50-pytest-source-batch-b2.zip",
+        "source_package_attachment_id": "01a14374-c381-7b5a-ad65-e0b4f491d395",
+        "source_package_sha256": "e0e61099869fdf7570cda534cc77096cd16ae963aa32df15948634e03f6c8e7a",
+        "manifest_path_in_package": "pytest-13700/manifest.json",
+        "public_issue_url": "https://github.com/pytest-dev/pytest/issues/13700",
+        "closing_pr_ref": "https://github.com/pytest-dev/pytest/pull/13702",
+        "merge_commit": "5ebd1ec3b67e40fbfb2711e7efef23b6f4463ee6",
+        "merge_tree": "3c644ff3356d0c603d20fed652228382df2e50d5",
+        "historical_license_sha256": "CA836A5F9ECCA3B2F350230FAA20A48FB8B145653B5568D784862DF864706B9B",
+        "dependency_declarations": [
+          {
+            "path": "./pyproject.toml",
+            "bytes": 18382,
+            "sha256": "B212F7488EA267D3BC67BF31FC6181E205C95A3110BF0342A26DB04241137898"
+          },
+          {
+            "path": "./tox.ini",
+            "bytes": 6487,
+            "sha256": "946188A7C74615A4D2FD3418C5827BD2DB8F59E62EAA0BC98265E9A891AFA7A1"
+          }
+        ],
+        "public_test_path_inventory": "pytest-13700/public-test-paths.json"
+      }
+    },
+    {
+      "stable_id": "pytest-dev-pytest-13716-source-b02",
+      "repo_issue": "pytest-dev/pytest#13716",
+      "record_type": "source_fixed_candidate_archive",
+      "candidate_identity_key": "pytest-dev/pytest#13716|closing-pr#13717|base:6ab228b54bcc7750a39a84907bc52f8037319c6f",
+      "exact_repo_issue_duplicate_in_baseline": false,
+      "exact_repo_issue_base_source_duplicate": false,
+      "problem_text_sha256": "efb6a59316acc3fc656ea53599e733d1d660f3334b9dccb7262e5783a81467fb",
+      "base_commit": "6ab228b54bcc7750a39a84907bc52f8037319c6f",
+      "base_tree": "20c41b11bc248758b7e5ea00ac92ded792ccbab8",
+      "source_archive_sha256": "c0ebfd0988c7aa6c44b2100f11ee88ca90dbb091ff9d20ad03eedd4f5c0c017f",
+      "source_archive_bytes": 1520884,
+      "source_archive_member": "pytest-13716/base.tar.gz",
+      "license_pointer": [
+        "pytest-13716/LICENSE"
+      ],
+      "license_applicability": "UNVERIFIED",
+      "family_root": "UNKNOWN",
+      "related_issue_refs": [],
+      "family_clearance": "UNKNOWN_PENDING_K62_FAMILY_DEDUP_REVIEW",
+      "source_role": "UNKNOWN",
+      "split": "UNASSIGNED",
+      "actor_visible": false,
+      "trusted_acceptance": false,
+      "environment_materialized": false,
+      "acceptance_verified": false,
+      "repo_role_exposure_clearance": "UNVERIFIED",
+      "deployment_authorized": false,
+      "training_released": false,
+      "training_release": "BLOCKED",
+      "not_verified": [
+        "independent broken-base reproduction",
+        "candidate test run",
+        "environment lock/materialization",
+        "complete root/backport and cross-repository family clearance",
+        "task source role/split/training-use authorization"
+      ],
+      "next_source_and_family_review_owner": "KAGGLE-40 review lane / 082bbef2-a827-4e50-bcb2-57ef1f383924",
+      "evidence": {
+        "batch": "KAGGLE-50-PYTEST-SOURCE-B02",
+        "source_package": "KAGGLE-50-pytest-source-batch-b2.zip",
+        "source_package_attachment_id": "01a14374-c381-7b5a-ad65-e0b4f491d395",
+        "source_package_sha256": "e0e61099869fdf7570cda534cc77096cd16ae963aa32df15948634e03f6c8e7a",
+        "manifest_path_in_package": "pytest-13716/manifest.json",
+        "public_issue_url": "https://github.com/pytest-dev/pytest/issues/13716",
+        "closing_pr_ref": "https://github.com/pytest-dev/pytest/pull/13717",
+        "merge_commit": "d2d57e3d7fc942e15136fcf0d3e50999cfe4ef76",
+        "merge_tree": "20c41b11bc248758b7e5ea00ac92ded792ccbab8",
+        "historical_license_sha256": "CA836A5F9ECCA3B2F350230FAA20A48FB8B145653B5568D784862DF864706B9B",
+        "dependency_declarations": [
+          {
+            "path": "./pyproject.toml",
+            "bytes": 18382,
+            "sha256": "B212F7488EA267D3BC67BF31FC6181E205C95A3110BF0342A26DB04241137898"
+          },
+          {
+            "path": "./tox.ini",
+            "bytes": 6487,
+            "sha256": "946188A7C74615A4D2FD3418C5827BD2DB8F59E62EAA0BC98265E9A891AFA7A1"
+          }
+        ],
+        "public_test_path_inventory": "pytest-13716/public-test-paths.json"
+      }
+    },
+    {
+      "stable_id": "pytest-dev-pytest-13731-source-b02",
+      "repo_issue": "pytest-dev/pytest#13731",
+      "record_type": "source_fixed_candidate_archive",
+      "candidate_identity_key": "pytest-dev/pytest#13731|closing-pr#14053|base:0bd0e9bfed9c255ba7cb6003935a522337e8a364",
+      "exact_repo_issue_duplicate_in_baseline": false,
+      "exact_repo_issue_base_source_duplicate": false,
+      "problem_text_sha256": "c242702e56a4ac9cba00ed96e110b72c03067bc8a43c2e11c5ea706d1aad8e8a",
+      "base_commit": "0bd0e9bfed9c255ba7cb6003935a522337e8a364",
+      "base_tree": "427eeb8ba5465550c16622e003d7346a0e96188e",
+      "source_archive_sha256": "67e1556a66ad2da69298f9dd2544c9b809a02c0f0383242117010bbb88d6dda5",
+      "source_archive_bytes": 1568599,
+      "source_archive_member": "pytest-13731/base.tar.gz",
+      "license_pointer": [
+        "pytest-13731/LICENSE"
+      ],
+      "license_applicability": "UNVERIFIED",
+      "family_root": "UNKNOWN",
+      "related_issue_refs": [],
+      "family_clearance": "UNKNOWN_PENDING_K62_FAMILY_DEDUP_REVIEW",
+      "source_role": "UNKNOWN",
+      "split": "UNASSIGNED",
+      "actor_visible": false,
+      "trusted_acceptance": false,
+      "environment_materialized": false,
+      "acceptance_verified": false,
+      "repo_role_exposure_clearance": "UNVERIFIED",
+      "deployment_authorized": false,
+      "training_released": false,
+      "training_release": "BLOCKED",
+      "not_verified": [
+        "independent broken-base reproduction",
+        "candidate test run",
+        "environment lock/materialization",
+        "complete root/backport and cross-repository family clearance",
+        "task source role/split/training-use authorization"
+      ],
+      "next_source_and_family_review_owner": "KAGGLE-40 review lane / 082bbef2-a827-4e50-bcb2-57ef1f383924",
+      "evidence": {
+        "batch": "KAGGLE-50-PYTEST-SOURCE-B02",
+        "source_package": "KAGGLE-50-pytest-source-batch-b2.zip",
+        "source_package_attachment_id": "01a14374-c381-7b5a-ad65-e0b4f491d395",
+        "source_package_sha256": "e0e61099869fdf7570cda534cc77096cd16ae963aa32df15948634e03f6c8e7a",
+        "manifest_path_in_package": "pytest-13731/manifest.json",
+        "public_issue_url": "https://github.com/pytest-dev/pytest/issues/13731",
+        "closing_pr_ref": "https://github.com/pytest-dev/pytest/pull/14053",
+        "merge_commit": "8f5b07d87bf803622bb96227ed939f3c95f8809b",
+        "merge_tree": "427eeb8ba5465550c16622e003d7346a0e96188e",
+        "historical_license_sha256": "CA836A5F9ECCA3B2F350230FAA20A48FB8B145653B5568D784862DF864706B9B",
+        "dependency_declarations": [
+          {
+            "path": "./pyproject.toml",
+            "bytes": 19361,
+            "sha256": "2D7C7EA6849AD86F857A906970425C7235C4F7558F0F2D3BE5194CCF44349A9D"
+          },
+          {
+            "path": "./tox.ini",
+            "bytes": 7416,
+            "sha256": "55F6AF936CB5B1B9AACC86F9A0B2FE1E63EEE7F8E6C2E26098A3C9A0F8E06A5F"
+          }
+        ],
+        "public_test_path_inventory": "pytest-13731/public-test-paths.json"
+      }
+    },
+    {
+      "stable_id": "pytest-dev-pytest-13734-source-b02",
+      "repo_issue": "pytest-dev/pytest#13734",
+      "record_type": "source_fixed_candidate_archive",
+      "candidate_identity_key": "pytest-dev/pytest#13734|closing-pr#14025|base:7eb7b3ed4270b8ad5c4c0bc45ae99b82e7546b6b",
+      "exact_repo_issue_duplicate_in_baseline": false,
+      "exact_repo_issue_base_source_duplicate": false,
+      "problem_text_sha256": "e455f31f556182e2a201d1655e571c4d68b0944b242c5eac79713d00a40f347e",
+      "base_commit": "7eb7b3ed4270b8ad5c4c0bc45ae99b82e7546b6b",
+      "base_tree": "1ebe9f6df6b6129db1595021f608e4a4d52d4263",
+      "source_archive_sha256": "46b5c1e819088ff0de40f89214dc5639cbe0c68961d0b1e6f2d25a0f8b6c196c",
+      "source_archive_bytes": 1565978,
+      "source_archive_member": "pytest-13734/base.tar.gz",
+      "license_pointer": [
+        "pytest-13734/LICENSE"
+      ],
+      "license_applicability": "UNVERIFIED",
+      "family_root": "UNKNOWN",
+      "related_issue_refs": [
+        "pytest-trio#151"
+      ],
+      "family_clearance": "UNKNOWN_PENDING_K62_FAMILY_DEDUP_REVIEW",
+      "source_role": "UNKNOWN",
+      "split": "UNASSIGNED",
+      "actor_visible": false,
+      "trusted_acceptance": false,
+      "environment_materialized": false,
+      "acceptance_verified": false,
+      "repo_role_exposure_clearance": "UNVERIFIED",
+      "deployment_authorized": false,
+      "training_released": false,
+      "training_release": "BLOCKED",
+      "not_verified": [
+        "independent broken-base reproduction",
+        "candidate test run",
+        "environment lock/materialization",
+        "complete root/backport and cross-repository family clearance",
+        "task source role/split/training-use authorization"
+      ],
+      "next_source_and_family_review_owner": "KAGGLE-40 review lane / 082bbef2-a827-4e50-bcb2-57ef1f383924",
+      "evidence": {
+        "batch": "KAGGLE-50-PYTEST-SOURCE-B02",
+        "source_package": "KAGGLE-50-pytest-source-batch-b2.zip",
+        "source_package_attachment_id": "01a14374-c381-7b5a-ad65-e0b4f491d395",
+        "source_package_sha256": "e0e61099869fdf7570cda534cc77096cd16ae963aa32df15948634e03f6c8e7a",
+        "manifest_path_in_package": "pytest-13734/manifest.json",
+        "public_issue_url": "https://github.com/pytest-dev/pytest/issues/13734",
+        "closing_pr_ref": "https://github.com/pytest-dev/pytest/pull/14025",
+        "merge_commit": "fa6a232d529b33f6388dc788d7613cf206c08130",
+        "merge_tree": "1ebe9f6df6b6129db1595021f608e4a4d52d4263",
+        "historical_license_sha256": "CA836A5F9ECCA3B2F350230FAA20A48FB8B145653B5568D784862DF864706B9B",
+        "dependency_declarations": [
+          {
+            "path": "./pyproject.toml",
+            "bytes": 19361,
+            "sha256": "2D7C7EA6849AD86F857A906970425C7235C4F7558F0F2D3BE5194CCF44349A9D"
+          },
+          {
+            "path": "./tox.ini",
+            "bytes": 7416,
+            "sha256": "55F6AF936CB5B1B9AACC86F9A0B2FE1E63EEE7F8E6C2E26098A3C9A0F8E06A5F"
+          }
+        ],
+        "public_test_path_inventory": "pytest-13734/public-test-paths.json"
+      }
+    },
+    {
+      "stable_id": "pytest-dev-pytest-13737-source-b02",
+      "repo_issue": "pytest-dev/pytest#13737",
+      "record_type": "source_fixed_candidate_archive",
+      "candidate_identity_key": "pytest-dev/pytest#13737|closing-pr#13757|base:eed1f8093ae5557887d10c1bbc7c96a859df6cf1",
+      "exact_repo_issue_duplicate_in_baseline": false,
+      "exact_repo_issue_base_source_duplicate": false,
+      "problem_text_sha256": "f813e06f26fbd288560746adc738cab3e399ab1475d16f3542f927a2b0c75263",
+      "base_commit": "eed1f8093ae5557887d10c1bbc7c96a859df6cf1",
+      "base_tree": "0e37bd75600d0bad20f021ec313cc2c86882a27a",
+      "source_archive_sha256": "2594cbf58418dbffb33999f76f9a44a19fa1ffe20b2ddf6e17456eb763a41ca4",
+      "source_archive_bytes": 1533867,
+      "source_archive_member": "pytest-13737/base.tar.gz",
+      "license_pointer": [
+        "pytest-13737/LICENSE"
+      ],
+      "license_applicability": "UNVERIFIED",
+      "family_root": "UNKNOWN",
+      "related_issue_refs": [],
+      "family_clearance": "UNKNOWN_PENDING_K62_FAMILY_DEDUP_REVIEW",
+      "source_role": "UNKNOWN",
+      "split": "UNASSIGNED",
+      "actor_visible": false,
+      "trusted_acceptance": false,
+      "environment_materialized": false,
+      "acceptance_verified": false,
+      "repo_role_exposure_clearance": "UNVERIFIED",
+      "deployment_authorized": false,
+      "training_released": false,
+      "training_release": "BLOCKED",
+      "not_verified": [
+        "independent broken-base reproduction",
+        "candidate test run",
+        "environment lock/materialization",
+        "complete root/backport and cross-repository family clearance",
+        "task source role/split/training-use authorization"
+      ],
+      "next_source_and_family_review_owner": "KAGGLE-40 review lane / 082bbef2-a827-4e50-bcb2-57ef1f383924",
+      "evidence": {
+        "batch": "KAGGLE-50-PYTEST-SOURCE-B02",
+        "source_package": "KAGGLE-50-pytest-source-batch-b2.zip",
+        "source_package_attachment_id": "01a14374-c381-7b5a-ad65-e0b4f491d395",
+        "source_package_sha256": "e0e61099869fdf7570cda534cc77096cd16ae963aa32df15948634e03f6c8e7a",
+        "manifest_path_in_package": "pytest-13737/manifest.json",
+        "public_issue_url": "https://github.com/pytest-dev/pytest/issues/13737",
+        "closing_pr_ref": "https://github.com/pytest-dev/pytest/pull/13757",
+        "merge_commit": "ebcd836c5ad997fd1b700eda0b92c296b2637058",
+        "merge_tree": "0e37bd75600d0bad20f021ec313cc2c86882a27a",
+        "historical_license_sha256": "CA836A5F9ECCA3B2F350230FAA20A48FB8B145653B5568D784862DF864706B9B",
+        "dependency_declarations": [
+          {
+            "path": "./pyproject.toml",
+            "bytes": 18337,
+            "sha256": "6755493CCD03D8494D5A81FF67FCDA228A4E63F2AF4E51098B930F811253234A"
+          },
+          {
+            "path": "./tox.ini",
+            "bytes": 6563,
+            "sha256": "BE6E0A2DBC5E613DB473656E5B3C37E655D90579473126803B2F66B88F5EAB81"
+          }
+        ],
+        "public_test_path_inventory": "pytest-13737/public-test-paths.json"
+      }
+    },
+    {
+      "stable_id": "pytest-dev-pytest-13743-source-b02",
+      "repo_issue": "pytest-dev/pytest#13743",
+      "record_type": "source_fixed_candidate_archive",
+      "candidate_identity_key": "pytest-dev/pytest#13743|closing-pr#13846|base:9fc738c5a97d2ab14bd43029204252fe4799230d",
+      "exact_repo_issue_duplicate_in_baseline": false,
+      "exact_repo_issue_base_source_duplicate": false,
+      "problem_text_sha256": "d918045a81dc389464c211a525eaaebe57f5d8575ae5c82f0a096c1e5f892d6f",
+      "base_commit": "9fc738c5a97d2ab14bd43029204252fe4799230d",
+      "base_tree": "7928b56447d4ef8665051ec4f71c6d21d7ba4f46",
+      "source_archive_sha256": "8812f948c69d5d5f1300a6e1ef64e5fb7712ce971de61af8440e4291760a6ca5",
+      "source_archive_bytes": 1539159,
+      "source_archive_member": "pytest-13743/base.tar.gz",
+      "license_pointer": [
+        "pytest-13743/LICENSE"
+      ],
+      "license_applicability": "UNVERIFIED",
+      "family_root": "UNKNOWN",
+      "related_issue_refs": [],
+      "family_clearance": "UNKNOWN_PENDING_K62_FAMILY_DEDUP_REVIEW",
+      "source_role": "UNKNOWN",
+      "split": "UNASSIGNED",
+      "actor_visible": false,
+      "trusted_acceptance": false,
+      "environment_materialized": false,
+      "acceptance_verified": false,
+      "repo_role_exposure_clearance": "UNVERIFIED",
+      "deployment_authorized": false,
+      "training_released": false,
+      "training_release": "BLOCKED",
+      "not_verified": [
+        "independent broken-base reproduction",
+        "candidate test run",
+        "environment lock/materialization",
+        "complete root/backport and cross-repository family clearance",
+        "task source role/split/training-use authorization"
+      ],
+      "next_source_and_family_review_owner": "KAGGLE-40 review lane / 082bbef2-a827-4e50-bcb2-57ef1f383924",
+      "evidence": {
+        "batch": "KAGGLE-50-PYTEST-SOURCE-B02",
+        "source_package": "KAGGLE-50-pytest-source-batch-b2.zip",
+        "source_package_attachment_id": "01a14374-c381-7b5a-ad65-e0b4f491d395",
+        "source_package_sha256": "e0e61099869fdf7570cda534cc77096cd16ae963aa32df15948634e03f6c8e7a",
+        "manifest_path_in_package": "pytest-13743/manifest.json",
+        "public_issue_url": "https://github.com/pytest-dev/pytest/issues/13743",
+        "closing_pr_ref": "https://github.com/pytest-dev/pytest/pull/13846",
+        "merge_commit": "8c7be914d4b9bfbcfdb30b90137fba7b6321c849",
+        "merge_tree": "7928b56447d4ef8665051ec4f71c6d21d7ba4f46",
+        "historical_license_sha256": "CA836A5F9ECCA3B2F350230FAA20A48FB8B145653B5568D784862DF864706B9B",
+        "dependency_declarations": [
+          {
+            "path": "./pyproject.toml",
+            "bytes": 18314,
+            "sha256": "39A436841F0C8D39ECB168E8B3C9B129EB74F89A14358D4AAC87B7A13D5A997E"
+          },
+          {
+            "path": "./tox.ini",
+            "bytes": 6489,
+            "sha256": "0087EF0904B8156A37CD94339F268A83B462DD9858487DF41EF742A31D4CAF3D"
+          }
+        ],
+        "public_test_path_inventory": "pytest-13743/public-test-paths.json"
+      }
+    },
+    {
+      "stable_id": "pytest-dev-pytest-13766-source-b02",
+      "repo_issue": "pytest-dev/pytest#13766",
+      "record_type": "source_fixed_candidate_archive",
+      "candidate_identity_key": "pytest-dev/pytest#13766|closing-pr#13772|base:9498a8254ba0c8b4692ed777d1e6b6db80474dca",
+      "exact_repo_issue_duplicate_in_baseline": false,
+      "exact_repo_issue_base_source_duplicate": false,
+      "problem_text_sha256": "9c55b457ca4e70dabd1bcab232c1ff130fb6dd5d58cf9b207b37461bc1697d73",
+      "base_commit": "9498a8254ba0c8b4692ed777d1e6b6db80474dca",
+      "base_tree": "8f4b337e027c27486d9679c6348176fce99101ca",
+      "source_archive_sha256": "e0a336138521098f82d262490855e989b876b4a09fe152ca9783bd1909e08b78",
+      "source_archive_bytes": 1521773,
+      "source_archive_member": "pytest-13766/base.tar.gz",
+      "license_pointer": [
+        "pytest-13766/LICENSE"
+      ],
+      "license_applicability": "UNVERIFIED",
+      "family_root": "UNKNOWN",
+      "related_issue_refs": [],
+      "family_clearance": "UNKNOWN_PENDING_K62_FAMILY_DEDUP_REVIEW",
+      "source_role": "UNKNOWN",
+      "split": "UNASSIGNED",
+      "actor_visible": false,
+      "trusted_acceptance": false,
+      "environment_materialized": false,
+      "acceptance_verified": false,
+      "repo_role_exposure_clearance": "UNVERIFIED",
+      "deployment_authorized": false,
+      "training_released": false,
+      "training_release": "BLOCKED",
+      "not_verified": [
+        "independent broken-base reproduction",
+        "candidate test run",
+        "environment lock/materialization",
+        "complete root/backport and cross-repository family clearance",
+        "task source role/split/training-use authorization"
+      ],
+      "next_source_and_family_review_owner": "KAGGLE-40 review lane / 082bbef2-a827-4e50-bcb2-57ef1f383924",
+      "evidence": {
+        "batch": "KAGGLE-50-PYTEST-SOURCE-B02",
+        "source_package": "KAGGLE-50-pytest-source-batch-b2.zip",
+        "source_package_attachment_id": "01a14374-c381-7b5a-ad65-e0b4f491d395",
+        "source_package_sha256": "e0e61099869fdf7570cda534cc77096cd16ae963aa32df15948634e03f6c8e7a",
+        "manifest_path_in_package": "pytest-13766/manifest.json",
+        "public_issue_url": "https://github.com/pytest-dev/pytest/issues/13766",
+        "closing_pr_ref": "https://github.com/pytest-dev/pytest/pull/13772",
+        "merge_commit": "42c9fe09b5b6997954174d26ca77d3171f7646bb",
+        "merge_tree": "8f4b337e027c27486d9679c6348176fce99101ca",
+        "historical_license_sha256": "CA836A5F9ECCA3B2F350230FAA20A48FB8B145653B5568D784862DF864706B9B",
+        "dependency_declarations": [
+          {
+            "path": "./pyproject.toml",
+            "bytes": 18333,
+            "sha256": "6E16F99BF031ACA12A3B5508357E7F7DF73CD6F9ADB86BDF4E3A29FC164D657F"
+          },
+          {
+            "path": "./tox.ini",
+            "bytes": 6563,
+            "sha256": "BE6E0A2DBC5E613DB473656E5B3C37E655D90579473126803B2F66B88F5EAB81"
+          }
+        ],
+        "public_test_path_inventory": "pytest-13766/public-test-paths.json"
+      }
+    },
+    {
+      "stable_id": "pytest-dev-pytest-13771-source-b02",
+      "repo_issue": "pytest-dev/pytest#13771",
+      "record_type": "source_fixed_candidate_archive",
+      "candidate_identity_key": "pytest-dev/pytest#13771|closing-pr#13792|base:2c0acf190c285b95cf93337389e1d13a541e6624",
+      "exact_repo_issue_duplicate_in_baseline": false,
+      "exact_repo_issue_base_source_duplicate": false,
+      "problem_text_sha256": "2cc1e1339c2bb1cbcc5c157a1d64f6b31fd21bee8dbae14aff1123b88b4dc991",
+      "base_commit": "2c0acf190c285b95cf93337389e1d13a541e6624",
+      "base_tree": "4d2354c6b95e2857d6508b2ee806084fe38f89f4",
+      "source_archive_sha256": "8fd12148a6260145201e61871022f73c808e385b7e8d5207a0b81b2d45e783cf",
+      "source_archive_bytes": 1529920,
+      "source_archive_member": "pytest-13771/base.tar.gz",
+      "license_pointer": [
+        "pytest-13771/LICENSE"
+      ],
+      "license_applicability": "UNVERIFIED",
+      "family_root": "UNKNOWN",
+      "related_issue_refs": [],
+      "family_clearance": "UNKNOWN_PENDING_K62_FAMILY_DEDUP_REVIEW",
+      "source_role": "UNKNOWN",
+      "split": "UNASSIGNED",
+      "actor_visible": false,
+      "trusted_acceptance": false,
+      "environment_materialized": false,
+      "acceptance_verified": false,
+      "repo_role_exposure_clearance": "UNVERIFIED",
+      "deployment_authorized": false,
+      "training_released": false,
+      "training_release": "BLOCKED",
+      "not_verified": [
+        "independent broken-base reproduction",
+        "candidate test run",
+        "environment lock/materialization",
+        "complete root/backport and cross-repository family clearance",
+        "task source role/split/training-use authorization"
+      ],
+      "next_source_and_family_review_owner": "KAGGLE-40 review lane / 082bbef2-a827-4e50-bcb2-57ef1f383924",
+      "evidence": {
+        "batch": "KAGGLE-50-PYTEST-SOURCE-B02",
+        "source_package": "KAGGLE-50-pytest-source-batch-b2.zip",
+        "source_package_attachment_id": "01a14374-c381-7b5a-ad65-e0b4f491d395",
+        "source_package_sha256": "e0e61099869fdf7570cda534cc77096cd16ae963aa32df15948634e03f6c8e7a",
+        "manifest_path_in_package": "pytest-13771/manifest.json",
+        "public_issue_url": "https://github.com/pytest-dev/pytest/issues/13771",
+        "closing_pr_ref": "https://github.com/pytest-dev/pytest/pull/13792",
+        "merge_commit": "1bed1d798a1b273c44c2ef647e3c6ac6b4c92c8c",
+        "merge_tree": "4d2354c6b95e2857d6508b2ee806084fe38f89f4",
+        "historical_license_sha256": "CA836A5F9ECCA3B2F350230FAA20A48FB8B145653B5568D784862DF864706B9B",
+        "dependency_declarations": [
+          {
+            "path": "./pyproject.toml",
+            "bytes": 18337,
+            "sha256": "6755493CCD03D8494D5A81FF67FCDA228A4E63F2AF4E51098B930F811253234A"
+          },
+          {
+            "path": "./tox.ini",
+            "bytes": 6563,
+            "sha256": "BE6E0A2DBC5E613DB473656E5B3C37E655D90579473126803B2F66B88F5EAB81"
+          }
+        ],
+        "public_test_path_inventory": "pytest-13771/public-test-paths.json"
+      }
+    },
+    {
+      "stable_id": "pytest-dev-pytest-13773-source-b02",
+      "repo_issue": "pytest-dev/pytest#13773",
+      "record_type": "source_fixed_candidate_archive",
+      "candidate_identity_key": "pytest-dev/pytest#13773|closing-pr#13774|base:527b46d86cbe18998a7e47cb19d43eda78569398",
+      "exact_repo_issue_duplicate_in_baseline": false,
+      "exact_repo_issue_base_source_duplicate": false,
+      "problem_text_sha256": "779d0d5f606ef503799e9700f8419c971f990313a13b3e5ce8a9caa845b7125e",
+      "base_commit": "527b46d86cbe18998a7e47cb19d43eda78569398",
+      "base_tree": "4258d0427fa2b8d1b239491a6e212bbe969a1234",
+      "source_archive_sha256": "b612fdfe60747882cd96401248a47619df76d9bc7e838cff6b9946db62f98e70",
+      "source_archive_bytes": 1524161,
+      "source_archive_member": "pytest-13773/base.tar.gz",
+      "license_pointer": [
+        "pytest-13773/LICENSE"
+      ],
+      "license_applicability": "UNVERIFIED",
+      "family_root": "UNKNOWN",
+      "related_issue_refs": [
+        "pytest-django#1246"
+      ],
+      "family_clearance": "UNKNOWN_PENDING_K62_FAMILY_DEDUP_REVIEW",
+      "source_role": "UNKNOWN",
+      "split": "UNASSIGNED",
+      "actor_visible": false,
+      "trusted_acceptance": false,
+      "environment_materialized": false,
+      "acceptance_verified": false,
+      "repo_role_exposure_clearance": "UNVERIFIED",
+      "deployment_authorized": false,
+      "training_released": false,
+      "training_release": "BLOCKED",
+      "not_verified": [
+        "independent broken-base reproduction",
+        "candidate test run",
+        "environment lock/materialization",
+        "complete root/backport and cross-repository family clearance",
+        "task source role/split/training-use authorization"
+      ],
+      "next_source_and_family_review_owner": "KAGGLE-40 review lane / 082bbef2-a827-4e50-bcb2-57ef1f383924",
+      "evidence": {
+        "batch": "KAGGLE-50-PYTEST-SOURCE-B02",
+        "source_package": "KAGGLE-50-pytest-source-batch-b2.zip",
+        "source_package_attachment_id": "01a14374-c381-7b5a-ad65-e0b4f491d395",
+        "source_package_sha256": "e0e61099869fdf7570cda534cc77096cd16ae963aa32df15948634e03f6c8e7a",
+        "manifest_path_in_package": "pytest-13773/manifest.json",
+        "public_issue_url": "https://github.com/pytest-dev/pytest/issues/13773",
+        "closing_pr_ref": "https://github.com/pytest-dev/pytest/pull/13774",
+        "merge_commit": "c772af2f1e36510d7842f3689c8de7187b09e948",
+        "merge_tree": "4258d0427fa2b8d1b239491a6e212bbe969a1234",
+        "historical_license_sha256": "CA836A5F9ECCA3B2F350230FAA20A48FB8B145653B5568D784862DF864706B9B",
+        "dependency_declarations": [
+          {
+            "path": "./pyproject.toml",
+            "bytes": 18333,
+            "sha256": "6E16F99BF031ACA12A3B5508357E7F7DF73CD6F9ADB86BDF4E3A29FC164D657F"
+          },
+          {
+            "path": "./tox.ini",
+            "bytes": 6563,
+            "sha256": "BE6E0A2DBC5E613DB473656E5B3C37E655D90579473126803B2F66B88F5EAB81"
+          }
+        ],
+        "public_test_path_inventory": "pytest-13773/public-test-paths.json"
+      }
+    },
+    {
+      "stable_id": "pytest-dev-pytest-13779-source-b02",
+      "repo_issue": "pytest-dev/pytest#13779",
+      "record_type": "source_fixed_candidate_archive",
+      "candidate_identity_key": "pytest-dev/pytest#13779|closing-pr#13780|base:c772af2f1e36510d7842f3689c8de7187b09e948",
+      "exact_repo_issue_duplicate_in_baseline": false,
+      "exact_repo_issue_base_source_duplicate": false,
+      "problem_text_sha256": "fa74a3106451ff0d48e7569eaf6e2bf8c581aaf938f54f61eadcdc2d62575e1a",
+      "base_commit": "c772af2f1e36510d7842f3689c8de7187b09e948",
+      "base_tree": "c6b7b9ec70d037ef333fbff47ec74118a230bc8c",
+      "source_archive_sha256": "5a33391f54768b74c9e03ab4bb422992aaeaa241f4f169c05f0d9c2a92a3aabb",
+      "source_archive_bytes": 1524816,
+      "source_archive_member": "pytest-13779/base.tar.gz",
+      "license_pointer": [
+        "pytest-13779/LICENSE"
+      ],
+      "license_applicability": "UNVERIFIED",
+      "family_root": "UNKNOWN",
+      "related_issue_refs": [],
+      "family_clearance": "UNKNOWN_PENDING_K62_FAMILY_DEDUP_REVIEW",
+      "source_role": "UNKNOWN",
+      "split": "UNASSIGNED",
+      "actor_visible": false,
+      "trusted_acceptance": false,
+      "environment_materialized": false,
+      "acceptance_verified": false,
+      "repo_role_exposure_clearance": "UNVERIFIED",
+      "deployment_authorized": false,
+      "training_released": false,
+      "training_release": "BLOCKED",
+      "not_verified": [
+        "independent broken-base reproduction",
+        "candidate test run",
+        "environment lock/materialization",
+        "complete root/backport and cross-repository family clearance",
+        "task source role/split/training-use authorization"
+      ],
+      "next_source_and_family_review_owner": "KAGGLE-40 review lane / 082bbef2-a827-4e50-bcb2-57ef1f383924",
+      "evidence": {
+        "batch": "KAGGLE-50-PYTEST-SOURCE-B02",
+        "source_package": "KAGGLE-50-pytest-source-batch-b2.zip",
+        "source_package_attachment_id": "01a14374-c381-7b5a-ad65-e0b4f491d395",
+        "source_package_sha256": "e0e61099869fdf7570cda534cc77096cd16ae963aa32df15948634e03f6c8e7a",
+        "manifest_path_in_package": "pytest-13779/manifest.json",
+        "public_issue_url": "https://github.com/pytest-dev/pytest/issues/13779",
+        "closing_pr_ref": "https://github.com/pytest-dev/pytest/pull/13780",
+        "merge_commit": "09a9c6a3dc23c158eb07e1a70cf7bbd4235c6442",
+        "merge_tree": "c6b7b9ec70d037ef333fbff47ec74118a230bc8c",
+        "historical_license_sha256": "CA836A5F9ECCA3B2F350230FAA20A48FB8B145653B5568D784862DF864706B9B",
+        "dependency_declarations": [
+          {
+            "path": "./pyproject.toml",
+            "bytes": 18333,
+            "sha256": "6E16F99BF031ACA12A3B5508357E7F7DF73CD6F9ADB86BDF4E3A29FC164D657F"
+          },
+          {
+            "path": "./tox.ini",
+            "bytes": 6563,
+            "sha256": "BE6E0A2DBC5E613DB473656E5B3C37E655D90579473126803B2F66B88F5EAB81"
+          }
+        ],
+        "public_test_path_inventory": "pytest-13779/public-test-paths.json"
+      }
+    },
+    {
+      "stable_id": "pytest-dev-pytest-13807-source-b02",
+      "repo_issue": "pytest-dev/pytest#13807",
+      "record_type": "source_fixed_candidate_archive",
+      "candidate_identity_key": "pytest-dev/pytest#13807|closing-pr#13808|base:2dc5b56e7934bfb8bed30fde4b8f972133b23691",
+      "exact_repo_issue_duplicate_in_baseline": false,
+      "exact_repo_issue_base_source_duplicate": false,
+      "problem_text_sha256": "7da88f0409243af3cc9eca88da4704dc144b1c158a0c2a20a68682b6639c951c",
+      "base_commit": "2dc5b56e7934bfb8bed30fde4b8f972133b23691",
+      "base_tree": "b640b1a2df6e27b2785806cfcd07dc073f5e329d",
+      "source_archive_sha256": "783256b4430585b56e59f07f182f541bac7930f7b6c26e894437160b3bacde3a",
+      "source_archive_bytes": 1532650,
+      "source_archive_member": "pytest-13807/base.tar.gz",
+      "license_pointer": [
+        "pytest-13807/LICENSE"
+      ],
+      "license_applicability": "UNVERIFIED",
+      "family_root": "UNKNOWN",
+      "related_issue_refs": [],
+      "family_clearance": "UNKNOWN_PENDING_K62_FAMILY_DEDUP_REVIEW",
+      "source_role": "UNKNOWN",
+      "split": "UNASSIGNED",
+      "actor_visible": false,
+      "trusted_acceptance": false,
+      "environment_materialized": false,
+      "acceptance_verified": false,
+      "repo_role_exposure_clearance": "UNVERIFIED",
+      "deployment_authorized": false,
+      "training_released": false,
+      "training_release": "BLOCKED",
+      "not_verified": [
+        "independent broken-base reproduction",
+        "candidate test run",
+        "environment lock/materialization",
+        "complete root/backport and cross-repository family clearance",
+        "task source role/split/training-use authorization"
+      ],
+      "next_source_and_family_review_owner": "KAGGLE-40 review lane / 082bbef2-a827-4e50-bcb2-57ef1f383924",
+      "evidence": {
+        "batch": "KAGGLE-50-PYTEST-SOURCE-B02",
+        "source_package": "KAGGLE-50-pytest-source-batch-b2.zip",
+        "source_package_attachment_id": "01a14374-c381-7b5a-ad65-e0b4f491d395",
+        "source_package_sha256": "e0e61099869fdf7570cda534cc77096cd16ae963aa32df15948634e03f6c8e7a",
+        "manifest_path_in_package": "pytest-13807/manifest.json",
+        "public_issue_url": "https://github.com/pytest-dev/pytest/issues/13807",
+        "closing_pr_ref": "https://github.com/pytest-dev/pytest/pull/13808",
+        "merge_commit": "b0ff3419badea3e79847fbe0904522397b032bb0",
+        "merge_tree": "b640b1a2df6e27b2785806cfcd07dc073f5e329d",
+        "historical_license_sha256": "CA836A5F9ECCA3B2F350230FAA20A48FB8B145653B5568D784862DF864706B9B",
+        "dependency_declarations": [
+          {
+            "path": "./pyproject.toml",
+            "bytes": 18337,
+            "sha256": "6755493CCD03D8494D5A81FF67FCDA228A4E63F2AF4E51098B930F811253234A"
+          },
+          {
+            "path": "./tox.ini",
+            "bytes": 6563,
+            "sha256": "BE6E0A2DBC5E613DB473656E5B3C37E655D90579473126803B2F66B88F5EAB81"
+          }
+        ],
+        "public_test_path_inventory": "pytest-13807/public-test-paths.json"
+      }
+    },
+    {
+      "stable_id": "pytest-dev-pytest-13816-source-b02",
+      "repo_issue": "pytest-dev/pytest#13816",
+      "record_type": "source_fixed_candidate_archive",
+      "candidate_identity_key": "pytest-dev/pytest#13816|closing-pr#13818|base:e3facc0f8115a52606151c436ab3cb0816dbc0c3",
+      "exact_repo_issue_duplicate_in_baseline": false,
+      "exact_repo_issue_base_source_duplicate": false,
+      "problem_text_sha256": "ee81039472177eddb0789a8b1b9912bf3470af2b9ec4457207bb6785cf885cea",
+      "base_commit": "e3facc0f8115a52606151c436ab3cb0816dbc0c3",
+      "base_tree": "9bf9da68522cb976b56650e36b85a92ca0ec1fe0",
+      "source_archive_sha256": "d0730d94d197a7f507bb44dd7c77ca6fcfc7e624111ce571cdced651ffa05476",
+      "source_archive_bytes": 1554459,
+      "source_archive_member": "pytest-13816/base.tar.gz",
+      "license_pointer": [
+        "pytest-13816/LICENSE"
+      ],
+      "license_applicability": "UNVERIFIED",
+      "family_root": "UNKNOWN",
+      "related_issue_refs": [
+        "pytest-dev/pytest#12444"
+      ],
+      "family_clearance": "UNKNOWN_PENDING_K62_FAMILY_DEDUP_REVIEW",
+      "source_role": "UNKNOWN",
+      "split": "UNASSIGNED",
+      "actor_visible": false,
+      "trusted_acceptance": false,
+      "environment_materialized": false,
+      "acceptance_verified": false,
+      "repo_role_exposure_clearance": "UNVERIFIED",
+      "deployment_authorized": false,
+      "training_released": false,
+      "training_release": "BLOCKED",
+      "not_verified": [
+        "independent broken-base reproduction",
+        "candidate test run",
+        "environment lock/materialization",
+        "complete root/backport and cross-repository family clearance",
+        "task source role/split/training-use authorization"
+      ],
+      "next_source_and_family_review_owner": "KAGGLE-40 review lane / 082bbef2-a827-4e50-bcb2-57ef1f383924",
+      "evidence": {
+        "batch": "KAGGLE-50-PYTEST-SOURCE-B02",
+        "source_package": "KAGGLE-50-pytest-source-batch-b2.zip",
+        "source_package_attachment_id": "01a14374-c381-7b5a-ad65-e0b4f491d395",
+        "source_package_sha256": "e0e61099869fdf7570cda534cc77096cd16ae963aa32df15948634e03f6c8e7a",
+        "manifest_path_in_package": "pytest-13816/manifest.json",
+        "public_issue_url": "https://github.com/pytest-dev/pytest/issues/13816",
+        "closing_pr_ref": "https://github.com/pytest-dev/pytest/pull/13818",
+        "merge_commit": "7ff334e7880d8aa03de7428ba2941fc92d8f892e",
+        "merge_tree": "9bf9da68522cb976b56650e36b85a92ca0ec1fe0",
+        "historical_license_sha256": "CA836A5F9ECCA3B2F350230FAA20A48FB8B145653B5568D784862DF864706B9B",
+        "dependency_declarations": [
+          {
+            "path": "./pyproject.toml",
+            "bytes": 18312,
+            "sha256": "DD2A6AB7FFFA8D73B6E58D9F99538A0D1162C24C1B8C83D38B6B8527F91A52FB"
+          },
+          {
+            "path": "./tox.ini",
+            "bytes": 6489,
+            "sha256": "0087EF0904B8156A37CD94339F268A83B462DD9858487DF41EF742A31D4CAF3D"
+          }
+        ],
+        "public_test_path_inventory": "pytest-13816/public-test-paths.json"
+      }
+    },
+    {
+      "stable_id": "pytest-dev-pytest-13823-source-b02",
+      "repo_issue": "pytest-dev/pytest#13823",
+      "record_type": "source_fixed_candidate_archive",
+      "candidate_identity_key": "pytest-dev/pytest#13823|closing-pr#13839|base:a75b425635efb910eab77773357437042b80be3c",
+      "exact_repo_issue_duplicate_in_baseline": false,
+      "exact_repo_issue_base_source_duplicate": false,
+      "problem_text_sha256": "f75605222a39e5937be090f60f8bde3f1369e436b83e6bdc75aa469ddf2b342b",
+      "base_commit": "a75b425635efb910eab77773357437042b80be3c",
+      "base_tree": "b95c4e795a99e5d8a3dab7fc763fd1aada392cca",
+      "source_archive_sha256": "344b0ea64458c08aa0ff4ad51dd8a5da3daf82617fa3a5776bedb0d5f70ff55d",
+      "source_archive_bytes": 1537549,
+      "source_archive_member": "pytest-13823/base.tar.gz",
+      "license_pointer": [
+        "pytest-13823/LICENSE"
+      ],
+      "license_applicability": "UNVERIFIED",
+      "family_root": "UNKNOWN",
+      "related_issue_refs": [
+        "pytest-dev/pytest#13757"
+      ],
+      "family_clearance": "UNKNOWN_PENDING_K62_FAMILY_DEDUP_REVIEW",
+      "source_role": "UNKNOWN",
+      "split": "UNASSIGNED",
+      "actor_visible": false,
+      "trusted_acceptance": false,
+      "environment_materialized": false,
+      "acceptance_verified": false,
+      "repo_role_exposure_clearance": "UNVERIFIED",
+      "deployment_authorized": false,
+      "training_released": false,
+      "training_release": "BLOCKED",
+      "not_verified": [
+        "independent broken-base reproduction",
+        "candidate test run",
+        "environment lock/materialization",
+        "complete root/backport and cross-repository family clearance",
+        "task source role/split/training-use authorization"
+      ],
+      "next_source_and_family_review_owner": "KAGGLE-40 review lane / 082bbef2-a827-4e50-bcb2-57ef1f383924",
+      "evidence": {
+        "batch": "KAGGLE-50-PYTEST-SOURCE-B02",
+        "source_package": "KAGGLE-50-pytest-source-batch-b2.zip",
+        "source_package_attachment_id": "01a14374-c381-7b5a-ad65-e0b4f491d395",
+        "source_package_sha256": "e0e61099869fdf7570cda534cc77096cd16ae963aa32df15948634e03f6c8e7a",
+        "manifest_path_in_package": "pytest-13823/manifest.json",
+        "public_issue_url": "https://github.com/pytest-dev/pytest/issues/13823",
+        "closing_pr_ref": "https://github.com/pytest-dev/pytest/pull/13839",
+        "merge_commit": "0fb7cae49ee86c16bdc04f0f8be170554a652e63",
+        "merge_tree": "b95c4e795a99e5d8a3dab7fc763fd1aada392cca",
+        "historical_license_sha256": "CA836A5F9ECCA3B2F350230FAA20A48FB8B145653B5568D784862DF864706B9B",
+        "dependency_declarations": [
+          {
+            "path": "./pyproject.toml",
+            "bytes": 18371,
+            "sha256": "98CD7A751981C5C63AD509B9D1DDC10C4F7A81C546E55709EAC93EB71EFDF32E"
+          },
+          {
+            "path": "./tox.ini",
+            "bytes": 6489,
+            "sha256": "0087EF0904B8156A37CD94339F268A83B462DD9858487DF41EF742A31D4CAF3D"
+          }
+        ],
+        "public_test_path_inventory": "pytest-13823/public-test-paths.json"
+      }
+    }
+  ],
+  "counts_file": "counts.json",
+  "previous_delta": {
+    "filename": "prior-b01-manifest.json",
+    "attachment_id": "01a1434c-c8d0-7d29-8ef2-bb8ebd3e542a",
+    "package_sha256": "06a1fa00d860aefa7cee47a360ee65f15aec138825fc1091bf03cf849d8424bf",
+    "preserved_records": 24
+  },
+  "gate_snapshot": {
+    "filename": "k62-gate-review.json",
+    "source_package_attachment_id": "01a14374-c381-7b5a-ad65-e0b4f491d395",
+    "k62_v24_attachment_id": "01a1357e-8143-7704-afc5-5462b0f20b9a",
+    "k62_v24_sha256": "fb29a18b319b332b70c0d594576395fb922a02e07caa524ed36eed4cbe7058a9",
+    "d0_source_lock_attachment_id": "01a13886-104f-70de-8b00-cd46eb5fd6d7",
+    "reserved_family_hold": [
+      "pytest-dev/pluggy#140",
+      "pytest-dev/pytest#2639"
+    ],
+    "hold_disposition": "PRESERVED; no family clearance inferred"
+  }
+}
