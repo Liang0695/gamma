@@ -1,49 +1,55 @@
 {
-  "schema": "kaggle50-k62-gate-check/1",
+  "schema": "kaggle50-k62-gate-check/2",
   "checked_utc": "2026-10-16",
   "d0_source_lock": {
     "attachment_id": "01a13886-104f-70de-8b00-cd46eb5fd6d7",
-    "file": "d0__out__source-lock.json",
     "sha256": "E35377CC8C7E4EC76BCA2D1A7EE361A6DFA13190903CE2CB4D5B9C1F19F5217C",
-    "finding": "No pytest-dev/pytest repository entry in D0 source lock."
+    "finding": "No pytest-dev/pytest repo entry."
   },
   "k62_consolidated_v24": {
     "attachment_id": "01a1357e-8143-7704-afc5-5462b0f20b9a",
-    "file": "KAGGLE-62-consolidated-v24.zip",
     "sha256": "FB29A18B319B332B70C0D594576395FB922A02E07CAA524ED36EED4CBE7058A9",
     "members_checked": [
       "dedup-and-gates.json",
       "body-prescreen-exclusions.json"
     ],
-    "finding": "No exact match for any packaged issue ID. The reserved cross-repository family hold is specific to pytest-dev/pluggy#140 with metadata pytest-dev/pytest#2639; it remains in force and is not broadened or cleared here."
+    "finding": "None of the exact B3 task IDs hit these gates. The existing pluggy#140 ↔ pytest#2639 family hold remains; no family or training gate is cleared."
   },
-  "k62_deployment_index_v2": {
-    "attachment_id": "01a13e32-7541-706c-9611-8f1f1fe323a4",
-    "file": "KAGGLE-62-current-deployment-index-v2-20261015.zip",
-    "sha256": "73CE358A24AF0329BAF8D00AA46928D211B4928FA91789AFE3ECEBF57E12A9AC",
-    "finding": "No pytest-dev/pytest repository row or exact packaged issue ID."
+  "k62_b2_unified_index": {
+    "attachment_id": "01a1437b-21b7-796b-8d1c-c6f63472186b",
+    "filename": "k40-k62-unified-index-b02.zip",
+    "sha256": "73A54A808DD0DB72E6E42DFCF2650688D8031573A3EF43DFB3037E1D8BF41032",
+    "current_before_b3": {
+      "metadata_identities": 184,
+      "material_identities": 164,
+      "candidate_archives": 140,
+      "source_ready": 85,
+      "deployable": 0,
+      "training_approved": 0
+    }
   },
-  "exact_ids_not_package_clearance": "No repo-wide seal found in these checked snapshots; source role, family clearance, split, actor visibility, trusted acceptance, and training remain unresolved.",
-  "packaged_issue_ids": [
-    "pytest-dev/pytest#13549",
-    "pytest-dev/pytest#13559",
-    "pytest-dev/pytest#13574",
-    "pytest-dev/pytest#13577",
-    "pytest-dev/pytest#13634",
-    "pytest-dev/pytest#13638",
-    "pytest-dev/pytest#13678",
-    "pytest-dev/pytest#13700",
-    "pytest-dev/pytest#13716",
-    "pytest-dev/pytest#13731",
-    "pytest-dev/pytest#13734",
-    "pytest-dev/pytest#13737",
-    "pytest-dev/pytest#13743",
-    "pytest-dev/pytest#13766",
-    "pytest-dev/pytest#13771",
-    "pytest-dev/pytest#13773",
-    "pytest-dev/pytest#13779",
-    "pytest-dev/pytest#13807",
-    "pytest-dev/pytest#13816",
-    "pytest-dev/pytest#13823"
+  "b2_exact_id_comparison": "No B3 exact repo/issue identity overlaps the 20 B2 package directories.",
+  "per_candidate_disposition": "No repo-wide pytest seal found in checked snapshots; exact-ID absence does not clear family, split, source role, actor visibility, acceptance, or training.",
+  "b3_issue_ids": [
+    "pytest-dev/pytest#13170",
+    "pytest-dev/pytest#13175",
+    "pytest-dev/pytest#13228",
+    "pytest-dev/pytest#13248",
+    "pytest-dev/pytest#13290",
+    "pytest-dev/pytest#13312",
+    "pytest-dev/pytest#13330",
+    "pytest-dev/pytest#13376",
+    "pytest-dev/pytest#13384",
+    "pytest-dev/pytest#13409",
+    "pytest-dev/pytest#13415",
+    "pytest-dev/pytest#13420",
+    "pytest-dev/pytest#13457",
+    "pytest-dev/pytest#13461",
+    "pytest-dev/pytest#13464",
+    "pytest-dev/pytest#13476",
+    "pytest-dev/pytest#13477",
+    "pytest-dev/pytest#13480",
+    "pytest-dev/pytest#13497",
+    "pytest-dev/pytest#13530"
   ]
 }
