@@ -1,0 +1,45 @@
+{
+  "schema": "kaggle67-append-merge-counts/3",
+  "as_of_utc": "2026-10-16T07:54:04+00:00",
+  "basis": "Preserved K62 v23 baseline + K67 B01 + B02 + appended B03; K62 v24 gate/exclusion snapshot checked",
+  "delta_b03": {
+    "metadata_identities_added": 20,
+    "pinned_source_candidates_added": 20,
+    "source_ready_added": 0,
+    "deployable_added": 0,
+    "training_approved_added": 0,
+    "exact_duplicates_added": 0,
+    "related_refs_pending_family_review": 22,
+    "family_edges_confirmed_added": 0
+  },
+  "cumulative": {
+    "metadata_identities": 204,
+    "metadata_only_candidates": 20,
+    "material_identities": 184,
+    "candidate_archive_identities": 160,
+    "pinned_source_candidates": 160,
+    "source_ready": 85,
+    "problem_text_and_license_complete": "UNKNOWN_NOT_TRACKED_AS_JOINED_GLOBAL_STAGE",
+    "deployable": 0,
+    "training_approved": 0,
+    "family_or_root_unique_confirmed_from_b03": 0
+  },
+  "after_b02_before_b03": {
+    "metadata_identities": 184,
+    "metadata_only_candidates": 20,
+    "material_identities": 164,
+    "candidate_archive_identities": 140,
+    "pinned_source_candidates": 140,
+    "source_ready": 85,
+    "problem_text_and_license_complete": "UNKNOWN_NOT_TRACKED_AS_JOINED_GLOBAL_STAGE",
+    "deployable": 0,
+    "training_approved": 0,
+    "family_or_root_unique_confirmed_from_this_delta": 0
+  },
+  "counting_notes": [
+    "Metadata identities include the 140-row K62 v23 baseline, 24 B01 rows, 20 B02 rows, and 20 B03 rows; metadata-only candidates remain separately counted and excluded from material/archive totals.",
+    "B03 adds 20 pinned source candidates, not SOURCE_READY records. The cumulative SOURCE_READY, deployable, and training-approved counts do not increase.",
+    "All B03 related refs are pending family review; exact-ID absence in the checked K62 v24 snapshots does not clear any family, actor, acceptance, split, or training gate.",
+    "Candidate tests and environments remain unverified. No PR body, diff, fix, hidden evaluation material, or test content was read or run."
+  ]
+}

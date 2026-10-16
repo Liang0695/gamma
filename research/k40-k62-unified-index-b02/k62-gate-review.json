@@ -1,5 +1,5 @@
 {
-  "schema": "kaggle50-k62-gate-check/2",
+  "schema": "kaggle50-k62-gate-check/4",
   "checked_utc": "2026-10-16",
   "d0_source_lock": {
     "attachment_id": "01a13886-104f-70de-8b00-cd46eb5fd6d7",
@@ -13,43 +13,43 @@
       "dedup-and-gates.json",
       "body-prescreen-exclusions.json"
     ],
-    "finding": "None of the exact B3 task IDs hit these gates. The existing pluggy#140 ↔ pytest#2639 family hold remains; no family or training gate is cleared."
+    "finding": "No exact B4 issue ID gate hit. The pytest-dev/pluggy#140 ↔ pytest-dev/pytest#2639 hold remains unchanged."
   },
-  "k62_b2_unified_index": {
-    "attachment_id": "01a1437b-21b7-796b-8d1c-c6f63472186b",
-    "filename": "k40-k62-unified-index-b02.zip",
-    "sha256": "73A54A808DD0DB72E6E42DFCF2650688D8031573A3EF43DFB3037E1D8BF41032",
-    "current_before_b3": {
-      "metadata_identities": 184,
-      "material_identities": 164,
-      "candidate_archives": 140,
+  "latest_unified_index_b03": {
+    "attachment_id": "01a143b6-41af-7110-b5aa-fa8149d6cba3",
+    "filename": "k40-k62-unified-index-b03.zip",
+    "sha256": "C4A611ECB68F514E271C2CB0D10695B3132B92C591B789AACFE0270E5EF36C02",
+    "current_before_b4": {
+      "metadata_identities": 204,
+      "material_identities": 184,
+      "pinned_source_candidates": 160,
       "source_ready": 85,
       "deployable": 0,
       "training_approved": 0
     }
   },
-  "b2_exact_id_comparison": "No B3 exact repo/issue identity overlaps the 20 B2 package directories.",
-  "per_candidate_disposition": "No repo-wide pytest seal found in checked snapshots; exact-ID absence does not clear family, split, source role, actor visibility, acceptance, or training.",
-  "b3_issue_ids": [
-    "pytest-dev/pytest#13170",
-    "pytest-dev/pytest#13175",
-    "pytest-dev/pytest#13228",
-    "pytest-dev/pytest#13248",
-    "pytest-dev/pytest#13290",
-    "pytest-dev/pytest#13312",
-    "pytest-dev/pytest#13330",
-    "pytest-dev/pytest#13376",
-    "pytest-dev/pytest#13384",
-    "pytest-dev/pytest#13409",
-    "pytest-dev/pytest#13415",
-    "pytest-dev/pytest#13420",
-    "pytest-dev/pytest#13457",
-    "pytest-dev/pytest#13461",
-    "pytest-dev/pytest#13464",
-    "pytest-dev/pytest#13476",
-    "pytest-dev/pytest#13477",
-    "pytest-dev/pytest#13480",
-    "pytest-dev/pytest#13497",
-    "pytest-dev/pytest#13530"
+  "b2_b3_exact_identity_check": "No B4 exact repo/issue identity overlaps the B2 or B3 candidate package directories.",
+  "per_candidate_disposition": "Exact-ID absence does not clear any related family, source role, split, actor, acceptance, deployment, or training gate.",
+  "b4_issue_ids": [
+    "pytest-dev/pytest#12849",
+    "pytest-dev/pytest#12863",
+    "pytest-dev/pytest#12874",
+    "pytest-dev/pytest#12883",
+    "pytest-dev/pytest#12888",
+    "pytest-dev/pytest#12929",
+    "pytest-dev/pytest#12938",
+    "pytest-dev/pytest#12941",
+    "pytest-dev/pytest#12943",
+    "pytest-dev/pytest#12946",
+    "pytest-dev/pytest#12960",
+    "pytest-dev/pytest#12981",
+    "pytest-dev/pytest#13026",
+    "pytest-dev/pytest#13028",
+    "pytest-dev/pytest#13031",
+    "pytest-dev/pytest#13047",
+    "pytest-dev/pytest#13072",
+    "pytest-dev/pytest#13083",
+    "pytest-dev/pytest#13112",
+    "pytest-dev/pytest#13115"
   ]
 }
