@@ -1,20 +1,96 @@
 {
-  "schema": "kaggle67-append-merge-counts/6",
-  "as_of_utc": "2026-10-20T05:19:10+00:00",
-  "basis": "Preserved K62 v23 baseline + K67 B01 + B02 + B03 + B04 + appended B05; K62 v24 exact-ID/body-prescreen evidence checked",
-  "delta_b05": {
-    "metadata_identities_added": 20,
-    "pinned_source_candidates_added": 20,
+  "schema": "kaggle67-append-merge-counts/10",
+  "as_of_utc": "2026-10-20T05:44:44+00:00",
+  "basis": "Preserved K62 v23 baseline + K67 B01 + B02–B05 + sequential B06/B07/B08 appends; K62 v24 gate/exclusion evidence checked",
+  "delta_by_batch": [
+    {
+      "batch": "B6",
+      "metadata_identities_added": 20,
+      "pinned_source_candidates_added": 20,
+      "source_ready_added": 0,
+      "deployable_added": 0,
+      "training_approved_added": 0,
+      "exact_duplicates_added": 0,
+      "related_reference_entries_pending_family_review": 38,
+      "confirmed_family_edges_added": 0
+    },
+    {
+      "batch": "B7",
+      "metadata_identities_added": 20,
+      "pinned_source_candidates_added": 20,
+      "source_ready_added": 0,
+      "deployable_added": 0,
+      "training_approved_added": 0,
+      "exact_duplicates_added": 0,
+      "related_reference_entries_pending_family_review": 17,
+      "confirmed_family_edges_added": 0
+    },
+    {
+      "batch": "B8",
+      "metadata_identities_added": 20,
+      "pinned_source_candidates_added": 20,
+      "source_ready_added": 0,
+      "deployable_added": 0,
+      "training_approved_added": 0,
+      "exact_duplicates_added": 0,
+      "related_reference_entries_pending_family_review": 24,
+      "confirmed_family_edges_added": 0
+    }
+  ],
+  "delta_total_b6_b8": {
+    "metadata_identities_added": 60,
+    "pinned_source_candidates_added": 60,
     "source_ready_added": 0,
     "deployable_added": 0,
     "training_approved_added": 0,
     "exact_duplicates_added": 0,
-    "related_reference_entries_pending_family_review": 28,
-    "unique_related_references_pending_family_review": 25,
-    "family_edges_confirmed_added": 0,
+    "related_reference_entries_pending_family_review": 79,
+    "unique_related_references_pending_family_review": 73,
+    "confirmed_family_edges_added": 0,
     "family_clearances_added": 0
   },
   "cumulative": {
+    "metadata_identities": 304,
+    "metadata_only_candidates": 20,
+    "material_identities": 284,
+    "candidate_archive_identities": 260,
+    "pinned_source_candidates": 260,
+    "source_ready": 85,
+    "problem_text_and_license_complete": "UNKNOWN_NOT_TRACKED_AS_JOINED_GLOBAL_STAGE",
+    "deployable": 0,
+    "training_approved": 0,
+    "family_or_root_unique_confirmed_from_b6_b8": 0
+  },
+  "after_each_append": [
+    {
+      "batch": "B6",
+      "metadata_identities": 264,
+      "material_identities": 244,
+      "pinned_source_candidates": 220,
+      "source_ready": 85,
+      "deployable": 0,
+      "training_approved": 0
+    },
+    {
+      "batch": "B7",
+      "metadata_identities": 284,
+      "material_identities": 264,
+      "pinned_source_candidates": 240,
+      "source_ready": 85,
+      "deployable": 0,
+      "training_approved": 0
+    },
+    {
+      "batch": "B8",
+      "metadata_identities": 304,
+      "material_identities": 284,
+      "pinned_source_candidates": 260,
+      "source_ready": 85,
+      "deployable": 0,
+      "training_approved": 0
+    }
+  ],
+  "before_b6_b05_baseline": {
     "metadata_identities": 244,
     "metadata_only_candidates": 20,
     "material_identities": 224,
@@ -26,23 +102,12 @@
     "training_approved": 0,
     "family_or_root_unique_confirmed_from_b05": 0
   },
-  "after_b04_before_b05": {
-    "metadata_identities": 224,
-    "metadata_only_candidates": 20,
-    "material_identities": 204,
-    "candidate_archive_identities": 180,
-    "pinned_source_candidates": 180,
-    "source_ready": 85,
-    "problem_text_and_license_complete": "UNKNOWN_NOT_TRACKED_AS_JOINED_GLOBAL_STAGE",
-    "deployable": 0,
-    "training_approved": 0,
-    "family_or_root_unique_confirmed_from_b04": 0
-  },
   "counting_notes": [
-    "B04 baseline before B05: 224 metadata identities, 204 material identities, 180 pinned source candidates, 85 SOURCE_READY, 0 deployable, 0 training-approved.",
-    "B05 adds 20 metadata identities and 20 pinned source candidates; it adds 0 SOURCE_READY, deployable, or training-approved records.",
-    "The 20 metadata-only K40 candidates remain separately counted and outside material/archive totals.",
-    "There are 28 related-reference entries with 25 unique reference strings; all remain pending independent family review and add no confirmed family edges.",
-    "Source role, family clearance, split, actor visibility, trusted acceptance, training release, and deployment environment retain their unapproved states. Tests and environments remain unverified."
+    "B05 baseline: 244 metadata identities, 224 material identities, 200 pinned candidates, 85 SOURCE_READY, 0 deployable, 0 training-approved.",
+    "Each of B6, B7, and B8 contributes 20 metadata identities and 20 pinned source candidates; none increases SOURCE_READY, deployable, or training-approved.",
+    "The 20 metadata-only K40 candidates remain separately counted and excluded from material/archive totals.",
+    "Across B6–B8, 79 related-reference entries (73 unique strings) remain pending family/root/backport review; no family edges or clearances were added.",
+    "Source role UNKNOWN, family clearance UNKNOWN, split UNASSIGNED, actor visibility false, trusted acceptance false, training release BLOCKED, and deployment environment NOT_ASSESSED remain unchanged.",
+    "Candidate tests and environments remain unverified; no PR body/diff/fix or hidden evaluation material was read, and no tests/deployment/GPU/107 were used."
   ]
 }

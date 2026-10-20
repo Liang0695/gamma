@@ -1,0 +1,71 @@
+{
+  "schema": "kaggle50-k62-gate-check/6",
+  "checked_on": "2026-10-20",
+  "k62_gate_snapshot": {
+    "dedup_and_gates_file": "k62-dedup-and-gates-v24.json",
+    "sha256": "C74AE60E3346E16939358D7BBF783EC3635C7C7218111490E235CA943EDD9511",
+    "body_prescreen_exclusions_file": "k62-body-prescreen-exclusions-v24.json",
+    "sha256_body_prescreen": "1E2D1F2819DE199AAFA1D08A314B6E546F000F2F1CC536950272E6F2E200FC64",
+    "selected_candidate_exact_id_hits": 0
+  },
+  "latest_unified_index_before_b6": {
+    "issue": "KAGGLE-68",
+    "attachment_id": "01a157c1-34bd-746e-be1d-0e73b021e150",
+    "filename": "k40-k62-unified-index-b05.zip",
+    "sha256": "1391C169588E39C0FC9088B03AA4FEC0B8B7C63B7AB34B77D1D75B30AE39DB56",
+    "exact_b6_issue_hits": 0,
+    "counts": {
+      "metadata_identities": 244,
+      "material_identities": 224,
+      "pinned_source_candidates": 200,
+      "source_ready": 85,
+      "deployable": 0,
+      "training_approved": 0
+    }
+  },
+  "b5_source_input": {
+    "attachment_id": "01a143d9-0c75-76fe-aac2-8ac4a652f580",
+    "sha256": "679078D8BD02805926DEC563B145286C2C50A745B059D0F5F1BA1E5471EE7F1C",
+    "candidate_count": 20,
+    "not_resampled": true
+  },
+  "exact_overlap_with_b2_b3_b4_b5": [],
+  "body_reference_tokens_unclassified": {
+    "12426": [],
+    "12424": [],
+    "12383": [],
+    "12381": [],
+    "12367": [
+      "#12198",
+      "#12266"
+    ],
+    "12363": [],
+    "12356": [],
+    "12355": [],
+    "12328": [],
+    "12323": [
+      "#11603"
+    ],
+    "12308": [],
+    "12300": [],
+    "12281": [],
+    "12275": [],
+    "12204": [],
+    "12194": [
+      "#12112",
+      "#676"
+    ],
+    "12167": [],
+    "12135": [
+      "#11833",
+      "#12135",
+      "#4871"
+    ],
+    "12120": [],
+    "12112": [
+      "#12074"
+    ]
+  },
+  "known_hold_preserved": "pytest-dev/pluggy#140 ↔ pytest-dev/pytest#2639 remains in force; no candidate exact ID hits it.",
+  "family_disposition": "All family/root/backport relations remain pending; no family edge, split, source role, or use gate is cleared."
+}

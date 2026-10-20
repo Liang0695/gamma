@@ -1,0 +1,17 @@
+{
+  "b8-screening-ledger_sha256": "5036e4cb8bedc08729e7cc4b65afddcf9383d49c5bfe684def155af6391cb9b0",
+  "excluded_candidates": [
+    {
+      "task_id": "pytest-dev/pytest#11538",
+      "direct_same_repo_merged_pr_count": 1,
+      "disposition": "SCREENED_OUT",
+      "reason": "Exact same merged PR #13192, first-parent/tree, and source archive as prior B4/B5 candidates #12883/#12763; excluded as exact source duplicate."
+    },
+    {
+      "task_id": "pytest-dev/pytest#11706",
+      "direct_same_repo_merged_pr_count": 2,
+      "disposition": "SCREENED_OUT",
+      "reason": "Multiple direct merged-PR closers for this issue; closure-to-source attribution ambiguous."
+    }
+  ]
+}
