@@ -1,0 +1,853 @@
+{
+  "schema": "k68-unified-candidate-integration-diff/1",
+  "kind": "single finite integration of already-reviewed B2-B11 artifacts; no prompt rewrite or candidate/source collection",
+  "artifact": {
+    "filename": "k68-b02-b11-unified-candidates-review-only-v1.zip",
+    "sha256": "b7041434f5ae2eafc2f2a878a0962bc047ed86879a8f1b67bc201aa7465f89cd",
+    "member_count": 73
+  },
+  "machine_catalog": {
+    "filename": "catalog.json",
+    "sha256": "30c4a3b5ba93579c385bcc6402bd87ef0eb50712defbe0857607037524d4213e",
+    "schema": "k68-unified-candidate-input-catalog/1"
+  },
+  "final_reviewed_inputs": {
+    "B2": {
+      "source_package": {
+        "filename": "KAGGLE-50-pytest-source-batch-b2.zip",
+        "attachment_id": "01a14374-c381-7b5a-ad65-e0b4f491d395",
+        "sha256": "e0e61099869fdf7570cda534cc77096cd16ae963aa32df15948634e03f6c8e7a"
+      },
+      "final_prompt_package": {
+        "filename": "k68-b2-neutral-candidate-prompts-review-only-v2.zip",
+        "sha256": "08a6312cde8018e48ba75131f4db2cca9126a0184f371ae5ddf6a2038bbc8067",
+        "attachment_id": "01a158a1-010d-77e7-9130-937429be8ba5"
+      },
+      "effective_independent_review": {
+        "comment_id": "01a158a9-8676-7a84-ba51-37f09a1e715c",
+        "sha256": "f6605f70a88bbbb1c0d52ca90dd2180941892d83d827a6d343760781879a63f5",
+        "outcome": "PASS_WITH_B2_SOURCE_PARTIAL_RETAINED",
+        "scope": "final B2-B5 prompt supply review; B2 closure evidence remains partial",
+        "prompt_review_status": "PASS",
+        "source_review_scope_status": "selected identity source chain status is recorded separately"
+      }
+    },
+    "B3": {
+      "source_package": {
+        "filename": "KAGGLE-50-pytest-source-batch-b3.zip",
+        "attachment_id": "01a143b1-febd-76ff-a8d9-78f73e3254c5",
+        "sha256": "f5bbc872e7491a4ac5f99597ad1d696e40ef88886ed557a1f6bf5b3de412091c"
+      },
+      "final_prompt_package": {
+        "filename": "k68-b3-neutral-candidate-prompts-review-only-v1.zip",
+        "sha256": "53735a35e146bf74908d31a06026434e13d148af32767c1ba3215d3835b08a7d",
+        "attachment_id": "01a15891-e7bb-75b9-bf45-a00a816173e3"
+      },
+      "effective_independent_review": {
+        "comment_id": "01a158a9-8676-7a84-ba51-37f09a1e715c",
+        "sha256": "f6605f70a88bbbb1c0d52ca90dd2180941892d83d827a6d343760781879a63f5",
+        "outcome": "PASS",
+        "scope": "final B2-B5 prompt supply review",
+        "prompt_review_status": "PASS",
+        "source_review_scope_status": "selected identity source chain status is recorded separately"
+      }
+    },
+    "B4": {
+      "source_package": {
+        "filename": "KAGGLE-50-pytest-source-batch-b4.zip",
+        "attachment_id": "01a143c2-5b0d-7c28-bc43-8c2634802bb1",
+        "sha256": "dd1ff4b052479b78c249aa081d65960c4c53318bdf74b8e2e78ded6266413d62"
+      },
+      "final_prompt_package": {
+        "filename": "k68-b4-neutral-candidate-prompts-review-only-v1.zip",
+        "sha256": "a6fa9c81ab09768d3e75069bccc4b9506dbab46ff3c7593242a2c371c5d31bd0",
+        "attachment_id": "01a15891-e901-72d1-9f05-8cc0498c3b9a"
+      },
+      "effective_independent_review": {
+        "comment_id": "01a158a9-8676-7a84-ba51-37f09a1e715c",
+        "sha256": "f6605f70a88bbbb1c0d52ca90dd2180941892d83d827a6d343760781879a63f5",
+        "outcome": "PASS",
+        "scope": "final B2-B5 prompt supply review",
+        "prompt_review_status": "PASS",
+        "source_review_scope_status": "selected identity source chain status is recorded separately"
+      }
+    },
+    "B5": {
+      "source_package": {
+        "filename": "KAGGLE-50-pytest-source-batch-b5.zip",
+        "attachment_id": "01a143d9-0c75-76fe-aac2-8ac4a652f580",
+        "sha256": "679078d8bd02805926dec563b145286c2c50a745b059d0f5f1ba1e5471ee7f1c"
+      },
+      "final_prompt_package": {
+        "filename": "k68-b5-neutral-candidate-prompts-review-only-v3.zip",
+        "sha256": "583af78b7c29d0cc79812c1a25b37294b69d6fd8e4c179be58bd798b3c0995e0",
+        "attachment_id": "01a158a8-1b3a-7ad9-8e4d-785aaf526056"
+      },
+      "effective_independent_review": {
+        "comment_id": "01a158a9-8676-7a84-ba51-37f09a1e715c",
+        "sha256": "f6605f70a88bbbb1c0d52ca90dd2180941892d83d827a6d343760781879a63f5",
+        "outcome": "PASS",
+        "scope": "final B2-B5 prompt supply review including #12592 v3 clarification",
+        "prompt_review_status": "PASS",
+        "source_review_scope_status": "selected identity source chain status is recorded separately"
+      }
+    },
+    "B6": {
+      "source_package": {
+        "filename": "KAGGLE-50-pytest-source-batch-b6.zip",
+        "attachment_id": "01a157d4-3d16-73e5-a803-98fa3754c543",
+        "sha256": "714dacaf59c36f4b57a102577c6178cc60e3d2a719afb4dbdd440c29b396ae76"
+      },
+      "final_prompt_package": {
+        "filename": "k68-b06-b08-neutral-candidate-prompts-review-only-v2.zip",
+        "sha256": "28d4c7f549cb8d167135256266aac372bc4daedf3c88e82ee8e7ec1fe18ced53",
+        "attachment_id": "01a15879-7d93-7805-bae1-e3ca028f227c"
+      },
+      "effective_independent_review": {
+        "comment_id": "01a1587b-26fe-7ecf-a383-dc63fafc45f3",
+        "sha256": "ed44a7bae331b206f19eebb2d0d37c2ea9fb80db7affcebac3e12aa60ef26e9e",
+        "outcome": "PASS",
+        "scope": "B6-B8 selected prompt review and source-chain review for 15 selected records",
+        "prompt_review_status": "PASS",
+        "source_review_scope_status": "selected identity source chain status is recorded separately"
+      }
+    },
+    "B7": {
+      "source_package": {
+        "filename": "KAGGLE-50-pytest-source-batch-b7.zip",
+        "attachment_id": "01a157d4-6583-79e8-b2a9-cea95ef4e6de",
+        "sha256": "553b3ead6d654d00285675d63b8e562c3c4cc80e9014170d2ffcf90e125e045b"
+      },
+      "final_prompt_package": {
+        "filename": "k68-b06-b08-neutral-candidate-prompts-review-only-v2.zip",
+        "sha256": "28d4c7f549cb8d167135256266aac372bc4daedf3c88e82ee8e7ec1fe18ced53",
+        "attachment_id": "01a15879-7d93-7805-bae1-e3ca028f227c"
+      },
+      "effective_independent_review": {
+        "comment_id": "01a1587b-26fe-7ecf-a383-dc63fafc45f3",
+        "sha256": "ed44a7bae331b206f19eebb2d0d37c2ea9fb80db7affcebac3e12aa60ef26e9e",
+        "outcome": "PASS",
+        "scope": "B6-B8 selected prompt review and source-chain review for 15 selected records",
+        "prompt_review_status": "NOT_SELECTED; no prompt-content PASS is claimed",
+        "source_review_scope_status": "source chain not independently reviewed for this deferred identity"
+      }
+    },
+    "B8": {
+      "source_package": {
+        "filename": "KAGGLE-50-pytest-source-batch-b8.zip",
+        "attachment_id": "01a157d4-8b1c-75ea-80b7-7d438d34df29",
+        "sha256": "cdc695c924d165a487b5c16a5e8e2f1459755300f9630e9a999a46eaf2133019"
+      },
+      "final_prompt_package": {
+        "filename": "k68-b06-b08-neutral-candidate-prompts-review-only-v2.zip",
+        "sha256": "28d4c7f549cb8d167135256266aac372bc4daedf3c88e82ee8e7ec1fe18ced53",
+        "attachment_id": "01a15879-7d93-7805-bae1-e3ca028f227c"
+      },
+      "effective_independent_review": {
+        "comment_id": "01a1587b-26fe-7ecf-a383-dc63fafc45f3",
+        "sha256": "ed44a7bae331b206f19eebb2d0d37c2ea9fb80db7affcebac3e12aa60ef26e9e",
+        "outcome": "PASS",
+        "scope": "B6-B8 selected prompt review and source-chain review for 15 selected records",
+        "prompt_review_status": "NOT_SELECTED; no prompt-content PASS is claimed",
+        "source_review_scope_status": "source chain not independently reviewed for this deferred identity"
+      }
+    },
+    "B9": {
+      "source_package": {
+        "filename": "KAGGLE-50-pytest-source-batch-b9.zip",
+        "attachment_id": "01a157e8-b650-75b6-98e2-19d3960debce",
+        "sha256": "7a565ee94aacc60a76dc94f7af6e926ac1a7356c629097b4531ef1a55aff6330"
+      },
+      "final_prompt_package": {
+        "filename": "k68-b09-b11-neutral-candidate-prompts-review-only-v2.zip",
+        "sha256": "9537c645606006e4517434a58a1395338d14e2e4ee8c87fdee92c833152b6a9a",
+        "attachment_id": "01a15842-8b07-73ac-a707-3bc843512a44"
+      },
+      "effective_independent_review": {
+        "comment_id": "01a15852-5fcd-72ed-b24e-ae8e42801ce5",
+        "sha256": "6c30fe706fa5ee2b5848fb1ae2f427f5e98bee0c2a417f7775794380c3ac395c",
+        "outcome": "PASS",
+        "scope": "B9-B11 source-chain review for 60 records; neutral prompt review for 17 selected prompts",
+        "prompt_review_status": "PASS",
+        "source_review_scope_status": "all 20 source chains in this batch VERIFIED; prompt review applies only to selected identity"
+      }
+    },
+    "B10": {
+      "source_package": {
+        "filename": "KAGGLE-50-pytest-source-batch-b10.zip",
+        "attachment_id": "01a157e8-f39b-71be-b3e8-4214a5ec8df3",
+        "sha256": "6a09c1169dfd4a733d48eb78a7bdb9ee573d7ff5ed7cee7e12d09ab7aae5ed9c"
+      },
+      "final_prompt_package": {
+        "filename": "k68-b09-b11-neutral-candidate-prompts-review-only-v2.zip",
+        "sha256": "9537c645606006e4517434a58a1395338d14e2e4ee8c87fdee92c833152b6a9a",
+        "attachment_id": "01a15842-8b07-73ac-a707-3bc843512a44"
+      },
+      "effective_independent_review": {
+        "comment_id": "01a15852-5fcd-72ed-b24e-ae8e42801ce5",
+        "sha256": "6c30fe706fa5ee2b5848fb1ae2f427f5e98bee0c2a417f7775794380c3ac395c",
+        "outcome": "PASS",
+        "scope": "B9-B11 source-chain review for 60 records; neutral prompt review for 17 selected prompts",
+        "prompt_review_status": "PASS",
+        "source_review_scope_status": "all 20 source chains in this batch VERIFIED; prompt review applies only to selected identity"
+      }
+    },
+    "B11": {
+      "source_package": {
+        "filename": "KAGGLE-50-pytest-source-batch-b11.zip",
+        "attachment_id": "01a157e9-62a8-7d76-a8ca-aea769f9e377",
+        "sha256": "bc26ba2814fbcbdb90750d161e6992414f694e294e066d30e8559f7125fb86cf"
+      },
+      "final_prompt_package": {
+        "filename": "k68-b09-b11-neutral-candidate-prompts-review-only-v2.zip",
+        "sha256": "9537c645606006e4517434a58a1395338d14e2e4ee8c87fdee92c833152b6a9a",
+        "attachment_id": "01a15842-8b07-73ac-a707-3bc843512a44"
+      },
+      "effective_independent_review": {
+        "comment_id": "01a15852-5fcd-72ed-b24e-ae8e42801ce5",
+        "sha256": "6c30fe706fa5ee2b5848fb1ae2f427f5e98bee0c2a417f7775794380c3ac395c",
+        "outcome": "PASS",
+        "scope": "B9-B11 source-chain review for 60 records; neutral prompt review for 17 selected prompts",
+        "prompt_review_status": "NOT_SELECTED; no prompt-content PASS is claimed",
+        "source_review_scope_status": "all 20 source chains in this batch VERIFIED; prompt review applies only to selected identity"
+      }
+    }
+  },
+  "changes": {
+    "newly_assembled_identity_catalog_records": 200,
+    "selected_prompt_bytes_copied_verbatim": 66,
+    "deferred_identity_records": 134,
+    "prompt_folder_split": {
+      "source_chain_verified": 57,
+      "source_chain_partial": 9
+    },
+    "provenance_ledger_members": [
+      "review-only/provenance/B2-B5-master-v3.json",
+      "review-only/provenance/B6-B8-selected-deferred-v2.json",
+      "review-only/provenance/B9-B11-provenance-v2.json"
+    ],
+    "added_prompt_members": [
+      {
+        "task_id": "pytest-dev/pytest#13549",
+        "batch": "B2",
+        "path": "candidate-prompts-review-only/source-chain-partial/b2/b2-13549.problem.md",
+        "sha256": "3d56daf3f13e60b3b8cbbfa4f25054d5b5e291f8ee1f011245ff68a90018da19",
+        "source_chain_status": "PARTIAL"
+      },
+      {
+        "task_id": "pytest-dev/pytest#13559",
+        "batch": "B2",
+        "path": "candidate-prompts-review-only/source-chain-partial/b2/b2-13559.problem.md",
+        "sha256": "24622aa88302a19866b4b7cd143f22ee4fe5d3c0d09816d1ce05ec58afab577b",
+        "source_chain_status": "PARTIAL"
+      },
+      {
+        "task_id": "pytest-dev/pytest#13574",
+        "batch": "B2",
+        "path": "candidate-prompts-review-only/source-chain-partial/b2/b2-13574.problem.md",
+        "sha256": "8fe364449a1cf473da3c89668da54d6203aeb6063f1ebd300facb11f41c03031",
+        "source_chain_status": "PARTIAL"
+      },
+      {
+        "task_id": "pytest-dev/pytest#13634",
+        "batch": "B2",
+        "path": "candidate-prompts-review-only/source-chain-partial/b2/b2-13634.problem.md",
+        "sha256": "cae1168e51bc158794e6d0d315ef10e108f23ba83a94a431cf7ccbc226c6e626",
+        "source_chain_status": "PARTIAL"
+      },
+      {
+        "task_id": "pytest-dev/pytest#13700",
+        "batch": "B2",
+        "path": "candidate-prompts-review-only/source-chain-partial/b2/b2-13700.problem.md",
+        "sha256": "ca6ee93b8af722e223fa2aeb5adc789a45f897d8a51c4c2a03cda217c506797c",
+        "source_chain_status": "PARTIAL"
+      },
+      {
+        "task_id": "pytest-dev/pytest#13716",
+        "batch": "B2",
+        "path": "candidate-prompts-review-only/source-chain-partial/b2/b2-13716.problem.md",
+        "sha256": "08fe7b26bfc1adea7b670f8b73148674b1f45b16e68579608c17dffb0c07423f",
+        "source_chain_status": "PARTIAL"
+      },
+      {
+        "task_id": "pytest-dev/pytest#13731",
+        "batch": "B2",
+        "path": "candidate-prompts-review-only/source-chain-partial/b2/b2-13731.problem.md",
+        "sha256": "117b53a816c2a941d4d8fc4d5c6a72bb8b64c25dcbc61b5090f00dab91633de6",
+        "source_chain_status": "PARTIAL"
+      },
+      {
+        "task_id": "pytest-dev/pytest#13734",
+        "batch": "B2",
+        "path": "candidate-prompts-review-only/source-chain-partial/b2/b2-13734.problem.md",
+        "sha256": "e0b8b1412c16acfdf9d874cccd99ffc0812abfcaaec3d84dfcc6151ed1b2446b",
+        "source_chain_status": "PARTIAL"
+      },
+      {
+        "task_id": "pytest-dev/pytest#13773",
+        "batch": "B2",
+        "path": "candidate-prompts-review-only/source-chain-partial/b2/b2-13773.problem.md",
+        "sha256": "fad0b64a6ce3bc21de7ce592bb23e7fb36e4813aae3bf1dcb13db656b9c2e279",
+        "source_chain_status": "PARTIAL"
+      },
+      {
+        "task_id": "pytest-dev/pytest#13170",
+        "batch": "B3",
+        "path": "candidate-prompts-review-only/source-chain-verified/b3/b3-13170.problem.md",
+        "sha256": "5f987cc83d29a33f92a76a046c3c398f46aaba5bde6b0b7814abeb0f3ceaaa05",
+        "source_chain_status": "VERIFIED"
+      },
+      {
+        "task_id": "pytest-dev/pytest#13248",
+        "batch": "B3",
+        "path": "candidate-prompts-review-only/source-chain-verified/b3/b3-13248.problem.md",
+        "sha256": "84b7a6af3e0531f13d46cba59b053873c4cae8facc3c2f4aa7098a31ae2c2561",
+        "source_chain_status": "VERIFIED"
+      },
+      {
+        "task_id": "pytest-dev/pytest#13312",
+        "batch": "B3",
+        "path": "candidate-prompts-review-only/source-chain-verified/b3/b3-13312.problem.md",
+        "sha256": "e8a0588ab9ac225520b86c45a27896a08db7bd1f0aa0d9b2b842f653072aac51",
+        "source_chain_status": "VERIFIED"
+      },
+      {
+        "task_id": "pytest-dev/pytest#13376",
+        "batch": "B3",
+        "path": "candidate-prompts-review-only/source-chain-verified/b3/b3-13376.problem.md",
+        "sha256": "07ac5eecc0ba03e9bafc657ffc96294ce1da126a05711c2708cdd601c862066a",
+        "source_chain_status": "VERIFIED"
+      },
+      {
+        "task_id": "pytest-dev/pytest#13384",
+        "batch": "B3",
+        "path": "candidate-prompts-review-only/source-chain-verified/b3/b3-13384.problem.md",
+        "sha256": "1da8e8b087ff07ac61f92268e7e75b72a4e57b46560b29b4d7b0ed14cb815303",
+        "source_chain_status": "VERIFIED"
+      },
+      {
+        "task_id": "pytest-dev/pytest#13409",
+        "batch": "B3",
+        "path": "candidate-prompts-review-only/source-chain-verified/b3/b3-13409.problem.md",
+        "sha256": "22aacd8c3850b4386c896c105a51260ee1cd6a091c3fe6a0b82d0887f720553e",
+        "source_chain_status": "VERIFIED"
+      },
+      {
+        "task_id": "pytest-dev/pytest#13420",
+        "batch": "B3",
+        "path": "candidate-prompts-review-only/source-chain-verified/b3/b3-13420.problem.md",
+        "sha256": "54198f4476336561c7c441dca2822eda169cfb68585edbcb897e75e821aae4a6",
+        "source_chain_status": "VERIFIED"
+      },
+      {
+        "task_id": "pytest-dev/pytest#13457",
+        "batch": "B3",
+        "path": "candidate-prompts-review-only/source-chain-verified/b3/b3-13457.problem.md",
+        "sha256": "743a92c7c9761260e98473115a283d432e5ef1f71cf8ba6223e1a4649a1b19a3",
+        "source_chain_status": "VERIFIED"
+      },
+      {
+        "task_id": "pytest-dev/pytest#13461",
+        "batch": "B3",
+        "path": "candidate-prompts-review-only/source-chain-verified/b3/b3-13461.problem.md",
+        "sha256": "d3908ba09970dcf6a715d4683c354e31f1a5db40cf227ce3e6825ba3e2e7680c",
+        "source_chain_status": "VERIFIED"
+      },
+      {
+        "task_id": "pytest-dev/pytest#12849",
+        "batch": "B4",
+        "path": "candidate-prompts-review-only/source-chain-verified/b4/b4-12849.problem.md",
+        "sha256": "83988c1afbfb7d05ba151b4692454d960d04c5de1c12f13a14b01fedd9ec3785",
+        "source_chain_status": "VERIFIED"
+      },
+      {
+        "task_id": "pytest-dev/pytest#12863",
+        "batch": "B4",
+        "path": "candidate-prompts-review-only/source-chain-verified/b4/b4-12863.problem.md",
+        "sha256": "8a6d3ec9ed0fcb9e6093c660374c271191eff6a48b32957045c910cf2328f9b0",
+        "source_chain_status": "VERIFIED"
+      },
+      {
+        "task_id": "pytest-dev/pytest#12888",
+        "batch": "B4",
+        "path": "candidate-prompts-review-only/source-chain-verified/b4/b4-12888.problem.md",
+        "sha256": "d47c582c2507624ffe24e1696acf0bb8c9de262a1e030e9785dc3efeb81ae9e7",
+        "source_chain_status": "VERIFIED"
+      },
+      {
+        "task_id": "pytest-dev/pytest#12941",
+        "batch": "B4",
+        "path": "candidate-prompts-review-only/source-chain-verified/b4/b4-12941.problem.md",
+        "sha256": "b06f9a015bfd39987e7ab4c3fcd890ddc1f5a09fbe6ef1214c85ed1b2d75fd3a",
+        "source_chain_status": "VERIFIED"
+      },
+      {
+        "task_id": "pytest-dev/pytest#12981",
+        "batch": "B4",
+        "path": "candidate-prompts-review-only/source-chain-verified/b4/b4-12981.problem.md",
+        "sha256": "27b4999568fffd5cd785622a26342483c2404d508bed85526ce6ad9c9c94dc6b",
+        "source_chain_status": "VERIFIED"
+      },
+      {
+        "task_id": "pytest-dev/pytest#13026",
+        "batch": "B4",
+        "path": "candidate-prompts-review-only/source-chain-verified/b4/b4-13026.problem.md",
+        "sha256": "1f3793d671c8d3f011f78f59c6613b08b82c780788eda8aa3ebda4cf97a7f85b",
+        "source_chain_status": "VERIFIED"
+      },
+      {
+        "task_id": "pytest-dev/pytest#13031",
+        "batch": "B4",
+        "path": "candidate-prompts-review-only/source-chain-verified/b4/b4-13031.problem.md",
+        "sha256": "6006ff67dd01dd329526001fee016377a2fc83d3b601a149520a73bea558c653",
+        "source_chain_status": "VERIFIED"
+      },
+      {
+        "task_id": "pytest-dev/pytest#13083",
+        "batch": "B4",
+        "path": "candidate-prompts-review-only/source-chain-verified/b4/b4-13083.problem.md",
+        "sha256": "342aa5d8155b639892e08aee60bbd22a2028458a356bc931ea84c72d97332d53",
+        "source_chain_status": "VERIFIED"
+      },
+      {
+        "task_id": "pytest-dev/pytest#12505",
+        "batch": "B5",
+        "path": "candidate-prompts-review-only/source-chain-verified/b5/b5-12505.problem.md",
+        "sha256": "af2bb8f6966bdb1c719eb08103ce4aef7342bc40224c1281003c246717d4537e",
+        "source_chain_status": "VERIFIED"
+      },
+      {
+        "task_id": "pytest-dev/pytest#12580",
+        "batch": "B5",
+        "path": "candidate-prompts-review-only/source-chain-verified/b5/b5-12580.problem.md",
+        "sha256": "3a8ad036f8cea04ae20738c544990d4459dcdefbf743ce60bc9f8174fac04fac",
+        "source_chain_status": "VERIFIED"
+      },
+      {
+        "task_id": "pytest-dev/pytest#12592",
+        "batch": "B5",
+        "path": "candidate-prompts-review-only/source-chain-verified/b5/b5-12592.problem.md",
+        "sha256": "d12ec133ea7ea942402279d5d700305f1a518946cf4c16833a7a762222017dfe",
+        "source_chain_status": "VERIFIED"
+      },
+      {
+        "task_id": "pytest-dev/pytest#12652",
+        "batch": "B5",
+        "path": "candidate-prompts-review-only/source-chain-verified/b5/b5-12652.problem.md",
+        "sha256": "2521f89407ee05d47469cc25bc7de8c034836fbd3270ef5a737653cceea6b4dc",
+        "source_chain_status": "VERIFIED"
+      },
+      {
+        "task_id": "pytest-dev/pytest#12659",
+        "batch": "B5",
+        "path": "candidate-prompts-review-only/source-chain-verified/b5/b5-12659.problem.md",
+        "sha256": "0bbfcd0ffb1e90d0820df6478f1ee90380d627671aa13cfca8e29dcca1adbc7b",
+        "source_chain_status": "VERIFIED"
+      },
+      {
+        "task_id": "pytest-dev/pytest#12667",
+        "batch": "B5",
+        "path": "candidate-prompts-review-only/source-chain-verified/b5/b5-12667.problem.md",
+        "sha256": "6b666519bab1f1f80899753d50ddd428d77c3fe0ed50ae0afe593a673ffa36e8",
+        "source_chain_status": "VERIFIED"
+      },
+      {
+        "task_id": "pytest-dev/pytest#12745",
+        "batch": "B5",
+        "path": "candidate-prompts-review-only/source-chain-verified/b5/b5-12745.problem.md",
+        "sha256": "b266192704c5f353289b1a952e6039de5ccedcb9ad362c7c8c3a33bb369e9dc5",
+        "source_chain_status": "VERIFIED"
+      },
+      {
+        "task_id": "pytest-dev/pytest#12818",
+        "batch": "B5",
+        "path": "candidate-prompts-review-only/source-chain-verified/b5/b5-12818.problem.md",
+        "sha256": "e51270ad926422cbcd725740ef806c5ad9585a8ee696d8f2d866bcf21ec35174",
+        "source_chain_status": "VERIFIED"
+      },
+      {
+        "task_id": "pytest-dev/pytest#12112",
+        "batch": "B6",
+        "path": "candidate-prompts-review-only/source-chain-verified/b6/b6-12112.problem.md",
+        "sha256": "778d979cd8e44304d28f02665186fb53307b71b7ed5511145b1a696b2b667655",
+        "source_chain_status": "VERIFIED"
+      },
+      {
+        "task_id": "pytest-dev/pytest#12120",
+        "batch": "B6",
+        "path": "candidate-prompts-review-only/source-chain-verified/b6/b6-12120.problem.md",
+        "sha256": "d1998339eefc208d9b74f42e66ba33887c71110a18782a6652283ff686121bd6",
+        "source_chain_status": "VERIFIED"
+      },
+      {
+        "task_id": "pytest-dev/pytest#12135",
+        "batch": "B6",
+        "path": "candidate-prompts-review-only/source-chain-verified/b6/b6-12135.problem.md",
+        "sha256": "fb64e363947168a6b443973c5a74ac792022f39975f3cac7b715a90092fd852d",
+        "source_chain_status": "VERIFIED"
+      },
+      {
+        "task_id": "pytest-dev/pytest#12275",
+        "batch": "B6",
+        "path": "candidate-prompts-review-only/source-chain-verified/b6/b6-12275.problem.md",
+        "sha256": "0e482c8b4e6c2de6e454d71fffcae5d858219c712e77d6469c650321a5cbcd16",
+        "source_chain_status": "VERIFIED"
+      },
+      {
+        "task_id": "pytest-dev/pytest#12328",
+        "batch": "B6",
+        "path": "candidate-prompts-review-only/source-chain-verified/b6/b6-12328.problem.md",
+        "sha256": "6fb08bf241128481e9d697d4aaf09e455fb0dbb99d7f3ea5195c6e8fcf0a83c8",
+        "source_chain_status": "VERIFIED"
+      },
+      {
+        "task_id": "pytest-dev/pytest#12355",
+        "batch": "B6",
+        "path": "candidate-prompts-review-only/source-chain-verified/b6/b6-12355.problem.md",
+        "sha256": "07cc40cce438c2329cdf889d586d601cd694aebacf945d32518850e06aa8629d",
+        "source_chain_status": "VERIFIED"
+      },
+      {
+        "task_id": "pytest-dev/pytest#12381",
+        "batch": "B6",
+        "path": "candidate-prompts-review-only/source-chain-verified/b6/b6-12381.problem.md",
+        "sha256": "691d494637b3b3ef425abb0716514097c2a7a297b3d5436092a8e4d3408ec8e7",
+        "source_chain_status": "VERIFIED"
+      },
+      {
+        "task_id": "pytest-dev/pytest#11895",
+        "batch": "B7",
+        "path": "candidate-prompts-review-only/source-chain-verified/b7/b7-11895.problem.md",
+        "sha256": "69e8d9a7aae9c8f47fcaf05cc3032f1e3be24f375048b9e11bcdf35222b4287d",
+        "source_chain_status": "VERIFIED"
+      },
+      {
+        "task_id": "pytest-dev/pytest#11929",
+        "batch": "B7",
+        "path": "candidate-prompts-review-only/source-chain-verified/b7/b7-11929.problem.md",
+        "sha256": "bc519aee6194919253cd1cfed74fe12eb845e5bca0e0a36e8f42f8eb70e59e5c",
+        "source_chain_status": "VERIFIED"
+      },
+      {
+        "task_id": "pytest-dev/pytest#11937",
+        "batch": "B7",
+        "path": "candidate-prompts-review-only/source-chain-verified/b7/b7-11937.problem.md",
+        "sha256": "bc298abaea8103ccac02aff4e71fbd3af1a45408414cd4d343945a64621b5fda",
+        "source_chain_status": "VERIFIED"
+      },
+      {
+        "task_id": "pytest-dev/pytest#12047",
+        "batch": "B7",
+        "path": "candidate-prompts-review-only/source-chain-verified/b7/b7-12047.problem.md",
+        "sha256": "8c797d068ecd9fa5400a8fd0cf29b2ab50773d85227ca34bd1d26710182b5a17",
+        "source_chain_status": "VERIFIED"
+      },
+      {
+        "task_id": "pytest-dev/pytest#12065",
+        "batch": "B7",
+        "path": "candidate-prompts-review-only/source-chain-verified/b7/b7-12065.problem.md",
+        "sha256": "7ff29b484bb976a873f414597c3c37eb77e404ab56ceb19d7bed84f4ce56f5db",
+        "source_chain_status": "VERIFIED"
+      },
+      {
+        "task_id": "pytest-dev/pytest#11710",
+        "batch": "B8",
+        "path": "candidate-prompts-review-only/source-chain-verified/b8/b8-11710.problem.md",
+        "sha256": "b6c6e61a9dff4dafa1e258394962550560566d29565ff7aed0e07152a0238a3e",
+        "source_chain_status": "VERIFIED"
+      },
+      {
+        "task_id": "pytest-dev/pytest#11728",
+        "batch": "B8",
+        "path": "candidate-prompts-review-only/source-chain-verified/b8/b8-11728.problem.md",
+        "sha256": "536afce304bc72fffa416a87b1a8f067af3404672001d2e4ce9c62a6b8080e99",
+        "source_chain_status": "VERIFIED"
+      },
+      {
+        "task_id": "pytest-dev/pytest#11816",
+        "batch": "B8",
+        "path": "candidate-prompts-review-only/source-chain-verified/b8/b8-11816.problem.md",
+        "sha256": "ef071b0e06d7b9188bc1797db40cf88f287ba59356eafee98e69fdb3c9627553",
+        "source_chain_status": "VERIFIED"
+      },
+      {
+        "task_id": "pytest-dev/pytest#11216",
+        "batch": "B9",
+        "path": "candidate-prompts-review-only/source-chain-verified/b9/b09-11216.problem.md",
+        "sha256": "4e69da37ecbde2f6778085cd2e8a0e24c141cd6f44d128abe248b684cc7683ca",
+        "source_chain_status": "VERIFIED"
+      },
+      {
+        "task_id": "pytest-dev/pytest#11237",
+        "batch": "B9",
+        "path": "candidate-prompts-review-only/source-chain-verified/b9/b09-11237.problem.md",
+        "sha256": "5356ced46fd1e083f85033676fc23b2c05214180d8b35bbd27ad2fbba2ed14c6",
+        "source_chain_status": "VERIFIED"
+      },
+      {
+        "task_id": "pytest-dev/pytest#11239",
+        "batch": "B9",
+        "path": "candidate-prompts-review-only/source-chain-verified/b9/b09-11239.problem.md",
+        "sha256": "10e92d2177f2968829319e79393b3b13718b82035ee07722e301ab67a5d7836e",
+        "source_chain_status": "VERIFIED"
+      },
+      {
+        "task_id": "pytest-dev/pytest#11282",
+        "batch": "B9",
+        "path": "candidate-prompts-review-only/source-chain-verified/b9/b09-11282.problem.md",
+        "sha256": "59ca1834ba8b3d435ea3a86f03da76711ae7857829fd72d44b85c3ea1ba42aad",
+        "source_chain_status": "VERIFIED"
+      },
+      {
+        "task_id": "pytest-dev/pytest#11311",
+        "batch": "B9",
+        "path": "candidate-prompts-review-only/source-chain-verified/b9/b09-11311.problem.md",
+        "sha256": "cdc58d080753942b957d0ddf92b6cb62ec6e396391cfa5bb7276cb1d0dfa7bbc",
+        "source_chain_status": "VERIFIED"
+      },
+      {
+        "task_id": "pytest-dev/pytest#11367",
+        "batch": "B9",
+        "path": "candidate-prompts-review-only/source-chain-verified/b9/b09-11367.problem.md",
+        "sha256": "00e6c07e11cb780cd94dcd0c8bde157308a332ce72856d196db10802febcc983",
+        "source_chain_status": "VERIFIED"
+      },
+      {
+        "task_id": "pytest-dev/pytest#10890",
+        "batch": "B10",
+        "path": "candidate-prompts-review-only/source-chain-verified/b10/b10-10890.problem.md",
+        "sha256": "31253e4d3817b9f7ce381a3ffa3d84caced08c393bee27b2867f1737384b2493",
+        "source_chain_status": "VERIFIED"
+      },
+      {
+        "task_id": "pytest-dev/pytest#10987",
+        "batch": "B10",
+        "path": "candidate-prompts-review-only/source-chain-verified/b10/b10-10987.problem.md",
+        "sha256": "9d463e2fe987c4ab5a135e14aa46de5ad1565e8603ca142ae49fcde3d23abe09",
+        "source_chain_status": "VERIFIED"
+      },
+      {
+        "task_id": "pytest-dev/pytest#11028",
+        "batch": "B10",
+        "path": "candidate-prompts-review-only/source-chain-verified/b10/b10-11028.problem.md",
+        "sha256": "133c228a649a965d62b02c9e21ae00a75fe26b05af359253efa0222e7d0a5073",
+        "source_chain_status": "VERIFIED"
+      },
+      {
+        "task_id": "pytest-dev/pytest#11068",
+        "batch": "B10",
+        "path": "candidate-prompts-review-only/source-chain-verified/b10/b10-11068.problem.md",
+        "sha256": "f635e4d0d2058c38f536d88e8668366b1f7fbd08dec446a78baff0dd838a3f50",
+        "source_chain_status": "VERIFIED"
+      },
+      {
+        "task_id": "pytest-dev/pytest#11140",
+        "batch": "B10",
+        "path": "candidate-prompts-review-only/source-chain-verified/b10/b10-11140.problem.md",
+        "sha256": "c53dadd1df7d05e9c324168f39cb0e73eaebfc67b6af3cb4c2cc739f27ae5e1f",
+        "source_chain_status": "VERIFIED"
+      },
+      {
+        "task_id": "pytest-dev/pytest#10597",
+        "batch": "B11",
+        "path": "candidate-prompts-review-only/source-chain-verified/b11/b11-10597.problem.md",
+        "sha256": "5115de136f5136ddaf6022e0f447e408fe26d72e8ac63458deb5ef84fa294fbc",
+        "source_chain_status": "VERIFIED"
+      },
+      {
+        "task_id": "pytest-dev/pytest#10626",
+        "batch": "B11",
+        "path": "candidate-prompts-review-only/source-chain-verified/b11/b11-10626.problem.md",
+        "sha256": "6cb215e5c78d0419152e703e0d8b1a7e0b88d4ee5c40c5f8c4304ddcaeeb2b75",
+        "source_chain_status": "VERIFIED"
+      },
+      {
+        "task_id": "pytest-dev/pytest#10702",
+        "batch": "B11",
+        "path": "candidate-prompts-review-only/source-chain-verified/b11/b11-10702.problem.md",
+        "sha256": "2597d9ecbaa82a69294ce13f87ffd397d289963ccdbe7d24e27d0c6db58cc074",
+        "source_chain_status": "VERIFIED"
+      },
+      {
+        "task_id": "pytest-dev/pytest#10765",
+        "batch": "B11",
+        "path": "candidate-prompts-review-only/source-chain-verified/b11/b11-10765.problem.md",
+        "sha256": "9f048e61b669dfc093ffd03ec07c7eea6d38df636f4f2e59e1b66ca57cd2f568",
+        "source_chain_status": "VERIFIED"
+      },
+      {
+        "task_id": "pytest-dev/pytest#10831",
+        "batch": "B11",
+        "path": "candidate-prompts-review-only/source-chain-verified/b11/b11-10831.problem.md",
+        "sha256": "645f63ab8d29e14ee0371d9fb68c76d1e051888ea4e20f9aa251ad5014ad2024",
+        "source_chain_status": "VERIFIED"
+      },
+      {
+        "task_id": "pytest-dev/pytest#10865",
+        "batch": "B11",
+        "path": "candidate-prompts-review-only/source-chain-verified/b11/b11-10865.problem.md",
+        "sha256": "f6006bfd6bf03de1fa193997e31ba40b3c6d258728b0af5c6a77fa076a6e28a9",
+        "source_chain_status": "VERIFIED"
+      }
+    ],
+    "deferred_task_ids": [
+      "pytest-dev/pytest#13577",
+      "pytest-dev/pytest#13638",
+      "pytest-dev/pytest#13678",
+      "pytest-dev/pytest#13737",
+      "pytest-dev/pytest#13743",
+      "pytest-dev/pytest#13766",
+      "pytest-dev/pytest#13771",
+      "pytest-dev/pytest#13779",
+      "pytest-dev/pytest#13807",
+      "pytest-dev/pytest#13816",
+      "pytest-dev/pytest#13823",
+      "pytest-dev/pytest#13175",
+      "pytest-dev/pytest#13228",
+      "pytest-dev/pytest#13290",
+      "pytest-dev/pytest#13330",
+      "pytest-dev/pytest#13415",
+      "pytest-dev/pytest#13464",
+      "pytest-dev/pytest#13476",
+      "pytest-dev/pytest#13477",
+      "pytest-dev/pytest#13480",
+      "pytest-dev/pytest#13497",
+      "pytest-dev/pytest#13530",
+      "pytest-dev/pytest#12874",
+      "pytest-dev/pytest#12883",
+      "pytest-dev/pytest#12929",
+      "pytest-dev/pytest#12938",
+      "pytest-dev/pytest#12943",
+      "pytest-dev/pytest#12946",
+      "pytest-dev/pytest#12960",
+      "pytest-dev/pytest#13028",
+      "pytest-dev/pytest#13047",
+      "pytest-dev/pytest#13072",
+      "pytest-dev/pytest#13112",
+      "pytest-dev/pytest#13115",
+      "pytest-dev/pytest#12544",
+      "pytest-dev/pytest#12552",
+      "pytest-dev/pytest#12576",
+      "pytest-dev/pytest#12577",
+      "pytest-dev/pytest#12647",
+      "pytest-dev/pytest#12678",
+      "pytest-dev/pytest#12707",
+      "pytest-dev/pytest#12713",
+      "pytest-dev/pytest#12736",
+      "pytest-dev/pytest#12749",
+      "pytest-dev/pytest#12763",
+      "pytest-dev/pytest#12765",
+      "pytest-dev/pytest#12167",
+      "pytest-dev/pytest#12194",
+      "pytest-dev/pytest#12204",
+      "pytest-dev/pytest#12281",
+      "pytest-dev/pytest#12300",
+      "pytest-dev/pytest#12308",
+      "pytest-dev/pytest#12323",
+      "pytest-dev/pytest#12356",
+      "pytest-dev/pytest#12363",
+      "pytest-dev/pytest#12367",
+      "pytest-dev/pytest#12383",
+      "pytest-dev/pytest#12424",
+      "pytest-dev/pytest#12426",
+      "pytest-dev/pytest#11882",
+      "pytest-dev/pytest#11904",
+      "pytest-dev/pytest#11907",
+      "pytest-dev/pytest#11953",
+      "pytest-dev/pytest#11954",
+      "pytest-dev/pytest#11978",
+      "pytest-dev/pytest#11985",
+      "pytest-dev/pytest#11988",
+      "pytest-dev/pytest#12008",
+      "pytest-dev/pytest#12021",
+      "pytest-dev/pytest#12039",
+      "pytest-dev/pytest#12069",
+      "pytest-dev/pytest#12081",
+      "pytest-dev/pytest#12083",
+      "pytest-dev/pytest#12107",
+      "pytest-dev/pytest#11447",
+      "pytest-dev/pytest#11456",
+      "pytest-dev/pytest#11475",
+      "pytest-dev/pytest#11485",
+      "pytest-dev/pytest#11507",
+      "pytest-dev/pytest#11523",
+      "pytest-dev/pytest#11525",
+      "pytest-dev/pytest#11548",
+      "pytest-dev/pytest#11572",
+      "pytest-dev/pytest#11603",
+      "pytest-dev/pytest#11610",
+      "pytest-dev/pytest#11676",
+      "pytest-dev/pytest#11695",
+      "pytest-dev/pytest#11738",
+      "pytest-dev/pytest#11789",
+      "pytest-dev/pytest#11790",
+      "pytest-dev/pytest#11797",
+      "pytest-dev/pytest#11218",
+      "pytest-dev/pytest#11223",
+      "pytest-dev/pytest#11233",
+      "pytest-dev/pytest#11258",
+      "pytest-dev/pytest#11265",
+      "pytest-dev/pytest#11306",
+      "pytest-dev/pytest#11325",
+      "pytest-dev/pytest#11327",
+      "pytest-dev/pytest#11354",
+      "pytest-dev/pytest#11356",
+      "pytest-dev/pytest#11372",
+      "pytest-dev/pytest#11391",
+      "pytest-dev/pytest#11394",
+      "pytest-dev/pytest#11417",
+      "pytest-dev/pytest#10896",
+      "pytest-dev/pytest#10903",
+      "pytest-dev/pytest#10940",
+      "pytest-dev/pytest#10991",
+      "pytest-dev/pytest#10999",
+      "pytest-dev/pytest#11013",
+      "pytest-dev/pytest#11031",
+      "pytest-dev/pytest#11065",
+      "pytest-dev/pytest#11067",
+      "pytest-dev/pytest#11081",
+      "pytest-dev/pytest#11091",
+      "pytest-dev/pytest#11104",
+      "pytest-dev/pytest#11118",
+      "pytest-dev/pytest#11137",
+      "pytest-dev/pytest#11157",
+      "pytest-dev/pytest#10592",
+      "pytest-dev/pytest#10604",
+      "pytest-dev/pytest#10617",
+      "pytest-dev/pytest#10630",
+      "pytest-dev/pytest#10654",
+      "pytest-dev/pytest#10687",
+      "pytest-dev/pytest#10690",
+      "pytest-dev/pytest#10701",
+      "pytest-dev/pytest#10710",
+      "pytest-dev/pytest#10743",
+      "pytest-dev/pytest#10782",
+      "pytest-dev/pytest#10811",
+      "pytest-dev/pytest#10839",
+      "pytest-dev/pytest#10870"
+    ]
+  },
+  "integration_checks": {
+    "latest_index_batch_identity_coverage": "exact set equality; 20 records for each B2-B11 batch; 200 unique identities",
+    "selected_and_deferred_counts": "66 selected / 134 deferred",
+    "final_prompt_bytes": "each copied prompt SHA-256 matched the source final prompt package member SHA256SUMS entry",
+    "source_anchors": "each issue body SHA, base commit, base tree, and source archive SHA matched the latest cumulative index record",
+    "B2_source_partial": "9 selected rows remain PARTIAL with raw issue GraphQL and ClosedEvent.closer response hashes NOT_FOUND_IN_CHECKED_RECORDS; normalized summaries are not used as substitutes",
+    "qualification_fields": "all 200 records preserve UNKNOWN/UNASSIGNED/false/BLOCKED/NOT_ASSESSED values as applicable",
+    "archive_integrity": {
+      "zip_crc_error": null,
+      "member_sha256_errors": []
+    }
+  },
+  "not_reaudited_or_changed": [
+    "batch prompt content and prior independent review findings",
+    "source-chain audits, family/root/backport matrices, or prior source index rows",
+    "no new source collection, model call, candidate execution, tests, deployment, or 107 activity"
+  ],
+  "handoff_dependencies": [
+    "live channel recovery; first complete and close the K43 first-item trial, then continue under the existing 400-usable-item target and resource budget",
+    "existing family/root/backport, purpose/use, and dev/sealed/old-exposure decisions remain pending as recorded",
+    "B2 original response records remain NOT_FOUND_IN_CHECKED_RECORDS; no re-collection is proposed",
+    "this review-only package cannot start training or enable actor access"
+  ]
+}
