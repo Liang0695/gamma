@@ -15715,5 +15715,22 @@
     "K42_final_admission_not_replaced": true,
     "K62_dev_sealed_old_exposure_holds_preserved": true,
     "current_training_authorization": "BLOCKED"
-  }
+  },
+  "custody_gap_addenda": [
+    {
+      "addendum_id": "K68-B09-B11-CUSTODY-GAP-RESPONSE-V1",
+      "created_utc": "2026-10-20T07:15:05+00:00",
+      "ledger_file": "custody-gap-response.json",
+      "ledger_sha256": "5b4f19d7d4d1c1ae27189b24187bead41946f3542f7fadb7aa3f77948be32457",
+      "custody_gaps_checked": 60,
+      "family_gaps_checked": 66,
+      "new_source_or_stage_rows": 0,
+      "counts_unchanged": true,
+      "source_purpose_decisions_found": 0,
+      "dev_sealed_old_exposure_decisions_found": 0,
+      "family_root_backport_decisions_found": 0,
+      "current_permissions_unchanged": true
+    }
+  ],
+  "custody_gap_status": "MISSING_RECORDS_CONFIRMED_IN_ENUMERATED_EXISTING_SCOPES; NO CLEARANCE"
 }

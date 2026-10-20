@@ -1,0 +1,31 @@
+{
+  "schema": "kaggle67-review-append-counts/12",
+  "as_of_utc": "2026-10-20T06:42:41+00:00",
+  "review_delta": {
+    "reviewed_b9_b11_source_chains": 60,
+    "source_chains_verified": 60,
+    "reference_batch_label_corrections": 5,
+    "gate_binding_mismatch_claims_corrected_by_addendum": 6,
+    "metadata_identities_added": 0,
+    "material_identities_added": 0,
+    "pinned_source_candidates_added": 0,
+    "source_ready_added": 0,
+    "deployable_added": 0,
+    "training_approved_added": 0,
+    "new_family_or_root_clearances": 0
+  },
+  "cumulative": {
+    "metadata_identities": 364,
+    "metadata_only_candidates": 20,
+    "material_identities": 344,
+    "candidate_archive_identities": 320,
+    "pinned_source_candidates": 320,
+    "source_ready": 85,
+    "problem_text_and_license_complete": "UNKNOWN_NOT_TRACKED_AS_JOINED_GLOBAL_STAGE",
+    "deployable": 0,
+    "training_approved": 0,
+    "family_or_root_unique_confirmed_from_b9_b11": 0
+  },
+  "disposition": "SOURCE_CHAIN_CONDITIONALLY_PASSED; family/root/backport and use gates remain unresolved",
+  "counting_note": "This review delta appends provenance/correction ledgers only; it adds no tasks and changes no stage counts or use permissions."
+}

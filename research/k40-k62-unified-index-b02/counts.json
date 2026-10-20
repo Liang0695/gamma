@@ -27,5 +27,13 @@
     "family_or_root_unique_confirmed_from_b9_b11": 0
   },
   "disposition": "SOURCE_CHAIN_CONDITIONALLY_PASSED; family/root/backport and use gates remain unresolved",
-  "counting_note": "This review delta appends provenance/correction ledgers only; it adds no tasks and changes no stage counts or use permissions."
+  "counting_note": "This review delta appends provenance/correction ledgers only; it adds no tasks and changes no stage counts or use permissions.",
+  "custody_gap_response": {
+    "source_purpose_and_exposure_rows_checked": 60,
+    "records_found": 0,
+    "family_rows_checked": 66,
+    "existing_family_root_backport_decisions_found": 0,
+    "additional_metadata_material_pinned_rows": 0,
+    "stage_counts_changed": false
+  }
 }

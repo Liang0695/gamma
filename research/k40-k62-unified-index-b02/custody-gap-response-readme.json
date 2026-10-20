@@ -1,0 +1,11 @@
+{
+  "schema": "k68-custody-gap-response-readme/1",
+  "scope": "Existing-record lookup only for B9–B11 after conditional source-chain review.",
+  "result": "60 task-scoped source-purpose/dev-sealed/old-exposure decision records were not found in the checked K40/K42/K50/K62 record scope. All 66 family entries retain their original source pointers and missing-field descriptions; no root/backport clearance was found.",
+  "next_decisions": [
+    "Mika/project owner: provide or identify task-scoped source-purpose and dev/sealed/old-exposure policy decisions.",
+    "082: independently decide source-role/qualification and family/root/backport outcomes from any supplied original records.",
+    "972: deployment/environment assessment only if separately requested."
+  ],
+  "counts_not_promoted": "364 metadata / 344 material / 320 pinned / 85 SOURCE_READY / 0 deployable / 0 training-approved"
+}
