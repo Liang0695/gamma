@@ -1,0 +1,57 @@
+{
+  "schema": "kaggle50-k62-gate-check/9",
+  "checked_on": "2026-10-20",
+  "k62_v24": {
+    "dedup_and_gates_sha256": "C74AE60E3346E16939358D7BBF783EC3635C7C7218111490E235CA943EDD9511",
+    "body_prescreen_sha256": "1E2D1F2819DE199AAFA1D08A314B6E546F000F2F1CC536950272E6F2E200FC64",
+    "selected_exact_id_hits": 0
+  },
+  "latest_index_before_b9": {
+    "issue": "KAGGLE-68",
+    "attachment_id": "01a157d7-b457-7871-af0f-b66e272456b8",
+    "sha256": "A1D0E6ACD1DD2C7367E840D8E0C72E055A170A1A56D07070E64652480A843A5D",
+    "selected_exact_id_hits": 0,
+    "cumulative": {
+      "metadata_identities": 304,
+      "material_identities": 284,
+      "pinned_source_candidates": 260,
+      "source_ready": 85,
+      "deployable": 0,
+      "training_approved": 0
+    }
+  },
+  "b2_b8_exact_overlap": [],
+  "body_reference_tokens_unclassified": {
+    "11417": [],
+    "11394": [
+      "#10169"
+    ],
+    "11391": [],
+    "11372": [],
+    "11367": [],
+    "11356": [],
+    "11354": [],
+    "11327": [],
+    "11325": [],
+    "11311": [],
+    "11306": [],
+    "11282": [],
+    "11265": [],
+    "11258": [],
+    "11239": [
+      "#11115"
+    ],
+    "11237": [],
+    "11233": [
+      "#10618",
+      "#9834"
+    ],
+    "11223": [],
+    "11218": [],
+    "11216": [
+      "#10482"
+    ]
+  },
+  "known_hold_preserved": "pytest-dev/pluggy#140 ↔ pytest-dev/pytest#2639 remains in force.",
+  "family_disposition": "Related references remain pending; no family/root/backport edge or qualification is asserted."
+}

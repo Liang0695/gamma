@@ -1,0 +1,17 @@
+{
+  "screening_ledger_sha256": "19c7fe8960e301cda839f629b1499779787ef92be769040c1fde3b6dc18e4751",
+  "excluded_candidates": [
+    {
+      "task_id": "pytest-dev/pytest#10871",
+      "direct_same_repo_merged_pr_count": 1,
+      "disposition": "SCREENED_OUT",
+      "reason": "Exact source duplicate: same PR #10925/base/tree/archive as selected issue #10870."
+    },
+    {
+      "task_id": "pytest-dev/pytest#10815",
+      "direct_same_repo_merged_pr_count": 1,
+      "disposition": "SCREENED_OUT",
+      "reason": "Self-test/tooling compatibility issue held out under the existing developer-only source exclusion."
+    }
+  ]
+}
