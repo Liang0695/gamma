@@ -1,0 +1,115 @@
+{
+  "schema": "k68-catalog-append-diff/1",
+  "kind": "append-only B03 identity/source metadata integration; no prompt review or permission grant",
+  "baseline": {
+    "catalog_filename": "catalog.json",
+    "catalog_sha256": "30c4a3b5ba93579c385bcc6402bd87ef0eb50712defbe0857607037524d4213e",
+    "record_count": 200,
+    "integration_diff_sha256": "cdf83c41572d2ce71c39329475d1b7a248efc8cff9ca65651e13ca1de6c5fddf",
+    "latest_k62_snapshot": {
+      "filename": "k40-k62-unified-index-b09-b11-review-v2.zip",
+      "attachment_id": "01a1580c-ec6a-759b-8287-482775c8b08c",
+      "sha256": "14d533d0a8e9338b9365703d968a5e931db2213a2a5c26a89eba28a163de5e1d"
+    }
+  },
+  "input": {
+    "filename": "K40-psf-requests-source-b03-corrected-20261020.zip",
+    "attachment_id": "01a159d9-d60a-775e-952f-6cee01266991",
+    "sha256": "3de350bdc6d6ec461b8d89c46f5cb1d3d229819cf81b13b111614be8f0578eda",
+    "batch_id": "K40-PSF-REQUESTS-B03",
+    "screening_ledger_sha256": "830e9b166e4eeb2b1913f7d00bd32ffb900c63d7284611475b7d51d03a6c5491",
+    "batch_ledger_sha256": "f081151bce5dee87ba42257e8131ad29db07b49bfdd74603c42d95e592b0cd55",
+    "raw_search_response_sha256": "3e177f1b318e37b8a88f8d3b0e4cfdae86b0cc2e03582872b92344cb7bdd9fd4",
+    "raw_closed_event_response_sha256": "0c54d1f0bd1bd07692d4ee4ff6aa7342cba2db1bb547c1af438ea8a65450d17a"
+  },
+  "deduplication": {
+    "exact_identity_key": "repo_issue + base commit + source archive SHA; unknown base/source kept explicit for metadata-only rows",
+    "input_identities": 100,
+    "existing_catalog_exact_overlap": 0,
+    "k62_v24_exact_overlap": 0,
+    "source_screen_global_exact_overlap_claim": 0,
+    "duplicates": [],
+    "disposition": "ALL 100 APPENDED; no exact duplicate identities found"
+  },
+  "append": {
+    "records_added": 100,
+    "records_after": 300,
+    "old_200_records_unchanged": true,
+    "existing_66_prompt_members_reprocessed": false,
+    "existing_66_prompt_members_byte_preserved": true,
+    "dispositions": {
+      "metadata_only_no_direct_same_repo_merged_closer": 98,
+      "deferred_dependency_declaration_maintenance": 1,
+      "pinned_source_candidate_review_only": 1,
+      "selected_or_prompt_reviewed": 0
+    }
+  },
+  "stage_counts": {
+    "before": {
+      "metadata": 364,
+      "material": 344,
+      "pinned": 320,
+      "source_ready": 85,
+      "deployable": 0,
+      "training_approved": 0
+    },
+    "delta": {
+      "metadata": 100,
+      "material": 1,
+      "pinned": 1,
+      "source_ready": 0,
+      "deployable": 0,
+      "training_approved": 0
+    },
+    "after": {
+      "metadata": 464,
+      "material": 345,
+      "pinned": 321,
+      "source_ready": 85,
+      "deployable": 0,
+      "training_approved": 0
+    }
+  },
+  "source_candidate_6643_anchor": {
+    "issue_body_sha256": "06f38f29aa88f087323f968b1b3f88cb849f12e04b232c2befcd0c9d36a2bb8d",
+    "direct_closer": "psf/requests#6644",
+    "direct_closer_type": "ClosedEvent.closer PullRequest",
+    "direct_closer_state": "MERGED",
+    "base_commit": "382fc2c0c6c0ef0874bc65bc1175f97c073e5086",
+    "first_parent": "382fc2c0c6c0ef0874bc65bc1175f97c073e5086",
+    "base_tree": "6e77739021025919bcae78f397c4768806b35116",
+    "source_archive_sha256": "2456403f0b4c8744cc594ad7679334465707bd1519c9e383a863363659ff3e8f",
+    "historical_license_sha256": "09e8a9bcec8067104652c168685ab0931e7868f9c8284b66f5ae6edae5f1130b",
+    "raw_closed_event_response_sha256": "0c54d1f0bd1bd07692d4ee4ff6aa7342cba2db1bb547c1af438ea8a65450d17a",
+    "raw_search_response_sha256": "3e177f1b318e37b8a88f8d3b0e4cfdae86b0cc2e03582872b92344cb7bdd9fd4"
+  },
+  "gate_preservation": {
+    "k62_v24_source_zip_sha256": "fb29a18b319b332b70c0d594576395fb922a02e07caa524ed36eed4cbe7058a9",
+    "snapshots_included_sha256": {
+      "k62-v24-dedup-and-gates.json": "a4467503072efc41ca8dc0bdd3e727fd8aa2fb2b33d3f31bbe253d14d29052dc",
+      "k62-v24-body-prescreen-exclusions.json": "1a1c2d627294b82f93f12e278fb253b4363500b2cd53d63cfc3b343d5b5f1080",
+      "gate-binding-correction.json": "703a7794498df0ee35217691a74624378aa4853fcb78df3ed362599e57b557f9",
+      "gate-provenance-review.json": "2d0633fa039bbcaabdf4e8cc9e7475571c518dba87221646557302b8eb1384f9",
+      "family-review-ledger.json": "cbcc72bce0f78be954ae4333b472d069f389cedc5af90d00b41b9207021f5cfc"
+    },
+    "known_hold": "pytest-dev/pluggy#140 <-> pytest-dev/pytest#2639 remains unchanged",
+    "existing_exclusions_and_holds_preserved": true,
+    "new_family_or_root_clearances": 0,
+    "source_role": "UNKNOWN",
+    "split": "UNASSIGNED",
+    "actor_visible": false,
+    "trusted_acceptance": false,
+    "training_release": "BLOCKED",
+    "family": "UNKNOWN",
+    "purpose_authorization": "NOT_GRANTED",
+    "environment": "NOT_ASSESSED",
+    "deployable_or_training_count_promoted": false
+  },
+  "remaining_family_and_use_gaps": [
+    "Family/root/backport resolution remains pending, including the pytest-dev/pluggy#140 <-> pytest-dev/pytest#2639 hold.",
+    "All existing K62 v24 prescreen exclusions remain in force; B03 identities have not received family/root clearance.",
+    "Purpose is not granted; source role is UNKNOWN; split is UNASSIGNED; actor visibility and trusted acceptance remain false.",
+    "Environment is NOT_ASSESSED; training release remains BLOCKED; deployable and training-approved counts remain zero.",
+    "#6643 is a pinned source candidate only; no prompt selection/review, test execution, source-ready promotion, or use approval is claimed."
+  ]
+}
