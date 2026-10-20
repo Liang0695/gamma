@@ -1,18 +1,32 @@
 {
-  "schema": "kaggle67-append-merge-counts/5",
-  "as_of_utc": "2026-10-16T08:11:03+00:00",
-  "basis": "Preserved K62 v23 baseline + K67 B01 + B02 + B03 + appended B04; K62 v24 gate/exclusion snapshot checked",
-  "delta_b04": {
+  "schema": "kaggle67-append-merge-counts/6",
+  "as_of_utc": "2026-10-20T05:19:10+00:00",
+  "basis": "Preserved K62 v23 baseline + K67 B01 + B02 + B03 + B04 + appended B05; K62 v24 exact-ID/body-prescreen evidence checked",
+  "delta_b05": {
     "metadata_identities_added": 20,
     "pinned_source_candidates_added": 20,
     "source_ready_added": 0,
     "deployable_added": 0,
     "training_approved_added": 0,
     "exact_duplicates_added": 0,
-    "related_refs_pending_family_review": 28,
-    "family_edges_confirmed_added": 0
+    "related_reference_entries_pending_family_review": 28,
+    "unique_related_references_pending_family_review": 25,
+    "family_edges_confirmed_added": 0,
+    "family_clearances_added": 0
   },
   "cumulative": {
+    "metadata_identities": 244,
+    "metadata_only_candidates": 20,
+    "material_identities": 224,
+    "candidate_archive_identities": 200,
+    "pinned_source_candidates": 200,
+    "source_ready": 85,
+    "problem_text_and_license_complete": "UNKNOWN_NOT_TRACKED_AS_JOINED_GLOBAL_STAGE",
+    "deployable": 0,
+    "training_approved": 0,
+    "family_or_root_unique_confirmed_from_b05": 0
+  },
+  "after_b04_before_b05": {
     "metadata_identities": 224,
     "metadata_only_candidates": 20,
     "material_identities": 204,
@@ -24,22 +38,11 @@
     "training_approved": 0,
     "family_or_root_unique_confirmed_from_b04": 0
   },
-  "after_b03_before_b04": {
-    "metadata_identities": 204,
-    "metadata_only_candidates": 20,
-    "material_identities": 184,
-    "candidate_archive_identities": 160,
-    "pinned_source_candidates": 160,
-    "source_ready": 85,
-    "problem_text_and_license_complete": "UNKNOWN_NOT_TRACKED_AS_JOINED_GLOBAL_STAGE",
-    "deployable": 0,
-    "training_approved": 0,
-    "family_or_root_unique_confirmed_from_b03": 0
-  },
   "counting_notes": [
-    "Metadata identities include the 140-row K62 v23 baseline, 24 B01 rows, 20 B02 rows, 20 B03 rows, and 20 B04 rows; metadata-only candidates remain separately counted and excluded from material/archive totals.",
-    "B04 adds 20 pinned source candidates, not SOURCE_READY records. Cumulative SOURCE_READY, deployable, and training-approved counts do not increase.",
-    "B04 related refs/families remain pending review; exact-ID absence in checked K62 v24 snapshots does not clear family, actor, acceptance, split, or training gates.",
-    "Candidate tests and environments remain unverified. No PR body, diff, fix, hidden evaluation material, or test content was read or run."
+    "B04 baseline before B05: 224 metadata identities, 204 material identities, 180 pinned source candidates, 85 SOURCE_READY, 0 deployable, 0 training-approved.",
+    "B05 adds 20 metadata identities and 20 pinned source candidates; it adds 0 SOURCE_READY, deployable, or training-approved records.",
+    "The 20 metadata-only K40 candidates remain separately counted and outside material/archive totals.",
+    "There are 28 related-reference entries with 25 unique reference strings; all remain pending independent family review and add no confirmed family edges.",
+    "Source role, family clearance, split, actor visibility, trusted acceptance, training release, and deployment environment retain their unapproved states. Tests and environments remain unverified."
   ]
 }
