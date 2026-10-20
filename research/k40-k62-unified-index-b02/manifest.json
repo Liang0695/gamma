@@ -1,7 +1,7 @@
 {
-  "schema": "kaggle67-append-only-global-delta/11",
-  "delta_id": "K67-B01-PLUS-K50-PYTEST-SOURCE-B02-THROUGH-B11",
-  "created_utc": "2026-10-20T06:08:57+00:00",
+  "schema": "kaggle67-append-only-global-delta/12",
+  "delta_id": "K67-B01-PLUS-K50-PYTEST-SOURCE-B02-THROUGH-B11-REVIEW-APPEND",
+  "created_utc": "2026-10-20T06:42:41+00:00",
   "baseline_pointer": {
     "owner_issue": "KAGGLE-62",
     "version": "v23",
@@ -15472,5 +15472,248 @@
         "training_approved": 0
       }
     }
-  ]
+  ],
+  "review_addenda": [
+    {
+      "review_id": "K68-B09-B11-INDEPENDENT-SOURCE-FAMILY-REVIEW-082-V1",
+      "reviewer_id": "082bbef2-a827-4e50-bcb2-57ef1f383924",
+      "review_package_attachment_id": "01a15809-088f-7395-b6e7-7b8b59ef83c9",
+      "review_package_filename": "K68-B09-B11-independent-source-family-review-082-v1.zip",
+      "review_package_sha256": "5a15d955402ce950859dc033b197a99973b8284819328a5b20bec1b7031bb9eb",
+      "review_manifest_sha256": "dfce5e87e52fff736806faac6e844637d27155bb6007aa86780cca4f5e6d4b51",
+      "family_review_ledger_sha256": "cbcc72bce0f78be954ae4333b472d069f389cedc5af90d00b41b9207021f5cfc",
+      "gate_provenance_review_sha256": "2d0633fa039bbcaabdf4e8cc9e7475571c518dba87221646557302b8eb1384f9",
+      "disposition": "CONDITIONAL_PASS_SOURCE_CHAIN_ONLY; family/root/use/training not released",
+      "reviewed_source_chains": 60,
+      "source_chains_verified": 60,
+      "new_root_clearances": 0,
+      "new_family_clearances": 0,
+      "new_training_approvals": 0,
+      "gate_binding_addendum": {
+        "upstream_k62_v24_attachment_id": "01a1357e-8143-7704-afc5-5462b0f20b9a",
+        "upstream_k62_v24_zip": "KAGGLE-62-consolidated-v24.zip",
+        "upstream_k62_v24_zip_sha256": "fb29a18b319b332b70c0d594576395fb922a02e07caa524ed36eed4cbe7058a9",
+        "actual_member_sha256": {
+          "dedup-and-gates.json": "a4467503072efc41ca8dc0bdd3e727fd8aa2fb2b33d3f31bbe253d14d29052dc",
+          "body-prescreen-exclusions.json": "1a1c2d627294b82f93f12e278fb253b4363500b2cd53d63cfc3b343d5b5f1080"
+        },
+        "actual_member_bytes": {
+          "dedup-and-gates.json": 848882,
+          "body-prescreen-exclusions.json": 276060
+        },
+        "reviewer_rebound_exact_id_hits": 0,
+        "family_or_use_clearance": "NONE; exact-ID clearance does not resolve family or use gates",
+        "original_claims_preserved": {
+          "prior_index_gate_snapshot": {
+            "k62_v24_dedup_and_gates_sha256": "c74ae60e3346e16939358d7bbf783ec3635c7c7218111490e235ca943edd9511",
+            "k62_v24_body_prescreen_sha256": "1e2d1f2819de199aaafa1d08a314b6e546f000f2f1cc536950272e6f2e200fc64",
+            "known_hold": "pytest-dev/pluggy#140 ↔ pytest-dev/pytest#2639 remains unchanged",
+            "hold_disposition": "PRESERVED; no family, split, source-role, or use gate cleared"
+          },
+          "batch_gate_sha_mismatch_occurrences": [
+            {
+              "batch": "B9",
+              "member": "dedup-and-gates.json",
+              "claimed_sha256": "c74ae60e3346e16939358d7bbf783ec3635c7c7218111490e235ca943edd9511",
+              "actual_sha256": "a4467503072efc41ca8dc0bdd3e727fd8aa2fb2b33d3f31bbe253d14d29052dc"
+            },
+            {
+              "batch": "B9",
+              "member": "body-prescreen-exclusions.json",
+              "claimed_sha256": "1e2d1f2819de199aafa1d08a314b6e546f000f2f1cc536950272e6f2e200fc64",
+              "actual_sha256": "1a1c2d627294b82f93f12e278fb253b4363500b2cd53d63cfc3b343d5b5f1080"
+            },
+            {
+              "batch": "B10",
+              "member": "dedup-and-gates.json",
+              "claimed_sha256": "c74ae60e3346e16939358d7bbf783ec3635c7c7218111490e235ca943edd9511",
+              "actual_sha256": "a4467503072efc41ca8dc0bdd3e727fd8aa2fb2b33d3f31bbe253d14d29052dc"
+            },
+            {
+              "batch": "B10",
+              "member": "body-prescreen-exclusions.json",
+              "claimed_sha256": "1e2d1f2819de199aafa1d08a314b6e546f000f2f1cc536950272e6f2e200fc64",
+              "actual_sha256": "1a1c2d627294b82f93f12e278fb253b4363500b2cd53d63cfc3b343d5b5f1080"
+            },
+            {
+              "batch": "B11",
+              "member": "dedup-and-gates.json",
+              "claimed_sha256": "c74ae60e3346e16939358d7bbf783ec3635c7c7218111490e235ca943edd9511",
+              "actual_sha256": "a4467503072efc41ca8dc0bdd3e727fd8aa2fb2b33d3f31bbe253d14d29052dc"
+            },
+            {
+              "batch": "B11",
+              "member": "body-prescreen-exclusions.json",
+              "claimed_sha256": "1e2d1f2819de199aafa1d08a314b6e546f000f2f1cc536950272e6f2e200fc64",
+              "actual_sha256": "1a1c2d627294b82f93f12e278fb253b4363500b2cd53d63cfc3b343d5b5f1080"
+            }
+          ],
+          "historical_disposition": "retained as originally delivered; this addendum supplies the corrected upstream byte binding without rewriting history"
+        }
+      },
+      "batch_label_corrections_file": "batch-label-corrections.json",
+      "batch_label_corrections": 5,
+      "family_review_ledger_file": "family-review-ledger.json",
+      "family_entries_reviewed": 66,
+      "unique_family_reference_strings": 65,
+      "family_relations_cleared": 0,
+      "net_new_metadata_material_pinned": 0,
+      "index_counts_unchanged": true
+    }
+  ],
+  "gate_binding_addenda": [
+    {
+      "upstream_k62_v24_attachment_id": "01a1357e-8143-7704-afc5-5462b0f20b9a",
+      "upstream_k62_v24_zip": "KAGGLE-62-consolidated-v24.zip",
+      "upstream_k62_v24_zip_sha256": "fb29a18b319b332b70c0d594576395fb922a02e07caa524ed36eed4cbe7058a9",
+      "actual_member_sha256": {
+        "dedup-and-gates.json": "a4467503072efc41ca8dc0bdd3e727fd8aa2fb2b33d3f31bbe253d14d29052dc",
+        "body-prescreen-exclusions.json": "1a1c2d627294b82f93f12e278fb253b4363500b2cd53d63cfc3b343d5b5f1080"
+      },
+      "actual_member_bytes": {
+        "dedup-and-gates.json": 848882,
+        "body-prescreen-exclusions.json": 276060
+      },
+      "reviewer_rebound_exact_id_hits": 0,
+      "family_or_use_clearance": "NONE; exact-ID clearance does not resolve family or use gates",
+      "original_claims_preserved": {
+        "prior_index_gate_snapshot": {
+          "k62_v24_dedup_and_gates_sha256": "c74ae60e3346e16939358d7bbf783ec3635c7c7218111490e235ca943edd9511",
+          "k62_v24_body_prescreen_sha256": "1e2d1f2819de199aaafa1d08a314b6e546f000f2f1cc536950272e6f2e200fc64",
+          "known_hold": "pytest-dev/pluggy#140 ↔ pytest-dev/pytest#2639 remains unchanged",
+          "hold_disposition": "PRESERVED; no family, split, source-role, or use gate cleared"
+        },
+        "batch_gate_sha_mismatch_occurrences": [
+          {
+            "batch": "B9",
+            "member": "dedup-and-gates.json",
+            "claimed_sha256": "c74ae60e3346e16939358d7bbf783ec3635c7c7218111490e235ca943edd9511",
+            "actual_sha256": "a4467503072efc41ca8dc0bdd3e727fd8aa2fb2b33d3f31bbe253d14d29052dc"
+          },
+          {
+            "batch": "B9",
+            "member": "body-prescreen-exclusions.json",
+            "claimed_sha256": "1e2d1f2819de199aafa1d08a314b6e546f000f2f1cc536950272e6f2e200fc64",
+            "actual_sha256": "1a1c2d627294b82f93f12e278fb253b4363500b2cd53d63cfc3b343d5b5f1080"
+          },
+          {
+            "batch": "B10",
+            "member": "dedup-and-gates.json",
+            "claimed_sha256": "c74ae60e3346e16939358d7bbf783ec3635c7c7218111490e235ca943edd9511",
+            "actual_sha256": "a4467503072efc41ca8dc0bdd3e727fd8aa2fb2b33d3f31bbe253d14d29052dc"
+          },
+          {
+            "batch": "B10",
+            "member": "body-prescreen-exclusions.json",
+            "claimed_sha256": "1e2d1f2819de199aafa1d08a314b6e546f000f2f1cc536950272e6f2e200fc64",
+            "actual_sha256": "1a1c2d627294b82f93f12e278fb253b4363500b2cd53d63cfc3b343d5b5f1080"
+          },
+          {
+            "batch": "B11",
+            "member": "dedup-and-gates.json",
+            "claimed_sha256": "c74ae60e3346e16939358d7bbf783ec3635c7c7218111490e235ca943edd9511",
+            "actual_sha256": "a4467503072efc41ca8dc0bdd3e727fd8aa2fb2b33d3f31bbe253d14d29052dc"
+          },
+          {
+            "batch": "B11",
+            "member": "body-prescreen-exclusions.json",
+            "claimed_sha256": "1e2d1f2819de199aafa1d08a314b6e546f000f2f1cc536950272e6f2e200fc64",
+            "actual_sha256": "1a1c2d627294b82f93f12e278fb253b4363500b2cd53d63cfc3b343d5b5f1080"
+          }
+        ],
+        "historical_disposition": "retained as originally delivered; this addendum supplies the corrected upstream byte binding without rewriting history"
+      }
+    }
+  ],
+  "batch_label_corrections": [
+    {
+      "edge_id": "pytest-dev/pytest#10896/ref-1",
+      "referring_issue": "pytest-dev/pytest#10896",
+      "referring_record_stable_id": "pytest-dev-pytest-10896-source-b10",
+      "original_index_pointer": "/records/185/related_issue_refs/0",
+      "original_ref_preserved": "pytest-dev/pytest#11895 (B8 Windows paths topical adjacency; pending review)",
+      "corrected_reference_label": "pytest-dev/pytest#11895 (B7 Windows paths topical adjacency; pending review)",
+      "target_issue": "pytest-dev/pytest#11895",
+      "actual_batch": "K50-PYTEST-SOURCE-B7",
+      "target_record_stable_id": "pytest-dev-pytest-11895-source-b7",
+      "target_index_pointer": "/records/125",
+      "target_source_package": "KAGGLE-50-pytest-source-batch-b7.zip",
+      "target_source_package_attachment_id": "01a157d4-6583-79e8-b2a9-cea95ef4e6de",
+      "target_source_package_sha256": "553b3ead6d654d00285675d63b8e562c3c4cc80e9014170d2ffcf90e125e045b",
+      "disposition": "reference batch-label correction only; family/root/backport status remains pending"
+    },
+    {
+      "edge_id": "pytest-dev/pytest#10991/ref-1",
+      "referring_issue": "pytest-dev/pytest#10991",
+      "referring_record_stable_id": "pytest-dev-pytest-10991-source-b10",
+      "original_index_pointer": "/records/189/related_issue_refs/0",
+      "original_ref_preserved": "pytest-dev/pytest#11610 (B9 log capture topical adjacency; pending review)",
+      "corrected_reference_label": "pytest-dev/pytest#11610 (B8 log capture topical adjacency; pending review)",
+      "target_issue": "pytest-dev/pytest#11610",
+      "actual_batch": "K50-PYTEST-SOURCE-B8",
+      "target_record_stable_id": "pytest-dev-pytest-11610-source-b8",
+      "target_index_pointer": "/records/154",
+      "target_source_package": "KAGGLE-50-pytest-source-batch-b8.zip",
+      "target_source_package_attachment_id": "01a157d4-8b1c-75ea-80b7-7d438d34df29",
+      "target_source_package_sha256": "cdc695c924d165a487b5c16a5e8e2f1459755300f9630e9a999a46eaf2133019",
+      "disposition": "reference batch-label correction only; family/root/backport status remains pending"
+    },
+    {
+      "edge_id": "pytest-dev/pytest#11140/ref-1",
+      "referring_issue": "pytest-dev/pytest#11140",
+      "referring_record_stable_id": "pytest-dev-pytest-11140-source-b10",
+      "original_index_pointer": "/records/202/related_issue_refs/0",
+      "original_ref_preserved": "pytest-dev/pytest#12818 (B4 assertion rewriting topical adjacency; pending review)",
+      "corrected_reference_label": "pytest-dev/pytest#12818 (B05 assertion rewriting topical adjacency; pending review)",
+      "target_issue": "pytest-dev/pytest#12818",
+      "actual_batch": "K50-PYTEST-SOURCE-B05",
+      "target_record_stable_id": "pytest-dev-pytest-12818-source-b05",
+      "target_index_pointer": "/records/103",
+      "target_source_package": "KAGGLE-50-pytest-source-batch-b5.zip",
+      "target_source_package_attachment_id": "01a143d9-0c75-76fe-aac2-8ac4a652f580",
+      "target_source_package_sha256": "679078d8bd02805926dec563b145286c2c50a745b059d0f5f1ba1e5471ee7f1c",
+      "disposition": "reference batch-label correction only; family/root/backport status remains pending"
+    },
+    {
+      "edge_id": "pytest-dev/pytest#10701/ref-1",
+      "referring_issue": "pytest-dev/pytest#10701",
+      "referring_record_stable_id": "pytest-dev-pytest-10701-source-b11",
+      "original_index_pointer": "/records/213/related_issue_refs/0",
+      "original_ref_preserved": "pytest-dev/pytest#10687 (B10 warning-filter topical adjacency; pending review)",
+      "corrected_reference_label": "pytest-dev/pytest#10687 (B11 warning-filter topical adjacency; pending review)",
+      "target_issue": "pytest-dev/pytest#10687",
+      "actual_batch": "K50-PYTEST-SOURCE-B11",
+      "target_record_stable_id": "pytest-dev-pytest-10687-source-b11",
+      "target_index_pointer": "/records/211",
+      "target_source_package": "KAGGLE-50-pytest-source-batch-b11.zip",
+      "target_source_package_attachment_id": "01a157e9-62a8-7d76-a8ca-aea769f9e377",
+      "target_source_package_sha256": "bc26ba2814fbcbdb90750d161e6992414f694e294e066d30e8559f7125fb86cf",
+      "disposition": "reference batch-label correction only; family/root/backport status remains pending"
+    },
+    {
+      "edge_id": "pytest-dev/pytest#10865/ref-2",
+      "referring_issue": "pytest-dev/pytest#10865",
+      "referring_record_stable_id": "pytest-dev-pytest-10865-source-b11",
+      "original_index_pointer": "/records/222/related_issue_refs/1",
+      "original_ref_preserved": "pytest-dev/pytest#11447 (B9 warning/deprecation topical adjacency; pending review)",
+      "corrected_reference_label": "pytest-dev/pytest#11447 (B8 warning/deprecation topical adjacency; pending review)",
+      "target_issue": "pytest-dev/pytest#11447",
+      "actual_batch": "K50-PYTEST-SOURCE-B8",
+      "target_record_stable_id": "pytest-dev-pytest-11447-source-b8",
+      "target_index_pointer": "/records/144",
+      "target_source_package": "KAGGLE-50-pytest-source-batch-b8.zip",
+      "target_source_package_attachment_id": "01a157d4-8b1c-75ea-80b7-7d438d34df29",
+      "target_source_package_sha256": "cdc695c924d165a487b5c16a5e8e2f1459755300f9630e9a999a46eaf2133019",
+      "disposition": "reference batch-label correction only; family/root/backport status remains pending"
+    }
+  ],
+  "review_status_summary": {
+    "conditional_pass": true,
+    "source_chain_verified": 60,
+    "family_root_backport_clearance": 0,
+    "actor_or_training_release": 0,
+    "K42_final_admission_not_replaced": true,
+    "K62_dev_sealed_old_exposure_holds_preserved": true,
+    "current_training_authorization": "BLOCKED"
+  }
 }

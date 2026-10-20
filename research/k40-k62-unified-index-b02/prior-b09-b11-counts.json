@@ -1,0 +1,114 @@
+{
+  "schema": "kaggle67-append-merge-counts/11",
+  "as_of_utc": "2026-10-20T06:08:57+00:00",
+  "basis": "Preserved K62 v23 baseline + K67 B01 + B02–B08 + sequential B09/B10/B11 appends; K62 v24 gate/exclusion evidence checked",
+  "delta_by_batch": [
+    {
+      "batch": "B9",
+      "metadata_identities_added": 20,
+      "pinned_source_candidates_added": 20,
+      "source_ready_added": 0,
+      "deployable_added": 0,
+      "training_approved_added": 0,
+      "exact_duplicates_added": 0,
+      "related_reference_entries_pending_family_review": 19,
+      "confirmed_family_edges_added": 0
+    },
+    {
+      "batch": "B10",
+      "metadata_identities_added": 20,
+      "pinned_source_candidates_added": 20,
+      "source_ready_added": 0,
+      "deployable_added": 0,
+      "training_approved_added": 0,
+      "exact_duplicates_added": 0,
+      "related_reference_entries_pending_family_review": 22,
+      "confirmed_family_edges_added": 0
+    },
+    {
+      "batch": "B11",
+      "metadata_identities_added": 20,
+      "pinned_source_candidates_added": 20,
+      "source_ready_added": 0,
+      "deployable_added": 0,
+      "training_approved_added": 0,
+      "exact_duplicates_added": 0,
+      "related_reference_entries_pending_family_review": 25,
+      "confirmed_family_edges_added": 0
+    }
+  ],
+  "delta_total_b9_b11": {
+    "metadata_identities_added": 60,
+    "pinned_source_candidates_added": 60,
+    "source_ready_added": 0,
+    "deployable_added": 0,
+    "training_approved_added": 0,
+    "exact_duplicates_added": 0,
+    "related_reference_entries_pending_family_review": 66,
+    "unique_related_references_pending_family_review": 65,
+    "confirmed_family_edges_added": 0,
+    "family_clearances_added": 0
+  },
+  "cumulative": {
+    "metadata_identities": 364,
+    "metadata_only_candidates": 20,
+    "material_identities": 344,
+    "candidate_archive_identities": 320,
+    "pinned_source_candidates": 320,
+    "source_ready": 85,
+    "problem_text_and_license_complete": "UNKNOWN_NOT_TRACKED_AS_JOINED_GLOBAL_STAGE",
+    "deployable": 0,
+    "training_approved": 0,
+    "family_or_root_unique_confirmed_from_b9_b11": 0
+  },
+  "after_each_append": [
+    {
+      "batch": "B9",
+      "metadata_identities": 324,
+      "material_identities": 304,
+      "pinned_source_candidates": 280,
+      "source_ready": 85,
+      "deployable": 0,
+      "training_approved": 0
+    },
+    {
+      "batch": "B10",
+      "metadata_identities": 344,
+      "material_identities": 324,
+      "pinned_source_candidates": 300,
+      "source_ready": 85,
+      "deployable": 0,
+      "training_approved": 0
+    },
+    {
+      "batch": "B11",
+      "metadata_identities": 364,
+      "material_identities": 344,
+      "pinned_source_candidates": 320,
+      "source_ready": 85,
+      "deployable": 0,
+      "training_approved": 0
+    }
+  ],
+  "before_b9_b06_b08_baseline": {
+    "metadata_identities": 304,
+    "metadata_only_candidates": 20,
+    "material_identities": 284,
+    "candidate_archive_identities": 260,
+    "pinned_source_candidates": 260,
+    "source_ready": 85,
+    "problem_text_and_license_complete": "UNKNOWN_NOT_TRACKED_AS_JOINED_GLOBAL_STAGE",
+    "deployable": 0,
+    "training_approved": 0,
+    "family_or_root_unique_confirmed_from_b6_b8": 0
+  },
+  "counting_notes": [
+    "B06–B08 baseline: 304 metadata identities, 284 material identities, 260 pinned candidates, 85 SOURCE_READY, 0 deployable, 0 training-approved.",
+    "Each of B9, B10, and B11 contributes 20 metadata identities and 20 pinned source candidates; no batch increases SOURCE_READY, deployable, or training-approved.",
+    "The 20 metadata-only K40 candidates remain separately counted and outside material/archive totals.",
+    "Across B9–B11, 66 related-reference entries (65 unique strings) remain pending independent family/root/backport review; no family edge or clearance was added.",
+    "B11 excluded #10871 as an exact source duplicate and #10815 as a developer self-test compatibility item.",
+    "Source role UNKNOWN, family clearance UNKNOWN, split UNASSIGNED, actor visibility false, trusted acceptance false, training release BLOCKED, and deployment environment NOT_ASSESSED remain unchanged.",
+    "Candidate tests and environments remain unverified; no PR body/diff/fix or hidden evaluation material was read, and no tests/deployment/GPU/107 were used."
+  ]
+}

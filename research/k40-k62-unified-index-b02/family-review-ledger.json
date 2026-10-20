@@ -1,0 +1,2440 @@
+{
+  "schema": "k68-family-reference-review/1",
+  "reviewed_entries": 66,
+  "unique_original_strings": 65,
+  "independent_root_clearances": 0,
+  "entries": [
+    {
+      "edge_id": "pytest-dev/pytest#11216/ref-1",
+      "source": "pytest-dev/pytest#11216",
+      "original_ref": "pytest-dev/pytest#12065 (B7 unittest setup topical adjacency; pending review)",
+      "target_number": 12065,
+      "target_kind": "ISSUE",
+      "target": "pytest-dev/pytest#12065",
+      "classification": "TOPICAL_ONLY_DISTINCT_PINNED_IDENTITIES",
+      "family_root": "UNKNOWN",
+      "backport": "NOT_ESTABLISHED",
+      "clearance": false,
+      "evidence": [
+        {
+          "package": "k40-k62-unified-index-b09-b11.zip",
+          "sha256": "ec93e4c6a4e4e33b2e9e34d2113213a0e8ebf3ce546524cd4fc144253581038a",
+          "member": "manifest.json",
+          "pointer": "records[repo_issue=pytest-dev/pytest#12065]"
+        }
+      ],
+      "missing": [
+        "Existing family/root/backport disposition for pytest-dev/pytest#11216 and pytest-dev/pytest#12065; distinct event identities alone do not prove independent root."
+      ],
+      "pinned_identity_comparison": {
+        "source_closing_pr": 11217,
+        "target_closing_pr_url": "https://github.com/pytest-dev/pytest/pull/12096",
+        "same_closing_pr": false,
+        "same_merge": false,
+        "same_base": false,
+        "same_tree": false,
+        "same_archive": false
+      }
+    },
+    {
+      "edge_id": "pytest-dev/pytest#11216/ref-2",
+      "source": "pytest-dev/pytest#11216",
+      "original_ref": "pytest-dev/pytest#11728 (B8 xunit cleanup topical adjacency; pending review)",
+      "target_number": 11728,
+      "target_kind": "ISSUE",
+      "target": "pytest-dev/pytest#11728",
+      "classification": "TOPICAL_ONLY_DISTINCT_PINNED_IDENTITIES",
+      "family_root": "UNKNOWN",
+      "backport": "NOT_ESTABLISHED",
+      "clearance": false,
+      "evidence": [
+        {
+          "package": "k40-k62-unified-index-b09-b11.zip",
+          "sha256": "ec93e4c6a4e4e33b2e9e34d2113213a0e8ebf3ce546524cd4fc144253581038a",
+          "member": "manifest.json",
+          "pointer": "records[repo_issue=pytest-dev/pytest#11728]"
+        }
+      ],
+      "missing": [
+        "Existing family/root/backport disposition for pytest-dev/pytest#11216 and pytest-dev/pytest#11728; distinct event identities alone do not prove independent root."
+      ],
+      "pinned_identity_comparison": {
+        "source_closing_pr": 11217,
+        "target_closing_pr_url": "https://github.com/pytest-dev/pytest/pull/12250",
+        "same_closing_pr": false,
+        "same_merge": false,
+        "same_base": false,
+        "same_tree": false,
+        "same_archive": false
+      }
+    },
+    {
+      "edge_id": "pytest-dev/pytest#11216/ref-3",
+      "source": "pytest-dev/pytest#11216",
+      "original_ref": "unclassified public issue-body reference #10482; type/family not inferred",
+      "target_number": 10482,
+      "target_kind": "PR",
+      "target": "https://github.com/pytest-dev/pytest/pull/10482",
+      "classification": "PUBLIC_OPENING_NAMES_PRIOR_PR",
+      "family_root": "UNKNOWN",
+      "backport": "NOT_ESTABLISHED",
+      "clearance": false,
+      "evidence": [
+        {
+          "task_id": "pytest-dev/pytest#11216",
+          "member": "pytest-11216/public-issue-body.md",
+          "sha256": "f5bea2966ae3f26c79e1eef9d1a4b15f0022759e7e8f882065746e70de2000d0",
+          "locations": [
+            {
+              "line": 1,
+              "excerpt": "PR #10482 made it so that if a fixture calls `skip()`, the skip location is shown as the test function, not the fixture. But it excluded xunit setup fixtures from this."
+            }
+          ]
+        }
+      ],
+      "missing": [
+        "Existing family/root/backport disposition for pytest-dev/pytest#11216 and https://github.com/pytest-dev/pytest/pull/10482; distinct event identities alone do not prove independent root."
+      ],
+      "pinned_pr_closes": []
+    },
+    {
+      "edge_id": "pytest-dev/pytest#11218/ref-1",
+      "source": "pytest-dev/pytest#11218",
+      "original_ref": "pytest-dev/pytest#12328 (B6 fixture behavior topical adjacency; pending review)",
+      "target_number": 12328,
+      "target_kind": "ISSUE",
+      "target": "pytest-dev/pytest#12328",
+      "classification": "TOPICAL_ONLY_DISTINCT_PINNED_IDENTITIES",
+      "family_root": "UNKNOWN",
+      "backport": "NOT_ESTABLISHED",
+      "clearance": false,
+      "evidence": [
+        {
+          "package": "k40-k62-unified-index-b09-b11.zip",
+          "sha256": "ec93e4c6a4e4e33b2e9e34d2113213a0e8ebf3ce546524cd4fc144253581038a",
+          "member": "manifest.json",
+          "pointer": "records[repo_issue=pytest-dev/pytest#12328]"
+        }
+      ],
+      "missing": [
+        "Existing family/root/backport disposition for pytest-dev/pytest#11218 and pytest-dev/pytest#12328; distinct event identities alone do not prove independent root."
+      ],
+      "pinned_identity_comparison": {
+        "source_closing_pr": 11219,
+        "target_closing_pr_url": "https://github.com/pytest-dev/pytest/pull/12329",
+        "same_closing_pr": false,
+        "same_merge": false,
+        "same_base": false,
+        "same_tree": false,
+        "same_archive": false
+      }
+    },
+    {
+      "edge_id": "pytest-dev/pytest#11223/ref-1",
+      "source": "pytest-dev/pytest#11223",
+      "original_ref": "pytest-dev/pytest#12763 (B5 pytest.raises topical adjacency; pending review)",
+      "target_number": 12763,
+      "target_kind": "ISSUE",
+      "target": "pytest-dev/pytest#12763",
+      "classification": "TOPICAL_ONLY_DISTINCT_PINNED_IDENTITIES",
+      "family_root": "UNKNOWN",
+      "backport": "NOT_ESTABLISHED",
+      "clearance": false,
+      "evidence": [
+        {
+          "package": "k40-k62-unified-index-b09-b11.zip",
+          "sha256": "ec93e4c6a4e4e33b2e9e34d2113213a0e8ebf3ce546524cd4fc144253581038a",
+          "member": "manifest.json",
+          "pointer": "records[repo_issue=pytest-dev/pytest#12763]"
+        }
+      ],
+      "missing": [
+        "Existing family/root/backport disposition for pytest-dev/pytest#11223 and pytest-dev/pytest#12763; distinct event identities alone do not prove independent root."
+      ],
+      "pinned_identity_comparison": {
+        "source_closing_pr": 11227,
+        "target_closing_pr_url": "https://github.com/pytest-dev/pytest/pull/13192",
+        "same_closing_pr": false,
+        "same_merge": false,
+        "same_base": false,
+        "same_tree": false,
+        "same_archive": false
+      }
+    },
+    {
+      "edge_id": "pytest-dev/pytest#11223/ref-2",
+      "source": "pytest-dev/pytest#11223",
+      "original_ref": "pytest-dev/pytest#11523 (B8 exception/importorskip topical adjacency; pending review)",
+      "target_number": 11523,
+      "target_kind": "ISSUE",
+      "target": "pytest-dev/pytest#11523",
+      "classification": "TOPICAL_ONLY_DISTINCT_PINNED_IDENTITIES",
+      "family_root": "UNKNOWN",
+      "backport": "NOT_ESTABLISHED",
+      "clearance": false,
+      "evidence": [
+        {
+          "package": "k40-k62-unified-index-b09-b11.zip",
+          "sha256": "ec93e4c6a4e4e33b2e9e34d2113213a0e8ebf3ce546524cd4fc144253581038a",
+          "member": "manifest.json",
+          "pointer": "records[repo_issue=pytest-dev/pytest#11523]"
+        }
+      ],
+      "missing": [
+        "Existing family/root/backport disposition for pytest-dev/pytest#11223 and pytest-dev/pytest#11523; distinct event identities alone do not prove independent root."
+      ],
+      "pinned_identity_comparison": {
+        "source_closing_pr": 11227,
+        "target_closing_pr_url": "https://github.com/pytest-dev/pytest/pull/12220",
+        "same_closing_pr": false,
+        "same_merge": false,
+        "same_base": false,
+        "same_tree": false,
+        "same_archive": false
+      }
+    },
+    {
+      "edge_id": "pytest-dev/pytest#11233/ref-1",
+      "source": "pytest-dev/pytest#11233",
+      "original_ref": "pytest-dev/pytest#12713 (B5 output-summary topical adjacency; pending review)",
+      "target_number": 12713,
+      "target_kind": "ISSUE",
+      "target": "pytest-dev/pytest#12713",
+      "classification": "TOPICAL_ONLY_DISTINCT_PINNED_IDENTITIES",
+      "family_root": "UNKNOWN",
+      "backport": "NOT_ESTABLISHED",
+      "clearance": false,
+      "evidence": [
+        {
+          "package": "k40-k62-unified-index-b09-b11.zip",
+          "sha256": "ec93e4c6a4e4e33b2e9e34d2113213a0e8ebf3ce546524cd4fc144253581038a",
+          "member": "manifest.json",
+          "pointer": "records[repo_issue=pytest-dev/pytest#12713]"
+        }
+      ],
+      "missing": [
+        "Existing family/root/backport disposition for pytest-dev/pytest#11233 and pytest-dev/pytest#12713; distinct event identities alone do not prove independent root."
+      ],
+      "pinned_identity_comparison": {
+        "source_closing_pr": 11574,
+        "target_closing_pr_url": "https://github.com/pytest-dev/pytest/pull/13061",
+        "same_closing_pr": false,
+        "same_merge": false,
+        "same_base": false,
+        "same_tree": false,
+        "same_archive": false
+      }
+    },
+    {
+      "edge_id": "pytest-dev/pytest#11233/ref-2",
+      "source": "pytest-dev/pytest#11233",
+      "original_ref": "pytest-dev/pytest#12081 (B7 capture/output topical adjacency; pending review)",
+      "target_number": 12081,
+      "target_kind": "ISSUE",
+      "target": "pytest-dev/pytest#12081",
+      "classification": "TOPICAL_ONLY_DISTINCT_PINNED_IDENTITIES",
+      "family_root": "UNKNOWN",
+      "backport": "NOT_ESTABLISHED",
+      "clearance": false,
+      "evidence": [
+        {
+          "package": "k40-k62-unified-index-b09-b11.zip",
+          "sha256": "ec93e4c6a4e4e33b2e9e34d2113213a0e8ebf3ce546524cd4fc144253581038a",
+          "member": "manifest.json",
+          "pointer": "records[repo_issue=pytest-dev/pytest#12081]"
+        }
+      ],
+      "missing": [
+        "Existing family/root/backport disposition for pytest-dev/pytest#11233 and pytest-dev/pytest#12081; distinct event identities alone do not prove independent root."
+      ],
+      "pinned_identity_comparison": {
+        "source_closing_pr": 11574,
+        "target_closing_pr_url": "https://github.com/pytest-dev/pytest/pull/12854",
+        "same_closing_pr": false,
+        "same_merge": false,
+        "same_base": false,
+        "same_tree": false,
+        "same_archive": false
+      }
+    },
+    {
+      "edge_id": "pytest-dev/pytest#11233/ref-3",
+      "source": "pytest-dev/pytest#11233",
+      "original_ref": "unclassified public issue-body reference #10618; type/family not inferred",
+      "target_number": 10618,
+      "target_kind": "ISSUE",
+      "target": "pytest-dev/pytest#10618",
+      "classification": "REPORTER_ASSERTED_SAME_OUTPUT_PROBLEM; NO_CACHED_CLOSER_FOR_TARGET",
+      "family_root": "UNKNOWN",
+      "backport": "NOT_ESTABLISHED",
+      "clearance": false,
+      "evidence": [
+        {
+          "task_id": "pytest-dev/pytest#11233",
+          "member": "pytest-11233/public-issue-body.md",
+          "sha256": "b9ba09605a7d0ff78b40795f0b8f14204e07e6c9d225e93e95b28861b757b51c",
+          "locations": [
+            {
+              "line": 8,
+              "excerpt": "This shows up in a discussion #9834 and another issue #10618."
+            },
+            {
+              "line": 12,
+              "excerpt": "*  issue #10618"
+            }
+          ]
+        }
+      ],
+      "missing": [
+        "Existing family/root/backport disposition for pytest-dev/pytest#11233 and pytest-dev/pytest#10618; distinct event identities alone do not prove independent root.",
+        "Existing typed identity/closure metadata for pytest-dev/pytest#10618; no endpoint expansion performed."
+      ],
+      "cached_target_identity": {
+        "batch": "B11",
+        "member": "evidence/pytest-cursor810-closures.json",
+        "title": "XFail and XPass output does not get printed to console",
+        "closer": null
+      }
+    },
+    {
+      "edge_id": "pytest-dev/pytest#11233/ref-4",
+      "source": "pytest-dev/pytest#11233",
+      "original_ref": "unclassified public issue-body reference #9834; type/family not inferred",
+      "target_number": 9834,
+      "target_kind": "DISCUSSION",
+      "target": "https://github.com/pytest-dev/pytest/discussions/9834",
+      "classification": "PUBLIC_OPENING_NAMES_DISCUSSION",
+      "family_root": "UNKNOWN",
+      "backport": "NOT_ESTABLISHED",
+      "clearance": false,
+      "evidence": [
+        {
+          "task_id": "pytest-dev/pytest#11233",
+          "member": "pytest-11233/public-issue-body.md",
+          "sha256": "b9ba09605a7d0ff78b40795f0b8f14204e07e6c9d225e93e95b28861b757b51c",
+          "locations": [
+            {
+              "line": 8,
+              "excerpt": "This shows up in a discussion #9834 and another issue #10618."
+            },
+            {
+              "line": 10,
+              "excerpt": "* discussion #9834\""
+            }
+          ]
+        }
+      ],
+      "missing": [
+        "Existing family/root/backport disposition for pytest-dev/pytest#11233 and https://github.com/pytest-dev/pytest/discussions/9834; distinct event identities alone do not prove independent root.",
+        "Existing typed identity/closure metadata for https://github.com/pytest-dev/pytest/discussions/9834; no endpoint expansion performed."
+      ]
+    },
+    {
+      "edge_id": "pytest-dev/pytest#11239/ref-1",
+      "source": "pytest-dev/pytest#11239",
+      "original_ref": "unclassified public issue-body reference #11115; type/family not inferred",
+      "target_number": 11115,
+      "target_kind": "ISSUE_OR_UNTYPED_REPORT_REFERENCE",
+      "target": "pytest-dev/pytest#11115",
+      "classification": "PUBLIC_OPENING_REFERENCE_TYPE_OR_CAUSALITY_UNRESOLVED",
+      "family_root": "UNKNOWN",
+      "backport": "NOT_ESTABLISHED",
+      "clearance": false,
+      "evidence": [
+        {
+          "task_id": "pytest-dev/pytest#11239",
+          "member": "pytest-11239/public-issue-body.md",
+          "sha256": "e0fb0942f3108027d3f4b37c1375466cef1dc992bc90f06921907ed21d578d67",
+          "locations": [
+            {
+              "line": 27,
+              "excerpt": "As there is another regression (#11115) with this PR already, maybe it would be best to revert it?"
+            }
+          ]
+        }
+      ],
+      "missing": [
+        "Existing family/root/backport disposition for pytest-dev/pytest#11239 and pytest-dev/pytest#11115; distinct event identities alone do not prove independent root.",
+        "Existing typed identity/closure metadata for pytest-dev/pytest#11115; no endpoint expansion performed."
+      ]
+    },
+    {
+      "edge_id": "pytest-dev/pytest#11258/ref-1",
+      "source": "pytest-dev/pytest#11258",
+      "original_ref": "pytest-dev/pytest#11523 (B8 pytest.raises/importorskip topical adjacency; pending review)",
+      "target_number": 11523,
+      "target_kind": "ISSUE",
+      "target": "pytest-dev/pytest#11523",
+      "classification": "TOPICAL_ONLY_DISTINCT_PINNED_IDENTITIES",
+      "family_root": "UNKNOWN",
+      "backport": "NOT_ESTABLISHED",
+      "clearance": false,
+      "evidence": [
+        {
+          "package": "k40-k62-unified-index-b09-b11.zip",
+          "sha256": "ec93e4c6a4e4e33b2e9e34d2113213a0e8ebf3ce546524cd4fc144253581038a",
+          "member": "manifest.json",
+          "pointer": "records[repo_issue=pytest-dev/pytest#11523]"
+        }
+      ],
+      "missing": [
+        "Existing family/root/backport disposition for pytest-dev/pytest#11258 and pytest-dev/pytest#11523; distinct event identities alone do not prove independent root."
+      ],
+      "pinned_identity_comparison": {
+        "source_closing_pr": 11279,
+        "target_closing_pr_url": "https://github.com/pytest-dev/pytest/pull/12220",
+        "same_closing_pr": false,
+        "same_merge": false,
+        "same_base": false,
+        "same_tree": false,
+        "same_archive": false
+      }
+    },
+    {
+      "edge_id": "pytest-dev/pytest#11265/ref-1",
+      "source": "pytest-dev/pytest#11265",
+      "original_ref": "pytest-dev/pytest#11525 (B8 assertion-introspection topical adjacency; pending review)",
+      "target_number": 11525,
+      "target_kind": "ISSUE",
+      "target": "pytest-dev/pytest#11525",
+      "classification": "TOPICAL_ONLY_DISTINCT_PINNED_IDENTITIES",
+      "family_root": "UNKNOWN",
+      "backport": "NOT_ESTABLISHED",
+      "clearance": false,
+      "evidence": [
+        {
+          "package": "k40-k62-unified-index-b09-b11.zip",
+          "sha256": "ec93e4c6a4e4e33b2e9e34d2113213a0e8ebf3ce546524cd4fc144253581038a",
+          "member": "manifest.json",
+          "pointer": "records[repo_issue=pytest-dev/pytest#11525]"
+        }
+      ],
+      "missing": [
+        "Existing family/root/backport disposition for pytest-dev/pytest#11265 and pytest-dev/pytest#11525; distinct event identities alone do not prove independent root."
+      ],
+      "pinned_identity_comparison": {
+        "source_closing_pr": 11285,
+        "target_closing_pr_url": "https://github.com/pytest-dev/pytest/pull/12473",
+        "same_closing_pr": false,
+        "same_merge": false,
+        "same_base": false,
+        "same_tree": false,
+        "same_archive": false
+      }
+    },
+    {
+      "edge_id": "pytest-dev/pytest#11306/ref-1",
+      "source": "pytest-dev/pytest#11306",
+      "original_ref": "pytest-dev/pytest#12194 (B6 doctest/importlib topical adjacency; pending review)",
+      "target_number": 12194,
+      "target_kind": "ISSUE",
+      "target": "pytest-dev/pytest#12194",
+      "classification": "TOPICAL_ONLY_DISTINCT_PINNED_IDENTITIES",
+      "family_root": "UNKNOWN",
+      "backport": "NOT_ESTABLISHED",
+      "clearance": false,
+      "evidence": [
+        {
+          "package": "k40-k62-unified-index-b09-b11.zip",
+          "sha256": "ec93e4c6a4e4e33b2e9e34d2113213a0e8ebf3ce546524cd4fc144253581038a",
+          "member": "manifest.json",
+          "pointer": "records[repo_issue=pytest-dev/pytest#12194]"
+        }
+      ],
+      "missing": [
+        "Existing family/root/backport disposition for pytest-dev/pytest#11306 and pytest-dev/pytest#12194; distinct event identities alone do not prove independent root."
+      ],
+      "pinned_identity_comparison": {
+        "source_closing_pr": 11390,
+        "target_closing_pr_url": "https://github.com/pytest-dev/pytest/pull/12208",
+        "same_closing_pr": false,
+        "same_merge": false,
+        "same_base": false,
+        "same_tree": false,
+        "same_archive": false
+      }
+    },
+    {
+      "edge_id": "pytest-dev/pytest#11306/ref-2",
+      "source": "pytest-dev/pytest#11306",
+      "original_ref": "pytest-dev/pytest#11475 (B8 doctest/importlib topical adjacency; pending review)",
+      "target_number": 11475,
+      "target_kind": "ISSUE",
+      "target": "pytest-dev/pytest#11475",
+      "classification": "TOPICAL_ONLY_DISTINCT_PINNED_IDENTITIES",
+      "family_root": "UNKNOWN",
+      "backport": "NOT_ESTABLISHED",
+      "clearance": false,
+      "evidence": [
+        {
+          "package": "k40-k62-unified-index-b09-b11.zip",
+          "sha256": "ec93e4c6a4e4e33b2e9e34d2113213a0e8ebf3ce546524cd4fc144253581038a",
+          "member": "manifest.json",
+          "pointer": "records[repo_issue=pytest-dev/pytest#11475]"
+        }
+      ],
+      "missing": [
+        "Existing family/root/backport disposition for pytest-dev/pytest#11306 and pytest-dev/pytest#11475; distinct event identities alone do not prove independent root."
+      ],
+      "pinned_identity_comparison": {
+        "source_closing_pr": 11390,
+        "target_closing_pr_url": "https://github.com/pytest-dev/pytest/pull/11997",
+        "same_closing_pr": false,
+        "same_merge": false,
+        "same_base": false,
+        "same_tree": false,
+        "same_archive": false
+      }
+    },
+    {
+      "edge_id": "pytest-dev/pytest#11327/ref-1",
+      "source": "pytest-dev/pytest#11327",
+      "original_ref": "pytest-dev/pytest#11391 (plugin-list topical adjacency; external placeholder entries remain unassessed)",
+      "target_number": 11391,
+      "target_kind": "ISSUE",
+      "target": "pytest-dev/pytest#11391",
+      "classification": "TOPICAL_ONLY_DISTINCT_PINNED_IDENTITIES",
+      "family_root": "UNKNOWN",
+      "backport": "NOT_ESTABLISHED",
+      "clearance": false,
+      "evidence": [
+        {
+          "package": "k40-k62-unified-index-b09-b11.zip",
+          "sha256": "ec93e4c6a4e4e33b2e9e34d2113213a0e8ebf3ce546524cd4fc144253581038a",
+          "member": "manifest.json",
+          "pointer": "records[repo_issue=pytest-dev/pytest#11391]"
+        }
+      ],
+      "missing": [
+        "Existing family/root/backport disposition for pytest-dev/pytest#11327 and pytest-dev/pytest#11391; distinct event identities alone do not prove independent root."
+      ],
+      "pinned_identity_comparison": {
+        "source_closing_pr": 11328,
+        "target_closing_pr_url": "https://github.com/pytest-dev/pytest/pull/11397",
+        "same_closing_pr": false,
+        "same_merge": false,
+        "same_base": false,
+        "same_tree": false,
+        "same_archive": false
+      }
+    },
+    {
+      "edge_id": "pytest-dev/pytest#11367/ref-1",
+      "source": "pytest-dev/pytest#11367",
+      "original_ref": "pytest-dev/pytest#12736 (B5 JUnit report topical adjacency; pending review)",
+      "target_number": 12736,
+      "target_kind": "ISSUE",
+      "target": "pytest-dev/pytest#12736",
+      "classification": "TOPICAL_ONLY_DISTINCT_PINNED_IDENTITIES",
+      "family_root": "UNKNOWN",
+      "backport": "NOT_ESTABLISHED",
+      "clearance": false,
+      "evidence": [
+        {
+          "package": "k40-k62-unified-index-b09-b11.zip",
+          "sha256": "ec93e4c6a4e4e33b2e9e34d2113213a0e8ebf3ce546524cd4fc144253581038a",
+          "member": "manifest.json",
+          "pointer": "records[repo_issue=pytest-dev/pytest#12736]"
+        }
+      ],
+      "missing": [
+        "Existing family/root/backport disposition for pytest-dev/pytest#11367 and pytest-dev/pytest#12736; distinct event identities alone do not prove independent root."
+      ],
+      "pinned_identity_comparison": {
+        "source_closing_pr": 11369,
+        "target_closing_pr_url": "https://github.com/pytest-dev/pytest/pull/13404",
+        "same_closing_pr": false,
+        "same_merge": false,
+        "same_base": false,
+        "same_tree": false,
+        "same_archive": false
+      }
+    },
+    {
+      "edge_id": "pytest-dev/pytest#11391/ref-1",
+      "source": "pytest-dev/pytest#11391",
+      "original_ref": "pytest-dev/pytest#11327 (plugin-list topical adjacency; external placeholder entries remain unassessed)",
+      "target_number": 11327,
+      "target_kind": "ISSUE",
+      "target": "pytest-dev/pytest#11327",
+      "classification": "TOPICAL_ONLY_DISTINCT_PINNED_IDENTITIES",
+      "family_root": "UNKNOWN",
+      "backport": "NOT_ESTABLISHED",
+      "clearance": false,
+      "evidence": [
+        {
+          "package": "k40-k62-unified-index-b09-b11.zip",
+          "sha256": "ec93e4c6a4e4e33b2e9e34d2113213a0e8ebf3ce546524cd4fc144253581038a",
+          "member": "manifest.json",
+          "pointer": "records[repo_issue=pytest-dev/pytest#11327]"
+        }
+      ],
+      "missing": [
+        "Existing family/root/backport disposition for pytest-dev/pytest#11391 and pytest-dev/pytest#11327; distinct event identities alone do not prove independent root."
+      ],
+      "pinned_identity_comparison": {
+        "source_closing_pr": 11397,
+        "target_closing_pr_url": "https://github.com/pytest-dev/pytest/pull/11328",
+        "same_closing_pr": false,
+        "same_merge": false,
+        "same_base": false,
+        "same_tree": false,
+        "same_archive": false
+      }
+    },
+    {
+      "edge_id": "pytest-dev/pytest#11394/ref-1",
+      "source": "pytest-dev/pytest#11394",
+      "original_ref": "unclassified public issue-body reference #10169; type/family not inferred",
+      "target_number": 10169,
+      "target_kind": "UNTYPED_HASH_REFERENCE",
+      "target": "pytest-dev/pytest#10169",
+      "classification": "PUBLIC_OPENING_REFERENCE_TYPE_OR_CAUSALITY_UNRESOLVED",
+      "family_root": "UNKNOWN",
+      "backport": "NOT_ESTABLISHED",
+      "clearance": false,
+      "evidence": [
+        {
+          "task_id": "pytest-dev/pytest#11394",
+          "member": "pytest-11394/public-issue-body.md",
+          "sha256": "57aa8015661f50bb6bdd3464668faca6332beb3de179d721cfe99f0e6a11a616",
+          "locations": [
+            {
+              "line": 104,
+              "excerpt": "This seems to be similar to #10169"
+            }
+          ]
+        }
+      ],
+      "missing": [
+        "Existing family/root/backport disposition for pytest-dev/pytest#11394 and pytest-dev/pytest#10169; distinct event identities alone do not prove independent root.",
+        "Existing typed identity/closure metadata for pytest-dev/pytest#10169; no endpoint expansion performed."
+      ]
+    },
+    {
+      "edge_id": "pytest-dev/pytest#10890/ref-1",
+      "source": "pytest-dev/pytest#10890",
+      "original_ref": "pytest-dev/pytest#12323 (B6 Python prerelease compatibility topical adjacency; pending review)",
+      "target_number": 12323,
+      "target_kind": "ISSUE",
+      "target": "pytest-dev/pytest#12323",
+      "classification": "TOPICAL_ONLY_DISTINCT_PINNED_IDENTITIES",
+      "family_root": "UNKNOWN",
+      "backport": "NOT_ESTABLISHED",
+      "clearance": false,
+      "evidence": [
+        {
+          "package": "k40-k62-unified-index-b09-b11.zip",
+          "sha256": "ec93e4c6a4e4e33b2e9e34d2113213a0e8ebf3ce546524cd4fc144253581038a",
+          "member": "manifest.json",
+          "pointer": "records[repo_issue=pytest-dev/pytest#12323]"
+        }
+      ],
+      "missing": [
+        "Existing family/root/backport disposition for pytest-dev/pytest#10890 and pytest-dev/pytest#12323; distinct event identities alone do not prove independent root."
+      ],
+      "pinned_identity_comparison": {
+        "source_closing_pr": 10893,
+        "target_closing_pr_url": "https://github.com/pytest-dev/pytest/pull/12334",
+        "same_closing_pr": false,
+        "same_merge": false,
+        "same_base": false,
+        "same_tree": false,
+        "same_archive": false
+      }
+    },
+    {
+      "edge_id": "pytest-dev/pytest#10890/ref-2",
+      "source": "pytest-dev/pytest#10890",
+      "original_ref": "pytest-dev/pytest#11954 (B7 warning/deprecation topical adjacency; pending review)",
+      "target_number": 11954,
+      "target_kind": "ISSUE",
+      "target": "pytest-dev/pytest#11954",
+      "classification": "TOPICAL_ONLY_DISTINCT_PINNED_IDENTITIES",
+      "family_root": "UNKNOWN",
+      "backport": "NOT_ESTABLISHED",
+      "clearance": false,
+      "evidence": [
+        {
+          "package": "k40-k62-unified-index-b09-b11.zip",
+          "sha256": "ec93e4c6a4e4e33b2e9e34d2113213a0e8ebf3ce546524cd4fc144253581038a",
+          "member": "manifest.json",
+          "pointer": "records[repo_issue=pytest-dev/pytest#11954]"
+        }
+      ],
+      "missing": [
+        "Existing family/root/backport disposition for pytest-dev/pytest#10890 and pytest-dev/pytest#11954; distinct event identities alone do not prove independent root."
+      ],
+      "pinned_identity_comparison": {
+        "source_closing_pr": 10893,
+        "target_closing_pr_url": "https://github.com/pytest-dev/pytest/pull/11959",
+        "same_closing_pr": false,
+        "same_merge": false,
+        "same_base": false,
+        "same_tree": false,
+        "same_archive": false
+      }
+    },
+    {
+      "edge_id": "pytest-dev/pytest#10896/ref-1",
+      "source": "pytest-dev/pytest#10896",
+      "original_ref": "pytest-dev/pytest#11895 (B8 Windows paths topical adjacency; pending review)",
+      "target_number": 11895,
+      "target_kind": "ISSUE",
+      "target": "pytest-dev/pytest#11895",
+      "classification": "TOPICAL_ONLY_DISTINCT_PINNED_IDENTITIES",
+      "family_root": "UNKNOWN",
+      "backport": "NOT_ESTABLISHED",
+      "clearance": false,
+      "evidence": [
+        {
+          "package": "k40-k62-unified-index-b09-b11.zip",
+          "sha256": "ec93e4c6a4e4e33b2e9e34d2113213a0e8ebf3ce546524cd4fc144253581038a",
+          "member": "manifest.json",
+          "pointer": "records[repo_issue=pytest-dev/pytest#11895]"
+        }
+      ],
+      "missing": [
+        "Existing family/root/backport disposition for pytest-dev/pytest#10896 and pytest-dev/pytest#11895; distinct event identities alone do not prove independent root."
+      ],
+      "pinned_identity_comparison": {
+        "source_closing_pr": 10911,
+        "target_closing_pr_url": "https://github.com/pytest-dev/pytest/pull/11936",
+        "same_closing_pr": false,
+        "same_merge": false,
+        "same_base": false,
+        "same_tree": false,
+        "same_archive": false
+      }
+    },
+    {
+      "edge_id": "pytest-dev/pytest#10940/ref-1",
+      "source": "pytest-dev/pytest#10940",
+      "original_ref": "pytest-dev/pytest#12081 (B7 capture/progress topical adjacency; pending review)",
+      "target_number": 12081,
+      "target_kind": "ISSUE",
+      "target": "pytest-dev/pytest#12081",
+      "classification": "TOPICAL_ONLY_DISTINCT_PINNED_IDENTITIES",
+      "family_root": "UNKNOWN",
+      "backport": "NOT_ESTABLISHED",
+      "clearance": false,
+      "evidence": [
+        {
+          "package": "k40-k62-unified-index-b09-b11.zip",
+          "sha256": "ec93e4c6a4e4e33b2e9e34d2113213a0e8ebf3ce546524cd4fc144253581038a",
+          "member": "manifest.json",
+          "pointer": "records[repo_issue=pytest-dev/pytest#12081]"
+        }
+      ],
+      "missing": [
+        "Existing family/root/backport disposition for pytest-dev/pytest#10940 and pytest-dev/pytest#12081; distinct event identities alone do not prove independent root."
+      ],
+      "pinned_identity_comparison": {
+        "source_closing_pr": 10958,
+        "target_closing_pr_url": "https://github.com/pytest-dev/pytest/pull/12854",
+        "same_closing_pr": false,
+        "same_merge": false,
+        "same_base": false,
+        "same_tree": false,
+        "same_archive": false
+      }
+    },
+    {
+      "edge_id": "pytest-dev/pytest#10940/ref-2",
+      "source": "pytest-dev/pytest#10940",
+      "original_ref": "pytest-dev/pytest#11507 (B8 output documentation topical adjacency; pending review)",
+      "target_number": 11507,
+      "target_kind": "ISSUE",
+      "target": "pytest-dev/pytest#11507",
+      "classification": "TOPICAL_ONLY_DISTINCT_PINNED_IDENTITIES",
+      "family_root": "UNKNOWN",
+      "backport": "NOT_ESTABLISHED",
+      "clearance": false,
+      "evidence": [
+        {
+          "package": "k40-k62-unified-index-b09-b11.zip",
+          "sha256": "ec93e4c6a4e4e33b2e9e34d2113213a0e8ebf3ce546524cd4fc144253581038a",
+          "member": "manifest.json",
+          "pointer": "records[repo_issue=pytest-dev/pytest#11507]"
+        }
+      ],
+      "missing": [
+        "Existing family/root/backport disposition for pytest-dev/pytest#10940 and pytest-dev/pytest#11507; distinct event identities alone do not prove independent root."
+      ],
+      "pinned_identity_comparison": {
+        "source_closing_pr": 10958,
+        "target_closing_pr_url": "https://github.com/pytest-dev/pytest/pull/11558",
+        "same_closing_pr": false,
+        "same_merge": false,
+        "same_base": false,
+        "same_tree": false,
+        "same_archive": false
+      }
+    },
+    {
+      "edge_id": "pytest-dev/pytest#10987/ref-1",
+      "source": "pytest-dev/pytest#10987",
+      "original_ref": "pytest-dev/pytest#11372 (B9 test-session/async reporting topical adjacency; pending review)",
+      "target_number": 11372,
+      "target_kind": "ISSUE",
+      "target": "pytest-dev/pytest#11372",
+      "classification": "TOPICAL_ONLY_DISTINCT_PINNED_IDENTITIES",
+      "family_root": "UNKNOWN",
+      "backport": "NOT_ESTABLISHED",
+      "clearance": false,
+      "evidence": [
+        {
+          "package": "k40-k62-unified-index-b09-b11.zip",
+          "sha256": "ec93e4c6a4e4e33b2e9e34d2113213a0e8ebf3ce546524cd4fc144253581038a",
+          "member": "manifest.json",
+          "pointer": "records[repo_issue=pytest-dev/pytest#11372]"
+        }
+      ],
+      "missing": [
+        "Existing family/root/backport disposition for pytest-dev/pytest#10987 and pytest-dev/pytest#11372; distinct event identities alone do not prove independent root."
+      ],
+      "pinned_identity_comparison": {
+        "source_closing_pr": 10988,
+        "target_closing_pr_url": "https://github.com/pytest-dev/pytest/pull/12346",
+        "same_closing_pr": false,
+        "same_merge": false,
+        "same_base": false,
+        "same_tree": false,
+        "same_archive": false
+      }
+    },
+    {
+      "edge_id": "pytest-dev/pytest#10991/ref-1",
+      "source": "pytest-dev/pytest#10991",
+      "original_ref": "pytest-dev/pytest#11610 (B9 log capture topical adjacency; pending review)",
+      "target_number": 11610,
+      "target_kind": "ISSUE",
+      "target": "pytest-dev/pytest#11610",
+      "classification": "TOPICAL_ONLY_DISTINCT_PINNED_IDENTITIES",
+      "family_root": "UNKNOWN",
+      "backport": "NOT_ESTABLISHED",
+      "clearance": false,
+      "evidence": [
+        {
+          "package": "k40-k62-unified-index-b09-b11.zip",
+          "sha256": "ec93e4c6a4e4e33b2e9e34d2113213a0e8ebf3ce546524cd4fc144253581038a",
+          "member": "manifest.json",
+          "pointer": "records[repo_issue=pytest-dev/pytest#11610]"
+        }
+      ],
+      "missing": [
+        "Existing family/root/backport disposition for pytest-dev/pytest#10991 and pytest-dev/pytest#11610; distinct event identities alone do not prove independent root."
+      ],
+      "pinned_identity_comparison": {
+        "source_closing_pr": 11047,
+        "target_closing_pr_url": "https://github.com/pytest-dev/pytest/pull/11625",
+        "same_closing_pr": false,
+        "same_merge": false,
+        "same_base": false,
+        "same_tree": false,
+        "same_archive": false
+      }
+    },
+    {
+      "edge_id": "pytest-dev/pytest#11013/ref-1",
+      "source": "pytest-dev/pytest#11013",
+      "original_ref": "pytest-dev/pytest#11104 (B10 testpaths behavior topical adjacency; pending review)",
+      "target_number": 11104,
+      "target_kind": "ISSUE",
+      "target": "pytest-dev/pytest#11104",
+      "classification": "TOPICAL_ONLY_DISTINCT_PINNED_IDENTITIES",
+      "family_root": "UNKNOWN",
+      "backport": "NOT_ESTABLISHED",
+      "clearance": false,
+      "evidence": [
+        {
+          "package": "k40-k62-unified-index-b09-b11.zip",
+          "sha256": "ec93e4c6a4e4e33b2e9e34d2113213a0e8ebf3ce546524cd4fc144253581038a",
+          "member": "manifest.json",
+          "pointer": "records[repo_issue=pytest-dev/pytest#11104]"
+        }
+      ],
+      "missing": [
+        "Existing family/root/backport disposition for pytest-dev/pytest#11013 and pytest-dev/pytest#11104; distinct event identities alone do not prove independent root."
+      ],
+      "pinned_identity_comparison": {
+        "source_closing_pr": 11044,
+        "target_closing_pr_url": "https://github.com/pytest-dev/pytest/pull/11125",
+        "same_closing_pr": false,
+        "same_merge": false,
+        "same_base": false,
+        "same_tree": false,
+        "same_archive": false
+      }
+    },
+    {
+      "edge_id": "pytest-dev/pytest#11028/ref-1",
+      "source": "pytest-dev/pytest#11028",
+      "original_ref": "unclassified public issue-body reference #10758; type/family not inferred",
+      "target_number": 10758,
+      "target_kind": "PR",
+      "target": "https://github.com/pytest-dev/pytest/pull/10758",
+      "classification": "PUBLIC_OPENING_NAMES_PRIOR_PR",
+      "family_root": "UNKNOWN",
+      "backport": "NOT_ESTABLISHED",
+      "clearance": false,
+      "evidence": [
+        {
+          "task_id": "pytest-dev/pytest#11028",
+          "member": "pytest-11028/public-issue-body.md",
+          "sha256": "54b3afd073a01d9e4f2b6603d6439312ce29c68c361827df931e45ab3eb2b03b",
+          "locations": [
+            {
+              "line": 19,
+              "excerpt": "Looks like it has to do with PR #10758. "
+            }
+          ]
+        }
+      ],
+      "missing": [
+        "Existing family/root/backport disposition for pytest-dev/pytest#11028 and https://github.com/pytest-dev/pytest/pull/10758; distinct event identities alone do not prove independent root."
+      ],
+      "pinned_pr_closes": [
+        "pytest-dev/pytest#10743"
+      ]
+    },
+    {
+      "edge_id": "pytest-dev/pytest#11031/ref-1",
+      "source": "pytest-dev/pytest#11031",
+      "original_ref": "pytest-dev/pytest#11282 (B9 configuration option topical adjacency; pending review)",
+      "target_number": 11282,
+      "target_kind": "ISSUE",
+      "target": "pytest-dev/pytest#11282",
+      "classification": "TOPICAL_ONLY_DISTINCT_PINNED_IDENTITIES",
+      "family_root": "UNKNOWN",
+      "backport": "NOT_ESTABLISHED",
+      "clearance": false,
+      "evidence": [
+        {
+          "package": "k40-k62-unified-index-b09-b11.zip",
+          "sha256": "ec93e4c6a4e4e33b2e9e34d2113213a0e8ebf3ce546524cd4fc144253581038a",
+          "member": "manifest.json",
+          "pointer": "records[repo_issue=pytest-dev/pytest#11282]"
+        }
+      ],
+      "missing": [
+        "Existing family/root/backport disposition for pytest-dev/pytest#11031 and pytest-dev/pytest#11282; distinct event identities alone do not prove independent root."
+      ],
+      "pinned_identity_comparison": {
+        "source_closing_pr": 11036,
+        "target_closing_pr_url": "https://github.com/pytest-dev/pytest/pull/11594",
+        "same_closing_pr": false,
+        "same_merge": false,
+        "same_base": false,
+        "same_tree": false,
+        "same_archive": false
+      }
+    },
+    {
+      "edge_id": "pytest-dev/pytest#11065/ref-1",
+      "source": "pytest-dev/pytest#11065",
+      "original_ref": "pytest-dev/pytest#11068 (B10 cacheprovider behavior topical adjacency; pending review)",
+      "target_number": 11068,
+      "target_kind": "ISSUE",
+      "target": "pytest-dev/pytest#11068",
+      "classification": "TOPICAL_ONLY_DISTINCT_PINNED_IDENTITIES",
+      "family_root": "UNKNOWN",
+      "backport": "NOT_ESTABLISHED",
+      "clearance": false,
+      "evidence": [
+        {
+          "package": "k40-k62-unified-index-b09-b11.zip",
+          "sha256": "ec93e4c6a4e4e33b2e9e34d2113213a0e8ebf3ce546524cd4fc144253581038a",
+          "member": "manifest.json",
+          "pointer": "records[repo_issue=pytest-dev/pytest#11068]"
+        }
+      ],
+      "missing": [
+        "Existing family/root/backport disposition for pytest-dev/pytest#11065 and pytest-dev/pytest#11068; distinct event identities alone do not prove independent root."
+      ],
+      "pinned_identity_comparison": {
+        "source_closing_pr": 11542,
+        "target_closing_pr_url": "https://github.com/pytest-dev/pytest/pull/11069",
+        "same_closing_pr": false,
+        "same_merge": false,
+        "same_base": false,
+        "same_tree": false,
+        "same_archive": false
+      }
+    },
+    {
+      "edge_id": "pytest-dev/pytest#11067/ref-1",
+      "source": "pytest-dev/pytest#11067",
+      "original_ref": "pytest-dev/pytest#11233 (B9 xfail reporting topical adjacency; pending review)",
+      "target_number": 11233,
+      "target_kind": "ISSUE",
+      "target": "pytest-dev/pytest#11233",
+      "classification": "TOPICAL_ONLY_DISTINCT_PINNED_IDENTITIES",
+      "family_root": "UNKNOWN",
+      "backport": "NOT_ESTABLISHED",
+      "clearance": false,
+      "evidence": [
+        {
+          "package": "k40-k62-unified-index-b09-b11.zip",
+          "sha256": "ec93e4c6a4e4e33b2e9e34d2113213a0e8ebf3ce546524cd4fc144253581038a",
+          "member": "manifest.json",
+          "pointer": "records[repo_issue=pytest-dev/pytest#11233]"
+        }
+      ],
+      "missing": [
+        "Existing family/root/backport disposition for pytest-dev/pytest#11067 and pytest-dev/pytest#11233; distinct event identities alone do not prove independent root."
+      ],
+      "pinned_identity_comparison": {
+        "source_closing_pr": 13328,
+        "target_closing_pr_url": "https://github.com/pytest-dev/pytest/pull/11574",
+        "same_closing_pr": false,
+        "same_merge": false,
+        "same_base": false,
+        "same_tree": false,
+        "same_archive": false
+      }
+    },
+    {
+      "edge_id": "pytest-dev/pytest#11068/ref-1",
+      "source": "pytest-dev/pytest#11068",
+      "original_ref": "pytest-dev/pytest#11065 (B10 cacheprovider documentation topical adjacency; pending review)",
+      "target_number": 11065,
+      "target_kind": "ISSUE",
+      "target": "pytest-dev/pytest#11065",
+      "classification": "TOPICAL_ONLY_DISTINCT_PINNED_IDENTITIES",
+      "family_root": "UNKNOWN",
+      "backport": "NOT_ESTABLISHED",
+      "clearance": false,
+      "evidence": [
+        {
+          "package": "k40-k62-unified-index-b09-b11.zip",
+          "sha256": "ec93e4c6a4e4e33b2e9e34d2113213a0e8ebf3ce546524cd4fc144253581038a",
+          "member": "manifest.json",
+          "pointer": "records[repo_issue=pytest-dev/pytest#11065]"
+        }
+      ],
+      "missing": [
+        "Existing family/root/backport disposition for pytest-dev/pytest#11068 and pytest-dev/pytest#11065; distinct event identities alone do not prove independent root."
+      ],
+      "pinned_identity_comparison": {
+        "source_closing_pr": 11069,
+        "target_closing_pr_url": "https://github.com/pytest-dev/pytest/pull/11542",
+        "same_closing_pr": false,
+        "same_merge": false,
+        "same_base": false,
+        "same_tree": false,
+        "same_archive": false
+      }
+    },
+    {
+      "edge_id": "pytest-dev/pytest#11081/ref-1",
+      "source": "pytest-dev/pytest#11081",
+      "original_ref": "pytest-dev/pytest#11306 (B9 collection/doctest topical adjacency; pending review)",
+      "target_number": 11306,
+      "target_kind": "ISSUE",
+      "target": "pytest-dev/pytest#11306",
+      "classification": "TOPICAL_ONLY_DISTINCT_PINNED_IDENTITIES",
+      "family_root": "UNKNOWN",
+      "backport": "NOT_ESTABLISHED",
+      "clearance": false,
+      "evidence": [
+        {
+          "package": "k40-k62-unified-index-b09-b11.zip",
+          "sha256": "ec93e4c6a4e4e33b2e9e34d2113213a0e8ebf3ce546524cd4fc144253581038a",
+          "member": "manifest.json",
+          "pointer": "records[repo_issue=pytest-dev/pytest#11306]"
+        }
+      ],
+      "missing": [
+        "Existing family/root/backport disposition for pytest-dev/pytest#11081 and pytest-dev/pytest#11306; distinct event identities alone do not prove independent root."
+      ],
+      "pinned_identity_comparison": {
+        "source_closing_pr": 11082,
+        "target_closing_pr_url": "https://github.com/pytest-dev/pytest/pull/11390",
+        "same_closing_pr": false,
+        "same_merge": false,
+        "same_base": false,
+        "same_tree": false,
+        "same_archive": false
+      }
+    },
+    {
+      "edge_id": "pytest-dev/pytest#11091/ref-1",
+      "source": "pytest-dev/pytest#11091",
+      "original_ref": "pytest-dev/pytest#11367 (B9 JUnit reporting topical adjacency; pending review)",
+      "target_number": 11367,
+      "target_kind": "ISSUE",
+      "target": "pytest-dev/pytest#11367",
+      "classification": "TOPICAL_ONLY_DISTINCT_PINNED_IDENTITIES",
+      "family_root": "UNKNOWN",
+      "backport": "NOT_ESTABLISHED",
+      "clearance": false,
+      "evidence": [
+        {
+          "package": "k40-k62-unified-index-b09-b11.zip",
+          "sha256": "ec93e4c6a4e4e33b2e9e34d2113213a0e8ebf3ce546524cd4fc144253581038a",
+          "member": "manifest.json",
+          "pointer": "records[repo_issue=pytest-dev/pytest#11367]"
+        }
+      ],
+      "missing": [
+        "Existing family/root/backport disposition for pytest-dev/pytest#11091 and pytest-dev/pytest#11367; distinct event identities alone do not prove independent root."
+      ],
+      "pinned_identity_comparison": {
+        "source_closing_pr": 11490,
+        "target_closing_pr_url": "https://github.com/pytest-dev/pytest/pull/11369",
+        "same_closing_pr": false,
+        "same_merge": false,
+        "same_base": false,
+        "same_tree": false,
+        "same_archive": false
+      }
+    },
+    {
+      "edge_id": "pytest-dev/pytest#11104/ref-1",
+      "source": "pytest-dev/pytest#11104",
+      "original_ref": "pytest-dev/pytest#11013 (B10 testpaths behavior topical adjacency; pending review)",
+      "target_number": 11013,
+      "target_kind": "ISSUE",
+      "target": "pytest-dev/pytest#11013",
+      "classification": "TOPICAL_ONLY_DISTINCT_PINNED_IDENTITIES",
+      "family_root": "UNKNOWN",
+      "backport": "NOT_ESTABLISHED",
+      "clearance": false,
+      "evidence": [
+        {
+          "package": "k40-k62-unified-index-b09-b11.zip",
+          "sha256": "ec93e4c6a4e4e33b2e9e34d2113213a0e8ebf3ce546524cd4fc144253581038a",
+          "member": "manifest.json",
+          "pointer": "records[repo_issue=pytest-dev/pytest#11013]"
+        }
+      ],
+      "missing": [
+        "Existing family/root/backport disposition for pytest-dev/pytest#11104 and pytest-dev/pytest#11013; distinct event identities alone do not prove independent root."
+      ],
+      "pinned_identity_comparison": {
+        "source_closing_pr": 11125,
+        "target_closing_pr_url": "https://github.com/pytest-dev/pytest/pull/11044",
+        "same_closing_pr": false,
+        "same_merge": false,
+        "same_base": false,
+        "same_tree": false,
+        "same_archive": false
+      }
+    },
+    {
+      "edge_id": "pytest-dev/pytest#11104/ref-2",
+      "source": "pytest-dev/pytest#11104",
+      "original_ref": "unclassified public issue-body reference #10988; type/family not inferred",
+      "target_number": 10988,
+      "target_kind": "PR",
+      "target": "https://github.com/pytest-dev/pytest/pull/10988",
+      "classification": "PUBLIC_OPENING_NAMES_PRIOR_PR",
+      "family_root": "UNKNOWN",
+      "backport": "NOT_ESTABLISHED",
+      "clearance": false,
+      "evidence": [
+        {
+          "task_id": "pytest-dev/pytest#11104",
+          "member": "pytest-11104/public-issue-body.md",
+          "sha256": "2d9d6e09d716c13b78cfcc89cb51fca29497c72734579bbfcb1a29df69a3244e",
+          "locations": [
+            {
+              "line": 15,
+              "excerpt": "Each `unit_test`/`test` dir contains a conftest.py file, which adds some options using `parser.addoption`. One option that is common to both test suites is `--run-podman`. Before 7.3.2, this setup seemed to work, we could run both unit tests and integration tests without issue. But on 7.3.2 (perhaps since #10988?) we get the following error: "
+            }
+          ]
+        }
+      ],
+      "missing": [
+        "Existing family/root/backport disposition for pytest-dev/pytest#11104 and https://github.com/pytest-dev/pytest/pull/10988; distinct event identities alone do not prove independent root."
+      ],
+      "pinned_pr_closes": [
+        "pytest-dev/pytest#10987"
+      ]
+    },
+    {
+      "edge_id": "pytest-dev/pytest#11118/ref-1",
+      "source": "pytest-dev/pytest#11118",
+      "original_ref": "pytest-dev/pytest#11311 (B9 pythonpath configuration topical adjacency; pending review)",
+      "target_number": 11311,
+      "target_kind": "ISSUE",
+      "target": "pytest-dev/pytest#11311",
+      "classification": "TOPICAL_ONLY_DISTINCT_PINNED_IDENTITIES",
+      "family_root": "UNKNOWN",
+      "backport": "NOT_ESTABLISHED",
+      "clearance": false,
+      "evidence": [
+        {
+          "package": "k40-k62-unified-index-b09-b11.zip",
+          "sha256": "ec93e4c6a4e4e33b2e9e34d2113213a0e8ebf3ce546524cd4fc144253581038a",
+          "member": "manifest.json",
+          "pointer": "records[repo_issue=pytest-dev/pytest#11311]"
+        }
+      ],
+      "missing": [
+        "Existing family/root/backport disposition for pytest-dev/pytest#11118 and pytest-dev/pytest#11311; distinct event identities alone do not prove independent root."
+      ],
+      "pinned_identity_comparison": {
+        "source_closing_pr": 11128,
+        "target_closing_pr_url": "https://github.com/pytest-dev/pytest/pull/11963",
+        "same_closing_pr": false,
+        "same_merge": false,
+        "same_base": false,
+        "same_tree": false,
+        "same_archive": false
+      }
+    },
+    {
+      "edge_id": "pytest-dev/pytest#11118/ref-2",
+      "source": "pytest-dev/pytest#11118",
+      "original_ref": "pytest-dev/pytest#11391 (B9 plugin discovery topical adjacency; pending review)",
+      "target_number": 11391,
+      "target_kind": "ISSUE",
+      "target": "pytest-dev/pytest#11391",
+      "classification": "TOPICAL_ONLY_DISTINCT_PINNED_IDENTITIES",
+      "family_root": "UNKNOWN",
+      "backport": "NOT_ESTABLISHED",
+      "clearance": false,
+      "evidence": [
+        {
+          "package": "k40-k62-unified-index-b09-b11.zip",
+          "sha256": "ec93e4c6a4e4e33b2e9e34d2113213a0e8ebf3ce546524cd4fc144253581038a",
+          "member": "manifest.json",
+          "pointer": "records[repo_issue=pytest-dev/pytest#11391]"
+        }
+      ],
+      "missing": [
+        "Existing family/root/backport disposition for pytest-dev/pytest#11118 and pytest-dev/pytest#11391; distinct event identities alone do not prove independent root."
+      ],
+      "pinned_identity_comparison": {
+        "source_closing_pr": 11128,
+        "target_closing_pr_url": "https://github.com/pytest-dev/pytest/pull/11397",
+        "same_closing_pr": false,
+        "same_merge": false,
+        "same_base": false,
+        "same_tree": false,
+        "same_archive": false
+      }
+    },
+    {
+      "edge_id": "pytest-dev/pytest#11137/ref-1",
+      "source": "pytest-dev/pytest#11137",
+      "original_ref": "pytest-dev/pytest#11306 (B9 doctest/module topology topical adjacency; pending review)",
+      "target_number": 11306,
+      "target_kind": "ISSUE",
+      "target": "pytest-dev/pytest#11306",
+      "classification": "TOPICAL_ONLY_DISTINCT_PINNED_IDENTITIES",
+      "family_root": "UNKNOWN",
+      "backport": "NOT_ESTABLISHED",
+      "clearance": false,
+      "evidence": [
+        {
+          "package": "k40-k62-unified-index-b09-b11.zip",
+          "sha256": "ec93e4c6a4e4e33b2e9e34d2113213a0e8ebf3ce546524cd4fc144253581038a",
+          "member": "manifest.json",
+          "pointer": "records[repo_issue=pytest-dev/pytest#11306]"
+        }
+      ],
+      "missing": [
+        "Existing family/root/backport disposition for pytest-dev/pytest#11137 and pytest-dev/pytest#11306; distinct event identities alone do not prove independent root."
+      ],
+      "pinned_identity_comparison": {
+        "source_closing_pr": 11138,
+        "target_closing_pr_url": "https://github.com/pytest-dev/pytest/pull/11390",
+        "same_closing_pr": false,
+        "same_merge": false,
+        "same_base": false,
+        "same_tree": false,
+        "same_archive": false
+      }
+    },
+    {
+      "edge_id": "pytest-dev/pytest#11140/ref-1",
+      "source": "pytest-dev/pytest#11140",
+      "original_ref": "pytest-dev/pytest#12818 (B4 assertion rewriting topical adjacency; pending review)",
+      "target_number": 12818,
+      "target_kind": "ISSUE",
+      "target": "pytest-dev/pytest#12818",
+      "classification": "TOPICAL_ONLY_DISTINCT_PINNED_IDENTITIES",
+      "family_root": "UNKNOWN",
+      "backport": "NOT_ESTABLISHED",
+      "clearance": false,
+      "evidence": [
+        {
+          "package": "k40-k62-unified-index-b09-b11.zip",
+          "sha256": "ec93e4c6a4e4e33b2e9e34d2113213a0e8ebf3ce546524cd4fc144253581038a",
+          "member": "manifest.json",
+          "pointer": "records[repo_issue=pytest-dev/pytest#12818]"
+        }
+      ],
+      "missing": [
+        "Existing family/root/backport disposition for pytest-dev/pytest#11140 and pytest-dev/pytest#12818; distinct event identities alone do not prove independent root."
+      ],
+      "pinned_identity_comparison": {
+        "source_closing_pr": 11143,
+        "target_closing_pr_url": "https://github.com/pytest-dev/pytest/pull/12815",
+        "same_closing_pr": false,
+        "same_merge": false,
+        "same_base": false,
+        "same_tree": false,
+        "same_archive": false
+      }
+    },
+    {
+      "edge_id": "pytest-dev/pytest#11157/ref-1",
+      "source": "pytest-dev/pytest#11157",
+      "original_ref": "pytest-dev/pytest#11356 (B9 precommit/warning topical adjacency; pending review)",
+      "target_number": 11356,
+      "target_kind": "ISSUE",
+      "target": "pytest-dev/pytest#11356",
+      "classification": "TOPICAL_ONLY_DISTINCT_PINNED_IDENTITIES",
+      "family_root": "UNKNOWN",
+      "backport": "NOT_ESTABLISHED",
+      "clearance": false,
+      "evidence": [
+        {
+          "package": "k40-k62-unified-index-b09-b11.zip",
+          "sha256": "ec93e4c6a4e4e33b2e9e34d2113213a0e8ebf3ce546524cd4fc144253581038a",
+          "member": "manifest.json",
+          "pointer": "records[repo_issue=pytest-dev/pytest#11356]"
+        }
+      ],
+      "missing": [
+        "Existing family/root/backport disposition for pytest-dev/pytest#11157 and pytest-dev/pytest#11356; distinct event identities alone do not prove independent root."
+      ],
+      "pinned_identity_comparison": {
+        "source_closing_pr": 11173,
+        "target_closing_pr_url": "https://github.com/pytest-dev/pytest/pull/11360",
+        "same_closing_pr": false,
+        "same_merge": false,
+        "same_base": false,
+        "same_tree": false,
+        "same_archive": false
+      }
+    },
+    {
+      "edge_id": "pytest-dev/pytest#10592/ref-1",
+      "source": "pytest-dev/pytest#10592",
+      "original_ref": "pytest-dev/pytest#10626 (B11 command help topical adjacency; pending review)",
+      "target_number": 10626,
+      "target_kind": "ISSUE",
+      "target": "pytest-dev/pytest#10626",
+      "classification": "TOPICAL_ONLY_DISTINCT_PINNED_IDENTITIES",
+      "family_root": "UNKNOWN",
+      "backport": "NOT_ESTABLISHED",
+      "clearance": false,
+      "evidence": [
+        {
+          "package": "k40-k62-unified-index-b09-b11.zip",
+          "sha256": "ec93e4c6a4e4e33b2e9e34d2113213a0e8ebf3ce546524cd4fc144253581038a",
+          "member": "manifest.json",
+          "pointer": "records[repo_issue=pytest-dev/pytest#10626]"
+        }
+      ],
+      "missing": [
+        "Existing family/root/backport disposition for pytest-dev/pytest#10592 and pytest-dev/pytest#10626; distinct event identities alone do not prove independent root."
+      ],
+      "pinned_identity_comparison": {
+        "source_closing_pr": 10608,
+        "target_closing_pr_url": "https://github.com/pytest-dev/pytest/pull/10664",
+        "same_closing_pr": false,
+        "same_merge": false,
+        "same_base": false,
+        "same_tree": false,
+        "same_archive": false
+      }
+    },
+    {
+      "edge_id": "pytest-dev/pytest#10597/ref-1",
+      "source": "pytest-dev/pytest#10597",
+      "original_ref": "pytest-dev/pytest#12328 (B6 fixture lifecycle topical adjacency; pending review)",
+      "target_number": 12328,
+      "target_kind": "ISSUE",
+      "target": "pytest-dev/pytest#12328",
+      "classification": "TOPICAL_ONLY_DISTINCT_PINNED_IDENTITIES",
+      "family_root": "UNKNOWN",
+      "backport": "NOT_ESTABLISHED",
+      "clearance": false,
+      "evidence": [
+        {
+          "package": "k40-k62-unified-index-b09-b11.zip",
+          "sha256": "ec93e4c6a4e4e33b2e9e34d2113213a0e8ebf3ce546524cd4fc144253581038a",
+          "member": "manifest.json",
+          "pointer": "records[repo_issue=pytest-dev/pytest#12328]"
+        }
+      ],
+      "missing": [
+        "Existing family/root/backport disposition for pytest-dev/pytest#10597 and pytest-dev/pytest#12328; distinct event identities alone do not prove independent root."
+      ],
+      "pinned_identity_comparison": {
+        "source_closing_pr": 10696,
+        "target_closing_pr_url": "https://github.com/pytest-dev/pytest/pull/12329",
+        "same_closing_pr": false,
+        "same_merge": false,
+        "same_base": false,
+        "same_tree": false,
+        "same_archive": false
+      }
+    },
+    {
+      "edge_id": "pytest-dev/pytest#10597/ref-2",
+      "source": "pytest-dev/pytest#10597",
+      "original_ref": "pytest-dev/pytest#12135 (B6 fixture finalizer topical adjacency; pending review)",
+      "target_number": 12135,
+      "target_kind": "ISSUE",
+      "target": "pytest-dev/pytest#12135",
+      "classification": "TOPICAL_ONLY_DISTINCT_PINNED_IDENTITIES",
+      "family_root": "UNKNOWN",
+      "backport": "NOT_ESTABLISHED",
+      "clearance": false,
+      "evidence": [
+        {
+          "package": "k40-k62-unified-index-b09-b11.zip",
+          "sha256": "ec93e4c6a4e4e33b2e9e34d2113213a0e8ebf3ce546524cd4fc144253581038a",
+          "member": "manifest.json",
+          "pointer": "records[repo_issue=pytest-dev/pytest#12135]"
+        }
+      ],
+      "missing": [
+        "Existing family/root/backport disposition for pytest-dev/pytest#10597 and pytest-dev/pytest#12135; distinct event identities alone do not prove independent root."
+      ],
+      "pinned_identity_comparison": {
+        "source_closing_pr": 10696,
+        "target_closing_pr_url": "https://github.com/pytest-dev/pytest/pull/12136",
+        "same_closing_pr": false,
+        "same_merge": false,
+        "same_base": false,
+        "same_tree": false,
+        "same_archive": false
+      }
+    },
+    {
+      "edge_id": "pytest-dev/pytest#10604/ref-1",
+      "source": "pytest-dev/pytest#10604",
+      "original_ref": "pytest-dev/pytest#11367 (B9 JUnit report topical adjacency; pending review)",
+      "target_number": 11367,
+      "target_kind": "ISSUE",
+      "target": "pytest-dev/pytest#11367",
+      "classification": "TOPICAL_ONLY_DISTINCT_PINNED_IDENTITIES",
+      "family_root": "UNKNOWN",
+      "backport": "NOT_ESTABLISHED",
+      "clearance": false,
+      "evidence": [
+        {
+          "package": "k40-k62-unified-index-b09-b11.zip",
+          "sha256": "ec93e4c6a4e4e33b2e9e34d2113213a0e8ebf3ce546524cd4fc144253581038a",
+          "member": "manifest.json",
+          "pointer": "records[repo_issue=pytest-dev/pytest#11367]"
+        }
+      ],
+      "missing": [
+        "Existing family/root/backport disposition for pytest-dev/pytest#10604 and pytest-dev/pytest#11367; distinct event identities alone do not prove independent root."
+      ],
+      "pinned_identity_comparison": {
+        "source_closing_pr": 10607,
+        "target_closing_pr_url": "https://github.com/pytest-dev/pytest/pull/11369",
+        "same_closing_pr": false,
+        "same_merge": false,
+        "same_base": false,
+        "same_tree": false,
+        "same_archive": false
+      }
+    },
+    {
+      "edge_id": "pytest-dev/pytest#10617/ref-1",
+      "source": "pytest-dev/pytest#10617",
+      "original_ref": "pytest-dev/pytest#11140 (B10 assertion rewrite topical adjacency; pending review)",
+      "target_number": 11140,
+      "target_kind": "ISSUE",
+      "target": "pytest-dev/pytest#11140",
+      "classification": "TOPICAL_ONLY_DISTINCT_PINNED_IDENTITIES",
+      "family_root": "UNKNOWN",
+      "backport": "NOT_ESTABLISHED",
+      "clearance": false,
+      "evidence": [
+        {
+          "package": "k40-k62-unified-index-b09-b11.zip",
+          "sha256": "ec93e4c6a4e4e33b2e9e34d2113213a0e8ebf3ce546524cd4fc144253581038a",
+          "member": "manifest.json",
+          "pointer": "records[repo_issue=pytest-dev/pytest#11140]"
+        }
+      ],
+      "missing": [
+        "Existing family/root/backport disposition for pytest-dev/pytest#10617 and pytest-dev/pytest#11140; distinct event identities alone do not prove independent root."
+      ],
+      "pinned_identity_comparison": {
+        "source_closing_pr": 11469,
+        "target_closing_pr_url": "https://github.com/pytest-dev/pytest/pull/11143",
+        "same_closing_pr": false,
+        "same_merge": false,
+        "same_base": false,
+        "same_tree": false,
+        "same_archive": false
+      }
+    },
+    {
+      "edge_id": "pytest-dev/pytest#10654/ref-1",
+      "source": "pytest-dev/pytest#10654",
+      "original_ref": "pytest-dev/pytest#11523 (B8 importorskip topical adjacency; pending review)",
+      "target_number": 11523,
+      "target_kind": "ISSUE",
+      "target": "pytest-dev/pytest#11523",
+      "classification": "TOPICAL_ONLY_DISTINCT_PINNED_IDENTITIES",
+      "family_root": "UNKNOWN",
+      "backport": "NOT_ESTABLISHED",
+      "clearance": false,
+      "evidence": [
+        {
+          "package": "k40-k62-unified-index-b09-b11.zip",
+          "sha256": "ec93e4c6a4e4e33b2e9e34d2113213a0e8ebf3ce546524cd4fc144253581038a",
+          "member": "manifest.json",
+          "pointer": "records[repo_issue=pytest-dev/pytest#11523]"
+        }
+      ],
+      "missing": [
+        "Existing family/root/backport disposition for pytest-dev/pytest#10654 and pytest-dev/pytest#11523; distinct event identities alone do not prove independent root."
+      ],
+      "pinned_identity_comparison": {
+        "source_closing_pr": 10660,
+        "target_closing_pr_url": "https://github.com/pytest-dev/pytest/pull/12220",
+        "same_closing_pr": false,
+        "same_merge": false,
+        "same_base": false,
+        "same_tree": false,
+        "same_archive": false
+      }
+    },
+    {
+      "edge_id": "pytest-dev/pytest#10654/ref-2",
+      "source": "pytest-dev/pytest#10654",
+      "original_ref": "pytest-dev/pytest#11223 (B9 raises/notes topical adjacency; pending review)",
+      "target_number": 11223,
+      "target_kind": "ISSUE",
+      "target": "pytest-dev/pytest#11223",
+      "classification": "TOPICAL_ONLY_DISTINCT_PINNED_IDENTITIES",
+      "family_root": "UNKNOWN",
+      "backport": "NOT_ESTABLISHED",
+      "clearance": false,
+      "evidence": [
+        {
+          "package": "k40-k62-unified-index-b09-b11.zip",
+          "sha256": "ec93e4c6a4e4e33b2e9e34d2113213a0e8ebf3ce546524cd4fc144253581038a",
+          "member": "manifest.json",
+          "pointer": "records[repo_issue=pytest-dev/pytest#11223]"
+        }
+      ],
+      "missing": [
+        "Existing family/root/backport disposition for pytest-dev/pytest#10654 and pytest-dev/pytest#11223; distinct event identities alone do not prove independent root."
+      ],
+      "pinned_identity_comparison": {
+        "source_closing_pr": 10660,
+        "target_closing_pr_url": "https://github.com/pytest-dev/pytest/pull/11227",
+        "same_closing_pr": false,
+        "same_merge": false,
+        "same_base": false,
+        "same_tree": false,
+        "same_archive": false
+      }
+    },
+    {
+      "edge_id": "pytest-dev/pytest#10687/ref-1",
+      "source": "pytest-dev/pytest#10687",
+      "original_ref": "pytest-dev/pytest#10865 (B11 warning type topical adjacency; pending review)",
+      "target_number": 10865,
+      "target_kind": "ISSUE",
+      "target": "pytest-dev/pytest#10865",
+      "classification": "TOPICAL_ONLY_DISTINCT_PINNED_IDENTITIES",
+      "family_root": "UNKNOWN",
+      "backport": "NOT_ESTABLISHED",
+      "clearance": false,
+      "evidence": [
+        {
+          "package": "k40-k62-unified-index-b09-b11.zip",
+          "sha256": "ec93e4c6a4e4e33b2e9e34d2113213a0e8ebf3ce546524cd4fc144253581038a",
+          "member": "manifest.json",
+          "pointer": "records[repo_issue=pytest-dev/pytest#10865]"
+        }
+      ],
+      "missing": [
+        "Existing family/root/backport disposition for pytest-dev/pytest#10687 and pytest-dev/pytest#10865; distinct event identities alone do not prove independent root."
+      ],
+      "pinned_identity_comparison": {
+        "source_closing_pr": 10713,
+        "target_closing_pr_url": "https://github.com/pytest-dev/pytest/pull/11804",
+        "same_closing_pr": false,
+        "same_merge": false,
+        "same_base": false,
+        "same_tree": false,
+        "same_archive": false
+      }
+    },
+    {
+      "edge_id": "pytest-dev/pytest#10690/ref-1",
+      "source": "pytest-dev/pytest#10690",
+      "original_ref": "pytest-dev/pytest#12577 (B5 CI/BUILD_NUMBER documentation topical adjacency; pending review)",
+      "target_number": 12577,
+      "target_kind": "ISSUE",
+      "target": "pytest-dev/pytest#12577",
+      "classification": "TOPICAL_ONLY_DISTINCT_PINNED_IDENTITIES",
+      "family_root": "UNKNOWN",
+      "backport": "NOT_ESTABLISHED",
+      "clearance": false,
+      "evidence": [
+        {
+          "package": "k40-k62-unified-index-b09-b11.zip",
+          "sha256": "ec93e4c6a4e4e33b2e9e34d2113213a0e8ebf3ce546524cd4fc144253581038a",
+          "member": "manifest.json",
+          "pointer": "records[repo_issue=pytest-dev/pytest#12577]"
+        }
+      ],
+      "missing": [
+        "Existing family/root/backport disposition for pytest-dev/pytest#10690 and pytest-dev/pytest#12577; distinct event identities alone do not prove independent root."
+      ],
+      "pinned_identity_comparison": {
+        "source_closing_pr": 10749,
+        "target_closing_pr_url": "https://github.com/pytest-dev/pytest/pull/12578",
+        "same_closing_pr": false,
+        "same_merge": false,
+        "same_base": false,
+        "same_tree": false,
+        "same_archive": false
+      }
+    },
+    {
+      "edge_id": "pytest-dev/pytest#10701/ref-1",
+      "source": "pytest-dev/pytest#10701",
+      "original_ref": "pytest-dev/pytest#10687 (B10 warning-filter topical adjacency; pending review)",
+      "target_number": 10687,
+      "target_kind": "ISSUE",
+      "target": "pytest-dev/pytest#10687",
+      "classification": "TOPICAL_ONLY_DISTINCT_PINNED_IDENTITIES",
+      "family_root": "UNKNOWN",
+      "backport": "NOT_ESTABLISHED",
+      "clearance": false,
+      "evidence": [
+        {
+          "package": "k40-k62-unified-index-b09-b11.zip",
+          "sha256": "ec93e4c6a4e4e33b2e9e34d2113213a0e8ebf3ce546524cd4fc144253581038a",
+          "member": "manifest.json",
+          "pointer": "records[repo_issue=pytest-dev/pytest#10687]"
+        }
+      ],
+      "missing": [
+        "Existing family/root/backport disposition for pytest-dev/pytest#10701 and pytest-dev/pytest#10687; distinct event identities alone do not prove independent root."
+      ],
+      "pinned_identity_comparison": {
+        "source_closing_pr": 11160,
+        "target_closing_pr_url": "https://github.com/pytest-dev/pytest/pull/10713",
+        "same_closing_pr": false,
+        "same_merge": false,
+        "same_base": false,
+        "same_tree": false,
+        "same_archive": false
+      }
+    },
+    {
+      "edge_id": "pytest-dev/pytest#10701/ref-2",
+      "source": "pytest-dev/pytest#10701",
+      "original_ref": "pytest-dev/pytest#10865 (B11 warning type topical adjacency; pending review)",
+      "target_number": 10865,
+      "target_kind": "ISSUE",
+      "target": "pytest-dev/pytest#10865",
+      "classification": "TOPICAL_ONLY_DISTINCT_PINNED_IDENTITIES",
+      "family_root": "UNKNOWN",
+      "backport": "NOT_ESTABLISHED",
+      "clearance": false,
+      "evidence": [
+        {
+          "package": "k40-k62-unified-index-b09-b11.zip",
+          "sha256": "ec93e4c6a4e4e33b2e9e34d2113213a0e8ebf3ce546524cd4fc144253581038a",
+          "member": "manifest.json",
+          "pointer": "records[repo_issue=pytest-dev/pytest#10865]"
+        }
+      ],
+      "missing": [
+        "Existing family/root/backport disposition for pytest-dev/pytest#10701 and pytest-dev/pytest#10865; distinct event identities alone do not prove independent root."
+      ],
+      "pinned_identity_comparison": {
+        "source_closing_pr": 11160,
+        "target_closing_pr_url": "https://github.com/pytest-dev/pytest/pull/11804",
+        "same_closing_pr": false,
+        "same_merge": false,
+        "same_base": false,
+        "same_tree": false,
+        "same_archive": false
+      }
+    },
+    {
+      "edge_id": "pytest-dev/pytest#10702/ref-1",
+      "source": "pytest-dev/pytest#10702",
+      "original_ref": "pytest-dev/pytest#11797 (B8 approx topical adjacency; pending review)",
+      "target_number": 11797,
+      "target_kind": "ISSUE",
+      "target": "pytest-dev/pytest#11797",
+      "classification": "TOPICAL_ONLY_DISTINCT_PINNED_IDENTITIES",
+      "family_root": "UNKNOWN",
+      "backport": "NOT_ESTABLISHED",
+      "clearance": false,
+      "evidence": [
+        {
+          "package": "k40-k62-unified-index-b09-b11.zip",
+          "sha256": "ec93e4c6a4e4e33b2e9e34d2113213a0e8ebf3ce546524cd4fc144253581038a",
+          "member": "manifest.json",
+          "pointer": "records[repo_issue=pytest-dev/pytest#11797]"
+        }
+      ],
+      "missing": [
+        "Existing family/root/backport disposition for pytest-dev/pytest#10702 and pytest-dev/pytest#11797; distinct event identities alone do not prove independent root."
+      ],
+      "pinned_identity_comparison": {
+        "source_closing_pr": 11178,
+        "target_closing_pr_url": "https://github.com/pytest-dev/pytest/pull/11818",
+        "same_closing_pr": false,
+        "same_merge": false,
+        "same_base": false,
+        "same_tree": false,
+        "same_archive": false
+      }
+    },
+    {
+      "edge_id": "pytest-dev/pytest#10710/ref-1",
+      "source": "pytest-dev/pytest#10710",
+      "original_ref": "pytest-dev/pytest#10991 (B10 log-time formatting topical adjacency; pending review)",
+      "target_number": 10991,
+      "target_kind": "ISSUE",
+      "target": "pytest-dev/pytest#10991",
+      "classification": "TOPICAL_ONLY_DISTINCT_PINNED_IDENTITIES",
+      "family_root": "UNKNOWN",
+      "backport": "NOT_ESTABLISHED",
+      "clearance": false,
+      "evidence": [
+        {
+          "package": "k40-k62-unified-index-b09-b11.zip",
+          "sha256": "ec93e4c6a4e4e33b2e9e34d2113213a0e8ebf3ce546524cd4fc144253581038a",
+          "member": "manifest.json",
+          "pointer": "records[repo_issue=pytest-dev/pytest#10991]"
+        }
+      ],
+      "missing": [
+        "Existing family/root/backport disposition for pytest-dev/pytest#10710 and pytest-dev/pytest#10991; distinct event identities alone do not prove independent root."
+      ],
+      "pinned_identity_comparison": {
+        "source_closing_pr": 10711,
+        "target_closing_pr_url": "https://github.com/pytest-dev/pytest/pull/11047",
+        "same_closing_pr": false,
+        "same_merge": false,
+        "same_base": false,
+        "same_tree": false,
+        "same_archive": false
+      }
+    },
+    {
+      "edge_id": "pytest-dev/pytest#10710/ref-2",
+      "source": "pytest-dev/pytest#10710",
+      "original_ref": "pytest-dev/pytest#11367 (B9 report output topical adjacency; pending review)",
+      "target_number": 11367,
+      "target_kind": "ISSUE",
+      "target": "pytest-dev/pytest#11367",
+      "classification": "TOPICAL_ONLY_DISTINCT_PINNED_IDENTITIES",
+      "family_root": "UNKNOWN",
+      "backport": "NOT_ESTABLISHED",
+      "clearance": false,
+      "evidence": [
+        {
+          "package": "k40-k62-unified-index-b09-b11.zip",
+          "sha256": "ec93e4c6a4e4e33b2e9e34d2113213a0e8ebf3ce546524cd4fc144253581038a",
+          "member": "manifest.json",
+          "pointer": "records[repo_issue=pytest-dev/pytest#11367]"
+        }
+      ],
+      "missing": [
+        "Existing family/root/backport disposition for pytest-dev/pytest#10710 and pytest-dev/pytest#11367; distinct event identities alone do not prove independent root."
+      ],
+      "pinned_identity_comparison": {
+        "source_closing_pr": 10711,
+        "target_closing_pr_url": "https://github.com/pytest-dev/pytest/pull/11369",
+        "same_closing_pr": false,
+        "same_merge": false,
+        "same_base": false,
+        "same_tree": false,
+        "same_archive": false
+      }
+    },
+    {
+      "edge_id": "pytest-dev/pytest#10743/ref-1",
+      "source": "pytest-dev/pytest#10743",
+      "original_ref": "pytest-dev/pytest#11239 (B9 assignment-expression topical adjacency; pending review)",
+      "target_number": 11239,
+      "target_kind": "ISSUE",
+      "target": "pytest-dev/pytest#11239",
+      "classification": "REPORTED_REGRESSION_CHAIN_WITH_PINNED_PR_IDENTITIES",
+      "family_root": "UNKNOWN",
+      "backport": "NOT_ESTABLISHED",
+      "clearance": false,
+      "evidence": [
+        {
+          "package": "k40-k62-unified-index-b09-b11.zip",
+          "sha256": "ec93e4c6a4e4e33b2e9e34d2113213a0e8ebf3ce546524cd4fc144253581038a",
+          "member": "manifest.json",
+          "pointer": "records[repo_issue=pytest-dev/pytest#11239]"
+        },
+        {
+          "task_id": "pytest-dev/pytest#11028",
+          "member": "pytest-11028/public-issue-body.md",
+          "sha256": "54b3afd073a01d9e4f2b6603d6439312ce29c68c361827df931e45ab3eb2b03b",
+          "locations": [
+            {
+              "line": 19,
+              "excerpt": "Looks like it has to do with PR #10758. "
+            }
+          ]
+        },
+        {
+          "task_id": "pytest-dev/pytest#11239",
+          "member": "pytest-11239/public-issue-body.md",
+          "sha256": "e0fb0942f3108027d3f4b37c1375466cef1dc992bc90f06921907ed21d578d67",
+          "locations": [
+            {
+              "line": 23,
+              "excerpt": "I bisected the issue to https://github.com/pytest-dev/pytest/pull/11041. From what I can tell, the assertion rewriter doesn't track the current context. Thus `state` in `test_1` is replaced with `db.get(\"x\")` from `test_2` even though they are in separate functions."
+            }
+          ]
+        }
+      ],
+      "missing": [
+        "Existing reviewer root disposition for #10743/#11028/#11239; public reporters link sequential regressions, but this does not verify fix causality or backport identity. Keep the three in one conservative family-review hold until resolved."
+      ],
+      "pinned_identity_comparison": {
+        "source_closing_pr": 10758,
+        "target_closing_pr_url": "https://github.com/pytest-dev/pytest/pull/11414",
+        "same_closing_pr": false,
+        "same_merge": false,
+        "same_base": false,
+        "same_tree": false,
+        "same_archive": false
+      },
+      "reported_chain": [
+        "pytest-dev/pytest#10743",
+        "PR#10758",
+        "pytest-dev/pytest#11028",
+        "PR#11041",
+        "pytest-dev/pytest#11239"
+      ]
+    },
+    {
+      "edge_id": "pytest-dev/pytest#10765/ref-1",
+      "source": "pytest-dev/pytest#10765",
+      "original_ref": "pytest-dev/pytest#11790 (B8 tmp_path topical adjacency; pending review)",
+      "target_number": 11790,
+      "target_kind": "ISSUE",
+      "target": "pytest-dev/pytest#11790",
+      "classification": "TOPICAL_ONLY_DISTINCT_PINNED_IDENTITIES",
+      "family_root": "UNKNOWN",
+      "backport": "NOT_ESTABLISHED",
+      "clearance": false,
+      "evidence": [
+        {
+          "package": "k40-k62-unified-index-b09-b11.zip",
+          "sha256": "ec93e4c6a4e4e33b2e9e34d2113213a0e8ebf3ce546524cd4fc144253581038a",
+          "member": "manifest.json",
+          "pointer": "records[repo_issue=pytest-dev/pytest#11790]"
+        }
+      ],
+      "missing": [
+        "Existing family/root/backport disposition for pytest-dev/pytest#10765 and pytest-dev/pytest#11790; distinct event identities alone do not prove independent root."
+      ],
+      "pinned_identity_comparison": {
+        "source_closing_pr": 10766,
+        "target_closing_pr_url": "https://github.com/pytest-dev/pytest/pull/11800",
+        "same_closing_pr": false,
+        "same_merge": false,
+        "same_base": false,
+        "same_tree": false,
+        "same_archive": false
+      }
+    },
+    {
+      "edge_id": "pytest-dev/pytest#10811/ref-1",
+      "source": "pytest-dev/pytest#10811",
+      "original_ref": "pytest-dev/pytest#12194 (B6 importlib/doctest topical adjacency; pending review)",
+      "target_number": 12194,
+      "target_kind": "ISSUE",
+      "target": "pytest-dev/pytest#12194",
+      "classification": "TOPICAL_ONLY_DISTINCT_PINNED_IDENTITIES",
+      "family_root": "UNKNOWN",
+      "backport": "NOT_ESTABLISHED",
+      "clearance": false,
+      "evidence": [
+        {
+          "package": "k40-k62-unified-index-b09-b11.zip",
+          "sha256": "ec93e4c6a4e4e33b2e9e34d2113213a0e8ebf3ce546524cd4fc144253581038a",
+          "member": "manifest.json",
+          "pointer": "records[repo_issue=pytest-dev/pytest#12194]"
+        }
+      ],
+      "missing": [
+        "Existing family/root/backport disposition for pytest-dev/pytest#10811 and pytest-dev/pytest#12194; distinct event identities alone do not prove independent root."
+      ],
+      "pinned_identity_comparison": {
+        "source_closing_pr": 11148,
+        "target_closing_pr_url": "https://github.com/pytest-dev/pytest/pull/12208",
+        "same_closing_pr": false,
+        "same_merge": false,
+        "same_base": false,
+        "same_tree": false,
+        "same_archive": false
+      }
+    },
+    {
+      "edge_id": "pytest-dev/pytest#10811/ref-2",
+      "source": "pytest-dev/pytest#10811",
+      "original_ref": "pytest-dev/pytest#11475 (B8 importlib/doctest topical adjacency; pending review)",
+      "target_number": 11475,
+      "target_kind": "ISSUE",
+      "target": "pytest-dev/pytest#11475",
+      "classification": "TOPICAL_ONLY_DISTINCT_PINNED_IDENTITIES",
+      "family_root": "UNKNOWN",
+      "backport": "NOT_ESTABLISHED",
+      "clearance": false,
+      "evidence": [
+        {
+          "package": "k40-k62-unified-index-b09-b11.zip",
+          "sha256": "ec93e4c6a4e4e33b2e9e34d2113213a0e8ebf3ce546524cd4fc144253581038a",
+          "member": "manifest.json",
+          "pointer": "records[repo_issue=pytest-dev/pytest#11475]"
+        }
+      ],
+      "missing": [
+        "Existing family/root/backport disposition for pytest-dev/pytest#10811 and pytest-dev/pytest#11475; distinct event identities alone do not prove independent root."
+      ],
+      "pinned_identity_comparison": {
+        "source_closing_pr": 11148,
+        "target_closing_pr_url": "https://github.com/pytest-dev/pytest/pull/11997",
+        "same_closing_pr": false,
+        "same_merge": false,
+        "same_base": false,
+        "same_tree": false,
+        "same_archive": false
+      }
+    },
+    {
+      "edge_id": "pytest-dev/pytest#10831/ref-1",
+      "source": "pytest-dev/pytest#10831",
+      "original_ref": "pytest-dev/pytest#11710 (B8 traceback/collection topical adjacency; pending review)",
+      "target_number": 11710,
+      "target_kind": "ISSUE",
+      "target": "pytest-dev/pytest#11710",
+      "classification": "TOPICAL_ONLY_DISTINCT_PINNED_IDENTITIES",
+      "family_root": "UNKNOWN",
+      "backport": "NOT_ESTABLISHED",
+      "clearance": false,
+      "evidence": [
+        {
+          "package": "k40-k62-unified-index-b09-b11.zip",
+          "sha256": "ec93e4c6a4e4e33b2e9e34d2113213a0e8ebf3ce546524cd4fc144253581038a",
+          "member": "manifest.json",
+          "pointer": "records[repo_issue=pytest-dev/pytest#11710]"
+        }
+      ],
+      "missing": [
+        "Existing family/root/backport disposition for pytest-dev/pytest#10831 and pytest-dev/pytest#11710; distinct event identities alone do not prove independent root."
+      ],
+      "pinned_identity_comparison": {
+        "source_closing_pr": 10905,
+        "target_closing_pr_url": "https://github.com/pytest-dev/pytest/pull/11711",
+        "same_closing_pr": false,
+        "same_merge": false,
+        "same_base": false,
+        "same_tree": false,
+        "same_archive": false
+      }
+    },
+    {
+      "edge_id": "pytest-dev/pytest#10839/ref-1",
+      "source": "pytest-dev/pytest#10839",
+      "original_ref": "pytest-dev/pytest#11372 (B9 async test reporting topical adjacency; pending review)",
+      "target_number": 11372,
+      "target_kind": "ISSUE",
+      "target": "pytest-dev/pytest#11372",
+      "classification": "TOPICAL_ONLY_DISTINCT_PINNED_IDENTITIES",
+      "family_root": "UNKNOWN",
+      "backport": "NOT_ESTABLISHED",
+      "clearance": false,
+      "evidence": [
+        {
+          "package": "k40-k62-unified-index-b09-b11.zip",
+          "sha256": "ec93e4c6a4e4e33b2e9e34d2113213a0e8ebf3ce546524cd4fc144253581038a",
+          "member": "manifest.json",
+          "pointer": "records[repo_issue=pytest-dev/pytest#11372]"
+        }
+      ],
+      "missing": [
+        "Existing family/root/backport disposition for pytest-dev/pytest#10839 and pytest-dev/pytest#11372; distinct event identities alone do not prove independent root."
+      ],
+      "pinned_identity_comparison": {
+        "source_closing_pr": 12930,
+        "target_closing_pr_url": "https://github.com/pytest-dev/pytest/pull/12346",
+        "same_closing_pr": false,
+        "same_merge": false,
+        "same_base": false,
+        "same_tree": false,
+        "same_archive": false
+      }
+    },
+    {
+      "edge_id": "pytest-dev/pytest#10839/ref-2",
+      "source": "pytest-dev/pytest#10839",
+      "original_ref": "unclassified public issue-body reference #2224; type/family not inferred",
+      "target_number": 2224,
+      "target_kind": "UNTYPED_HASH_REFERENCE",
+      "target": "pytest-dev/pytest#2224",
+      "classification": "PUBLIC_OPENING_REFERENCE_TYPE_OR_CAUSALITY_UNRESOLVED",
+      "family_root": "UNKNOWN",
+      "backport": "NOT_ESTABLISHED",
+      "clearance": false,
+      "evidence": [
+        {
+          "task_id": "pytest-dev/pytest#10839",
+          "member": "pytest-10839/public-issue-body.md",
+          "sha256": "13c34f8370498c60832e875fcaebcb3ae217011d01f0285f2c94039d5c9db0b4",
+          "locations": [
+            {
+              "line": 44,
+              "excerpt": "Pytest emits the following warning when running async test functions without an async plugin (see #2224):"
+            }
+          ]
+        }
+      ],
+      "missing": [
+        "Existing family/root/backport disposition for pytest-dev/pytest#10839 and pytest-dev/pytest#2224; distinct event identities alone do not prove independent root.",
+        "Existing typed identity/closure metadata for pytest-dev/pytest#2224; no endpoint expansion performed."
+      ]
+    },
+    {
+      "edge_id": "pytest-dev/pytest#10839/ref-3",
+      "source": "pytest-dev/pytest#10839",
+      "original_ref": "unclassified public issue-body reference #9962; type/family not inferred",
+      "target_number": 9962,
+      "target_kind": "UNTYPED_HASH_REFERENCE",
+      "target": "pytest-dev/pytest#9962",
+      "classification": "PUBLIC_OPENING_REFERENCE_TYPE_OR_CAUSALITY_UNRESOLVED",
+      "family_root": "UNKNOWN",
+      "backport": "NOT_ESTABLISHED",
+      "clearance": false,
+      "evidence": [
+        {
+          "task_id": "pytest-dev/pytest#10839",
+          "member": "pytest-10839/public-issue-body.md",
+          "sha256": "13c34f8370498c60832e875fcaebcb3ae217011d01f0285f2c94039d5c9db0b4",
+          "locations": [
+            {
+              "line": 70,
+              "excerpt": "#9962 proposes a mechanism to await results of awaitable tests and fixtures. It can potentially address the issue described here."
+            }
+          ]
+        }
+      ],
+      "missing": [
+        "Existing family/root/backport disposition for pytest-dev/pytest#10839 and pytest-dev/pytest#9962; distinct event identities alone do not prove independent root.",
+        "Existing typed identity/closure metadata for pytest-dev/pytest#9962; no endpoint expansion performed."
+      ]
+    },
+    {
+      "edge_id": "pytest-dev/pytest#10865/ref-1",
+      "source": "pytest-dev/pytest#10865",
+      "original_ref": "pytest-dev/pytest#11907 (B7 pytest.warns topical adjacency; pending review)",
+      "target_number": 11907,
+      "target_kind": "ISSUE",
+      "target": "pytest-dev/pytest#11907",
+      "classification": "TOPICAL_ONLY_DISTINCT_PINNED_IDENTITIES",
+      "family_root": "UNKNOWN",
+      "backport": "NOT_ESTABLISHED",
+      "clearance": false,
+      "evidence": [
+        {
+          "package": "k40-k62-unified-index-b09-b11.zip",
+          "sha256": "ec93e4c6a4e4e33b2e9e34d2113213a0e8ebf3ce546524cd4fc144253581038a",
+          "member": "manifest.json",
+          "pointer": "records[repo_issue=pytest-dev/pytest#11907]"
+        }
+      ],
+      "missing": [
+        "Existing family/root/backport disposition for pytest-dev/pytest#10865 and pytest-dev/pytest#11907; distinct event identities alone do not prove independent root."
+      ],
+      "pinned_identity_comparison": {
+        "source_closing_pr": 11804,
+        "target_closing_pr_url": "https://github.com/pytest-dev/pytest/pull/11920",
+        "same_closing_pr": false,
+        "same_merge": false,
+        "same_base": false,
+        "same_tree": false,
+        "same_archive": false
+      }
+    },
+    {
+      "edge_id": "pytest-dev/pytest#10865/ref-2",
+      "source": "pytest-dev/pytest#10865",
+      "original_ref": "pytest-dev/pytest#11447 (B9 warning/deprecation topical adjacency; pending review)",
+      "target_number": 11447,
+      "target_kind": "ISSUE",
+      "target": "pytest-dev/pytest#11447",
+      "classification": "TOPICAL_ONLY_DISTINCT_PINNED_IDENTITIES",
+      "family_root": "UNKNOWN",
+      "backport": "NOT_ESTABLISHED",
+      "clearance": false,
+      "evidence": [
+        {
+          "package": "k40-k62-unified-index-b09-b11.zip",
+          "sha256": "ec93e4c6a4e4e33b2e9e34d2113213a0e8ebf3ce546524cd4fc144253581038a",
+          "member": "manifest.json",
+          "pointer": "records[repo_issue=pytest-dev/pytest#11447]"
+        }
+      ],
+      "missing": [
+        "Existing family/root/backport disposition for pytest-dev/pytest#10865 and pytest-dev/pytest#11447; distinct event identities alone do not prove independent root."
+      ],
+      "pinned_identity_comparison": {
+        "source_closing_pr": 11804,
+        "target_closing_pr_url": "https://github.com/pytest-dev/pytest/pull/11448",
+        "same_closing_pr": false,
+        "same_merge": false,
+        "same_base": false,
+        "same_tree": false,
+        "same_archive": false
+      }
+    },
+    {
+      "edge_id": "pytest-dev/pytest#10870/ref-1",
+      "source": "pytest-dev/pytest#10870",
+      "original_ref": "pytest-dev/pytest#11157 (B10 release/build configuration topical adjacency; pending review)",
+      "target_number": 11157,
+      "target_kind": "ISSUE",
+      "target": "pytest-dev/pytest#11157",
+      "classification": "TOPICAL_ONLY_DISTINCT_PINNED_IDENTITIES",
+      "family_root": "UNKNOWN",
+      "backport": "NOT_ESTABLISHED",
+      "clearance": false,
+      "evidence": [
+        {
+          "package": "k40-k62-unified-index-b09-b11.zip",
+          "sha256": "ec93e4c6a4e4e33b2e9e34d2113213a0e8ebf3ce546524cd4fc144253581038a",
+          "member": "manifest.json",
+          "pointer": "records[repo_issue=pytest-dev/pytest#11157]"
+        }
+      ],
+      "missing": [
+        "Existing family/root/backport disposition for pytest-dev/pytest#10870 and pytest-dev/pytest#11157; distinct event identities alone do not prove independent root."
+      ],
+      "pinned_identity_comparison": {
+        "source_closing_pr": 10925,
+        "target_closing_pr_url": "https://github.com/pytest-dev/pytest/pull/11173",
+        "same_closing_pr": false,
+        "same_merge": false,
+        "same_base": false,
+        "same_tree": false,
+        "same_archive": false
+      }
+    }
+  ],
+  "additional_existing_evidence_relations": [
+    {
+      "source": "pytest-dev/pytest#11239",
+      "target": "pytest-dev/pytest#11028",
+      "classification": "REPORTER_BISECTED_TO_PINNED_CLOSING_PR",
+      "pr": 11041,
+      "causal_claim": "PUBLIC_REPORT_ONLY; code causality not independently reproduced",
+      "same_family": "HOLD_PENDING_ROOT_REVIEW",
+      "root": "UNKNOWN",
+      "backport": "NOT_ESTABLISHED",
+      "evidence": [
+        {
+          "task_id": "pytest-dev/pytest#11239",
+          "member": "pytest-11239/public-issue-body.md",
+          "sha256": "e0fb0942f3108027d3f4b37c1375466cef1dc992bc90f06921907ed21d578d67",
+          "locations": [
+            {
+              "line": 23,
+              "excerpt": "I bisected the issue to https://github.com/pytest-dev/pytest/pull/11041. From what I can tell, the assertion rewriter doesn't track the current context. Thus `state` in `test_1` is replaced with `db.get(\"x\")` from `test_2` even though they are in separate functions."
+            }
+          ]
+        }
+      ],
+      "pinned_closer": {
+        "package": "KAGGLE-50-pytest-source-batch-b10.zip",
+        "member": "pytest-11028/closure-evidence.json",
+        "sha256": "785734ff33de21d640f5744b95c9fb1bb18431899f39632f6cb6f7af60029427"
+      }
+    },
+    {
+      "source": "pytest-dev/pytest#11028",
+      "target": "pytest-dev/pytest#10743",
+      "classification": "REPORTER_SUSPECTS_REGRESSION_FROM_PINNED_CLOSING_PR",
+      "pr": 10758,
+      "causal_claim": "PUBLIC_REPORT_ONLY; code causality not independently reproduced",
+      "same_family": "HOLD_PENDING_ROOT_REVIEW",
+      "root": "UNKNOWN",
+      "backport": "NOT_ESTABLISHED",
+      "evidence": [
+        {
+          "task_id": "pytest-dev/pytest#11028",
+          "member": "pytest-11028/public-issue-body.md",
+          "sha256": "54b3afd073a01d9e4f2b6603d6439312ce29c68c361827df931e45ab3eb2b03b",
+          "locations": [
+            {
+              "line": 19,
+              "excerpt": "Looks like it has to do with PR #10758. "
+            }
+          ]
+        }
+      ],
+      "pinned_closer": {
+        "package": "KAGGLE-50-pytest-source-batch-b11.zip",
+        "member": "pytest-10743/closure-evidence.json",
+        "sha256": "144a0421bf80f00d75b83dba4e93ee51c5fd46fea62c530af5e1ce37c13611a9"
+      }
+    },
+    {
+      "source": "pytest-dev/pytest#11104",
+      "target": "pytest-dev/pytest#10987",
+      "classification": "REPORTER_SUSPECTS_REGRESSION_FROM_PINNED_CLOSING_PR",
+      "pr": 10988,
+      "causal_claim": "PUBLIC_REPORT_ONLY; code causality not independently reproduced",
+      "same_family": "HOLD_PENDING_ROOT_REVIEW",
+      "root": "UNKNOWN",
+      "backport": "NOT_ESTABLISHED",
+      "evidence": [
+        {
+          "task_id": "pytest-dev/pytest#11104",
+          "member": "pytest-11104/public-issue-body.md",
+          "sha256": "2d9d6e09d716c13b78cfcc89cb51fca29497c72734579bbfcb1a29df69a3244e",
+          "locations": [
+            {
+              "line": 15,
+              "excerpt": "Each `unit_test`/`test` dir contains a conftest.py file, which adds some options using `parser.addoption`. One option that is common to both test suites is `--run-podman`. Before 7.3.2, this setup seemed to work, we could run both unit tests and integration tests without issue. But on 7.3.2 (perhaps since #10988?) we get the following error: "
+            }
+          ]
+        }
+      ],
+      "pinned_closer": {
+        "package": "KAGGLE-50-pytest-source-batch-b10.zip",
+        "member": "pytest-10987/closure-evidence.json",
+        "sha256": "aefadda6aa541325cc6339c11d62bb85dd2dd35ccc0bae8d837227d44167e503"
+      }
+    },
+    {
+      "source": "pytest-dev/pytest#11137",
+      "target": "pytest-dev/pytest#7777",
+      "classification": "PUBLIC_OPENING_ORIGIN_OR_RELATED_REFERENCE",
+      "root": "UNKNOWN",
+      "backport": "NOT_ESTABLISHED",
+      "clearance": false,
+      "evidence": [
+        {
+          "task_id": "pytest-dev/pytest#11137",
+          "member": "pytest-11137/public-issue-body.md",
+          "sha256": "64a5c49e414c880641e99c7b401599d86151629af65601b828a72e99e0e5be93",
+          "locations": [
+            {
+              "line": 1,
+              "excerpt": "*Note: this issue is extracted verbatim from https://github.com/pytest-dev/pytest/issues/7777#issuecomment-1575652688 so I can refer to it separately*"
+            }
+          ]
+        }
+      ],
+      "missing": [
+        "Existing metadata describing lineage/root for pytest-dev/pytest#11137 and pytest-dev/pytest#7777; opening provenance is not an independent-root decision."
+      ]
+    },
+    {
+      "source": "pytest-dev/pytest#11013",
+      "target": "pytest-dev/pytest#11006",
+      "classification": "PUBLIC_OPENING_ORIGIN_OR_RELATED_REFERENCE",
+      "root": "UNKNOWN",
+      "backport": "NOT_ESTABLISHED",
+      "clearance": false,
+      "evidence": [
+        {
+          "task_id": "pytest-dev/pytest#11013",
+          "member": "pytest-11013/public-issue-body.md",
+          "sha256": "6c2f39d2cf9c2e02b708e3e501a52660242ef8705448b09d8ea9bede220f05e0",
+          "locations": [
+            {
+              "line": 7,
+              "excerpt": "_Originally posted by @nicoddemus in https://github.com/pytest-dev/pytest/issues/11006#issuecomment-1551342447_"
+            }
+          ]
+        }
+      ],
+      "missing": [
+        "Existing metadata describing lineage/root for pytest-dev/pytest#11013 and pytest-dev/pytest#11006; opening provenance is not an independent-root decision."
+      ]
+    },
+    {
+      "source": "pytest-dev/pytest#11354",
+      "target": "pytest-dev/pytest#11346",
+      "classification": "PUBLIC_OPENING_ORIGIN_OR_RELATED_REFERENCE",
+      "root": "UNKNOWN",
+      "backport": "NOT_ESTABLISHED",
+      "clearance": false,
+      "evidence": [
+        {
+          "task_id": "pytest-dev/pytest#11354",
+          "member": "pytest-11354/public-issue-body.md",
+          "sha256": "d951a4c476dbbe3dd2324cd02bfeaf5e560a36fe41fc35d0629a7e85a3797221",
+          "locations": [
+            {
+              "line": 1,
+              "excerpt": "As discussed in https://github.com/pytest-dev/pytest/issues/11346#issuecomment-1694335296, the feature could be made clearer in the docs:"
+            }
+          ]
+        }
+      ],
+      "missing": [
+        "Existing metadata describing lineage/root for pytest-dev/pytest#11354 and pytest-dev/pytest#11346; opening provenance is not an independent-root decision."
+      ]
+    },
+    {
+      "source": "pytest-dev/pytest#11356",
+      "target": "pytest-dev/pytest#11343",
+      "classification": "PUBLIC_OPENING_ORIGIN_OR_RELATED_REFERENCE",
+      "root": "UNKNOWN",
+      "backport": "NOT_ESTABLISHED",
+      "clearance": false,
+      "evidence": [
+        {
+          "task_id": "pytest-dev/pytest#11356",
+          "member": "pytest-11356/public-issue-body.md",
+          "sha256": "87a16c426974048143eebc144d0a475591247fd22d29711415a11912f0c44f1c",
+          "locations": [
+            {
+              "line": 465,
+              "excerpt": "Issue with mypy that can be found here: https://github.com/pytest-dev/pytest/issues/11343"
+            }
+          ]
+        }
+      ],
+      "missing": [
+        "Existing metadata describing lineage/root for pytest-dev/pytest#11356 and pytest-dev/pytest#11343; opening provenance is not an independent-root decision."
+      ]
+    },
+    {
+      "source": "pytest-dev/pytest#10903",
+      "target": "pytest-dev/pytest/discussions/10895",
+      "classification": "PUBLIC_OPENING_ORIGIN_OR_RELATED_REFERENCE",
+      "root": "UNKNOWN",
+      "backport": "NOT_ESTABLISHED",
+      "clearance": false,
+      "evidence": [
+        {
+          "task_id": "pytest-dev/pytest#10903",
+          "member": "pytest-10903/public-issue-body.md",
+          "sha256": "b082a672860061cea3229c82505a80488ce3a7dac6e3a9d52605135bcfa944cb",
+          "locations": [
+            {
+              "line": 5,
+              "excerpt": "<sup>Originally posted by **hroncok** April 11, 2023</sup>"
+            }
+          ]
+        }
+      ],
+      "missing": [
+        "Existing metadata describing lineage/root for pytest-dev/pytest#10903 and pytest-dev/pytest/discussions/10895; opening provenance is not an independent-root decision."
+      ]
+    },
+    {
+      "source": "pytest-dev/pytest#10710",
+      "target": "pytest-dev/pytest-reportlog#19",
+      "classification": "PUBLIC_OPENING_ORIGIN_OR_RELATED_REFERENCE",
+      "root": "UNKNOWN",
+      "backport": "NOT_ESTABLISHED",
+      "clearance": false,
+      "evidence": [
+        {
+          "task_id": "pytest-dev/pytest#10710",
+          "member": "pytest-10710/public-issue-body.md",
+          "sha256": "a134c2b4def453e02ffaadf8f49de782cbce2fca990286a71b0bcaaa41a731d2",
+          "locations": [
+            {
+              "line": 14,
+              "excerpt": "Initial feature request in pytest-reportlog - https://github.com/pytest-dev/pytest-reportlog/issues/19"
+            }
+          ]
+        }
+      ],
+      "missing": [
+        "Existing metadata describing lineage/root for pytest-dev/pytest#10710 and pytest-dev/pytest-reportlog#19; opening provenance is not an independent-root decision."
+      ]
+    },
+    {
+      "source": "pytest-dev/pytest#10865",
+      "target": "pytest-dev/pytest#9288",
+      "classification": "PUBLIC_OPENING_ORIGIN_OR_RELATED_REFERENCE",
+      "root": "UNKNOWN",
+      "backport": "NOT_ESTABLISHED",
+      "clearance": false,
+      "evidence": [
+        {
+          "task_id": "pytest-dev/pytest#10865",
+          "member": "pytest-10865/public-issue-body.md",
+          "sha256": "76daa475dc48535f6c796f4bd3a9ee6910283364ebc2c46a4dd71362f1ea6b97",
+          "locations": [
+            {
+              "line": 37,
+              "excerpt": "Related to https://github.com/pytest-dev/pytest/issues/9288"
+            }
+          ]
+        }
+      ],
+      "missing": [
+        "Existing metadata describing lineage/root for pytest-dev/pytest#10865 and pytest-dev/pytest#9288; opening provenance is not an independent-root decision."
+      ]
+    },
+    {
+      "source": "pytest-dev/pytest#10870",
+      "target": "pytest-dev/pytest#10871",
+      "classification": "SHARED_DIRECT_CLOSURE_MERGE_BASE_TREE_CONFIRMED",
+      "root_credit_increment": 0,
+      "excluded_peer_preserved": true,
+      "evidence": [
+        {
+          "package": "KAGGLE-50-pytest-source-batch-b11.zip",
+          "member": "evidence/pytest-cursor730-closures.json",
+          "sha256": "37a78639b99c66ec73076b55ddd974622d7029bad255debea8ef56147dbb7f21",
+          "pointer": "data.repository.i10871.timelineItems.nodes[0].closer"
+        }
+      ],
+      "note": "No second archive exists for excluded peer; shared source identity follows the same fixed base, not a separately verified peer archive hash."
+    }
+  ],
+  "batch_label_corrections": [
+    {
+      "edge_id": "pytest-dev/pytest#10896/ref-1",
+      "original_ref": "pytest-dev/pytest#11895 (B8 Windows paths topical adjacency; pending review)",
+      "actual_batch": "K50-PYTEST-SOURCE-B7"
+    },
+    {
+      "edge_id": "pytest-dev/pytest#10991/ref-1",
+      "original_ref": "pytest-dev/pytest#11610 (B9 log capture topical adjacency; pending review)",
+      "actual_batch": "K50-PYTEST-SOURCE-B8"
+    },
+    {
+      "edge_id": "pytest-dev/pytest#11140/ref-1",
+      "original_ref": "pytest-dev/pytest#12818 (B4 assertion rewriting topical adjacency; pending review)",
+      "actual_batch": "K50-PYTEST-SOURCE-B05"
+    },
+    {
+      "edge_id": "pytest-dev/pytest#10701/ref-1",
+      "original_ref": "pytest-dev/pytest#10687 (B10 warning-filter topical adjacency; pending review)",
+      "actual_batch": "K50-PYTEST-SOURCE-B11"
+    },
+    {
+      "edge_id": "pytest-dev/pytest#10865/ref-2",
+      "original_ref": "pytest-dev/pytest#11447 (B9 warning/deprecation topical adjacency; pending review)",
+      "actual_batch": "K50-PYTEST-SOURCE-B8"
+    }
+  ],
+  "identity_duplicates_among_incoming_and_existing_index": [],
+  "known_hold": "pytest-dev/pluggy#140 <-> pytest-dev/pytest#2639 PRESERVED",
+  "no_backport_or_clearance_inferred": true
+}

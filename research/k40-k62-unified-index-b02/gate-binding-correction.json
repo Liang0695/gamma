@@ -1,0 +1,62 @@
+{
+  "upstream_k62_v24_attachment_id": "01a1357e-8143-7704-afc5-5462b0f20b9a",
+  "upstream_k62_v24_zip": "KAGGLE-62-consolidated-v24.zip",
+  "upstream_k62_v24_zip_sha256": "fb29a18b319b332b70c0d594576395fb922a02e07caa524ed36eed4cbe7058a9",
+  "actual_member_sha256": {
+    "dedup-and-gates.json": "a4467503072efc41ca8dc0bdd3e727fd8aa2fb2b33d3f31bbe253d14d29052dc",
+    "body-prescreen-exclusions.json": "1a1c2d627294b82f93f12e278fb253b4363500b2cd53d63cfc3b343d5b5f1080"
+  },
+  "actual_member_bytes": {
+    "dedup-and-gates.json": 848882,
+    "body-prescreen-exclusions.json": 276060
+  },
+  "reviewer_rebound_exact_id_hits": 0,
+  "family_or_use_clearance": "NONE; exact-ID clearance does not resolve family or use gates",
+  "original_claims_preserved": {
+    "prior_index_gate_snapshot": {
+      "k62_v24_dedup_and_gates_sha256": "c74ae60e3346e16939358d7bbf783ec3635c7c7218111490e235ca943edd9511",
+      "k62_v24_body_prescreen_sha256": "1e2d1f2819de199aaafa1d08a314b6e546f000f2f1cc536950272e6f2e200fc64",
+      "known_hold": "pytest-dev/pluggy#140 ↔ pytest-dev/pytest#2639 remains unchanged",
+      "hold_disposition": "PRESERVED; no family, split, source-role, or use gate cleared"
+    },
+    "batch_gate_sha_mismatch_occurrences": [
+      {
+        "batch": "B9",
+        "member": "dedup-and-gates.json",
+        "claimed_sha256": "c74ae60e3346e16939358d7bbf783ec3635c7c7218111490e235ca943edd9511",
+        "actual_sha256": "a4467503072efc41ca8dc0bdd3e727fd8aa2fb2b33d3f31bbe253d14d29052dc"
+      },
+      {
+        "batch": "B9",
+        "member": "body-prescreen-exclusions.json",
+        "claimed_sha256": "1e2d1f2819de199aafa1d08a314b6e546f000f2f1cc536950272e6f2e200fc64",
+        "actual_sha256": "1a1c2d627294b82f93f12e278fb253b4363500b2cd53d63cfc3b343d5b5f1080"
+      },
+      {
+        "batch": "B10",
+        "member": "dedup-and-gates.json",
+        "claimed_sha256": "c74ae60e3346e16939358d7bbf783ec3635c7c7218111490e235ca943edd9511",
+        "actual_sha256": "a4467503072efc41ca8dc0bdd3e727fd8aa2fb2b33d3f31bbe253d14d29052dc"
+      },
+      {
+        "batch": "B10",
+        "member": "body-prescreen-exclusions.json",
+        "claimed_sha256": "1e2d1f2819de199aafa1d08a314b6e546f000f2f1cc536950272e6f2e200fc64",
+        "actual_sha256": "1a1c2d627294b82f93f12e278fb253b4363500b2cd53d63cfc3b343d5b5f1080"
+      },
+      {
+        "batch": "B11",
+        "member": "dedup-and-gates.json",
+        "claimed_sha256": "c74ae60e3346e16939358d7bbf783ec3635c7c7218111490e235ca943edd9511",
+        "actual_sha256": "a4467503072efc41ca8dc0bdd3e727fd8aa2fb2b33d3f31bbe253d14d29052dc"
+      },
+      {
+        "batch": "B11",
+        "member": "body-prescreen-exclusions.json",
+        "claimed_sha256": "1e2d1f2819de199aafa1d08a314b6e546f000f2f1cc536950272e6f2e200fc64",
+        "actual_sha256": "1a1c2d627294b82f93f12e278fb253b4363500b2cd53d63cfc3b343d5b5f1080"
+      }
+    ],
+    "historical_disposition": "retained as originally delivered; this addendum supplies the corrected upstream byte binding without rewriting history"
+  }
+}
