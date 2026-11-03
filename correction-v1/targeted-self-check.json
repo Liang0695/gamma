@@ -1,0 +1,48 @@
+{
+  "schema": "k68-targeted-closure-correction-self-check/1",
+  "scope": "Only 14 corrected closure facts, summary arithmetic, integrity lineage, and unchanged outputs",
+  "result": "PASS",
+  "checks": {
+    "input_package_sha256": true,
+    "previous_outputs_unchanged": true,
+    "correction_ids_exact": true,
+    "14_raw_closers_verified": true,
+    "no_corrected_source_anchors": true,
+    "final_closure_partition": true,
+    "record_count_unchanged": true,
+    "unaffected_records_equal": true,
+    "inventory_and_release_counts_unchanged": true,
+    "raw_timestamps_preserved": true,
+    "all_14_gate_fields_unchanged": true,
+    "all_14_original_screen_timestamps_preserved": true
+  },
+  "issue_ids": [
+    2844,
+    2846,
+    2921,
+    3035,
+    3052,
+    3053,
+    3064,
+    3087,
+    3094,
+    3108,
+    3129,
+    3183,
+    3206,
+    3261
+  ],
+  "summary": {
+    "direct_same_repo_merged_closers": 47,
+    "pinned_source_candidates": 6,
+    "direct_closure_metadata_deferred": 41,
+    "timestamp_mismatch_unresolved_within_deferred": 14,
+    "no_direct_same_repo_merged_closer": 53
+  },
+  "candidate_code_executed": false,
+  "tests_run": false,
+  "test_bodies_read": false,
+  "pr_bodies_diffs_fixes_read": false,
+  "network_retrieval_performed": false,
+  "source_package_sha256": "97cff091ae4c833b601d16d708b831ec84c18f0dec17829cd73ee220cba2d469"
+}

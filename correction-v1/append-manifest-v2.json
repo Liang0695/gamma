@@ -1,0 +1,42 @@
+{
+  "schema": "k68-append-manifest/2",
+  "batch": "K40-PYTHON-TRIO-B01",
+  "revision": "closure-classification-correction-v1",
+  "source_package_sha256": "97cff091ae4c833b601d16d708b831ec84c18f0dec17829cd73ee220cba2d469",
+  "supersedes": {
+    "catalog_v3_sha256": "88250911a6df34778acef1090bbbdc7449e43e1a7b49d3c8f4391c9dbce77cf7",
+    "diff_v3_sha256": "0807e385b34b665659a4434696626eea1d7a1539be8d230eb0e79173caaab91c",
+    "manifest_v1_sha256": "7e016059c1a8a2894bcdf3d13eed88ee0c33428d97fe47afee9114bd75ee0091",
+    "readme_v1_sha256": "d1179f019556e037818996e61a367a6441da40771ef53075b8a5ed4aac1b4b1f",
+    "closed_event_screening_sha256": "cb7f5dbd542abc9ddff4d57cd86aae3d9c820c1bed5108ecd9f9e3c1db073b97",
+    "screening_ledger_sha256": "fb4087c70c7451024f73361cf25d37f45b8c40bfaa68541ff39dded4830c1cb8"
+  },
+  "artifact_sha256": {
+    "closed-event-screening-v2.json": "5c38ba7b4623adec7e16718011b573e1d14a70a8bb923ac3af56abd5b5eac682",
+    "screening-ledger-v2.json": "dcabacb012084c4a3e53f836435203b405f811c8913201f72b2a66329540b247",
+    "closure-classification-correction.json": "7f302c2e5433db32f2c4067e5e6c1305735080f20bb9eac1acab995cdd5e1879",
+    "k68-catalog-v4.json": "97ef09c0b497c61ed20a3284f311e72545193521dc717baa11154c2acaa4f91d",
+    "k68-append-diff-v4.json": "d932d347c24f9a17be762313ea262683bce8f6e02f6cdf0485221325b2f088ee",
+    "targeted-self-check.json": "46d23fe72ce03dfb06e48baaedcbeb9aed4335dda343c9319ac56a441c1d7cd4",
+    "README-v2.md": "bbca9cbb3db1a2edd91ea2237043698ae5434f604f5b3ac5d124f13c631546c6"
+  },
+  "closure_summary": {
+    "direct_same_repo_merged_closers": 47,
+    "pinned_source_candidates": 6,
+    "direct_closure_metadata_deferred": 41,
+    "timestamp_mismatch_unresolved_within_deferred": 14,
+    "no_direct_same_repo_merged_closer": 53
+  },
+  "inventory_pending_review": {
+    "metadata": 564,
+    "material": 351,
+    "pinned": 327,
+    "source_ready": 85,
+    "deployable": 0,
+    "training_approved": 0
+  },
+  "identity_and_source_key_duplicates": 0,
+  "source_anchors_added_by_correction": 0,
+  "new_source_ready_deployable_or_training_approved": 0,
+  "self_check": "targeted-self-check.json"
+}
