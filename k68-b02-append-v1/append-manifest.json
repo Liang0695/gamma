@@ -1,0 +1,32 @@
+{
+  "baseline_catalog_sha256": "a39ce742bd2589324929ddabd052096a7fd5ca848cba478dc6ac1b0e7ac96e06",
+  "input_zip_sha256": "37a9d68d5b09d51377f29508263ed3306ef7f059862d853ec60f8ed3bd0639e6",
+  "artifacts": {
+    "k68-catalog-v6.json": "113868415fe2b0ee14686c69eec5443c9fd0a39a5f527725d03b2c2c7a84ee26",
+    "k68-b02-append-integration-diff-v1.json": "0e9e475fac50bf9abcaf72363f29a4c1587838ea659ea21896a6eef0d93d81f6"
+  },
+  "counts": {
+    "identities_added": 100,
+    "duplicates": 0,
+    "direct_merged": 41,
+    "timestamp_matches": 32,
+    "mismatch_unresolved": 9,
+    "no_direct_merged": 59,
+    "material_added": 3,
+    "pinned_added": 3,
+    "source_ready_added": 0,
+    "deployable_added": 0,
+    "training_approved_added": 0,
+    "post_inventory": {
+      "metadata": 664,
+      "material": 354,
+      "pinned": 330,
+      "source_ready": 85,
+      "deployable": 0,
+      "training_approved": 0
+    }
+  },
+  "next_cursor": "page=3",
+  "review_issue_id": "01a1a0ae-c8aa-71ca-9f05-00aa3154d8b8",
+  "review_status": "PENDING"
+}
