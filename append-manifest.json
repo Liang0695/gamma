@@ -1,0 +1,15 @@
+{
+  "batch": "K40-PYTHON-TRIO-B01",
+  "generated_utc_date": "2026-11-03",
+  "baseline_catalog_sha256": "6dc126e55b39cf9f874b43b721e0c320f35127075a35489facba5d7d4b89566e",
+  "source_package_sha256": "97cff091ae4c833b601d16d708b831ec84c18f0dec17829cd73ee220cba2d469",
+  "catalog_sha256": "88250911a6df34778acef1090bbbdc7449e43e1a7b49d3c8f4391c9dbce77cf7",
+  "diff_sha256": "0807e385b34b665659a4434696626eea1d7a1539be8d230eb0e79173caaab91c",
+  "identity_count": 100,
+  "source_candidate_count": 6,
+  "metadata_only_direct_closure_deferred": 27,
+  "metadata_only_no_direct_merged_closer": 67,
+  "source_ready_added": 0,
+  "deployable_added": 0,
+  "training_approved_added": 0
+}
