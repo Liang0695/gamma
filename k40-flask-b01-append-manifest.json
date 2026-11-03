@@ -1,0 +1,282 @@
+{
+  "schema": "k40-bounded-source-batch/3",
+  "batch_id": "K40-PALLETS-FLASK-B01",
+  "repo": "pallets/flask",
+  "created_at_utc": "2026-11-03T13:12:01.640153+00:00",
+  "query": {
+    "method": "GET",
+    "endpoint": "https://api.github.com/search/issues",
+    "q": "repo:pallets/flask is:issue is:closed created:2019-01-01..2025-12-31",
+    "per_page": 100,
+    "sort": "created",
+    "order": "desc",
+    "pages_requested": [
+      1,
+      2,
+      3
+    ],
+    "pages_successful": [
+      1,
+      2,
+      3
+    ],
+    "next_unconsumed_cursor": "page=4",
+    "query_total_count_snapshot": 1082
+  },
+  "baseline": {
+    "catalog_attachment_id": "01a1a0cf-a37f-7c44-a468-d59ded39eae1",
+    "catalog_file": "k68-catalog-v7.json",
+    "catalog_sha256": "fc3a14967567b9ae1d948f300d6f0d2d4ee9aa4b7e7a8ec81cf153caf72eeed5",
+    "catalog_identity_count": 646,
+    "global_inventory_before_append": {
+      "metadata": 810,
+      "material": 359,
+      "pinned": 335,
+      "source_ready": 85,
+      "deployable": 0,
+      "training_approved": 0
+    },
+    "click_exclusion_decision": {
+      "repo": "pallets/click",
+      "decision": "NOT_QUERIED_EXCLUDED",
+      "evidence": "KAGGLE-49 source partition describes pallets/click as exclusive to 1b and identifies already excluded/held/family-unknown/stopped identities; a later bounded screen reported 38 carry-over clues and 0 clean candidates. The current instruction prohibits querying an exclusive source.",
+      "no_exclusion_was_cleared": true
+    },
+    "alternative_repo_decision": {
+      "repo": "pallets/flask",
+      "reason": "Not present as an exact repo in current K68 v7 (646 identities); Multica workspace search for exact pallets/flask had no hits. No family clearance inferred; all new family/old-exposure fields remain UNKNOWN."
+    },
+    "prior_batches_not_reprocessed": [
+      "K40 Trio B01/B02/B03",
+      "K40 psf/requests prior identities/timeline URLs",
+      "K50 pytest and cancelled B12",
+      "more-itertools stopped/unknown_stops",
+      "all existing held/dev/sealed/retained/old-exposure exclusions"
+    ]
+  },
+  "page_summaries": [
+    {
+      "page": 1,
+      "status": "SUCCESS",
+      "items": 100,
+      "new_unique": 100,
+      "duplicates": 0,
+      "issue_range": [
+        5870,
+        5434
+      ],
+      "search_response_sha256": "71f7fc121e90cb53b94fe0ac8ebf6cb16241af3c2073ee309dbf7c19a2302ae2",
+      "graphQL_request_file": "closed-event-page1-request-correction-1.json",
+      "graphQL_response_file": "closed-event-page1-correction-1-response.json",
+      "graphQL_response_sha256": "ba5eb7ba4390b6939d306d4da53c9588f4e921ee691a2aa3900e338e6a98db6a",
+      "closure_counts": {
+        "issues_returned": 100,
+        "events_returned_total": 96,
+        "same_repo_merged_closers": 11,
+        "timestamp_matches": 9,
+        "timestamp_mismatch_unresolved": 2,
+        "no_same_repo_merged_final_closer": 89
+      }
+    },
+    {
+      "page": 2,
+      "status": "SUCCESS",
+      "items": 100,
+      "new_unique": 100,
+      "duplicates": 0,
+      "issue_range": [
+        5432,
+        5168
+      ],
+      "search_response_sha256": "37bf4b7d731b6cf7d0f97d81790a1a92b38e24fbf6c50de0f3b66a00fc3e0401",
+      "graphQL_request_file": "closed-event-page2-request.json",
+      "graphQL_response_file": "closed-event-page2-response.json",
+      "graphQL_response_sha256": "e466d55108acfc1202948fd0ebb15db939f657b4a1f513f85e3628ba99f741ab",
+      "closure_counts": {
+        "issues_returned": 100,
+        "events_returned_total": 91,
+        "same_repo_merged_closers": 5,
+        "timestamp_matches": 3,
+        "timestamp_mismatch_unresolved": 2,
+        "no_same_repo_merged_final_closer": 95
+      }
+    },
+    {
+      "page": 3,
+      "status": "SUCCESS",
+      "items": 100,
+      "new_unique": 100,
+      "duplicates": 0,
+      "issue_range": [
+        5165,
+        4844
+      ],
+      "search_response_sha256": "cb0bb395ecd8e05f045bee65be3fd4636fd0f6efc65ae73ea56c6ad7834d402c",
+      "graphQL_request_file": "closed-event-page3-request.json",
+      "graphQL_response_file": "closed-event-page3-response.json",
+      "graphQL_response_sha256": "98e5a107fa5b37dda45aadf6ceec44be0a64c66e457c81be8ed59da001a2551b",
+      "closure_counts": {
+        "issues_returned": 100,
+        "events_returned_total": 94,
+        "same_repo_merged_closers": 7,
+        "timestamp_matches": 4,
+        "timestamp_mismatch_unresolved": 3,
+        "no_same_repo_merged_final_closer": 93
+      }
+    }
+  ],
+  "counts": {
+    "successful_search_pages": [
+      1,
+      2,
+      3
+    ],
+    "search_items": 300,
+    "new_unique_metadata_identities": 300,
+    "exact_duplicates_skipped": 0,
+    "raw_same_repo_merged_direct_closers": 23,
+    "timestamp_matches": 16,
+    "timestamp_mismatch_unresolved": 7,
+    "no_same_repo_merged_final_closer": 277,
+    "complete_fixed_source_candidates": 1,
+    "material_added": 1,
+    "pinned_added": 1,
+    "historical_licenses_complete": 1,
+    "source_ready_added": 0,
+    "deployable_added": 0,
+    "training_approved_added": 0
+  },
+  "rate_limit_preflight_remaining": {
+    "core": 4990,
+    "search": 30,
+    "graphql": 5000
+  },
+  "current_inventory_before_append": {
+    "metadata": 810,
+    "material": 359,
+    "pinned": 335,
+    "source_ready": 85,
+    "deployable": 0,
+    "training_approved": 0
+  },
+  "pending_append_delta": {
+    "metadata": 300,
+    "material": 1,
+    "pinned": 1,
+    "source_ready": 0,
+    "deployable": 0,
+    "training_approved": 0
+  },
+  "conditional_post_append_inventory": {
+    "metadata": 1110,
+    "material": 360,
+    "pinned": 336,
+    "source_ready": 85,
+    "deployable": 0,
+    "training_approved": 0
+  },
+  "final_prompt_count_change": 0,
+  "deferred_identity_change": 300,
+  "next_work_queue": {
+    "known_complete_but_unmaterialized_candidates": [],
+    "known_timestamp_unresolved_candidates": [
+      "pallets/flask#5729",
+      "pallets/flask#5621",
+      "pallets/flask#5428",
+      "pallets/flask#5263",
+      "pallets/flask#5051",
+      "pallets/flask#5010",
+      "pallets/flask#4989"
+    ],
+    "cursor": "page=4"
+  },
+  "failure_account": {
+    "graphql_page1_attempt1": {
+      "request": "closed-event-page1-request.json",
+      "response": "closed-event-page1-response.json",
+      "stderr": "closed-event-page1-stderr.bin",
+      "diagnostic": "GraphQL parser rejected locally generated query syntax (Expected NAME at [6,1]); not auth/provider/HTTP refusal. One corrected syntax query with the same 100 issue node IDs succeeded; initial raw request/response/stderr remain preserved."
+    },
+    "codeload_5258_attempt1": {
+      "request": "candidates/pallets-flask-5258-source-b01/codeload-attempt-1-request.json",
+      "result": "candidates/pallets-flask-5258-source-b01/codeload-attempt-1-result.json",
+      "stderr": "candidates/pallets-flask-5258-source-b01/codeload-attempt-1-stderr.bin",
+      "diagnostic": "Local curl exit 35 / HTTP 000, SCHANNEL SEC_E_NO_CREDENTIALS; saved before approved identical official URL retry succeeded on attempt 2."
+    },
+    "provider_auth_rate_refusals": 0
+  },
+  "qualification_defaults": {
+    "family": "UNKNOWN",
+    "source_role": "UNKNOWN",
+    "split": "UNASSIGNED",
+    "actor_visible": false,
+    "trusted_acceptance": false,
+    "purpose_authorization": "NOT_GRANTED",
+    "training_release": "BLOCKED",
+    "environment": "NOT_ASSESSED",
+    "deployment": "NOT_ASSESSED"
+  },
+  "boundaries": [
+    "No PR bodies/diffs/fixes fetched/read",
+    "No test bodies read; path list comes from archive member names only",
+    "No hidden evaluation or external POC accessed",
+    "No candidate/test execution, deployment, 107, GPU, production-code or credential changes",
+    "Click exclusive partition and every prior hold remain untouched",
+    "Original issue body is provenance only, not actor-visible prompt"
+  ],
+  "baseline_catalog_sha256": "fc3a14967567b9ae1d948f300d6f0d2d4ee9aa4b7e7a8ec81cf153caf72eeed5",
+  "input_zip_sha256": "ad55025f15b58186b9ced5b1fd911369bb04ac71efe0784879cccec134ade08e",
+  "integrated_catalog": {
+    "filename": "k68-catalog-v8.json",
+    "sha256": "432a1eaeb77bbe98e86f25eeaeefc9d5986a82bdc71057762ec0c3006f9b26d1",
+    "identity_count": 946,
+    "inventory": {
+      "metadata": 1110,
+      "material": 360,
+      "pinned": 336,
+      "source_ready": 85,
+      "deployable": 0,
+      "training_approved": 0
+    },
+    "append_status": "PENDING_INDEPENDENT_REVIEW"
+  },
+  "append_delta": {
+    "identity_rows_added": 300,
+    "exact_duplicates_skipped": 0,
+    "source_key_rows_added": 1,
+    "source_ready_added": 0,
+    "deployable_added": 0,
+    "training_approved_added": 0,
+    "metadata_only_timestamp_mismatch": 7,
+    "deferred_no_same_repo_merged_final_closer": 277,
+    "deferred_timestamp_matched_closures": 15,
+    "complete_fixed_source_review_only": 1
+  },
+  "click_partition": {
+    "repo": "pallets/click",
+    "status": "EXCLUDED_NOT_QUERIED",
+    "prior_exclusions_cleared": false
+  },
+  "source_evidence_5258": {
+    "issue_body_sha256": "2dbfab1521955fc5b199e5c447cdacb623df99a2d390de10e458183967d31060",
+    "closed_event_id": "CE_lADOAAkbnM5xbICvzwAAAAJy44CP",
+    "raw_closed_event_response_sha256": "e466d55108acfc1202948fd0ebb15db939f657b4a1f513f85e3628ba99f741ab",
+    "raw_closed_event_json_pointer": "/data/nodes/68/timelineItems/nodes/0",
+    "closer": "pallets/flask#5264",
+    "base_commit": "b7c1290528f907c9f41afcdfd33a2227c73e26d3",
+    "base_tree": "c8ef40ac4b369628577c5d9898b736de3fd9059f",
+    "archive_sha256": "23e8d136cbfed55c6a830c775f5955b8267332fe447c6a17bbe5499ea3d7086c",
+    "archive_bytes": 686517,
+    "license_sha256": "489a8e1108509ed98a37bb983e11e0f7e1d31f0bd8f99a79c8448e7ff37d07ea",
+    "dependency_declarations": "candidates/pallets-flask-5258-source-b01/dependency-declarations.json",
+    "test_path_count": 68,
+    "test_paths_source": "archive member names only"
+  },
+  "content_boundaries": [
+    "No PR bodies/diffs/fixes read",
+    "No test bodies read",
+    "Test-path list generated only from source archive member names",
+    "No candidate/test execution, deployment, 107, GPU or hidden evaluation",
+    "Click partition and all prior holds/exclusions unchanged"
+  ]
+}
