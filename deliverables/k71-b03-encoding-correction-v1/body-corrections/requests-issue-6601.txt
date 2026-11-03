@@ -1,0 +1,160 @@
+Before requests 2.30 it was possible to just pass a Python-string with umlauts (äöü...) to a `requests.post` call. Since urllib3 2.x this causes the body of the request to be truncated. It seems that the Content-Length is calculated based on the length of the string and the string itself is handed over to the call as a multibyte representation causing the string to be truncated in the request because with multibyte characters there are more bytes than characters.
+
+## Expected Result
+
+All characters of the input string should have been sent to the target.
+
+## Actual Result
+
+Input string is truncated. See output of code below:
+
+```
+data:application/octet-stream;base64,RGFzIHNpbmQgUG9zdC1EYXRlbiBtaXQgVW1sYXV0ZW46IMOkww==
+data:application/octet-stream;base64,RGFzIHNpbmQgUG9zdC1EYXRlbiBtaXQgVW1sYXV0ZW46IOT89g==
+Das sind Post-Daten mit Umlauten: äüö
+```
+
+## Reproduction Steps
+
+```python
+import requests
+import json
+
+data_as_string = "Das sind Post-Daten mit Umlauten: äüö"
+
+data_array = [
+    data_as_string,
+    bytes(data_as_string,'iso-8859-1'),
+    bytes(data_as_string,'utf-8')
+]
+
+post_url = "https://httpbin.org/post"
+
+headers = {
+    "Content-Type": "text/plain",
+    "Host": "httpbin.org",
+}
+
+
+def main():
+    for d in data_array:
+        response = requests.post(
+            url=post_url,
+            headers=headers,
+            data=d
+        )
+        r = json.loads(response.content)
+        print(r['data'])
+
+
+if __name__ == '__main__':
+    main()
+```
+
+The behaviour was also verified using Portswigger Burp Suite:
+
+First Request:
+
+```
+50 4F 53 54 20 2F 70 6F 73 74 20 48 54 54 50 2F 32 0D 0A 48 6F 73 74 3A 20 68 74 74 70 62 69 6E 2E 6F 72 67 0D 0A 55 73 65 72 2D 41 67 65 6E 74 3A 20 70 79 74 68 6F 6E 2D 72 65 71 75 65 73 74 73 2F 32 2E 33 31 2E 30 0D 0A 41 63 63 65 70 74 2D 45 6E 63 6F 64 69 6E 67 3A 20 67 7A 69 70 2C 20 64 65 66 6C 61 74 65 2C 20 62 72 0D 0A 41 63 63 65 70 74 3A 20 2A 2F 2A 0D 0A 43 6F 6E 6E 65 63 74 69 6F 6E 3A 20 63 6C 6F 73 65 0D 0A 43 6F 6E 74 65 6E 74 2D 54 79 70 65 3A 20 74 65 78 74 2F 70 6C 61 69 6E 0D 0A 43 6F 6E 74 65 6E 74 2D 4C 65 6E 67 74 68 3A 20 33 37 0D 0A 0D 0A 44 61 73 20 73 69 6E 64 20 50 6F 73 74 2D 44 61 74 65 6E 20 6D 69 74 20 55 6D 6C 61 75 74 65 6E 3A 20 C3 A4 C3
+```
+
+```
+POST /post HTTP/2
+Host: httpbin.org
+User-Agent: python-requests/2.31.0
+Accept-Encoding: gzip, deflate, br
+Accept: */*
+Connection: close
+Content-Type: text/plain
+Content-Length: 37
+
+Das sind Post-Daten mit Umlauten: Ã¤Ã
+```
+
+Second Request:
+
+```
+50 4F 53 54 20 2F 70 6F 73 74 20 48 54 54 50 2F 32 0D 0A 48 6F 73 74 3A 20 68 74 74 70 62 69 6E 2E 6F 72 67 0D 0A 55 73 65 72 2D 41 67 65 6E 74 3A 20 70 79 74 68 6F 6E 2D 72 65 71 75 65 73 74 73 2F 32 2E 33 31 2E 30 0D 0A 41 63 63 65 70 74 2D 45 6E 63 6F 64 69 6E 67 3A 20 67 7A 69 70 2C 20 64 65 66 6C 61 74 65 2C 20 62 72 0D 0A 41 63 63 65 70 74 3A 20 2A 2F 2A 0D 0A 43 6F 6E 6E 65 63 74 69 6F 6E 3A 20 6B 65 65 70 2D 61 6C 69 76 65 0D 0A 43 6F 6E 74 65 6E 74 2D 54 79 70 65 3A 20 74 65 78 74 2F 70 6C 61 69 6E 0D 0A 43 6F 6E 74 65 6E 74 2D 4C 65 6E 67 74 68 3A 20 33 37 0D 0A 0D 0A 44 61 73 20 73 69 6E 64 20 50 6F 73 74 2D 44 61 74 65 6E 20 6D 69 74 20 55 6D 6C 61 75 74 65 6E 3A 20 E4 FC F6
+```
+
+```
+POST /post HTTP/2
+Host: httpbin.org
+User-Agent: python-requests/2.31.0
+Accept-Encoding: gzip, deflate, br
+Accept: */*
+Connection: keep-alive
+Content-Type: text/plain
+Content-Length: 37
+
+Das sind Post-Daten mit Umlauten: äüö
+```
+
+Third Request:
+
+```
+50 4F 53 54 20 2F 70 6F 73 74 20 48 54 54 50 2F 32 0D 0A 48 6F 73 74 3A 20 68 74 74 70 62 69 6E 2E 6F 72 67 0D 0A 55 73 65 72 2D 41 67 65 6E 74 3A 20 70 79 74 68 6F 6E 2D 72 65 71 75 65 73 74 73 2F 32 2E 33 31 2E 30 0D 0A 41 63 63 65 70 74 2D 45 6E 63 6F 64 69 6E 67 3A 20 67 7A 69 70 2C 20 64 65 66 6C 61 74 65 2C 20 62 72 0D 0A 41 63 63 65 70 74 3A 20 2A 2F 2A 0D 0A 43 6F 6E 6E 65 63 74 69 6F 6E 3A 20 6B 65 65 70 2D 61 6C 69 76 65 0D 0A 43 6F 6E 74 65 6E 74 2D 54 79 70 65 3A 20 74 65 78 74 2F 70 6C 61 69 6E 0D 0A 43 6F 6E 74 65 6E 74 2D 4C 65 6E 67 74 68 3A 20 34 30 0D 0A 0D 0A 44 61 73 20 73 69 6E 64 20 50 6F 73 74 2D 44 61 74 65 6E 20 6D 69 74 20 55 6D 6C 61 75 74 65 6E 3A 20 C3 A4 C3 BC C3 B6
+```
+
+```
+POST /post HTTP/2
+Host: httpbin.org
+User-Agent: python-requests/2.31.0
+Accept-Encoding: gzip, deflate, br
+Accept: */*
+Connection: keep-alive
+Content-Type: text/plain
+Content-Length: 40
+
+Das sind Post-Daten mit Umlauten: Ã¤Ã¼Ã¶
+```
+
+
+## System Information
+
+    $ python -m requests.help
+
+```json
+{                        
+  "chardet": {           
+    "version": null      
+  },                     
+  "charset_normalizer": {
+    "version": "3.3.2"   
+  },                     
+  "cryptography": {      
+    "version": ""        
+  },                     
+  "idna": {              
+    "version": "3.6"     
+  },
+  "implementation": {
+    "name": "CPython",
+    "version": "3.12.0"
+  },
+  "platform": {
+    "release": "10",
+    "system": "Windows"
+  },
+  "pyOpenSSL": {
+    "openssl_version": "",
+    "version": null
+  },
+  "requests": {
+    "version": "2.31.0"
+  },
+  "system_ssl": {
+    "version": "300000b0"
+  },
+  "urllib3": {
+    "version": "2.1.0"
+  },
+  "using_charset_normalizer": true,
+  "using_pyopenssl": false
+}
+```
+
+<!-- This command is only available on Requests v2.16.4 and greater. Otherwise,
+please provide some basic information about your system (Python version,
+operating system, &c). -->

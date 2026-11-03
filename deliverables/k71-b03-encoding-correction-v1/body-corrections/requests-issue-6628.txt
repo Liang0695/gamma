@@ -1,0 +1,166 @@
+Hi all,
+
+I've stumbled upon a bug in the `requests` library, and have a proposal for a fix.
+
+In short: I have a process pool running tasks in parallel, that are among other things doing queries to third-party APIs. One third-party returns an invalid JSON document as response in case of error.
+
+However, instead of just having a JSONDecodeError as the result of my job, the entire process pool crashes due to a BrokenProcessPool error with the following stack trace:
+
+```
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.11/concurrent/futures/process.py", line 424, in wait_result_broken_or_wakeup
+    result_item = result_reader.recv()
+                  ^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/multiprocessing/connection.py", line 251, in recv
+    return _ForkingPickler.loads(buf.getbuffer())
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/requests/exceptions.py", line 41, in __init__
+    CompatJSONDecodeError.__init__(self, *args)
+TypeError: JSONDecodeError.__init__() missing 2 required positional arguments: 'doc' and 'pos'
+```
+
+So I'm in a situation where receiving one invalid JSON as response is interrupting all my ongoing tasks because the entire process pool is crashing, and no more tasks can be submitted until the process pool recovered.
+
+## Origin of the bug + Fix
+
+After investigation, this is because the `requests.exception.JSONDecodeError` instances can't be deserialized once they've been serialized via `pickle`. So when the main process is trying to deserialize the error returned by the child process, the main process is crashing with to the error above.
+
+I think this bug has been around for a while, I've found old tickets from different projects mentioning issues that are looking similar: https://github.com/celery/celery/issues/5712
+
+I've pinpointed the bug to the following class: https://github.com/psf/requests/blob/main/src/requests/exceptions.py#L31
+
+Basically, due the MRO/order of inheritance, the `__reduce__` method used will not be the one of `CompatJSONDecodeError`. Most of the args will therefore be ditched when pickling the instance and it can't be deserialised back because `CompatJSONDecodeError.__init__`  does expect those args. MRO below:
+
+```
+In [1]: from requests.exceptions import JSONDecodeError
+
+In [2]: JSONDecodeError.__mro__
+Out[2]:
+(requests.exceptions.JSONDecodeError,
+ requests.exceptions.InvalidJSONError,
+ requests.exceptions.RequestException,
+ OSError,
+ simplejson.errors.JSONDecodeError,
+ ValueError,
+ Exception,
+ BaseException,
+ object)
+```
+
+I think the fix could be quite simple and should have very little side-effects: to specify a `JSONDecodeError.__reduce__` method that will call the one from the correct parent class (it will be regardless that it is json/simplejson via the Compat class, their respective methods having different signatures).
+
+I've taken the initiative to write a fix + a test and will raise a pull request to that effect 🙏 
+
+-----
+
+## Expected Result
+
+I've written a test for this case: the error can easily be reproduced by simply trying to `pickle.dumps()`  then `pickle.loads()` on a error:
+
+```python
+json_decode_error = requests.exceptions.JSONDecodeError(
+    "Extra data",
+    '{"responseCode":["706"],"data":null}{"responseCode":["706"],"data":null}',
+    36,
+)
+deserialized_error = pickle.loads(pickle.dumps(json_decode_error))
+assert repr(json_decode_error) == repr(deserialized_error)
+```
+
+This assertion should be true
+
+## Actual Result
+
+Currently, instead of passing it'll raise the following error:
+
+```
+>       CompatJSONDecodeError.__init__(self, *args)
+E       TypeError: JSONDecodeError.__init__() missing 2 required positional arguments: 'doc' and 'pos'
+```
+
+## Reproduction Steps
+
+As mentioned above, this bug is more impactful in a multi-process architecture as it'll break the entire process pool.
+For something looking a bit more like a live-case, I've produced a little snippet with a really simple API returning an invalid JSON: 
+
+```python
+# File api.py
+
+from fastapi import FastAPI
+from starlette.responses import PlainTextResponse
+
+app = FastAPI()
+
+
+@app.get("/")
+async def root():
+    # An invalid json string returned by the endpoint that will trigger a JSONDecodeError when calling `res.json()`
+    s = '{"responseCode":["706"],"data":null}{"responseCode":["706"],"data":null}'
+    return PlainTextResponse(s, media_type="application/json", status_code=400)
+
+
+# Run the API:
+# $ uvicorn api:app --reload
+#
+# curl http://127.0.0.1:8000 will return the invalid json
+```
+
+and the following 
+
+```python
+from concurrent.futures import ProcessPoolExecutor
+from concurrent.futures.process import BrokenProcessPool
+
+import requests
+
+
+def my_task():
+    response = requests.get('http://127.0.0.1:8000/')
+    response.json()
+
+def my_main_func():
+    with ProcessPoolExecutor(max_workers=4) as executor:
+        future = executor.submit(my_task)
+        for i in range(0, 5):
+            try:
+                future.result(timeout=100)
+                print(f"Attempt {i} ok")
+            except BrokenProcessPool:
+                print(f"Attempt {i} - the pool is broken")
+            except requests.JSONDecodeError:
+                print(f"Attempt {i} raises a request JSONDecodeError")
+
+
+if __name__ == '__main__':
+    my_main_func()
+```
+
+Instead of getting the following output:
+```
+Attempt 0 raises a request JSONDecodeError
+Attempt 1 raises a request JSONDecodeError
+Attempt 2 raises a request JSONDecodeError
+Attempt 3 raises a request JSONDecodeError
+Attempt 4 raises a request JSONDecodeError
+```
+
+One would currently have:
+```
+Attempt 0 - the pool is broken
+Attempt 1 - the pool is broken
+Attempt 2 - the pool is broken
+Attempt 3 - the pool is broken
+Attempt 4 - the pool is broken
+```
+
+An invalid JSON is crashing the entire process pool and no job can be submitted anymore.
+
+## System Information
+
+Tested with:
+- request==2.31.0
+- Python==3.11.7
+
+-----
+
+Thanks a lot for taking the time to read this long bug report!!

@@ -1,0 +1,17 @@
+[requests/tests/test\_requests.py at main · psf/requests](https://github.com/psf/requests/blob/main/tests/test_requests.py#L1705)
+
+```
+    def test_header_validation(self, httpbin):
+        """Ensure prepare_headers regex isn't flagging valid header contents."""
+        valid_headers = {
+            "foo": "bar baz qux",
+            "bar": b"fbbq",
+            "baz": "",
+            "qux": "1",
+        }
+        r = requests.get(httpbin("get"), headers=valid_headers)
+        for key in valid_headers.keys():
+            valid_headers[key] == r.request.headers[key]
+```
+
+`valid_headers[key] == r.request.headers[key]` should probably be `assert valid_headers[key] == r.request.headers[key]`.

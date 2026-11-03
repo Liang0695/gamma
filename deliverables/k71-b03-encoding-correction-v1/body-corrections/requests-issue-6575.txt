@@ -1,0 +1,33 @@
+Hello. 
+
+I am creating server API using FASTAPI/Uvicorn.
+
+I am processing files with big AI models that are slow to process. When the file is lower than 10 Mb, everything works fine. But when longer, it implies that it will take more than 3 minutes. By doing the request post, on large files, the post does not get the response. The server continues as the process and shows 200 OK. So on the server side, everything seems fine but the request keeps running and does not get the ok code neither the data back. If I don´t add a timeout it will keep forever. If I add the timeout, it gives the error because it did not get the response. 
+I am running the server like this 
+`uvicorn app.main:app --host 0.0.0.0 --port 8080 --reload --timeout-keep-alive 600 --ws-ping-timeout 500`
+Adding a timeout keep alive of 600 seconds to make sure it can handle big files.
+
+Now when I do the request, it won´t work. Then I tested this to check when it loses connection
+
+`@app.post("/pru/")
+async def pru():
+    print("Comenzamos")
+    time.sleep(275)
+    return "Devolucion " + time.strftime("%Y-%m-%d %H:%M:%S", time.gmtime())
+    `
+After making a post request to /pru/  using a sleep timer, I found out that 275 seconds is the time threshold when requests loses connection with the server and does not get anything back. Anything lower works fine. 
+
+Now, if I change the post to get, and I do it on Google Chrome browser, it works fine, even with 500 seconds.
+
+Does anyone knows why the requests loses connection with the server or why it does not receives the message back from the server?
+
+I investigated more, and some people recommended using TCPKeepAliveAdapter and stream = True. but that works with GET but not with POST. I have it like this. 
+
+`keep_alive = TCPKeepAliveAdapter(idle=5, count=60, interval=10)
+s = requests.Session()
+s.mount("http://20.30.30.30:8080/aupro/tran-d/", keep_alive)
+r = s.post(url="http://20.30.30.30:8080/aupro/tran-d/", files=archivo, stream=True,timeout=400)`
+
+Any advise? I don´t know what else to try.
+
+Thanks in advance.

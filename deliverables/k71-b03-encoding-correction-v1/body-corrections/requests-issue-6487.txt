@@ -1,0 +1,36 @@
+Hi,
+
+I m using requests-2.31.0
+
+Here is 3 examples of my Python variable used to send a payload : 
+
+Below with no special character :
+Python variable = **{"updateGroups":true,"groups":[],"user":{"displayName":"TONI eric","email":"xxxxxx@xxxxxxx.com","name":"anto1","password":"anto1","accountRoleIds":[1677,1680,1683]}}**
+
+Below with 2 special characters :
+Python variable = **{"updateGroups":true,"groups":[],"user":{"displayName":"TONé éric","email":"xxxxxx@xxxxxxx.com","name":"anto3","password":"anto3","accountRoleIds":[1677,1680,1683]}}**
+
+Below with 3 special characters :
+Python variable = **{"updateGroups":true,"groups":[],"user":{"displayName":"èTONé éric","email":"xxxxxx@xxxxxxx.com","name":"anto3","password":"anto3","accountRoleIds":[1677,1680,1683]}}**
+
+The 3 variables are well formatted than i expect with good informations.
+
+But here is the content sent by the module requests-2.31.0 WHEN THE PAYLOAD CONTAINS special french characters (Fiddler RAW)
+
+## Actual Result
+
+{"updateGroups":true,"groups":[],"user":{"displayName":"ANTONéN Ayméric","email":"xxxxxx@xxxxxxx.com","name":"anto3","password":"anto3","accountRoleIds":[1677,1680,1683]
+
+{"updateGroups":true,"groups":[],"user":{"displayName":"ANèTONéN Ayméric","email":"xxxxxx@xxxxxxx.com","name":"anto3","password":"anto3","accountRoleIds":[1677,1680,1683
+
+
+## Expected Result
+
+{"updateGroups":true,"groups":[],"user":{"displayName":"ANTONéN Ayméric","email":"xxxxxx@xxxxxxx.com","name":"anto3","password":"anto3","accountRoleIds":[1677,1680,1683]}}
+
+{"updateGroups":true,"groups":[],"user":{"displayName":"ANèTONéN Ayméric","email":"xxxxxx@xxxxxxx.com","name":"anto3","password":"anto3","accountRoleIds":[1677,1680,1683]}}
+
+
+Regarding the count of special characters, the payload is truncated of this count of characters.
+
+Regards

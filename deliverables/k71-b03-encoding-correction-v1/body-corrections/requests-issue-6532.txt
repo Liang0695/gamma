@@ -1,0 +1,60 @@
+<!-- Summary. -->
+
+Iterating the full, non-stream content of a `Response`  flags the content as consumed:
+https://github.com/psf/requests/blob/881281250f74549f560408e5546d95a8cd73ce28/src/requests/models.py#L832
+
+Which in turn prevents the raw object being closed.
+https://github.com/psf/requests/blob/881281250f74549f560408e5546d95a8cd73ce28/src/requests/models.py#L1021-L1028
+
+This can result in a bunch of open resources waiting for GC to happen. I ran into this using the zeep library to read a couple of wsdl documents files, which can do a lot of requests for xsd documents using `file://` scheme; it raised a ResourceError too many open files.
+
+mvantellingen/python-zeep#1393
+
+## Expected Result
+
+Since it is explicitly stated in the docs that when you want to manipulate `Response.raw` you need to set `stream`, I expect the reading in the non-stream case of the generator https://github.com/psf/requests/blob/881281250f74549f560408e5546d95a8cd73ce28/src/requests/models.py#L826-L830
+to be done in a `contextmanagers.closing` block, so it will always be properly closed, even when exceptions occur. To protect the naive Human™ like myself.
+
+
+
+## System Information
+
+```json
+{
+  "chardet": {
+    "version": "5.1.0"
+  },
+  "charset_normalizer": {
+    "version": "2.0.2"
+  },
+  "cryptography": {
+    "version": "41.0.3"
+  },
+  "idna": {
+    "version": "2.10"
+  },
+  "implementation": {
+    "name": "CPython",
+    "version": "3.10.12"
+  },
+  "platform": {
+    "release": "6.1.0-0.deb11.11-amd64",
+    "system": "Linux"
+  },
+  "pyOpenSSL": {
+    "openssl_version": "30100020",
+    "version": "23.2.0"
+  },
+  "requests": {
+    "version": "2.31.0"
+  },
+  "system_ssl": {
+    "version": "101010ef"
+  },
+  "urllib3": {
+    "version": "1.26.15"
+  },
+  "using_charset_normalizer": false,
+  "using_pyopenssl": true
+}
+```

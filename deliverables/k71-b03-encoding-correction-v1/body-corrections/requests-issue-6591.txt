@@ -1,0 +1,128 @@
+I have this code that is trying to divide a wordlist in 20 segments in order to create 20 threads that work with each segment when calling to fuzzer_directiorios and fuzzer_subdomains:
+
+```
+import requests
+from requests.adapters import HTTPAdapter
+from requests.packages.urllib3.util.retry import Retry
+from concurrent.futures import ThreadPoolExecutor
+from colorama import Fore, Style
+import socket
+
+
+#Función para hacer fuzzer de subdominios o fuzzer de directorios
+def Fuzzer():
+    menu = """
+    ===================================<<< MENU DE FUZZER >>>======================================
+    [1] Fuzzer de Directorios
+    [2] Fuzzer de Subdominios
+    [3] Volver al menu
+    """
+    choosen = False
+    #Bucle hasta que choosen sea True para permitir al usuario escoger una opcion de escaneo
+    while not choosen:
+
+        print(Style.BRIGHT+Fore.LIGHTYELLOW_EX+menu)
+        #Muestra mensaje de seleccion y entrada de un valor correspondiente a cada opcion
+        option = input(Style.BRIGHT+Fore.LIGHTWHITE_EX+"Seleccione una opcion de fuzzer: ")
+        #Opcion 1: Fuzzer de Directorios
+        if option == '1':
+            choosen = True
+            url = 'https://google.es/' 
+            filename = '/home/test/Descargas/directory-list-2.3-medium.txt'
+            with open(filename, 'r') as file:
+                wordlist = file.readlines()
+    
+            segment_size = len(wordlist) // 20
+            segments = [wordlist[i:i + segment_size] for i in range(0, len(wordlist), segment_size)]
+                      
+            try:
+                with ThreadPoolExecutor(max_workers=20) as executor:
+                    executor.map(fuzzer_directorios, [url] * 20, segments, timeout=30)
+            except KeyboardInterrupt:
+                print(Style.BRIGHT+Fore.RED+"\n[!] Script terminado (Ctrl + C)")
+            finally:
+                file.close()
+        
+        #Opcion 2: Fuzzer de Subdominios
+        elif option == '2':
+            choosen = True
+            domain = 'google.es'
+            resolved_address = socket.gethostbyname(domain)  
+            filename = '/home/test/Descargas/subdomains-10000.txt'
+            with open(filename, 'r') as file:
+                wordlist = file.readlines()
+    
+            segment_size = len(wordlist) // 20
+            segments = [wordlist[i:i + segment_size] for i in range(0, len(wordlist), segment_size)]
+        
+            try:
+                with ThreadPoolExecutor(max_workers=20) as executor:
+                    executor.map(fuzzer_subdomains, [domain] * 20, segments, timeout=30)
+            except KeyboardInterrupt:
+                print(Style.BRIGHT+Fore.RED+"\n[!] Script terminado (Ctrl + C)")
+            finally:
+                file.close()
+                
+        #Opcion 3: Volver al menu
+        elif option == '3':
+            return 0
+        else:
+            print(Style.BRIGHT+Fore.RED+"[!] Opcion inválida, intentalo de nuevo!")
+            sleep(1)        
+
+
+# Función para fuzzear directorios
+def fuzzer_directorios(url, wordlist):
+    for line in wordlist:
+        url_compl = url + line  # Crea la URL completa
+        # Comprueba si la URL completa existe
+        try:
+            session = requests.Session()
+            retry = Retry(total=2, backoff_factor=0.1)
+            adapter = HTTPAdapter(max_retries=retry)
+            session.mount('http://', adapter)
+            session.mount('https://', adapter)            
+            response = session.get(url_compl, timeout=10)
+            if response.status_code == 200:
+                print(Style.BRIGHT + Fore.GREEN + f"Directorio encontrado: {url_compl}") 
+        except requests.RequestException as e:
+            print(Style.BRIGHT + Fore.RED + f"[!] Se produjo un error durante alguna solicitud: {e}")
+        except KeyboardInterrupt:
+            print(Style.BRIGHT+Fore.RED+"\n[!] Script terminado (Ctrl + C)")
+
+
+# Función para fuzzear subdominios 
+def fuzzer_subdomains(domain, wordlist):
+    for entry in wordlist:
+        subdomain = entry.strip()  # Elimina caracteres de espacio en blanco
+        full_http_url = f"http://{domain}"  # URL completa con HTTP
+        full_https_url = f"https://{domain}"  # URL completa con HTTPS
+        headers = {'Host': f'{subdomain}.{domain}'}  # Configura el Host de la cabecera HTTP
+        # Realiza peticiones HTTP y HTTPS con el subdominio en la cabecera 'Host'
+        try:
+            session = requests.Session()
+            retry = Retry(total=2, backoff_factor=0.1)
+            adapter = HTTPAdapter(max_retries=retry)
+            session.mount('http://', adapter)
+            session.mount('https://', adapter)               
+            response_http = session.get(full_http_url, headers=headers, allow_redirects=False, timeout=10)
+            response_https = session.get(full_https_url, headers=headers, allow_redirects=False,timeout=10)
+            # Comprueba si el subdominio fue encontrado
+            if response_http.status_code == 200 or response_https.status_code == 200:
+                print(Style.BRIGHT + Fore.GREEN + f"Subdominio encontrado: {subdomain}.{domain}")
+        except requests.RequestException as e:
+            print(Style.BRIGHT + Fore.RED + f"[!] Se produjo un error durante alguna solicitud: {e}")
+        except KeyboardInterrupt:
+            print(Style.BRIGHT+Fore.RED+"\n[!] Script terminado (Ctrl + C)")
+            
+
+def main():
+    Fuzzer()
+
+if __name__ == "__main__":
+    main()
+```
+
+My problem is when I execute any of both fuzzers this is what I obtain
+![image](https://github.com/psf/requests/assets/126869573/df70e9d5-0821-4b4a-ada4-72da7e864328)
+

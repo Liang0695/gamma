@@ -1,0 +1,16 @@
+Hi,
+
+While looking at  Requests’ [Documentation](https://requests.readthedocs.io/en/latest/), I noticed that some APIs do not have code examples.
+
+Specifically, I found that out of the 89 API methods that appear in the documentation, 68 methods do not have code examples. Looking at Stack Overflow, I see that there are several questions regarding those methods, which suggests that adding code examples for them might be useful. 
+
+For example:
+- The method _**requests.Session.close**_ has no examples in the documentation, but there are 10 questions in stackoverflow regarding this method. [Here](https://stackoverflow.com/questions/49253246/how-to-close-requests-session) is an example.
+
+- The method _**requests.cookies.RequestsCookieJar.set**_ has no examples in the documentation, but there are several questions in stackoverflow regarding this method. [Here](https://stackoverflow.com/questions/75514573/where-can-i-find-python-requests-library-functions-kwargs-parameters-documente) is an example.
+
+Do you agree that adding code examples for these methods can improve requests’ documentation? If yes, would you like me to create a PR updating the documentation?
+
+Note that I got the above results from our [documentation quality analysis tool](https://github.com/ualberta-smr/DocumentationQuality), which analyzes a library's documentation and source code to determine the documentation quality. We developed this tool at the University of Alberta as part of our research on assessing documentation quality.
+
+Requests version used: v2.31.0.

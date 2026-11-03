@@ -1,0 +1,122 @@
+When using a Requests `Session` with an `HTTPAdapter` with `urllib3.util.Retry` configuration supplied, when the adapter is bound to an empty string prefix (`""`), the retries don't execute.
+
+## Expected Result
+
+This was an attempt to set up a session where every request in the session would have the retries executed, regardless of the prefix. A glance at the Requests `Session` source code seems to indicate this should work... the empty string can be a key in the `OrderedDict` storing the `Session`'s adapters, and checking `url.startswith("")` should return `True`. However...
+
+## Actual Result
+
+The retry configuration is ignored, and you're given a `Response` object with the erroneous error code instead of a raised `requests.exceptions.RetryError`. When binding the Adapter to the session with an actual prefix (for example, `"https://"`), the Retry behavior is observed.
+
+## Reproduction Steps
+
+The below script can be run to show the behavior, and below that I've posted the output I receive from it.
+
+```python
+from requests import Session
+from requests.adapters import HTTPAdapter
+from requests.exceptions import RetryError
+from urllib3.util import Retry
+​
+​
+class LogRetry(Retry):
+    def __init__(self, *args, **kwargs):
+        total_retries = kwargs["total"]
+        print(f"Retry {total_retries} initiating...")
+        super().__init__(*args, **kwargs)
+​
+​
+def test_case(retry_clazz, prefix):
+    s = Session()
+    s.mount(
+        prefix,
+        HTTPAdapter(
+            max_retries=retry_clazz(
+                total=3,
+                backoff_factor=0.1,
+                status_forcelist=[500],
+                allowed_methods={"POST"},
+            )
+        ),
+    )
+    try:
+        print(f"Trying with retry class {retry_clazz}, prefix: {prefix}")
+        s.post("https://httpbin.org/status/500", {})
+    except RetryError:
+        print("Got the retry error, hooray!")
+    else:
+        print("Didn't get the retry error, oh no!")
+​
+​
+test_case(Retry, "https://")
+test_case(Retry, "")
+test_case(LogRetry, "https://")
+test_case(LogRetry, "")
+```
+
+Results:
+
+```
+Trying with retry class <class 'urllib3.util.retry.Retry'>, prefix: https://
+Got the retry error, hooray!
+Trying with retry class <class 'urllib3.util.retry.Retry'>, prefix: 
+Didn't get the retry error, oh no!
+Retry 3 initiating...
+Trying with retry class <class '__main__.LogRetry'>, prefix: https://
+Retry 2 initiating...
+Retry 1 initiating...
+Retry 0 initiating...
+Retry -1 initiating...
+Got the retry error, hooray!
+Retry 3 initiating...
+Trying with retry class <class '__main__.LogRetry'>, prefix: 
+Didn't get the retry error, oh no!
+```
+
+## System Information
+
+    $ python -m requests.help
+
+```json
+{
+  "chardet": {
+    "version": "5.2.0"
+  },
+  "charset_normalizer": {
+    "version": null
+  },
+  "cryptography": {
+    "version": ""
+  },
+  "idna": {
+    "version": "3.4"
+  },
+  "implementation": {
+    "name": "CPython",
+    "version": "3.11.5"
+  },
+  "platform": {
+    "release": "6.5.3-arch1-1",
+    "system": "Linux"
+  },
+  "pyOpenSSL": {
+    "openssl_version": "",
+    "version": null
+  },
+  "requests": {
+    "version": "2.28.2"
+  },
+  "system_ssl": {
+    "version": "30100030"
+  },
+  "urllib3": {
+    "version": "1.26.15"
+  },
+  "using_charset_normalizer": false,
+  "using_pyopenssl": false
+}             
+```
+
+<!-- This command is only available on Requests v2.16.4 and greater. Otherwise,
+please provide some basic information about your system (Python version,
+operating system, &c). -->

@@ -1,0 +1,285 @@
+{
+  "schema": "k71-b03-body-encoding-correction/1",
+  "status": "CORRECTED_PENDING_INDEPENDENT_REVIEW",
+  "supersedes_review": {
+    "issue_id": "01a159da-1e4f-70ad-b3d0-c159e700ac08",
+    "return_comment_id": "01a159e5-f1eb-791d-ae63-041c4944c617",
+    "return_ledger_attachment_id": "01a159e5-eed5-71e3-a97f-a934e6697583",
+    "return_ledger_sha256": "154cbc8460c767511fac663b11423b1b31de7e3f159a0a619018df198a65fe22",
+    "return_ledger_verdict": "RETURN"
+  },
+  "immutable_inputs": {
+    "source_zip": {
+      "attachment_id": "01a159d9-d60a-775e-952f-6cee01266991",
+      "sha256": "3de350bdc6d6ec461b8d89c46f5cb1d3d229819cf81b13b111614be8f0578eda",
+      "bytes": 4262372
+    },
+    "original_append_zip": {
+      "attachment_id": "01a159e0-2a6c-716d-98d5-7a51e2f6994d",
+      "sha256": "2edcb5a0ab299e2d16b488cf79ae66cacadbbaacba3dca13c730b414d410d80d",
+      "bytes": 4818398
+    },
+    "prior_catalog_attachment_id": "01a159e0-3326-7954-bae5-d53451b7099b",
+    "prior_catalog_sha256": "fba018810986310680f336f8ab286d244b65ae4e0725a5a4d1e7afc731570589",
+    "prior_screening_ledger_sha256": "830e9b166e4eeb2b1913f7d00bd32ffb900c63d7284611475b7d51d03a6c5491",
+    "saved_raw_response_member": "search-page3-response.json",
+    "saved_raw_response_sha256": "3e177f1b318e37b8a88f8d3b0e4cfdae86b0cc2e03582872b92344cb7bdd9fd4"
+  },
+  "correction_method": "Decode saved raw response as UTF-8 JSON; use each items[].body string and encode directly to UTF-8 bytes. No network fetch, reverse mojibake conversion, or newline conversion.",
+  "scope": {
+    "corrected_issue_numbers": [
+      6628,
+      6601,
+      6591,
+      6586,
+      6575,
+      6572,
+      6551,
+      6533,
+      6532,
+      6487,
+      6481
+    ],
+    "total_body_files_checked": 100,
+    "exact_after_sidecar_overlay": 100,
+    "unchanged_exact": 89,
+    "correction_count": 11,
+    "metadata_identity_count_before_and_after": 300,
+    "stage_counts_unchanged": true,
+    "qualification_gates_unchanged": true
+  },
+  "rows": [
+    {
+      "repo_issue": "psf/requests#6628",
+      "issue_number": 6628,
+      "correction_member": "body-corrections/requests-issue-6628.txt",
+      "new_sha256": "f7f337063cf2a301171d2fa5338afac459daeba4ee59f47458a74e10193908c9",
+      "new_bytes": 6194,
+      "supersedes": {
+        "body_member": "source-batches/K40-PSF-REQUESTS-B03-original.zip!/screened-identities/psf-requests-issue-6628.txt",
+        "sha256": "35179ed5b24a8d0e6a9ed7a22b7c6a0813ccba037abbb9a04819fee714c3952d",
+        "bytes": 6196
+      },
+      "correction_source": {
+        "input_archive_sha256": "3de350bdc6d6ec461b8d89c46f5cb1d3d229819cf81b13b111614be8f0578eda",
+        "raw_response_member": "search-page3-response.json",
+        "raw_response_sha256": "3e177f1b318e37b8a88f8d3b0e4cfdae86b0cc2e03582872b92344cb7bdd9fd4",
+        "json_field": "items[number=6628].body",
+        "encoding": "UTF-8",
+        "write_method": "decoded body string encoded directly as UTF-8; no newline normalization"
+      },
+      "original_append_archive_sha256": "2edcb5a0ab299e2d16b488cf79ae66cacadbbaacba3dca13c730b414d410d80d"
+    },
+    {
+      "repo_issue": "psf/requests#6601",
+      "issue_number": 6601,
+      "correction_member": "body-corrections/requests-issue-6601.txt",
+      "new_sha256": "2fcdce12445dc76484ee5cfe55763c2db5cebf0da93686d0494b106c15b75319",
+      "new_bytes": 5550,
+      "supersedes": {
+        "body_member": "source-batches/K40-PSF-REQUESTS-B03-original.zip!/screened-identities/psf-requests-issue-6601.txt",
+        "sha256": "4e0f0f6569eebf9f0996f86e1482c83483fb3f9f82acbd06dce9a0a5feee8777",
+        "bytes": 5571
+      },
+      "correction_source": {
+        "input_archive_sha256": "3de350bdc6d6ec461b8d89c46f5cb1d3d229819cf81b13b111614be8f0578eda",
+        "raw_response_member": "search-page3-response.json",
+        "raw_response_sha256": "3e177f1b318e37b8a88f8d3b0e4cfdae86b0cc2e03582872b92344cb7bdd9fd4",
+        "json_field": "items[number=6601].body",
+        "encoding": "UTF-8",
+        "write_method": "decoded body string encoded directly as UTF-8; no newline normalization"
+      },
+      "original_append_archive_sha256": "2edcb5a0ab299e2d16b488cf79ae66cacadbbaacba3dca13c730b414d410d80d"
+    },
+    {
+      "repo_issue": "psf/requests#6591",
+      "issue_number": 6591,
+      "correction_member": "body-corrections/requests-issue-6591.txt",
+      "new_sha256": "a87ddac6b21d31679a3f7e1c8029f067b644684e63ba35761ac6277621d8b9f0",
+      "new_bytes": 5765,
+      "supersedes": {
+        "body_member": "source-batches/K40-PSF-REQUESTS-B03-original.zip!/screened-identities/psf-requests-issue-6591.txt",
+        "sha256": "095a4dba6f6f3c1bfcb9b49ecc7541e933f41a0c7fb5cbb62812e6c72bc86374",
+        "bytes": 5779
+      },
+      "correction_source": {
+        "input_archive_sha256": "3de350bdc6d6ec461b8d89c46f5cb1d3d229819cf81b13b111614be8f0578eda",
+        "raw_response_member": "search-page3-response.json",
+        "raw_response_sha256": "3e177f1b318e37b8a88f8d3b0e4cfdae86b0cc2e03582872b92344cb7bdd9fd4",
+        "json_field": "items[number=6591].body",
+        "encoding": "UTF-8",
+        "write_method": "decoded body string encoded directly as UTF-8; no newline normalization"
+      },
+      "original_append_archive_sha256": "2edcb5a0ab299e2d16b488cf79ae66cacadbbaacba3dca13c730b414d410d80d"
+    },
+    {
+      "repo_issue": "psf/requests#6586",
+      "issue_number": 6586,
+      "correction_member": "body-corrections/requests-issue-6586.txt",
+      "new_sha256": "698c174272abfdd71c7f50d037b300b58db1b7bab727ff185380a980823f050c",
+      "new_bytes": 2751,
+      "supersedes": {
+        "body_member": "source-batches/K40-PSF-REQUESTS-B03-original.zip!/screened-identities/psf-requests-issue-6586.txt",
+        "sha256": "78cdaa0b3aeba669b08f4092d56087dcd5ffa2cb58e67abdcc66804c1087941e",
+        "bytes": 2763
+      },
+      "correction_source": {
+        "input_archive_sha256": "3de350bdc6d6ec461b8d89c46f5cb1d3d229819cf81b13b111614be8f0578eda",
+        "raw_response_member": "search-page3-response.json",
+        "raw_response_sha256": "3e177f1b318e37b8a88f8d3b0e4cfdae86b0cc2e03582872b92344cb7bdd9fd4",
+        "json_field": "items[number=6586].body",
+        "encoding": "UTF-8",
+        "write_method": "decoded body string encoded directly as UTF-8; no newline normalization"
+      },
+      "original_append_archive_sha256": "2edcb5a0ab299e2d16b488cf79ae66cacadbbaacba3dca13c730b414d410d80d"
+    },
+    {
+      "repo_issue": "psf/requests#6575",
+      "issue_number": 6575,
+      "correction_member": "body-corrections/requests-issue-6575.txt",
+      "new_sha256": "27ba077c4124879e056b58f0a3c1d8fff1214f7ee86cda266abe849f9a6e19a3",
+      "new_bytes": 2083,
+      "supersedes": {
+        "body_member": "source-batches/K40-PSF-REQUESTS-B03-original.zip!/screened-identities/psf-requests-issue-6575.txt",
+        "sha256": "7f799d071f781d1421f755f39678804461b379439a4064412e48d695b7d057f4",
+        "bytes": 2086
+      },
+      "correction_source": {
+        "input_archive_sha256": "3de350bdc6d6ec461b8d89c46f5cb1d3d229819cf81b13b111614be8f0578eda",
+        "raw_response_member": "search-page3-response.json",
+        "raw_response_sha256": "3e177f1b318e37b8a88f8d3b0e4cfdae86b0cc2e03582872b92344cb7bdd9fd4",
+        "json_field": "items[number=6575].body",
+        "encoding": "UTF-8",
+        "write_method": "decoded body string encoded directly as UTF-8; no newline normalization"
+      },
+      "original_append_archive_sha256": "2edcb5a0ab299e2d16b488cf79ae66cacadbbaacba3dca13c730b414d410d80d"
+    },
+    {
+      "repo_issue": "psf/requests#6572",
+      "issue_number": 6572,
+      "correction_member": "body-corrections/requests-issue-6572.txt",
+      "new_sha256": "402d8c446a52db6447176bedba61224df2d1f10417b32289fb90b09b158718a8",
+      "new_bytes": 1569,
+      "supersedes": {
+        "body_member": "source-batches/K40-PSF-REQUESTS-B03-original.zip!/screened-identities/psf-requests-issue-6572.txt",
+        "sha256": "8b4c6aa986748d1e776ba2c0a35feb83b095d01356a131b2da679a4988f1af96",
+        "bytes": 1569
+      },
+      "correction_source": {
+        "input_archive_sha256": "3de350bdc6d6ec461b8d89c46f5cb1d3d229819cf81b13b111614be8f0578eda",
+        "raw_response_member": "search-page3-response.json",
+        "raw_response_sha256": "3e177f1b318e37b8a88f8d3b0e4cfdae86b0cc2e03582872b92344cb7bdd9fd4",
+        "json_field": "items[number=6572].body",
+        "encoding": "UTF-8",
+        "write_method": "decoded body string encoded directly as UTF-8; no newline normalization"
+      },
+      "original_append_archive_sha256": "2edcb5a0ab299e2d16b488cf79ae66cacadbbaacba3dca13c730b414d410d80d"
+    },
+    {
+      "repo_issue": "psf/requests#6551",
+      "issue_number": 6551,
+      "correction_member": "body-corrections/requests-issue-6551.txt",
+      "new_sha256": "b144654d6d4ecd3063b5ef7c7930447f024beaa263ed38810fea0ca06c0839bb",
+      "new_bytes": 712,
+      "supersedes": {
+        "body_member": "source-batches/K40-PSF-REQUESTS-B03-original.zip!/screened-identities/psf-requests-issue-6551.txt",
+        "sha256": "42fcfaf727281e32cd35fe31cd10c9e76c41e265400cb8cb9f53639e418f01f2",
+        "bytes": 713
+      },
+      "correction_source": {
+        "input_archive_sha256": "3de350bdc6d6ec461b8d89c46f5cb1d3d229819cf81b13b111614be8f0578eda",
+        "raw_response_member": "search-page3-response.json",
+        "raw_response_sha256": "3e177f1b318e37b8a88f8d3b0e4cfdae86b0cc2e03582872b92344cb7bdd9fd4",
+        "json_field": "items[number=6551].body",
+        "encoding": "UTF-8",
+        "write_method": "decoded body string encoded directly as UTF-8; no newline normalization"
+      },
+      "original_append_archive_sha256": "2edcb5a0ab299e2d16b488cf79ae66cacadbbaacba3dca13c730b414d410d80d"
+    },
+    {
+      "repo_issue": "psf/requests#6533",
+      "issue_number": 6533,
+      "correction_member": "body-corrections/requests-issue-6533.txt",
+      "new_sha256": "cd450ab65751a5250e4155b390773816bdc30953b3e308234f7dfa17d0be22e0",
+      "new_bytes": 3626,
+      "supersedes": {
+        "body_member": "source-batches/K40-PSF-REQUESTS-B03-original.zip!/screened-identities/psf-requests-issue-6533.txt",
+        "sha256": "7b692d71a3008e411042d4740e118f7ff10d4a31a0147d6b76090559b75cbb82",
+        "bytes": 3644
+      },
+      "correction_source": {
+        "input_archive_sha256": "3de350bdc6d6ec461b8d89c46f5cb1d3d229819cf81b13b111614be8f0578eda",
+        "raw_response_member": "search-page3-response.json",
+        "raw_response_sha256": "3e177f1b318e37b8a88f8d3b0e4cfdae86b0cc2e03582872b92344cb7bdd9fd4",
+        "json_field": "items[number=6533].body",
+        "encoding": "UTF-8",
+        "write_method": "decoded body string encoded directly as UTF-8; no newline normalization"
+      },
+      "original_append_archive_sha256": "2edcb5a0ab299e2d16b488cf79ae66cacadbbaacba3dca13c730b414d410d80d"
+    },
+    {
+      "repo_issue": "psf/requests#6532",
+      "issue_number": 6532,
+      "correction_member": "body-corrections/requests-issue-6532.txt",
+      "new_sha256": "7430d1d3cb493ad747ec8c98f2925bb0e955efe374192e9286d0376c3efe7bdd",
+      "new_bytes": 1879,
+      "supersedes": {
+        "body_member": "source-batches/K40-PSF-REQUESTS-B03-original.zip!/screened-identities/psf-requests-issue-6532.txt",
+        "sha256": "a9937f5f4523512351670caa60bad4c427ef7da432df96259120a89c5be0d80a",
+        "bytes": 1879
+      },
+      "correction_source": {
+        "input_archive_sha256": "3de350bdc6d6ec461b8d89c46f5cb1d3d229819cf81b13b111614be8f0578eda",
+        "raw_response_member": "search-page3-response.json",
+        "raw_response_sha256": "3e177f1b318e37b8a88f8d3b0e4cfdae86b0cc2e03582872b92344cb7bdd9fd4",
+        "json_field": "items[number=6532].body",
+        "encoding": "UTF-8",
+        "write_method": "decoded body string encoded directly as UTF-8; no newline normalization"
+      },
+      "original_append_archive_sha256": "2edcb5a0ab299e2d16b488cf79ae66cacadbbaacba3dca13c730b414d410d80d"
+    },
+    {
+      "repo_issue": "psf/requests#6487",
+      "issue_number": 6487,
+      "correction_member": "body-corrections/requests-issue-6487.txt",
+      "new_sha256": "6c36215b377da7b9e0277d356108a87af6d3936d8e21ad364211cd65146a317a",
+      "new_bytes": 1856,
+      "supersedes": {
+        "body_member": "source-batches/K40-PSF-REQUESTS-B03-original.zip!/screened-identities/psf-requests-issue-6487.txt",
+        "sha256": "53b629406abd913c3daa9e508ff8ee1fdaf3c0167d3d5be37d184aae1558555d",
+        "bytes": 1871
+      },
+      "correction_source": {
+        "input_archive_sha256": "3de350bdc6d6ec461b8d89c46f5cb1d3d229819cf81b13b111614be8f0578eda",
+        "raw_response_member": "search-page3-response.json",
+        "raw_response_sha256": "3e177f1b318e37b8a88f8d3b0e4cfdae86b0cc2e03582872b92344cb7bdd9fd4",
+        "json_field": "items[number=6487].body",
+        "encoding": "UTF-8",
+        "write_method": "decoded body string encoded directly as UTF-8; no newline normalization"
+      },
+      "original_append_archive_sha256": "2edcb5a0ab299e2d16b488cf79ae66cacadbbaacba3dca13c730b414d410d80d"
+    },
+    {
+      "repo_issue": "psf/requests#6481",
+      "issue_number": 6481,
+      "correction_member": "body-corrections/requests-issue-6481.txt",
+      "new_sha256": "b7ce528b222f350fd8499a66ea1b142f827ea624d619c2d9ac4ebd66866244a6",
+      "new_bytes": 205,
+      "supersedes": {
+        "body_member": "source-batches/K40-PSF-REQUESTS-B03-original.zip!/screened-identities/psf-requests-issue-6481.txt",
+        "sha256": "7afde27be9e797b75d2127ec1e149261c8323d8f7203ff53a2ac0884b90c0789",
+        "bytes": 212
+      },
+      "correction_source": {
+        "input_archive_sha256": "3de350bdc6d6ec461b8d89c46f5cb1d3d229819cf81b13b111614be8f0578eda",
+        "raw_response_member": "search-page3-response.json",
+        "raw_response_sha256": "3e177f1b318e37b8a88f8d3b0e4cfdae86b0cc2e03582872b92344cb7bdd9fd4",
+        "json_field": "items[number=6481].body",
+        "encoding": "UTF-8",
+        "write_method": "decoded body string encoded directly as UTF-8; no newline normalization"
+      },
+      "original_append_archive_sha256": "2edcb5a0ab299e2d16b488cf79ae66cacadbbaacba3dca13c730b414d410d80d"
+    }
+  ],
+  "catalog_v2_sha256": "6dc126e55b39cf9f874b43b721e0c320f35127075a35489facba5d7d4b89566e"
+}

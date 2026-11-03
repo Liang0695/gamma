@@ -1,0 +1,4 @@
+I want to get redirected location，But although I set ：
+s = requests.Session() 
+response = s.post(url,data=datas,headers=headers,allow_redirects=False)
+response.status_code is 200， not 302，why???
