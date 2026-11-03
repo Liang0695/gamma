@@ -1,0 +1,43 @@
+{
+  "schema": "k68-current-index-integration-manifest/1",
+  "current_catalog_status": "ACCEPTED_IN_CURRENT_K68_INDEX",
+  "accepted_baseline_catalog_sha256": "6dc126e55b39cf9f874b43b721e0c320f35127075a35489facba5d7d4b89566e",
+  "supersedes_catalog_v3_sha256": "88250911a6df34778acef1090bbbdc7449e43e1a7b49d3c8f4391c9dbce77cf7",
+  "supersedes_diff_v3_sha256": "0807e385b34b665659a4434696626eea1d7a1539be8d230eb0e79173caaab91c",
+  "integrates_corrected_catalog_v4_sha256": "97ef09c0b497c61ed20a3284f311e72545193521dc717baa11154c2acaa4f91d",
+  "integrates_corrected_diff_v4_sha256": "d932d347c24f9a17be762313ea262683bce8f6e02f6cdf0485221325b2f088ee",
+  "correction_bundle_sha256": "da65ce2c7f21d3b7e5c2a55a56183e749c0fb78651c0cba01595bb703585ef64",
+  "independent_review": {
+    "issue_id": "01a1a063-44ab-799d-bdd3-5e29417108fb",
+    "comment_id": "01a1a092-2454-7c74-94d0-425db83f1d4e",
+    "reviewer_agent_id": "082bbef2-a827-4e50-bcb2-57ef1f383924",
+    "ledger_sha256": "d621da884d33fb7415bbb56c3e625345122b729f7a769fbc991b72666dfe566d",
+    "verdict": "PASS",
+    "check_counts": {
+      "PASS": 285,
+      "RETURN": 0
+    }
+  },
+  "artifact_sha256": {
+    "k68-catalog-v5.json": "a39ce742bd2589324929ddabd052096a7fd5ca848cba478dc6ac1b0e7ac96e06",
+    "k68-current-integration-diff-v1.json": "151ed15f559cb7ded29f96f4c88b4e98fc3046160668e87f14edc6fcb26a2bea",
+    "integration-check.json": "12bb4f25d2f3cb10c7c59a6e5ce8570d4fdc68111ad5bfb4c74d09d98d7ccfcf",
+    "revision-review-ledger.json": "d621da884d33fb7415bbb56c3e625345122b729f7a769fbc991b72666dfe566d",
+    "README-current.md": "d0dc2525ee46f14f582f9eec1e66df7f4b81e5d6d2d60c6bfdd5fca85fd9a1e4"
+  },
+  "closure_summary": {
+    "direct_merged": 47,
+    "pinned_candidates": 6,
+    "direct_closure_deferred": 41,
+    "timestamp_mismatch_unresolved": 14,
+    "no_direct_merged_closer": 53
+  },
+  "inventory": {
+    "metadata": 564,
+    "material": 351,
+    "pinned": 327,
+    "source_ready": 85,
+    "deployable": 0,
+    "training_approved": 0
+  }
+}

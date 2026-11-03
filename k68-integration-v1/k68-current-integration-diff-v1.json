@@ -1,0 +1,82 @@
+{
+  "schema": "k68-current-index-integration-diff/1",
+  "kind": "accepted integration of the K40 python-trio B01 closure correction after targeted independent PASS",
+  "accepted_baseline": {
+    "catalog_filename": "k71-b03-catalog-v2.json",
+    "catalog_sha256": "6dc126e55b39cf9f874b43b721e0c320f35127075a35489facba5d7d4b89566e",
+    "identity_count": 300,
+    "inventory": {
+      "metadata": 464,
+      "material": 345,
+      "pinned": 321,
+      "source_ready": 85,
+      "deployable": 0,
+      "training_approved": 0
+    }
+  },
+  "supersedes_and_lineage": {
+    "rejected_catalog_v3_sha256": "88250911a6df34778acef1090bbbdc7449e43e1a7b49d3c8f4391c9dbce77cf7",
+    "rejected_diff_v3_sha256": "0807e385b34b665659a4434696626eea1d7a1539be8d230eb0e79173caaab91c",
+    "corrected_catalog_v4_sha256": "97ef09c0b497c61ed20a3284f311e72545193521dc717baa11154c2acaa4f91d",
+    "corrected_diff_v4_sha256": "d932d347c24f9a17be762313ea262683bce8f6e02f6cdf0485221325b2f088ee",
+    "correction_sidecar_sha256": "7f302c2e5433db32f2c4067e5e6c1305735080f20bb9eac1acab995cdd5e1879",
+    "corrected_closed_event_screen_sha256": "5c38ba7b4623adec7e16718011b573e1d14a70a8bb923ac3af56abd5b5eac682",
+    "corrected_screening_ledger_sha256": "dcabacb012084c4a3e53f836435203b405f811c8913201f72b2a66329540b247",
+    "correction_bundle_sha256": "da65ce2c7f21d3b7e5c2a55a56183e749c0fb78651c0cba01595bb703585ef64"
+  },
+  "independent_review": {
+    "issue_identifier": "KAGGLE-73",
+    "issue_id": "01a1a063-44ab-799d-bdd3-5e29417108fb",
+    "comment_id": "01a1a092-2454-7c74-94d0-425db83f1d4e",
+    "reviewer_agent_id": "082bbef2-a827-4e50-bcb2-57ef1f383924",
+    "ledger_attachment_id": "01a1a092-21c1-731e-8cf6-df64eadef341",
+    "ledger_sha256": "d621da884d33fb7415bbb56c3e625345122b729f7a769fbc991b72666dfe566d",
+    "verdict": "PASS",
+    "check_counts": {
+      "PASS": 285,
+      "RETURN": 0
+    },
+    "review_scope": "14 closure corrections, summary and integrity changes only"
+  },
+  "integrated_current_catalog": {
+    "filename": "k68-catalog-v5.json",
+    "sha256": "a39ce742bd2589324929ddabd052096a7fd5ca848cba478dc6ac1b0e7ac96e06",
+    "record_count": 400,
+    "identity_count": 400,
+    "closure_summary": {
+      "direct_same_repo_merged_closers": 47,
+      "pinned_source_candidates": 6,
+      "direct_closure_metadata_deferred": 41,
+      "timestamp_mismatch_unresolved_within_deferred": 14,
+      "no_direct_same_repo_merged_closer": 53
+    },
+    "inventory": {
+      "metadata": 564,
+      "material": 351,
+      "pinned": 327,
+      "source_ready": 85,
+      "deployable": 0,
+      "training_approved": 0
+    }
+  },
+  "record_changes_since_catalog_v4": [
+    "Top-level K68 current scope and independent acceptance lineage recorded.",
+    "No candidate row, source anchor, body, split, gate, or cumulative inventory changed."
+  ],
+  "preserved_gates": {
+    "source_role": "UNKNOWN",
+    "family": "UNKNOWN",
+    "old_exposure": "UNVERIFIED",
+    "split": "UNASSIGNED",
+    "actor_visible": false,
+    "trusted_acceptance": false,
+    "purpose_authorization": "NOT_GRANTED",
+    "training_release": "BLOCKED",
+    "environment": "NOT_ASSESSED",
+    "deployment": "NOT_ASSESSED",
+    "source_ready": 85,
+    "deployable": 0,
+    "training_approved": 0
+  },
+  "current_k68_issue_state": "in_progress; other K68 work remains open"
+}

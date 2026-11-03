@@ -1,0 +1,18 @@
+{
+  "schema": "k68-current-index-integration-check/1",
+  "result": "PASS",
+  "review_ledger_sha256": "d621da884d33fb7415bbb56c3e625345122b729f7a769fbc991b72666dfe566d",
+  "review_verdict": "PASS",
+  "checks": {
+    "v4_input_hashes_and_lineage": "PASS",
+    "review_ledger_285_pass_0_return": "PASS",
+    "records_unchanged_from_corrected_v4": "PASS",
+    "inventory_564_351_327_85_0_0_unchanged": "PASS",
+    "accepted_integration_state_recorded": "PASS",
+    "closure_partition_47_6_41_14_53": "PASS",
+    "qualification_and_release_gates_unchanged": "PASS"
+  },
+  "current_catalog_sha256": "a39ce742bd2589324929ddabd052096a7fd5ca848cba478dc6ac1b0e7ac96e06",
+  "source_or_qualification_rows_added": 0,
+  "candidate_code_or_tests_run": false
+}
