@@ -1,0 +1,341 @@
+{
+  "schema": "k68-black-b02-source-enrichment-diff/1",
+  "operation": "APPEND_SOURCE_ENRICHMENT_ONLY",
+  "baseline": {
+    "filename": "k68-catalog-v10-r1.json",
+    "attachment_id": "01a1a5c7-e92f-79d3-9a54-4b788570db31",
+    "sha256": "d644582da2416b1cdaee6945dbe85968a91f3ac8ad8c7d74130732d1c771e65e",
+    "identity_rows": 1172
+  },
+  "input_source_enrichment_package": {
+    "filename": "K40-psf-black-source-enrichment-b02-20261104.zip",
+    "attachment_id": "01a1a5d8-9167-7ef8-bd97-34ab66b1759a",
+    "sha256": "418b5280ea14ecc8620d18012d25512cd379daa5d833702078cd493e058f917b",
+    "queue_attachment_id": "01a1a5c3-7d27-7bc5-99b0-0ef2a53a75ea",
+    "queue_sha256": "0a3869a0ec08103556082a5754f0d0fb745d9e4154572c3f3502906656d14ca1",
+    "source_enrichment_ledger_member": "payload/source-enrichment-ledger.json"
+  },
+  "output_catalog": {
+    "filename": "k68-catalog-v11.json",
+    "sha256": "d4501ec7195d62286c97ed8903ab5aaeb6667ce3795bad840fd7c495f2c745c6",
+    "identity_rows": 1172
+  },
+  "counts": {
+    "existing_identity_rows_enriched": 20,
+    "new_identity_rows": 0,
+    "metadata_increment": 0,
+    "source_material_increment": 20,
+    "pinned_increment": 20,
+    "unique_archives": 19,
+    "archive_reuse_rows": 1,
+    "source_ready_increment": 0,
+    "deployable_increment": 0,
+    "training_approved_increment": 0,
+    "cumulative_inventory_before": {
+      "metadata": 1336,
+      "material": 385,
+      "pinned": 361,
+      "source_ready": 85,
+      "deployable": 0,
+      "training_approved": 0
+    },
+    "cumulative_inventory_after": {
+      "metadata": 1336,
+      "material": 405,
+      "pinned": 381,
+      "source_ready": 85,
+      "deployable": 0,
+      "training_approved": 0
+    }
+  },
+  "enriched_rows": [
+    {
+      "task_id": "psf/black#4926",
+      "stable_id": "psf-black-4926-metadata-linkedpr-b01",
+      "historical_disposition_before": "RUN_CAP_NOT_MATERIALIZED",
+      "historical_disposition_after": "RUN_CAP_NOT_MATERIALIZED",
+      "source_enrichment_status": "FIXED_SOURCE_MATERIALIZED_REVIEW_ONLY",
+      "record_sha256_before": "64252dbd17475ed0ab2c1a6926eaa7e4d83186296db72637bbe900e7a6a966e8",
+      "record_sha256_after": "5f780b3e24a09cf5014984be1e99cacf5464d18ed316398a6a8ce584291ba009",
+      "source_archive_sha256": "d32f577c857558495a1e28bdd110fce138f13e7440ef3b26e485b875fc7d3f92",
+      "source_archive_member": "payload/source-archives/6f43612766da4a2f275b575af0802c3e73b6ed83.tar.gz",
+      "archive_reuse": false
+    },
+    {
+      "task_id": "psf/black#4875",
+      "stable_id": "psf-black-4875-metadata-linkedpr-b01",
+      "historical_disposition_before": "RUN_CAP_NOT_MATERIALIZED",
+      "historical_disposition_after": "RUN_CAP_NOT_MATERIALIZED",
+      "source_enrichment_status": "FIXED_SOURCE_MATERIALIZED_REVIEW_ONLY",
+      "record_sha256_before": "7738f2b648ffaafdff719a94849860543e6f77476c5ee6a7ea9d012d232e93b8",
+      "record_sha256_after": "a52be5554d636e2e0fd44d17bf0881d491fa736d8526740d43922d869975160f",
+      "source_archive_sha256": "564caa06e494f07ef6527169df9e7fabe07a3496d24d271afcd3350dc313ae39",
+      "source_archive_member": "payload/source-archives/e71305bee302f7f9016b228361e5ae69669dca7b.tar.gz",
+      "archive_reuse": false
+    },
+    {
+      "task_id": "psf/black#4873",
+      "stable_id": "psf-black-4873-metadata-linkedpr-b01",
+      "historical_disposition_before": "RUN_CAP_NOT_MATERIALIZED",
+      "historical_disposition_after": "RUN_CAP_NOT_MATERIALIZED",
+      "source_enrichment_status": "FIXED_SOURCE_MATERIALIZED_REVIEW_ONLY",
+      "record_sha256_before": "e3058e988b408c62757851432e91b156786ccf7f0ef7b30e2a07e8448980dd55",
+      "record_sha256_after": "6b30b938a2999a73a0b4a132cf050f03db35787049b6b018d857878df28105e2",
+      "source_archive_sha256": "12585f6ed3c71c996e43d9f56f4f2459c823ae32b47107a773717f0f2230eebb",
+      "source_archive_member": "payload/source-archives/7b265f16634155dafcca65f6122ef7ed8d14a67f.tar.gz",
+      "archive_reuse": true
+    },
+    {
+      "task_id": "psf/black#4838",
+      "stable_id": "psf-black-4838-metadata-linkedpr-b01",
+      "historical_disposition_before": "RUN_CAP_NOT_MATERIALIZED",
+      "historical_disposition_after": "RUN_CAP_NOT_MATERIALIZED",
+      "source_enrichment_status": "FIXED_SOURCE_MATERIALIZED_REVIEW_ONLY",
+      "record_sha256_before": "321088f941e342b5c3a2295ace0dc030c3bdbab5da49fddfd6ed7d30e1e7aa9f",
+      "record_sha256_after": "35ddb04ade05efd22c0c291273beaedef16f0baf7fa172959b182ea3913d56f4",
+      "source_archive_sha256": "cfb2dd329d5c7dfd16fbf0c5d45876714104cb071653692dd995def29b4c64af",
+      "source_archive_member": "payload/source-archives/f37758e666cdac45eb0b622cfb6b0320fafd662c.tar.gz",
+      "archive_reuse": false
+    },
+    {
+      "task_id": "psf/black#4826",
+      "stable_id": "psf-black-4826-metadata-linkedpr-b01",
+      "historical_disposition_before": "RUN_CAP_NOT_MATERIALIZED",
+      "historical_disposition_after": "RUN_CAP_NOT_MATERIALIZED",
+      "source_enrichment_status": "FIXED_SOURCE_MATERIALIZED_REVIEW_ONLY",
+      "record_sha256_before": "e2b529fedb734a51bd06ce830cb3835ccae5183cc0c082fb0dd7457713f461d4",
+      "record_sha256_after": "abccf1996b5172de881813229975d16480b580207f9cab7c8eb670982ab24c2d",
+      "source_archive_sha256": "067a3dd0e6dd5eabcba333ffa6ceae7e63c456805126910ed4fbc4db3dee366b",
+      "source_archive_member": "payload/source-archives/138745eca650aa59ab30458f7b1c026b66608a09.tar.gz",
+      "archive_reuse": false
+    },
+    {
+      "task_id": "psf/black#4813",
+      "stable_id": "psf-black-4813-metadata-linkedpr-b01",
+      "historical_disposition_before": "RUN_CAP_NOT_MATERIALIZED",
+      "historical_disposition_after": "RUN_CAP_NOT_MATERIALIZED",
+      "source_enrichment_status": "FIXED_SOURCE_MATERIALIZED_REVIEW_ONLY",
+      "record_sha256_before": "17bbdb9f91eb72fb38b728b48dece0c3b12022aa4d4e55e8f137388e513989c2",
+      "record_sha256_after": "e27ec53888fb08ed0026202b5bdd883168be5bcd3a0308cf04a536d590088f25",
+      "source_archive_sha256": "fc587e65239af05df80719b920e63fa74d3a1e700a262b9d8ec3662d15b1b1c6",
+      "source_archive_member": "payload/source-archives/0a31a36672bdb938198b17958514ecfb9999f5ef.tar.gz",
+      "archive_reuse": false
+    },
+    {
+      "task_id": "psf/black#4797",
+      "stable_id": "psf-black-4797-metadata-linkedpr-b01",
+      "historical_disposition_before": "RUN_CAP_NOT_MATERIALIZED",
+      "historical_disposition_after": "RUN_CAP_NOT_MATERIALIZED",
+      "source_enrichment_status": "FIXED_SOURCE_MATERIALIZED_REVIEW_ONLY",
+      "record_sha256_before": "64161be80790d76895e3a463fa3d7ac6d5aac9bf7976592efa2f0ab708babcda",
+      "record_sha256_after": "f6d4fd49168dc9240fd1ce52a8fd284e44d308354e1992c74aa42c5c8292cf79",
+      "source_archive_sha256": "fc5e76626afc3aa3f6d41338e4eb5ea9f9c47d19b6696a31223b993fae3690d1",
+      "source_archive_member": "payload/source-archives/994e184dbc1f1cbca00093885c732892f9948d1c.tar.gz",
+      "archive_reuse": false
+    },
+    {
+      "task_id": "psf/black#4788",
+      "stable_id": "psf-black-4788-metadata-linkedpr-b01",
+      "historical_disposition_before": "RUN_CAP_NOT_MATERIALIZED",
+      "historical_disposition_after": "RUN_CAP_NOT_MATERIALIZED",
+      "source_enrichment_status": "FIXED_SOURCE_MATERIALIZED_REVIEW_ONLY",
+      "record_sha256_before": "2c00876f5040e3b47ba017f227fcced5e426801c9df9e7355c9088ac92169b74",
+      "record_sha256_after": "79842d6ca104d56dfdc4adbc58fbb0cba074f5ced2c7ab8c868eef055b56585f",
+      "source_archive_sha256": "e1ba23b723943be19ef1846dd45162dd0d32a877d0663a2645bfb11f2c442e93",
+      "source_archive_member": "payload/source-archives/82030302ea3d70f233d418d9abd3645d543a400c.tar.gz",
+      "archive_reuse": false
+    },
+    {
+      "task_id": "psf/black#4781",
+      "stable_id": "psf-black-4781-metadata-linkedpr-b01",
+      "historical_disposition_before": "RUN_CAP_NOT_MATERIALIZED",
+      "historical_disposition_after": "RUN_CAP_NOT_MATERIALIZED",
+      "source_enrichment_status": "FIXED_SOURCE_MATERIALIZED_REVIEW_ONLY",
+      "record_sha256_before": "65cf59fd2035ff36807cec60dbdb42dd601b34e342dd95ccc8ff3ce8727a1e8f",
+      "record_sha256_after": "d9f503fcb6700f3dab2fe759d54e1c4c6b1c9dbbb642f6c15bb937b3586311e1",
+      "source_archive_sha256": "5c0d96ea326e9f14d5d55e6d8b3f0bae532ab6602fa85ff5ef0d25aa99bd226a",
+      "source_archive_member": "payload/source-archives/efad911ff4f7855ffdc06886579ca8cd2b93733f.tar.gz",
+      "archive_reuse": false
+    },
+    {
+      "task_id": "psf/black#4762",
+      "stable_id": "psf-black-4762-metadata-linkedpr-b01",
+      "historical_disposition_before": "RUN_CAP_NOT_MATERIALIZED",
+      "historical_disposition_after": "RUN_CAP_NOT_MATERIALIZED",
+      "source_enrichment_status": "FIXED_SOURCE_MATERIALIZED_REVIEW_ONLY",
+      "record_sha256_before": "83fe652b01990ba202645acad6e7cf1f45e8be93703cda3526137f676cbe83e7",
+      "record_sha256_after": "3753c4683fda6b6d3f6ba177ab11aabd97fc872f96812c5f67d600704a4b863b",
+      "source_archive_sha256": "c26e0438d0aef11ee88ff750fca105aca6a0cd894dcea955f844ad0cb8325edb",
+      "source_archive_member": "payload/source-archives/4a8e6b789bbd18c0455d74bbec8d957e824eb3bf.tar.gz",
+      "archive_reuse": false
+    },
+    {
+      "task_id": "psf/black#4731",
+      "stable_id": "psf-black-4731-metadata-linkedpr-b01",
+      "historical_disposition_before": "RUN_CAP_NOT_MATERIALIZED",
+      "historical_disposition_after": "RUN_CAP_NOT_MATERIALIZED",
+      "source_enrichment_status": "FIXED_SOURCE_MATERIALIZED_REVIEW_ONLY",
+      "record_sha256_before": "dabd8d8ab80aa3c7c65e90e58071b2a2a9d45916810b9af12fa7bad7647f465b",
+      "record_sha256_after": "fca30841d217ed83f14bea5db19fcc4391142ef555d4592dbe15af98d37697d6",
+      "source_archive_sha256": "12585f6ed3c71c996e43d9f56f4f2459c823ae32b47107a773717f0f2230eebb",
+      "source_archive_member": "payload/source-archives/7b265f16634155dafcca65f6122ef7ed8d14a67f.tar.gz",
+      "archive_reuse": true
+    },
+    {
+      "task_id": "psf/black#4725",
+      "stable_id": "psf-black-4725-metadata-linkedpr-b01",
+      "historical_disposition_before": "RUN_CAP_NOT_MATERIALIZED",
+      "historical_disposition_after": "RUN_CAP_NOT_MATERIALIZED",
+      "source_enrichment_status": "FIXED_SOURCE_MATERIALIZED_REVIEW_ONLY",
+      "record_sha256_before": "2a3ee5b162e6ecf80478346c45cf773a3e1dc25012797bdcd29b67e45bfb0517",
+      "record_sha256_after": "9fadae1a0daccf0eb495c528dca43a21f015e4e8a355f06d907392c2e8572a3a",
+      "source_archive_sha256": "e135f43f6e3514181127d45b2083363e35bfe63e0fe3fc38a55758249c29b685",
+      "source_archive_member": "payload/source-archives/f5e2d0667dbeb36e6b11e1a04f3f41ccd893babe.tar.gz",
+      "archive_reuse": false
+    },
+    {
+      "task_id": "psf/black#4721",
+      "stable_id": "psf-black-4721-metadata-linkedpr-b01",
+      "historical_disposition_before": "RUN_CAP_NOT_MATERIALIZED",
+      "historical_disposition_after": "RUN_CAP_NOT_MATERIALIZED",
+      "source_enrichment_status": "FIXED_SOURCE_MATERIALIZED_REVIEW_ONLY",
+      "record_sha256_before": "642bbda092d14a41943b8162b892ee33fdcbf14db37976abba91011211137709",
+      "record_sha256_after": "5be52362a12a8389c0d16ebb42ca10039298a74a48d57e6c8a63dbf9ecfcbba5",
+      "source_archive_sha256": "43e362e94ac95654ef112929d02692d0df4c0171e11f850476468deb0f83a6ed",
+      "source_archive_member": "payload/source-archives/3a96e06025daf0519ba1db113f779a5779a4a702.tar.gz",
+      "archive_reuse": false
+    },
+    {
+      "task_id": "psf/black#4718",
+      "stable_id": "psf-black-4718-metadata-linkedpr-b01",
+      "historical_disposition_before": "RUN_CAP_NOT_MATERIALIZED",
+      "historical_disposition_after": "RUN_CAP_NOT_MATERIALIZED",
+      "source_enrichment_status": "FIXED_SOURCE_MATERIALIZED_REVIEW_ONLY",
+      "record_sha256_before": "ff1c3b14915db00152b015b2ff4eb62e6151c01c35273992e345f1dbc2077fe6",
+      "record_sha256_after": "3339097302a81dc30ccb2a2c1dbaa1d6662a1d33d9fdf80a83a43666fbfd2497",
+      "source_archive_sha256": "31927fd651a98a9c48043d6a8b3fe0491ee12a32deb6a09ee3767adc5af958ef",
+      "source_archive_member": "payload/source-archives/30275ed2c3695e4c8bd9ab862c28c3d53071b17c.tar.gz",
+      "archive_reuse": false
+    },
+    {
+      "task_id": "psf/black#4678",
+      "stable_id": "psf-black-4678-metadata-linkedpr-b01",
+      "historical_disposition_before": "RUN_CAP_NOT_MATERIALIZED",
+      "historical_disposition_after": "RUN_CAP_NOT_MATERIALIZED",
+      "source_enrichment_status": "FIXED_SOURCE_MATERIALIZED_REVIEW_ONLY",
+      "record_sha256_before": "2aa2b6792f008b75329a188406ad0b322e127073374775a38a6c63d5bf2bb4a3",
+      "record_sha256_after": "48c3ef9498f7c486725f1719c63761fcf2ef00ac0b7c198aa53fd07c0cc8125e",
+      "source_archive_sha256": "990c680d66e0004cc7130bd88c41518b74ce6d6a0192580c83d2d0f09be74b3a",
+      "source_archive_member": "payload/source-archives/abd5f08107b09f768b1ec98c7a48e65ec7fdd661.tar.gz",
+      "archive_reuse": false
+    },
+    {
+      "task_id": "psf/black#4632",
+      "stable_id": "psf-black-4632-metadata-linkedpr-b01",
+      "historical_disposition_before": "RUN_CAP_NOT_MATERIALIZED",
+      "historical_disposition_after": "RUN_CAP_NOT_MATERIALIZED",
+      "source_enrichment_status": "FIXED_SOURCE_MATERIALIZED_REVIEW_ONLY",
+      "record_sha256_before": "aaefef07150e2a2c49f4b4a017ad2ae841754fa82763bcb0ad9a8579c7b8cc4b",
+      "record_sha256_after": "3d460107948e64170471253aa899872bc8d5c2f605c692ca5292e80ee9abb3c4",
+      "source_archive_sha256": "04b4c2e1be20ecb55fe6a0657ffa486d0958588713040d9ca0165b16e566446a",
+      "source_archive_member": "payload/source-archives/2c135edf3732a8efcc89450446fcaa7589e2a1c8.tar.gz",
+      "archive_reuse": false
+    },
+    {
+      "task_id": "psf/black#4631",
+      "stable_id": "psf-black-4631-metadata-linkedpr-b01",
+      "historical_disposition_before": "RUN_CAP_NOT_MATERIALIZED",
+      "historical_disposition_after": "RUN_CAP_NOT_MATERIALIZED",
+      "source_enrichment_status": "FIXED_SOURCE_MATERIALIZED_REVIEW_ONLY",
+      "record_sha256_before": "753abdc73397560f2888b29fdff6da3ee969fd5f54f7c91f15447fe9ce7bd17f",
+      "record_sha256_after": "3485b86486d1c012e80e3ef17ee9e02fc31b43f36241403e0184b108abf7cab6",
+      "source_archive_sha256": "af775491848b27de08c8286c402b19685251707da94aa0ed2f2cc96360971e1b",
+      "source_archive_member": "payload/source-archives/6144c46c6a6960aeaf62484d3d8cbafedf0092f3.tar.gz",
+      "archive_reuse": false
+    },
+    {
+      "task_id": "psf/black#4589",
+      "stable_id": "psf-black-4589-metadata-linkedpr-b01",
+      "historical_disposition_before": "RUN_CAP_NOT_MATERIALIZED",
+      "historical_disposition_after": "RUN_CAP_NOT_MATERIALIZED",
+      "source_enrichment_status": "FIXED_SOURCE_MATERIALIZED_REVIEW_ONLY",
+      "record_sha256_before": "08e2030def02a0d20f0864802133376e7df669ca6478e72aa72226e3ffcd7c29",
+      "record_sha256_after": "71842bbfa7743b1243dae508e2b923c4e4136e8d587b4cf037fd627dc864a1b6",
+      "source_archive_sha256": "95a1b1de4c1e73dd11f69b6d02c40faac85651033f22b0fdde58eaea80c9bc90",
+      "source_archive_member": "payload/source-archives/6426151d243d078108d88b9986a45d08410ffbbf.tar.gz",
+      "archive_reuse": false
+    },
+    {
+      "task_id": "psf/black#4540",
+      "stable_id": "psf-black-4540-metadata-linkedpr-b01",
+      "historical_disposition_before": "RUN_CAP_NOT_MATERIALIZED",
+      "historical_disposition_after": "RUN_CAP_NOT_MATERIALIZED",
+      "source_enrichment_status": "FIXED_SOURCE_MATERIALIZED_REVIEW_ONLY",
+      "record_sha256_before": "64c043b72dfca32c810c0d8cf0dbbb71d0ad297fed960a5306f4ff4f7b93c6e1",
+      "record_sha256_after": "c27c5c5a48cb8340c88dfbe08304bb37c50d6a2a860d6234dab53b53446c0b46",
+      "source_archive_sha256": "c1ffef926a734b008ed82027a98e707ad9a422c73f08d63c7528fcc61c63359c",
+      "source_archive_member": "payload/source-archives/9431e98522ec91087f0e2b5fcd71a7a807f52ed7.tar.gz",
+      "archive_reuse": false
+    },
+    {
+      "task_id": "psf/black#4522",
+      "stable_id": "psf-black-4522-metadata-linkedpr-b01",
+      "historical_disposition_before": "RUN_CAP_NOT_MATERIALIZED",
+      "historical_disposition_after": "RUN_CAP_NOT_MATERIALIZED",
+      "source_enrichment_status": "FIXED_SOURCE_MATERIALIZED_REVIEW_ONLY",
+      "record_sha256_before": "fa493d5af5e3fb8417ae31f97dc982cfffd3a4fdf27e99be114b5cb52217187b",
+      "record_sha256_after": "685ea963e8eff96c22cf8d19630d177033c6f9a20d7c9bd303b712a017560447",
+      "source_archive_sha256": "3dde0a7ebea746c9413afd13ddd68ce7f9ffd96db38b4e105686535718f33304",
+      "source_archive_member": "payload/source-archives/e58baf15b99e0202f10bda09447d3eb246e88df9.tar.gz",
+      "archive_reuse": false
+    }
+  ],
+  "archive_reuse": {
+    "source_archive_sha256": "12585f6ed3c71c996e43d9f56f4f2459c823ae32b47107a773717f0f2230eebb",
+    "base_commit": "7b265f16634155dafcca65f6122ef7ed8d14a67f",
+    "base_tree": "5cc3444e0cde672020379fe769333f2c80cd3bfb",
+    "direct_pr": 4872,
+    "task_ids": [
+      "psf/black#4873",
+      "psf/black#4731"
+    ],
+    "family": "UNKNOWN",
+    "disposition": "archive bytes reused for two issue-specific enrichment records; no family clearance asserted"
+  },
+  "queue_continuation": {
+    "source_queue_attachment_id": "01a1a5c3-7d27-7bc5-99b0-0ef2a53a75ea",
+    "source_queue_sha256": "0a3869a0ec08103556082a5754f0d0fb745d9e4154572c3f3502906656d14ca1",
+    "queue_rows_before": 49,
+    "rows_consumed": 20,
+    "rows_remaining": 29,
+    "next_cursor": "psf/black#4437",
+    "page2_requested": false,
+    "next_step_requires_082_pass": true,
+    "continuation_batch_index": 3,
+    "max_batches": 3,
+    "stop_at_pinned_400_or_20_source_cap": true
+  },
+  "qualification_gates": {
+    "source_role": "UNKNOWN",
+    "family": "UNKNOWN",
+    "split": "UNASSIGNED",
+    "actor_visible": false,
+    "trusted_acceptance": false,
+    "purpose_authorization": "NOT_GRANTED",
+    "training_release": "BLOCKED",
+    "environment": "NOT_ASSESSED",
+    "deployment": "NOT_ASSESSED",
+    "old_exposure": "NOT_CLEARED"
+  },
+  "preserved": {
+    "prior_1172_identity_rows": true,
+    "historical_RUN_CAP_NOT_MATERIALIZED_dispositions": true,
+    "source_anchor_null_values": true,
+    "prior_66_prompts": true,
+    "source_ready_85": true,
+    "prior_24_timestamp_mismatches": true,
+    "prior_6_no_same_repo_merged_rows": true,
+    "prior_4520_4588_family_defer": true,
+    "prior_click_and_pytest_exclusions": true
+  }
+}
