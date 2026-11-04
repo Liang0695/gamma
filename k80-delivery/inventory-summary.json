@@ -1,0 +1,92 @@
+{
+  "as_of": "2026-11-04",
+  "input_catalog": {
+    "attachment_id": "01a1a602-6590-7e49-9894-13a4401d9287",
+    "filename": "k68-catalog-v12.json",
+    "sha256": "60d63de504714c0489f50ce721a10b2dea511164881c1e9f78a3bcc35228fc41",
+    "records": 1172
+  },
+  "input_accepted_review": {
+    "attachment_id": "01a1a606-428b-7e79-9e98-ecc360141d1d",
+    "sha256": "e7d9a65128a34db23a6413b97168ac3b784c26b54d2591a131b2f1af77ed0ffe"
+  },
+  "input_black_packages": {
+    "b01": {
+      "attachment_id": "01a1a218-67af-737b-98a4-c904fa385852",
+      "sha256": "4be8ee06a757e34d39313b620c413c2491a5169a29a0449b605d9f862f902914"
+    },
+    "b02": {
+      "attachment_id": "01a1a5d8-9167-7ef8-bd97-34ab66b1759a",
+      "sha256": "418b5280ea14ecc8620d18012d25512cd379daa5d833702078cd493e058f917b"
+    },
+    "b03": {
+      "attachment_id": "01a1a5fa-919a-70ab-b379-6334c93d086c",
+      "sha256": "26109a854d1a6f929fa0538cc5e9ce2faab00951b95a8f9022c9ced30596aa6b"
+    }
+  },
+  "record_count": 1312,
+  "current_catalog_records": 1172,
+  "historical_baseline_recovered_from_existing_indexes": 140,
+  "historical_baseline_unenumerated_gap": 24,
+  "current_catalog_coverage": "K68 catalog-v12 provides 1172 rows. K62 global-manifest.json recovers 140 distinct older identities; K40 effective-index-v17.1 corroborates 67 of these and adds no new identity. Against 1336 cumulative metadata, 24 identities remain unenumerated in available existing indexes. No placeholder rows or stable IDs are fabricated. Historical source asset member paths are listed only when the index actually contains them.",
+  "historical_index_inputs": {
+    "K62_v24": {
+      "attachment_id": "01a1357e-8143-7704-afc5-5462b0f20b9a",
+      "sha256": "fb29a18b319b332b70c0d594576395fb922a02e07caa524ed36eed4cbe7058a9",
+      "member": "global-manifest.json"
+    },
+    "K40_effective_index_v17_1": {
+      "attachment_id": "01a130d3-0f63-7820-97d2-5dbcbeb897a2",
+      "sha256": "a9069f41964eca6186b8ba71aa6188f20b0f9533f5081c641549049bacaf8f06",
+      "member": "effective-index-v17.1.json"
+    }
+  },
+  "catalog_cumulative_counts": {
+    "metadata": 1336,
+    "material": 424,
+    "pinned": 400,
+    "source_ready": 85,
+    "deployable": 0,
+    "training_approved": 0
+  },
+  "selected_review_only_prompts_already_audited": 66,
+  "black_source_candidates_for_new_prompt_selection": 59,
+  "new_neutral_prompts": 11,
+  "black_candidates_deferred": 48,
+  "same_repair_groups_with_multiple_records": 2,
+  "same_archive_groups_with_multiple_records": 3,
+  "known_duplicate_groups": 1,
+  "known_duplicate_records": 2,
+  "source_chain_status_counts_in_catalog": {
+    "PARTIAL": 9,
+    "NOT_INDEPENDENTLY_REVIEWED": 91,
+    "VERIFIED": 100,
+    "UNKNOWN": 972
+  },
+  "disposition_counts_in_catalog": {
+    "SELECTED": 66,
+    "DEFERRED": 134,
+    "METADATA_ONLY_NO_DIRECT_SAME_REPO_MERGED_PR": 303,
+    "SOURCE_CANDIDATE_PINNED_REVIEW_ONLY": 41,
+    "DEFERRED_DEPENDENCY_DECLARATION_MAINTENANCE": 1,
+    "DEFERRED_DIRECT_CLOSURE_METADATA_ONLY": 170,
+    "METADATA_ONLY_TIMESTAMP_MISMATCH_UNRESOLVED": 15,
+    "METADATA_ONLY_NO_SAME_REPO_MERGED_FINAL_CLOSER": 355,
+    "METADATA_ONLY_MISMATCH_UNRESOLVED": 37,
+    "RUN_CAP_NOT_MATERIALIZED": 49,
+    "DEFER_DUPLICATE_MERGED_PR_FAMILY": 1
+  },
+  "catalog_rows_without_member_path_in_catalog_or_enrichment": 1108,
+  "qualification_gates_preserved": {
+    "source_role": "UNKNOWN",
+    "family/root": "UNKNOWN",
+    "split": "UNASSIGNED",
+    "actor_visible": false,
+    "trusted_acceptance": false,
+    "purpose_authorization": "NOT_GRANTED",
+    "training_release": "BLOCKED",
+    "environment": "NOT_ASSESSED",
+    "deployment": "NOT_ASSESSED",
+    "old_exposure": "NOT_CLEARED"
+  }
+}

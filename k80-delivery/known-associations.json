@@ -1,0 +1,64 @@
+{
+  "same_repair_groups": [
+    {
+      "repair_key": "psf/black#4536",
+      "stable_ids": [
+        "psf/black#4520",
+        "psf/black#4588"
+      ]
+    },
+    {
+      "repair_key": "psf/black#4872",
+      "stable_ids": [
+        "psf/black#4731",
+        "psf/black#4873"
+      ]
+    }
+  ],
+  "same_archive_groups": [
+    {
+      "archive_key": "12585f6ed3c71c996e43d9f56f4f2459c823ae32b47107a773717f0f2230eebb",
+      "stable_ids": [
+        "psf/black#4731",
+        "psf/black#4873"
+      ]
+    },
+    {
+      "archive_key": "b92323948445723edd2eef406c2dcd301bc1424da55f272934e67e4069b3018d",
+      "stable_ids": [
+        "pytest-dev/pytest#12763",
+        "pytest-dev/pytest#12883"
+      ]
+    },
+    {
+      "archive_key": "db72076f211aa65aaff98317219f9cdc3d9ca349b5447cdc6d36cf48697e7c1a",
+      "stable_ids": [
+        "pytest-dev/pytest#12888",
+        "pytest-dev/pytest#13170"
+      ]
+    }
+  ],
+  "known_duplicate_groups": [
+    {
+      "group": "black-pr-4872-base-tree-archive",
+      "stable_ids": [
+        "psf/black#4731",
+        "psf/black#4873"
+      ],
+      "status": "RELATED_REPAIR_AND_ARCHIVE_REUSE; DUPLICATE_NOT_ASSERTED"
+    },
+    {
+      "group": "black-pr-4536-known-duplicate",
+      "stable_ids": [
+        "psf/black#4520",
+        "psf/black#4588"
+      ],
+      "status": "KNOWN_DUPLICATE_EXCLUSION; BOTH_RECORDS_PRESERVED"
+    }
+  ],
+  "notes": [
+    "Same archive is not treated as same task.",
+    "Unknown family/root is not inferred from shared PR or archive.",
+    "PR association fields are retained as present in the accepted catalog; no PR body/diff/fix was read."
+  ]
+}

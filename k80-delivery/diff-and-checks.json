@@ -1,0 +1,19 @@
+{
+  "catalog_sha256_matches_accepted_v12": true,
+  "catalog_rows": 1172,
+  "legacy_baseline_rows": 140,
+  "unmapped_legacy_metadata_identities": 24,
+  "combined_identity_rows": 1312,
+  "unique_stable_ids": 1312,
+  "black_materialized_candidate_rows": 59,
+  "black_issue_body_members_verified": 59,
+  "black_fixed_source_members_verified": 59,
+  "new_prompt_count": 11,
+  "new_prompt_ids_are_in_candidate_pool": true,
+  "prompt_has_no_pr_answer_or_verifier_terms": true,
+  "old_66_package_sha256_matches": true,
+  "old_66_prompt_member_count": 66,
+  "old_66_prompts_copied_or_rewritten": 0,
+  "qualification_gate_changes": 0,
+  "zip_crc_errors": 0
+}

@@ -1,0 +1,1483 @@
+{
+  "source_candidates": 59,
+  "new_prompts": 11,
+  "deferred": 48,
+  "old_reviewed_prompts_reused": 66,
+  "prompts": [
+    {
+      "stable_id": "psf/black#4258",
+      "repo": "psf/black",
+      "issue_number": 4258,
+      "title_reference_only": "Create URL links to actual PRs rather than simply referencing the PR number",
+      "source_issue_body": {
+        "attachment_id": "01a1a218-67af-737b-98a4-c904fa385852",
+        "sha256": "4be8ee06a757e34d39313b620c413c2491a5169a29a0449b605d9f862f902914",
+        "member": "batch-python-black-linkedpr-20261103-b01/issue-bodies/black-4258.txt",
+        "member_sha256": "8bdbb53531844b810ff9831e381cc6aa28eec75db1ee20564ff9f0e0407773b8"
+      },
+      "fixed_source": {
+        "attachment_id": "01a1a5fa-919a-70ab-b379-6334c93d086c",
+        "package_sha256": "26109a854d1a6f929fa0538cc5e9ce2faab00951b95a8f9022c9ced30596aa6b",
+        "archive_member": "payload/source-archives/75eb55764ee07e580bfed21a0e51183648d1be2e.tar.gz",
+        "archive_sha256": "e81b5b79489dc126ee39e17d95f5a7d2b6bcbe9a57d4e4c7ef9e7e8826f7cb1b",
+        "base_commit": "75eb55764ee07e580bfed21a0e51183648d1be2e",
+        "base_tree": "9b1d80dedf6030acb05da63918544dbcc4a0d72b",
+        "archive_reuse": false
+      },
+      "relation_group": null,
+      "prompt_file": null,
+      "stage": "DEFERRED",
+      "reason": "Deferred because the issue material does not make both a concrete defect and its expected behavior sufficiently clear for neutral prompting; no behavior was inferred from the source archive."
+    },
+    {
+      "stable_id": "psf/black#4261",
+      "repo": "psf/black",
+      "issue_number": 4261,
+      "title_reference_only": "Fails to parse backslash on line by itself",
+      "source_issue_body": {
+        "attachment_id": "01a1a218-67af-737b-98a4-c904fa385852",
+        "sha256": "4be8ee06a757e34d39313b620c413c2491a5169a29a0449b605d9f862f902914",
+        "member": "batch-python-black-linkedpr-20261103-b01/issue-bodies/black-4261.txt",
+        "member_sha256": "8e71a85b90516c376792b05de5ff561bc5077728b03e3fd3bad9d6988ebcc737"
+      },
+      "fixed_source": {
+        "attachment_id": "01a1a5fa-919a-70ab-b379-6334c93d086c",
+        "package_sha256": "26109a854d1a6f929fa0538cc5e9ce2faab00951b95a8f9022c9ced30596aa6b",
+        "archive_member": "payload/source-archives/8447af4d8df5ae20260e0983c085ca0c04674fe6.tar.gz",
+        "archive_sha256": "0219bca9573aa5a379732a063ca6062547898872a3fad9f25bdc1e7f25ed6c2b",
+        "base_commit": "8447af4d8df5ae20260e0983c085ca0c04674fe6",
+        "base_tree": "f25261df6972a6644d6453b7aaa3392da8c8e161",
+        "archive_reuse": false
+      },
+      "relation_group": null,
+      "prompt_file": null,
+      "stage": "DEFERRED",
+      "reason": "Deferred from this first slice despite a reported failure: the symptom is multi-condition or its expected behavior/reproduction is less bounded than the 11 selected cases; retain the source record for later review."
+    },
+    {
+      "stable_id": "psf/black#4264",
+      "repo": "psf/black",
+      "issue_number": 4264,
+      "title_reference_only": "`--line-ranges` formats entire file when ranges are at EOF",
+      "source_issue_body": {
+        "attachment_id": "01a1a218-67af-737b-98a4-c904fa385852",
+        "sha256": "4be8ee06a757e34d39313b620c413c2491a5169a29a0449b605d9f862f902914",
+        "member": "batch-python-black-linkedpr-20261103-b01/issue-bodies/black-4264.txt",
+        "member_sha256": "e268a74a16dcbc13c42eeed0f0e489ab9896b6c1077c1a72530173eb7e9ea956"
+      },
+      "fixed_source": {
+        "attachment_id": "01a1a5fa-919a-70ab-b379-6334c93d086c",
+        "package_sha256": "26109a854d1a6f929fa0538cc5e9ce2faab00951b95a8f9022c9ced30596aa6b",
+        "archive_member": "payload/source-archives/1abcffc81816257985678f08c61584ed4287f22a.tar.gz",
+        "archive_sha256": "7a67fe4b6c1487a1f3ac4176c6a0508ebc22a38d4687e51c5a16fd722ef4642e",
+        "base_commit": "1abcffc81816257985678f08c61584ed4287f22a",
+        "base_tree": "eedb554babefcd653035e1ac8f0c293bbbe80b58",
+        "archive_reuse": false
+      },
+      "relation_group": null,
+      "prompt_file": null,
+      "stage": "DEFERRED",
+      "reason": "Deferred because it overlaps the selected line-range behavior in psf/black#4430; keep the separate source record, but avoid two prompts for closely related formatting scope before independent deduplication."
+    },
+    {
+      "stable_id": "psf/black#4275",
+      "repo": "psf/black",
+      "issue_number": 4275,
+      "title_reference_only": "Unrelated testcases fail when total number of tests is increased beyond 367",
+      "source_issue_body": {
+        "attachment_id": "01a1a218-67af-737b-98a4-c904fa385852",
+        "sha256": "4be8ee06a757e34d39313b620c413c2491a5169a29a0449b605d9f862f902914",
+        "member": "batch-python-black-linkedpr-20261103-b01/issue-bodies/black-4275.txt",
+        "member_sha256": "b11a73f37df3f0249eb9769ed09520f50fe434b215f166006bcd3f6ffd1f4254"
+      },
+      "fixed_source": {
+        "attachment_id": "01a1a5fa-919a-70ab-b379-6334c93d086c",
+        "package_sha256": "26109a854d1a6f929fa0538cc5e9ce2faab00951b95a8f9022c9ced30596aa6b",
+        "archive_member": "payload/source-archives/bf1195612c00b008ea67ea0472ae527956eb66fe.tar.gz",
+        "archive_sha256": "6a6ea2843635653212266ed10ddc538171584d0d7ba63ccdf2ba22662817f500",
+        "base_commit": "bf1195612c00b008ea67ea0472ae527956eb66fe",
+        "base_tree": "ce0d378414e58bbf6f6472bd7af3249211db2925",
+        "archive_reuse": false
+      },
+      "relation_group": null,
+      "prompt_file": null,
+      "stage": "DEFERRED",
+      "reason": "Deferred as test-toolchain, platform-support, or environment compatibility work; preserve its environment and dependency gap for a dedicated review."
+    },
+    {
+      "stable_id": "psf/black#4280",
+      "repo": "psf/black",
+      "issue_number": 4280,
+      "title_reference_only": "Crash on formatting `case case` syntax when line length set to be small",
+      "source_issue_body": {
+        "attachment_id": "01a1a218-67af-737b-98a4-c904fa385852",
+        "sha256": "4be8ee06a757e34d39313b620c413c2491a5169a29a0449b605d9f862f902914",
+        "member": "batch-python-black-linkedpr-20261103-b01/issue-bodies/black-4280.txt",
+        "member_sha256": "c565d9a1d3a97afc89c748b1b5e98b1087276317e4e6c68228d565e6eae144ea"
+      },
+      "fixed_source": {
+        "attachment_id": "01a1a5fa-919a-70ab-b379-6334c93d086c",
+        "package_sha256": "26109a854d1a6f929fa0538cc5e9ce2faab00951b95a8f9022c9ced30596aa6b",
+        "archive_member": "payload/source-archives/7613840124a7d6fdf7ce95157f9fc40360c2db88.tar.gz",
+        "archive_sha256": "9c222c58a2d0e48c293dee0ac7c78b13feef6bd298cb78bcec57876779099364",
+        "base_commit": "7613840124a7d6fdf7ce95157f9fc40360c2db88",
+        "base_tree": "d530f7d07b30cbe7814a1a609ce5dac3736e7a31",
+        "archive_reuse": false
+      },
+      "relation_group": null,
+      "prompt_file": "new-prompts/black-4280.md",
+      "stage": "NEW_NEUTRAL_PROMPT_REVIEW_ONLY",
+      "reason": "Selected: issue-level symptom is separable from implementation and verification material; prompt preserves reproduction conditions and expected behavior."
+    },
+    {
+      "stable_id": "psf/black#4285",
+      "repo": "psf/black",
+      "issue_number": 4285,
+      "title_reference_only": "GitHub Action: Option to parse version from pyproject.toml",
+      "source_issue_body": {
+        "attachment_id": "01a1a218-67af-737b-98a4-c904fa385852",
+        "sha256": "4be8ee06a757e34d39313b620c413c2491a5169a29a0449b605d9f862f902914",
+        "member": "batch-python-black-linkedpr-20261103-b01/issue-bodies/black-4285.txt",
+        "member_sha256": "7cdea8d847ea91fb38e7d040b608f4e797410a80dd5fdf25cde4766dd49a6f8c"
+      },
+      "fixed_source": {
+        "attachment_id": "01a1a5fa-919a-70ab-b379-6334c93d086c",
+        "package_sha256": "26109a854d1a6f929fa0538cc5e9ce2faab00951b95a8f9022c9ced30596aa6b",
+        "archive_member": "payload/source-archives/c8f1a5542c257491e1e093b1404481ece7f7e02c.tar.gz",
+        "archive_sha256": "e08f16009521ade04b2ab2605b68aaf548454072793750951c6960dfd1c7b669",
+        "base_commit": "c8f1a5542c257491e1e093b1404481ece7f7e02c",
+        "base_tree": "ec1fab8e15e1b08e375c309413dc5bff2112c1b0",
+        "archive_reuse": false
+      },
+      "relation_group": null,
+      "prompt_file": null,
+      "stage": "DEFERRED",
+      "reason": "Deferred because the issue material does not make both a concrete defect and its expected behavior sufficiently clear for neutral prompting; no behavior was inferred from the source archive."
+    },
+    {
+      "stable_id": "psf/black#4288",
+      "repo": "psf/black",
+      "issue_number": 4288,
+      "title_reference_only": "When reformatting a triple-quote string, black fails with an INTERNAL ERROR: Black produced code that is not equivalent to the source",
+      "source_issue_body": {
+        "attachment_id": "01a1a218-67af-737b-98a4-c904fa385852",
+        "sha256": "4be8ee06a757e34d39313b620c413c2491a5169a29a0449b605d9f862f902914",
+        "member": "batch-python-black-linkedpr-20261103-b01/issue-bodies/black-4288.txt",
+        "member_sha256": "9bb0f9c9ca3a7acbb810ad844e516e693029f7830a862728abc5a9d4d299fd64"
+      },
+      "fixed_source": {
+        "attachment_id": "01a1a5fa-919a-70ab-b379-6334c93d086c",
+        "package_sha256": "26109a854d1a6f929fa0538cc5e9ce2faab00951b95a8f9022c9ced30596aa6b",
+        "archive_member": "payload/source-archives/13bd0925eb347926399a5bcb8b70853549f3da07.tar.gz",
+        "archive_sha256": "ad440ef1b38032c5e095cdf62b765d6f9bec0d46f822e3318b8a22d1d72e984c",
+        "base_commit": "13bd0925eb347926399a5bcb8b70853549f3da07",
+        "base_tree": "097247a07daa51f521ac60d9f578c6a866d1ccec",
+        "archive_reuse": false
+      },
+      "relation_group": null,
+      "prompt_file": "new-prompts/black-4288.md",
+      "stage": "NEW_NEUTRAL_PROMPT_REVIEW_ONLY",
+      "reason": "Selected: issue-level symptom is separable from implementation and verification material; prompt preserves reproduction conditions and expected behavior."
+    },
+    {
+      "stable_id": "psf/black#4324",
+      "repo": "psf/black",
+      "issue_number": 4324,
+      "title_reference_only": "PEP 701 support breaks stability policy",
+      "source_issue_body": {
+        "attachment_id": "01a1a218-67af-737b-98a4-c904fa385852",
+        "sha256": "4be8ee06a757e34d39313b620c413c2491a5169a29a0449b605d9f862f902914",
+        "member": "batch-python-black-linkedpr-20261103-b01/issue-bodies/black-4324.txt",
+        "member_sha256": "06c800726cadae923403ddc8fc050a3c234d040a8e552557be021267da8e7480"
+      },
+      "fixed_source": {
+        "attachment_id": "01a1a5fa-919a-70ab-b379-6334c93d086c",
+        "package_sha256": "26109a854d1a6f929fa0538cc5e9ce2faab00951b95a8f9022c9ced30596aa6b",
+        "archive_member": "payload/source-archives/551ede2825e4a92e9880b90ef517cce333a5cbfc.tar.gz",
+        "archive_sha256": "7c1a92dc0649b7e686ddc8f25054568752fad7f7020fb8e48e746ed2c3970387",
+        "base_commit": "551ede2825e4a92e9880b90ef517cce333a5cbfc",
+        "base_tree": "3729651eb30ec4b0929cd4a2109d96738c3e5a90",
+        "archive_reuse": false
+      },
+      "relation_group": null,
+      "prompt_file": null,
+      "stage": "DEFERRED",
+      "reason": "Deferred because the issue material does not make both a concrete defect and its expected behavior sufficiently clear for neutral prompting; no behavior was inferred from the source archive."
+    },
+    {
+      "stable_id": "psf/black#4337",
+      "repo": "psf/black",
+      "issue_number": 4337,
+      "title_reference_only": "Cannot parse multiline f-string containing multiline string",
+      "source_issue_body": {
+        "attachment_id": "01a1a218-67af-737b-98a4-c904fa385852",
+        "sha256": "4be8ee06a757e34d39313b620c413c2491a5169a29a0449b605d9f862f902914",
+        "member": "batch-python-black-linkedpr-20261103-b01/issue-bodies/black-4337.txt",
+        "member_sha256": "4e18b8062ae9f42004ac4342f57a00727035d101705d32e09f68ec2b29749c32"
+      },
+      "fixed_source": {
+        "attachment_id": "01a1a5fa-919a-70ab-b379-6334c93d086c",
+        "package_sha256": "26109a854d1a6f929fa0538cc5e9ce2faab00951b95a8f9022c9ced30596aa6b",
+        "archive_member": "payload/source-archives/dbb956b0d3e60ee6f3539d3ffa93cc4efcc9ce7e.tar.gz",
+        "archive_sha256": "10a35e810f111400b64cebec02dec9fbcd9249b30a44d7896ce72ba4c52a73ca",
+        "base_commit": "dbb956b0d3e60ee6f3539d3ffa93cc4efcc9ce7e",
+        "base_tree": "6f2fd1858bf02cda211485df91e5a3c34128fee2",
+        "archive_reuse": false
+      },
+      "relation_group": null,
+      "prompt_file": "new-prompts/black-4337.md",
+      "stage": "NEW_NEUTRAL_PROMPT_REVIEW_ONLY",
+      "reason": "Selected: issue-level symptom is separable from implementation and verification material; prompt preserves reproduction conditions and expected behavior."
+    },
+    {
+      "stable_id": "psf/black#4344",
+      "repo": "psf/black",
+      "issue_number": 4344,
+      "title_reference_only": "Is there any way to have a permalink for a specific version in the changelog doc?",
+      "source_issue_body": {
+        "attachment_id": "01a1a218-67af-737b-98a4-c904fa385852",
+        "sha256": "4be8ee06a757e34d39313b620c413c2491a5169a29a0449b605d9f862f902914",
+        "member": "batch-python-black-linkedpr-20261103-b01/issue-bodies/black-4344.txt",
+        "member_sha256": "9f07e983131829d44802368cf5b4e1b5af48beba9bea34f53f8a2c95c4b44e0d"
+      },
+      "fixed_source": {
+        "attachment_id": "01a1a5fa-919a-70ab-b379-6334c93d086c",
+        "package_sha256": "26109a854d1a6f929fa0538cc5e9ce2faab00951b95a8f9022c9ced30596aa6b",
+        "archive_member": "payload/source-archives/e8a08ac0e211ec17c6bf042288940e392caf5d46.tar.gz",
+        "archive_sha256": "76a0efbf9ee72a50c42797b51a2d41d3fe1a069309703960d388329c2a920ee6",
+        "base_commit": "e8a08ac0e211ec17c6bf042288940e392caf5d46",
+        "base_tree": "ca8e48d5f08cb4550c4e970c76bbffcad580a0da",
+        "archive_reuse": false
+      },
+      "relation_group": null,
+      "prompt_file": null,
+      "stage": "DEFERRED",
+      "reason": "Deferred as documentation or release/CI workflow work; it does not define a bounded formatter behavior defect for this prompt batch."
+    },
+    {
+      "stable_id": "psf/black#4349",
+      "repo": "psf/black",
+      "issue_number": 4349,
+      "title_reference_only": "Unnecessary parentheses added to expression in indexed assignment",
+      "source_issue_body": {
+        "attachment_id": "01a1a218-67af-737b-98a4-c904fa385852",
+        "sha256": "4be8ee06a757e34d39313b620c413c2491a5169a29a0449b605d9f862f902914",
+        "member": "batch-python-black-linkedpr-20261103-b01/issue-bodies/black-4349.txt",
+        "member_sha256": "e2a3ea29dc7df98bacdabd96492041a94e443fce05a030efeff4f2bc7fde17d9"
+      },
+      "fixed_source": {
+        "attachment_id": "01a1a5fa-919a-70ab-b379-6334c93d086c",
+        "package_sha256": "26109a854d1a6f929fa0538cc5e9ce2faab00951b95a8f9022c9ced30596aa6b",
+        "archive_member": "payload/source-archives/6cf262f7174e4b7c52768aeffcf77fc5dd90b293.tar.gz",
+        "archive_sha256": "aa2747b805ac169dfde621567e76fe5998a2358148c27d4a2b99a1582a69648b",
+        "base_commit": "6cf262f7174e4b7c52768aeffcf77fc5dd90b293",
+        "base_tree": "0a9c9192f54aeeed2b09ffa5e23831a959550b8c",
+        "archive_reuse": false
+      },
+      "relation_group": null,
+      "prompt_file": null,
+      "stage": "DEFERRED",
+      "reason": "Deferred as a style-policy request; the desired formatting choice needs a separate policy decision before it can become a neutral bug task."
+    },
+    {
+      "stable_id": "psf/black#4367",
+      "repo": "psf/black",
+      "issue_number": 4367,
+      "title_reference_only": "Error in github actions when using `use_pyproject: true`",
+      "source_issue_body": {
+        "attachment_id": "01a1a218-67af-737b-98a4-c904fa385852",
+        "sha256": "4be8ee06a757e34d39313b620c413c2491a5169a29a0449b605d9f862f902914",
+        "member": "batch-python-black-linkedpr-20261103-b01/issue-bodies/black-4367.txt",
+        "member_sha256": "32a8a3a0bef3450f2b074a37ecd252715f9453e6e68ed0ba52cf64db96597f37"
+      },
+      "fixed_source": {
+        "attachment_id": "01a1a5fa-919a-70ab-b379-6334c93d086c",
+        "package_sha256": "26109a854d1a6f929fa0538cc5e9ce2faab00951b95a8f9022c9ced30596aa6b",
+        "archive_member": "payload/source-archives/fcab6484062fbf1ded2333900ea600b9bc21ac69.tar.gz",
+        "archive_sha256": "b40ccbe08cf3a2855d02d87566d169a1f5475bffe1d23287123cba0baedc2cc9",
+        "base_commit": "fcab6484062fbf1ded2333900ea600b9bc21ac69",
+        "base_tree": "3b75ab03ae9af1a5254cd7ec8f3fdb44a87c7271",
+        "archive_reuse": false
+      },
+      "relation_group": null,
+      "prompt_file": null,
+      "stage": "DEFERRED",
+      "reason": "Deferred from this first slice despite a reported failure: the symptom is multi-condition or its expected behavior/reproduction is less bounded than the 11 selected cases; retain the source record for later review."
+    },
+    {
+      "stable_id": "psf/black#4399",
+      "repo": "psf/black",
+      "issue_number": 4399,
+      "title_reference_only": "Black fails with `ASTSafetyError` on comment line in return type annotation",
+      "source_issue_body": {
+        "attachment_id": "01a1a218-67af-737b-98a4-c904fa385852",
+        "sha256": "4be8ee06a757e34d39313b620c413c2491a5169a29a0449b605d9f862f902914",
+        "member": "batch-python-black-linkedpr-20261103-b01/issue-bodies/black-4399.txt",
+        "member_sha256": "336843c3e46b20974c2f3752118c6f5521fb4315333e82a5c810897daa21f7c9"
+      },
+      "fixed_source": {
+        "attachment_id": "01a1a5fa-919a-70ab-b379-6334c93d086c",
+        "package_sha256": "26109a854d1a6f929fa0538cc5e9ce2faab00951b95a8f9022c9ced30596aa6b",
+        "archive_member": "payload/source-archives/b4d6d8632dea33363eaa0eaad9caf94a223e0f43.tar.gz",
+        "archive_sha256": "7cb781fdd9b87890659ef7d7490969bcd71ec708bcdd6b98d858fa9525deb808",
+        "base_commit": "b4d6d8632dea33363eaa0eaad9caf94a223e0f43",
+        "base_tree": "a433d9a797fa2f4a691a9ce2ba9546f33885a93f",
+        "archive_reuse": false
+      },
+      "relation_group": null,
+      "prompt_file": "new-prompts/black-4399.md",
+      "stage": "NEW_NEUTRAL_PROMPT_REVIEW_ONLY",
+      "reason": "Selected: issue-level symptom is separable from implementation and verification material; prompt preserves reproduction conditions and expected behavior."
+    },
+    {
+      "stable_id": "psf/black#4405",
+      "repo": "psf/black",
+      "issue_number": 4405,
+      "title_reference_only": "black could more efficiently skip directories listed in .gitignore",
+      "source_issue_body": {
+        "attachment_id": "01a1a218-67af-737b-98a4-c904fa385852",
+        "sha256": "4be8ee06a757e34d39313b620c413c2491a5169a29a0449b605d9f862f902914",
+        "member": "batch-python-black-linkedpr-20261103-b01/issue-bodies/black-4405.txt",
+        "member_sha256": "68460454934da68b5bfc30673bee10597f008f10fb56f165747d0f42fa6b450e"
+      },
+      "fixed_source": {
+        "attachment_id": "01a1a5fa-919a-70ab-b379-6334c93d086c",
+        "package_sha256": "26109a854d1a6f929fa0538cc5e9ce2faab00951b95a8f9022c9ced30596aa6b",
+        "archive_member": "payload/source-archives/b1c4dd96d769cb3ac3c8fc057e8dc60907b84c17.tar.gz",
+        "archive_sha256": "0f91fdda6c57c4d838a111904060989067242f246e32935ce703cff05b2084dd",
+        "base_commit": "b1c4dd96d769cb3ac3c8fc057e8dc60907b84c17",
+        "base_tree": "fc8f3b5f17acf4698e336a72f0f6afcad2c7fb55",
+        "archive_reuse": false
+      },
+      "relation_group": null,
+      "prompt_file": null,
+      "stage": "DEFERRED",
+      "reason": "Deferred because the issue material does not make both a concrete defect and its expected behavior sufficiently clear for neutral prompting; no behavior was inferred from the source archive."
+    },
+    {
+      "stable_id": "psf/black#4412",
+      "repo": "psf/black",
+      "issue_number": 4412,
+      "title_reference_only": "Error in the setup docs for black.",
+      "source_issue_body": {
+        "attachment_id": "01a1a218-67af-737b-98a4-c904fa385852",
+        "sha256": "4be8ee06a757e34d39313b620c413c2491a5169a29a0449b605d9f862f902914",
+        "member": "batch-python-black-linkedpr-20261103-b01/issue-bodies/black-4412.txt",
+        "member_sha256": "fd3323a0675d4879c47bb3c9ad6f53edf8123ab1fd91484622a30f3cd4ddc2a7"
+      },
+      "fixed_source": {
+        "attachment_id": "01a1a5fa-919a-70ab-b379-6334c93d086c",
+        "package_sha256": "26109a854d1a6f929fa0538cc5e9ce2faab00951b95a8f9022c9ced30596aa6b",
+        "archive_member": "payload/source-archives/8827accf560c7be418000962565f1fd6fa7b01cb.tar.gz",
+        "archive_sha256": "1c538ff4a783d936088fec18a5f1bd247a7c9a4e668726611dd6df7bd77c91fe",
+        "base_commit": "8827accf560c7be418000962565f1fd6fa7b01cb",
+        "base_tree": "d206b55cf176f22a9915edc607cd125036f9a960",
+        "archive_reuse": false
+      },
+      "relation_group": null,
+      "prompt_file": null,
+      "stage": "DEFERRED",
+      "reason": "Deferred as documentation or release/CI workflow work; it does not define a bounded formatter behavior defect for this prompt batch."
+    },
+    {
+      "stable_id": "psf/black#4420",
+      "repo": "psf/black",
+      "issue_number": 4420,
+      "title_reference_only": "Newlines between classes do not get added when the last method of one ends with ellipses",
+      "source_issue_body": {
+        "attachment_id": "01a1a218-67af-737b-98a4-c904fa385852",
+        "sha256": "4be8ee06a757e34d39313b620c413c2491a5169a29a0449b605d9f862f902914",
+        "member": "batch-python-black-linkedpr-20261103-b01/issue-bodies/black-4420.txt",
+        "member_sha256": "4af4977e7bfb23d7f982f589f8f8abd929ae9426f28de56f35e5d1b98509c586"
+      },
+      "fixed_source": {
+        "attachment_id": "01a1a5fa-919a-70ab-b379-6334c93d086c",
+        "package_sha256": "26109a854d1a6f929fa0538cc5e9ce2faab00951b95a8f9022c9ced30596aa6b",
+        "archive_member": "payload/source-archives/1e6d48e43718ca534da4da600c9f591e949b2c17.tar.gz",
+        "archive_sha256": "0a2f4d7d92aa69b6f87ec54ab4be97cd3897546099927c93fbca4a3b87a36c26",
+        "base_commit": "1e6d48e43718ca534da4da600c9f591e949b2c17",
+        "base_tree": "939e9cf52fc8ae18ec0d4eb12f22efc073dd86de",
+        "archive_reuse": false
+      },
+      "relation_group": null,
+      "prompt_file": null,
+      "stage": "DEFERRED",
+      "reason": "Deferred because the issue material does not make both a concrete defect and its expected behavior sufficiently clear for neutral prompting; no behavior was inferred from the source archive."
+    },
+    {
+      "stable_id": "psf/black#4421",
+      "repo": "psf/black",
+      "issue_number": 4421,
+      "title_reference_only": "Crash on f-string with `\\{`",
+      "source_issue_body": {
+        "attachment_id": "01a1a218-67af-737b-98a4-c904fa385852",
+        "sha256": "4be8ee06a757e34d39313b620c413c2491a5169a29a0449b605d9f862f902914",
+        "member": "batch-python-black-linkedpr-20261103-b01/issue-bodies/black-4421.txt",
+        "member_sha256": "8600fc09511b45038ade448e280256c80d02f54780042e252e7db809c15a3c00"
+      },
+      "fixed_source": {
+        "attachment_id": "01a1a5fa-919a-70ab-b379-6334c93d086c",
+        "package_sha256": "26109a854d1a6f929fa0538cc5e9ce2faab00951b95a8f9022c9ced30596aa6b",
+        "archive_member": "payload/source-archives/4b4ae43e8b66a2eab2d41a73364745c2a4570287.tar.gz",
+        "archive_sha256": "4aa0b60cc741e4bcd34d2802093753a20f66b1d5e4396d2745318ed7c9b0e601",
+        "base_commit": "4b4ae43e8b66a2eab2d41a73364745c2a4570287",
+        "base_tree": "5da9c037ad961c9021b71fc2297ada1c26a214c5",
+        "archive_reuse": false
+      },
+      "relation_group": null,
+      "prompt_file": "new-prompts/black-4421.md",
+      "stage": "NEW_NEUTRAL_PROMPT_REVIEW_ONLY",
+      "reason": "Selected: issue-level symptom is separable from implementation and verification material; prompt preserves reproduction conditions and expected behavior."
+    },
+    {
+      "stable_id": "psf/black#4429",
+      "repo": "psf/black",
+      "issue_number": 4429,
+      "title_reference_only": "Add more documentation about preview style features",
+      "source_issue_body": {
+        "attachment_id": "01a1a218-67af-737b-98a4-c904fa385852",
+        "sha256": "4be8ee06a757e34d39313b620c413c2491a5169a29a0449b605d9f862f902914",
+        "member": "batch-python-black-linkedpr-20261103-b01/issue-bodies/black-4429.txt",
+        "member_sha256": "1f021c32605e69131852ab4433545be107f4d85acb29c4a9527e857f62a70d04"
+      },
+      "fixed_source": {
+        "attachment_id": "01a1a5fa-919a-70ab-b379-6334c93d086c",
+        "package_sha256": "26109a854d1a6f929fa0538cc5e9ce2faab00951b95a8f9022c9ced30596aa6b",
+        "archive_member": "payload/source-archives/38b6d35413a4e71846b552f9640ce56970aaa32b.tar.gz",
+        "archive_sha256": "487ec35896df8fdc7e0412e3b4a02233fed01241fa1a6b10a633e4adf1d39f3f",
+        "base_commit": "38b6d35413a4e71846b552f9640ce56970aaa32b",
+        "base_tree": "182eac0f2371882d55dcd2bb30f5dd3a721b0f9f",
+        "archive_reuse": false
+      },
+      "relation_group": null,
+      "prompt_file": null,
+      "stage": "DEFERRED",
+      "reason": "Deferred as documentation or release/CI workflow work; it does not define a bounded formatter behavior defect for this prompt batch."
+    },
+    {
+      "stable_id": "psf/black#4430",
+      "repo": "psf/black",
+      "issue_number": 4430,
+      "title_reference_only": "`--line-ranges` formats lines outside of range",
+      "source_issue_body": {
+        "attachment_id": "01a1a218-67af-737b-98a4-c904fa385852",
+        "sha256": "4be8ee06a757e34d39313b620c413c2491a5169a29a0449b605d9f862f902914",
+        "member": "batch-python-black-linkedpr-20261103-b01/issue-bodies/black-4430.txt",
+        "member_sha256": "e52a5566b9d53faf2170b0a431adbd8ab1aa6e63097a3d9b188c000ce03596f5"
+      },
+      "fixed_source": {
+        "attachment_id": "01a1a218-67af-737b-98a4-c904fa385852",
+        "package_sha256": "4be8ee06a757e34d39313b620c413c2491a5169a29a0449b605d9f862f902914",
+        "archive_member": "batch-python-black-linkedpr-20261103-b01/candidates/psf-black-4430-source-linkedpr-b01/source.tar.gz",
+        "archive_sha256": "7db8b530ed087b5d65b244762b1540ef52b72aad4a8d5fdfe818ad58c74ba5e1",
+        "base_commit": "acd6198877ced2d8126b9b3958bb17f4a65ef0d1",
+        "base_tree": "8fce65673a635a3f600aee63f1927f20bb50ecfe",
+        "archive_reuse": false
+      },
+      "relation_group": null,
+      "prompt_file": "new-prompts/black-4430.md",
+      "stage": "NEW_NEUTRAL_PROMPT_REVIEW_ONLY",
+      "reason": "Selected: issue-level symptom is separable from implementation and verification material; prompt preserves reproduction conditions and expected behavior."
+    },
+    {
+      "stable_id": "psf/black#4437",
+      "repo": "psf/black",
+      "issue_number": 4437,
+      "title_reference_only": "Improve vim plugin error message if vim is too old or python support is missing",
+      "source_issue_body": {
+        "attachment_id": "01a1a218-67af-737b-98a4-c904fa385852",
+        "sha256": "4be8ee06a757e34d39313b620c413c2491a5169a29a0449b605d9f862f902914",
+        "member": "batch-python-black-linkedpr-20261103-b01/issue-bodies/black-4437.txt",
+        "member_sha256": "dbacaf77b614306c071d4336965959979f88931e2868b46ab69b947830641382"
+      },
+      "fixed_source": {
+        "attachment_id": "01a1a5fa-919a-70ab-b379-6334c93d086c",
+        "package_sha256": "26109a854d1a6f929fa0538cc5e9ce2faab00951b95a8f9022c9ced30596aa6b",
+        "archive_member": "payload/source-archives/ce9c7fffc8f1173c6c3cfb7c7c77c56397454fa1.tar.gz",
+        "archive_sha256": "413500fbfdfe2ee25c0c7976a2abca748a84f9f25e1f5b08918548b82c538b6c",
+        "base_commit": "ce9c7fffc8f1173c6c3cfb7c7c77c56397454fa1",
+        "base_tree": "bf014d50f5374a6c57c93fb09ef2d51325a8299f",
+        "archive_reuse": false
+      },
+      "relation_group": null,
+      "prompt_file": null,
+      "stage": "DEFERRED",
+      "reason": "Deferred as documentation or release/CI workflow work; it does not define a bounded formatter behavior defect for this prompt batch."
+    },
+    {
+      "stable_id": "psf/black#4446",
+      "repo": "psf/black",
+      "issue_number": 4446,
+      "title_reference_only": "On Apple M1, Black often drops the \":9]=\" out of f\"{...[:9]=}\", as Internal Error",
+      "source_issue_body": {
+        "attachment_id": "01a1a218-67af-737b-98a4-c904fa385852",
+        "sha256": "4be8ee06a757e34d39313b620c413c2491a5169a29a0449b605d9f862f902914",
+        "member": "batch-python-black-linkedpr-20261103-b01/issue-bodies/black-4446.txt",
+        "member_sha256": "5b670f955a8d6ec188fed5b5b817a54bc018d7a204e15e6ee4d004782abafa54"
+      },
+      "fixed_source": {
+        "attachment_id": "01a1a218-67af-737b-98a4-c904fa385852",
+        "package_sha256": "4be8ee06a757e34d39313b620c413c2491a5169a29a0449b605d9f862f902914",
+        "archive_member": "batch-python-black-linkedpr-20261103-b01/candidates/psf-black-4446-source-linkedpr-b01/source.tar.gz",
+        "archive_sha256": "a252baceea45dd05cb777750f3b0cf68ece9559d2bb275e75b4e741898b00f73",
+        "base_commit": "ac28187bf4a4ac159651c73d3a50fe6d0f653eac",
+        "base_tree": "a565d708230306aaccd811eb388a7c7279ffc490",
+        "archive_reuse": false
+      },
+      "relation_group": null,
+      "prompt_file": null,
+      "stage": "DEFERRED",
+      "reason": "Deferred from this first slice despite a reported failure: the symptom is multi-condition or its expected behavior/reproduction is less bounded than the 11 selected cases; retain the source record for later review."
+    },
+    {
+      "stable_id": "psf/black#4465",
+      "repo": "psf/black",
+      "issue_number": 4465,
+      "title_reference_only": "Cache causes confusing behavior when running with and without \"--unstable\"",
+      "source_issue_body": {
+        "attachment_id": "01a1a218-67af-737b-98a4-c904fa385852",
+        "sha256": "4be8ee06a757e34d39313b620c413c2491a5169a29a0449b605d9f862f902914",
+        "member": "batch-python-black-linkedpr-20261103-b01/issue-bodies/black-4465.txt",
+        "member_sha256": "91ab2c2307a7a440bfd9b3e4ae1a9acfd48d35dc49e4414148147d7a2489f0ba"
+      },
+      "fixed_source": {
+        "attachment_id": "01a1a218-67af-737b-98a4-c904fa385852",
+        "package_sha256": "4be8ee06a757e34d39313b620c413c2491a5169a29a0449b605d9f862f902914",
+        "archive_member": "batch-python-black-linkedpr-20261103-b01/candidates/psf-black-4465-source-linkedpr-b01/source.tar.gz",
+        "archive_sha256": "952e28aca53be354d825ae211fda1b6106ab8fcbc30551370b010ba1c011afe1",
+        "base_commit": "8d9d18c0338d9fbfc27b38f6f69bb630d90512fa",
+        "base_tree": "e3d8938e64a390001e9bb305d72fe79878d3f77e",
+        "archive_reuse": false
+      },
+      "relation_group": null,
+      "prompt_file": null,
+      "stage": "DEFERRED",
+      "reason": "Deferred because the issue material does not make both a concrete defect and its expected behavior sufficiently clear for neutral prompting; no behavior was inferred from the source archive."
+    },
+    {
+      "stable_id": "psf/black#4514",
+      "repo": "psf/black",
+      "issue_number": 4514,
+      "title_reference_only": "Line break added in list comprehension separates variable from its expression",
+      "source_issue_body": {
+        "attachment_id": "01a1a218-67af-737b-98a4-c904fa385852",
+        "sha256": "4be8ee06a757e34d39313b620c413c2491a5169a29a0449b605d9f862f902914",
+        "member": "batch-python-black-linkedpr-20261103-b01/issue-bodies/black-4514.txt",
+        "member_sha256": "793a128f39eba55c35c0a832483d46f86efcd97801a768dde4cc438a57279a6d"
+      },
+      "fixed_source": {
+        "attachment_id": "01a1a218-67af-737b-98a4-c904fa385852",
+        "package_sha256": "4be8ee06a757e34d39313b620c413c2491a5169a29a0449b605d9f862f902914",
+        "archive_member": "batch-python-black-linkedpr-20261103-b01/candidates/psf-black-4514-source-linkedpr-b01/source.tar.gz",
+        "archive_sha256": "225b48e115953f5b18b26f036aac96e4eeedfa957535b8810316477b628fcb46",
+        "base_commit": "77a9a5875b0bc89fcc2ebdd8756263be77e4ecca",
+        "base_tree": "f2651db63efad76267f5fbba1086c6a7a06fd723",
+        "archive_reuse": false
+      },
+      "relation_group": null,
+      "prompt_file": null,
+      "stage": "DEFERRED",
+      "reason": "Deferred because the issue material does not make both a concrete defect and its expected behavior sufficiently clear for neutral prompting; no behavior was inferred from the source archive."
+    },
+    {
+      "stable_id": "psf/black#4522",
+      "repo": "psf/black",
+      "issue_number": 4522,
+      "title_reference_only": "Setting the 2025 stable style",
+      "source_issue_body": {
+        "attachment_id": "01a1a218-67af-737b-98a4-c904fa385852",
+        "sha256": "4be8ee06a757e34d39313b620c413c2491a5169a29a0449b605d9f862f902914",
+        "member": "batch-python-black-linkedpr-20261103-b01/issue-bodies/black-4522.txt",
+        "member_sha256": "000e618311dbc7cb24b5c7a82dc9f49fabc50aaf6b57fab687ac68b0756b7431"
+      },
+      "fixed_source": {
+        "attachment_id": "01a1a5d8-9167-7ef8-bd97-34ab66b1759a",
+        "package_sha256": "418b5280ea14ecc8620d18012d25512cd379daa5d833702078cd493e058f917b",
+        "archive_member": "payload/source-archives/e58baf15b99e0202f10bda09447d3eb246e88df9.tar.gz",
+        "archive_sha256": "3dde0a7ebea746c9413afd13ddd68ce7f9ffd96db38b4e105686535718f33304",
+        "base_commit": "e58baf15b99e0202f10bda09447d3eb246e88df9",
+        "base_tree": "62863ef12706b896c78ad2342012fca3a8ae1df9",
+        "archive_reuse": false
+      },
+      "relation_group": null,
+      "prompt_file": null,
+      "stage": "DEFERRED",
+      "reason": "Deferred as a style-policy request; the desired formatting choice needs a separate policy decision before it can become a neutral bug task."
+    },
+    {
+      "stable_id": "psf/black#4535",
+      "repo": "psf/black",
+      "issue_number": 4535,
+      "title_reference_only": "`# fmt: skip` is not being respected with one-liner functions",
+      "source_issue_body": {
+        "attachment_id": "01a1a218-67af-737b-98a4-c904fa385852",
+        "sha256": "4be8ee06a757e34d39313b620c413c2491a5169a29a0449b605d9f862f902914",
+        "member": "batch-python-black-linkedpr-20261103-b01/issue-bodies/black-4535.txt",
+        "member_sha256": "023538525849ca78457b26c667f634ac23b7dab6a6951c419056d361d89025bd"
+      },
+      "fixed_source": {
+        "attachment_id": "01a1a218-67af-737b-98a4-c904fa385852",
+        "package_sha256": "4be8ee06a757e34d39313b620c413c2491a5169a29a0449b605d9f862f902914",
+        "archive_member": "batch-python-black-linkedpr-20261103-b01/candidates/psf-black-4535-source-linkedpr-b01/source.tar.gz",
+        "archive_sha256": "dbedd52fae23e9779714bb3d4ef463ee8ff62ffb9b46669ced4d2e664c525fac",
+        "base_commit": "bb802cf19a2346820fe8f192de77837c5ad6da6a",
+        "base_tree": "fa3001f99020f87d5cfe87905403bd44ce6feec5",
+        "archive_reuse": false
+      },
+      "relation_group": null,
+      "prompt_file": null,
+      "stage": "DEFERRED",
+      "reason": "Deferred as a related fmt: skip behavior report; current issue material does not establish a clean task boundary from the linked fmt: skip repair cluster."
+    },
+    {
+      "stable_id": "psf/black#4540",
+      "repo": "psf/black",
+      "issue_number": 4540,
+      "title_reference_only": "Speed up `blib2to3` tokenization using generic python function",
+      "source_issue_body": {
+        "attachment_id": "01a1a218-67af-737b-98a4-c904fa385852",
+        "sha256": "4be8ee06a757e34d39313b620c413c2491a5169a29a0449b605d9f862f902914",
+        "member": "batch-python-black-linkedpr-20261103-b01/issue-bodies/black-4540.txt",
+        "member_sha256": "2c230546ed834c758886a499cab9365a44bcd4bcb0e360221938bc678f1047bf"
+      },
+      "fixed_source": {
+        "attachment_id": "01a1a5d8-9167-7ef8-bd97-34ab66b1759a",
+        "package_sha256": "418b5280ea14ecc8620d18012d25512cd379daa5d833702078cd493e058f917b",
+        "archive_member": "payload/source-archives/9431e98522ec91087f0e2b5fcd71a7a807f52ed7.tar.gz",
+        "archive_sha256": "c1ffef926a734b008ed82027a98e707ad9a422c73f08d63c7528fcc61c63359c",
+        "base_commit": "9431e98522ec91087f0e2b5fcd71a7a807f52ed7",
+        "base_tree": "bf09631c20a90e1c2bdd619627627b455d3814eb",
+        "archive_reuse": false
+      },
+      "relation_group": null,
+      "prompt_file": "new-prompts/black-4540.md",
+      "stage": "NEW_NEUTRAL_PROMPT_REVIEW_ONLY",
+      "reason": "Selected: issue-level symptom is separable from implementation and verification material; prompt preserves reproduction conditions and expected behavior."
+    },
+    {
+      "stable_id": "psf/black#4588",
+      "repo": "psf/black",
+      "issue_number": 4588,
+      "title_reference_only": "EOF in multi-line string error for valid format string",
+      "source_issue_body": {
+        "attachment_id": "01a1a218-67af-737b-98a4-c904fa385852",
+        "sha256": "4be8ee06a757e34d39313b620c413c2491a5169a29a0449b605d9f862f902914",
+        "member": "batch-python-black-linkedpr-20261103-b01/issue-bodies/black-4588.txt",
+        "member_sha256": "1b5d4f6a2129fa9b786844de1682763c0f35270c1015889d3f905af3d204ec30"
+      },
+      "fixed_source": {
+        "attachment_id": "01a1a218-67af-737b-98a4-c904fa385852",
+        "package_sha256": "4be8ee06a757e34d39313b620c413c2491a5169a29a0449b605d9f862f902914",
+        "archive_member": "batch-python-black-linkedpr-20261103-b01/candidates/psf-black-4588-source-linkedpr-b01/source.tar.gz",
+        "archive_sha256": "4712433e4848d20bb5727018b7d46fb491eecffe63cc093d304252173dfe5a17",
+        "base_commit": "9f38928414e6a39044f9b148692e90f3e1fd3433",
+        "base_tree": "2322a791b4de62bbb5748c354831962228d04cc8",
+        "archive_reuse": false
+      },
+      "relation_group": "black-pr-4536-known-duplicate",
+      "prompt_file": null,
+      "stage": "DEFERRED",
+      "reason": "Known duplicate exclusion with psf/black#4520: same PR #4536; preserve both source records and exclude the pair from new prompt selection."
+    },
+    {
+      "stable_id": "psf/black#4589",
+      "repo": "psf/black",
+      "issue_number": 4589,
+      "title_reference_only": "[task] Upgrade `.github/workflows/pypi_upload.yml` to use Trusted Publishing",
+      "source_issue_body": {
+        "attachment_id": "01a1a218-67af-737b-98a4-c904fa385852",
+        "sha256": "4be8ee06a757e34d39313b620c413c2491a5169a29a0449b605d9f862f902914",
+        "member": "batch-python-black-linkedpr-20261103-b01/issue-bodies/black-4589.txt",
+        "member_sha256": "7567ec9109af836b0ca317b536545fc47aa46812b19b8d9027651832f668d364"
+      },
+      "fixed_source": {
+        "attachment_id": "01a1a5d8-9167-7ef8-bd97-34ab66b1759a",
+        "package_sha256": "418b5280ea14ecc8620d18012d25512cd379daa5d833702078cd493e058f917b",
+        "archive_member": "payload/source-archives/6426151d243d078108d88b9986a45d08410ffbbf.tar.gz",
+        "archive_sha256": "95a1b1de4c1e73dd11f69b6d02c40faac85651033f22b0fdde58eaea80c9bc90",
+        "base_commit": "6426151d243d078108d88b9986a45d08410ffbbf",
+        "base_tree": "9b530cc6fb055121f81f668ba3618104fcd3d43f",
+        "archive_reuse": false
+      },
+      "relation_group": null,
+      "prompt_file": null,
+      "stage": "DEFERRED",
+      "reason": "Deferred as documentation or release/CI workflow work; it does not define a bounded formatter behavior defect for this prompt batch."
+    },
+    {
+      "stable_id": "psf/black#4599",
+      "repo": "psf/black",
+      "issue_number": 4599,
+      "title_reference_only": "Fails to parse lambda in PEP 695 TypeVar bound",
+      "source_issue_body": {
+        "attachment_id": "01a1a218-67af-737b-98a4-c904fa385852",
+        "sha256": "4be8ee06a757e34d39313b620c413c2491a5169a29a0449b605d9f862f902914",
+        "member": "batch-python-black-linkedpr-20261103-b01/issue-bodies/black-4599.txt",
+        "member_sha256": "0641f9f75394463c6c8c12c59c7bb3417736895b148dd11bef1bfc4d2d031ccd"
+      },
+      "fixed_source": {
+        "attachment_id": "01a1a218-67af-737b-98a4-c904fa385852",
+        "package_sha256": "4be8ee06a757e34d39313b620c413c2491a5169a29a0449b605d9f862f902914",
+        "archive_member": "batch-python-black-linkedpr-20261103-b01/candidates/psf-black-4599-source-linkedpr-b01/source.tar.gz",
+        "archive_sha256": "b93bf1787d561f9ebe72826b33b7e5328ffe15faaeddc660dd81565d8d6e19c6",
+        "base_commit": "45cbe572ee203712eaeb58246458785c19569102",
+        "base_tree": "4398064692f3596815f67dbe75542b37c0afa721",
+        "archive_reuse": false
+      },
+      "relation_group": null,
+      "prompt_file": null,
+      "stage": "DEFERRED",
+      "reason": "Deferred from this first slice despite a reported failure: the symptom is multi-condition or its expected behavior/reproduction is less bounded than the 11 selected cases; retain the source record for later review."
+    },
+    {
+      "stable_id": "psf/black#4625",
+      "repo": "psf/black",
+      "issue_number": 4625,
+      "title_reference_only": "crash while formatting a delete statement with given line length",
+      "source_issue_body": {
+        "attachment_id": "01a1a218-67af-737b-98a4-c904fa385852",
+        "sha256": "4be8ee06a757e34d39313b620c413c2491a5169a29a0449b605d9f862f902914",
+        "member": "batch-python-black-linkedpr-20261103-b01/issue-bodies/black-4625.txt",
+        "member_sha256": "41f7d908537cdb36cd611d0da37a5b87cb87c9fd664b33ce0abf5637fc31bf8d"
+      },
+      "fixed_source": {
+        "attachment_id": "01a1a218-67af-737b-98a4-c904fa385852",
+        "package_sha256": "4be8ee06a757e34d39313b620c413c2491a5169a29a0449b605d9f862f902914",
+        "archive_member": "batch-python-black-linkedpr-20261103-b01/candidates/psf-black-4625-source-linkedpr-b01/source.tar.gz",
+        "archive_sha256": "69190c68a9c582177c99cd79169a8bbdaf661655a5035bb5abb6116cf0133401",
+        "base_commit": "5342d2eeda6935a96d2bd0c74072b3c441d76bde",
+        "base_tree": "35c22837681c16213a0bea29adf7db0e9f63fc20",
+        "archive_reuse": false
+      },
+      "relation_group": null,
+      "prompt_file": null,
+      "stage": "DEFERRED",
+      "reason": "Deferred from this first slice despite a reported failure: the symptom is multi-condition or its expected behavior/reproduction is less bounded than the 11 selected cases; retain the source record for later review."
+    },
+    {
+      "stable_id": "psf/black#4629",
+      "repo": "psf/black",
+      "issue_number": 4629,
+      "title_reference_only": "failed to format a file with a with-statement and a named-expression",
+      "source_issue_body": {
+        "attachment_id": "01a1a218-67af-737b-98a4-c904fa385852",
+        "sha256": "4be8ee06a757e34d39313b620c413c2491a5169a29a0449b605d9f862f902914",
+        "member": "batch-python-black-linkedpr-20261103-b01/issue-bodies/black-4629.txt",
+        "member_sha256": "5b7cb9ba792f5a4579abd8b42aba59ec36946cc15331eec70bee0ee9ae3d981b"
+      },
+      "fixed_source": {
+        "attachment_id": "01a1a218-67af-737b-98a4-c904fa385852",
+        "package_sha256": "4be8ee06a757e34d39313b620c413c2491a5169a29a0449b605d9f862f902914",
+        "archive_member": "batch-python-black-linkedpr-20261103-b01/candidates/psf-black-4629-source-linkedpr-b01/source.tar.gz",
+        "archive_sha256": "05bcc091e11050374aba49497503dfe36b9607996aa2a0f273a155c7196a098f",
+        "base_commit": "dd278cb316d75868716a0478c35b1fcd600a5249",
+        "base_tree": "54f9ad1f6f0472d0596ab183e71e266d5f77e5bf",
+        "archive_reuse": false
+      },
+      "relation_group": null,
+      "prompt_file": null,
+      "stage": "DEFERRED",
+      "reason": "Deferred because the issue material does not make both a concrete defect and its expected behavior sufficiently clear for neutral prompting; no behavior was inferred from the source archive."
+    },
+    {
+      "stable_id": "psf/black#4631",
+      "repo": "psf/black",
+      "issue_number": 4631,
+      "title_reference_only": "Internal Error when formatting a file with comments containing fmt: skip",
+      "source_issue_body": {
+        "attachment_id": "01a1a218-67af-737b-98a4-c904fa385852",
+        "sha256": "4be8ee06a757e34d39313b620c413c2491a5169a29a0449b605d9f862f902914",
+        "member": "batch-python-black-linkedpr-20261103-b01/issue-bodies/black-4631.txt",
+        "member_sha256": "b974d6e515fcce90b4feeac659a6d2555d78ee9543573da1d562d7730a3a3a26"
+      },
+      "fixed_source": {
+        "attachment_id": "01a1a5d8-9167-7ef8-bd97-34ab66b1759a",
+        "package_sha256": "418b5280ea14ecc8620d18012d25512cd379daa5d833702078cd493e058f917b",
+        "archive_member": "payload/source-archives/6144c46c6a6960aeaf62484d3d8cbafedf0092f3.tar.gz",
+        "archive_sha256": "af775491848b27de08c8286c402b19685251707da94aa0ed2f2cc96360971e1b",
+        "base_commit": "6144c46c6a6960aeaf62484d3d8cbafedf0092f3",
+        "base_tree": "77fb93cfc54a1715cbf95b752cbecf9f009bc427",
+        "archive_reuse": false
+      },
+      "relation_group": null,
+      "prompt_file": "new-prompts/black-4631.md",
+      "stage": "NEW_NEUTRAL_PROMPT_REVIEW_ONLY",
+      "reason": "Selected: issue-level symptom is separable from implementation and verification material; prompt preserves reproduction conditions and expected behavior."
+    },
+    {
+      "stable_id": "psf/black#4632",
+      "repo": "psf/black",
+      "issue_number": 4632,
+      "title_reference_only": "Parsing the with statement with tuple argument failed",
+      "source_issue_body": {
+        "attachment_id": "01a1a218-67af-737b-98a4-c904fa385852",
+        "sha256": "4be8ee06a757e34d39313b620c413c2491a5169a29a0449b605d9f862f902914",
+        "member": "batch-python-black-linkedpr-20261103-b01/issue-bodies/black-4632.txt",
+        "member_sha256": "a2c9e233b1473af5e42458c1aa93093704599b8bc18e015342f4868a3b86ae4e"
+      },
+      "fixed_source": {
+        "attachment_id": "01a1a5d8-9167-7ef8-bd97-34ab66b1759a",
+        "package_sha256": "418b5280ea14ecc8620d18012d25512cd379daa5d833702078cd493e058f917b",
+        "archive_member": "payload/source-archives/2c135edf3732a8efcc89450446fcaa7589e2a1c8.tar.gz",
+        "archive_sha256": "04b4c2e1be20ecb55fe6a0657ffa486d0958588713040d9ca0165b16e566446a",
+        "base_commit": "2c135edf3732a8efcc89450446fcaa7589e2a1c8",
+        "base_tree": "7fa1f12be49c2ac07f7dd6b724edac6ce7bd02b0",
+        "archive_reuse": false
+      },
+      "relation_group": null,
+      "prompt_file": "new-prompts/black-4632.md",
+      "stage": "NEW_NEUTRAL_PROMPT_REVIEW_ONLY",
+      "reason": "Selected: issue-level symptom is separable from implementation and verification material; prompt preserves reproduction conditions and expected behavior."
+    },
+    {
+      "stable_id": "psf/black#4640",
+      "repo": "psf/black",
+      "issue_number": 4640,
+      "title_reference_only": "Standalone comment within parentheses in lambda default arguments crashes black",
+      "source_issue_body": {
+        "attachment_id": "01a1a218-67af-737b-98a4-c904fa385852",
+        "sha256": "4be8ee06a757e34d39313b620c413c2491a5169a29a0449b605d9f862f902914",
+        "member": "batch-python-black-linkedpr-20261103-b01/issue-bodies/black-4640.txt",
+        "member_sha256": "6da7e012566008a47bba1bcb73a56f08dc5559986be929e38ac746758cf15d37"
+      },
+      "fixed_source": {
+        "attachment_id": "01a1a218-67af-737b-98a4-c904fa385852",
+        "package_sha256": "4be8ee06a757e34d39313b620c413c2491a5169a29a0449b605d9f862f902914",
+        "archive_member": "batch-python-black-linkedpr-20261103-b01/candidates/psf-black-4640-source-linkedpr-b01/source.tar.gz",
+        "archive_sha256": "3939ff780b6db48f0fd772eff3b3eb437dea0d13071ac73b152c2135cb74aac3",
+        "base_commit": "ff094acc4e00f8d50f48023cc218ede17879774a",
+        "base_tree": "0c255066582016614d61966404a8318113be7c0d",
+        "archive_reuse": false
+      },
+      "relation_group": null,
+      "prompt_file": null,
+      "stage": "DEFERRED",
+      "reason": "Deferred as a style-policy request; the desired formatting choice needs a separate policy decision before it can become a neutral bug task."
+    },
+    {
+      "stable_id": "psf/black#4642",
+      "repo": "psf/black",
+      "issue_number": 4642,
+      "title_reference_only": "internal error while formatting with-statement with tuple and none tuple argument",
+      "source_issue_body": {
+        "attachment_id": "01a1a218-67af-737b-98a4-c904fa385852",
+        "sha256": "4be8ee06a757e34d39313b620c413c2491a5169a29a0449b605d9f862f902914",
+        "member": "batch-python-black-linkedpr-20261103-b01/issue-bodies/black-4642.txt",
+        "member_sha256": "81144ecf6a3042e9c22faafd7ebc2e35e2822bbbef84ee0aa22424ddc7dca43d"
+      },
+      "fixed_source": {
+        "attachment_id": "01a1a218-67af-737b-98a4-c904fa385852",
+        "package_sha256": "4be8ee06a757e34d39313b620c413c2491a5169a29a0449b605d9f862f902914",
+        "archive_member": "batch-python-black-linkedpr-20261103-b01/candidates/psf-black-4642-source-linkedpr-b01/source.tar.gz",
+        "archive_sha256": "f63b25ac92f7a7b261a0084b8939cb0970bc46ce32fa86d6fa95f6ae93c6878b",
+        "base_commit": "60d734a84d5c30f1ca52e6364acf3843f2f612dc",
+        "base_tree": "72c8433cff3473dd297118eda4bc804ec8f8a773",
+        "archive_reuse": false
+      },
+      "relation_group": null,
+      "prompt_file": null,
+      "stage": "DEFERRED",
+      "reason": "Deferred from this first slice despite a reported failure: the symptom is multi-condition or its expected behavior/reproduction is less bounded than the 11 selected cases; retain the source record for later review."
+    },
+    {
+      "stable_id": "psf/black#4647",
+      "repo": "psf/black",
+      "issue_number": 4647,
+      "title_reference_only": "Internal error in the formatting of the if expression within a type annotation",
+      "source_issue_body": {
+        "attachment_id": "01a1a218-67af-737b-98a4-c904fa385852",
+        "sha256": "4be8ee06a757e34d39313b620c413c2491a5169a29a0449b605d9f862f902914",
+        "member": "batch-python-black-linkedpr-20261103-b01/issue-bodies/black-4647.txt",
+        "member_sha256": "600ce48ac1dfd24296e94524939a987abc7135501d948cafe94c8efbcc5431a5"
+      },
+      "fixed_source": {
+        "attachment_id": "01a1a218-67af-737b-98a4-c904fa385852",
+        "package_sha256": "4be8ee06a757e34d39313b620c413c2491a5169a29a0449b605d9f862f902914",
+        "archive_member": "batch-python-black-linkedpr-20261103-b01/candidates/psf-black-4647-source-linkedpr-b01/source.tar.gz",
+        "archive_sha256": "3db000395d68c5ddaf4d8accbf6cf2525484d5ebdf19f74a1155a1295ca88ca0",
+        "base_commit": "b085473cc65da4fe76bbd6b1723ea76897e5e40b",
+        "base_tree": "ba9ca4d8d028e610b7b9fba5094e98a63bf8b62f",
+        "archive_reuse": false
+      },
+      "relation_group": null,
+      "prompt_file": null,
+      "stage": "DEFERRED",
+      "reason": "Deferred from this first slice despite a reported failure: the symptom is multi-condition or its expected behavior/reproduction is less bounded than the 11 selected cases; retain the source record for later review."
+    },
+    {
+      "stable_id": "psf/black#4653",
+      "repo": "psf/black",
+      "issue_number": 4653,
+      "title_reference_only": "Trailing comma in `case` pattern causes `if` guard to explode",
+      "source_issue_body": {
+        "attachment_id": "01a1a218-67af-737b-98a4-c904fa385852",
+        "sha256": "4be8ee06a757e34d39313b620c413c2491a5169a29a0449b605d9f862f902914",
+        "member": "batch-python-black-linkedpr-20261103-b01/issue-bodies/black-4653.txt",
+        "member_sha256": "34c1cfb07594f86438af31b1c32528221fc67ba6275ef97c7cded38952469946"
+      },
+      "fixed_source": {
+        "attachment_id": "01a1a218-67af-737b-98a4-c904fa385852",
+        "package_sha256": "4be8ee06a757e34d39313b620c413c2491a5169a29a0449b605d9f862f902914",
+        "archive_member": "batch-python-black-linkedpr-20261103-b01/candidates/psf-black-4653-source-linkedpr-b01/source.tar.gz",
+        "archive_sha256": "ea966c9b7f8658bb34dc916da0f4bde08d35bd9b1b93232c6037631a829cab71",
+        "base_commit": "88e78334afa2ff046e8689dc8a8e848dd87792b6",
+        "base_tree": "dbddb41e33f91a365587536993779b33ad7b0856",
+        "archive_reuse": false
+      },
+      "relation_group": null,
+      "prompt_file": null,
+      "stage": "DEFERRED",
+      "reason": "Deferred because the issue material does not make both a concrete defect and its expected behavior sufficiently clear for neutral prompting; no behavior was inferred from the source archive."
+    },
+    {
+      "stable_id": "psf/black#4669",
+      "repo": "psf/black",
+      "issue_number": 4669,
+      "title_reference_only": "Parser fails due to empty body `...` on same line as definition. Discrepancy in whole file and `--line-ranges` parsing",
+      "source_issue_body": {
+        "attachment_id": "01a1a218-67af-737b-98a4-c904fa385852",
+        "sha256": "4be8ee06a757e34d39313b620c413c2491a5169a29a0449b605d9f862f902914",
+        "member": "batch-python-black-linkedpr-20261103-b01/issue-bodies/black-4669.txt",
+        "member_sha256": "22d9e96948809dc11ce6d42a94bfa4e26acc0ca6b4661ef70c4792a6ca01d0b6"
+      },
+      "fixed_source": {
+        "attachment_id": "01a1a218-67af-737b-98a4-c904fa385852",
+        "package_sha256": "4be8ee06a757e34d39313b620c413c2491a5169a29a0449b605d9f862f902914",
+        "archive_member": "batch-python-black-linkedpr-20261103-b01/candidates/psf-black-4669-source-linkedpr-b01/source.tar.gz",
+        "archive_sha256": "e6760f371829d97b86c77855275b941185c9948a2a9c481f236b559587be8165",
+        "base_commit": "203fd6b5cdad975178b8174394a7f7fb13d14f02",
+        "base_tree": "9e5a93ccf6016a53b7bebce9428fe5946509d33b",
+        "archive_reuse": false
+      },
+      "relation_group": null,
+      "prompt_file": null,
+      "stage": "DEFERRED",
+      "reason": "Deferred because it overlaps selected line-range issue psf/black#4430; keep the record, but do not introduce a second prompt before independent deduplication."
+    },
+    {
+      "stable_id": "psf/black#4672",
+      "repo": "psf/black",
+      "issue_number": 4672,
+      "title_reference_only": "Parser error on `await ...`",
+      "source_issue_body": {
+        "attachment_id": "01a1a218-67af-737b-98a4-c904fa385852",
+        "sha256": "4be8ee06a757e34d39313b620c413c2491a5169a29a0449b605d9f862f902914",
+        "member": "batch-python-black-linkedpr-20261103-b01/issue-bodies/black-4672.txt",
+        "member_sha256": "a4d5871d6e5aa66d58eeb55b3e5f893c0f3276001be9b753d0ef59fda43f854a"
+      },
+      "fixed_source": {
+        "attachment_id": "01a1a218-67af-737b-98a4-c904fa385852",
+        "package_sha256": "4be8ee06a757e34d39313b620c413c2491a5169a29a0449b605d9f862f902914",
+        "archive_member": "batch-python-black-linkedpr-20261103-b01/candidates/psf-black-4672-source-linkedpr-b01/source.tar.gz",
+        "archive_sha256": "aa5ef0624433df1d79b02fa1beedaf3b2f64c4d00ce080ff8cb755d4da09da03",
+        "base_commit": "24e4cb20ab03c20af390fec7303207af2a4a09e8",
+        "base_tree": "57e5ed6cb0f573e48d6123185b0b1b9a0bddddc3",
+        "archive_reuse": false
+      },
+      "relation_group": null,
+      "prompt_file": null,
+      "stage": "DEFERRED",
+      "reason": "Deferred from this first slice despite a reported failure: the symptom is multi-condition or its expected behavior/reproduction is less bounded than the 11 selected cases; retain the source record for later review."
+    },
+    {
+      "stable_id": "psf/black#4678",
+      "repo": "psf/black",
+      "issue_number": 4678,
+      "title_reference_only": "Remove braces around except (PEP 758)",
+      "source_issue_body": {
+        "attachment_id": "01a1a218-67af-737b-98a4-c904fa385852",
+        "sha256": "4be8ee06a757e34d39313b620c413c2491a5169a29a0449b605d9f862f902914",
+        "member": "batch-python-black-linkedpr-20261103-b01/issue-bodies/black-4678.txt",
+        "member_sha256": "0d10f47a0fd581f1b5aed0e692ae874e4d8bec26e59c6baf72d54c139d9d83fe"
+      },
+      "fixed_source": {
+        "attachment_id": "01a1a5d8-9167-7ef8-bd97-34ab66b1759a",
+        "package_sha256": "418b5280ea14ecc8620d18012d25512cd379daa5d833702078cd493e058f917b",
+        "archive_member": "payload/source-archives/abd5f08107b09f768b1ec98c7a48e65ec7fdd661.tar.gz",
+        "archive_sha256": "990c680d66e0004cc7130bd88c41518b74ce6d6a0192580c83d2d0f09be74b3a",
+        "base_commit": "abd5f08107b09f768b1ec98c7a48e65ec7fdd661",
+        "base_tree": "d6a8a68b22fc55c4df9b2ef2ab3c6603f2556236",
+        "archive_reuse": false
+      },
+      "relation_group": null,
+      "prompt_file": null,
+      "stage": "DEFERRED",
+      "reason": "Deferred because the issue material does not make both a concrete defect and its expected behavior sufficiently clear for neutral prompting; no behavior was inferred from the source archive."
+    },
+    {
+      "stable_id": "psf/black#4718",
+      "repo": "psf/black",
+      "issue_number": 4718,
+      "title_reference_only": "Tests fail on Python 3.14 due to deprecated `asyncio.get_event_loop_policy()`",
+      "source_issue_body": {
+        "attachment_id": "01a1a218-67af-737b-98a4-c904fa385852",
+        "sha256": "4be8ee06a757e34d39313b620c413c2491a5169a29a0449b605d9f862f902914",
+        "member": "batch-python-black-linkedpr-20261103-b01/issue-bodies/black-4718.txt",
+        "member_sha256": "208ea6d9bf32ad386bf23edd9547f4151a93a5cec2c5c5a08772034a1b531eab"
+      },
+      "fixed_source": {
+        "attachment_id": "01a1a5d8-9167-7ef8-bd97-34ab66b1759a",
+        "package_sha256": "418b5280ea14ecc8620d18012d25512cd379daa5d833702078cd493e058f917b",
+        "archive_member": "payload/source-archives/30275ed2c3695e4c8bd9ab862c28c3d53071b17c.tar.gz",
+        "archive_sha256": "31927fd651a98a9c48043d6a8b3fe0491ee12a32deb6a09ee3767adc5af958ef",
+        "base_commit": "30275ed2c3695e4c8bd9ab862c28c3d53071b17c",
+        "base_tree": "337953e93a4ac3c26d7d2b19c2f57d3f631bfc3c",
+        "archive_reuse": false
+      },
+      "relation_group": null,
+      "prompt_file": null,
+      "stage": "DEFERRED",
+      "reason": "Deferred as test-toolchain, platform-support, or environment compatibility work; preserve its environment and dependency gap for a dedicated review."
+    },
+    {
+      "stable_id": "psf/black#4721",
+      "repo": "psf/black",
+      "issue_number": 4721,
+      "title_reference_only": "In unit tests, specifying the `--target-version` flag raises `AttributeError: 'tuple' object has no attribute 'append'`.",
+      "source_issue_body": {
+        "attachment_id": "01a1a218-67af-737b-98a4-c904fa385852",
+        "sha256": "4be8ee06a757e34d39313b620c413c2491a5169a29a0449b605d9f862f902914",
+        "member": "batch-python-black-linkedpr-20261103-b01/issue-bodies/black-4721.txt",
+        "member_sha256": "3033be95c238f34503157ecec4c1e5cc50435eabbf34f12db7c5011784f8a2ff"
+      },
+      "fixed_source": {
+        "attachment_id": "01a1a5d8-9167-7ef8-bd97-34ab66b1759a",
+        "package_sha256": "418b5280ea14ecc8620d18012d25512cd379daa5d833702078cd493e058f917b",
+        "archive_member": "payload/source-archives/3a96e06025daf0519ba1db113f779a5779a4a702.tar.gz",
+        "archive_sha256": "43e362e94ac95654ef112929d02692d0df4c0171e11f850476468deb0f83a6ed",
+        "base_commit": "3a96e06025daf0519ba1db113f779a5779a4a702",
+        "base_tree": "8f7485419450a83fb640cd0d66c9591da762681f",
+        "archive_reuse": false
+      },
+      "relation_group": null,
+      "prompt_file": null,
+      "stage": "DEFERRED",
+      "reason": "Deferred as test-toolchain, platform-support, or environment compatibility work; preserve its environment and dependency gap for a dedicated review."
+    },
+    {
+      "stable_id": "psf/black#4725",
+      "repo": "psf/black",
+      "issue_number": 4725,
+      "title_reference_only": "LHS parenethesis could be removed sometimes",
+      "source_issue_body": {
+        "attachment_id": "01a1a218-67af-737b-98a4-c904fa385852",
+        "sha256": "4be8ee06a757e34d39313b620c413c2491a5169a29a0449b605d9f862f902914",
+        "member": "batch-python-black-linkedpr-20261103-b01/issue-bodies/black-4725.txt",
+        "member_sha256": "aba0e170dc919b0ba81b9980c2663793eea64e42a6a9dcceaa252100fe67f120"
+      },
+      "fixed_source": {
+        "attachment_id": "01a1a5d8-9167-7ef8-bd97-34ab66b1759a",
+        "package_sha256": "418b5280ea14ecc8620d18012d25512cd379daa5d833702078cd493e058f917b",
+        "archive_member": "payload/source-archives/f5e2d0667dbeb36e6b11e1a04f3f41ccd893babe.tar.gz",
+        "archive_sha256": "e135f43f6e3514181127d45b2083363e35bfe63e0fe3fc38a55758249c29b685",
+        "base_commit": "f5e2d0667dbeb36e6b11e1a04f3f41ccd893babe",
+        "base_tree": "c93784b0dc85121e7307a3bf9dc2087f8bbf93b8",
+        "archive_reuse": false
+      },
+      "relation_group": null,
+      "prompt_file": null,
+      "stage": "DEFERRED",
+      "reason": "Deferred because the issue material does not make both a concrete defect and its expected behavior sufficiently clear for neutral prompting; no behavior was inferred from the source archive."
+    },
+    {
+      "stable_id": "psf/black#4730",
+      "repo": "psf/black",
+      "issue_number": 4730,
+      "title_reference_only": "`# fmt: skip` ignored inside multi-part if-clause",
+      "source_issue_body": {
+        "attachment_id": "01a1a218-67af-737b-98a4-c904fa385852",
+        "sha256": "4be8ee06a757e34d39313b620c413c2491a5169a29a0449b605d9f862f902914",
+        "member": "batch-python-black-linkedpr-20261103-b01/issue-bodies/black-4730.txt",
+        "member_sha256": "ee3bace0f12fe110d8db19ad98e335e8fe0507881c51f09f2b9d737f1fbcf06e"
+      },
+      "fixed_source": {
+        "attachment_id": "01a1a218-67af-737b-98a4-c904fa385852",
+        "package_sha256": "4be8ee06a757e34d39313b620c413c2491a5169a29a0449b605d9f862f902914",
+        "archive_member": "batch-python-black-linkedpr-20261103-b01/candidates/psf-black-4730-source-linkedpr-b01/source.tar.gz",
+        "archive_sha256": "667cfceb589565142b95075a952161775ecf1a41f0a4417287ad208ff5d4b853",
+        "base_commit": "9e8749525bf91d5a78f2bf5534f8efaefab80b92",
+        "base_tree": "7d6ff343d3dcf8b6312de201131573b9d0adb726",
+        "archive_reuse": false
+      },
+      "relation_group": null,
+      "prompt_file": null,
+      "stage": "DEFERRED",
+      "reason": "Deferred as a neighboring fmt: skip behavior report; overlapping conditions in the related cluster make an independent task boundary uncertain from issue symptoms alone."
+    },
+    {
+      "stable_id": "psf/black#4731",
+      "repo": "psf/black",
+      "issue_number": 4731,
+      "title_reference_only": "Black crashes when multiple `# fmt: skip` are added in a multi-part if-clause.",
+      "source_issue_body": {
+        "attachment_id": "01a1a218-67af-737b-98a4-c904fa385852",
+        "sha256": "4be8ee06a757e34d39313b620c413c2491a5169a29a0449b605d9f862f902914",
+        "member": "batch-python-black-linkedpr-20261103-b01/issue-bodies/black-4731.txt",
+        "member_sha256": "1ba004908f8e566d5deb1dde5ab533f683fb0e5804a70b74df487d9d49acece4"
+      },
+      "fixed_source": {
+        "attachment_id": "01a1a5d8-9167-7ef8-bd97-34ab66b1759a",
+        "package_sha256": "418b5280ea14ecc8620d18012d25512cd379daa5d833702078cd493e058f917b",
+        "archive_member": "payload/source-archives/7b265f16634155dafcca65f6122ef7ed8d14a67f.tar.gz",
+        "archive_sha256": "12585f6ed3c71c996e43d9f56f4f2459c823ae32b47107a773717f0f2230eebb",
+        "base_commit": "7b265f16634155dafcca65f6122ef7ed8d14a67f",
+        "base_tree": "5cc3444e0cde672020379fe769333f2c80cd3bfb",
+        "archive_reuse": true
+      },
+      "relation_group": "black-pr-4872-base-tree-archive",
+      "prompt_file": null,
+      "stage": "DEFERRED",
+      "reason": "Deferred with psf/black#4873: both point to PR #4872 and share the same base/tree/archive; the repair overlap is unresolved, so the pair is linked and neither is treated as an independent prompt."
+    },
+    {
+      "stable_id": "psf/black#4740",
+      "repo": "psf/black",
+      "issue_number": 4740,
+      "title_reference_only": "Bug: fails to properly format constrained generics with new 3.12 syntax",
+      "source_issue_body": {
+        "attachment_id": "01a1a218-67af-737b-98a4-c904fa385852",
+        "sha256": "4be8ee06a757e34d39313b620c413c2491a5169a29a0449b605d9f862f902914",
+        "member": "batch-python-black-linkedpr-20261103-b01/issue-bodies/black-4740.txt",
+        "member_sha256": "954d1f7c65e7a32ea32d033cafb321708333a556c2b17d11abe0790d745fd07e"
+      },
+      "fixed_source": {
+        "attachment_id": "01a1a218-67af-737b-98a4-c904fa385852",
+        "package_sha256": "4be8ee06a757e34d39313b620c413c2491a5169a29a0449b605d9f862f902914",
+        "archive_member": "batch-python-black-linkedpr-20261103-b01/candidates/psf-black-4740-source-linkedpr-b01/source.tar.gz",
+        "archive_sha256": "d9db2f77a904229ecdaf0ca0c4fa03fa924e4013d7f07ac1604ad9d2b5631ce0",
+        "base_commit": "0b8f222dc1c42a407f80b9e56a6db4a1ce6226d1",
+        "base_tree": "6d4a41dac7595ce657ea3f0bf2c35219d58e0869",
+        "archive_reuse": false
+      },
+      "relation_group": null,
+      "prompt_file": null,
+      "stage": "DEFERRED",
+      "reason": "Deferred from this first slice despite a reported failure: the symptom is multi-condition or its expected behavior/reproduction is less bounded than the 11 selected cases; retain the source record for later review."
+    },
+    {
+      "stable_id": "psf/black#4762",
+      "repo": "psf/black",
+      "issue_number": 4762,
+      "title_reference_only": "module_docstring_newlines inconsistent w/ first line comment",
+      "source_issue_body": {
+        "attachment_id": "01a1a218-67af-737b-98a4-c904fa385852",
+        "sha256": "4be8ee06a757e34d39313b620c413c2491a5169a29a0449b605d9f862f902914",
+        "member": "batch-python-black-linkedpr-20261103-b01/issue-bodies/black-4762.txt",
+        "member_sha256": "994e77401e7c412d4bf5e2dc00ddd55b229e100d1aee7035dd3a7dfcd66bf76c"
+      },
+      "fixed_source": {
+        "attachment_id": "01a1a5d8-9167-7ef8-bd97-34ab66b1759a",
+        "package_sha256": "418b5280ea14ecc8620d18012d25512cd379daa5d833702078cd493e058f917b",
+        "archive_member": "payload/source-archives/4a8e6b789bbd18c0455d74bbec8d957e824eb3bf.tar.gz",
+        "archive_sha256": "c26e0438d0aef11ee88ff750fca105aca6a0cd894dcea955f844ad0cb8325edb",
+        "base_commit": "4a8e6b789bbd18c0455d74bbec8d957e824eb3bf",
+        "base_tree": "f6988b988039c9035d4e6a099cafaa58e505fa76",
+        "archive_reuse": false
+      },
+      "relation_group": null,
+      "prompt_file": null,
+      "stage": "DEFERRED",
+      "reason": "Deferred as documentation or release/CI workflow work; it does not define a bounded formatter behavior defect for this prompt batch."
+    },
+    {
+      "stable_id": "psf/black#4781",
+      "repo": "psf/black",
+      "issue_number": 4781,
+      "title_reference_only": "Crash with preview style `fix_fmt_skip_in_one_liners` for function with annotated parameter and `# fmt: skip` on one line",
+      "source_issue_body": {
+        "attachment_id": "01a1a218-67af-737b-98a4-c904fa385852",
+        "sha256": "4be8ee06a757e34d39313b620c413c2491a5169a29a0449b605d9f862f902914",
+        "member": "batch-python-black-linkedpr-20261103-b01/issue-bodies/black-4781.txt",
+        "member_sha256": "67d65b6e8c80847e3f648a6b465aa44dc5aa3d0d2213ea881b10feb9c853933b"
+      },
+      "fixed_source": {
+        "attachment_id": "01a1a5d8-9167-7ef8-bd97-34ab66b1759a",
+        "package_sha256": "418b5280ea14ecc8620d18012d25512cd379daa5d833702078cd493e058f917b",
+        "archive_member": "payload/source-archives/efad911ff4f7855ffdc06886579ca8cd2b93733f.tar.gz",
+        "archive_sha256": "5c0d96ea326e9f14d5d55e6d8b3f0bae532ab6602fa85ff5ef0d25aa99bd226a",
+        "base_commit": "efad911ff4f7855ffdc06886579ca8cd2b93733f",
+        "base_tree": "b6f44d372143c5dace81c90723ba1d8070e3f5e0",
+        "archive_reuse": false
+      },
+      "relation_group": null,
+      "prompt_file": null,
+      "stage": "DEFERRED",
+      "reason": "Deferred as a neighboring fmt: skip failure in the known related cluster; need independent review to separate its behavior from the shared repair context."
+    },
+    {
+      "stable_id": "psf/black#4782",
+      "repo": "psf/black",
+      "issue_number": 4782,
+      "title_reference_only": "Crash with preview style `fix_fmt_skip_in_one_liners` for certain compound statements",
+      "source_issue_body": {
+        "attachment_id": "01a1a218-67af-737b-98a4-c904fa385852",
+        "sha256": "4be8ee06a757e34d39313b620c413c2491a5169a29a0449b605d9f862f902914",
+        "member": "batch-python-black-linkedpr-20261103-b01/issue-bodies/black-4782.txt",
+        "member_sha256": "c3584e3dbc0097284067ac6efa7ca6b973652cc7e34556a1716918abbfbeb4e0"
+      },
+      "fixed_source": {
+        "attachment_id": "01a1a218-67af-737b-98a4-c904fa385852",
+        "package_sha256": "4be8ee06a757e34d39313b620c413c2491a5169a29a0449b605d9f862f902914",
+        "archive_member": "batch-python-black-linkedpr-20261103-b01/candidates/psf-black-4782-source-linkedpr-b01/source.tar.gz",
+        "archive_sha256": "fc9a82c9e0ef1c0ef4c15aa64f75f4d95a9b879eeb1fc33b19380c342bed0d76",
+        "base_commit": "300d1d8f82a463f5e67971df5950f7643b22b8a3",
+        "base_tree": "b6ca3995d686bd05b7de4bc3e754c9b400e55a1c",
+        "archive_reuse": false
+      },
+      "relation_group": null,
+      "prompt_file": null,
+      "stage": "DEFERRED",
+      "reason": "Deferred as a neighboring fmt: skip failure in the known related cluster; need independent review to separate its behavior from the shared repair context."
+    },
+    {
+      "stable_id": "psf/black#4783",
+      "repo": "psf/black",
+      "issue_number": 4783,
+      "title_reference_only": "Preview style `fix_fmt_skip_in_one_liners` does not work for semi-colon separated statements in body of compound statement",
+      "source_issue_body": {
+        "attachment_id": "01a1a218-67af-737b-98a4-c904fa385852",
+        "sha256": "4be8ee06a757e34d39313b620c413c2491a5169a29a0449b605d9f862f902914",
+        "member": "batch-python-black-linkedpr-20261103-b01/issue-bodies/black-4783.txt",
+        "member_sha256": "2bafe19901b0cf5444a4334a16667f7159f8786916ed0fcc8b18605ec39d13d5"
+      },
+      "fixed_source": {
+        "attachment_id": "01a1a218-67af-737b-98a4-c904fa385852",
+        "package_sha256": "4be8ee06a757e34d39313b620c413c2491a5169a29a0449b605d9f862f902914",
+        "archive_member": "batch-python-black-linkedpr-20261103-b01/candidates/psf-black-4783-source-linkedpr-b01/source.tar.gz",
+        "archive_sha256": "8da2cc2647bc90728b1a1a8a47cfc77795b2b340e87f1c83f8c0dad3b13c1dbc",
+        "base_commit": "4865e32612bdc1885bd7f4c24a265fbe2dd214a8",
+        "base_tree": "13ed2faf53f7eada207078dc175499f90601dba4",
+        "archive_reuse": false
+      },
+      "relation_group": null,
+      "prompt_file": null,
+      "stage": "DEFERRED",
+      "reason": "Deferred as a neighboring fmt: skip behavior report; overlapping conditions in the related cluster make an independent task boundary uncertain from issue symptoms alone."
+    },
+    {
+      "stable_id": "psf/black#4788",
+      "repo": "psf/black",
+      "issue_number": 4788,
+      "title_reference_only": "Unreadable code block styles in dark mode documentation",
+      "source_issue_body": {
+        "attachment_id": "01a1a218-67af-737b-98a4-c904fa385852",
+        "sha256": "4be8ee06a757e34d39313b620c413c2491a5169a29a0449b605d9f862f902914",
+        "member": "batch-python-black-linkedpr-20261103-b01/issue-bodies/black-4788.txt",
+        "member_sha256": "d9cdbb7e9aafad56033b1cb5c0d04f11312c184ba7f33d31b4117ab625f36622"
+      },
+      "fixed_source": {
+        "attachment_id": "01a1a5d8-9167-7ef8-bd97-34ab66b1759a",
+        "package_sha256": "418b5280ea14ecc8620d18012d25512cd379daa5d833702078cd493e058f917b",
+        "archive_member": "payload/source-archives/82030302ea3d70f233d418d9abd3645d543a400c.tar.gz",
+        "archive_sha256": "e1ba23b723943be19ef1846dd45162dd0d32a877d0663a2645bfb11f2c442e93",
+        "base_commit": "82030302ea3d70f233d418d9abd3645d543a400c",
+        "base_tree": "57f8bbfef163120ed46552f866ca2d120356a818",
+        "archive_reuse": false
+      },
+      "relation_group": null,
+      "prompt_file": null,
+      "stage": "DEFERRED",
+      "reason": "Deferred as documentation or release/CI workflow work; it does not define a bounded formatter behavior defect for this prompt batch."
+    },
+    {
+      "stable_id": "psf/black#4797",
+      "repo": "psf/black",
+      "issue_number": 4797,
+      "title_reference_only": "t-strings (Python 3.14) support for black",
+      "source_issue_body": {
+        "attachment_id": "01a1a218-67af-737b-98a4-c904fa385852",
+        "sha256": "4be8ee06a757e34d39313b620c413c2491a5169a29a0449b605d9f862f902914",
+        "member": "batch-python-black-linkedpr-20261103-b01/issue-bodies/black-4797.txt",
+        "member_sha256": "6262618df7a30787b1cb33f12811b965dcebb8edffedbb84df1d7f2f4517c332"
+      },
+      "fixed_source": {
+        "attachment_id": "01a1a5d8-9167-7ef8-bd97-34ab66b1759a",
+        "package_sha256": "418b5280ea14ecc8620d18012d25512cd379daa5d833702078cd493e058f917b",
+        "archive_member": "payload/source-archives/994e184dbc1f1cbca00093885c732892f9948d1c.tar.gz",
+        "archive_sha256": "fc5e76626afc3aa3f6d41338e4eb5ea9f9c47d19b6696a31223b993fae3690d1",
+        "base_commit": "994e184dbc1f1cbca00093885c732892f9948d1c",
+        "base_tree": "d372c03b9df02e058b6f744e21680ca97ae5a3c8",
+        "archive_reuse": false
+      },
+      "relation_group": null,
+      "prompt_file": "new-prompts/black-4797.md",
+      "stage": "NEW_NEUTRAL_PROMPT_REVIEW_ONLY",
+      "reason": "Selected: issue-level symptom is separable from implementation and verification material; prompt preserves reproduction conditions and expected behavior."
+    },
+    {
+      "stable_id": "psf/black#4813",
+      "repo": "psf/black",
+      "issue_number": 4813,
+      "title_reference_only": "Add support for arm64 windows",
+      "source_issue_body": {
+        "attachment_id": "01a1a218-67af-737b-98a4-c904fa385852",
+        "sha256": "4be8ee06a757e34d39313b620c413c2491a5169a29a0449b605d9f862f902914",
+        "member": "batch-python-black-linkedpr-20261103-b01/issue-bodies/black-4813.txt",
+        "member_sha256": "7bd0850f844ad6168d15cc9d368f3ecc221f6d93d4614f7d7b41b158d0cbc6d1"
+      },
+      "fixed_source": {
+        "attachment_id": "01a1a5d8-9167-7ef8-bd97-34ab66b1759a",
+        "package_sha256": "418b5280ea14ecc8620d18012d25512cd379daa5d833702078cd493e058f917b",
+        "archive_member": "payload/source-archives/0a31a36672bdb938198b17958514ecfb9999f5ef.tar.gz",
+        "archive_sha256": "fc587e65239af05df80719b920e63fa74d3a1e700a262b9d8ec3662d15b1b1c6",
+        "base_commit": "0a31a36672bdb938198b17958514ecfb9999f5ef",
+        "base_tree": "e48b78192f55c4533232662143aac22283c87c9d",
+        "archive_reuse": false
+      },
+      "relation_group": null,
+      "prompt_file": null,
+      "stage": "DEFERRED",
+      "reason": "Deferred as test-toolchain, platform-support, or environment compatibility work; preserve its environment and dependency gap for a dedicated review."
+    },
+    {
+      "stable_id": "psf/black#4826",
+      "repo": "psf/black",
+      "issue_number": 4826,
+      "title_reference_only": "tests are not compatiable with pytest 9.0",
+      "source_issue_body": {
+        "attachment_id": "01a1a218-67af-737b-98a4-c904fa385852",
+        "sha256": "4be8ee06a757e34d39313b620c413c2491a5169a29a0449b605d9f862f902914",
+        "member": "batch-python-black-linkedpr-20261103-b01/issue-bodies/black-4826.txt",
+        "member_sha256": "b0486040f02e273773fcd8999de95ed0f5fbcd8e5228a5a9d4ece8b9a1c144c2"
+      },
+      "fixed_source": {
+        "attachment_id": "01a1a5d8-9167-7ef8-bd97-34ab66b1759a",
+        "package_sha256": "418b5280ea14ecc8620d18012d25512cd379daa5d833702078cd493e058f917b",
+        "archive_member": "payload/source-archives/138745eca650aa59ab30458f7b1c026b66608a09.tar.gz",
+        "archive_sha256": "067a3dd0e6dd5eabcba333ffa6ceae7e63c456805126910ed4fbc4db3dee366b",
+        "base_commit": "138745eca650aa59ab30458f7b1c026b66608a09",
+        "base_tree": "6ed348cc439d11d92c2ba3cb2c1cd6ac2adb323d",
+        "archive_reuse": false
+      },
+      "relation_group": null,
+      "prompt_file": null,
+      "stage": "DEFERRED",
+      "reason": "Deferred as test-toolchain, platform-support, or environment compatibility work; preserve its environment and dependency gap for a dedicated review."
+    },
+    {
+      "stable_id": "psf/black#4838",
+      "repo": "psf/black",
+      "issue_number": 4838,
+      "title_reference_only": "Internal: Documentation/state of `ci: build all wheels` label",
+      "source_issue_body": {
+        "attachment_id": "01a1a218-67af-737b-98a4-c904fa385852",
+        "sha256": "4be8ee06a757e34d39313b620c413c2491a5169a29a0449b605d9f862f902914",
+        "member": "batch-python-black-linkedpr-20261103-b01/issue-bodies/black-4838.txt",
+        "member_sha256": "d7781ad0c67bd7ba0471021cc189c9a3e52ed5ddc02c11062202047fcf17c358"
+      },
+      "fixed_source": {
+        "attachment_id": "01a1a5d8-9167-7ef8-bd97-34ab66b1759a",
+        "package_sha256": "418b5280ea14ecc8620d18012d25512cd379daa5d833702078cd493e058f917b",
+        "archive_member": "payload/source-archives/f37758e666cdac45eb0b622cfb6b0320fafd662c.tar.gz",
+        "archive_sha256": "cfb2dd329d5c7dfd16fbf0c5d45876714104cb071653692dd995def29b4c64af",
+        "base_commit": "f37758e666cdac45eb0b622cfb6b0320fafd662c",
+        "base_tree": "d944b081b404a4f11514f4a973b835014d3463f8",
+        "archive_reuse": false
+      },
+      "relation_group": null,
+      "prompt_file": null,
+      "stage": "DEFERRED",
+      "reason": "Deferred as documentation or release/CI workflow work; it does not define a bounded formatter behavior defect for this prompt batch."
+    },
+    {
+      "stable_id": "psf/black#4873",
+      "repo": "psf/black",
+      "issue_number": 4873,
+      "title_reference_only": "`black` told me to report a bug for lines with `# fmt: skip` on them, I think",
+      "source_issue_body": {
+        "attachment_id": "01a1a218-67af-737b-98a4-c904fa385852",
+        "sha256": "4be8ee06a757e34d39313b620c413c2491a5169a29a0449b605d9f862f902914",
+        "member": "batch-python-black-linkedpr-20261103-b01/issue-bodies/black-4873.txt",
+        "member_sha256": "dcfd1a5501f09e1acdb9fa71a4b9224c694772dd2c17e8ff9d6b8d7d70c4b080"
+      },
+      "fixed_source": {
+        "attachment_id": "01a1a5d8-9167-7ef8-bd97-34ab66b1759a",
+        "package_sha256": "418b5280ea14ecc8620d18012d25512cd379daa5d833702078cd493e058f917b",
+        "archive_member": "payload/source-archives/7b265f16634155dafcca65f6122ef7ed8d14a67f.tar.gz",
+        "archive_sha256": "12585f6ed3c71c996e43d9f56f4f2459c823ae32b47107a773717f0f2230eebb",
+        "base_commit": "7b265f16634155dafcca65f6122ef7ed8d14a67f",
+        "base_tree": "5cc3444e0cde672020379fe769333f2c80cd3bfb",
+        "archive_reuse": true
+      },
+      "relation_group": "black-pr-4872-base-tree-archive",
+      "prompt_file": null,
+      "stage": "DEFERRED",
+      "reason": "Deferred with psf/black#4731: both point to PR #4872 and share the same base/tree/archive; the repair overlap is unresolved, so the pair is linked and neither is treated as an independent prompt."
+    },
+    {
+      "stable_id": "psf/black#4875",
+      "repo": "psf/black",
+      "issue_number": 4875,
+      "title_reference_only": "Setting the 2026 stable style",
+      "source_issue_body": {
+        "attachment_id": "01a1a218-67af-737b-98a4-c904fa385852",
+        "sha256": "4be8ee06a757e34d39313b620c413c2491a5169a29a0449b605d9f862f902914",
+        "member": "batch-python-black-linkedpr-20261103-b01/issue-bodies/black-4875.txt",
+        "member_sha256": "119cb55ae371562756b523c358f6e7db42a76dd011080e840c1e1692b2cc2241"
+      },
+      "fixed_source": {
+        "attachment_id": "01a1a5d8-9167-7ef8-bd97-34ab66b1759a",
+        "package_sha256": "418b5280ea14ecc8620d18012d25512cd379daa5d833702078cd493e058f917b",
+        "archive_member": "payload/source-archives/e71305bee302f7f9016b228361e5ae69669dca7b.tar.gz",
+        "archive_sha256": "564caa06e494f07ef6527169df9e7fabe07a3496d24d271afcd3350dc313ae39",
+        "base_commit": "e71305bee302f7f9016b228361e5ae69669dca7b",
+        "base_tree": "da9487a811d76de699e1aa8f26556904c917c0c5",
+        "archive_reuse": false
+      },
+      "relation_group": null,
+      "prompt_file": null,
+      "stage": "DEFERRED",
+      "reason": "Deferred as a style-policy request; the desired formatting choice needs a separate policy decision before it can become a neutral bug task."
+    },
+    {
+      "stable_id": "psf/black#4912",
+      "repo": "psf/black",
+      "issue_number": 4912,
+      "title_reference_only": "string_processing: error with unassigned long string literal with trailing comma",
+      "source_issue_body": {
+        "attachment_id": "01a1a218-67af-737b-98a4-c904fa385852",
+        "sha256": "4be8ee06a757e34d39313b620c413c2491a5169a29a0449b605d9f862f902914",
+        "member": "batch-python-black-linkedpr-20261103-b01/issue-bodies/black-4912.txt",
+        "member_sha256": "bdfa835404987776c5acfaef63b3fcf674b3f9fbe112f181d9f304a8c3006103"
+      },
+      "fixed_source": {
+        "attachment_id": "01a1a218-67af-737b-98a4-c904fa385852",
+        "package_sha256": "4be8ee06a757e34d39313b620c413c2491a5169a29a0449b605d9f862f902914",
+        "archive_member": "batch-python-black-linkedpr-20261103-b01/candidates/psf-black-4912-source-linkedpr-b01/source.tar.gz",
+        "archive_sha256": "8929fe87e41a39adb9b26c4da15e5e7aa05ece730b54cfe5af4f59f86a558ba9",
+        "base_commit": "1d233bb977901a27c12bd883aa94eaa8f088f02c",
+        "base_tree": "ecb76d02e0af9f001cfe392bec9699fdb5d66cb0",
+        "archive_reuse": false
+      },
+      "relation_group": null,
+      "prompt_file": "new-prompts/black-4912.md",
+      "stage": "NEW_NEUTRAL_PROMPT_REVIEW_ONLY",
+      "reason": "Selected: issue-level symptom is separable from implementation and verification material; prompt preserves reproduction conditions and expected behavior."
+    },
+    {
+      "stable_id": "psf/black#4926",
+      "repo": "psf/black",
+      "issue_number": 4926,
+      "title_reference_only": "Split the Build and Publish workflow into more jobs",
+      "source_issue_body": {
+        "attachment_id": "01a1a218-67af-737b-98a4-c904fa385852",
+        "sha256": "4be8ee06a757e34d39313b620c413c2491a5169a29a0449b605d9f862f902914",
+        "member": "batch-python-black-linkedpr-20261103-b01/issue-bodies/black-4926.txt",
+        "member_sha256": "967eb3a316699dc742f524fba0d21a9b2d867692bf5270f1c36c735fd80d132b"
+      },
+      "fixed_source": {
+        "attachment_id": "01a1a5d8-9167-7ef8-bd97-34ab66b1759a",
+        "package_sha256": "418b5280ea14ecc8620d18012d25512cd379daa5d833702078cd493e058f917b",
+        "archive_member": "payload/source-archives/6f43612766da4a2f275b575af0802c3e73b6ed83.tar.gz",
+        "archive_sha256": "d32f577c857558495a1e28bdd110fce138f13e7440ef3b26e485b875fc7d3f92",
+        "base_commit": "6f43612766da4a2f275b575af0802c3e73b6ed83",
+        "base_tree": "0907bc997fbbc6d2255a35598bfb24f7590aeb91",
+        "archive_reuse": false
+      },
+      "relation_group": null,
+      "prompt_file": null,
+      "stage": "DEFERRED",
+      "reason": "Deferred as documentation or release/CI workflow work; it does not define a bounded formatter behavior defect for this prompt batch."
+    }
+  ]
+}
