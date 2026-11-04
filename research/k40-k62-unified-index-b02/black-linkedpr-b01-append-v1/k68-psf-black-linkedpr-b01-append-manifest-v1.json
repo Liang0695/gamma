@@ -1,0 +1,85 @@
+{
+  "schema": "k68-psf-black-linkedpr-b01-append-manifest/1",
+  "status": "PENDING_INDEPENDENT_REVIEW",
+  "batch": "K40-PSF-BLACK-LINKEDPR-B01",
+  "baseline": {
+    "filename": "k68-catalog-v9.json",
+    "attachment_id": "01a1a1f2-3d78-7c35-8144-6696f7691ab4",
+    "sha256": "3fb90988f07d9ca53e742a35664e4b947d969b3cf68c7cdf95a457dad0968897",
+    "verified_sha256": "3fb90988f07d9ca53e742a35664e4b947d969b3cf68c7cdf95a457dad0968897"
+  },
+  "input": {
+    "filename": "K40-psf-black-source-linkedpr-b01-20261103.zip",
+    "attachment_id": "01a1a218-67af-737b-98a4-c904fa385852",
+    "sha256": "4be8ee06a757e34d39313b620c413c2491a5169a29a0449b605d9f862f902914",
+    "verified_sha256": "4be8ee06a757e34d39313b620c413c2491a5169a29a0449b605d9f862f902914",
+    "members": 388,
+    "zip_crc_errors": 0
+  },
+  "outputs": {
+    "catalog": {
+      "filename": "k68-catalog-v10.json",
+      "sha256": "9e8b69b5f6552f2778c4281cdf5de6105405dd06ba097ea5060ae9375bb01fb7",
+      "identity_rows": 1172
+    },
+    "diff": {
+      "filename": "k68-psf-black-linkedpr-b01-append-diff-v1.json",
+      "sha256": "c49667c47bbaaa96e9f816cd5eec7b29e2801cf74c3acab6b8c0e4ca6454ab16"
+    },
+    "review_wakeup_id": "01a1a219-e2fd-76d0-9870-b61a9086726d",
+    "review_action": "Existing one-shot 082 condition; status transition to in_review will trigger it. No manual dispatch."
+  },
+  "classification": {
+    "exact_new_metadata_identities": 100,
+    "same_repo_merged_direct_closers": 94,
+    "event_time_matches": 70,
+    "mismatch_unresolved_metadata_only": 24,
+    "no_same_repo_merged_final_closer": 6,
+    "fixed_sources_review_only": 20,
+    "run_cap_not_materialized": 49,
+    "same_pr_family_defer": 1,
+    "page2_unconsumed": true
+  },
+  "continuation_after_pass": {
+    "required": true,
+    "owner": "3f",
+    "continuation_batch_index": 2,
+    "max_batches": 3,
+    "next_page": 2,
+    "unmaterialized_run_cap_rows": 49,
+    "must_wait_for_append_review_and_current_catalog_registration": true,
+    "periodic_rule": false
+  },
+  "source_incidents_preserved": [
+    {
+      "type": "sandbox_codeload_tls_failure",
+      "repo_issue": "psf/black#4912",
+      "attempt": 1,
+      "exit_code": 35,
+      "http_status": "000",
+      "stderr_file": "candidates/psf-black-4912-source-linkedpr-b01/codeload-attempt-1-stderr.bin",
+      "stderr_sha256": "fa2b7709c1d4a46abc5991b82c135f13752a312a975da2f98f1df9ba268ea29e",
+      "details": "curl Schannel AcquireCredentialsHandle failed: SEC_E_NO_CREDENTIALS; exact failed attempt preserved; same codeload URL was retried only after approved escalation and succeeded on attempt 2"
+    },
+    {
+      "type": "same_merged_pr_family_dedup",
+      "repo_issue": "psf/black#4520",
+      "related_repo_issue": "psf/black#4588",
+      "pr_number": 4536,
+      "details": "materialization stopped before downloading #4520 after local preflight found the same direct merged PR as #4588; #4520 preserved as duplicate-family defer"
+    }
+  ],
+  "safety_scope": {
+    "pr_bodies_diffs_fixes_comments_read": false,
+    "test_bodies_read": false,
+    "hidden_evaluation_or_external_poc_read": false,
+    "candidate_or_test_executed": false,
+    "network_source_collection": false,
+    "107_or_gpu_used": false
+  },
+  "old_catalog_prefix_unchanged": true,
+  "old_66_prompts_preserved": true,
+  "previous_append_history_preserved": true,
+  "previous_integration_status_preserved": true,
+  "qualification_or_training_release": false
+}
