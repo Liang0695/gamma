@@ -1,0 +1,131 @@
+{
+  "schema": "k68-black-b03-source-enrichment-manifest/1",
+  "status": "PENDING_INDEPENDENT_REVIEW",
+  "batch_id": "K40-PSF-BLACK-LINKEDPR-B03-20261104",
+  "baseline": {
+    "filename": "k68-catalog-v11-r1.json",
+    "attachment_id": "01a1a5ec-35bb-7463-ab1d-aa8c0319426d",
+    "sha256": "002558ff1d9d3887086fd6ee579c13609539aca5cc7c8b7832ff67a131de635f",
+    "identity_rows": 1172
+  },
+  "input": {
+    "filename": "K40-psf-black-source-enrichment-b03-20261104.zip",
+    "attachment_id": "01a1a5fa-919a-70ab-b379-6334c93d086c",
+    "sha256": "26109a854d1a6f929fa0538cc5e9ce2faab00951b95a8f9022c9ced30596aa6b",
+    "verified_sha256": "26109a854d1a6f929fa0538cc5e9ce2faab00951b95a8f9022c9ced30596aa6b",
+    "zip_members": 239,
+    "zip_crc_errors": 0
+  },
+  "authoritative_queue": {
+    "attachment_id": "01a1a5e7-c758-7e79-9a23-d7411b9a88ca",
+    "sha256": "bda0762bcf5591f9b47c18dcc77901c785a8feb2ecfbd46675ae43135e38ddba",
+    "rows_before": 29,
+    "rows_processed": 19,
+    "rows_remaining": 10,
+    "next_cursor": "psf/black#4256",
+    "remaining_task_ids": [
+      "psf/black#4256",
+      "psf/black#4238",
+      "psf/black#4232",
+      "psf/black#4231",
+      "psf/black#4227",
+      "psf/black#4220",
+      "psf/black#4209",
+      "psf/black#4205",
+      "psf/black#4188",
+      "psf/black#4173"
+    ]
+  },
+  "reused_original_evidence": {
+    "source_attachment_id": "01a1a218-67af-737b-98a4-c904fa385852",
+    "source_sha256": "4be8ee06a757e34d39313b620c413c2491a5169a29a0449b605d9f862f902914",
+    "issue_body_api_requests": 0,
+    "closed_event_api_requests": 0,
+    "original_body_bytes_and_event_bytes_hash_verified": true,
+    "closed_event_member": "batch-python-black-linkedpr-20261103-b01/closed-event-page1-response.json",
+    "closed_event_sha256": "e4f9b080156d2777b4416a0f82990f1842bcb09622990a8264ab782c255ae5e9"
+  },
+  "outputs": {
+    "catalog": {
+      "filename": "k68-catalog-v12.json",
+      "sha256": "60d63de504714c0489f50ce721a10b2dea511164881c1e9f78a3bcc35228fc41",
+      "identity_rows": 1172
+    },
+    "diff": {
+      "filename": "k68-black-b03-source-enrichment-diff-v1.json",
+      "sha256": "0f4972447fc51df82383c68e089d4af30006bd7a113b5b124da59c679597e0a6"
+    },
+    "package": {
+      "filename": "k68-black-b03-source-enrichment-append-v1.zip"
+    },
+    "review_action": "Set K68 to in_review for the independent 082 review; no further source batch is authorized after this terminal batch."
+  },
+  "counts": {
+    "existing_identity_rows_enriched": 19,
+    "new_identity_rows": 0,
+    "metadata_increment": 0,
+    "source_material_increment": 19,
+    "pinned_increment": 19,
+    "unique_archives": 19,
+    "archive_reuse_rows": 0,
+    "source_ready_increment": 0,
+    "deployable_increment": 0,
+    "training_approved_increment": 0,
+    "cumulative_inventory_before": {
+      "metadata": 1336,
+      "material": 405,
+      "pinned": 381,
+      "source_ready": 85,
+      "deployable": 0,
+      "training_approved": 0
+    },
+    "cumulative_inventory_after": {
+      "metadata": 1336,
+      "material": 424,
+      "pinned": 400,
+      "source_ready": 85,
+      "deployable": 0,
+      "training_approved": 0
+    }
+  },
+  "qualification": {
+    "source_role": "UNKNOWN",
+    "family": "UNKNOWN",
+    "split": "UNASSIGNED",
+    "actor_visible": false,
+    "trusted_acceptance": false,
+    "purpose_authorization": "NOT_GRANTED",
+    "training_release": "BLOCKED",
+    "environment": "NOT_ASSESSED",
+    "deployment": "NOT_ASSESSED",
+    "old_exposure": "NOT_CLEARED"
+  },
+  "collection_stop": {
+    "continuation_batch_index": 3,
+    "max_batches": 3,
+    "pinned_after_append": 400,
+    "stop_reason": "pinned reaches 400; no fourth source batch and no page2 request",
+    "remaining_ten_rows_retained": true,
+    "400_pinned_is_not_training_eligibility": true
+  },
+  "safety_scope": {
+    "search_requests": 0,
+    "graphql_requests": 0,
+    "pr_bodies_diffs_fixes_comments_read": false,
+    "test_contents_read": false,
+    "hidden_evaluation_or_external_poc_read": false,
+    "candidate_or_test_executed": false,
+    "107_or_gpu_used": false,
+    "credentials_or_proxy_changed": false
+  },
+  "preserved": {
+    "prior_1172_identity_rows": true,
+    "all_historical_RUN_CAP_NOT_MATERIALIZED_dispositions": true,
+    "all_prior_source_enrichment_fields": true,
+    "prior_66_prompts": true,
+    "prior_24_timestamp_mismatches": true,
+    "prior_6_no_same_repo_merged_rows": true,
+    "prior_4520_4588_family_defer": true,
+    "prior_click_and_pytest_exclusions": true
+  }
+}
