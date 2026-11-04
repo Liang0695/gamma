@@ -1,0 +1,527 @@
+{
+  "schema": "k68-psf-black-stable-id-correction/1",
+  "operation": "FIELD_CORRECTION_ONLY",
+  "input_zip_sha256": "4be8ee06a757e34d39313b620c413c2491a5169a29a0449b605d9f862f902914",
+  "baseline_catalog_v9_sha256": "3fb90988f07d9ca53e742a35664e4b947d969b3cf68c7cdf95a457dad0968897",
+  "prior_catalog_v10_sha256": "9e8b69b5f6552f2778c4281cdf5de6105405dd06ba097ea5060ae9375bb01fb7",
+  "prior_diff_v1_sha256": "c49667c47bbaaa96e9f816cd5eec7b29e2801cf74c3acab6b8c0e4ca6454ab16",
+  "prior_manifest_v1_sha256": "8184f4fc1234b11984cef7568fbe6eaeb1335a245a3944130e31e76944f32395",
+  "prior_package_v1_sha256": "a0003b7198a1f3a367b2521fde5464b2bf95c54f337f71ec7d06128403b7c17d",
+  "new_identity_rows": 0,
+  "changed_rows": 100,
+  "field": "stable_id",
+  "catalog_location": "records[].identity.stable_id",
+  "diff_location": "appended_rows[].stable_id",
+  "source_of_truth": "identity-source-ledger.json rows from the verified input ZIP",
+  "changes": [
+    {
+      "task_id": "psf/black#4926",
+      "old_stable_id": "pallets-black-4926-metadata-linkedpr-b01",
+      "source_stable_id": "psf-black-4926-metadata-linkedpr-b01"
+    },
+    {
+      "task_id": "psf/black#4912",
+      "old_stable_id": "pallets-black-4912-metadata-linkedpr-b01",
+      "source_stable_id": "psf-black-4912-metadata-linkedpr-b01"
+    },
+    {
+      "task_id": "psf/black#4880",
+      "old_stable_id": "pallets-black-4880-metadata-linkedpr-b01",
+      "source_stable_id": "psf-black-4880-metadata-linkedpr-b01"
+    },
+    {
+      "task_id": "psf/black#4877",
+      "old_stable_id": "pallets-black-4877-metadata-linkedpr-b01",
+      "source_stable_id": "psf-black-4877-metadata-linkedpr-b01"
+    },
+    {
+      "task_id": "psf/black#4875",
+      "old_stable_id": "pallets-black-4875-metadata-linkedpr-b01",
+      "source_stable_id": "psf-black-4875-metadata-linkedpr-b01"
+    },
+    {
+      "task_id": "psf/black#4873",
+      "old_stable_id": "pallets-black-4873-metadata-linkedpr-b01",
+      "source_stable_id": "psf-black-4873-metadata-linkedpr-b01"
+    },
+    {
+      "task_id": "psf/black#4843",
+      "old_stable_id": "pallets-black-4843-metadata-linkedpr-b01",
+      "source_stable_id": "psf-black-4843-metadata-linkedpr-b01"
+    },
+    {
+      "task_id": "psf/black#4841",
+      "old_stable_id": "pallets-black-4841-metadata-linkedpr-b01",
+      "source_stable_id": "psf-black-4841-metadata-linkedpr-b01"
+    },
+    {
+      "task_id": "psf/black#4838",
+      "old_stable_id": "pallets-black-4838-metadata-linkedpr-b01",
+      "source_stable_id": "psf-black-4838-metadata-linkedpr-b01"
+    },
+    {
+      "task_id": "psf/black#4826",
+      "old_stable_id": "pallets-black-4826-metadata-linkedpr-b01",
+      "source_stable_id": "psf-black-4826-metadata-linkedpr-b01"
+    },
+    {
+      "task_id": "psf/black#4823",
+      "old_stable_id": "pallets-black-4823-metadata-linkedpr-b01",
+      "source_stable_id": "psf-black-4823-metadata-linkedpr-b01"
+    },
+    {
+      "task_id": "psf/black#4820",
+      "old_stable_id": "pallets-black-4820-metadata-linkedpr-b01",
+      "source_stable_id": "psf-black-4820-metadata-linkedpr-b01"
+    },
+    {
+      "task_id": "psf/black#4813",
+      "old_stable_id": "pallets-black-4813-metadata-linkedpr-b01",
+      "source_stable_id": "psf-black-4813-metadata-linkedpr-b01"
+    },
+    {
+      "task_id": "psf/black#4802",
+      "old_stable_id": "pallets-black-4802-metadata-linkedpr-b01",
+      "source_stable_id": "psf-black-4802-metadata-linkedpr-b01"
+    },
+    {
+      "task_id": "psf/black#4797",
+      "old_stable_id": "pallets-black-4797-metadata-linkedpr-b01",
+      "source_stable_id": "psf-black-4797-metadata-linkedpr-b01"
+    },
+    {
+      "task_id": "psf/black#4788",
+      "old_stable_id": "pallets-black-4788-metadata-linkedpr-b01",
+      "source_stable_id": "psf-black-4788-metadata-linkedpr-b01"
+    },
+    {
+      "task_id": "psf/black#4783",
+      "old_stable_id": "pallets-black-4783-metadata-linkedpr-b01",
+      "source_stable_id": "psf-black-4783-metadata-linkedpr-b01"
+    },
+    {
+      "task_id": "psf/black#4782",
+      "old_stable_id": "pallets-black-4782-metadata-linkedpr-b01",
+      "source_stable_id": "psf-black-4782-metadata-linkedpr-b01"
+    },
+    {
+      "task_id": "psf/black#4781",
+      "old_stable_id": "pallets-black-4781-metadata-linkedpr-b01",
+      "source_stable_id": "psf-black-4781-metadata-linkedpr-b01"
+    },
+    {
+      "task_id": "psf/black#4762",
+      "old_stable_id": "pallets-black-4762-metadata-linkedpr-b01",
+      "source_stable_id": "psf-black-4762-metadata-linkedpr-b01"
+    },
+    {
+      "task_id": "psf/black#4740",
+      "old_stable_id": "pallets-black-4740-metadata-linkedpr-b01",
+      "source_stable_id": "psf-black-4740-metadata-linkedpr-b01"
+    },
+    {
+      "task_id": "psf/black#4733",
+      "old_stable_id": "pallets-black-4733-metadata-linkedpr-b01",
+      "source_stable_id": "psf-black-4733-metadata-linkedpr-b01"
+    },
+    {
+      "task_id": "psf/black#4731",
+      "old_stable_id": "pallets-black-4731-metadata-linkedpr-b01",
+      "source_stable_id": "psf-black-4731-metadata-linkedpr-b01"
+    },
+    {
+      "task_id": "psf/black#4730",
+      "old_stable_id": "pallets-black-4730-metadata-linkedpr-b01",
+      "source_stable_id": "psf-black-4730-metadata-linkedpr-b01"
+    },
+    {
+      "task_id": "psf/black#4725",
+      "old_stable_id": "pallets-black-4725-metadata-linkedpr-b01",
+      "source_stable_id": "psf-black-4725-metadata-linkedpr-b01"
+    },
+    {
+      "task_id": "psf/black#4721",
+      "old_stable_id": "pallets-black-4721-metadata-linkedpr-b01",
+      "source_stable_id": "psf-black-4721-metadata-linkedpr-b01"
+    },
+    {
+      "task_id": "psf/black#4718",
+      "old_stable_id": "pallets-black-4718-metadata-linkedpr-b01",
+      "source_stable_id": "psf-black-4718-metadata-linkedpr-b01"
+    },
+    {
+      "task_id": "psf/black#4678",
+      "old_stable_id": "pallets-black-4678-metadata-linkedpr-b01",
+      "source_stable_id": "psf-black-4678-metadata-linkedpr-b01"
+    },
+    {
+      "task_id": "psf/black#4677",
+      "old_stable_id": "pallets-black-4677-metadata-linkedpr-b01",
+      "source_stable_id": "psf-black-4677-metadata-linkedpr-b01"
+    },
+    {
+      "task_id": "psf/black#4672",
+      "old_stable_id": "pallets-black-4672-metadata-linkedpr-b01",
+      "source_stable_id": "psf-black-4672-metadata-linkedpr-b01"
+    },
+    {
+      "task_id": "psf/black#4669",
+      "old_stable_id": "pallets-black-4669-metadata-linkedpr-b01",
+      "source_stable_id": "psf-black-4669-metadata-linkedpr-b01"
+    },
+    {
+      "task_id": "psf/black#4653",
+      "old_stable_id": "pallets-black-4653-metadata-linkedpr-b01",
+      "source_stable_id": "psf-black-4653-metadata-linkedpr-b01"
+    },
+    {
+      "task_id": "psf/black#4647",
+      "old_stable_id": "pallets-black-4647-metadata-linkedpr-b01",
+      "source_stable_id": "psf-black-4647-metadata-linkedpr-b01"
+    },
+    {
+      "task_id": "psf/black#4642",
+      "old_stable_id": "pallets-black-4642-metadata-linkedpr-b01",
+      "source_stable_id": "psf-black-4642-metadata-linkedpr-b01"
+    },
+    {
+      "task_id": "psf/black#4640",
+      "old_stable_id": "pallets-black-4640-metadata-linkedpr-b01",
+      "source_stable_id": "psf-black-4640-metadata-linkedpr-b01"
+    },
+    {
+      "task_id": "psf/black#4633",
+      "old_stable_id": "pallets-black-4633-metadata-linkedpr-b01",
+      "source_stable_id": "psf-black-4633-metadata-linkedpr-b01"
+    },
+    {
+      "task_id": "psf/black#4632",
+      "old_stable_id": "pallets-black-4632-metadata-linkedpr-b01",
+      "source_stable_id": "psf-black-4632-metadata-linkedpr-b01"
+    },
+    {
+      "task_id": "psf/black#4631",
+      "old_stable_id": "pallets-black-4631-metadata-linkedpr-b01",
+      "source_stable_id": "psf-black-4631-metadata-linkedpr-b01"
+    },
+    {
+      "task_id": "psf/black#4629",
+      "old_stable_id": "pallets-black-4629-metadata-linkedpr-b01",
+      "source_stable_id": "psf-black-4629-metadata-linkedpr-b01"
+    },
+    {
+      "task_id": "psf/black#4625",
+      "old_stable_id": "pallets-black-4625-metadata-linkedpr-b01",
+      "source_stable_id": "psf-black-4625-metadata-linkedpr-b01"
+    },
+    {
+      "task_id": "psf/black#4609",
+      "old_stable_id": "pallets-black-4609-metadata-linkedpr-b01",
+      "source_stable_id": "psf-black-4609-metadata-linkedpr-b01"
+    },
+    {
+      "task_id": "psf/black#4599",
+      "old_stable_id": "pallets-black-4599-metadata-linkedpr-b01",
+      "source_stable_id": "psf-black-4599-metadata-linkedpr-b01"
+    },
+    {
+      "task_id": "psf/black#4589",
+      "old_stable_id": "pallets-black-4589-metadata-linkedpr-b01",
+      "source_stable_id": "psf-black-4589-metadata-linkedpr-b01"
+    },
+    {
+      "task_id": "psf/black#4588",
+      "old_stable_id": "pallets-black-4588-metadata-linkedpr-b01",
+      "source_stable_id": "psf-black-4588-metadata-linkedpr-b01"
+    },
+    {
+      "task_id": "psf/black#4540",
+      "old_stable_id": "pallets-black-4540-metadata-linkedpr-b01",
+      "source_stable_id": "psf-black-4540-metadata-linkedpr-b01"
+    },
+    {
+      "task_id": "psf/black#4535",
+      "old_stable_id": "pallets-black-4535-metadata-linkedpr-b01",
+      "source_stable_id": "psf-black-4535-metadata-linkedpr-b01"
+    },
+    {
+      "task_id": "psf/black#4523",
+      "old_stable_id": "pallets-black-4523-metadata-linkedpr-b01",
+      "source_stable_id": "psf-black-4523-metadata-linkedpr-b01"
+    },
+    {
+      "task_id": "psf/black#4522",
+      "old_stable_id": "pallets-black-4522-metadata-linkedpr-b01",
+      "source_stable_id": "psf-black-4522-metadata-linkedpr-b01"
+    },
+    {
+      "task_id": "psf/black#4520",
+      "old_stable_id": "pallets-black-4520-metadata-linkedpr-b01",
+      "source_stable_id": "psf-black-4520-metadata-linkedpr-b01"
+    },
+    {
+      "task_id": "psf/black#4514",
+      "old_stable_id": "pallets-black-4514-metadata-linkedpr-b01",
+      "source_stable_id": "psf-black-4514-metadata-linkedpr-b01"
+    },
+    {
+      "task_id": "psf/black#4511",
+      "old_stable_id": "pallets-black-4511-metadata-linkedpr-b01",
+      "source_stable_id": "psf-black-4511-metadata-linkedpr-b01"
+    },
+    {
+      "task_id": "psf/black#4510",
+      "old_stable_id": "pallets-black-4510-metadata-linkedpr-b01",
+      "source_stable_id": "psf-black-4510-metadata-linkedpr-b01"
+    },
+    {
+      "task_id": "psf/black#4504",
+      "old_stable_id": "pallets-black-4504-metadata-linkedpr-b01",
+      "source_stable_id": "psf-black-4504-metadata-linkedpr-b01"
+    },
+    {
+      "task_id": "psf/black#4493",
+      "old_stable_id": "pallets-black-4493-metadata-linkedpr-b01",
+      "source_stable_id": "psf-black-4493-metadata-linkedpr-b01"
+    },
+    {
+      "task_id": "psf/black#4472",
+      "old_stable_id": "pallets-black-4472-metadata-linkedpr-b01",
+      "source_stable_id": "psf-black-4472-metadata-linkedpr-b01"
+    },
+    {
+      "task_id": "psf/black#4465",
+      "old_stable_id": "pallets-black-4465-metadata-linkedpr-b01",
+      "source_stable_id": "psf-black-4465-metadata-linkedpr-b01"
+    },
+    {
+      "task_id": "psf/black#4446",
+      "old_stable_id": "pallets-black-4446-metadata-linkedpr-b01",
+      "source_stable_id": "psf-black-4446-metadata-linkedpr-b01"
+    },
+    {
+      "task_id": "psf/black#4437",
+      "old_stable_id": "pallets-black-4437-metadata-linkedpr-b01",
+      "source_stable_id": "psf-black-4437-metadata-linkedpr-b01"
+    },
+    {
+      "task_id": "psf/black#4430",
+      "old_stable_id": "pallets-black-4430-metadata-linkedpr-b01",
+      "source_stable_id": "psf-black-4430-metadata-linkedpr-b01"
+    },
+    {
+      "task_id": "psf/black#4429",
+      "old_stable_id": "pallets-black-4429-metadata-linkedpr-b01",
+      "source_stable_id": "psf-black-4429-metadata-linkedpr-b01"
+    },
+    {
+      "task_id": "psf/black#4421",
+      "old_stable_id": "pallets-black-4421-metadata-linkedpr-b01",
+      "source_stable_id": "psf-black-4421-metadata-linkedpr-b01"
+    },
+    {
+      "task_id": "psf/black#4420",
+      "old_stable_id": "pallets-black-4420-metadata-linkedpr-b01",
+      "source_stable_id": "psf-black-4420-metadata-linkedpr-b01"
+    },
+    {
+      "task_id": "psf/black#4418",
+      "old_stable_id": "pallets-black-4418-metadata-linkedpr-b01",
+      "source_stable_id": "psf-black-4418-metadata-linkedpr-b01"
+    },
+    {
+      "task_id": "psf/black#4412",
+      "old_stable_id": "pallets-black-4412-metadata-linkedpr-b01",
+      "source_stable_id": "psf-black-4412-metadata-linkedpr-b01"
+    },
+    {
+      "task_id": "psf/black#4405",
+      "old_stable_id": "pallets-black-4405-metadata-linkedpr-b01",
+      "source_stable_id": "psf-black-4405-metadata-linkedpr-b01"
+    },
+    {
+      "task_id": "psf/black#4399",
+      "old_stable_id": "pallets-black-4399-metadata-linkedpr-b01",
+      "source_stable_id": "psf-black-4399-metadata-linkedpr-b01"
+    },
+    {
+      "task_id": "psf/black#4374",
+      "old_stable_id": "pallets-black-4374-metadata-linkedpr-b01",
+      "source_stable_id": "psf-black-4374-metadata-linkedpr-b01"
+    },
+    {
+      "task_id": "psf/black#4367",
+      "old_stable_id": "pallets-black-4367-metadata-linkedpr-b01",
+      "source_stable_id": "psf-black-4367-metadata-linkedpr-b01"
+    },
+    {
+      "task_id": "psf/black#4366",
+      "old_stable_id": "pallets-black-4366-metadata-linkedpr-b01",
+      "source_stable_id": "psf-black-4366-metadata-linkedpr-b01"
+    },
+    {
+      "task_id": "psf/black#4353",
+      "old_stable_id": "pallets-black-4353-metadata-linkedpr-b01",
+      "source_stable_id": "psf-black-4353-metadata-linkedpr-b01"
+    },
+    {
+      "task_id": "psf/black#4350",
+      "old_stable_id": "pallets-black-4350-metadata-linkedpr-b01",
+      "source_stable_id": "psf-black-4350-metadata-linkedpr-b01"
+    },
+    {
+      "task_id": "psf/black#4349",
+      "old_stable_id": "pallets-black-4349-metadata-linkedpr-b01",
+      "source_stable_id": "psf-black-4349-metadata-linkedpr-b01"
+    },
+    {
+      "task_id": "psf/black#4344",
+      "old_stable_id": "pallets-black-4344-metadata-linkedpr-b01",
+      "source_stable_id": "psf-black-4344-metadata-linkedpr-b01"
+    },
+    {
+      "task_id": "psf/black#4337",
+      "old_stable_id": "pallets-black-4337-metadata-linkedpr-b01",
+      "source_stable_id": "psf-black-4337-metadata-linkedpr-b01"
+    },
+    {
+      "task_id": "psf/black#4330",
+      "old_stable_id": "pallets-black-4330-metadata-linkedpr-b01",
+      "source_stable_id": "psf-black-4330-metadata-linkedpr-b01"
+    },
+    {
+      "task_id": "psf/black#4329",
+      "old_stable_id": "pallets-black-4329-metadata-linkedpr-b01",
+      "source_stable_id": "psf-black-4329-metadata-linkedpr-b01"
+    },
+    {
+      "task_id": "psf/black#4324",
+      "old_stable_id": "pallets-black-4324-metadata-linkedpr-b01",
+      "source_stable_id": "psf-black-4324-metadata-linkedpr-b01"
+    },
+    {
+      "task_id": "psf/black#4296",
+      "old_stable_id": "pallets-black-4296-metadata-linkedpr-b01",
+      "source_stable_id": "psf-black-4296-metadata-linkedpr-b01"
+    },
+    {
+      "task_id": "psf/black#4288",
+      "old_stable_id": "pallets-black-4288-metadata-linkedpr-b01",
+      "source_stable_id": "psf-black-4288-metadata-linkedpr-b01"
+    },
+    {
+      "task_id": "psf/black#4285",
+      "old_stable_id": "pallets-black-4285-metadata-linkedpr-b01",
+      "source_stable_id": "psf-black-4285-metadata-linkedpr-b01"
+    },
+    {
+      "task_id": "psf/black#4280",
+      "old_stable_id": "pallets-black-4280-metadata-linkedpr-b01",
+      "source_stable_id": "psf-black-4280-metadata-linkedpr-b01"
+    },
+    {
+      "task_id": "psf/black#4275",
+      "old_stable_id": "pallets-black-4275-metadata-linkedpr-b01",
+      "source_stable_id": "psf-black-4275-metadata-linkedpr-b01"
+    },
+    {
+      "task_id": "psf/black#4268",
+      "old_stable_id": "pallets-black-4268-metadata-linkedpr-b01",
+      "source_stable_id": "psf-black-4268-metadata-linkedpr-b01"
+    },
+    {
+      "task_id": "psf/black#4264",
+      "old_stable_id": "pallets-black-4264-metadata-linkedpr-b01",
+      "source_stable_id": "psf-black-4264-metadata-linkedpr-b01"
+    },
+    {
+      "task_id": "psf/black#4261",
+      "old_stable_id": "pallets-black-4261-metadata-linkedpr-b01",
+      "source_stable_id": "psf-black-4261-metadata-linkedpr-b01"
+    },
+    {
+      "task_id": "psf/black#4258",
+      "old_stable_id": "pallets-black-4258-metadata-linkedpr-b01",
+      "source_stable_id": "psf-black-4258-metadata-linkedpr-b01"
+    },
+    {
+      "task_id": "psf/black#4256",
+      "old_stable_id": "pallets-black-4256-metadata-linkedpr-b01",
+      "source_stable_id": "psf-black-4256-metadata-linkedpr-b01"
+    },
+    {
+      "task_id": "psf/black#4247",
+      "old_stable_id": "pallets-black-4247-metadata-linkedpr-b01",
+      "source_stable_id": "psf-black-4247-metadata-linkedpr-b01"
+    },
+    {
+      "task_id": "psf/black#4238",
+      "old_stable_id": "pallets-black-4238-metadata-linkedpr-b01",
+      "source_stable_id": "psf-black-4238-metadata-linkedpr-b01"
+    },
+    {
+      "task_id": "psf/black#4235",
+      "old_stable_id": "pallets-black-4235-metadata-linkedpr-b01",
+      "source_stable_id": "psf-black-4235-metadata-linkedpr-b01"
+    },
+    {
+      "task_id": "psf/black#4232",
+      "old_stable_id": "pallets-black-4232-metadata-linkedpr-b01",
+      "source_stable_id": "psf-black-4232-metadata-linkedpr-b01"
+    },
+    {
+      "task_id": "psf/black#4231",
+      "old_stable_id": "pallets-black-4231-metadata-linkedpr-b01",
+      "source_stable_id": "psf-black-4231-metadata-linkedpr-b01"
+    },
+    {
+      "task_id": "psf/black#4227",
+      "old_stable_id": "pallets-black-4227-metadata-linkedpr-b01",
+      "source_stable_id": "psf-black-4227-metadata-linkedpr-b01"
+    },
+    {
+      "task_id": "psf/black#4220",
+      "old_stable_id": "pallets-black-4220-metadata-linkedpr-b01",
+      "source_stable_id": "psf-black-4220-metadata-linkedpr-b01"
+    },
+    {
+      "task_id": "psf/black#4209",
+      "old_stable_id": "pallets-black-4209-metadata-linkedpr-b01",
+      "source_stable_id": "psf-black-4209-metadata-linkedpr-b01"
+    },
+    {
+      "task_id": "psf/black#4205",
+      "old_stable_id": "pallets-black-4205-metadata-linkedpr-b01",
+      "source_stable_id": "psf-black-4205-metadata-linkedpr-b01"
+    },
+    {
+      "task_id": "psf/black#4188",
+      "old_stable_id": "pallets-black-4188-metadata-linkedpr-b01",
+      "source_stable_id": "psf-black-4188-metadata-linkedpr-b01"
+    },
+    {
+      "task_id": "psf/black#4180",
+      "old_stable_id": "pallets-black-4180-metadata-linkedpr-b01",
+      "source_stable_id": "psf-black-4180-metadata-linkedpr-b01"
+    },
+    {
+      "task_id": "psf/black#4173",
+      "old_stable_id": "pallets-black-4173-metadata-linkedpr-b01",
+      "source_stable_id": "psf-black-4173-metadata-linkedpr-b01"
+    },
+    {
+      "task_id": "psf/black#4172",
+      "old_stable_id": "pallets-black-4172-metadata-linkedpr-b01",
+      "source_stable_id": "psf-black-4172-metadata-linkedpr-b01"
+    }
+  ],
+  "preserved": {
+    "baseline_records_unchanged": 1072,
+    "appended_identity_rows": 100,
+    "source_candidates": 20,
+    "source_evidence_changed": false,
+    "counts_changed": false,
+    "qualification_changed": false,
+    "review_status": "PENDING_INDEPENDENT_DIFF_REVIEW"
+  }
+}
