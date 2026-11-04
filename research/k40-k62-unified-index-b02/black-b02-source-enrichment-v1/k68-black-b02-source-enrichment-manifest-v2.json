@@ -1,0 +1,362 @@
+{
+  "schema": "k68-black-b02-source-enrichment-manifest/2",
+  "status": "PENDING_INDEPENDENT_REVIEW",
+  "batch_id": "K40-PSF-BLACK-LINKEDPR-B02-20261104",
+  "baseline": {
+    "filename": "k68-catalog-v10-r1.json",
+    "attachment_id": "01a1a5c7-e92f-79d3-9a54-4b788570db31",
+    "sha256": "d644582da2416b1cdaee6945dbe85968a91f3ac8ad8c7d74130732d1c771e65e",
+    "identity_rows": 1172
+  },
+  "source_enrichment_input": {
+    "filename": "K40-psf-black-source-enrichment-b02-20261104.zip",
+    "attachment_id": "01a1a5d8-9167-7ef8-bd97-34ab66b1759a",
+    "sha256": "418b5280ea14ecc8620d18012d25512cd379daa5d833702078cd493e058f917b",
+    "verified_sha256": "418b5280ea14ecc8620d18012d25512cd379daa5d833702078cd493e058f917b",
+    "zip_members": 240,
+    "zip_crc_errors": 0,
+    "ledger_member": "payload/source-enrichment-ledger.json"
+  },
+  "authoritative_queue": {
+    "filename": "remaining-49-queue.json",
+    "attachment_id": "01a1a5c3-7d27-7bc5-99b0-0ef2a53a75ea",
+    "sha256": "0a3869a0ec08103556082a5754f0d0fb745d9e4154572c3f3502906656d14ca1",
+    "rows_before": 49,
+    "rows_processed": 20,
+    "rows_remaining": 29,
+    "next_cursor": "psf/black#4437"
+  },
+  "reused_original_evidence": {
+    "source_attachment_id": "01a1a218-67af-737b-98a4-c904fa385852",
+    "source_sha256": "4be8ee06a757e34d39313b620c413c2491a5169a29a0449b605d9f862f902914",
+    "issue_body_and_closed_event_requests": 0,
+    "body_and_closed_event_bytes_rehashed": true
+  },
+  "outputs": {
+    "catalog": {
+      "filename": "k68-catalog-v11-r1.json",
+      "sha256": "002558ff1d9d3887086fd6ee579c13609539aca5cc7c8b7832ff67a131de635f",
+      "identity_rows": 1172
+    },
+    "diff": {
+      "filename": "k68-black-b02-source-enrichment-diff-v2.json",
+      "sha256": "2e1b37da3dc30b3ad7ae7eb273a0636e3d2c61f8b2b065e42fbfb2e5dbcc32c4"
+    },
+    "package": {
+      "filename": "k68-black-b02-source-enrichment-append-v2.zip"
+    },
+    "review_action": "Narrow member-path correction only; reuse prior B02 content review and return the exact field diff to 082.",
+    "correction": {
+      "filename": "k68-black-b02-event-member-correction-v1.json",
+      "changed_member_path_fields": 20,
+      "identity_delta": 0
+    }
+  },
+  "counts": {
+    "existing_identity_rows_enriched": 20,
+    "new_identity_rows": 0,
+    "metadata_increment": 0,
+    "source_material_increment": 20,
+    "pinned_increment": 20,
+    "unique_archives": 19,
+    "archive_reuse_rows": 1,
+    "source_ready_increment": 0,
+    "deployable_increment": 0,
+    "training_approved_increment": 0,
+    "cumulative_inventory_before": {
+      "metadata": 1336,
+      "material": 385,
+      "pinned": 361,
+      "source_ready": 85,
+      "deployable": 0,
+      "training_approved": 0
+    },
+    "cumulative_inventory_after": {
+      "metadata": 1336,
+      "material": 405,
+      "pinned": 381,
+      "source_ready": 85,
+      "deployable": 0,
+      "training_approved": 0
+    }
+  },
+  "archive_reuse": {
+    "source_archive_sha256": "12585f6ed3c71c996e43d9f56f4f2459c823ae32b47107a773717f0f2230eebb",
+    "base_commit": "7b265f16634155dafcca65f6122ef7ed8d14a67f",
+    "base_tree": "5cc3444e0cde672020379fe769333f2c80cd3bfb",
+    "direct_pr": 4872,
+    "task_ids": [
+      "psf/black#4873",
+      "psf/black#4731"
+    ],
+    "family": "UNKNOWN",
+    "disposition": "archive bytes reused for two issue-specific enrichment records; no family clearance asserted"
+  },
+  "qualification": {
+    "source_role": "UNKNOWN",
+    "family": "UNKNOWN",
+    "split": "UNASSIGNED",
+    "actor_visible": false,
+    "trusted_acceptance": false,
+    "purpose_authorization": "NOT_GRANTED",
+    "training_release": "BLOCKED",
+    "environment": "NOT_ASSESSED",
+    "deployment": "NOT_ASSESSED",
+    "old_exposure": "NOT_CLEARED"
+  },
+  "safety_scope": {
+    "issue_body_api_requests": 0,
+    "closed_event_api_requests": 0,
+    "search_page_requests": 0,
+    "pr_bodies_diffs_fixes_comments_read": false,
+    "test_contents_read": false,
+    "hidden_evaluation_or_external_poc_read": false,
+    "candidate_or_test_executed": false,
+    "107_or_gpu_used": false,
+    "credentials_or_proxy_changed": false
+  },
+  "preserved": {
+    "prior_1172_identity_rows": true,
+    "historical_RUN_CAP_NOT_MATERIALIZED_dispositions": true,
+    "source_anchor_null_values": true,
+    "prior_66_prompts": true,
+    "source_ready_85": true,
+    "prior_24_timestamp_mismatches": true,
+    "prior_6_no_same_repo_merged_rows": true,
+    "prior_4520_4588_family_defer": true,
+    "prior_click_and_pytest_exclusions": true
+  },
+  "correction": {
+    "corrects_catalog_v11_sha256": "d4501ec7195d62286c97ed8903ab5aaeb6667ce3795bad840fd7c495f2c745c6",
+    "corrects_diff_v1_sha256": "8c9a47a91f17ef51448bf8c8a555e086029d2374f583746cb4ec17b0234db530",
+    "corrects_manifest_v1_sha256": "f4df4a0eb361ef2931cbd8e3757c42fe3cf64655b44e722de46b33424ce81d1f",
+    "corrects_package_v1_sha256": "1702b5e3dbcb6cbcaad74cacdf7870b2e6ac983c62b413ff10bd34f68e46007c",
+    "changed_fields": 20,
+    "changed_rows": 20,
+    "new_identity_rows": 0,
+    "source_content_changed": false,
+    "event_sha_and_pointer_changed": false,
+    "changes": [
+      {
+        "task_id": "psf/black#4926",
+        "field": "source_enrichment.closed_event_evidence.raw_response_member",
+        "before": "payload/raw/closed-event-page1-response.json",
+        "after": "batch-python-black-linkedpr-20261103-b01/closed-event-page1-response.json",
+        "source_package_attachment_id": "01a1a218-67af-737b-98a4-c904fa385852",
+        "source_package_sha256": "4be8ee06a757e34d39313b620c413c2491a5169a29a0449b605d9f862f902914",
+        "raw_response_sha256_unchanged": "e4f9b080156d2777b4416a0f82990f1842bcb09622990a8264ab782c255ae5e9",
+        "json_pointer_before": "/data/nodes/0/timelineItems/nodes/0",
+        "json_pointer_after": "/data/nodes/0/timelineItems/nodes/0"
+      },
+      {
+        "task_id": "psf/black#4875",
+        "field": "source_enrichment.closed_event_evidence.raw_response_member",
+        "before": "payload/raw/closed-event-page1-response.json",
+        "after": "batch-python-black-linkedpr-20261103-b01/closed-event-page1-response.json",
+        "source_package_attachment_id": "01a1a218-67af-737b-98a4-c904fa385852",
+        "source_package_sha256": "4be8ee06a757e34d39313b620c413c2491a5169a29a0449b605d9f862f902914",
+        "raw_response_sha256_unchanged": "e4f9b080156d2777b4416a0f82990f1842bcb09622990a8264ab782c255ae5e9",
+        "json_pointer_before": "/data/nodes/4/timelineItems/nodes/0",
+        "json_pointer_after": "/data/nodes/4/timelineItems/nodes/0"
+      },
+      {
+        "task_id": "psf/black#4873",
+        "field": "source_enrichment.closed_event_evidence.raw_response_member",
+        "before": "payload/raw/closed-event-page1-response.json",
+        "after": "batch-python-black-linkedpr-20261103-b01/closed-event-page1-response.json",
+        "source_package_attachment_id": "01a1a218-67af-737b-98a4-c904fa385852",
+        "source_package_sha256": "4be8ee06a757e34d39313b620c413c2491a5169a29a0449b605d9f862f902914",
+        "raw_response_sha256_unchanged": "e4f9b080156d2777b4416a0f82990f1842bcb09622990a8264ab782c255ae5e9",
+        "json_pointer_before": "/data/nodes/5/timelineItems/nodes/0",
+        "json_pointer_after": "/data/nodes/5/timelineItems/nodes/0"
+      },
+      {
+        "task_id": "psf/black#4838",
+        "field": "source_enrichment.closed_event_evidence.raw_response_member",
+        "before": "payload/raw/closed-event-page1-response.json",
+        "after": "batch-python-black-linkedpr-20261103-b01/closed-event-page1-response.json",
+        "source_package_attachment_id": "01a1a218-67af-737b-98a4-c904fa385852",
+        "source_package_sha256": "4be8ee06a757e34d39313b620c413c2491a5169a29a0449b605d9f862f902914",
+        "raw_response_sha256_unchanged": "e4f9b080156d2777b4416a0f82990f1842bcb09622990a8264ab782c255ae5e9",
+        "json_pointer_before": "/data/nodes/8/timelineItems/nodes/0",
+        "json_pointer_after": "/data/nodes/8/timelineItems/nodes/0"
+      },
+      {
+        "task_id": "psf/black#4826",
+        "field": "source_enrichment.closed_event_evidence.raw_response_member",
+        "before": "payload/raw/closed-event-page1-response.json",
+        "after": "batch-python-black-linkedpr-20261103-b01/closed-event-page1-response.json",
+        "source_package_attachment_id": "01a1a218-67af-737b-98a4-c904fa385852",
+        "source_package_sha256": "4be8ee06a757e34d39313b620c413c2491a5169a29a0449b605d9f862f902914",
+        "raw_response_sha256_unchanged": "e4f9b080156d2777b4416a0f82990f1842bcb09622990a8264ab782c255ae5e9",
+        "json_pointer_before": "/data/nodes/9/timelineItems/nodes/0",
+        "json_pointer_after": "/data/nodes/9/timelineItems/nodes/0"
+      },
+      {
+        "task_id": "psf/black#4813",
+        "field": "source_enrichment.closed_event_evidence.raw_response_member",
+        "before": "payload/raw/closed-event-page1-response.json",
+        "after": "batch-python-black-linkedpr-20261103-b01/closed-event-page1-response.json",
+        "source_package_attachment_id": "01a1a218-67af-737b-98a4-c904fa385852",
+        "source_package_sha256": "4be8ee06a757e34d39313b620c413c2491a5169a29a0449b605d9f862f902914",
+        "raw_response_sha256_unchanged": "e4f9b080156d2777b4416a0f82990f1842bcb09622990a8264ab782c255ae5e9",
+        "json_pointer_before": "/data/nodes/12/timelineItems/nodes/0",
+        "json_pointer_after": "/data/nodes/12/timelineItems/nodes/0"
+      },
+      {
+        "task_id": "psf/black#4797",
+        "field": "source_enrichment.closed_event_evidence.raw_response_member",
+        "before": "payload/raw/closed-event-page1-response.json",
+        "after": "batch-python-black-linkedpr-20261103-b01/closed-event-page1-response.json",
+        "source_package_attachment_id": "01a1a218-67af-737b-98a4-c904fa385852",
+        "source_package_sha256": "4be8ee06a757e34d39313b620c413c2491a5169a29a0449b605d9f862f902914",
+        "raw_response_sha256_unchanged": "e4f9b080156d2777b4416a0f82990f1842bcb09622990a8264ab782c255ae5e9",
+        "json_pointer_before": "/data/nodes/14/timelineItems/nodes/0",
+        "json_pointer_after": "/data/nodes/14/timelineItems/nodes/0"
+      },
+      {
+        "task_id": "psf/black#4788",
+        "field": "source_enrichment.closed_event_evidence.raw_response_member",
+        "before": "payload/raw/closed-event-page1-response.json",
+        "after": "batch-python-black-linkedpr-20261103-b01/closed-event-page1-response.json",
+        "source_package_attachment_id": "01a1a218-67af-737b-98a4-c904fa385852",
+        "source_package_sha256": "4be8ee06a757e34d39313b620c413c2491a5169a29a0449b605d9f862f902914",
+        "raw_response_sha256_unchanged": "e4f9b080156d2777b4416a0f82990f1842bcb09622990a8264ab782c255ae5e9",
+        "json_pointer_before": "/data/nodes/15/timelineItems/nodes/0",
+        "json_pointer_after": "/data/nodes/15/timelineItems/nodes/0"
+      },
+      {
+        "task_id": "psf/black#4781",
+        "field": "source_enrichment.closed_event_evidence.raw_response_member",
+        "before": "payload/raw/closed-event-page1-response.json",
+        "after": "batch-python-black-linkedpr-20261103-b01/closed-event-page1-response.json",
+        "source_package_attachment_id": "01a1a218-67af-737b-98a4-c904fa385852",
+        "source_package_sha256": "4be8ee06a757e34d39313b620c413c2491a5169a29a0449b605d9f862f902914",
+        "raw_response_sha256_unchanged": "e4f9b080156d2777b4416a0f82990f1842bcb09622990a8264ab782c255ae5e9",
+        "json_pointer_before": "/data/nodes/18/timelineItems/nodes/0",
+        "json_pointer_after": "/data/nodes/18/timelineItems/nodes/0"
+      },
+      {
+        "task_id": "psf/black#4762",
+        "field": "source_enrichment.closed_event_evidence.raw_response_member",
+        "before": "payload/raw/closed-event-page1-response.json",
+        "after": "batch-python-black-linkedpr-20261103-b01/closed-event-page1-response.json",
+        "source_package_attachment_id": "01a1a218-67af-737b-98a4-c904fa385852",
+        "source_package_sha256": "4be8ee06a757e34d39313b620c413c2491a5169a29a0449b605d9f862f902914",
+        "raw_response_sha256_unchanged": "e4f9b080156d2777b4416a0f82990f1842bcb09622990a8264ab782c255ae5e9",
+        "json_pointer_before": "/data/nodes/19/timelineItems/nodes/0",
+        "json_pointer_after": "/data/nodes/19/timelineItems/nodes/0"
+      },
+      {
+        "task_id": "psf/black#4731",
+        "field": "source_enrichment.closed_event_evidence.raw_response_member",
+        "before": "payload/raw/closed-event-page1-response.json",
+        "after": "batch-python-black-linkedpr-20261103-b01/closed-event-page1-response.json",
+        "source_package_attachment_id": "01a1a218-67af-737b-98a4-c904fa385852",
+        "source_package_sha256": "4be8ee06a757e34d39313b620c413c2491a5169a29a0449b605d9f862f902914",
+        "raw_response_sha256_unchanged": "e4f9b080156d2777b4416a0f82990f1842bcb09622990a8264ab782c255ae5e9",
+        "json_pointer_before": "/data/nodes/22/timelineItems/nodes/0",
+        "json_pointer_after": "/data/nodes/22/timelineItems/nodes/0"
+      },
+      {
+        "task_id": "psf/black#4725",
+        "field": "source_enrichment.closed_event_evidence.raw_response_member",
+        "before": "payload/raw/closed-event-page1-response.json",
+        "after": "batch-python-black-linkedpr-20261103-b01/closed-event-page1-response.json",
+        "source_package_attachment_id": "01a1a218-67af-737b-98a4-c904fa385852",
+        "source_package_sha256": "4be8ee06a757e34d39313b620c413c2491a5169a29a0449b605d9f862f902914",
+        "raw_response_sha256_unchanged": "e4f9b080156d2777b4416a0f82990f1842bcb09622990a8264ab782c255ae5e9",
+        "json_pointer_before": "/data/nodes/24/timelineItems/nodes/0",
+        "json_pointer_after": "/data/nodes/24/timelineItems/nodes/0"
+      },
+      {
+        "task_id": "psf/black#4721",
+        "field": "source_enrichment.closed_event_evidence.raw_response_member",
+        "before": "payload/raw/closed-event-page1-response.json",
+        "after": "batch-python-black-linkedpr-20261103-b01/closed-event-page1-response.json",
+        "source_package_attachment_id": "01a1a218-67af-737b-98a4-c904fa385852",
+        "source_package_sha256": "4be8ee06a757e34d39313b620c413c2491a5169a29a0449b605d9f862f902914",
+        "raw_response_sha256_unchanged": "e4f9b080156d2777b4416a0f82990f1842bcb09622990a8264ab782c255ae5e9",
+        "json_pointer_before": "/data/nodes/25/timelineItems/nodes/0",
+        "json_pointer_after": "/data/nodes/25/timelineItems/nodes/0"
+      },
+      {
+        "task_id": "psf/black#4718",
+        "field": "source_enrichment.closed_event_evidence.raw_response_member",
+        "before": "payload/raw/closed-event-page1-response.json",
+        "after": "batch-python-black-linkedpr-20261103-b01/closed-event-page1-response.json",
+        "source_package_attachment_id": "01a1a218-67af-737b-98a4-c904fa385852",
+        "source_package_sha256": "4be8ee06a757e34d39313b620c413c2491a5169a29a0449b605d9f862f902914",
+        "raw_response_sha256_unchanged": "e4f9b080156d2777b4416a0f82990f1842bcb09622990a8264ab782c255ae5e9",
+        "json_pointer_before": "/data/nodes/26/timelineItems/nodes/0",
+        "json_pointer_after": "/data/nodes/26/timelineItems/nodes/0"
+      },
+      {
+        "task_id": "psf/black#4678",
+        "field": "source_enrichment.closed_event_evidence.raw_response_member",
+        "before": "payload/raw/closed-event-page1-response.json",
+        "after": "batch-python-black-linkedpr-20261103-b01/closed-event-page1-response.json",
+        "source_package_attachment_id": "01a1a218-67af-737b-98a4-c904fa385852",
+        "source_package_sha256": "4be8ee06a757e34d39313b620c413c2491a5169a29a0449b605d9f862f902914",
+        "raw_response_sha256_unchanged": "e4f9b080156d2777b4416a0f82990f1842bcb09622990a8264ab782c255ae5e9",
+        "json_pointer_before": "/data/nodes/27/timelineItems/nodes/0",
+        "json_pointer_after": "/data/nodes/27/timelineItems/nodes/0"
+      },
+      {
+        "task_id": "psf/black#4632",
+        "field": "source_enrichment.closed_event_evidence.raw_response_member",
+        "before": "payload/raw/closed-event-page1-response.json",
+        "after": "batch-python-black-linkedpr-20261103-b01/closed-event-page1-response.json",
+        "source_package_attachment_id": "01a1a218-67af-737b-98a4-c904fa385852",
+        "source_package_sha256": "4be8ee06a757e34d39313b620c413c2491a5169a29a0449b605d9f862f902914",
+        "raw_response_sha256_unchanged": "e4f9b080156d2777b4416a0f82990f1842bcb09622990a8264ab782c255ae5e9",
+        "json_pointer_before": "/data/nodes/36/timelineItems/nodes/0",
+        "json_pointer_after": "/data/nodes/36/timelineItems/nodes/0"
+      },
+      {
+        "task_id": "psf/black#4631",
+        "field": "source_enrichment.closed_event_evidence.raw_response_member",
+        "before": "payload/raw/closed-event-page1-response.json",
+        "after": "batch-python-black-linkedpr-20261103-b01/closed-event-page1-response.json",
+        "source_package_attachment_id": "01a1a218-67af-737b-98a4-c904fa385852",
+        "source_package_sha256": "4be8ee06a757e34d39313b620c413c2491a5169a29a0449b605d9f862f902914",
+        "raw_response_sha256_unchanged": "e4f9b080156d2777b4416a0f82990f1842bcb09622990a8264ab782c255ae5e9",
+        "json_pointer_before": "/data/nodes/37/timelineItems/nodes/0",
+        "json_pointer_after": "/data/nodes/37/timelineItems/nodes/0"
+      },
+      {
+        "task_id": "psf/black#4589",
+        "field": "source_enrichment.closed_event_evidence.raw_response_member",
+        "before": "payload/raw/closed-event-page1-response.json",
+        "after": "batch-python-black-linkedpr-20261103-b01/closed-event-page1-response.json",
+        "source_package_attachment_id": "01a1a218-67af-737b-98a4-c904fa385852",
+        "source_package_sha256": "4be8ee06a757e34d39313b620c413c2491a5169a29a0449b605d9f862f902914",
+        "raw_response_sha256_unchanged": "e4f9b080156d2777b4416a0f82990f1842bcb09622990a8264ab782c255ae5e9",
+        "json_pointer_before": "/data/nodes/42/timelineItems/nodes/0",
+        "json_pointer_after": "/data/nodes/42/timelineItems/nodes/0"
+      },
+      {
+        "task_id": "psf/black#4540",
+        "field": "source_enrichment.closed_event_evidence.raw_response_member",
+        "before": "payload/raw/closed-event-page1-response.json",
+        "after": "batch-python-black-linkedpr-20261103-b01/closed-event-page1-response.json",
+        "source_package_attachment_id": "01a1a218-67af-737b-98a4-c904fa385852",
+        "source_package_sha256": "4be8ee06a757e34d39313b620c413c2491a5169a29a0449b605d9f862f902914",
+        "raw_response_sha256_unchanged": "e4f9b080156d2777b4416a0f82990f1842bcb09622990a8264ab782c255ae5e9",
+        "json_pointer_before": "/data/nodes/44/timelineItems/nodes/0",
+        "json_pointer_after": "/data/nodes/44/timelineItems/nodes/0"
+      },
+      {
+        "task_id": "psf/black#4522",
+        "field": "source_enrichment.closed_event_evidence.raw_response_member",
+        "before": "payload/raw/closed-event-page1-response.json",
+        "after": "batch-python-black-linkedpr-20261103-b01/closed-event-page1-response.json",
+        "source_package_attachment_id": "01a1a218-67af-737b-98a4-c904fa385852",
+        "source_package_sha256": "4be8ee06a757e34d39313b620c413c2491a5169a29a0449b605d9f862f902914",
+        "raw_response_sha256_unchanged": "e4f9b080156d2777b4416a0f82990f1842bcb09622990a8264ab782c255ae5e9",
+        "json_pointer_before": "/data/nodes/47/timelineItems/nodes/0",
+        "json_pointer_after": "/data/nodes/47/timelineItems/nodes/0"
+      }
+    ]
+  }
+}
