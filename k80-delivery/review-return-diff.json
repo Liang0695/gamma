@@ -1,0 +1,42 @@
+{
+  "review_comment_id": "01a1a6cf-4aa7-761d-9578-8c28da5903ed",
+  "scope": "Only the four issues in the narrow RETURN review were changed; old 66 prompt PASS and source review scope were reused.",
+  "formal_prompt_pass_count": 0,
+  "changes": [
+    {
+      "item": 1,
+      "status": "FIXED",
+      "change": "Replaced the combined source_member_paths and single package ID/SHA fields with source_package_refs_json and per-member member_bindings_json. Each issue body, fixed source archive, and supporting inventory member has its own role, attachment ID, package SHA, complete package path, member SHA when available, and verification status. Full Black prefix is retained; source_anchor_effective paths are synchronized.",
+      "verified_black_candidates": 59
+    },
+    {
+      "item": 2,
+      "status": "FIXED",
+      "change": "Rebuilt sha256-manifest.json through the standard JSON writer; removed the literal backslash-n trailer. All JSON documents parse with standard json.loads and output hashes are regenerated.",
+      "json_parse_errors": 0
+    },
+    {
+      "item": 3,
+      "status": "FIXED_PENDING_REVIEW",
+      "change": "Retained 8 prompt contents and restored exact input/version conditions for #4337, exact numbered file and line-range command for #4430, and comma-joined f-string input, tokenizer call, and measured profile for #4540. The #4540 function implementation and proposed solution are excluded.",
+      "revised_stable_ids": [
+        "psf/black#4337",
+        "psf/black#4430",
+        "psf/black#4540"
+      ],
+      "draft_pending_review": 11
+    },
+    {
+      "item": 4,
+      "status": "FIXED",
+      "change": "Canonical rows now identify 11 DRAFT_PENDING_REVIEW prompts and 48 DEFERRED candidates with reason and manifest reference. Source archive, issue body, supporting inventory, and index-row pointers are distinct. README names both the 1172 v12 records and 140 historical records. Nine inventory-only rows are marked as lacking source archives; 140 historical rows remain index-only.",
+      "draft_pending_review": 11,
+      "deferred": 48,
+      "current_rows_missing_source_archive_member": 1108,
+      "supporting_inventory_only_rows": 9,
+      "legacy_index_only_rows": 140
+    }
+  ],
+  "qualification_gates_changed": 0,
+  "old_66_prompt_files_rewritten": 0
+}

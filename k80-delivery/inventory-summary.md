@@ -1,52 +1,53 @@
-﻿# Canonical source inventory and first neutral prompt batch
+﻿# K80 source inventory and revised neutral prompt drafts
 
 ## 0. One-sentence conclusion
 
-K68 catalog-v12 enumerates 1,172 identities; existing K62/K40 indexes recover 140 more, while 24 identities in the 1,336 metadata total still have no enumerated stable ID. Of 59 newly materialized Black records, 11 have separable review-only prompts and 48 are deferred with item-level reasons.
+The corrected package contains 1,312 enumerated identities and 11 neutral prompt drafts pending review; 48 Black candidates remain deferred, and 24 metadata identities are still unenumerated. No new prompt is formally approved.
 
 ## 1. Request review
 
-- Requested by: KAGGLE-80, owner 1b; narrow reviewer: agent 082.
-- Purpose: reconcile source/readiness records and prepare up to 20 new neutral prompts without changing K61 or reworking the existing 66 prompts.
-- Scope: K68 catalog-v12; prior K62/K40 indexes; Black batches B01-B03 issue symptom material and pinned source metadata.
+- Request and owner: KAGGLE-80, agent 1b.
+- Reviewer: agent 082. This revision responds only to the four items in the narrow RETURN comment `01a1a6cf-4aa7-761d-9578-8c28da5903ed`.
+- Purpose: repair per-member source binding, JSON validity, three reproduction prompts, and canonical/README status and gap fields.
 - Information date: 2026-11-04.
 
 ## 2. Facts and evidence
 
-- K68 catalog-v12 contains 1,172 unique stable IDs. Input attachment `01a1a602-6590-7e49-9894-13a4401d9287`, SHA-256 `60d63de504714c0489f50ce721a10b2dea511164881c1e9f78a3bcc35228fc41`; its prior independent PASS attachment is `01a1a606-428b-7e79-9e98-ecc360141d1d`, SHA-256 `e7d9a65128a34db23a6413b97168ac3b784c26b54d2591a131b2f1af77ed0ffe`.
-- K62 v24 `global-manifest.json` provides 140 older identities; input attachment `01a1357e-8143-7704-afc5-5462b0f20b9a`, SHA-256 `fb29a18b319b332b70c0d594576395fb922a02e07caa524ed36eed4cbe7058a9`. K40 `effective-index-v17.1.json` cross-indexes 67 of those identities and adds no new IDs; attachment `01a130d3-0f63-7820-97d2-5dbcbeb897a2`, SHA-256 `a9069f41964eca6186b8ba71aa6188f20b0f9533f5081c641549049bacaf8f06`.
-- The enumerated union is 1,312 identities. Against the stated 1,336 metadata total, 24 identities remain unenumerated; no placeholder IDs were created.
-- Cumulative inventory reported by catalog-v12: 1,336 metadata / 424 material / 400 pinned / 85 SOURCE_READY / 0 deployable / 0 training-approved. These are separate stages; 400 pinned does not mean 400 independent or trainable tasks.
-- Black prompt pool: 59. New neutral prompts: 11. Deferred: 48. Existing audited prompts: 66; the old package SHA-256 is `b7041434f5ae2eafc2f2a878a0962bc047ed86879a8f1b67bc201aa7465f89cd` and all 66 prompt members were counted without copying or rewriting them.
-- The catalog contains 2 multi-record repair/PR groups and 3 multi-record archive associations. The known duplicate exclusion is one group / two records (#4520 and #4588, PR #4536). #4731 and #4873 share PR #4872 and the same base/tree/archive; they are linked as related repair/archive reuse, not asserted to be duplicate tasks.
-- The 59 Black issue-body members and 59 corresponding fixed source archive members were verified in their cited packages. B01/B02/B03 input package hashes and per-row paths are in `new-prompts-manifest.json`.
+- K68 catalog-v12 input: attachment `01a1a602-6590-7e49-9894-13a4401d9287`, SHA-256 `60d63de504714c0489f50ce721a10b2dea511164881c1e9f78a3bcc35228fc41`; its previous source review PASS remains `01a1a606-428b-7e79-9e98-ecc360141d1d`, SHA-256 `e7d9a65128a34db23a6413b97168ac3b784c26b54d2591a131b2f1af77ed0ffe`.
+- K68 v12 contributes 1,172 unique identities. K62 v24 `global-manifest.json` contributes 140 additional identities; K40 v17.1 cross-indexes 67 of those. The enumerated union is 1,312. There are 24 identities between this union and the cumulative 1,336 metadata count for which no stable ID was found in the available indexes.
+- Black source/prompt intake: 59 candidates; 8 prompt contents retained from the prior draft and 3 prompts revised with source-backed reproductions (#4337, #4430, #4540). All 11 are `DRAFT_PENDING_REVIEW`; formal PASS count is 0. Forty-eight candidates remain `DEFERRED` with a reason and manifest reference in canonical-readiness.csv.
+- Each of the 59 Black candidate rows now binds issue-body and fixed-source members separately. Each binding carries its own attachment ID, outer-package SHA, complete package member path, member SHA, and verification status. Corrected paths retain the full `batch-python-black-linkedpr-20261103-b01/` prefix where applicable; effective anchors are synchronized.
+- All 100 Black issue-body members found in the existing B01 package are individually bound. The 59 selected material records also have their fixed-source archive members bound and verified.
+- All output JSON documents, including `sha256-manifest.json`, parse with standard JSON. `verify_k80.py` reports no member-binding, prompt-stage, reproduction-material, or output-hash errors.
+- Existing audited prompts: 66. Their historical package SHA remains `b7041434f5ae2eafc2f2a878a0962bc047ed86879a8f1b67bc201aa7465f89cd`; none was copied, rewritten, or re-reviewed.
+- Association ledger retains 2 shared repair groups, 3 shared archive groups, and the known duplicate exclusion (#4520/#4588, PR #4536). #4731/#4873 remain related records sharing PR #4872 and the same base/tree/archive; no duplicate task is inferred.
+- Cumulative inventory remains 1,336 metadata / 424 material / 400 pinned / 85 SOURCE_READY / 0 deployable / 0 training-approved.
 
 ## 3. Inferences and recommendations
 
-- Inference: the 24-ID remainder is a coverage gap in the existing index material, not evidence of 24 new tasks. Keep it as a count-only gap until a real historical index supplies stable IDs.
-- Recommendation: review the 11 new prompts and the source/member-path gaps in the attached package before treating any prompt as an accepted intake item.
-- Source review or prompt PASS does not grant actor, deployment, environment, or training eligibility.
+- Inference: 24 is an unresolved identity-coverage count, not a set of newly created tasks. Do not infer stable IDs.
+- Recommendation: review the 11 draft prompts as new material. The structural verification result is not prompt PASS or training approval.
 
 ## 4. Conflicts and uncertainties
 
-- 1,108 of the 1,172 current catalog rows do not contain an issue-body or source-archive member path in catalog-v12 or its enrichment fields. The CSV preserves source package IDs/SHA and marks the missing path explicitly; it does not infer one from a title or archive digest.
-- The 140 recovered historical identities have exact index member/JSON pointers; source asset member paths absent from those indexes remain marked missing.
-- Family/root UNKNOWN, split UNASSIGNED, actor_visible=false, trusted_acceptance=false, purpose_authorization=NOT_GRANTED, training_release=BLOCKED, environment/deployment=NOT_ASSESSED, and old_exposure=NOT_CLEARED remain unchanged.
-- Historical issue bodies may have contained implementation or test references. Prompt edits remove answer material prospectively; they do not erase prior exposure.
+- Of the 1,172 current catalog rows, 1,108 still lack a source archive member binding. Nine additional rows have only an `archive-members.txt` inventory binding; those are explicitly classified as supporting inventory, not source archives.
+- The 140 historical rows are located through index JSON pointers only. Their source archive member paths remain unlocated.
+- One hundred issue-body members from the Black B01 package are bound; issue-body availability does not substitute for a fixed source archive. The remaining 41 Black records outside the 59 materialized candidates do not gain source archives from this correction.
+- All eligibility restrictions remain: family/root UNKNOWN, split UNASSIGNED, actor_visible=false, trusted_acceptance=false, purpose_authorization=NOT_GRANTED, training_release=BLOCKED, environment/deployment=NOT_ASSESSED, old_exposure=NOT_CLEARED.
 
 ## 5. Deliverables
 
-- `canonical-readiness.csv` — 1,312 enumerated identities with package references, anchors, prompt stage, and explicit gaps.
-- `legacy-baseline-coverage.csv` — 140 recovered historical rows and source index pointers.
-- `known-associations.json` — shared repair/archive links and known duplicate exclusion.
-- `new-prompts/` and `new-prompts-manifest.json` — 11 new review-only prompts and inclusion/defer reasons for all 59 candidates.
-- `inventory-summary.json`, `diff-and-checks.json`, and `sha256-manifest.json` — counts, input/output hashes, and requested checks.
+- `canonical-readiness.csv`: 1,312 identities with separate package references, per-member bindings, index-row references, draft/deferred stage, reasons, and readiness gaps.
+- `new-prompts/` and `new-prompts-manifest.json`: 11 draft prompts plus reasons and source bindings for all 59 candidates.
+- `legacy-baseline-coverage.csv` and `known-associations.json`: recovered index rows and repair/archive/duplicate relationships.
+- `review-return-diff.json`: changes mapped to the four RETURN items.
+- `verify_k80.py`, `validation-evidence.json`, `diff-and-checks.json`, and `sha256-manifest.json`: reproducible checks and input/output integrity evidence.
 
 ## 6. Search method and blind spots
 
-- Read K68 catalog-v12 and its accepted review record; downloaded listed attachments only through the Multica CLI.
-- Reused K62 v24 and K40 v17.1 index files to locate the historical baseline; no external search, raw collection, source re-download, or 107 access was performed.
-- For prompt authoring, read only the Black issue-body symptom material from the existing source package. New tests, fixes, PR bodies/diffs, and verifier material were not read.
-- Remaining blind spots: 24 historical metadata IDs and 1,108 current catalog source/member paths are not enumerated in the input index fields. They are recorded as gaps for a future source owner to resolve.
+- Reused the exact K68 v12, K62 v24, K40 v17.1, and Black B01-B03 attachments already in the workspace; no external search or source recapture was performed.
+- Read only the three bound Black issue-body members to restore their minimal reproduction conditions. No new tests, fixes, PR bodies/diffs, or verifier materials were read.
+- `verify_k80.py` checks standard JSON parsing, package/member IDs and SHA values, row phases, and unchanged qualification gates. Its result is structural verification only.
+- Remaining gaps: 24 historical metadata IDs are not enumerated; 1,108 current rows lack source archive member binding; 140 historical rows have index references but no source archive member path.
 
 Information current as of 2026-11-04.

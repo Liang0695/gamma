@@ -2,10 +2,36 @@
 
 Black's `--line-ranges` option is expected to limit formatting to the requested lines, but formatting a selected section also changes whitespace and code outside that section.
 
-Reproduce with a file containing two separated blocks of Python statements, each surrounded by deliberately irregular comment indentation. Run:
+Reproduce with this exact file:
+
+```python
+print("format me"  )
+ # format whitespace
+  # format whitespace
+   # format whitespace
+print( "format me" )
+   # format whitespace
+  # format whitespace
+ # format whitespace
+print(  "format me")
+
+
+
+print("don't format me"  )
+ # don't format whitespace
+  # don't format whitespace
+   # don't format whitespace
+print( "don't format me" )
+   # don't format whitespace
+  # don't format whitespace
+ # don't format whitespace
+print(  "don't format me")
+```
+
+Run:
 
 ```sh
 black --line-ranges 1-9 file.py
 ```
 
-The selected first block may be formatted, but the later block outside lines 1–9 should remain byte-for-byte unchanged. The reported behavior changes that later block too.
+The report shows Black normalizing comments in the second block too. Only lines 1-9 are selected; the indentation and three-line separation in the later block should remain as written.

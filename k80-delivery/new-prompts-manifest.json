@@ -11,7 +11,7 @@
       "title_reference_only": "Create URL links to actual PRs rather than simply referencing the PR number",
       "source_issue_body": {
         "attachment_id": "01a1a218-67af-737b-98a4-c904fa385852",
-        "sha256": "4be8ee06a757e34d39313b620c413c2491a5169a29a0449b605d9f862f902914",
+        "package_sha256": "4be8ee06a757e34d39313b620c413c2491a5169a29a0449b605d9f862f902914",
         "member": "batch-python-black-linkedpr-20261103-b01/issue-bodies/black-4258.txt",
         "member_sha256": "8bdbb53531844b810ff9831e381cc6aa28eec75db1ee20564ff9f0e0407773b8"
       },
@@ -36,7 +36,7 @@
       "title_reference_only": "Fails to parse backslash on line by itself",
       "source_issue_body": {
         "attachment_id": "01a1a218-67af-737b-98a4-c904fa385852",
-        "sha256": "4be8ee06a757e34d39313b620c413c2491a5169a29a0449b605d9f862f902914",
+        "package_sha256": "4be8ee06a757e34d39313b620c413c2491a5169a29a0449b605d9f862f902914",
         "member": "batch-python-black-linkedpr-20261103-b01/issue-bodies/black-4261.txt",
         "member_sha256": "8e71a85b90516c376792b05de5ff561bc5077728b03e3fd3bad9d6988ebcc737"
       },
@@ -61,7 +61,7 @@
       "title_reference_only": "`--line-ranges` formats entire file when ranges are at EOF",
       "source_issue_body": {
         "attachment_id": "01a1a218-67af-737b-98a4-c904fa385852",
-        "sha256": "4be8ee06a757e34d39313b620c413c2491a5169a29a0449b605d9f862f902914",
+        "package_sha256": "4be8ee06a757e34d39313b620c413c2491a5169a29a0449b605d9f862f902914",
         "member": "batch-python-black-linkedpr-20261103-b01/issue-bodies/black-4264.txt",
         "member_sha256": "e268a74a16dcbc13c42eeed0f0e489ab9896b6c1077c1a72530173eb7e9ea956"
       },
@@ -86,7 +86,7 @@
       "title_reference_only": "Unrelated testcases fail when total number of tests is increased beyond 367",
       "source_issue_body": {
         "attachment_id": "01a1a218-67af-737b-98a4-c904fa385852",
-        "sha256": "4be8ee06a757e34d39313b620c413c2491a5169a29a0449b605d9f862f902914",
+        "package_sha256": "4be8ee06a757e34d39313b620c413c2491a5169a29a0449b605d9f862f902914",
         "member": "batch-python-black-linkedpr-20261103-b01/issue-bodies/black-4275.txt",
         "member_sha256": "b11a73f37df3f0249eb9769ed09520f50fe434b215f166006bcd3f6ffd1f4254"
       },
@@ -111,7 +111,7 @@
       "title_reference_only": "Crash on formatting `case case` syntax when line length set to be small",
       "source_issue_body": {
         "attachment_id": "01a1a218-67af-737b-98a4-c904fa385852",
-        "sha256": "4be8ee06a757e34d39313b620c413c2491a5169a29a0449b605d9f862f902914",
+        "package_sha256": "4be8ee06a757e34d39313b620c413c2491a5169a29a0449b605d9f862f902914",
         "member": "batch-python-black-linkedpr-20261103-b01/issue-bodies/black-4280.txt",
         "member_sha256": "c565d9a1d3a97afc89c748b1b5e98b1087276317e4e6c68228d565e6eae144ea"
       },
@@ -126,8 +126,8 @@
       },
       "relation_group": null,
       "prompt_file": "new-prompts/black-4280.md",
-      "stage": "NEW_NEUTRAL_PROMPT_REVIEW_ONLY",
-      "reason": "Selected: issue-level symptom is separable from implementation and verification material; prompt preserves reproduction conditions and expected behavior."
+      "stage": "DRAFT_PENDING_REVIEW",
+      "reason": "Draft pending independent review; not PASS and not training-approved."
     },
     {
       "stable_id": "psf/black#4285",
@@ -136,7 +136,7 @@
       "title_reference_only": "GitHub Action: Option to parse version from pyproject.toml",
       "source_issue_body": {
         "attachment_id": "01a1a218-67af-737b-98a4-c904fa385852",
-        "sha256": "4be8ee06a757e34d39313b620c413c2491a5169a29a0449b605d9f862f902914",
+        "package_sha256": "4be8ee06a757e34d39313b620c413c2491a5169a29a0449b605d9f862f902914",
         "member": "batch-python-black-linkedpr-20261103-b01/issue-bodies/black-4285.txt",
         "member_sha256": "7cdea8d847ea91fb38e7d040b608f4e797410a80dd5fdf25cde4766dd49a6f8c"
       },
@@ -161,7 +161,7 @@
       "title_reference_only": "When reformatting a triple-quote string, black fails with an INTERNAL ERROR: Black produced code that is not equivalent to the source",
       "source_issue_body": {
         "attachment_id": "01a1a218-67af-737b-98a4-c904fa385852",
-        "sha256": "4be8ee06a757e34d39313b620c413c2491a5169a29a0449b605d9f862f902914",
+        "package_sha256": "4be8ee06a757e34d39313b620c413c2491a5169a29a0449b605d9f862f902914",
         "member": "batch-python-black-linkedpr-20261103-b01/issue-bodies/black-4288.txt",
         "member_sha256": "9bb0f9c9ca3a7acbb810ad844e516e693029f7830a862728abc5a9d4d299fd64"
       },
@@ -176,8 +176,8 @@
       },
       "relation_group": null,
       "prompt_file": "new-prompts/black-4288.md",
-      "stage": "NEW_NEUTRAL_PROMPT_REVIEW_ONLY",
-      "reason": "Selected: issue-level symptom is separable from implementation and verification material; prompt preserves reproduction conditions and expected behavior."
+      "stage": "DRAFT_PENDING_REVIEW",
+      "reason": "Draft pending independent review; not PASS and not training-approved."
     },
     {
       "stable_id": "psf/black#4324",
@@ -186,7 +186,7 @@
       "title_reference_only": "PEP 701 support breaks stability policy",
       "source_issue_body": {
         "attachment_id": "01a1a218-67af-737b-98a4-c904fa385852",
-        "sha256": "4be8ee06a757e34d39313b620c413c2491a5169a29a0449b605d9f862f902914",
+        "package_sha256": "4be8ee06a757e34d39313b620c413c2491a5169a29a0449b605d9f862f902914",
         "member": "batch-python-black-linkedpr-20261103-b01/issue-bodies/black-4324.txt",
         "member_sha256": "06c800726cadae923403ddc8fc050a3c234d040a8e552557be021267da8e7480"
       },
@@ -211,7 +211,7 @@
       "title_reference_only": "Cannot parse multiline f-string containing multiline string",
       "source_issue_body": {
         "attachment_id": "01a1a218-67af-737b-98a4-c904fa385852",
-        "sha256": "4be8ee06a757e34d39313b620c413c2491a5169a29a0449b605d9f862f902914",
+        "package_sha256": "4be8ee06a757e34d39313b620c413c2491a5169a29a0449b605d9f862f902914",
         "member": "batch-python-black-linkedpr-20261103-b01/issue-bodies/black-4337.txt",
         "member_sha256": "4e18b8062ae9f42004ac4342f57a00727035d101705d32e09f68ec2b29749c32"
       },
@@ -226,8 +226,8 @@
       },
       "relation_group": null,
       "prompt_file": "new-prompts/black-4337.md",
-      "stage": "NEW_NEUTRAL_PROMPT_REVIEW_ONLY",
-      "reason": "Selected: issue-level symptom is separable from implementation and verification material; prompt preserves reproduction conditions and expected behavior."
+      "stage": "DRAFT_PENDING_REVIEW",
+      "reason": "Draft pending independent review; not PASS and not training-approved."
     },
     {
       "stable_id": "psf/black#4344",
@@ -236,7 +236,7 @@
       "title_reference_only": "Is there any way to have a permalink for a specific version in the changelog doc?",
       "source_issue_body": {
         "attachment_id": "01a1a218-67af-737b-98a4-c904fa385852",
-        "sha256": "4be8ee06a757e34d39313b620c413c2491a5169a29a0449b605d9f862f902914",
+        "package_sha256": "4be8ee06a757e34d39313b620c413c2491a5169a29a0449b605d9f862f902914",
         "member": "batch-python-black-linkedpr-20261103-b01/issue-bodies/black-4344.txt",
         "member_sha256": "9f07e983131829d44802368cf5b4e1b5af48beba9bea34f53f8a2c95c4b44e0d"
       },
@@ -261,7 +261,7 @@
       "title_reference_only": "Unnecessary parentheses added to expression in indexed assignment",
       "source_issue_body": {
         "attachment_id": "01a1a218-67af-737b-98a4-c904fa385852",
-        "sha256": "4be8ee06a757e34d39313b620c413c2491a5169a29a0449b605d9f862f902914",
+        "package_sha256": "4be8ee06a757e34d39313b620c413c2491a5169a29a0449b605d9f862f902914",
         "member": "batch-python-black-linkedpr-20261103-b01/issue-bodies/black-4349.txt",
         "member_sha256": "e2a3ea29dc7df98bacdabd96492041a94e443fce05a030efeff4f2bc7fde17d9"
       },
@@ -286,7 +286,7 @@
       "title_reference_only": "Error in github actions when using `use_pyproject: true`",
       "source_issue_body": {
         "attachment_id": "01a1a218-67af-737b-98a4-c904fa385852",
-        "sha256": "4be8ee06a757e34d39313b620c413c2491a5169a29a0449b605d9f862f902914",
+        "package_sha256": "4be8ee06a757e34d39313b620c413c2491a5169a29a0449b605d9f862f902914",
         "member": "batch-python-black-linkedpr-20261103-b01/issue-bodies/black-4367.txt",
         "member_sha256": "32a8a3a0bef3450f2b074a37ecd252715f9453e6e68ed0ba52cf64db96597f37"
       },
@@ -311,7 +311,7 @@
       "title_reference_only": "Black fails with `ASTSafetyError` on comment line in return type annotation",
       "source_issue_body": {
         "attachment_id": "01a1a218-67af-737b-98a4-c904fa385852",
-        "sha256": "4be8ee06a757e34d39313b620c413c2491a5169a29a0449b605d9f862f902914",
+        "package_sha256": "4be8ee06a757e34d39313b620c413c2491a5169a29a0449b605d9f862f902914",
         "member": "batch-python-black-linkedpr-20261103-b01/issue-bodies/black-4399.txt",
         "member_sha256": "336843c3e46b20974c2f3752118c6f5521fb4315333e82a5c810897daa21f7c9"
       },
@@ -326,8 +326,8 @@
       },
       "relation_group": null,
       "prompt_file": "new-prompts/black-4399.md",
-      "stage": "NEW_NEUTRAL_PROMPT_REVIEW_ONLY",
-      "reason": "Selected: issue-level symptom is separable from implementation and verification material; prompt preserves reproduction conditions and expected behavior."
+      "stage": "DRAFT_PENDING_REVIEW",
+      "reason": "Draft pending independent review; not PASS and not training-approved."
     },
     {
       "stable_id": "psf/black#4405",
@@ -336,7 +336,7 @@
       "title_reference_only": "black could more efficiently skip directories listed in .gitignore",
       "source_issue_body": {
         "attachment_id": "01a1a218-67af-737b-98a4-c904fa385852",
-        "sha256": "4be8ee06a757e34d39313b620c413c2491a5169a29a0449b605d9f862f902914",
+        "package_sha256": "4be8ee06a757e34d39313b620c413c2491a5169a29a0449b605d9f862f902914",
         "member": "batch-python-black-linkedpr-20261103-b01/issue-bodies/black-4405.txt",
         "member_sha256": "68460454934da68b5bfc30673bee10597f008f10fb56f165747d0f42fa6b450e"
       },
@@ -361,7 +361,7 @@
       "title_reference_only": "Error in the setup docs for black.",
       "source_issue_body": {
         "attachment_id": "01a1a218-67af-737b-98a4-c904fa385852",
-        "sha256": "4be8ee06a757e34d39313b620c413c2491a5169a29a0449b605d9f862f902914",
+        "package_sha256": "4be8ee06a757e34d39313b620c413c2491a5169a29a0449b605d9f862f902914",
         "member": "batch-python-black-linkedpr-20261103-b01/issue-bodies/black-4412.txt",
         "member_sha256": "fd3323a0675d4879c47bb3c9ad6f53edf8123ab1fd91484622a30f3cd4ddc2a7"
       },
@@ -386,7 +386,7 @@
       "title_reference_only": "Newlines between classes do not get added when the last method of one ends with ellipses",
       "source_issue_body": {
         "attachment_id": "01a1a218-67af-737b-98a4-c904fa385852",
-        "sha256": "4be8ee06a757e34d39313b620c413c2491a5169a29a0449b605d9f862f902914",
+        "package_sha256": "4be8ee06a757e34d39313b620c413c2491a5169a29a0449b605d9f862f902914",
         "member": "batch-python-black-linkedpr-20261103-b01/issue-bodies/black-4420.txt",
         "member_sha256": "4af4977e7bfb23d7f982f589f8f8abd929ae9426f28de56f35e5d1b98509c586"
       },
@@ -411,7 +411,7 @@
       "title_reference_only": "Crash on f-string with `\\{`",
       "source_issue_body": {
         "attachment_id": "01a1a218-67af-737b-98a4-c904fa385852",
-        "sha256": "4be8ee06a757e34d39313b620c413c2491a5169a29a0449b605d9f862f902914",
+        "package_sha256": "4be8ee06a757e34d39313b620c413c2491a5169a29a0449b605d9f862f902914",
         "member": "batch-python-black-linkedpr-20261103-b01/issue-bodies/black-4421.txt",
         "member_sha256": "8600fc09511b45038ade448e280256c80d02f54780042e252e7db809c15a3c00"
       },
@@ -426,8 +426,8 @@
       },
       "relation_group": null,
       "prompt_file": "new-prompts/black-4421.md",
-      "stage": "NEW_NEUTRAL_PROMPT_REVIEW_ONLY",
-      "reason": "Selected: issue-level symptom is separable from implementation and verification material; prompt preserves reproduction conditions and expected behavior."
+      "stage": "DRAFT_PENDING_REVIEW",
+      "reason": "Draft pending independent review; not PASS and not training-approved."
     },
     {
       "stable_id": "psf/black#4429",
@@ -436,7 +436,7 @@
       "title_reference_only": "Add more documentation about preview style features",
       "source_issue_body": {
         "attachment_id": "01a1a218-67af-737b-98a4-c904fa385852",
-        "sha256": "4be8ee06a757e34d39313b620c413c2491a5169a29a0449b605d9f862f902914",
+        "package_sha256": "4be8ee06a757e34d39313b620c413c2491a5169a29a0449b605d9f862f902914",
         "member": "batch-python-black-linkedpr-20261103-b01/issue-bodies/black-4429.txt",
         "member_sha256": "1f021c32605e69131852ab4433545be107f4d85acb29c4a9527e857f62a70d04"
       },
@@ -461,7 +461,7 @@
       "title_reference_only": "`--line-ranges` formats lines outside of range",
       "source_issue_body": {
         "attachment_id": "01a1a218-67af-737b-98a4-c904fa385852",
-        "sha256": "4be8ee06a757e34d39313b620c413c2491a5169a29a0449b605d9f862f902914",
+        "package_sha256": "4be8ee06a757e34d39313b620c413c2491a5169a29a0449b605d9f862f902914",
         "member": "batch-python-black-linkedpr-20261103-b01/issue-bodies/black-4430.txt",
         "member_sha256": "e52a5566b9d53faf2170b0a431adbd8ab1aa6e63097a3d9b188c000ce03596f5"
       },
@@ -476,8 +476,8 @@
       },
       "relation_group": null,
       "prompt_file": "new-prompts/black-4430.md",
-      "stage": "NEW_NEUTRAL_PROMPT_REVIEW_ONLY",
-      "reason": "Selected: issue-level symptom is separable from implementation and verification material; prompt preserves reproduction conditions and expected behavior."
+      "stage": "DRAFT_PENDING_REVIEW",
+      "reason": "Draft pending independent review; not PASS and not training-approved."
     },
     {
       "stable_id": "psf/black#4437",
@@ -486,7 +486,7 @@
       "title_reference_only": "Improve vim plugin error message if vim is too old or python support is missing",
       "source_issue_body": {
         "attachment_id": "01a1a218-67af-737b-98a4-c904fa385852",
-        "sha256": "4be8ee06a757e34d39313b620c413c2491a5169a29a0449b605d9f862f902914",
+        "package_sha256": "4be8ee06a757e34d39313b620c413c2491a5169a29a0449b605d9f862f902914",
         "member": "batch-python-black-linkedpr-20261103-b01/issue-bodies/black-4437.txt",
         "member_sha256": "dbacaf77b614306c071d4336965959979f88931e2868b46ab69b947830641382"
       },
@@ -511,7 +511,7 @@
       "title_reference_only": "On Apple M1, Black often drops the \":9]=\" out of f\"{...[:9]=}\", as Internal Error",
       "source_issue_body": {
         "attachment_id": "01a1a218-67af-737b-98a4-c904fa385852",
-        "sha256": "4be8ee06a757e34d39313b620c413c2491a5169a29a0449b605d9f862f902914",
+        "package_sha256": "4be8ee06a757e34d39313b620c413c2491a5169a29a0449b605d9f862f902914",
         "member": "batch-python-black-linkedpr-20261103-b01/issue-bodies/black-4446.txt",
         "member_sha256": "5b670f955a8d6ec188fed5b5b817a54bc018d7a204e15e6ee4d004782abafa54"
       },
@@ -536,7 +536,7 @@
       "title_reference_only": "Cache causes confusing behavior when running with and without \"--unstable\"",
       "source_issue_body": {
         "attachment_id": "01a1a218-67af-737b-98a4-c904fa385852",
-        "sha256": "4be8ee06a757e34d39313b620c413c2491a5169a29a0449b605d9f862f902914",
+        "package_sha256": "4be8ee06a757e34d39313b620c413c2491a5169a29a0449b605d9f862f902914",
         "member": "batch-python-black-linkedpr-20261103-b01/issue-bodies/black-4465.txt",
         "member_sha256": "91ab2c2307a7a440bfd9b3e4ae1a9acfd48d35dc49e4414148147d7a2489f0ba"
       },
@@ -561,7 +561,7 @@
       "title_reference_only": "Line break added in list comprehension separates variable from its expression",
       "source_issue_body": {
         "attachment_id": "01a1a218-67af-737b-98a4-c904fa385852",
-        "sha256": "4be8ee06a757e34d39313b620c413c2491a5169a29a0449b605d9f862f902914",
+        "package_sha256": "4be8ee06a757e34d39313b620c413c2491a5169a29a0449b605d9f862f902914",
         "member": "batch-python-black-linkedpr-20261103-b01/issue-bodies/black-4514.txt",
         "member_sha256": "793a128f39eba55c35c0a832483d46f86efcd97801a768dde4cc438a57279a6d"
       },
@@ -586,7 +586,7 @@
       "title_reference_only": "Setting the 2025 stable style",
       "source_issue_body": {
         "attachment_id": "01a1a218-67af-737b-98a4-c904fa385852",
-        "sha256": "4be8ee06a757e34d39313b620c413c2491a5169a29a0449b605d9f862f902914",
+        "package_sha256": "4be8ee06a757e34d39313b620c413c2491a5169a29a0449b605d9f862f902914",
         "member": "batch-python-black-linkedpr-20261103-b01/issue-bodies/black-4522.txt",
         "member_sha256": "000e618311dbc7cb24b5c7a82dc9f49fabc50aaf6b57fab687ac68b0756b7431"
       },
@@ -611,7 +611,7 @@
       "title_reference_only": "`# fmt: skip` is not being respected with one-liner functions",
       "source_issue_body": {
         "attachment_id": "01a1a218-67af-737b-98a4-c904fa385852",
-        "sha256": "4be8ee06a757e34d39313b620c413c2491a5169a29a0449b605d9f862f902914",
+        "package_sha256": "4be8ee06a757e34d39313b620c413c2491a5169a29a0449b605d9f862f902914",
         "member": "batch-python-black-linkedpr-20261103-b01/issue-bodies/black-4535.txt",
         "member_sha256": "023538525849ca78457b26c667f634ac23b7dab6a6951c419056d361d89025bd"
       },
@@ -636,7 +636,7 @@
       "title_reference_only": "Speed up `blib2to3` tokenization using generic python function",
       "source_issue_body": {
         "attachment_id": "01a1a218-67af-737b-98a4-c904fa385852",
-        "sha256": "4be8ee06a757e34d39313b620c413c2491a5169a29a0449b605d9f862f902914",
+        "package_sha256": "4be8ee06a757e34d39313b620c413c2491a5169a29a0449b605d9f862f902914",
         "member": "batch-python-black-linkedpr-20261103-b01/issue-bodies/black-4540.txt",
         "member_sha256": "2c230546ed834c758886a499cab9365a44bcd4bcb0e360221938bc678f1047bf"
       },
@@ -651,8 +651,8 @@
       },
       "relation_group": null,
       "prompt_file": "new-prompts/black-4540.md",
-      "stage": "NEW_NEUTRAL_PROMPT_REVIEW_ONLY",
-      "reason": "Selected: issue-level symptom is separable from implementation and verification material; prompt preserves reproduction conditions and expected behavior."
+      "stage": "DRAFT_PENDING_REVIEW",
+      "reason": "Draft pending independent review; not PASS and not training-approved."
     },
     {
       "stable_id": "psf/black#4588",
@@ -661,7 +661,7 @@
       "title_reference_only": "EOF in multi-line string error for valid format string",
       "source_issue_body": {
         "attachment_id": "01a1a218-67af-737b-98a4-c904fa385852",
-        "sha256": "4be8ee06a757e34d39313b620c413c2491a5169a29a0449b605d9f862f902914",
+        "package_sha256": "4be8ee06a757e34d39313b620c413c2491a5169a29a0449b605d9f862f902914",
         "member": "batch-python-black-linkedpr-20261103-b01/issue-bodies/black-4588.txt",
         "member_sha256": "1b5d4f6a2129fa9b786844de1682763c0f35270c1015889d3f905af3d204ec30"
       },
@@ -686,7 +686,7 @@
       "title_reference_only": "[task] Upgrade `.github/workflows/pypi_upload.yml` to use Trusted Publishing",
       "source_issue_body": {
         "attachment_id": "01a1a218-67af-737b-98a4-c904fa385852",
-        "sha256": "4be8ee06a757e34d39313b620c413c2491a5169a29a0449b605d9f862f902914",
+        "package_sha256": "4be8ee06a757e34d39313b620c413c2491a5169a29a0449b605d9f862f902914",
         "member": "batch-python-black-linkedpr-20261103-b01/issue-bodies/black-4589.txt",
         "member_sha256": "7567ec9109af836b0ca317b536545fc47aa46812b19b8d9027651832f668d364"
       },
@@ -711,7 +711,7 @@
       "title_reference_only": "Fails to parse lambda in PEP 695 TypeVar bound",
       "source_issue_body": {
         "attachment_id": "01a1a218-67af-737b-98a4-c904fa385852",
-        "sha256": "4be8ee06a757e34d39313b620c413c2491a5169a29a0449b605d9f862f902914",
+        "package_sha256": "4be8ee06a757e34d39313b620c413c2491a5169a29a0449b605d9f862f902914",
         "member": "batch-python-black-linkedpr-20261103-b01/issue-bodies/black-4599.txt",
         "member_sha256": "0641f9f75394463c6c8c12c59c7bb3417736895b148dd11bef1bfc4d2d031ccd"
       },
@@ -736,7 +736,7 @@
       "title_reference_only": "crash while formatting a delete statement with given line length",
       "source_issue_body": {
         "attachment_id": "01a1a218-67af-737b-98a4-c904fa385852",
-        "sha256": "4be8ee06a757e34d39313b620c413c2491a5169a29a0449b605d9f862f902914",
+        "package_sha256": "4be8ee06a757e34d39313b620c413c2491a5169a29a0449b605d9f862f902914",
         "member": "batch-python-black-linkedpr-20261103-b01/issue-bodies/black-4625.txt",
         "member_sha256": "41f7d908537cdb36cd611d0da37a5b87cb87c9fd664b33ce0abf5637fc31bf8d"
       },
@@ -761,7 +761,7 @@
       "title_reference_only": "failed to format a file with a with-statement and a named-expression",
       "source_issue_body": {
         "attachment_id": "01a1a218-67af-737b-98a4-c904fa385852",
-        "sha256": "4be8ee06a757e34d39313b620c413c2491a5169a29a0449b605d9f862f902914",
+        "package_sha256": "4be8ee06a757e34d39313b620c413c2491a5169a29a0449b605d9f862f902914",
         "member": "batch-python-black-linkedpr-20261103-b01/issue-bodies/black-4629.txt",
         "member_sha256": "5b7cb9ba792f5a4579abd8b42aba59ec36946cc15331eec70bee0ee9ae3d981b"
       },
@@ -786,7 +786,7 @@
       "title_reference_only": "Internal Error when formatting a file with comments containing fmt: skip",
       "source_issue_body": {
         "attachment_id": "01a1a218-67af-737b-98a4-c904fa385852",
-        "sha256": "4be8ee06a757e34d39313b620c413c2491a5169a29a0449b605d9f862f902914",
+        "package_sha256": "4be8ee06a757e34d39313b620c413c2491a5169a29a0449b605d9f862f902914",
         "member": "batch-python-black-linkedpr-20261103-b01/issue-bodies/black-4631.txt",
         "member_sha256": "b974d6e515fcce90b4feeac659a6d2555d78ee9543573da1d562d7730a3a3a26"
       },
@@ -801,8 +801,8 @@
       },
       "relation_group": null,
       "prompt_file": "new-prompts/black-4631.md",
-      "stage": "NEW_NEUTRAL_PROMPT_REVIEW_ONLY",
-      "reason": "Selected: issue-level symptom is separable from implementation and verification material; prompt preserves reproduction conditions and expected behavior."
+      "stage": "DRAFT_PENDING_REVIEW",
+      "reason": "Draft pending independent review; not PASS and not training-approved."
     },
     {
       "stable_id": "psf/black#4632",
@@ -811,7 +811,7 @@
       "title_reference_only": "Parsing the with statement with tuple argument failed",
       "source_issue_body": {
         "attachment_id": "01a1a218-67af-737b-98a4-c904fa385852",
-        "sha256": "4be8ee06a757e34d39313b620c413c2491a5169a29a0449b605d9f862f902914",
+        "package_sha256": "4be8ee06a757e34d39313b620c413c2491a5169a29a0449b605d9f862f902914",
         "member": "batch-python-black-linkedpr-20261103-b01/issue-bodies/black-4632.txt",
         "member_sha256": "a2c9e233b1473af5e42458c1aa93093704599b8bc18e015342f4868a3b86ae4e"
       },
@@ -826,8 +826,8 @@
       },
       "relation_group": null,
       "prompt_file": "new-prompts/black-4632.md",
-      "stage": "NEW_NEUTRAL_PROMPT_REVIEW_ONLY",
-      "reason": "Selected: issue-level symptom is separable from implementation and verification material; prompt preserves reproduction conditions and expected behavior."
+      "stage": "DRAFT_PENDING_REVIEW",
+      "reason": "Draft pending independent review; not PASS and not training-approved."
     },
     {
       "stable_id": "psf/black#4640",
@@ -836,7 +836,7 @@
       "title_reference_only": "Standalone comment within parentheses in lambda default arguments crashes black",
       "source_issue_body": {
         "attachment_id": "01a1a218-67af-737b-98a4-c904fa385852",
-        "sha256": "4be8ee06a757e34d39313b620c413c2491a5169a29a0449b605d9f862f902914",
+        "package_sha256": "4be8ee06a757e34d39313b620c413c2491a5169a29a0449b605d9f862f902914",
         "member": "batch-python-black-linkedpr-20261103-b01/issue-bodies/black-4640.txt",
         "member_sha256": "6da7e012566008a47bba1bcb73a56f08dc5559986be929e38ac746758cf15d37"
       },
@@ -861,7 +861,7 @@
       "title_reference_only": "internal error while formatting with-statement with tuple and none tuple argument",
       "source_issue_body": {
         "attachment_id": "01a1a218-67af-737b-98a4-c904fa385852",
-        "sha256": "4be8ee06a757e34d39313b620c413c2491a5169a29a0449b605d9f862f902914",
+        "package_sha256": "4be8ee06a757e34d39313b620c413c2491a5169a29a0449b605d9f862f902914",
         "member": "batch-python-black-linkedpr-20261103-b01/issue-bodies/black-4642.txt",
         "member_sha256": "81144ecf6a3042e9c22faafd7ebc2e35e2822bbbef84ee0aa22424ddc7dca43d"
       },
@@ -886,7 +886,7 @@
       "title_reference_only": "Internal error in the formatting of the if expression within a type annotation",
       "source_issue_body": {
         "attachment_id": "01a1a218-67af-737b-98a4-c904fa385852",
-        "sha256": "4be8ee06a757e34d39313b620c413c2491a5169a29a0449b605d9f862f902914",
+        "package_sha256": "4be8ee06a757e34d39313b620c413c2491a5169a29a0449b605d9f862f902914",
         "member": "batch-python-black-linkedpr-20261103-b01/issue-bodies/black-4647.txt",
         "member_sha256": "600ce48ac1dfd24296e94524939a987abc7135501d948cafe94c8efbcc5431a5"
       },
@@ -911,7 +911,7 @@
       "title_reference_only": "Trailing comma in `case` pattern causes `if` guard to explode",
       "source_issue_body": {
         "attachment_id": "01a1a218-67af-737b-98a4-c904fa385852",
-        "sha256": "4be8ee06a757e34d39313b620c413c2491a5169a29a0449b605d9f862f902914",
+        "package_sha256": "4be8ee06a757e34d39313b620c413c2491a5169a29a0449b605d9f862f902914",
         "member": "batch-python-black-linkedpr-20261103-b01/issue-bodies/black-4653.txt",
         "member_sha256": "34c1cfb07594f86438af31b1c32528221fc67ba6275ef97c7cded38952469946"
       },
@@ -936,7 +936,7 @@
       "title_reference_only": "Parser fails due to empty body `...` on same line as definition. Discrepancy in whole file and `--line-ranges` parsing",
       "source_issue_body": {
         "attachment_id": "01a1a218-67af-737b-98a4-c904fa385852",
-        "sha256": "4be8ee06a757e34d39313b620c413c2491a5169a29a0449b605d9f862f902914",
+        "package_sha256": "4be8ee06a757e34d39313b620c413c2491a5169a29a0449b605d9f862f902914",
         "member": "batch-python-black-linkedpr-20261103-b01/issue-bodies/black-4669.txt",
         "member_sha256": "22d9e96948809dc11ce6d42a94bfa4e26acc0ca6b4661ef70c4792a6ca01d0b6"
       },
@@ -961,7 +961,7 @@
       "title_reference_only": "Parser error on `await ...`",
       "source_issue_body": {
         "attachment_id": "01a1a218-67af-737b-98a4-c904fa385852",
-        "sha256": "4be8ee06a757e34d39313b620c413c2491a5169a29a0449b605d9f862f902914",
+        "package_sha256": "4be8ee06a757e34d39313b620c413c2491a5169a29a0449b605d9f862f902914",
         "member": "batch-python-black-linkedpr-20261103-b01/issue-bodies/black-4672.txt",
         "member_sha256": "a4d5871d6e5aa66d58eeb55b3e5f893c0f3276001be9b753d0ef59fda43f854a"
       },
@@ -986,7 +986,7 @@
       "title_reference_only": "Remove braces around except (PEP 758)",
       "source_issue_body": {
         "attachment_id": "01a1a218-67af-737b-98a4-c904fa385852",
-        "sha256": "4be8ee06a757e34d39313b620c413c2491a5169a29a0449b605d9f862f902914",
+        "package_sha256": "4be8ee06a757e34d39313b620c413c2491a5169a29a0449b605d9f862f902914",
         "member": "batch-python-black-linkedpr-20261103-b01/issue-bodies/black-4678.txt",
         "member_sha256": "0d10f47a0fd581f1b5aed0e692ae874e4d8bec26e59c6baf72d54c139d9d83fe"
       },
@@ -1011,7 +1011,7 @@
       "title_reference_only": "Tests fail on Python 3.14 due to deprecated `asyncio.get_event_loop_policy()`",
       "source_issue_body": {
         "attachment_id": "01a1a218-67af-737b-98a4-c904fa385852",
-        "sha256": "4be8ee06a757e34d39313b620c413c2491a5169a29a0449b605d9f862f902914",
+        "package_sha256": "4be8ee06a757e34d39313b620c413c2491a5169a29a0449b605d9f862f902914",
         "member": "batch-python-black-linkedpr-20261103-b01/issue-bodies/black-4718.txt",
         "member_sha256": "208ea6d9bf32ad386bf23edd9547f4151a93a5cec2c5c5a08772034a1b531eab"
       },
@@ -1036,7 +1036,7 @@
       "title_reference_only": "In unit tests, specifying the `--target-version` flag raises `AttributeError: 'tuple' object has no attribute 'append'`.",
       "source_issue_body": {
         "attachment_id": "01a1a218-67af-737b-98a4-c904fa385852",
-        "sha256": "4be8ee06a757e34d39313b620c413c2491a5169a29a0449b605d9f862f902914",
+        "package_sha256": "4be8ee06a757e34d39313b620c413c2491a5169a29a0449b605d9f862f902914",
         "member": "batch-python-black-linkedpr-20261103-b01/issue-bodies/black-4721.txt",
         "member_sha256": "3033be95c238f34503157ecec4c1e5cc50435eabbf34f12db7c5011784f8a2ff"
       },
@@ -1061,7 +1061,7 @@
       "title_reference_only": "LHS parenethesis could be removed sometimes",
       "source_issue_body": {
         "attachment_id": "01a1a218-67af-737b-98a4-c904fa385852",
-        "sha256": "4be8ee06a757e34d39313b620c413c2491a5169a29a0449b605d9f862f902914",
+        "package_sha256": "4be8ee06a757e34d39313b620c413c2491a5169a29a0449b605d9f862f902914",
         "member": "batch-python-black-linkedpr-20261103-b01/issue-bodies/black-4725.txt",
         "member_sha256": "aba0e170dc919b0ba81b9980c2663793eea64e42a6a9dcceaa252100fe67f120"
       },
@@ -1086,7 +1086,7 @@
       "title_reference_only": "`# fmt: skip` ignored inside multi-part if-clause",
       "source_issue_body": {
         "attachment_id": "01a1a218-67af-737b-98a4-c904fa385852",
-        "sha256": "4be8ee06a757e34d39313b620c413c2491a5169a29a0449b605d9f862f902914",
+        "package_sha256": "4be8ee06a757e34d39313b620c413c2491a5169a29a0449b605d9f862f902914",
         "member": "batch-python-black-linkedpr-20261103-b01/issue-bodies/black-4730.txt",
         "member_sha256": "ee3bace0f12fe110d8db19ad98e335e8fe0507881c51f09f2b9d737f1fbcf06e"
       },
@@ -1111,7 +1111,7 @@
       "title_reference_only": "Black crashes when multiple `# fmt: skip` are added in a multi-part if-clause.",
       "source_issue_body": {
         "attachment_id": "01a1a218-67af-737b-98a4-c904fa385852",
-        "sha256": "4be8ee06a757e34d39313b620c413c2491a5169a29a0449b605d9f862f902914",
+        "package_sha256": "4be8ee06a757e34d39313b620c413c2491a5169a29a0449b605d9f862f902914",
         "member": "batch-python-black-linkedpr-20261103-b01/issue-bodies/black-4731.txt",
         "member_sha256": "1ba004908f8e566d5deb1dde5ab533f683fb0e5804a70b74df487d9d49acece4"
       },
@@ -1136,7 +1136,7 @@
       "title_reference_only": "Bug: fails to properly format constrained generics with new 3.12 syntax",
       "source_issue_body": {
         "attachment_id": "01a1a218-67af-737b-98a4-c904fa385852",
-        "sha256": "4be8ee06a757e34d39313b620c413c2491a5169a29a0449b605d9f862f902914",
+        "package_sha256": "4be8ee06a757e34d39313b620c413c2491a5169a29a0449b605d9f862f902914",
         "member": "batch-python-black-linkedpr-20261103-b01/issue-bodies/black-4740.txt",
         "member_sha256": "954d1f7c65e7a32ea32d033cafb321708333a556c2b17d11abe0790d745fd07e"
       },
@@ -1161,7 +1161,7 @@
       "title_reference_only": "module_docstring_newlines inconsistent w/ first line comment",
       "source_issue_body": {
         "attachment_id": "01a1a218-67af-737b-98a4-c904fa385852",
-        "sha256": "4be8ee06a757e34d39313b620c413c2491a5169a29a0449b605d9f862f902914",
+        "package_sha256": "4be8ee06a757e34d39313b620c413c2491a5169a29a0449b605d9f862f902914",
         "member": "batch-python-black-linkedpr-20261103-b01/issue-bodies/black-4762.txt",
         "member_sha256": "994e77401e7c412d4bf5e2dc00ddd55b229e100d1aee7035dd3a7dfcd66bf76c"
       },
@@ -1186,7 +1186,7 @@
       "title_reference_only": "Crash with preview style `fix_fmt_skip_in_one_liners` for function with annotated parameter and `# fmt: skip` on one line",
       "source_issue_body": {
         "attachment_id": "01a1a218-67af-737b-98a4-c904fa385852",
-        "sha256": "4be8ee06a757e34d39313b620c413c2491a5169a29a0449b605d9f862f902914",
+        "package_sha256": "4be8ee06a757e34d39313b620c413c2491a5169a29a0449b605d9f862f902914",
         "member": "batch-python-black-linkedpr-20261103-b01/issue-bodies/black-4781.txt",
         "member_sha256": "67d65b6e8c80847e3f648a6b465aa44dc5aa3d0d2213ea881b10feb9c853933b"
       },
@@ -1211,7 +1211,7 @@
       "title_reference_only": "Crash with preview style `fix_fmt_skip_in_one_liners` for certain compound statements",
       "source_issue_body": {
         "attachment_id": "01a1a218-67af-737b-98a4-c904fa385852",
-        "sha256": "4be8ee06a757e34d39313b620c413c2491a5169a29a0449b605d9f862f902914",
+        "package_sha256": "4be8ee06a757e34d39313b620c413c2491a5169a29a0449b605d9f862f902914",
         "member": "batch-python-black-linkedpr-20261103-b01/issue-bodies/black-4782.txt",
         "member_sha256": "c3584e3dbc0097284067ac6efa7ca6b973652cc7e34556a1716918abbfbeb4e0"
       },
@@ -1236,7 +1236,7 @@
       "title_reference_only": "Preview style `fix_fmt_skip_in_one_liners` does not work for semi-colon separated statements in body of compound statement",
       "source_issue_body": {
         "attachment_id": "01a1a218-67af-737b-98a4-c904fa385852",
-        "sha256": "4be8ee06a757e34d39313b620c413c2491a5169a29a0449b605d9f862f902914",
+        "package_sha256": "4be8ee06a757e34d39313b620c413c2491a5169a29a0449b605d9f862f902914",
         "member": "batch-python-black-linkedpr-20261103-b01/issue-bodies/black-4783.txt",
         "member_sha256": "2bafe19901b0cf5444a4334a16667f7159f8786916ed0fcc8b18605ec39d13d5"
       },
@@ -1261,7 +1261,7 @@
       "title_reference_only": "Unreadable code block styles in dark mode documentation",
       "source_issue_body": {
         "attachment_id": "01a1a218-67af-737b-98a4-c904fa385852",
-        "sha256": "4be8ee06a757e34d39313b620c413c2491a5169a29a0449b605d9f862f902914",
+        "package_sha256": "4be8ee06a757e34d39313b620c413c2491a5169a29a0449b605d9f862f902914",
         "member": "batch-python-black-linkedpr-20261103-b01/issue-bodies/black-4788.txt",
         "member_sha256": "d9cdbb7e9aafad56033b1cb5c0d04f11312c184ba7f33d31b4117ab625f36622"
       },
@@ -1286,7 +1286,7 @@
       "title_reference_only": "t-strings (Python 3.14) support for black",
       "source_issue_body": {
         "attachment_id": "01a1a218-67af-737b-98a4-c904fa385852",
-        "sha256": "4be8ee06a757e34d39313b620c413c2491a5169a29a0449b605d9f862f902914",
+        "package_sha256": "4be8ee06a757e34d39313b620c413c2491a5169a29a0449b605d9f862f902914",
         "member": "batch-python-black-linkedpr-20261103-b01/issue-bodies/black-4797.txt",
         "member_sha256": "6262618df7a30787b1cb33f12811b965dcebb8edffedbb84df1d7f2f4517c332"
       },
@@ -1301,8 +1301,8 @@
       },
       "relation_group": null,
       "prompt_file": "new-prompts/black-4797.md",
-      "stage": "NEW_NEUTRAL_PROMPT_REVIEW_ONLY",
-      "reason": "Selected: issue-level symptom is separable from implementation and verification material; prompt preserves reproduction conditions and expected behavior."
+      "stage": "DRAFT_PENDING_REVIEW",
+      "reason": "Draft pending independent review; not PASS and not training-approved."
     },
     {
       "stable_id": "psf/black#4813",
@@ -1311,7 +1311,7 @@
       "title_reference_only": "Add support for arm64 windows",
       "source_issue_body": {
         "attachment_id": "01a1a218-67af-737b-98a4-c904fa385852",
-        "sha256": "4be8ee06a757e34d39313b620c413c2491a5169a29a0449b605d9f862f902914",
+        "package_sha256": "4be8ee06a757e34d39313b620c413c2491a5169a29a0449b605d9f862f902914",
         "member": "batch-python-black-linkedpr-20261103-b01/issue-bodies/black-4813.txt",
         "member_sha256": "7bd0850f844ad6168d15cc9d368f3ecc221f6d93d4614f7d7b41b158d0cbc6d1"
       },
@@ -1336,7 +1336,7 @@
       "title_reference_only": "tests are not compatiable with pytest 9.0",
       "source_issue_body": {
         "attachment_id": "01a1a218-67af-737b-98a4-c904fa385852",
-        "sha256": "4be8ee06a757e34d39313b620c413c2491a5169a29a0449b605d9f862f902914",
+        "package_sha256": "4be8ee06a757e34d39313b620c413c2491a5169a29a0449b605d9f862f902914",
         "member": "batch-python-black-linkedpr-20261103-b01/issue-bodies/black-4826.txt",
         "member_sha256": "b0486040f02e273773fcd8999de95ed0f5fbcd8e5228a5a9d4ece8b9a1c144c2"
       },
@@ -1361,7 +1361,7 @@
       "title_reference_only": "Internal: Documentation/state of `ci: build all wheels` label",
       "source_issue_body": {
         "attachment_id": "01a1a218-67af-737b-98a4-c904fa385852",
-        "sha256": "4be8ee06a757e34d39313b620c413c2491a5169a29a0449b605d9f862f902914",
+        "package_sha256": "4be8ee06a757e34d39313b620c413c2491a5169a29a0449b605d9f862f902914",
         "member": "batch-python-black-linkedpr-20261103-b01/issue-bodies/black-4838.txt",
         "member_sha256": "d7781ad0c67bd7ba0471021cc189c9a3e52ed5ddc02c11062202047fcf17c358"
       },
@@ -1386,7 +1386,7 @@
       "title_reference_only": "`black` told me to report a bug for lines with `# fmt: skip` on them, I think",
       "source_issue_body": {
         "attachment_id": "01a1a218-67af-737b-98a4-c904fa385852",
-        "sha256": "4be8ee06a757e34d39313b620c413c2491a5169a29a0449b605d9f862f902914",
+        "package_sha256": "4be8ee06a757e34d39313b620c413c2491a5169a29a0449b605d9f862f902914",
         "member": "batch-python-black-linkedpr-20261103-b01/issue-bodies/black-4873.txt",
         "member_sha256": "dcfd1a5501f09e1acdb9fa71a4b9224c694772dd2c17e8ff9d6b8d7d70c4b080"
       },
@@ -1411,7 +1411,7 @@
       "title_reference_only": "Setting the 2026 stable style",
       "source_issue_body": {
         "attachment_id": "01a1a218-67af-737b-98a4-c904fa385852",
-        "sha256": "4be8ee06a757e34d39313b620c413c2491a5169a29a0449b605d9f862f902914",
+        "package_sha256": "4be8ee06a757e34d39313b620c413c2491a5169a29a0449b605d9f862f902914",
         "member": "batch-python-black-linkedpr-20261103-b01/issue-bodies/black-4875.txt",
         "member_sha256": "119cb55ae371562756b523c358f6e7db42a76dd011080e840c1e1692b2cc2241"
       },
@@ -1436,7 +1436,7 @@
       "title_reference_only": "string_processing: error with unassigned long string literal with trailing comma",
       "source_issue_body": {
         "attachment_id": "01a1a218-67af-737b-98a4-c904fa385852",
-        "sha256": "4be8ee06a757e34d39313b620c413c2491a5169a29a0449b605d9f862f902914",
+        "package_sha256": "4be8ee06a757e34d39313b620c413c2491a5169a29a0449b605d9f862f902914",
         "member": "batch-python-black-linkedpr-20261103-b01/issue-bodies/black-4912.txt",
         "member_sha256": "bdfa835404987776c5acfaef63b3fcf674b3f9fbe112f181d9f304a8c3006103"
       },
@@ -1451,8 +1451,8 @@
       },
       "relation_group": null,
       "prompt_file": "new-prompts/black-4912.md",
-      "stage": "NEW_NEUTRAL_PROMPT_REVIEW_ONLY",
-      "reason": "Selected: issue-level symptom is separable from implementation and verification material; prompt preserves reproduction conditions and expected behavior."
+      "stage": "DRAFT_PENDING_REVIEW",
+      "reason": "Draft pending independent review; not PASS and not training-approved."
     },
     {
       "stable_id": "psf/black#4926",
@@ -1461,7 +1461,7 @@
       "title_reference_only": "Split the Build and Publish workflow into more jobs",
       "source_issue_body": {
         "attachment_id": "01a1a218-67af-737b-98a4-c904fa385852",
-        "sha256": "4be8ee06a757e34d39313b620c413c2491a5169a29a0449b605d9f862f902914",
+        "package_sha256": "4be8ee06a757e34d39313b620c413c2491a5169a29a0449b605d9f862f902914",
         "member": "batch-python-black-linkedpr-20261103-b01/issue-bodies/black-4926.txt",
         "member_sha256": "967eb3a316699dc742f524fba0d21a9b2d867692bf5270f1c36c735fd80d132b"
       },

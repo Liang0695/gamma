@@ -1,7 +1,19 @@
 # Tokenizing many f-strings has high overhead
 
-Tokenization slows down when a file contains many f-string literals. The report identifies a large number of calls during tokenization as the observed issue.
+The report observes that tokenizing a stream of many f-string literals spends a measurable portion of its time in a generator expression. It was reported on Black main, macOS, and Python 3.12.6.
 
-Reproduce by tokenizing a generated stream containing 10,000 repeated `f"X"` expressions and profiling that operation. The reported profile shows substantially more work in Black's f-string tokenization path than expected.
+Run this minimal profiling script:
 
-The tokenizer should process this input without the reported performance regression while keeping its output correct.
+```python
+import cProfile, pstats, io
+from blib2to3.pgen2 import tokenize
+
+profiler = cProfile.Profile()
+example = io.StringIO(','.join(['f"X"'] * 10000)).readline
+profiler.enable()
+tokenize.tokenize(example, lambda *_: None)
+profiler.disable()
+pstats.Stats(profiler).sort_stats(pstats.SortKey.TIME).print_stats("black", "src", 10)
+```
+
+The reported profile has 720,011 calls in 0.133 seconds; a generator expression accounts for about 15-20% of the measured time. The task is to address that observed cost without changing tokenization results.

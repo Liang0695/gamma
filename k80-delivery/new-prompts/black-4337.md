@@ -1,5 +1,10 @@
 # Multiline f-string with a multiline string in its expression cannot be parsed
 
-Black fails to parse a Python file containing a multiline f-string whose replacement expression contains a multiline string literal.
+On Black 24.4.2, running Black on this minimal file fails to parse the multiline f-string:
 
-Reproduce by formatting such a file with Black. Black should accept the valid syntax and complete formatting without a parse error.
+```python
+f"""{'''
+'''}"""
+```
+
+The report says this parsed successfully in Black versions <=24.4.0. It reproduces on Windows 11 with Python 3.10, 3.11, and 3.12. Black should parse the file successfully.

@@ -10,10 +10,24 @@
   "black_fixed_source_members_verified": 59,
   "new_prompt_count": 11,
   "new_prompt_ids_are_in_candidate_pool": true,
+  "new_prompt_phase_draft_pending_review": true,
+  "deferred_candidate_phase_and_reason_present": true,
+  "new_formal_prompt_pass_count": 0,
+  "repro_updates": [
+    "psf/black#4337",
+    "psf/black#4430",
+    "psf/black#4540"
+  ],
+  "canonical_black_member_binding_failures": [],
+  "catalog_rows_without_source_archive_member_binding": 1108,
+  "catalog_rows_with_supporting_inventory_member_only": 9,
+  "catalog_rows_with_issue_body_member_binding": 100,
   "prompt_has_no_pr_answer_or_verifier_terms": true,
   "old_66_package_sha256_matches": true,
   "old_66_prompt_member_count": 66,
   "old_66_prompts_copied_or_rewritten": 0,
   "qualification_gate_changes": 0,
-  "zip_crc_errors": 0
+  "zip_crc_errors": 0,
+  "standard_json_documents_parse": true,
+  "json_parse_errors": {}
 }

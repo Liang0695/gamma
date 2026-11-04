@@ -51,7 +51,14 @@
   },
   "selected_review_only_prompts_already_audited": 66,
   "black_source_candidates_for_new_prompt_selection": 59,
-  "new_neutral_prompts": 11,
+  "new_neutral_prompt_drafts_pending_review": 11,
+  "new_formal_prompt_pass_count": 0,
+  "review_return_repro_updates": [
+    "psf/black#4337",
+    "psf/black#4430",
+    "psf/black#4540"
+  ],
+  "review_return_retained_prompt_content_count": 8,
   "black_candidates_deferred": 48,
   "same_repair_groups_with_multiple_records": 2,
   "same_archive_groups_with_multiple_records": 3,
@@ -76,7 +83,9 @@
     "RUN_CAP_NOT_MATERIALIZED": 49,
     "DEFER_DUPLICATE_MERGED_PR_FAMILY": 1
   },
-  "catalog_rows_without_member_path_in_catalog_or_enrichment": 1108,
+  "catalog_rows_without_source_archive_member_binding": 1108,
+  "catalog_rows_with_supporting_inventory_member_only": 9,
+  "catalog_rows_with_issue_body_member_binding": 100,
   "qualification_gates_preserved": {
     "source_role": "UNKNOWN",
     "family/root": "UNKNOWN",
